@@ -1,0 +1,100 @@
+/*
+ * Copyright (C) 2023 Cobblemon Contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+package com.cobblemon.mod.common.events
+
+import com.cobblemon.mod.common.api.Priority
+import com.cobblemon.mod.common.api.events.CobblemonEvents.BATTLE_STARTED_POST
+import com.cobblemon.mod.common.api.events.CobblemonEvents.BATTLE_VICTORY
+import com.cobblemon.mod.common.api.events.CobblemonEvents.COLLECT_EGG
+import com.cobblemon.mod.common.api.events.CobblemonEvents.EVOLUTION_COMPLETE
+import com.cobblemon.mod.common.api.events.CobblemonEvents.FOSSIL_REVIVED
+import com.cobblemon.mod.common.api.events.CobblemonEvents.HATCH_EGG_POST
+import com.cobblemon.mod.common.api.events.CobblemonEvents.LEVEL_UP_EVENT
+import com.cobblemon.mod.common.api.events.CobblemonEvents.POKEMON_CAPTURED
+import com.cobblemon.mod.common.api.events.CobblemonEvents.POKEMON_RELEASED_EVENT_POST
+import com.cobblemon.mod.common.api.events.CobblemonEvents.TRADE_COMPLETED
+import com.cobblemon.mod.common.api.events.battles.BattleStartedPostEvent
+import com.cobblemon.mod.common.api.events.battles.BattleVictoryEvent
+import com.cobblemon.mod.common.api.events.pokemon.CollectEggEvent
+import com.cobblemon.mod.common.api.events.pokemon.FossilRevivedEvent
+import com.cobblemon.mod.common.api.events.pokemon.HatchEggEvent
+import com.cobblemon.mod.common.api.events.pokemon.LevelUpEvent
+import com.cobblemon.mod.common.api.events.pokemon.PokemonCapturedEvent
+import com.cobblemon.mod.common.api.events.pokemon.TradeCompletedEvent
+import com.cobblemon.mod.common.api.events.pokemon.evolution.EvolutionCompleteEvent
+import com.cobblemon.mod.common.api.events.storage.ReleasePokemonEvent
+import com.cobblemon.mod.common.api.stats.CobblemonStats
+import com.cobblemon.mod.common.api.stats.CobblemonStats.FOSSILS_REVIVED
+import com.cobblemon.mod.common.util.getPlayer
+import java.util.UUID
+
+object StatHandler : EventHandler {
+    override fun registerListeners() {
+        POKEMON_CAPTURED.subscribe(Priority.NORMAL, ::onCapture)
+        POKEMON_RELEASED_EVENT_POST.subscribe(Priority.NORMAL, ::onRelease)
+        EVOLUTION_COMPLETE.subscribe(Priority.LOWEST, ::onEvolve)
+        LEVEL_UP_EVENT.subscribe(Priority.NORMAL, ::onLevelUp)
+        BATTLE_VICTORY.subscribe(Priority.NORMAL, ::onWinBattle)
+        BATTLE_STARTED_POST.subscribe(Priority.NORMAL, ::onBattleStart)
+        COLLECT_EGG.subscribe(Priority.NORMAL, ::onCollectEgg)
+        HATCH_EGG_POST.subscribe(Priority.NORMAL, ::onHatchEgg)
+        TRADE_COMPLETED.subscribe(Priority.NORMAL, ::onTradeCompleted)
+        FOSSIL_REVIVED.subscribe(Priority.NORMAL, ::onFossilRevived)
+    }
+
+    fun onCapture(event : PokemonCapturedEvent) {
+        event.player.awardStat(CobblemonStats.CAPTURED)
+        if (event.pokemon.shiny) {
+            event.player.awardStat(CobblemonStats.SHINIES_CAPTURED)
+        }
+    }
+
+    fun onRelease(event : ReleasePokemonEvent.Post) {
+        event.player.awardStat(CobblemonStats.RELEASED)
+    }
+
+    fun onEvolve(event : EvolutionCompleteEvent) {
+        event.pokemon.getOwnerPlayer()?.awardStat(CobblemonStats.EVOLVED)
+    }
+
+    fun onLevelUp(event : LevelUpEvent) {
+        event.pokemon.getOwnerPlayer()?.awardStat(CobblemonStats.LEVEL_UP)
+    }
+
+    fun onWinBattle(event : BattleVictoryEvent) {
+        if(!event.wasWildCapture) {
+            if (event.battle.isPvW) {
+                event.winners
+                    .flatMap { it.getPlayerUUIDs().mapNotNull(UUID::getPlayer) }
+                    .forEach { player -> player.awardStat(CobblemonStats.BATTLES_WON) }
+            }
+        }
+    }
+
+    fun onBattleStart(event : BattleStartedPostEvent) {
+        event.battle.players.forEach { player -> player.awardStat(CobblemonStats.BATTLES_TOTAL) }
+    }
+
+    fun onCollectEgg(event : CollectEggEvent) {
+        event.player.awardStat(CobblemonStats.EGGS_COLLECTED)
+    }
+
+    fun onHatchEgg(event : HatchEggEvent.Post) {
+        event.player.awardStat(CobblemonStats.EGGS_HATCHED)
+    }
+
+    fun onTradeCompleted(event : TradeCompletedEvent) {
+        event.tradeParticipant1Pokemon.getOwnerPlayer()?.awardStat(CobblemonStats.TRADED)
+        event.tradeParticipant2Pokemon.getOwnerPlayer()?.awardStat(CobblemonStats.TRADED)
+    }
+
+    fun onFossilRevived(event : FossilRevivedEvent) {
+        event.player?.awardStat(FOSSILS_REVIVED)
+    }
+}
