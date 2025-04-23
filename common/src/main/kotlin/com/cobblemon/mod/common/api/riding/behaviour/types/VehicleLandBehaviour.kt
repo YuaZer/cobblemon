@@ -15,6 +15,7 @@ import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
+import com.cobblemon.mod.common.api.riding.sound.RideLoopSound
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
@@ -267,6 +268,14 @@ class VehicleLandBehaviour : RidingBehaviour<VehicleLandSettings, VehicleLandSta
         vehicle: PokemonEntity
     ): Boolean {
         return false
+    }
+
+    override fun createRideLoopSound(
+        settings: VehicleLandSettings,
+        state: VehicleLandState,
+        vehicle: PokemonEntity
+    ): RideLoopSound? {
+        return null
     }
 
     override fun createDefaultState(settings: VehicleLandSettings) = VehicleLandState()

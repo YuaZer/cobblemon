@@ -10,14 +10,17 @@ package com.cobblemon.mod.common.api.riding.behaviour.types
 
 import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.Cobblemon
+import com.cobblemon.mod.common.CobblemonSounds
 import com.cobblemon.mod.common.OrientationControllable
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
+import com.cobblemon.mod.common.api.riding.sound.RideLoopSound
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
@@ -258,6 +261,14 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         vehicle: PokemonEntity
     ): Boolean {
         return false
+    }
+
+    override fun createRideLoopSound(
+        settings: DolphinSettings,
+        state: DolphinState,
+        vehicle: PokemonEntity
+    ):  RideLoopSound? {
+        return null
     }
 
     override fun createDefaultState(settings: DolphinSettings) = DolphinState()

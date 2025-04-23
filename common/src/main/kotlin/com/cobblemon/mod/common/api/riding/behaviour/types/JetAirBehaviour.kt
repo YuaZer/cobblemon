@@ -15,6 +15,7 @@ import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
+import com.cobblemon.mod.common.api.riding.sound.RideLoopSound
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
@@ -355,8 +356,20 @@ class JetAirBehaviour : RidingBehaviour<JetAirSettings, JetAirState> {
         return false
     }
 
-    override fun shouldRotatePlayerHead(settings: JetAirSettings, state: JetAirState, vehicle: PokemonEntity): Boolean {
+    override fun shouldRotatePlayerHead(
+        settings: JetAirSettings,
+        state: JetAirState,
+        vehicle: PokemonEntity
+    ): Boolean {
         return false
+    }
+
+    override fun createRideLoopSound(
+        settings: JetAirSettings,
+        state: JetAirState,
+        vehicle: PokemonEntity
+    ): RideLoopSound? {
+        return null
     }
 
     override fun createDefaultState(settings: JetAirSettings) = JetAirState()

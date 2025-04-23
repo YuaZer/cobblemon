@@ -17,6 +17,7 @@ import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviour
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
+import com.cobblemon.mod.common.api.riding.sound.RideLoopSound
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
@@ -185,6 +186,10 @@ class GliderAirBehaviour : RidingBehaviour<GliderAirSettings, RidingBehaviourSta
 
     override fun shouldRotatePlayerHead(settings: GliderAirSettings, state: RidingBehaviourState, vehicle: PokemonEntity): Boolean {
         return false
+    }
+
+    override fun createRideLoopSound(settings: GliderAirSettings, state: RidingBehaviourState, vehicle: PokemonEntity): RideLoopSound? {
+        return null
     }
 
     override fun createDefaultState(settings: GliderAirSettings) = RidingBehaviourState()

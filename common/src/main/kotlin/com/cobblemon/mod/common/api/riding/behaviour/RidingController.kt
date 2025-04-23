@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.api.riding.behaviour
 
 import com.cobblemon.mod.common.api.riding.RidingStyle
+import com.cobblemon.mod.common.api.riding.sound.RideLoopSound
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
@@ -173,6 +174,11 @@ class RidingController<Settings : RidingBehaviourSettings, State : RidingBehavio
     override fun setRideBar(settings: Settings, state: State, vehicle: PokemonEntity, driver: Player): Float {
         if (!isActive(settings, state, vehicle)) return 0.0F
         return behaviour.setRideBar(settings, state, vehicle, driver)
+    }
+
+    override fun createRideLoopSound(settings: Settings, state: State, vehicle: PokemonEntity): RideLoopSound? {
+        if (!isActive(settings, state, vehicle)) return null
+        return behaviour.createRideLoopSound(settings, state, vehicle)
     }
 
     override fun createDefaultState(settings: Settings): State {

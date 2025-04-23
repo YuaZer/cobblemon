@@ -17,6 +17,7 @@ import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviour
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
+import com.cobblemon.mod.common.api.riding.sound.RideLoopSound
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
@@ -213,6 +214,14 @@ class GenericSwimBehaviour : RidingBehaviour<GenericSwimSettings, RidingBehaviou
         vehicle: PokemonEntity
     ): Boolean {
         return false
+    }
+
+    override fun createRideLoopSound(
+        settings: GenericSwimSettings,
+        state: RidingBehaviourState,
+        vehicle: PokemonEntity
+    ): RideLoopSound? {
+        return null
     }
 
     override fun createDefaultState(settings: GenericSwimSettings) = RidingBehaviourState()

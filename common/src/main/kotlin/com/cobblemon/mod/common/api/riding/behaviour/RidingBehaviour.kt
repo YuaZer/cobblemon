@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.api.riding.behaviour
 
 import com.cobblemon.mod.common.api.riding.RidingStyle
+import com.cobblemon.mod.common.api.riding.sound.RideLoopSound
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import net.minecraft.resources.ResourceLocation
@@ -87,6 +88,8 @@ interface RidingBehaviour<Settings : RidingBehaviourSettings, State : RidingBeha
     fun shouldRotatePokemonHead(settings: Settings, state: State, vehicle: PokemonEntity): Boolean
 
     fun shouldRotatePlayerHead(settings: Settings, state: State, vehicle: PokemonEntity): Boolean
+
+    fun createRideLoopSound(settings: Settings, state: State, vehicle: PokemonEntity): RideLoopSound?
 
     fun createDefaultState(settings: Settings): State
 

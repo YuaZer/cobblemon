@@ -1070,6 +1070,17 @@
       { "name": "cobblemon:animation/wings/leather_wing_flap_medium_7", "volume": 0.3 }
     ]
   },
+  "ride.loop.leather": {
+    "sounds": ["cobblemon:ride/loop/leather_flight_loop" ]
+  },
+  "ride.loop.plumage": {
+    "sounds": [
+      {
+        "name": "cobblemon:ride/loop/plumage_flight_loop",
+        "stream": true
+      }
+    ]
+  },
   "pokemon.bulbasaur.ambient": {
     "sounds": [ "cobblemon:pokemon/bulbasaur/bulbasaur_ambient" ]
   },
