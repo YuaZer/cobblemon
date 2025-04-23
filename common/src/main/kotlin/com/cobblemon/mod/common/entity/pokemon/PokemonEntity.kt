@@ -260,6 +260,8 @@ open class PokemonEntity(
     var ridingBehaviourSettings: RidingBehaviourSettings? = null
     override var riding: RidingBehaviour<RidingBehaviourSettings, RidingBehaviourState>? = null
 
+    private val rideStatOverrides = mutableMapOf<RidingStyle, MutableMap<RidingStat, Double>>()
+
     val runtime: MoLangRuntime by lazy {
         MoLangRuntime()
             .setup()
@@ -271,11 +273,7 @@ open class PokemonEntity(
                     val rideStyle = RidingStyle.valueOf(params.getString(1).uppercase())
                     val maxVal = params.getDouble(2)
                     val minVal = params.getDouble(3)
-                    //TODO: Use the mons actual boost once implemented
-                    val normalizedStat = rideProp.calculate(rideStat, rideStyle, 0) / 100.0f
-                    val trueStatVal = (normalizedStat * (maxVal - minVal)) + minVal
-
-                    DoubleValue(trueStatVal)
+                    DoubleValue(getRideStat(rideStat, rideStyle, minVal, maxVal))
                 }
             }
     }
@@ -1827,9 +1825,26 @@ open class PokemonEntity(
     // stat based on the boost of that pokemons stat
     fun getRideStat(stat: RidingStat, style: RidingStyle, baseMin: Double, baseMax: Double): Double {
         //TODO: Change from static zero boost once aprijuice is implemented.
+        if (rideStatOverrides[style] != null && rideStatOverrides[style]!![stat] != null) {
+            return (((baseMax - baseMin) / 100) * rideStatOverrides[style]!![stat]!!) + baseMin
+        }
         val stat = this.rideProp.calculate(stat, style, 0)
         val statVal = (((baseMax - baseMin) / 100) * stat) + baseMin
         return statVal
+    }
+
+    fun getRawRideStat(stat: RidingStat, style: RidingStyle): Double {
+        if (rideStatOverrides[style] != null && rideStatOverrides[style]!![stat] != null) {
+            return rideStatOverrides[style]!![stat]!!
+        }
+        return this.rideProp.calculate(stat, style, 0).toDouble()
+    }
+
+    internal fun overrideRideStat(style: RidingStyle, stat: RidingStat, value: Double) {
+        if (rideStatOverrides[style] == null) {
+            rideStatOverrides[style] = mutableMapOf()
+        }
+        rideStatOverrides[style]!![stat] = value
     }
 
     override fun canAddPassenger(passenger: Entity): Boolean {
@@ -2077,6 +2092,9 @@ open class PokemonEntity(
             behaviour.turnOffOnGround(settings, state, this)
         }
         if (result != null && result) return false
+        if (!this.behaviour.moving.walk.canWalk && this.behaviour.moving.fly.canFly) {
+            return false
+        }
         return super.onGround()
     }
 

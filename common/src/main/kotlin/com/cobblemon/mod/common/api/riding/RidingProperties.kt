@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.api.riding
 
 import com.bedrockk.molang.Expression
+import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.api.riding.stats.RidingStatDefinition
@@ -17,17 +18,18 @@ import com.cobblemon.mod.common.util.adapters.RidingBehaviourSettingsAdapter
 import net.minecraft.network.RegistryFriendlyByteBuf
 
 class RidingProperties(
-    val stats: Map<RidingStat, RidingStatDefinition> = mapOf(),
+    val stats: MutableMap<RidingStat, RidingStatDefinition> = mutableMapOf(),
     val seats: List<Seat> = listOf(),
     val conditions: List<Expression> = listOf(),
     val behaviour: RidingBehaviourSettings? = null
 ) {
+
     companion object {
         fun decode(buffer: RegistryFriendlyByteBuf): RidingProperties {
-            val stats: Map<RidingStat, RidingStatDefinition> = buffer.readMap(
+            val stats: MutableMap<RidingStat, RidingStatDefinition> = buffer.readMap(
                 { buffer.readEnum(RidingStat::class.java) },
                 { RidingStatDefinition.decode(buffer) }
-            )
+            ).toMutableMap()
             val seats: List<Seat> = buffer.readList { _ -> Seat.decode(buffer) }
             val conditions = buffer.readList { buffer.readString().asExpression() }
             val behaviour = buffer.readNullable { _ ->
@@ -39,6 +41,14 @@ class RidingProperties(
 
             return RidingProperties(stats = stats, seats = seats, conditions = conditions, behaviour = behaviour)
         }
+    }
+
+    internal fun updateStatRange(stat: RidingStat, style: RidingStyle, min: Int, max: Int) {
+        if (!Cobblemon.config.enableDebugKeys) return
+        if (stats[stat] == null) {
+            stats[stat] = RidingStatDefinition()
+        }
+        stats[stat]!!.ranges[style] = min..max
     }
 
     fun encode(buffer: RegistryFriendlyByteBuf) {
