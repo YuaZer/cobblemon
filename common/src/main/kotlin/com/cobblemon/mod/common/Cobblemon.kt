@@ -44,6 +44,7 @@ import com.cobblemon.mod.common.api.spawning.CobblemonSpawningProspector
 import com.cobblemon.mod.common.api.spawning.context.AreaContextResolver
 import com.cobblemon.mod.common.api.spawning.prospecting.SpawningProspector
 import com.cobblemon.mod.common.api.starter.StarterHandler
+import com.cobblemon.mod.common.api.stats.CobblemonStats
 import com.cobblemon.mod.common.api.storage.PokemonStoreManager
 import com.cobblemon.mod.common.api.storage.adapter.conversions.ReforgedConversion
 import com.cobblemon.mod.common.api.storage.adapter.database.MongoDBStoreAdapter
@@ -81,6 +82,7 @@ import com.cobblemon.mod.common.events.AdvancementHandler
 import com.cobblemon.mod.common.events.FlowHandler
 import com.cobblemon.mod.common.events.PokedexHandler
 import com.cobblemon.mod.common.events.ServerTickHandler
+import com.cobblemon.mod.common.events.StatHandler
 import com.cobblemon.mod.common.net.messages.client.settings.ServerSettingsPacket
 import com.cobblemon.mod.common.permission.LaxPermissionValidator
 import com.cobblemon.mod.common.platform.events.PlatformEvents
@@ -174,6 +176,8 @@ object Cobblemon {
     var wallpapers = mutableMapOf<UUID, Set<ResourceLocation>>()
 
     val serverPlayerStructs = mutableMapOf<UUID, ObjectValue<Player>>()
+
+    val statistics = CobblemonStats
 
     @JvmStatic
     val builtinPacks = listOf<CobblemonPack>(
@@ -442,6 +446,7 @@ object Cobblemon {
     fun registerEventHandlers() {
         AdvancementHandler.registerListeners()
         PokedexHandler.registerListeners()
+        StatHandler.registerListeners()
     }
 
     fun getLevel(dimension: ResourceKey<Level>): Level? {

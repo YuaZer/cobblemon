@@ -18,7 +18,7 @@ import net.minecraft.stats.Stats
 
 object CobblemonStats {
 
-    val CAPTURED = makeCustomStat("captured", StatFormatter.DEFAULT)
+    var CAPTURED = makeCustomStat("captured", StatFormatter.DEFAULT)
     val SHINIES_CAPTURED = makeCustomStat("shinies_captured", StatFormatter.DEFAULT)
     val RELEASED = makeCustomStat("released", StatFormatter.DEFAULT)
     val EVOLVED = makeCustomStat("evolved", StatFormatter.DEFAULT)
@@ -32,6 +32,7 @@ object CobblemonStats {
     val EGGS_HATCHED = makeCustomStat("eggs_hatched", StatFormatter.DEFAULT)
     val TRADED = makeCustomStat("traded", StatFormatter.DEFAULT)
     val FOSSILS_REVIVED = makeCustomStat("fossils_revived", StatFormatter.DEFAULT)
+    val POKEMON_INTERACTED_WITH = makeCustomStat("pokemon_interacted_with", StatFormatter.DEFAULT)
     //TODO block stats (interact, fossil revival, gimmi), riding (styles?)
 
     private fun makeCustomStat(key: String, formatter: StatFormatter): ResourceLocation {

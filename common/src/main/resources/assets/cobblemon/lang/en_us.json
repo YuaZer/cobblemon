@@ -8829,5 +8829,21 @@
   "cobblemon.ability.teraformzero": "Teraform Zero",
   "cobblemon.ability.teraformzero.desc": "When Terapagos changes into its Stellar Form, it uses its hidden powers to eliminate all effects of weather and terrain, reducing them to zero.",
   "cobblemon.ability.poisonpuppeteer": "Poison Puppeteer",
-  "cobblemon.ability.poisonpuppeteer.desc": "Pokémon poisoned by Pecharunt's moves will also become confused."
+  "cobblemon.ability.poisonpuppeteer.desc": "Pokémon poisoned by Pecharunt's moves will also become confused.",
+
+  "stat.cobblemon.battles_fled": "Battles Fled",
+  "stat.cobblemon.battles_lost": "Battles Lost",
+  "stat.cobblemon.battles_total": "Total Battles",
+  "stat.cobblemon.battles_won": "Battles Won",
+  "stat.cobblemon.captured": "Cobblemon Captured",
+  "stat.cobblemon.dex_entries": "Pokédex Entries",
+  "stat.cobblemon.eggs_collected": "Eggs Collected",
+  "stat.cobblemon.eggs_hatched": "Eggs Hatched",
+  "stat.cobblemon.evolved": "Evolved",
+  "stat.cobblemon.fossils_revived": "Fossils Revived",
+  "stat.cobblemon.level_up": "Cobblemon Leveled Up",
+  "stat.cobblemon.pokemon_interacted_with": "Cobblemon Interacted with",
+  "stat.cobblemon.released": "Cobblemon Released",
+  "stat.cobblemon.shinies_captured": "Shinies Captured",
+  "stat.cobblemon.traded": "Cobblemon Traded"
 }

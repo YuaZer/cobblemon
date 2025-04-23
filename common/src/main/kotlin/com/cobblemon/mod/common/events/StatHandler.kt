@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.events
 
+import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.api.Priority
 import com.cobblemon.mod.common.api.events.CobblemonEvents.BATTLE_STARTED_POST
 import com.cobblemon.mod.common.api.events.CobblemonEvents.BATTLE_VICTORY
@@ -29,8 +30,6 @@ import com.cobblemon.mod.common.api.events.pokemon.PokemonCapturedEvent
 import com.cobblemon.mod.common.api.events.pokemon.TradeCompletedEvent
 import com.cobblemon.mod.common.api.events.pokemon.evolution.EvolutionCompleteEvent
 import com.cobblemon.mod.common.api.events.storage.ReleasePokemonEvent
-import com.cobblemon.mod.common.api.stats.CobblemonStats
-import com.cobblemon.mod.common.api.stats.CobblemonStats.FOSSILS_REVIVED
 import com.cobblemon.mod.common.util.getPlayer
 import java.util.UUID
 
@@ -49,22 +48,22 @@ object StatHandler : EventHandler {
     }
 
     fun onCapture(event : PokemonCapturedEvent) {
-        event.player.awardStat(CobblemonStats.CAPTURED)
+        event.player.awardStat(Cobblemon.statistics.CAPTURED)
         if (event.pokemon.shiny) {
-            event.player.awardStat(CobblemonStats.SHINIES_CAPTURED)
+            event.player.awardStat(Cobblemon.statistics.SHINIES_CAPTURED)
         }
     }
 
     fun onRelease(event : ReleasePokemonEvent.Post) {
-        event.player.awardStat(CobblemonStats.RELEASED)
+        event.player.awardStat(Cobblemon.statistics.RELEASED)
     }
 
     fun onEvolve(event : EvolutionCompleteEvent) {
-        event.pokemon.getOwnerPlayer()?.awardStat(CobblemonStats.EVOLVED)
+        event.pokemon.getOwnerPlayer()?.awardStat(Cobblemon.statistics.EVOLVED)
     }
 
     fun onLevelUp(event : LevelUpEvent) {
-        event.pokemon.getOwnerPlayer()?.awardStat(CobblemonStats.LEVEL_UP)
+        event.pokemon.getOwnerPlayer()?.awardStat(Cobblemon.statistics.LEVEL_UP)
     }
 
     fun onWinBattle(event : BattleVictoryEvent) {
@@ -72,29 +71,29 @@ object StatHandler : EventHandler {
             if (event.battle.isPvW) {
                 event.winners
                     .flatMap { it.getPlayerUUIDs().mapNotNull(UUID::getPlayer) }
-                    .forEach { player -> player.awardStat(CobblemonStats.BATTLES_WON) }
+                    .forEach { player -> player.awardStat(Cobblemon.statistics.BATTLES_WON) }
             }
         }
     }
 
     fun onBattleStart(event : BattleStartedPostEvent) {
-        event.battle.players.forEach { player -> player.awardStat(CobblemonStats.BATTLES_TOTAL) }
+        event.battle.players.forEach { player -> player.awardStat(Cobblemon.statistics.BATTLES_TOTAL) }
     }
 
     fun onCollectEgg(event : CollectEggEvent) {
-        event.player.awardStat(CobblemonStats.EGGS_COLLECTED)
+        event.player.awardStat(Cobblemon.statistics.EGGS_COLLECTED)
     }
 
     fun onHatchEgg(event : HatchEggEvent.Post) {
-        event.player.awardStat(CobblemonStats.EGGS_HATCHED)
+        event.player.awardStat(Cobblemon.statistics.EGGS_HATCHED)
     }
 
     fun onTradeCompleted(event : TradeCompletedEvent) {
-        event.tradeParticipant1Pokemon.getOwnerPlayer()?.awardStat(CobblemonStats.TRADED)
-        event.tradeParticipant2Pokemon.getOwnerPlayer()?.awardStat(CobblemonStats.TRADED)
+        event.tradeParticipant1Pokemon.getOwnerPlayer()?.awardStat(Cobblemon.statistics.TRADED)
+        event.tradeParticipant2Pokemon.getOwnerPlayer()?.awardStat(Cobblemon.statistics.TRADED)
     }
 
     fun onFossilRevived(event : FossilRevivedEvent) {
-        event.player?.awardStat(FOSSILS_REVIVED)
+        event.player?.awardStat(Cobblemon.statistics.FOSSILS_REVIVED)
     }
 }
