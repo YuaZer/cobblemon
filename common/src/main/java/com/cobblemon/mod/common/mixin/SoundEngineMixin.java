@@ -89,7 +89,7 @@ public abstract class SoundEngineMixin implements SoundEngineDuck {
 
             // Apply low pass filter if the rideSound dictate that it should be muffled
             if (rideSound.getShouldMuffle()) {
-                ((ChannelDuck) channel).cobblemon$applyLowPassFilter(1.0f, 0.05f);
+                ((ChannelDuck) channel).cobblemon$applyLowPassFilter(1.0f, rideSound.getMuffleAmount());
             } else {
                 ((ChannelDuck) channel).cobblemon$clearFilters();
             }
@@ -125,7 +125,7 @@ public abstract class SoundEngineMixin implements SoundEngineDuck {
 
             // Apply low pass filter if the rideSound dictate that it should be muffled
             if (rideSound.getShouldMuffle()) {
-                ((ChannelDuck) channel).cobblemon$applyLowPassFilter(1.0f, 0.05f);
+                ((ChannelDuck) channel).cobblemon$applyLowPassFilter(1.0f, rideSound.getMuffleAmount());
             } else {
                 ((ChannelDuck) channel).cobblemon$clearFilters();
             }

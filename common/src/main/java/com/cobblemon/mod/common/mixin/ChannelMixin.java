@@ -27,7 +27,7 @@ public abstract class ChannelMixin implements ChannelDuck {
     public void cobblemon$applyLowPassFilter(float gain, float hfGain) {
         // If a filter already exists then return
         if (cobblemon$lowPassFilterId != 0) return;
-        int cobblemon$lowPassFilterId = EXTEfx.alGenFilters();
+        cobblemon$lowPassFilterId = EXTEfx.alGenFilters();
 
         if (EXTEfx.alIsFilter(cobblemon$lowPassFilterId)) {
             EXTEfx.alFilteri(cobblemon$lowPassFilterId, EXTEfx.AL_FILTER_TYPE, EXTEfx.AL_FILTER_LOWPASS);

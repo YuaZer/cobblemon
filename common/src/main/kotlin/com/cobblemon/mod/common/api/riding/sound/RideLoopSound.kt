@@ -10,10 +10,12 @@ package com.cobblemon.mod.common.api.riding.sound
 
 import com.bedrockk.molang.Expression
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
+import com.cobblemon.mod.common.util.math.geometry.toRadians
 import com.cobblemon.mod.common.util.resolveDouble
 import net.minecraft.client.Minecraft
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance
 import net.minecraft.client.resources.sounds.SoundInstance
+import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundSource
 import net.minecraft.util.Mth
@@ -22,6 +24,7 @@ import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
 import kotlin.math.min
 import kotlin.math.pow
+import kotlin.math.sin
 
 
 /**
@@ -35,6 +38,7 @@ class RideLoopSound(val ride: PokemonEntity, sound: SoundEvent, val volumeExpr: 
         AbstractTickableSoundInstance(sound, SoundSource.NEUTRAL, SoundInstance.createUnseededRandom()) {
 
     var shouldMuffle: Boolean = false
+    var muffleAmount: Float = 0.0f
     var isPassenger: Boolean = false
 
     init {
@@ -42,9 +46,9 @@ class RideLoopSound(val ride: PokemonEntity, sound: SoundEvent, val volumeExpr: 
         this.delay = 0
         this.volume = 1.0f
         this.shouldMuffle = false
-        this.attenuation = SoundInstance.Attenuation.NONE
+        this.attenuation = SoundInstance.Attenuation.LINEAR
         this.isPassenger = Minecraft.getInstance().player?.id == ride.controllingPassenger?.id
-        if (this.isPassenger) this.relative = true
+        if (this.isPassenger) this.relative = false
     }
 
     override fun tick() {
@@ -56,19 +60,21 @@ class RideLoopSound(val ride: PokemonEntity, sound: SoundEvent, val volumeExpr: 
             this.setPos()
 
             // Attenuate due to distance
-            this.volume *= attenuation()
+            //this.volume *= attenuation()
 
             // Calculate influence due to the doppler effect
-            this.pitch *= calcDopplerInfluence().toFloat()
+            //this.pitch *= calcDopplerInfluence().toFloat()
 
             // Calculate muffling due to occlusion
-            val soundOc = soundOcclusion()
-            if (soundOc < 1.0f) {
-                this.shouldMuffle = true
-                this.volume *= 0.7f
-            } else {
-                this.shouldMuffle = false
-            }
+            //val soundOc = soundOcclusion()
+//            if (soundOc != 0.0f) {
+//                this.muffleAmount = Mth.lerp(soundOc,0.3f,1.0f)
+//                this.shouldMuffle = true
+//                //this.volume *= Mth.lerp(soundOc,0.7f,1.0f)
+//            } else {
+//                this.shouldMuffle = false
+//                this.muffleAmount = 0.0f
+//            }
         }
     }
 
@@ -101,41 +107,87 @@ class RideLoopSound(val ride: PokemonEntity, sound: SoundEvent, val volumeExpr: 
 
     }
 
-    fun soundOcclusion(): Double {
-        val listener = Minecraft.getInstance().player ?: return 1.0
+    fun soundOcclusion(): Float {
+        val listener = Minecraft.getInstance().player ?: return 0.0f
         val level = listener.level()
         val maxAttenDist = this.sound.attenuationDistance
-        val minMuffle = 0.3
 
         var totalMuffle = 0.0
         var totalRays = 0
 
-        for (pitch in listOf(-2.0, 0.0, 2.0)) {
-            for (yaw in listOf(-2.0, 0.0, 2.0)) {
-                totalRays += 1
-                val hit = level.clip(
-                    ClipContext(
-                        listener.eyePosition,
-                        ride.position(),
-                        ClipContext.Block.COLLIDER,
-                        ClipContext.Fluid.NONE,
-                        listener
-                    )
-                )
+        val distanceToSound = listener.eyePosition.distanceTo(ride.position())
+//        val soundDirection = ride.position().subtract(listener.eyePosition).normalize()
+//        val up = Vec3(0.0,1.0,0.0)
+//        val right = soundDirection.cross(up).normalize()
 
-                if(hit.type != HitResult.Type.MISS) {
-                    //Calculate the distance the hit was away from the listener
-                    val hitDist = hit.location.distanceTo(listener.eyePosition)
+        val aabb = ride.boundingBox
+        val corners = listOf(
+            Vec3(aabb.minX, aabb.minY, aabb.minZ),
+            Vec3(aabb.minX, aabb.minY, aabb.maxZ),
+            Vec3(aabb.minX, aabb.maxY, aabb.minZ),
+            Vec3(aabb.minX, aabb.maxY, aabb.maxZ),
+            Vec3(aabb.maxX, aabb.minY, aabb.minZ),
+            Vec3(aabb.maxX, aabb.minY, aabb.maxZ),
+            Vec3(aabb.maxX, aabb.maxY, aabb.minZ),
+            Vec3(aabb.maxX, aabb.maxY, aabb.maxZ)
+        )
 
-                    //Calculate the influence based on distance of this particular ray hit
-                    val hitMuffle = Mth.lerp((1 - (hitDist / maxAttenDist)), 1.0, minMuffle)
-                    totalMuffle += hitMuffle
-                }
-            }
+        val center = aabb.center
+
+        val extendedCorners = corners.map { corner ->
+            val direction = corner.subtract(center).normalize()
+            corner.add(direction.scale(1.5))
         }
 
+        // Why am I naming it this
+        val centers = listOf(
+            aabb.center
+        )
 
-        return (totalMuffle / totalRays.toDouble())
+//        for (pitch in listOf(-2.0, 0.0, 2.0)) {
+//            for (yaw in listOf(-2.0, 0.0, 2.0)) {
+        for (center in centers) {
+            totalRays += 1
+            val rayEnd = center
+
+            // Calc the direction with the pitch and yaw offset
+//            val currRay = soundDirection
+//                .add(right.scale(sin(yaw.toRadians()).toDouble()))
+//                .add(up.scale(sin(pitch.toRadians().toDouble())))
+
+            // Add debug particles along the ray
+            val steps = distanceToSound.toInt()
+            val start = listener.eyePosition
+            val direction = rayEnd.subtract(start).normalize()
+            val stepSize = 1.0
+
+            for (i in 4..steps) {
+                val pos = start.add(direction.scale(i * stepSize))
+                level.addParticle(ParticleTypes.FLAME, pos.x, pos.y, pos.z, 0.0, 0.0, 0.0)
+            }
+
+            val hit = level.clip(
+                ClipContext(
+                    listener.eyePosition,
+                    rayEnd,
+                    ClipContext.Block.COLLIDER,
+                    ClipContext.Fluid.NONE,
+                    listener
+                )
+            )
+
+            if(hit.type != HitResult.Type.MISS) {
+                //Calculate the distance the hit was away from the listener
+                val hitDist = hit.location.distanceTo(listener.eyePosition)
+
+                //Calculate the influence based on distance of this particular ray hit
+                val hitMuffle = Mth.lerp((1 - (hitDist / maxAttenDist)), 0.3, 1.0)
+                totalMuffle += hitMuffle
+            }
+
+        }
+
+        return (totalMuffle / totalRays.toFloat()).toFloat()
     }
 
 
