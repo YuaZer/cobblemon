@@ -16,6 +16,7 @@ import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance
 import net.minecraft.client.resources.sounds.SoundInstance
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundSource
+import net.minecraft.util.Mth
 import net.minecraft.world.level.ClipContext
 import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
@@ -50,7 +51,7 @@ class RideLoopSound(val ride: PokemonEntity, sound: SoundEvent, val volumeExpr: 
         this.volume = ((volumeExpr?.let { ride.runtime.resolveDouble(it) }) ?: 1.0).toFloat()
         this.pitch = ((pitchExpr?.let { ride.runtime.resolveDouble(it) }) ?: 1.0).toFloat()
 
-        // TODO: Raycasting if the ride is out of attenuation distance.
+        // TODO: Stop raycasting if the ride is out of attenuation distance.
         if (!this.isPassenger) {
             this.setPos()
 
@@ -103,17 +104,38 @@ class RideLoopSound(val ride: PokemonEntity, sound: SoundEvent, val volumeExpr: 
     fun soundOcclusion(): Double {
         val listener = Minecraft.getInstance().player ?: return 1.0
         val level = listener.level()
-        val hit = level.clip(
-            ClipContext(
-                listener.eyePosition,
-                ride.position(),
-                ClipContext.Block.COLLIDER,
-                ClipContext.Fluid.NONE,
-                listener
-            )
-        )
+        val maxAttenDist = this.sound.attenuationDistance
+        val minMuffle = 0.3
 
-        return if(hit.type != HitResult.Type.MISS) 0.5 else 1.0
+        var totalMuffle = 0.0
+        var totalRays = 0
+
+        for (pitch in listOf(-2.0, 0.0, 2.0)) {
+            for (yaw in listOf(-2.0, 0.0, 2.0)) {
+                totalRays += 1
+                val hit = level.clip(
+                    ClipContext(
+                        listener.eyePosition,
+                        ride.position(),
+                        ClipContext.Block.COLLIDER,
+                        ClipContext.Fluid.NONE,
+                        listener
+                    )
+                )
+
+                if(hit.type != HitResult.Type.MISS) {
+                    //Calculate the distance the hit was away from the listener
+                    val hitDist = hit.location.distanceTo(listener.eyePosition)
+
+                    //Calculate the influence based on distance of this particular ray hit
+                    val hitMuffle = Mth.lerp((1 - (hitDist / maxAttenDist)), 1.0, minMuffle)
+                    totalMuffle += hitMuffle
+                }
+            }
+        }
+
+
+        return (totalMuffle / totalRays.toDouble())
     }
 
 
