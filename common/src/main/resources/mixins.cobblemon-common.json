@@ -30,6 +30,7 @@
     "riding.JetMixin"
   ],
   "mixins": [
+    "ChannelMixin",
     "ChunkStorageMixin",
     "CrashReportMixin",
     "DecoratedPotPatternsMixin",

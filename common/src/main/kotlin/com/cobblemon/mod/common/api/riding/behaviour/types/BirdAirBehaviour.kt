@@ -25,6 +25,7 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.sounds.SoundEvent
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
@@ -480,7 +481,7 @@ class BirdAirBehaviour : RidingBehaviour<BirdAirSettings, BirdAirState> {
         state: BirdAirState,
         vehicle: PokemonEntity
     ): Boolean {
-        return false
+        return true
     }
 
     override fun createRideLoopSound(
@@ -488,12 +489,15 @@ class BirdAirBehaviour : RidingBehaviour<BirdAirSettings, BirdAirState> {
         state: BirdAirState,
         vehicle: PokemonEntity
     ): RideLoopSound? {
-        val sound = BuiltInRegistries.SOUND_EVENT.get(settings.rideSound) ?: CobblemonSounds.RIDE_LOOP_LEATHER
-        var vExpr: Expression = "q.velocity() / 1.5".asExpression()
+        val soundLoc: ResourceLocation = "ride.loop.leather".asIdentifierDefaultingNamespace()
+        //val sound = BuiltInRegistries.SOUND_EVENT.get(settings.rideSound) ?: CobblemonSounds.RIDE_LOOP_LEATHER
+        val sound = SoundEvent.createVariableRangeEvent(soundLoc)
+        //val sound = CobblemonSounds.RIDE_LOOP_LEATHER
+        //var vExpr: Expression = "q.velocity() / 1.5".asExpression()
         return RideLoopSound(
             vehicle,
             sound,
-            vExpr,
+            settings.volumeExpr,
             settings.pitchExpr
         )
     }
@@ -513,7 +517,7 @@ class BirdAirSettings : RidingBehaviourSettings {
 
     var rideSound: ResourceLocation = ResourceLocation.fromNamespaceAndPath("cobblemon", "ride/loop/leather_flight_loop")
     //var volumeExpr: Expression = "q.velocity / 1.5".asExpression()
-    var volumeExpr: Expression = "math.pow(math.min(q.velocity / 1.5, 1.0),2)".asExpression()
+    var volumeExpr: Expression = "math.pow(math.min(q.velocity() / 1.5, 1.0),2)".asExpression()
     var pitchExpr: Expression = "1.0".asExpression()
 
     //max y level for the ride

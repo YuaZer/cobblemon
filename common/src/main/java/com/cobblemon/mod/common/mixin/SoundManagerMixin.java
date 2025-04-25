@@ -44,16 +44,15 @@ public abstract class SoundManagerMixin implements SoundManagerDuck {
     }
 
     private boolean filterCondition(SoundInstance sound) {
-        System.out.println("Attempting to play: " + sound.getLocation() + ", category: " + sound.getSource());
-        return false; //!isAmbientLoop(sound) &&
-//            this.isActive(BattleMusicController.INSTANCE.getMusic()) &&
-//                BattleMusicController.INSTANCE.getFilteredCategories().contains(sound.getSource());
+        return !isAmbientLoop(sound) &&
+            this.isActive(BattleMusicController.INSTANCE.getMusic()) &&
+                BattleMusicController.INSTANCE.getFilteredCategories().contains(sound.getSource());
     }
 
     private boolean ambientLoopCondition(SoundInstance sound) {
-        return false; //isAmbientLoop(sound) &&
-//            this.isActive(BattleMusicController.INSTANCE.getMusic()) &&
-//                BattleMusicController.INSTANCE.getFilteredCategories().contains(sound.getSource());
+        return isAmbientLoop(sound) &&
+            this.isActive(BattleMusicController.INSTANCE.getMusic()) &&
+                BattleMusicController.INSTANCE.getFilteredCategories().contains(sound.getSource());
     }
 
     /** Pauses the queried SoundInstance(s). If id is null, will pause all sounds belonging to the SoundCategory. */
