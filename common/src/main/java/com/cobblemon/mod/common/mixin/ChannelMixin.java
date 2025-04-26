@@ -25,19 +25,19 @@ public abstract class ChannelMixin implements ChannelDuck {
 
     @Override
     public void cobblemon$applyLowPassFilter(float gain, float hfGain) {
-        // If a filter already exists then return
-        if (cobblemon$lowPassFilterId != 0) return;
-        cobblemon$lowPassFilterId = EXTEfx.alGenFilters();
-
-        if (EXTEfx.alIsFilter(cobblemon$lowPassFilterId)) {
-            EXTEfx.alFilteri(cobblemon$lowPassFilterId, EXTEfx.AL_FILTER_TYPE, EXTEfx.AL_FILTER_LOWPASS);
-            EXTEfx.alFilterf(cobblemon$lowPassFilterId, EXTEfx.AL_LOWPASS_GAIN, gain);
-            EXTEfx.alFilterf(cobblemon$lowPassFilterId, EXTEfx.AL_LOWPASS_GAINHF, hfGain);
-
+        if (cobblemon$lowPassFilterId == 0) {
+            // Create the filter once
+            cobblemon$lowPassFilterId = EXTEfx.alGenFilters();
+            if (!EXTEfx.alIsFilter(cobblemon$lowPassFilterId)) {
+                System.err.println("Failed to create OpenAL low-pass filter");
+                return;
+            }
             AL10.alSourcei(source, EXTEfx.AL_DIRECT_FILTER, cobblemon$lowPassFilterId);
-        } else {
-            System.err.println("Failed to create OpenAL low-pass filter");
         }
+
+        // Always update the filter params, every tick if necessary
+        EXTEfx.alFilterf(cobblemon$lowPassFilterId, EXTEfx.AL_LOWPASS_GAIN, gain);
+        EXTEfx.alFilterf(cobblemon$lowPassFilterId, EXTEfx.AL_LOWPASS_GAINHF, hfGain);
     }
 
     @Override

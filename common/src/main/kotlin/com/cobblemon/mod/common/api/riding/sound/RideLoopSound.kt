@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.api.riding.sound
 
 import com.bedrockk.molang.Expression
+import com.cobblemon.mod.common.api.riding.util.Vec3Spring
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.math.geometry.toRadians
 import com.cobblemon.mod.common.util.resolveDouble
@@ -19,6 +20,7 @@ import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundSource
 import net.minecraft.util.Mth
+import net.minecraft.util.Mth.lerp
 import net.minecraft.world.level.ClipContext
 import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
@@ -38,7 +40,7 @@ class RideLoopSound(val ride: PokemonEntity, sound: SoundEvent, val volumeExpr: 
         AbstractTickableSoundInstance(sound, SoundSource.NEUTRAL, SoundInstance.createUnseededRandom()) {
 
     var shouldMuffle: Boolean = false
-    var muffleAmount: Float = 0.0f
+    var muffleAmount: Float = 1.0f
     var isPassenger: Boolean = false
 
     init {
@@ -46,12 +48,14 @@ class RideLoopSound(val ride: PokemonEntity, sound: SoundEvent, val volumeExpr: 
         this.delay = 0
         this.volume = 1.0f
         this.shouldMuffle = false
-        this.attenuation = SoundInstance.Attenuation.LINEAR
+        this.attenuation = SoundInstance.Attenuation.NONE
         this.isPassenger = Minecraft.getInstance().player?.id == ride.controllingPassenger?.id
-        if (this.isPassenger) this.relative = false
+        if (this.isPassenger) this.relative = true
     }
 
     override fun tick() {
+//        this.volume = 1.0f
+//        this.pitch = 1.0f
         this.volume = ((volumeExpr?.let { ride.runtime.resolveDouble(it) }) ?: 1.0).toFloat()
         this.pitch = ((pitchExpr?.let { ride.runtime.resolveDouble(it) }) ?: 1.0).toFloat()
 
@@ -60,21 +64,24 @@ class RideLoopSound(val ride: PokemonEntity, sound: SoundEvent, val volumeExpr: 
             this.setPos()
 
             // Attenuate due to distance
-            //this.volume *= attenuation()
+            this.volume *= attenuation()
 
             // Calculate influence due to the doppler effect
-            //this.pitch *= calcDopplerInfluence().toFloat()
+            this.pitch *= calcDopplerInfluence().toFloat()
 
             // Calculate muffling due to occlusion
-            //val soundOc = soundOcclusion()
-//            if (soundOc != 0.0f) {
-//                this.muffleAmount = Mth.lerp(soundOc,0.3f,1.0f)
-//                this.shouldMuffle = true
-//                //this.volume *= Mth.lerp(soundOc,0.7f,1.0f)
-//            } else {
-//                this.shouldMuffle = false
-//                this.muffleAmount = 0.0f
-//            }
+            val soundOc = soundOcclusion()
+            if (soundOc != 0.0f) {
+                val newMuffle = lerp(soundOc,1.0f, 0.3f).coerceIn(0.3f,1.0f)
+
+                // lerp muffle smoothly
+                this.muffleAmount = lerp(0.2f, this.muffleAmount, newMuffle)
+                this.shouldMuffle = true
+                //this.volume *= Mth.lerp(soundOc,0.7f,1.0f)
+            } else {
+                this.shouldMuffle = false
+                this.muffleAmount = 1.0f
+            }
         }
     }
 

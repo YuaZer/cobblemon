@@ -489,11 +489,7 @@ class BirdAirBehaviour : RidingBehaviour<BirdAirSettings, BirdAirState> {
         state: BirdAirState,
         vehicle: PokemonEntity
     ): RideLoopSound? {
-        val soundLoc: ResourceLocation = "ride.loop.leather".asIdentifierDefaultingNamespace()
-        //val sound = BuiltInRegistries.SOUND_EVENT.get(settings.rideSound) ?: CobblemonSounds.RIDE_LOOP_LEATHER
-        val sound = SoundEvent.createVariableRangeEvent(soundLoc)
-        //val sound = CobblemonSounds.RIDE_LOOP_LEATHER
-        //var vExpr: Expression = "q.velocity() / 1.5".asExpression()
+        val sound = SoundEvent.createVariableRangeEvent(settings.rideSound)
         return RideLoopSound(
             vehicle,
             sound,
@@ -515,10 +511,9 @@ class BirdAirSettings : RidingBehaviourSettings {
     var infiniteStamina: Expression = "false".asExpression()
         private set
 
-    var rideSound: ResourceLocation = ResourceLocation.fromNamespaceAndPath("cobblemon", "ride/loop/leather_flight_loop")
-    //var volumeExpr: Expression = "q.velocity / 1.5".asExpression()
+    var rideSound: ResourceLocation = "ride.loop.leather".asIdentifierDefaultingNamespace()
     var volumeExpr: Expression = "math.pow(math.min(q.velocity() / 1.5, 1.0),2)".asExpression()
-    var pitchExpr: Expression = "1.0".asExpression()
+    var pitchExpr: Expression = "math.max(1.0 ,0.2 + math.pow(math.min(q.velocity() / 1.5, 1.0),2))".asExpression()
 
     //max y level for the ride
     var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'AIR', 200.0, 128.0)".asExpression()

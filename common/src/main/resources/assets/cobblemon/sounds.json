@@ -1088,6 +1088,14 @@
       }
     ]
   },
+  "ride.loop.saucer": {
+    "sounds": [
+      {
+        "name": "cobblemon:ride/loop/saucer_flight_loop",
+        "attenuation_distance": 48.0
+      }
+    ]
+  },
   "pokemon.bulbasaur.ambient": {
     "sounds": [ "cobblemon:pokemon/bulbasaur/bulbasaur_ambient" ]
   },

@@ -582,8 +582,8 @@ open class PokemonEntity(
     }
 
     fun getVelocity(): Vec3 {
-        val prevPosition = Vec3(this.xOld, this.yOld, this.zOld)
-        return this.position().subtract(prevPosition)
+        return this.ridingAnimationData.velocitySpring.value
+        //return this.position().subtract(prevPosition)
     }
 
     fun setMoveControl(moveControl: MoveControl) {
