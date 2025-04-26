@@ -48,7 +48,6 @@ import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
 import com.mojang.blaze3d.vertex.VertexFormat
 import com.mojang.math.Axis
-import net.minecraft.client.Minecraft
 import net.minecraft.client.model.geom.ModelPart
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderStateShard
@@ -94,7 +93,13 @@ open class PosableModel(@Transient override val rootPart: Bone) : ModelFrame {
     open var profileScale = 1F
 
     /** Used for third person riding camera */
-    open var seatToCameraOffset = mutableMapOf<String, Vec3>()
+    open var thirdPersonCameraOffset = mutableMapOf<String, Vec3>()
+
+    /** Used for third person riding camera */
+    open var thirdPersonPivotOffset = mutableMapOf<String, Vec3>()
+
+    /** Used for first person riding camera */
+    open var firstPersonCameraOffset = mutableMapOf<String, Vec3>()
 
     /**
      * These are open-ended properties that can be used to store miscellaneous properties about the model.
@@ -267,6 +272,7 @@ open class PosableModel(@Transient override val rootPart: Bone) : ModelFrame {
         poseType: PoseType,
         condition: ((PosableState) -> Boolean)? = null,
         transformTicks: Int = 10,
+        transformToTicks: Int = 10,
         namedAnimations: MutableMap<String, ExpressionLike> = mutableMapOf(),
         onTransitionedInto: (PosableState) -> Unit = {},
         animations: Array<PoseAnimation> = emptyArray(),
@@ -279,6 +285,7 @@ open class PosableModel(@Transient override val rootPart: Bone) : ModelFrame {
             condition,
             onTransitionedInto,
             transformTicks,
+            transformToTicks,
             namedAnimations,
             animations,
             transformedParts,
@@ -293,6 +300,7 @@ open class PosableModel(@Transient override val rootPart: Bone) : ModelFrame {
         poseTypes: Set<PoseType>,
         condition: ((PosableState) -> Boolean)? = null,
         transformTicks: Int = 10,
+        transformToTicks: Int = 10,
         namedAnimations: MutableMap<String, ExpressionLike> = mutableMapOf(),
         onTransitionedInto: (PosableState) -> Unit = {},
         animations: Array<PoseAnimation> = emptyArray(),
@@ -305,6 +313,7 @@ open class PosableModel(@Transient override val rootPart: Bone) : ModelFrame {
             condition,
             onTransitionedInto,
             transformTicks,
+            transformToTicks,
             namedAnimations,
             animations,
             transformedParts,
@@ -319,6 +328,7 @@ open class PosableModel(@Transient override val rootPart: Bone) : ModelFrame {
         poseType: PoseType,
         condition: ((PosableState) -> Boolean)? = null,
         transformTicks: Int = 10,
+        transformToTicks: Int = 10,
         namedAnimations: MutableMap<String, ExpressionLike> = mutableMapOf(),
         onTransitionedInto: (PosableState) -> Unit = {},
         animations: Array<PoseAnimation> = emptyArray(),
@@ -331,6 +341,7 @@ open class PosableModel(@Transient override val rootPart: Bone) : ModelFrame {
             condition,
             onTransitionedInto,
             transformTicks,
+            transformToTicks,
             namedAnimations,
             animations,
             transformedParts,
@@ -608,7 +619,7 @@ open class PosableModel(@Transient override val rootPart: Bone) : ModelFrame {
         val primaryAnimation = state.primaryAnimation
         val shouldRotateHead = if (entity is PokemonEntity) {
             entity.ifRidingAvailableSupply(true) { behaviour, settings, ridingState ->
-                behaviour.shouldRotatePokemonHead(settings, ridingState, entity)
+                entity.passengers.none() || behaviour.shouldRotatePokemonHead(settings, ridingState, entity)
             }
         } else true
 
@@ -677,13 +688,15 @@ open class PosableModel(@Transient override val rootPart: Bone) : ModelFrame {
         if (state.activeAnimations.none { it.isTransition }) {
             // Check for a dedicated transition animation.
             val transition = previousPose.transitions[desirablePose.poseName]
+            val transformToTicks = desirablePose.transformToTicks
             val animation = if (transition == null && previousPose.transformTicks > 0) {
                 // If no dedicated transition exists then use a simple interpolator.
+                val durationTicks = transformToTicks ?: previousPose.transformTicks
                 PrimaryAnimation(
                     PoseTransitionAnimation(
                         beforePose = previousPose,
                         afterPose = desirablePose,
-                        durationTicks = previousPose.transformTicks
+                        durationTicks = durationTicks
                     ),
                     curve = { 1F }
                 )

@@ -31,6 +31,7 @@ import com.cobblemon.mod.common.api.molang.MoLangFunctions.setup
 import com.cobblemon.mod.common.api.molang.ObjectValue
 import com.cobblemon.mod.common.api.net.serializers.PlatformTypeDataSerializer
 import com.cobblemon.mod.common.api.net.serializers.PoseTypeDataSerializer
+import com.cobblemon.mod.common.api.net.serializers.RideBoostsDataSerializer
 import com.cobblemon.mod.common.api.net.serializers.StringSetDataSerializer
 import com.cobblemon.mod.common.api.pokemon.feature.ChoiceSpeciesFeatureProvider
 import com.cobblemon.mod.common.api.pokemon.feature.FlagSpeciesFeature
@@ -51,7 +52,6 @@ import com.cobblemon.mod.common.api.riding.events.SelectDriverEvent
 import com.cobblemon.mod.common.api.riding.sound.RideLoopSound
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.api.riding.util.RidingAnimationData
-import com.cobblemon.mod.common.api.riding.util.Vec3Spring
 import com.cobblemon.mod.common.api.scheduling.Schedulable
 import com.cobblemon.mod.common.api.scheduling.SchedulingTracker
 import com.cobblemon.mod.common.api.scheduling.afterOnServer
@@ -184,6 +184,7 @@ open class PokemonEntity(
         @JvmStatic val CAUGHT_BALL = SynchedEntityData.defineId(PokemonEntity::class.java, EntityDataSerializers.STRING)
         @JvmStatic val EVOLUTION_STARTED = SynchedEntityData.defineId(PokemonEntity::class.java, EntityDataSerializers.BOOLEAN)
         @JvmStatic var SHOWN_HELD_ITEM = SynchedEntityData.defineId(PokemonEntity::class.java, EntityDataSerializers.ITEM_STACK)
+        @JvmStatic var RIDE_BOOSTS = SynchedEntityData.defineId(PokemonEntity::class.java, RideBoostsDataSerializer)
 
         const val BATTLE_LOCK = "battle"
         const val EVOLUTION_LOCK = "evolving"
@@ -399,6 +400,7 @@ open class PokemonEntity(
         builder.define(CAUGHT_BALL, "")
         builder.define(EVOLUTION_STARTED, false)
         builder.define(SHOWN_HELD_ITEM, ItemStack.EMPTY)
+        builder.define(RIDE_BOOSTS, emptyMap())
     }
 
     override fun onSyncedDataUpdated(data: EntityDataAccessor<*>) {
@@ -1561,8 +1563,6 @@ open class PokemonEntity(
                     inp.z * g.toDouble() + inp.x * f.toDouble()
                 )
 
-
-
                 val diff = v.subtract(this.deltaMovement)
 
                 val inertia = ifRidingAvailableSupply(fallback = 0.5) { behaviour, settings, state ->
@@ -1976,11 +1976,20 @@ open class PokemonEntity(
         }
     }
 
-    fun useRidingAltPose(): Boolean {
+    fun getAltPose(): String {
+        val driver = this.controllingPassenger as? Player ?: return "cobblemon:no_pose"
+        val str =  ifRidingAvailableSupply(fallback = "cobblemon:no_pose") { behaviour, settings, state ->
+            behaviour.useRidingAltPose(settings, state, this, driver).toString()
+        }
+        return str
+    }
+
+    fun isUsingAltPose(resourceLocation: ResourceLocation): Boolean {
         val driver = this.controllingPassenger as? Player ?: return false
-        return ifRidingAvailableSupply(fallback = false) { behaviour, settings, state ->
+        val loc =  ifRidingAvailableSupply(fallback = cobblemonResource("no_pose")) { behaviour, settings, state ->
             behaviour.useRidingAltPose(settings, state, this, driver)
         }
+        return loc.compareTo(resourceLocation) == 0
     }
 
     var jumpInputStrength: Int = 0 // move this

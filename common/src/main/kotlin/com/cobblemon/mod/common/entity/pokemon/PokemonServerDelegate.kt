@@ -164,6 +164,12 @@ class PokemonServerDelegate : PokemonSideDelegate {
         entity.entityData.set(PokemonEntity.FRIENDSHIP, entity.pokemon.friendship)
         entity.entityData.set(PokemonEntity.CAUGHT_BALL, trackedBall)
 
+        val currentRideBoosts = entity.entityData.get(PokemonEntity.RIDE_BOOSTS)
+        val newRideBoosts = entity.pokemon.getRideBoosts()
+        if (currentRideBoosts.size != newRideBoosts.size || currentRideBoosts.any { (key, value) -> newRideBoosts[key] != value }) {
+            entity.entityData.set(PokemonEntity.RIDE_BOOSTS, newRideBoosts)
+        }
+
         updateShownItem()
         updatePoseType()
     }

@@ -241,8 +241,8 @@ class HelicopterBehaviour : RidingBehaviour<HelicopterSettings, RidingBehaviourS
         state: RidingBehaviourState,
         vehicle: PokemonEntity,
         driver: Player
-    ): Boolean {
-        return false
+    ): ResourceLocation {
+        return cobblemonResource("no_pose")
     }
 
     override fun inertia(settings: HelicopterSettings, state: RidingBehaviourState, vehicle: PokemonEntity): Double {

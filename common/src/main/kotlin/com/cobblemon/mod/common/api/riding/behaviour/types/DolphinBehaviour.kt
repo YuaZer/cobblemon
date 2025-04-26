@@ -22,6 +22,7 @@ import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.RegistryFriendlyByteBuf
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
@@ -227,8 +228,8 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         state: DolphinState,
         vehicle: PokemonEntity,
         driver: Player
-    ): Boolean {
-        return false
+    ): ResourceLocation {
+        return cobblemonResource("no_pose")
     }
 
     override fun inertia(settings: DolphinSettings, state: DolphinState, vehicle: PokemonEntity): Double {
