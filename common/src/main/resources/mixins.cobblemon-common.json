@@ -46,6 +46,8 @@
     "ChunkStorageMixin",
     "CrashReportMixin",
     "DecoratedPotPatternsMixin",
+    "EntityCreeperMixin",
+    "EntitySkeletonMixin",
     "EntityStorageMixin",
     "EntityVillagerMixin",
     "ExplosionMixin",
