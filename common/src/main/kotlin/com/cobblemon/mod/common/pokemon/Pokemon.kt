@@ -14,7 +14,6 @@ import com.cobblemon.mod.common.CobblemonSounds
 import com.cobblemon.mod.common.api.abilities.Abilities
 import com.cobblemon.mod.common.api.abilities.Ability
 import com.cobblemon.mod.common.api.abilities.AbilityPool
-import com.cobblemon.mod.common.api.battles.model.actor.BattleActor
 import com.cobblemon.mod.common.api.battles.model.actor.EntityBackedBattleActor
 import com.cobblemon.mod.common.api.data.ShowdownIdentifiable
 import com.cobblemon.mod.common.api.entity.PokemonSender
@@ -60,6 +59,7 @@ import com.cobblemon.mod.common.api.reactive.Observable
 import com.cobblemon.mod.common.api.reactive.SettableObservable
 import com.cobblemon.mod.common.api.reactive.SimpleObservable
 import com.cobblemon.mod.common.api.riding.RidingProperties
+import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.api.scheduling.afterOnServer
 import com.cobblemon.mod.common.api.storage.StoreCoordinates
 import com.cobblemon.mod.common.api.storage.party.NPCPartyStore
@@ -70,7 +70,6 @@ import com.cobblemon.mod.common.api.types.ElementalTypes
 import com.cobblemon.mod.common.api.types.tera.TeraType
 import com.cobblemon.mod.common.api.types.tera.TeraTypes
 import com.cobblemon.mod.common.battles.ActiveBattlePokemon
-import com.cobblemon.mod.common.battles.ShowdownInterpreter
 import com.cobblemon.mod.common.config.CobblemonConfig
 import com.cobblemon.mod.common.datafixer.CobblemonSchemas
 import com.cobblemon.mod.common.datafixer.CobblemonTypeReferences
@@ -579,6 +578,8 @@ open class Pokemon : ShowdownIdentifiable {
 
     val preEvolution: PreEvolution? get() = this.form.preEvolution
 
+    private val rideBoosts: MutableMap<RidingStat, Float> = mutableMapOf()
+
     /**
      * Provides the sided [EvolutionController]s, these operations can be done safely with a simple side check.
      * This can be done beforehand or using [EvolutionProxy.isClient].
@@ -638,7 +639,7 @@ open class Pokemon : ShowdownIdentifiable {
             SeasonFeatureHandler.updateSeason(this, level, position.toBlockPos())
             val entity = PokemonEntity(level, this)
             illusion?.start(entity)
-            val adjustedPosition = entity.getAjustedSendoutPosition(position)
+            val adjustedPosition = entity.getAdjustedSendoutPosition(position)
             entity.setPositionSafely(adjustedPosition)
             mutation(entity)
             level.addFreshEntity(entity)
@@ -1535,6 +1536,46 @@ open class Pokemon : ShowdownIdentifiable {
             }
         }
         moveSet.update()
+    }
+
+    fun getMaxRideBoost(stat: RidingStat): Int {
+        return form.riding.stats[stat]?.ranges?.maxOf { it.value.endInclusive } ?: 0
+    }
+
+    fun getRideBoost(stat: RidingStat): Float {
+        return rideBoosts[stat] ?: 0F
+    }
+
+    fun getRideBoosts(): Map<RidingStat, Float> {
+        return rideBoosts.toMap()
+    }
+
+    fun canAddRideBoost(stat: RidingStat, boost: Float): Boolean {
+        val max = getMaxRideBoost(stat)
+        val current = rideBoosts[stat] ?: 0F
+        return current + boost <= max
+    }
+
+    fun addRideBoost(stat: RidingStat, boost: Float): Boolean {
+        if (!canAddRideBoost(stat, boost)) {
+            return false
+        }
+        val max = getMaxRideBoost(stat)
+        rideBoosts[stat] = (getRideBoost(stat) + boost).coerceIn(0F, max.toFloat())
+        onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
+        return true
+    }
+
+    fun setRideBoost(stat: RidingStat, boost: Float) {
+        val max = getMaxRideBoost(stat)
+        rideBoosts[stat] = boost.coerceIn(0F, max.toFloat())
+        onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
+    }
+
+    fun setRideBoosts(boosts: Map<RidingStat, Float>) {
+        rideBoosts.clear()
+        rideBoosts.putAll(boosts.mapValues { it.value.coerceIn(0F, getMaxRideBoost(it.key).toFloat()) })
+        onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
     }
 
     fun getExperienceToNextLevel() = getExperienceToLevel(level + 1)
