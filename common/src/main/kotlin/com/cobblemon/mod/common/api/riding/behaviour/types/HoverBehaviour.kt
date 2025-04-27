@@ -14,13 +14,14 @@ import com.cobblemon.mod.common.api.riding.behaviour.*
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
 import com.cobblemon.mod.common.api.riding.sound.RideLoopSound
+import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
 import com.cobblemon.mod.common.util.math.geometry.toRadians
-import net.fabricmc.loader.impl.lib.sat4j.core.Vec
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.sounds.SoundEvent
 import net.minecraft.util.Mth
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.Entity
@@ -30,7 +31,6 @@ import net.minecraft.world.phys.Vec2
 import net.minecraft.world.phys.Vec3
 import net.minecraft.world.phys.shapes.Shapes
 import org.joml.Matrix3f
-import org.joml.Vector3f
 import kotlin.math.*
 
 class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
@@ -461,12 +461,12 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         return false
     }
 
-    override fun createRideLoopSound(
+    override fun getRideSounds(
         settings: HoverSettings,
         state: HoverState,
         vehicle: PokemonEntity
-    ): RideLoopSound? {
-        return null
+    ): RideSoundSettingsList {
+        return settings.rideSounds
     }
 
     override fun createDefaultState(settings: HoverSettings) = HoverState()
@@ -474,6 +474,10 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
 
 class HoverSettings : RidingBehaviourSettings {
     override val key = HoverBehaviour.KEY
+
+    var rideSound: ResourceLocation = "ride.loop.saucer".asIdentifierDefaultingNamespace()
+    var volumeExpr: Expression = "math.pow(math.min(q.ride_velocity() / 0.8, 1.0),2)".asExpression()
+    var pitchExpr: Expression =  "math.pow(math.min(1.0 + 0.2*(q.ride_velocity() / 0.8), 1.2),2)".asExpression()
 
     var canJump = "true".asExpression()
         private set
@@ -497,8 +501,11 @@ class HoverSettings : RidingBehaviourSettings {
     var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 140.0, 20.0)".asExpression()
         private set
 
+    var rideSounds: RideSoundSettingsList = RideSoundSettingsList()
+
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeResourceLocation(key)
+        rideSounds.encode(buffer)
         buffer.writeExpression(speedExpr)
         buffer.writeExpression(accelerationExpr)
         buffer.writeExpression(staminaExpr)
@@ -507,6 +514,7 @@ class HoverSettings : RidingBehaviourSettings {
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
+        rideSounds = RideSoundSettingsList.decode(buffer)
         speedExpr = buffer.readExpression()
         accelerationExpr = buffer.readExpression()
         staminaExpr = buffer.readExpression()

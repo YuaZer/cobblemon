@@ -11,7 +11,7 @@ package com.cobblemon.mod.common.api.riding.behaviour.types.composite
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
 import com.cobblemon.mod.common.api.riding.behaviour.types.composite.strategies.CompositeRidingStrategies
-import com.cobblemon.mod.common.api.riding.sound.RideLoopSound
+import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.adapters.RidingBehaviourSettingsAdapter
@@ -328,13 +328,13 @@ class CompositeBehaviour : RidingBehaviour<CompositeSettings, CompositeState> {
         }
     }
 
-    override fun createRideLoopSound(
+    override fun getRideSounds(
         settings: CompositeSettings,
         state: CompositeState,
         vehicle: PokemonEntity
-    ): RideLoopSound? {
+    ): RideSoundSettingsList {
         return chooseBehaviour(settings, state) { behaviour, behaviourSettings, behaviourState ->
-            behaviour.createRideLoopSound(behaviourSettings, behaviourState, vehicle)
+            behaviour.getRideSounds(behaviourSettings, behaviourState, vehicle)
         }
     }
 

@@ -10,17 +10,15 @@ package com.cobblemon.mod.common.api.riding.behaviour.types
 
 import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.Cobblemon
-import com.cobblemon.mod.common.CobblemonSounds
 import com.cobblemon.mod.common.OrientationControllable
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
-import com.cobblemon.mod.common.api.riding.sound.RideLoopSound
+import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.SmoothDouble
@@ -264,12 +262,12 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         return false
     }
 
-    override fun createRideLoopSound(
+    override fun getRideSounds(
         settings: DolphinSettings,
         state: DolphinState,
         vehicle: PokemonEntity
-    ):  RideLoopSound? {
-        return null
+    ): RideSoundSettingsList {
+        return settings.rideSounds
     }
 
     override fun createDefaultState(settings: DolphinSettings) = DolphinState()
@@ -297,8 +295,11 @@ class DolphinSettings : RidingBehaviourSettings {
     var strafeFactor = "0.2".asExpression()
         private set
 
+    var rideSounds: RideSoundSettingsList = RideSoundSettingsList()
+
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeResourceLocation(key)
+        rideSounds.encode(buffer)
         buffer.writeExpression(canJump)
         buffer.writeExpression(jumpVector[0])
         buffer.writeExpression(jumpVector[1])
@@ -310,6 +311,7 @@ class DolphinSettings : RidingBehaviourSettings {
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
+        rideSounds = RideSoundSettingsList.decode(buffer)
         canJump = buffer.readExpression()
         jumpVector = listOf(
             buffer.readExpression(),

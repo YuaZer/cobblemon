@@ -41,10 +41,6 @@ interface CompositeRidingStrategy<T : CompositeSettings> {
         toState: RidingBehaviourState,
         toSettings: RidingBehaviourSettings
     ) {
-        // Stop current ride sound to allow transition to the next rideSound
-        vehicle.rideSound?.stopSound()
-        vehicle.rideSound = null
-
         toState.stamina.set(fromState.stamina.get())
         toState.rideVelocity.set(fromState.rideVelocity.get())
         fromState.reset()

@@ -11,20 +11,17 @@ package com.cobblemon.mod.common.api.riding.behaviour.types
 import com.bedrockk.molang.Expression
 import com.bedrockk.molang.runtime.MoLangMath.lerp
 import com.cobblemon.mod.common.Cobblemon
-import com.cobblemon.mod.common.CobblemonSounds
 import com.cobblemon.mod.common.OrientationControllable
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
 import com.cobblemon.mod.common.api.riding.sound.RideLoopSound
+import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
-import com.cobblemon.mod.common.pokemon.Pokemon
 import com.cobblemon.mod.common.util.*
 import com.cobblemon.mod.common.util.math.geometry.toRadians
-import net.minecraft.client.Minecraft
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
@@ -475,18 +472,12 @@ class BirdAirBehaviour : RidingBehaviour<BirdAirSettings, BirdAirState> {
         return true
     }
 
-    override fun createRideLoopSound(
+    override fun getRideSounds(
         settings: BirdAirSettings,
         state: BirdAirState,
         vehicle: PokemonEntity
-    ): RideLoopSound? {
-        val sound = SoundEvent.createVariableRangeEvent(settings.rideSound)
-        return RideLoopSound(
-            vehicle,
-            sound,
-            settings.volumeExpr,
-            settings.pitchExpr
-        )
+    ): RideSoundSettingsList {
+        return settings.rideSounds
     }
 
     override fun createDefaultState(settings: BirdAirSettings) = BirdAirState()
@@ -502,10 +493,6 @@ class BirdAirSettings : RidingBehaviourSettings {
     var infiniteStamina: Expression = "false".asExpression()
         private set
 
-    var rideSound: ResourceLocation = "ride.loop.leather".asIdentifierDefaultingNamespace()
-    var volumeExpr: Expression = "math.pow(math.min(q.velocity() / 1.5, 1.0),2)".asExpression()
-    var pitchExpr: Expression = "math.max(1.0 ,0.2 + math.pow(math.min(q.velocity() / 1.5, 1.0),2))".asExpression()
-
     //max y level for the ride
     var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'AIR', 200.0, 128.0)".asExpression()
     var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 135.0, 45.0)".asExpression()
@@ -516,9 +503,11 @@ class BirdAirSettings : RidingBehaviourSettings {
     var glidespeedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', 2.0, 1.0)".asExpression()
         private set
 
+    var rideSounds: RideSoundSettingsList = RideSoundSettingsList()
+
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeResourceLocation(key)
-        buffer.writeResourceLocation(rideSound)
+        rideSounds.encode(buffer)
         buffer.writeExpression(infiniteAltitude)
         buffer.writeExpression(infiniteStamina)
         buffer.writeExpression(glidespeedExpr)
@@ -530,7 +519,7 @@ class BirdAirSettings : RidingBehaviourSettings {
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
-        rideSound = buffer.readResourceLocation()
+        rideSounds = RideSoundSettingsList.decode(buffer)
         infiniteAltitude = buffer.readExpression()
         infiniteStamina = buffer.readExpression()
         glidespeedExpr = buffer.readExpression()

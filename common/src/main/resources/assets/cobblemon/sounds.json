@@ -1146,7 +1146,8 @@
       {
         "name": "cobblemon:ride/loop/plumage_flight_loop",
         "stream": true,
-        "attenuation_distance": 48.0
+        "attenuation_distance": 48.0,
+        "volume": 0.25
       }
     ]
   },

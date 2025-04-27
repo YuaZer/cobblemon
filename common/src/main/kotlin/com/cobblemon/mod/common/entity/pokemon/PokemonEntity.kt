@@ -50,6 +50,7 @@ import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourState
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviours
 import com.cobblemon.mod.common.api.riding.events.SelectDriverEvent
 import com.cobblemon.mod.common.api.riding.sound.RideLoopSound
+import com.cobblemon.mod.common.api.riding.sound.RideSoundManager
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.api.riding.util.RidingAnimationData
 import com.cobblemon.mod.common.api.scheduling.Schedulable
@@ -120,7 +121,6 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerEntity
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.tags.FluidTags
@@ -257,8 +257,8 @@ open class PokemonEntity(
 
     var enablePoseTypeRecalculation = true
 
-    val ridingAnimationData: RidingAnimationData = RidingAnimationData()
-    var rideSound: RideLoopSound? = null
+    val ridingAnimationData: RidingAnimationData = RidingAnimationData(this)
+    var rideSoundManager: RideSoundManager = RideSoundManager(this)
 
     var previousRidingState: RidingBehaviourState? = null
     var ridingState: RidingBehaviourState? = null
@@ -273,7 +273,7 @@ open class PokemonEntity(
             .withQueryValue("entity", struct)
             .also {
                 it.environment.query.addFunction("passenger_count") { DoubleValue(passengers.size.toDouble()) }
-                it.environment.query.addFunction("velocity") { DoubleValue(getVelocity().length()) }
+                it.environment.query.addFunction("ride_velocity") { DoubleValue(getRideVelocity().length()) }
                 it.environment.query.addFunction("get_ride_stats") { params ->
                     val rideStat = RidingStat.valueOf(params.getString(0).uppercase())
                     val rideStyle = RidingStyle.valueOf(params.getString(1).uppercase())
@@ -492,27 +492,10 @@ open class PokemonEntity(
 
         super.tick()
 
+        // Update ride Specific data
         if (level().isClientSide) {
-            if (passengers.isNotEmpty()) {
-
-                if (rideSound == null || rideSound!!.isStopped) {
-                    //rideSound = RideLoopSound(this, CobblemonSounds.RIDE_LOOP_LEATHER)
-                    rideSound = ifRidingAvailableSupply(null) { behaviour, settings, state ->
-                        behaviour.createRideLoopSound(settings, state, this)
-                    }
-                    //level().playLocalSound(x, y, z, CobblemonSounds.RIDE_LOOP_LEATHER, SoundSource.NEUTRAL, 1f, 1f, false)
-                    //rideSound = RideLoopSound(this, SoundEvents.ELYTRA_FLYING)
-                    rideSound?.let {
-                        Minecraft.getInstance().soundManager.play(it)
-                    }
-
-                }
-
-                ridingAnimationData.update(this)
-            } else {
-                rideSound?.stopSound()
-                rideSound = null
-            }
+            rideSoundManager.tick()
+            ridingAnimationData.update()
         }
 
         flyDistO = flyDist
@@ -583,7 +566,7 @@ open class PokemonEntity(
         schedulingTracker.update(1 / 20F)
     }
 
-    fun getVelocity(): Vec3 {
+    fun getRideVelocity(): Vec3 {
         return this.ridingAnimationData.velocitySpring.value
         //return this.position().subtract(prevPosition)
     }

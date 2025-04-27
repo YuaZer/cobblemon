@@ -25,19 +25,28 @@ public abstract class ChannelMixin implements ChannelDuck {
 
     @Override
     public void cobblemon$applyLowPassFilter(float gain, float hfGain) {
-        if (cobblemon$lowPassFilterId == 0) {
-            // Create the filter once
-            cobblemon$lowPassFilterId = EXTEfx.alGenFilters();
-            if (!EXTEfx.alIsFilter(cobblemon$lowPassFilterId)) {
-                System.err.println("Failed to create OpenAL low-pass filter");
-                return;
-            }
-            AL10.alSourcei(source, EXTEfx.AL_DIRECT_FILTER, cobblemon$lowPassFilterId);
+        // Delete old filter if it exists
+        if (cobblemon$lowPassFilterId != 0) {
+            AL10.alSourcei(source, EXTEfx.AL_DIRECT_FILTER, 0); // Detach filter from source
+            EXTEfx.alDeleteFilters(cobblemon$lowPassFilterId);  // Delete old filter
+            cobblemon$lowPassFilterId = 0;
         }
 
-        // Always update the filter params, every tick if necessary
-        EXTEfx.alFilterf(cobblemon$lowPassFilterId, EXTEfx.AL_LOWPASS_GAIN, gain);
-        EXTEfx.alFilterf(cobblemon$lowPassFilterId, EXTEfx.AL_LOWPASS_GAINHF, hfGain);
+        // Generate a fresh filter
+        int filterId = EXTEfx.alGenFilters();
+        if (!EXTEfx.alIsFilter(filterId)) {
+            System.err.println("Failed to create OpenAL low-pass filter");
+            return;
+        }
+
+        EXTEfx.alFilteri(filterId, EXTEfx.AL_FILTER_TYPE, EXTEfx.AL_FILTER_LOWPASS);
+        EXTEfx.alFilterf(filterId, EXTEfx.AL_LOWPASS_GAIN, gain);
+        EXTEfx.alFilterf(filterId, EXTEfx.AL_LOWPASS_GAINHF, hfGain);
+
+        AL10.alSourcei(source, EXTEfx.AL_DIRECT_FILTER, filterId);
+
+        // Save the new filter ID
+        cobblemon$lowPassFilterId = filterId;
     }
 
     @Override
@@ -49,15 +58,4 @@ public abstract class ChannelMixin implements ChannelDuck {
             cobblemon$lowPassFilterId = 0;
         }
     }
-
-//    @Override
-//    public void cobblemon$exponentialAttenuation(float rolloff, float refDistance, float maxDistance) {
-//        AL10.alSourcei(this.source, AL10.AL_DISTANCE_MODEL, 53251);
-//        AL10.alSourcef(source, AL10.AL_ROLLOFF_FACTOR, rolloff);
-//        AL10.alSourcef(source, AL10.AL_REFERENCE_DISTANCE, 0.0F);
-//        AL10.alSourcef(source, AL10.AL_MAX_DISTANCE, maxDistance);
-//    }
-
-
-
 }
