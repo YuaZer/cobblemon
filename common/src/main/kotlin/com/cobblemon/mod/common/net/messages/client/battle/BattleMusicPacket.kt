@@ -40,7 +40,7 @@ class BattleMusicPacket(var music : ResourceLocation? = null, var volume: Float 
     override val id = ID
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
-        music?.let { buffer.writeIdentifier(it.location) } ?: buffer.writeIdentifier("".asIdentifierDefaultingNamespace())
+        music?.let { buffer.writeIdentifier(it) } ?: buffer.writeIdentifier("".asIdentifierDefaultingNamespace())
         buffer.writeFloat(volume)
         buffer.writeFloat(pitch)
     }
