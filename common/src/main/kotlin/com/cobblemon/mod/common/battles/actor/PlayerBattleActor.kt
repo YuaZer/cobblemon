@@ -42,7 +42,7 @@ class PlayerBattleActor(
     /** The [SoundEvent] to play to the player during a battle. Will start playing as soon as the battle starts. */
     var battleTheme: SoundEvent? = null
         set(value) {
-            if (this.isInitialized() && this.battle.started) this.sendUpdate(BattleMusicPacket(value))
+            if (this.isInitialized() && this.battle.started) this.sendUpdate(BattleMusicPacket(value?.location))
             field = value
         }
 
