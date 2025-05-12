@@ -50,6 +50,14 @@ public abstract class ChannelMixin implements ChannelDuck {
     }
 
     @Override
+    public void cobblemon$inverseAttenuation(float rolloffFactor) {
+        AL10.alSourcei(source, AL10.AL_DISTANCE_MODEL, AL10.AL_INVERSE_DISTANCE);
+        AL10.alSourcef(source, AL10.AL_ROLLOFF_FACTOR,    rolloffFactor);
+        AL10.alSourcef(source, AL10.AL_REFERENCE_DISTANCE, 1.0f);
+        AL10.alSourcef(source, AL10.AL_MAX_DISTANCE,       0.0f);
+    }
+
+    @Override
     public void cobblemon$clearFilters() {
         AL10.alSourcei(source, EXTEfx.AL_DIRECT_FILTER, 0);
 

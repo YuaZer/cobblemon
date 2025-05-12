@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.mixin;
 
+import com.cobblemon.mod.common.api.riding.sound.RideAttenuationModel;
 import com.cobblemon.mod.common.api.riding.sound.RideLoopSound;
 import com.cobblemon.mod.common.client.sound.BattleMusicController;
 import com.cobblemon.mod.common.duck.ChannelDuck;
@@ -81,8 +82,10 @@ public abstract class SoundEngineMixin implements SoundEngineDuck {
             channel.setPitch(i);
             channel.setVolume(h);
 
-            if (sound.getAttenuation() == SoundInstance.Attenuation.LINEAR) {
+            if (rideSound.getRideAttenuation() == RideAttenuationModel.LINEAR) {
                 channel.linearAttenuation(g);
+            } else if (rideSound.getRideAttenuation() == RideAttenuationModel.EXPONENTIAL){
+                ((ChannelDuck) channel).cobblemon$inverseAttenuation(g);
             } else {
                 channel.disableAttenuation();
             }

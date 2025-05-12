@@ -10,6 +10,7 @@ package com.cobblemon.mod.common.duck;
 
 public interface ChannelDuck {
     void cobblemon$applyLowPassFilter(float gain, float hfGain);
+    void cobblemon$inverseAttenuation(float rolloffFactor);
     void cobblemon$clearFilters();
 
 //    void cobblemon$exponentialAttenuation(float rolloff, float refDistance, float maxDistance);

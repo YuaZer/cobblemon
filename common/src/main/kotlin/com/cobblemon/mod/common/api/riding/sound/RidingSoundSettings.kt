@@ -18,8 +18,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.resources.ResourceLocation;
 
 /**
- * Class to store data for sounds played during riding.
- * The ride key
+ * Class to store data for looping sounds played during riding.
  *
  * @author Jackowes
  * @since April 26th, 2025
@@ -28,8 +27,9 @@ data class RideSoundSettings(
     val soundLocation: ResourceLocation,
     val volumeExpr: Expression = "1.0".asExpression(),
     val pitchExpr: Expression = "1.0".asExpression(),
-    val playForNonPassengers: Boolean = true,
-    val muffleEnabled: Boolean = true
+    val playForNonPassengers: Boolean = false,
+    val muffleEnabled: Boolean = false,
+    val attenuationModel: RideAttenuationModel = RideAttenuationModel.NONE
 ): Encodable {
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
@@ -46,15 +46,17 @@ data class RideSoundSettings(
             // Try to read if available, fallback to default otherwise
             val volumeExpr = if (buffer.isReadable) buffer.readExpression() else "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)".asExpression()
             val pitchExpr = if (buffer.isReadable) buffer.readExpression() else "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))".asExpression()
-            val playForNonPassengers = if (buffer.isReadable) buffer.readBoolean() else true
-            val muffleEnabled = if (buffer.isReadable) buffer.readBoolean() else true
+            val playForNonPassengers = if (buffer.isReadable) buffer.readBoolean() else false
+            val muffleEnabled = if (buffer.isReadable) buffer.readBoolean() else false
+            val attenuationModel = RideAttenuationModel.EXPONENTIAL
 
             return RideSoundSettings(
                 buffer.readResourceLocation(),
                 volumeExpr,
                 pitchExpr,
                 playForNonPassengers,
-                muffleEnabled
+                muffleEnabled,
+                attenuationModel
             )
         }
     }

@@ -41,6 +41,7 @@ class RideLoopSound(val ride: PokemonEntity, val soundSettings: RideSoundSetting
     var shouldStop: Boolean = false
     var fade: Float = 0.0f
     var shouldMuffle: Boolean = soundSettings.muffleEnabled
+    var rideAttenuation: RideAttenuationModel = soundSettings.attenuationModel
     var muffleAmount: Float = 1.0f // Currently slightly misleading. 1.0 is on muffle and 0.0 is full hFgain muting
     // TODO: revisit below flag once multi passenger support is enabled
     var isPassenger: Boolean = Minecraft.getInstance().player?.id == ride.controllingPassenger?.id
@@ -71,8 +72,10 @@ class RideLoopSound(val ride: PokemonEntity, val soundSettings: RideSoundSetting
         if (!this.isPassenger && this.soundSettings.playForNonPassengers) {
             this.setPos()
 
+            // This should now be done fully through openal. Add to RideAttneuationModel and the
+            // ChannelMixin to expand on the attenuation models.
             // Attenuate due to distance
-            this.volume *= attenuation()
+            // this.volume *= attenuation()
 
             // Calculate influence due to the doppler effect
             this.pitch *= calcDopplerInfluence().toFloat()
@@ -166,13 +169,13 @@ class RideLoopSound(val ride: PokemonEntity, val soundSettings: RideSoundSetting
         return totalMuffle.toFloat()
     }
 
-    fun attenuation(): Float {
-        val listener = Minecraft.getInstance().player ?: return 1.0f
-        val soundDistance = (ride.position().subtract(listener.eyePosition)).length()
-        val maxAttenDistance = this.sound.attenuationDistance
-
-        return (1 - (soundDistance / maxAttenDistance).pow(2)).toFloat()
-    }
+//    fun attenuation(): Float {
+//        val listener = Minecraft.getInstance().player ?: return 1.0f
+//        val soundDistance = (ride.position().subtract(listener.eyePosition)).length()
+//        val maxAttenDistance = this.sound.attenuationDistance
+//
+//        return (1 - (soundDistance / maxAttenDistance).pow(2)).toFloat()
+//    }
 
     fun setPos() {
         this.x = ride.x
