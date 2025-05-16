@@ -27,8 +27,16 @@ import org.joml.Vector3f
  * @author landonjw
  */
 object MountedPlayerRenderer {
+    @JvmField
+    var shouldApplyRootAnimation = false
+
+    @JvmField
+    val relevantPartsByName = mutableMapOf(
+        "body" to ModelPart(emptyList(), emptyMap()),
+    )
+
     fun render(player: AbstractClientPlayer, entity: PokemonEntity, stack: PoseStack, bob: Float, yBodyRot: Float, partialTicks: Float, i: Float) {
-        if(player.vehicle !is Rideable) return
+        if (player.vehicle !is Rideable) return
         val matrix = stack.last().pose()
 
         val seatIndex = entity.passengers.indexOf(player)
@@ -36,11 +44,11 @@ object MountedPlayerRenderer {
         val delegate = entity.delegate as PokemonClientDelegate
         val locator = delegate.locatorStates[seat.locator]
 
-        //Positions player
+        // Positions player
         if (locator != null) {
             MountedPokemonAnimationRenderController.setup(entity, partialTicks)
 
-            //Undo seat position
+            // Undo seat position
             val playerPos = Vec3(
                 Mth.lerp(partialTicks.toDouble(), player.xOld, player.x),
                 Mth.lerp(partialTicks.toDouble(), player.yOld, player.y),
@@ -61,7 +69,6 @@ object MountedPlayerRenderer {
             matrix.rotate(locator.matrix.getRotation(AxisAngle4f()))
             matrix.rotate(Axis.YP.rotationDegrees(180 + yBodyRot))
             matrix.translate(offset)
-
             matrix.translate(Vector3f(0f, 0.35f, 0f))
         }
     }
@@ -69,13 +76,21 @@ object MountedPlayerRenderer {
     fun animate(
         pokemonEntity: PokemonEntity,
         player: AbstractClientPlayer,
-        relevantPartsByName: Map<String, ModelPart>,
         headYaw: Float,
         headPitch: Float,
         ageInTicks: Float,
         limbSwing: Float,
         limbSwingAmount: Float
     ) {
+        // We need to reset the root because it's a synthetic part, Minecraft won't do this for us.
+        val root = relevantPartsByName["body"] ?: return
+        root.x = 0F
+        root.y = 0F
+        root.z = 0F
+        root.xRot = 0F
+        root.yRot = 0F
+        root.zRot = 0F
+
         val seatIndex = pokemonEntity.passengers.indexOf(player).takeIf { it != -1 && it < pokemonEntity.seats.size } ?: return
         val seat = pokemonEntity.seats[seatIndex]
         val animations = seat.poseAnimations.firstOrNull { it.poseTypes.isEmpty() || it.poseTypes.contains(pokemonEntity.getCurrentPoseType()) }?.animations
@@ -108,5 +123,15 @@ object MountedPlayerRenderer {
                 intensity = 1F
             )
         }
+    }
+
+    fun animateRoot(stack: PoseStack) {
+        val root = relevantPartsByName["body"] ?: return
+        val rootOffset = Vec3(root.x.toDouble() / 24F, root.y.toDouble() / 24F, root.z.toDouble() / 24F)
+        val rotation = Vec3(root.xRot.toDouble(), root.yRot.toDouble(), root.zRot.toDouble())
+        stack.mulPose(Axis.ZP.rotation(rotation.z.toFloat()))
+        stack.mulPose(Axis.YP.rotation(rotation.y.toFloat()))
+        stack.mulPose(Axis.XP.rotation(rotation.x.toFloat()))
+        stack.translate(rootOffset.x.toFloat(), rootOffset.y.toFloat(), rootOffset.z.toFloat())
     }
 }
