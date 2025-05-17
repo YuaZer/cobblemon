@@ -43,16 +43,92 @@
   "catchRate": 90,
   "eggCycles": 25,
   "baseFriendship": 50,
-  "baseScale": 1.65,
+  "baseScale": 1.0,
   "hitbox": {
     "width": 1.4,
     "height": 3.5,
     "fixed": false
   },
+  "riding": {
+    "stats": {
+      "SPEED": {
+        "displayName": "Speed",
+        "description": "Its top speed",
+        "ranges": {
+          "LAND": "50-100",
+          "AIR": "50-100"
+        }
+      },
+      "ACCELERATION": {
+        "displayName": "Acceleration",
+        "description": "How fast it can speed up",
+        "ranges": {
+          "LAND": "50-100",
+          "AIR": "50-100"
+        }
+      },
+      "SKILL": {
+        "displayName": "Handling",
+        "description": "How fast it can turn",
+        "ranges": {
+          "LAND": "50-100",
+          "AIR": "50-100"
+        }
+      },
+      "JUMP": {
+        "displayName": "Altitude",
+        "description": "How high it can fly",
+        "ranges": {
+          "LAND": "50-100",
+          "AIR": "50-100"
+        }
+      },
+      "STAMINA": {
+        "displayName": "Fuel/Stamina",
+        "description": "How long it can stay off the ground",
+        "ranges": {
+          "LAND": "50-100",
+          "AIR": "50-100"
+        }
+      }
+    },
+    "behaviour": {
+      "key": "cobblemon:composite",
+      "transitionStrategy": "cobblemon:strategy/jump",
+      "defaultBehaviour": {
+        "key": "cobblemon:land/generic",
+        "canJump": "canJump"
+      },
+      "alternateBehaviour": {
+        "key": "cobblemon:air/rocket"
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0,
+          "y": 0.4,
+          "z": 0
+        },
+        "poseOffsets": [
+          {
+            "poseTypes": [
+              "FLY"
+            ],
+            "offset": {
+              "x": 0,
+              "y": 0.0,
+              "z": 0
+            }
+          }
+        ]
+      }
+    ]
+  },
   "behaviour": {
     "moving": {
       "walk": {
-        "walkSpeed": 0.25
+        "walkSpeed": 0.35
       },
       "swim": {
         "avoidsWater": true,

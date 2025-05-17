@@ -129,7 +129,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer implements O
                 super.pick(hitDistance, partialTicks, hitFluids);
             }
 
-            Vec3 locatorOffset = new Vec3(locator.getMatrix().getTranslation(new Vector3f()));
+            Vec3 locatorOffset = locator != null ? new Vec3(locator.getMatrix().getTranslation(new Vector3f())) : Vec3.ZERO;
 
             OrientationController controller = this.getOrientationController();
 

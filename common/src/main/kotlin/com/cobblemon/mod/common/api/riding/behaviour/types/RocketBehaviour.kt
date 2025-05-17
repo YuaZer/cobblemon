@@ -16,39 +16,43 @@ import com.cobblemon.mod.common.api.riding.posing.PoseProvider
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
-import net.minecraft.core.Direction
+import com.cobblemon.mod.common.util.math.geometry.toRadians
+import net.fabricmc.loader.impl.lib.sat4j.core.Vec
+import net.minecraft.client.Minecraft
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import net.minecraft.util.SmoothDouble
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec2
 import net.minecraft.world.phys.Vec3
 import net.minecraft.world.phys.shapes.Shapes
+import org.joml.Matrix3f
+import org.joml.Vector3f
 import kotlin.math.*
 
-class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandState> {
+class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
     companion object {
-        val KEY = cobblemonResource("land/generic")
+        val KEY = cobblemonResource("air/rocket")
     }
 
     override val key = KEY
 
-    override fun getRidingStyle(settings: GenericLandSettings, state: GenericLandState): RidingStyle {
-        return RidingStyle.LAND
+    override fun getRidingStyle(settings: RocketSettings, state: RocketState): RidingStyle {
+        return RidingStyle.AIR
     }
 
-    val poseProvider = PoseProvider<GenericLandSettings, GenericLandState>(PoseType.STAND)
-        .with(PoseOption(PoseType.WALK) { _, state, _ ->
-            return@PoseOption abs(state.rideVelocity.get().z) > 0.0
+    val poseProvider = PoseProvider<RocketSettings, RocketState>(PoseType.HOVER)
+        .with(PoseOption(PoseType.FLY) { _, state, _ ->
+            return@PoseOption state.boosting.get()
         })
 
     override fun isActive(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity
     ): Boolean {
         return Shapes.create(vehicle.boundingBox).blockPositionsAsListRounded().any {
@@ -66,44 +70,30 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
     }
 
     override fun pose(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity
     ): PoseType {
         return this.poseProvider.select(settings, state, vehicle)
     }
 
     override fun speed(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity,
         driver: Player
     ): Float {
-
-        // Use this as a "tick" function and calculate sprinting and inAir state here
-        state.sprinting.set(driver.isSprinting)
-
-        // Check both vertical movement and if there are blocks below.
-        val posBelow = vehicle.blockPosition().below()
-        val blockStateBelow = vehicle.level().getBlockState(posBelow)
-        val isAirOrLiquid = blockStateBelow.isAir || !blockStateBelow.fluidState.isEmpty
-
-        val canSupportEntity = blockStateBelow.isFaceSturdy(vehicle.level(), posBelow, Direction.UP)
-        val standingOnSolid = canSupportEntity && !isAirOrLiquid
-
-//        val level = vehicle.level()
-//        val toesBox = vehicle.boundingBox.move(0.0, -0.1, 0.0)
-
-        // inAir if not on the ground
-        val inAir = !(vehicle.deltaMovement.y == 0.0 || standingOnSolid)
-        state.inAir.set(inAir)
+        // Use this as a "tick" function and check to see if the driver is "boosting"
+        if(vehicle.level().isClientSide) {
+            state.boosting.set(Minecraft.getInstance().options.keySprint.isDown())
+        }
 
         return state.rideVelocity.get().length().toFloat()
     }
 
     override fun updatePassengerRotation(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity,
         driver: LivingEntity
     ) {
@@ -128,8 +118,8 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
     }
 
     override fun clampPassengerRotation(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity,
         driver: LivingEntity
     ) {
@@ -143,14 +133,14 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
 
 
     override fun rotation(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity,
         driver: LivingEntity
     ): Vec2 {
-        val turnAmount =  calcRotAmount(settings, state, vehicle, driver)
+        val turnAmount =  driver.xxa *-5 //calcRotAmount(settings, state, vehicle, driver)
 
-        return Vec2(vehicle.xRot, vehicle.yRot + turnAmount )
+        return Vec2(driver.xRot, vehicle.yRot + turnAmount )
 
     }
 
@@ -161,17 +151,14 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
    *  without it being instant.
    */
     fun calcRotAmount(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity,
         driver: LivingEntity
     ): Float {
         val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
-
         //In degrees per second
-        val walkHandling = 140.0 * 2
-        val handling = vehicle.runtime.resolveDouble(settings.handlingExpr) * 2
-
+        val handling = 220.0
         val maxYawDiff = 90.0f
 
         //Normalize the current rotation diff
@@ -186,8 +173,7 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
         //Take the inverse so that you turn less at higher speeds
         val normSpeed = 1.0f // = 1.0f - 0.5f*normalizeVal(state.rideVelocityocity.length(), 0.0, topSpeed).toFloat()
 
-        // TurnRate should always be quick if not sprinting
-        val turnRate = if(state.sprinting.get()) (handling.toFloat() / 20.0f) else (walkHandling.toFloat() / 20.0f)
+        val turnRate = (handling.toFloat() / 20.0f)
 
         //Ensure you only ever rotate as much difference as there is between the angles.
         val turnSpeed = turnRate  * rotDiffMod * normSpeed
@@ -196,44 +182,47 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
         return rotAmount
     }
 
-
     override fun velocity(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity,
         driver: Player,
         input: Vec3
     ): Vec3 {
-            state.rideVelocity.set(calculateRideSpaceVel(settings, state, vehicle, driver))
-            return state.rideVelocity.get()
+        val retVel = calculateRideSpaceVel(settings, state, vehicle, driver)
+        //state.rideVelocity.set(retVel)
+        return retVel
     }
 
     private fun calculateRideSpaceVel(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity,
         driver: Player
     ): Vec3 {
-
-        // Check to see if the ride should be walking or sprinting
-        val walkSpeed = getWalkSpeed(vehicle)
-        val rideTopSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
-        val topSpeed = if(state.sprinting.get()) rideTopSpeed else walkSpeed
-
+        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
         val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr)
+        val speed = vehicle.deltaMovement.length()
 
         //Flag for determining if player is actively inputting
         var activeInput = false
 
-        var newVelocity = Vec3(state.rideVelocity.get().x, state.rideVelocity.get().y, state.rideVelocity.get().z)
+        val minSpeed = 0.0
+
+        var newVelocity = vehicle.deltaMovement
+
+        val yawAligned = Matrix3f().rotateY(vehicle.yRot.toRadians())
+        newVelocity = (newVelocity.toVector3f().mul(yawAligned)).toVec3d()
+
+        //air Resistance
+        //newVelocity = newVelocity.lerp(Vec3.ZERO,(((topSpeed - speed) / topSpeed))*0.001)
 
 
         //speed up and slow down based on input
-        if (driver.zza != 0.0f && state.stamina.get() > 0.0) {
+        if (driver.zza != 0.0f && state.stamina.get() > 0.0 && !state.boosting.get()) {
             //make sure it can't exceed top speed
             val forwardInput = when {
-                driver.zza > 0 && newVelocity.z > topSpeed -> 0.0
-                driver.zza < 0 && newVelocity.z < (-topSpeed / 3.0) -> 0.0
+                vehicle.deltaMovement.horizontalDistance() > topSpeed && (driver.zza.sign == newVelocity.z.sign.toFloat()) -> 0.0
                 else -> driver.zza.sign
             }
 
@@ -242,35 +231,37 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
                 newVelocity.y,
                 (newVelocity.z + (accel * forwardInput.toDouble())))
 
-            activeInput = true
+        } else if ((driver.zza != 0.0f && state.stamina.get() > 0.0 && state.boosting.get())) {
+            val boostSpeed = topSpeed * 3
+            val boostAccel = accel * 3
+            val forwardInput = when {
+                vehicle.deltaMovement.horizontalDistance() > boostSpeed && (driver.zza.sign == newVelocity.z.sign.toFloat()) -> 0.0
+                else -> driver.zza.sign
+            }
+
+            newVelocity = Vec3(
+                newVelocity.x,
+                newVelocity.y,
+                (newVelocity.z + (boostAccel * forwardInput.toDouble())))
         }
 
-        //Gravity logic
-        if (vehicle.onGround()) {
-            newVelocity = Vec3(newVelocity.x, 0.0, newVelocity.z)
+        //Vertical movement based on driver input.
+        val maxVertSpeed = 0.5f
+        var vertInput = 0.0
+        if (driver.jumping && !(vehicle.deltaMovement.y > maxVertSpeed && (newVelocity.y.sign.toFloat() > 0.0))) {
+            vertInput = 1.0
+
+            // Reset falldistance if upward motion is detected
+            vehicle.resetFallDistance()
         } else {
-            val gravity = (9.8 / ( 20.0)) * 0.2
-            val terminalVel = 2.0
-
-            val fallingForce = gravity -  ( newVelocity.z.sign *gravity *(abs(newVelocity.z) / 2.0))
-            newVelocity = Vec3(newVelocity.x, max(newVelocity.y - fallingForce, -terminalVel), newVelocity.z)
+            vertInput = -1.0
         }
 
-        //ground Friction
-        if( (newVelocity.horizontalDistance() > 0 && vehicle.onGround() && !activeInput) || newVelocity.horizontalDistance() > topSpeed) {
-            newVelocity = newVelocity.subtract(0.0, 0.0, min(0.03 * newVelocity.z.sign, newVelocity.z))
-        }
-
-        val canJump = vehicle.runtime.resolveBoolean(settings.canJump)
-        //Jump the thang!
-        if (driver.jumping && vehicle.onGround() && canJump) {
-            val jumpForce = 1.0
-            val horz = state.rideVelocity.get().horizontalDistance()
-            newVelocity = newVelocity.add(0.0, jumpForce, 0.0)
-
-            //Ensure this doesn't add unwanted forward velocity
-            //val mag = if(newVelocity.length() < rideTopSpeed) newVelocity.length() else rideTopSpeed
-            //newVelocity = newVelocity.normalize().scale(mag)
+        if (state.stamina.get() > 0.0) {
+            newVelocity = Vec3(
+                newVelocity.x,
+                (newVelocity.y + (accel * vertInput)), //.coerceIn(-vertTopSpeed, vertTopSpeed),
+                newVelocity.z)
         }
 
         return newVelocity
@@ -285,17 +276,9 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
         return ((currSpeed - minSpeed) / (maxSpeed - minSpeed)).coerceIn(0.0, 1.0)
     }
 
-    private fun getWalkSpeed( vehicle: PokemonEntity ): Double {
-        val walkspeed = vehicle.runtime.resolveDouble(vehicle.behaviour.moving.walk.walkSpeed)
-        val movementSpeed = vehicle.attributes.getValue(Attributes.MOVEMENT_SPEED)
-        val speedModifier = 1.2 * 0.35
-        return walkspeed * movementSpeed * speedModifier
-
-    }
-
     override fun angRollVel(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity,
         driver: Player,
         deltaTime: Double
@@ -304,8 +287,8 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
     }
 
     override fun rotationOnMouseXY(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity,
         driver: Player,
         mouseY: Double,
@@ -325,8 +308,8 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
     }
 
     override fun canJump(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity,
         driver: Player
     ): Boolean {
@@ -334,18 +317,18 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
     }
 
     override fun setRideBar(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity,
         driver: Player
     ): Float {
-        //Retrieve stamina from state and tick up at a rate of 0.1 a second
+        //Retrieve stamina from state and use it to set the "stamina bar"
         return (state.stamina.get() / 1.0f)
     }
 
     override fun jumpForce(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity,
         driver: Player,
         jumpStrength: Int
@@ -354,8 +337,8 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
     }
 
     override fun gravity(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity,
         regularGravity: Double
     ): Double {
@@ -363,8 +346,8 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
     }
 
     override fun rideFovMultiplier(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity,
         driver: Player
     ): Float {
@@ -372,100 +355,93 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
     }
 
     override fun useAngVelSmoothing(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity
     ): Boolean {
         return false
     }
 
     override fun useRidingAltPose(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity,
         driver: Player
     ): ResourceLocation {
-        when {
-            state.inAir.get() -> cobblemonResource("in_air")
-            state.sprinting.get() -> return cobblemonResource("sprinting")
-        }
         return cobblemonResource("no_pose")
     }
 
     override fun inertia(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity
     ): Double {
-            return 1.0
+        return 1.0
     }
 
     override fun shouldRoll(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity
     ): Boolean {
         return false
     }
 
     override fun turnOffOnGround(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity
     ): Boolean {
         return false
     }
 
     override fun dismountOnShift(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity
     ): Boolean {
         return false
     }
 
     override fun shouldRotatePokemonHead(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity
     ): Boolean {
         return false
     }
 
     override fun shouldRotatePlayerHead(
-        settings: GenericLandSettings,
-        state: GenericLandState,
+        settings: RocketSettings,
+        state: RocketState,
         vehicle: PokemonEntity
     ): Boolean {
-        return true
+        return false
     }
 
-    override fun createDefaultState(settings: GenericLandSettings) = GenericLandState()
+    override fun createDefaultState(settings: RocketSettings) = RocketState()
 }
 
-class GenericLandSettings : RidingBehaviourSettings {
-    override val key = GenericLandBehaviour.KEY
+class RocketSettings : RidingBehaviourSettings {
+    override val key = RocketBehaviour.KEY
 
-    var canJump = "true".asExpression()
-        private set
-
-    var speedExpr: Expression = "q.get_ride_stats('SPEED', 'LAND', 1.0, 0.3)".asExpression()
+    var speedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', 0.65, 0.3)".asExpression()
         private set
 
     // Max accel is a whole 1.0 in 1 second. The conversion in the function below is to convert seconds to ticks
     var accelerationExpr: Expression =
-        "q.get_ride_stats('ACCELERATION', 'LAND', (1.0 / (20.0 * 1.5)), (1.0 / (20.0 * 5.0)))".asExpression()
+        "q.get_ride_stats('ACCELERATION', 'AIR', (1.0 / (20.0 * 1.5)), (1.0 / (20.0 * 3.0)))".asExpression()
         private set
 
     // Between 30 seconds and 10 seconds at the lowest when at full speed.
-    var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'LAND', 30.0, 10.0)".asExpression()
+    var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'AIR', 30.0, 10.0)".asExpression()
         private set
 
     //Between a one block jump and a ten block jump
-    var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'LAND', 10.0, 1.0)".asExpression()
+    var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'AIR', 10.0, 1.0)".asExpression()
         private set
 
-    var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'LAND', 140.0, 20.0)".asExpression()
+    var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 140.0, 20.0)".asExpression()
         private set
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
@@ -484,41 +460,36 @@ class GenericLandSettings : RidingBehaviourSettings {
         jumpExpr = buffer.readExpression()
         handlingExpr = buffer.readExpression()
     }
+
 }
 
-class GenericLandState : RidingBehaviourState() {
-    var sprinting = ridingState(false, Side.CLIENT)
-    var inAir = ridingState(false, Side.CLIENT)
+class RocketState : RidingBehaviourState() {
+    var boosting = ridingState(false, Side.BOTH)
+
+    override fun reset() {
+        super.reset()
+        boosting.set(false, forced = true)
+    }
+
+    override fun copy() = RocketState().also {
+        it.rideVelocity.set(this.rideVelocity.get(), forced = true)
+        it.stamina.set(this.stamina.get(), forced = true)
+        it.boosting.set(this.boosting.get(), forced = true)
+    }
 
     override fun encode(buffer: FriendlyByteBuf) {
         super.encode(buffer)
-        buffer.writeBoolean(sprinting.get())
-        buffer.writeBoolean(inAir.get())
+        buffer.writeBoolean(boosting.get())
     }
 
     override fun decode(buffer: FriendlyByteBuf) {
         super.decode(buffer)
-        sprinting.set(buffer.readBoolean(), forced = true)
-        inAir.set(buffer.readBoolean(), forced = true)
-    }
-
-    override fun reset() {
-        super.reset()
-        sprinting.set(false, forced = true)
-        inAir.set(false, forced = true)
-    }
-
-    override fun copy() = GenericLandState().also {
-        it.rideVelocity.set(this.rideVelocity.get(), forced = true)
-        it.stamina.set(this.stamina.get(), forced = true)
-        it.sprinting.set(this.sprinting.get(), forced = true)
-        it.inAir.set(this.inAir.get(), forced = true)
+        boosting.set(buffer.readBoolean(), forced = true)
     }
 
     override fun shouldSync(previous: RidingBehaviourState): Boolean {
-        if (previous !is GenericLandState) return false
-        if (previous.sprinting.get() != sprinting.get()) return true
-        if (previous.inAir.get() != inAir.get()) return true
+        if (previous !is RocketState) return false
+        if (previous.boosting.get() != boosting.get()) return true
         return super.shouldSync(previous)
     }
 }
