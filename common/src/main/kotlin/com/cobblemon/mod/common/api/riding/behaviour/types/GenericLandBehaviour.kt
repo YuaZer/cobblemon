@@ -13,6 +13,7 @@ import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
+import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
@@ -440,6 +441,14 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
         return true
     }
 
+    override fun getRideSounds(
+        settings: GenericLandSettings,
+        state: GenericLandState,
+        vehicle: PokemonEntity
+    ): RideSoundSettingsList {
+        return settings.rideSounds
+    }
+
     override fun createDefaultState(settings: GenericLandSettings) = GenericLandState()
 }
 
@@ -468,8 +477,11 @@ class GenericLandSettings : RidingBehaviourSettings {
     var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'LAND', 140.0, 20.0)".asExpression()
         private set
 
+    var rideSounds: RideSoundSettingsList = RideSoundSettingsList()
+
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeResourceLocation(key)
+        rideSounds.encode(buffer)
         buffer.writeExpression(speedExpr)
         buffer.writeExpression(accelerationExpr)
         buffer.writeExpression(staminaExpr)
@@ -478,6 +490,7 @@ class GenericLandSettings : RidingBehaviourSettings {
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
+        rideSounds = RideSoundSettingsList.decode(buffer)
         speedExpr = buffer.readExpression()
         accelerationExpr = buffer.readExpression()
         staminaExpr = buffer.readExpression()

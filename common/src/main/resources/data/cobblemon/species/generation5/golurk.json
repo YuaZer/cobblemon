@@ -100,7 +100,16 @@
         "canJump": "canJump"
       },
       "alternateBehaviour": {
-        "key": "cobblemon:air/rocket"
+        "key": "cobblemon:air/rocket",
+        "rideSounds": [
+          {
+            "soundLocation": "cobblemon:ride.loop.rocket",
+            "volumeExpr": "math.pow(math.min(q.driver_input() / 1.5, 1.0),2)",
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.driver_input() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "muffleEnabled": true
+          }
+        ]
       }
     },
     "seats": [

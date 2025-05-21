@@ -13,6 +13,7 @@ import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
+import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
@@ -85,7 +86,7 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
     ): Float {
         // Use this as a "tick" function and check to see if the driver is "boosting"
         if(vehicle.level().isClientSide) {
-            state.boosting.set(Minecraft.getInstance().options.keySprint.isDown())
+            state.boosting.set( Minecraft.getInstance().options.keySprint.isDown() && Minecraft.getInstance().options.keyUp.isDown() )
         }
 
         return state.rideVelocity.get().length().toFloat()
@@ -200,8 +201,8 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         vehicle: PokemonEntity,
         driver: Player
     ): Vec3 {
-        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
-        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr)
+        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) * 0.5
+        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) * 0.5
         val speed = vehicle.deltaMovement.length()
 
         //Flag for determining if player is actively inputting
@@ -232,8 +233,8 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
                 (newVelocity.z + (accel * forwardInput.toDouble())))
 
         } else if ((driver.zza != 0.0f && state.stamina.get() > 0.0 && state.boosting.get())) {
-            val boostSpeed = topSpeed * 3
-            val boostAccel = accel * 3
+            val boostSpeed = topSpeed * 2
+            val boostAccel = accel * 2
             val forwardInput = when {
                 vehicle.deltaMovement.horizontalDistance() > boostSpeed && (driver.zza.sign == newVelocity.z.sign.toFloat()) -> 0.0
                 else -> driver.zza.sign
@@ -419,6 +420,14 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         return false
     }
 
+    override fun getRideSounds(
+        settings: RocketSettings,
+        state: RocketState,
+        vehicle: PokemonEntity
+    ): RideSoundSettingsList {
+        return settings.rideSounds
+    }
+
     override fun createDefaultState(settings: RocketSettings) = RocketState()
 }
 
@@ -444,8 +453,11 @@ class RocketSettings : RidingBehaviourSettings {
     var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 140.0, 20.0)".asExpression()
         private set
 
+    var rideSounds: RideSoundSettingsList = RideSoundSettingsList()
+
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeResourceLocation(key)
+        rideSounds.encode(buffer)
         buffer.writeExpression(speedExpr)
         buffer.writeExpression(accelerationExpr)
         buffer.writeExpression(staminaExpr)
@@ -454,6 +466,7 @@ class RocketSettings : RidingBehaviourSettings {
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
+        rideSounds = RideSoundSettingsList.decode(buffer)
         speedExpr = buffer.readExpression()
         accelerationExpr = buffer.readExpression()
         staminaExpr = buffer.readExpression()

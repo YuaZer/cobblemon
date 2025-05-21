@@ -56,6 +56,8 @@ import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourState
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviours
 import com.cobblemon.mod.common.api.riding.events.SelectDriverEvent
+import com.cobblemon.mod.common.api.riding.sound.RideLoopSound
+import com.cobblemon.mod.common.api.riding.sound.RideSoundManager
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.api.riding.util.RidingAnimationData
 import com.cobblemon.mod.common.api.scheduling.Schedulable
@@ -113,6 +115,7 @@ import java.util.UUID
 import java.util.concurrent.CompletableFuture
 import kotlin.math.PI
 import kotlin.math.ceil
+import net.minecraft.client.Minecraft
 import net.minecraft.core.BlockPos
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
@@ -163,6 +166,8 @@ import net.minecraft.world.level.material.FluidState
 import net.minecraft.world.level.pathfinder.PathType
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
+import kotlin.math.max
+import kotlin.math.min
 
 @Suppress("unused")
 open class PokemonEntity(
@@ -277,7 +282,8 @@ open class PokemonEntity(
 
     var enablePoseTypeRecalculation = true
 
-    val ridingAnimationData: RidingAnimationData = RidingAnimationData()
+    val ridingAnimationData: RidingAnimationData = RidingAnimationData(this)
+    var rideSoundManager: RideSoundManager = RideSoundManager(this)
 
     var previousRidingState: RidingBehaviourState? = null
     var ridingState: RidingBehaviourState? = null
@@ -292,6 +298,8 @@ open class PokemonEntity(
             .withQueryValue("entity", struct)
             .also {
                 it.environment.query.addFunction("passenger_count") { DoubleValue(passengers.size.toDouble()) }
+                it.environment.query.addFunction("ride_velocity") { DoubleValue(getRideVelocity().length()) }
+                it.environment.query.addFunction("driver_input") { DoubleValue(min(ridingAnimationData.driverInputSpring.value.length(),1.0)) }
                 it.environment.query.addFunction("get_ride_stats") { params ->
                     val rideStat = RidingStat.valueOf(params.getString(0).uppercase())
                     val rideStyle = RidingStyle.valueOf(params.getString(1).uppercase())
@@ -518,8 +526,14 @@ open class PokemonEntity(
         isPokemonFlying = flyDist - flyDistO > 0.005F
         isPokemonWalking = walkDist - walkDistO > 0.005F
 
-        if (passengers.isNotEmpty()) {
-            ridingAnimationData.update(this)
+        entityData.get(MOVING)
+
+        super.tick()
+
+        // Update ride Specific data
+        if (level().isClientSide) {
+            rideSoundManager.tick()
+            ridingAnimationData.update()
         }
 
         flyDistO = flyDist
@@ -594,6 +608,11 @@ open class PokemonEntity(
         this.getBrain().tick(level() as ServerLevel, this)
 //        PokemonBrain.updateActivities(this)
         super.customServerAiStep()
+    }
+
+    fun getRideVelocity(): Vec3 {
+        return this.ridingAnimationData.velocitySpring.value
+        //return this.position().subtract(prevPosition)
     }
 
     fun setMoveControl(moveControl: MoveControl) {
@@ -1588,45 +1607,6 @@ open class PokemonEntity(
         }
     }
 
-    override fun handleRelativeFrictionAndCalculateMovement(deltaMovement: Vec3, friction: Float): Vec3 {
-        val riders = this.passengers.filterIsInstance<LivingEntity>()
-        if (riders.isEmpty() || this.controllingPassenger == null) {
-            super.handleRelativeFrictionAndCalculateMovement(deltaMovement, friction)
-        } else {
-            val velocity = ifRidingAvailableSupply(fallback = Vec3.ZERO) { behaviour, settings, state ->
-                behaviour.velocity(settings, state, this, this.controllingPassenger as Player, deltaMovement)
-            }
-            //Handle ridden pokemon differently to allow vector lerp instead of simple addition.
-            val v = getInputVector(velocity, 1.0f, this.yRot)
-            //changing this will give the ride more or less inertia/handling/drift
-            val inertia = ifRidingAvailableSupply(fallback = 0.5) { behaviour, settings, state ->
-                behaviour.inertia(settings, state,this)
-            }
-
-            // TODO: jackowes look over this so I don't accidentally break anything
-            // TODO: Talk to landon about why this was needed
-            this.deltaMovement = this.deltaMovement.lerp(v, inertia)
-            var pos = this.deltaMovement.scale(this.speed.toDouble())
-            if (super.onGround() && this.deltaMovement.y == 0.0) {
-                pos = pos.subtract(0.0, 0.0001, 0.0)
-            }
-            this.move(MoverType.SELF, pos)
-        }
-
-        return this.deltaMovement
-    }
-
-    /*
-    override fun shouldDiscardFriction(): Boolean {
-        val riders = this.passengers.filterIsInstance<LivingEntity>()
-        if (riders.isEmpty()) {
-            return super.shouldDiscardFriction()
-        } else {
-            return true
-        }
-    }
-     */
-
     override fun travel(movementInput: Vec3) {
         val prevBlockPos = this.blockPosition()
         if (beamMode != 3) { // Don't let Pokémon move during recall
@@ -1984,44 +1964,12 @@ open class PokemonEntity(
                 this.jumpInputStrength = 0
             }
         }
-
-//        val lookAngle: Vec3 = driver.getLookAngle()
-//        if (!driver.isNearGround() || lookAngle.y >= 0.3) {
-//            setBehaviourFlag(PokemonBehaviourFlag.FLYING, true)
-//            entityData.set(POSE_TYPE, PoseType.HOVER)
-//
-//            val deltaMovement = this.deltaMovement
-//            this.setDeltaMovement(
-//                lookAngle.x * 0.1 + (lookAngle.x * 1.5 - deltaMovement.x) * 1,
-//                lookAngle.y * 0.1 + (lookAngle.y * 1.5 - deltaMovement.y) * 1,
-//                lookAngle.z * 0.1 + (lookAngle.z * 1.5 - deltaMovement.z) * 1
-//            )
-//        }
-//        else {
-//            setBehaviourFlag(PokemonBehaviourFlag.FLYING, false)
-//            this.setDeltaMovement(0.0, 0.0, 0.0)
-//        }
     }
 
     fun Entity.isNearGround(): Boolean {
         val blockBelow: BlockPos = this.blockPosition().below()
         return this.level().getBlockState(blockBelow).isSolid
     }
-
-//    override fun jump() {
-////        val vec3d = this.velocity
-////
-////
-////
-////        this.setVelocity(vec3d.x, this.jumpVelocity.toDouble(), vec3d.z)
-////        if (this.isSprinting) {
-////            val f = this.yaw * 0.017453292f
-////            this.velocity =
-////                velocity.add((-MathHelper.sin(f) * 0.2f).toDouble(), 0.0, (MathHelper.cos(f) * 0.2f).toDouble())
-////        }
-////
-////        this.velocityDirty = true
-//    }
 
     override fun onPassengerTurned(entityToUpdate: Entity) {
          if (entityToUpdate !is LivingEntity) return

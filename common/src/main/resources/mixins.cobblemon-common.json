@@ -42,6 +42,7 @@
     "riding.JetMixin"
   ],
   "mixins": [
+    "ChannelMixin",
     "BeeEntityMixin",
     "ChunkStorageMixin",
     "CrashReportMixin",
