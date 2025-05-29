@@ -21,9 +21,12 @@ import com.cobblemon.mod.common.util.asIdentifierDefaultingNamespace
 import com.cobblemon.mod.common.util.cobblemonResource
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.packs.PackType
 import net.minecraft.server.packs.resources.ResourceManager
+import java.io.File
+import kotlin.collections.set
 
 /**
  * Registry for all known Moves
@@ -36,11 +39,24 @@ object Moves : DataRegistry {
 
     private val allMoves = mutableMapOf<String, MoveTemplate>()
     private val idMapping = mutableMapOf<Int, MoveTemplate>()
+    internal val moveScripts = mutableMapOf<String, String>() // moveId to JavaScript
 
     override fun reload(manager: ResourceManager) {
         this.allMoves.clear()
         this.idMapping.clear()
-        val movesJson = ShowdownService.service.getMoves()
+
+        manager.listResources("moves") { it.path.endsWith(".js") }.forEach { (identifier, resource) ->
+            resource.open().use { stream ->
+                stream.bufferedReader().use { reader ->
+                    val resolvedIdentifier = ResourceLocation.fromNamespaceAndPath(identifier.namespace, File(identifier.path).nameWithoutExtension)
+                    val js = reader.readText()
+                    moveScripts[resolvedIdentifier.path] = js
+                }
+            }
+        }
+        ShowdownService.service.sendMappedData(moveScripts, "receiveMoveData")
+
+        val movesJson = ShowdownService.service.getDataArray("getMoves")
         for (i in 0 until movesJson.size()) {
             val jsMove = movesJson[i].asJsonObject
             val id = jsMove.get("id").asString

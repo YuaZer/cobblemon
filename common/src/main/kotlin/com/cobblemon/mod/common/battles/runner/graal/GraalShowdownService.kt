@@ -11,7 +11,6 @@ package com.cobblemon.mod.common.battles.runner.graal
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.api.battles.model.PokemonBattle
 import com.cobblemon.mod.common.api.pokemon.PokemonSpecies
-import com.cobblemon.mod.common.battles.BagItems
 import com.cobblemon.mod.common.battles.ShowdownInterpreter
 import com.cobblemon.mod.common.battles.runner.ShowdownService
 import com.google.gson.Gson
@@ -134,22 +133,17 @@ class GraalShowdownService : ShowdownService {
         sendToShowdown(battleId, messages)
     }
 
-    override fun getAbilityIds(): JsonArray {
-        val getCobbledAbilityIdsFn = context.getBindings("js").getMember("getCobbledAbilityIds")
-        val arrayResult = getCobbledAbilityIdsFn.execute().asString()
-        return gson.fromJson(arrayResult, JsonArray::class.java)
+    override fun getDataArray(func: String): JsonArray {
+        val func = context.getBindings("js").getMember(func)
+        val result = func.execute().asString()
+        return gson.fromJson(result, JsonArray::class.java)
     }
 
-    override fun getMoves(): JsonArray {
-        val getCobbledMovesFn = context.getBindings("js").getMember("getCobbledMoves")
-        val arrayResult = getCobbledMovesFn.execute().asString()
-        return gson.fromJson(arrayResult, JsonArray::class.java)
-    }
-
-    override fun getItemIds(): JsonArray {
-        val getCobbledItemIdsFn = context.getBindings("js").getMember("getCobbledItemIds")
-        val arrayResult = getCobbledItemIdsFn.execute().asString()
-        return gson.fromJson(arrayResult, JsonArray::class.java)
+    override fun sendMappedData(data: Map<String, String>, func: String) {
+        val func = this.context.getBindings("js").getMember(func)
+        for ((id, js) in data) {
+            func.execute(id, js.replace("\n", " "))
+        }
     }
 
     override fun registerSpecies() {
@@ -168,15 +162,8 @@ class GraalShowdownService : ShowdownService {
     }
 
     override fun indicateSpeciesInitialized() {
-        val afterCobbledSpeciesInitFn = this.context.getBindings("js").getMember("afterCobbledSpeciesInit")
-        afterCobbledSpeciesInitFn.execute()
-    }
-
-    override fun registerBagItems() {
-        val receiveBagItemDataFn = this.context.getBindings("js").getMember("receiveBagItemData")
-        for ((itemId, js) in BagItems.bagItemsScripts) {
-            receiveBagItemDataFn.execute(itemId, js.replace("\n", " "))
-        }
+        val func = this.context.getBindings("js").getMember("afterSpeciesInit")
+        func.execute()
     }
 
     private fun sendToShowdown(battleId: UUID, messages: Array<String>) {

@@ -8,6 +8,9 @@
 
 package com.cobblemon.mod.common.command
 
+import com.cobblemon.mod.common.api.abilities.Abilities
+import com.cobblemon.mod.common.api.moves.Moves
+import com.cobblemon.mod.common.battles.BagItems
 import com.cobblemon.mod.common.battles.runner.ShowdownService
 import com.mojang.brigadier.Command
 import com.mojang.brigadier.CommandDispatcher
@@ -29,8 +32,10 @@ object ReloadShowdownCommand {
         try {
             ShowdownService.service.closeConnection()
             ShowdownService.service.openConnection()
+            ShowdownService.service.sendMappedData(Abilities.abilityScripts, "receiveAbilityData")
+            ShowdownService.service.sendMappedData(BagItems.bagItemsScripts, "receiveBagItemData")
+            ShowdownService.service.sendMappedData(Moves.moveScripts, "receiveMoveData")
             ShowdownService.service.registerSpecies()
-            ShowdownService.service.registerBagItems()
             context.source.sendSystemMessage(Component.literal("Reloaded showdown"))
         } catch (e: Exception) {
             e.printStackTrace()

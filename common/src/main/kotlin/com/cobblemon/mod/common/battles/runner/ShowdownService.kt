@@ -10,6 +10,7 @@ package com.cobblemon.mod.common.battles.runner
 
 import com.cobblemon.mod.common.api.battles.model.PokemonBattle
 import com.cobblemon.mod.common.battles.runner.graal.GraalShowdownService
+import com.cobblemon.mod.common.battles.runner.socket.SocketShowdownService
 import com.google.gson.JsonArray
 import java.util.UUID
 
@@ -27,13 +28,10 @@ interface ShowdownService {
     fun closeConnection()
     fun startBattle(battle: PokemonBattle, messages: Array<String>)
     fun send(battleId: UUID, messages: Array<String>)
-    fun getAbilityIds(): JsonArray
-    fun getMoves(): JsonArray
-    fun getItemIds(): JsonArray
+    fun getDataArray(func: String): JsonArray
+    fun sendMappedData(data: Map<String, String>, func: String)
     fun registerSpecies()
-    fun registerBagItems()
     fun indicateSpeciesInitialized() {}
-
 
     companion object {
         val service: ShowdownService by lazy { GraalShowdownService() }
