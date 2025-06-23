@@ -181,6 +181,8 @@
 - Honedge
 - Doublade
 - Aegislash
+- Drowzee
+- Hypno
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
