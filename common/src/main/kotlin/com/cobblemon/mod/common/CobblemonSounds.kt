@@ -205,6 +205,19 @@ object CobblemonSounds : PlatformRegistry<Registry<SoundEvent>, ResourceKey<Regi
     val EVOLUTION_STONE_BLOCK_STEP = this.create("block.evolution_stone_block.step")
 
     @JvmField
+    val TATAMI_BLOCK_BREAK = this.create("block.tatami.break")
+    @JvmField
+    val TATAMI_BLOCK_HIT = this.create("block.tatami.hit")
+    @JvmField
+    val TATAMI_BLOCK_PLACE = this.create("block.tatami.place")
+    @JvmField
+    val TATAMI_BLOCK_STEP = this.create("block.tatami.step")
+    @JvmField
+    val TATAMI_MAT_BREAK = this.create("block.tatami_mat.break")
+    @JvmField
+    val TATAMI_MAT_PLACE = this.create("block.tatami_mat.place")
+
+    @JvmField
     val GIMMIGHOUL_GIVE_ITEM = this.create("pokemon.gimmighoul.give_item")
     @JvmField
     val GIMMIGHOUL_REVEAL = this.create("pokemon.gimmighoul.reveal")
@@ -319,6 +332,8 @@ object CobblemonSounds : PlatformRegistry<Registry<SoundEvent>, ResourceKey<Regi
     @JvmField
     val IMPACT_WATER = this.create("impact.water")
 
+    // Note to self or whoever's peeking, block sounds have to be at 1.1f pitch
+    // For some reason, the game pitches them down and compensating for it here returns them to normal
     @JvmField
     val TUMBLESTONE_SOUNDS = SoundType(1f, 1.1f,
         TUMBLESTONE_BREAK,
@@ -336,6 +351,7 @@ object CobblemonSounds : PlatformRegistry<Registry<SoundEvent>, ResourceKey<Regi
         TUMBLESTONE_HIT,
         TUMBLESTONE_STEP
     )
+
     @JvmField
     val EVOLUTION_STONE_BLOCK_SOUNDS = SoundType(1f, 1.1f,
         EVOLUTION_STONE_BLOCK_BREAK,
@@ -345,6 +361,23 @@ object CobblemonSounds : PlatformRegistry<Registry<SoundEvent>, ResourceKey<Regi
         EVOLUTION_STONE_BLOCK_STEP
     )
 
+    @JvmField
+    val TATAMI_BLOCK_SOUNDS = SoundType(1f, 1.1f,
+        TATAMI_BLOCK_BREAK,
+        TATAMI_BLOCK_STEP,
+        TATAMI_BLOCK_PLACE,
+        TATAMI_BLOCK_HIT,
+        TATAMI_BLOCK_STEP
+    )
+
+    @JvmField
+    val TATAMI_MAT_SOUNDS = SoundType(1f, 1.1f,
+        TATAMI_MAT_BREAK,
+        TATAMI_BLOCK_STEP,
+        TATAMI_MAT_PLACE,
+        TATAMI_BLOCK_HIT,
+        TATAMI_BLOCK_STEP
+    )
 
     @JvmField
     val BERRY_BUSH_SOUNDS = SoundType(0.8f, 1.1f,
@@ -430,7 +463,6 @@ object CobblemonSounds : PlatformRegistry<Registry<SoundEvent>, ResourceKey<Regi
     val DISPLAY_CASE_PLACE = this.create("block.display_case.place")
     @JvmField
     val DISPLAY_CASE_STEP = this.create("block.display_case.step")
-
     @JvmField
     val DISPLAY_CASE_SOUNDS = SoundType(1f, 1f,
         DISPLAY_CASE_BREAK,

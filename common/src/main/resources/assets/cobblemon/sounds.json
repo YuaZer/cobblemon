@@ -478,6 +478,55 @@
   "block.display_case.remove_item": {
     "sounds": [ "cobblemon:block/display_case/display_case_remove_item" ]
   },
+  "block.tatami.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      { "name": "cobblemon:block/tatami/tatami_break_1", "volume": 0.9 },
+      { "name": "cobblemon:block/tatami/tatami_break_2", "volume": 0.9 },
+      { "name": "cobblemon:block/tatami/tatami_break_3", "volume": 0.9 }
+    ]
+  },
+  "block.tatami.hit": {
+    "subtitle": "subtitles.block.generic.hit",
+    "sounds": [
+      { "name": "cobblemon:block/tatami/tatami_hit_1", "volume": 0.6 },
+      { "name": "cobblemon:block/tatami/tatami_hit_2", "volume": 0.6 },
+      { "name": "cobblemon:block/tatami/tatami_hit_3", "volume": 0.6 }
+    ]
+  },
+  "block.tatami.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      { "name": "cobblemon:block/tatami/tatami_place_1", "volume": 0.8 },
+      { "name": "cobblemon:block/tatami/tatami_place_2", "volume": 0.8 },
+      { "name": "cobblemon:block/tatami/tatami_place_3", "volume": 0.8 }
+    ]
+  },
+  "block.tatami_mat.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      { "name": "cobblemon:block/tatami/tatami_mat_break_1", "volume": 0.8 },
+      { "name": "cobblemon:block/tatami/tatami_mat_break_2", "volume": 0.8 },
+      { "name": "cobblemon:block/tatami/tatami_mat_break_3", "volume": 0.8 }
+    ]
+  },
+  "block.tatami_mat.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      { "name": "cobblemon:block/tatami/tatami_mat_place_1", "volume": 0.65 },
+      { "name": "cobblemon:block/tatami/tatami_mat_place_2", "volume": 0.65 },
+      { "name": "cobblemon:block/tatami/tatami_mat_place_3", "volume": 0.65 }
+    ]
+  },
+  "block.tatami.step": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      "cobblemon:block/tatami/tatami_step_1",
+      "cobblemon:block/tatami/tatami_step_2",
+      "cobblemon:block/tatami/tatami_step_3",
+      "cobblemon:block/tatami/tatami_step_4"
+    ]
+  },
   "block.mulch.place": {
     "sounds": [
       "cobblemon:block/mulch/mulch_place_1",
