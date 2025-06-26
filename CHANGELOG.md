@@ -18,6 +18,7 @@
 - Added cosmetics for Gurdurr, Conkeldurr, Squirtle Line, Sneasler, Sandle line, Treecko line, Braixen, Delphox, and Dragonite.
 - Added `/transformmodelpart (position|rotation|scale) <modelPart> <transform: x y z>` command that can add transformations to a pokemon's model part.
   - The player executing the command must be facing the target pokemon entity. Transformations are not persistent and will revert when resources are reloaded.
+- Added `legacy` and `special` sourced moves to Pokémon.
 - Added lang keys for all moves and abilities up to Generation 9.
 - Fixed Moon Ball moon phase logic to actually work correctly
 - Added `translucent_cull` boolean option into resolver's layer to allow for translucent textures with culling
@@ -251,6 +252,7 @@
 - Fixed Pokémon marked as silent still playing shiny sounds and effects.
 - Fixed an issue with newer versions of Fabric API where underground Pokémon were spawning in The End.
 - Fixed spawning not working well when you're at high points surrounded by lower altitude spawning areas, such as flying.
+- Fixed some Pokémon having erroneous tutor moves if another move included a valid tutor move as a substring.
 - Fixed certain Pokémon with forms not having appropriate stock Pokédex entries.
 - Fixed issue with Pokédex Scanner that caused the open/close overlay to have the wrong opacity values
 - Fixed dragon's breath not being usable on the restoration tank when it should be
@@ -299,6 +301,11 @@
 - Updated NPCEntity pokeball throw positioning to properly account for the baseScale property.
 - Fixed `[Pokemon].copyFrom` error causing forms, IVs, and EVs to not be applied properly when using `[Pokemon].loadFromJSON` or `[Pokemon].loadFromNBT`
 - Added new item class, `WearableItem`. Instances of this class should have a corresponding 3D model. These models render when the items display context is `HEAD`.
+- Added new LearnsetQuery types:
+  - `LEGAL` for moves that are innately compatible and learnable by the Pokémon.
+  - `LEGACY` for moves that were once officially learnable by the Pokémon but aren't due to GameFreak's re-balancing.
+  - `SPECIAL` for moves that are not learnable by the Pokémon but may have appeared in a special event or distribution.
+
 - Pokemon now have a fireImmune attribute in their behaviour that can be set to true to ignore all fire damage (lava, magma blocks, etc.)
   `JSON
   {
@@ -329,6 +336,9 @@
 - Added `pokemon` as an available Molang function for the `battleActor` functions.
 - Fixed `heldItem` property inside spawn files not working and causing crashes
 - Fixed `spawn_bedrock_particles` MoLang causing crashes when used in a server environment
+- The following move sources are now valid for the `moves` array in species data:
+  - `legacy:{move}`
+  - `special:{move}`
 - The Pokédex form lang key definition now follows `cobblemon.ui.pokedex.info.form.{species}-{formname}` instead of `cobblemon.ui.pokedex.info.form.{formname}`.
 - Added `play_sound_on_server` as an available Molang function for the `worldHolder` & `player` functions.
 - Added `run_molang_after` as an available Molang function for the `entity` functions when schedulable.
