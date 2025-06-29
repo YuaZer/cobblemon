@@ -1615,7 +1615,7 @@
     "item.cobblemon.electric_seed": "Semente Elétrica",
     "cobblemon.move.uproar.desc": "O utilizador ataca num alvoroço por 3 turnos. Durante esse tempo, nenhum Pokémon pode adormecer.",
     "cobblemon.move.upperhand.desc": "O utilizador reage ao movimento do alvo e ataca com o calcanhar da sua palma, fazendo o alvo recuar. Este movimento falha se o alvo não estiver a preparar um movimento prioritário.",
-    "cobblemon.move.uturn.desc": "Depois de atacar, o utilizador volta a correr para trocar de lugar com um Pokémon à espera na equipa.",
+    "cobblemon.move.uturn.desc": "Depois de atacar, o utilizador volta para trás para trocar de lugar com um Pokémon à espera na equipa.",
     "cobblemon.move.venomdrench.desc": "Os Pokémon adversários são encharcados com um estranho líquido venenoso. Isto diminui os atributos de Ataque, Ataque Especial, e Velocidade de um alvo envenenado.",
     "cobblemon.move.victorydance": "Dança da Vitória",
     "cobblemon.move.visegrip.desc": "O alvo é agarrado e apertado de ambos os lados para infligir dano.",
@@ -5424,5 +5424,9 @@
     "cobblemon.move.astralbarrage.desc": "O utilizador envia uma quantidade assustadora de pequenos fantasmas contra os Pokémon adversários.",
     "cobblemon.move.chloroblast": "Rajada de Clorofila",
     "cobblemon.move.chloroblast.desc": "O utilizador lança a sua clorofila acumulada para infligir dano no alvo. Isto também causa dano ao utilizador.",
-    "cobblemon.move.powershift": "Mudança de Poder"
+    "cobblemon.move.powershift": "Mudança de Poder",
+    "cobblemon.move.wavecrash": "Investida das Ondas",
+    "cobblemon.move.flipturn.desc": "Depois de atacar, o utilizador volta para trás para trocar de lugar com um Pokémon à espera na equipa.",
+    "cobblemon.move.wavecrash.desc": "O utilizador envolve-se em água e acerta no alvo com todo o seu corpo. Isto também causa muito dano ao utilizador.",
+    "cobblemon.move.flipturn": "Virada de Turno"
 }
