@@ -5731,7 +5731,7 @@
     "cobblemon.ability.unseenfist": "无形拳",
     "cobblemon.ability.unseenfist.desc": "如果使出的是接触到对手的招式， 就可以无视守护效果进行攻击。",
     "cobblemon.ability.vesselofruin": "灾祸之鼎",
-    "cobblemon.ability.vesselofruin.desc": "以能呼唤灾厄的鼎的力量降低除自己以外的宝可梦的特攻。",
+    "cobblemon.ability.vesselofruin.desc": "以能呼唤灾厄的简的力量降低除自己以外的宝可梦的攻击。",
     "cobblemon.ability.victorystar": "胜利之星",
     "cobblemon.ability.victorystar.desc": "自己和同伴的命中率会提高。",
     "cobblemon.ability.vitalspirit": "干劲",
@@ -8575,5 +8575,7 @@
     "cobblemon.ui.pokedex.info.form.bergmite-hisuibias": "洗翠趋异的样子",
     "cobblemon.ui.pokedex.info.form.rowlet-hisuibias": "洗翠趋异的样子",
     "cobblemon.species.dartrix-hisuibias.desc": "对气息非常敏感。从气息就能察觉身后所站的对手，投掷出锋利的羽毛给予致命一击。",
-    "cobblemon.ui.pokedex.info.form.dartrix-hisuibias": "洗翠趋异的样子"
+    "cobblemon.ui.pokedex.info.form.dartrix-hisuibias": "洗翠趋异的样子",
+    "block.cobblemon.potted_saccharine_sapling": "甜甜蜜树苗盆栽",
+    "item.cobblemon.saccharine_sapling": "甜甜蜜树苗"
 }
