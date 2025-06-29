@@ -8613,5 +8613,6 @@
     "item.cobblemon.aprijuice_green": "绿球果汁",
     "item.cobblemon.aprijuice_pink": "粉球果汁",
     "item.cobblemon.aprijuice_red": "红球果汁",
-    "item.cobblemon.aprijuice_yellow": "黄球果汁"
+    "item.cobblemon.aprijuice_yellow": "黄球果汁",
+    "item.cobblemon.aprijuice.quality_format": "%1$s %2$s"
 }
