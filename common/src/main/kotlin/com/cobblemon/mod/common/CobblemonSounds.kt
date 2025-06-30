@@ -244,6 +244,11 @@ object CobblemonSounds : PlatformRegistry<Registry<SoundEvent>, ResourceKey<Regi
     val VIVICHOKE_PLACE = this.create("block.vivichoke.place")
 
     @JvmField
+    val HEARTY_GRAINS_BREAK = this.create("block.vivichoke.break")
+    @JvmField
+    val HEARTY_GRAINS_PLACE = this.create("block.vivichoke.place")
+
+    @JvmField
     val MINT_BREAK = this.create("block.mint.break")
     @JvmField
     val MINT_PLACE = this.create("block.mint.place")
@@ -420,6 +425,15 @@ object CobblemonSounds : PlatformRegistry<Registry<SoundEvent>, ResourceKey<Regi
         VIVICHOKE_BREAK,
         SoundEvents.GRASS_STEP,
         VIVICHOKE_PLACE,
+        SoundEvents.GRASS_HIT,
+        SoundEvents.GRASS_FALL
+    )
+
+    @JvmField
+    val HEARTY_GRAINS_SOUNDS = SoundType(0.6f, 1.1f,
+        HEARTY_GRAINS_BREAK,
+        SoundEvents.GRASS_STEP,
+        HEARTY_GRAINS_PLACE,
         SoundEvents.GRASS_HIT,
         SoundEvents.GRASS_FALL
     )

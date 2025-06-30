@@ -607,6 +607,21 @@
       { "name": "cobblemon:block/vivichoke/vivichoke_place_3", "volume": 0.7 }
     ]
   },
+  "block.hearty_grains.break": {
+    "sounds": [
+      { "name": "cobblemon:block/hearty_grains/hearty_grains_break_1", "volume": 0.7 },
+      { "name": "cobblemon:block/hearty_grains/hearty_grains_break_2", "volume": 0.7 },
+      { "name": "cobblemon:block/hearty_grains/hearty_grains_break_3", "volume": 0.7 }
+    ]
+  },
+  "block.hearty_grains.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      { "name": "cobblemon:block/hearty_grains/hearty_grains_place_1", "volume": 0.6 },
+      { "name": "cobblemon:block/hearty_grains/hearty_grains_place_2", "volume": 0.6 },
+      { "name": "cobblemon:block/hearty_grains/hearty_grains_place_3", "volume": 0.6 }
+    ]
+  },
   "block.mint.break": {
     "sounds": [
       { "name": "cobblemon:block/mint/mint_break_1", "volume": 0.6 },
