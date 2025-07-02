@@ -21,7 +21,7 @@ object OpenPCHandler : ClientNetworkPacketHandler<OpenPCPacket> {
         Minecraft.getInstance().setScreen(
             PCGUI(
                 pc = pc,
-                party = CobblemonClient.storage.myParty,
+                party = CobblemonClient.storage.party,
                 configuration = PCGUIConfiguration(),
                 openOnBox = packet.box,
                 unseenWallpapers = packet.unseenWallpapers.toMutableSet()

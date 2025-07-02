@@ -22,6 +22,7 @@ import com.cobblemon.mod.common.api.storage.player.client.ClientPokedexManager
 import com.cobblemon.mod.common.api.tags.CobblemonItemTags
 import com.cobblemon.mod.common.client.battle.ClientBattle
 import com.cobblemon.mod.common.client.gui.PartyOverlay
+import com.cobblemon.mod.common.client.gui.RideControlsOverlay
 import com.cobblemon.mod.common.client.gui.battle.BattleOverlay
 import com.cobblemon.mod.common.client.gui.cookingpot.CookingPotScreen
 import com.cobblemon.mod.common.client.particle.BedrockParticleOptionsRepository
@@ -91,6 +92,7 @@ object CobblemonClient {
     val overlay: PartyOverlay by lazy { PartyOverlay() }
     val battleOverlay: BattleOverlay by lazy { BattleOverlay() }
     val pokedexUsageContext: PokedexUsageContext by lazy { PokedexUsageContext() }
+    val rideControlsOverlay: RideControlsOverlay by lazy { RideControlsOverlay() }
 
     fun onLogin() {
         clientPlayerData = ClientGeneralPlayerData()
@@ -304,6 +306,7 @@ object CobblemonClient {
         } else {
             battleOverlay.render(context, partialDeltaTicks)
         }
+        rideControlsOverlay.render(context, partialDeltaTicks)
     }
 
     @Suppress("UNCHECKED_CAST")

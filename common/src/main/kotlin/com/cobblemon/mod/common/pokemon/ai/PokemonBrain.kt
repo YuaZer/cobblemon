@@ -24,11 +24,11 @@ import com.cobblemon.mod.common.util.toDF
 import com.google.common.collect.ImmutableList
 import com.google.common.collect.ImmutableSet
 import com.mojang.datafixers.util.Pair
+import com.mojang.serialization.Dynamic
 import net.minecraft.util.TimeUtil
 import net.minecraft.util.valueproviders.UniformInt
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.ai.Brain
 import net.minecraft.world.entity.ai.behavior.BehaviorControl
 import net.minecraft.world.entity.ai.behavior.DoNothing
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink
@@ -66,7 +66,7 @@ object PokemonBrain {
 //            CobblemonSensors.NPC_BATTLING
     )
 
-    fun makeBrain(entity: PokemonEntity, pokemon: Pokemon, brain: Brain<out PokemonEntity>): Brain<*> {
+    fun applyBrain(entity: PokemonEntity, pokemon: Pokemon, dynamic: Dynamic<*>) {
         /*
          * Something to note here is that if we changed the autoPokemonPresets to be a set of presets rather than
          * the configurations inside the presets, the logic in ApplyPresets would actually result in the top
@@ -81,16 +81,20 @@ object PokemonBrain {
         }
 
         val ctx = BehaviourConfigurationContext()
-        ctx.apply(entity, behaviourConfigurations)
+        ctx.apply(entity, behaviourConfigurations, dynamic)
         entity.behaviours.clear()
         entity.behaviours.addAll(ctx.appliedBehaviours)
-        //run this before brain starts ticking as otherwise pokemon will instantly wake up despite being put to sleep
-        DrowsySensor.drowsyLogic(entity)
 
-        if (behaviourConfigurations.isNotEmpty()) {
-            return brain
+        //run this before brain starts ticking as otherwise pokemon will instantly wake up despite being put to sleep
+        if (entity.brain.checkMemory(CobblemonMemories.POKEMON_DROWSY, MemoryStatus.REGISTERED)) {
+            DrowsySensor.drowsyLogic(entity)
         }
 
+        if (behaviourConfigurations.isNotEmpty()) {
+            return
+        }
+
+        val brain = entity.brain
         brain.addActivity(
             Activity.CORE,
             ImmutableList.copyOf(coreTasks(pokemon))
@@ -142,8 +146,6 @@ object PokemonBrain {
         brain.setCoreActivities(setOf(Activity.CORE))
         brain.setDefaultActivity(Activity.IDLE)
         brain.useDefaultActivity()
-
-        return brain
     }
 
     val MEMORY_MODULES: List<MemoryModuleType<*>> = ImmutableList.of(
@@ -175,7 +177,8 @@ object PokemonBrain {
         CobblemonMemories.POKEMON_SLEEPING,
         CobblemonMemories.RECENTLY_ATE_GRASS,
         CobblemonMemories.HERD_LEADER,
-        CobblemonMemories.HERD_SIZE
+        CobblemonMemories.HERD_SIZE,
+        CobblemonMemories.ATTACK_TARGET_DATA
     )
 
     private fun coreTasks(pokemon: Pokemon) = buildList<Pair<Int, BehaviorControl<in PokemonEntity>>> {
@@ -258,7 +261,7 @@ object PokemonBrain {
     private fun battlingTasks() = buildList<Pair<Int, BehaviorControl<in PokemonEntity>>> {
         add(0 toDF LookAtTargetedBattlePokemonTask.create())
         add(0 toDF LookAtTargetSink(Int.MAX_VALUE - 1, Int.MAX_VALUE - 1))
-        add(0 toDF BattleFlightTask.create())
+        add(0 toDF ManageFlightInBattleTask.create())
         add(0 toDF SwapActivityTask.lacking(CobblemonMemories.POKEMON_BATTLE, Activity.IDLE))
     }
 

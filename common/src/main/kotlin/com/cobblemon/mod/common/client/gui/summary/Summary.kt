@@ -437,7 +437,7 @@ class Summary private constructor(party: Collection<Pokemon?>, private val edita
                 sideScreen = PartyWidget(
                         pX = x + 216,
                         pY = y + 24,
-                        isParty = selectedPokemon in CobblemonClient.storage.myParty,
+                        isParty = selectedPokemon in CobblemonClient.storage.party,
                         summary = this,
                         partyList = this.party
                 )

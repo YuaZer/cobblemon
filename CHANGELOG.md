@@ -279,12 +279,15 @@
 - Fixed Cobblemon crashing if it tries to load a bedrock model not meant for cobblemon (example: Qlipoth Awakening)
 - Fixed Berries (and thus mulches) not being plantable on Farmers delight rich soil farmland
 - Fixed wild Pokémon vanishing when third party mods try to tame them the "vanilla" way
-- Fixed Pokemon not being able to path over skulk veins, pressure plates, fence gates, signs, lanterns, chains, and many other short blocks.
-- Fixed some cases in which Pokemon could not path over fence posts situations.
+- Fixed Pokémon not being able to path over skulk veins, pressure plates, fence gates, signs, lanterns, chains, and many other short blocks.
+- Fixed some cases in which Pokémon could not path over fence posts situations.
 - Fixed flyers not being able to do vertical takeoff if surrounded by blocks.
-- Fixed swimming Pokemon attempting to swim up through solid blocks.
-- Fixed Pokemon surface swimming diving downward a block for the duration of the swim.
+- Fixed swimming Pokémon attempting to swim up through solid blocks.
+- Fixed Pokémon surface swimming diving downward a block for the duration of the swim.
 - Improved flyers avoiding getting stuck on fence posts.
+- Fixed air balloon battle text not correctly displaying the Pokémon or item name
+- Fixed an issue where items retrieved from a Display case would disappear if a player's inventory is full
+- Fixed Pokédex Scanner not respecting the "Invert Mouse" option
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -320,6 +323,7 @@
 - Added `Pokemon#hyperTrainIV()` and `IVs#setHyperTrainedIV(Stat, Int)`.
 - Added `HyperTrainedIvEvent.Pre` and `HyperTrainedIvEvent.Post`.
 - Added a `hoverText` option to PartySelectCallback, to display a tooltip on hovering over a Pokémon in the selection screen.
+- `PokemonEntity` instances spawned into the world now appropriately finalize the spawn for mod compatibility.
   
 ### MoLang & Datapacks
 - The following usages for item predicates can now use item conditions like advancements do, you can learn about them in the [Minecraft wiki](https://minecraft.wiki/w/Advancement_definition#minecraft:filled_bucket)

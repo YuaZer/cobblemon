@@ -48,6 +48,7 @@ import net.minecraft.sounds.SoundSource
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.Entity.MoveFunction
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec3
 import org.joml.Vector3f
@@ -456,12 +457,15 @@ class PokemonClientDelegate : PosableState(), PokemonSideDelegate {
         cryAnimation = animation
     }
 
+    fun getSeatLocator(passenger: Entity): String {
+        val seatIndex = this.getEntity().occupiedSeats.indexOf(passenger)
+        if (seatIndex == -1) throw IllegalArgumentException("Entity is not currently riding a seat")
+        return this.getEntity().rideProp.seats[seatIndex].locator ?: "seat_${seatIndex + 1}"
+    }
+
     override fun positionRider(passenger: Entity, positionUpdater: MoveFunction) {
-        val index =
-            this.getEntity().passengers.indexOf(passenger).takeIf { it >= 0 && it < this.getEntity().seats.size }
-                ?: return
-        val seat = this.getEntity().seats[index]
-        val locator = this.locatorStates[seat.locator]
+        val locatorName = getSeatLocator(passenger)
+        val locator = this.locatorStates[locatorName]
 
         if (locator == null) return
 
