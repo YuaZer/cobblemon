@@ -56,6 +56,9 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "entityInteract": {
+      "immuneToSweetBerryBushBlock": true
     }
   },
   "drops": {
