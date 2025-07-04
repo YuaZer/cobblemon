@@ -6696,5 +6696,13 @@
     "cobblemon.species.giratina-origin.desc": "暴れ者 ゆえ 追い出されたが 破れた世界と 言われる 場所で 静かに 元の世界を 見ていた。",
     "cobblemon.ui.pokedex.info.form.shaymin": "ランドフォルム",
     "cobblemon.ui.pokedex.info.form.hoopa-unbound": "ときはなたれしフーパ",
-    "cobblemon.ui.pokedex.info.form.hoopa": "いましめられしフーパ"
+    "cobblemon.ui.pokedex.info.form.hoopa": "いましめられしフーパ",
+    "item.cobblemon.poke_bait": "ポケモンのエサ",
+    "item.cobblemon.aprijuice_black": "くろのボンドリンク",
+    "item.cobblemon.aprijuice_blue": "あおのボンドリンク",
+    "item.cobblemon.aprijuice_pink": "もものボンドリンク",
+    "item.cobblemon.aprijuice_red": "あかのボンドリンク",
+    "item.cobblemon.aprijuice_white": "しろのボンドリンク",
+    "item.cobblemon.aprijuice_yellow": "きのボンドリンク",
+    "item.cobblemon.aprijuice_green": "みどりのボンドリンク"
 }
