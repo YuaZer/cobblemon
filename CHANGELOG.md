@@ -37,9 +37,12 @@
 ### Pokémon Added
 
 #### Gen 2
+- Marill
+- Azumarill
 - Dunsparce
 
 #### Gen 3
+- Azurill
 - Spoink
 - Grumpig
 - Snorunt
@@ -283,6 +286,8 @@
 - Fixed swimming Pokemon attempting to swim up through solid blocks.
 - Fixed Pokemon surface swimming diving downward a block for the duration of the swim.
 - Improved flyers avoiding getting stuck on fence posts.
+- Fixed recoil eyes on Shellder & Cloyster.
+- Fixed Shroomish spinning at lightning speed when fainting (no longer allowed to let it rip.)
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
