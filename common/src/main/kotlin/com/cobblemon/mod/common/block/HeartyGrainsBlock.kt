@@ -39,7 +39,7 @@ import net.minecraft.world.level.material.FluidState
 import net.minecraft.world.level.material.Fluids
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.VoxelShape
-import net.minecraft.world.level.block.*
+import net.minecraft.world.level.block.SoundType
 
 @Suppress("OVERRIDE_DEPRECATION")
 class HeartyGrainsBlock(settings: Properties) : CropBlock(settings), SimpleWaterloggedBlock {
