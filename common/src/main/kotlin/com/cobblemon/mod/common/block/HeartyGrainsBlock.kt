@@ -10,6 +10,7 @@ package com.cobblemon.mod.common.block
 
 import com.cobblemon.mod.common.CobblemonBlocks
 import com.cobblemon.mod.common.CobblemonItems
+import com.cobblemon.mod.common.CobblemonSounds
 import com.cobblemon.mod.common.api.tags.CobblemonBlockTags
 import com.mojang.serialization.MapCodec
 import net.minecraft.core.BlockPos
@@ -38,6 +39,7 @@ import net.minecraft.world.level.material.FluidState
 import net.minecraft.world.level.material.Fluids
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.VoxelShape
+import net.minecraft.world.level.block.*
 
 @Suppress("OVERRIDE_DEPRECATION")
 class HeartyGrainsBlock(settings: Properties) : CropBlock(settings), SimpleWaterloggedBlock {
@@ -224,7 +226,9 @@ class HeartyGrainsBlock(settings: Properties) : CropBlock(settings), SimpleWater
     private fun isLower(state: BlockState): Boolean =
         state.`is`(CobblemonBlocks.HEARTY_GRAINS) && state.getValue(HALF) == DoubleBlockHalf.LOWER
 
-
+    override fun getSoundType(state: BlockState): SoundType? {
+        return if (state.getValue(WATERLOGGED)) CobblemonSounds.HEARTY_GRAINS_WATER_SOUNDS else CobblemonSounds.HEARTY_GRAINS_SOUNDS
+    }
 
     override fun codec(): MapCodec<out CropBlock> = CODEC
 

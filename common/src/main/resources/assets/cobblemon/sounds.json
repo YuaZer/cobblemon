@@ -622,6 +622,21 @@
       { "name": "cobblemon:block/hearty_grains/hearty_grains_place_3", "volume": 0.6 }
     ]
   },
+  "block.hearty_grains.break_water": {
+    "sounds": [
+      { "name": "cobblemon:block/hearty_grains/hearty_grains_break_water_1", "volume": 0.7 },
+      { "name": "cobblemon:block/hearty_grains/hearty_grains_break_water_2", "volume": 0.7 },
+      { "name": "cobblemon:block/hearty_grains/hearty_grains_break_water_3", "volume": 0.7 }
+    ]
+  },
+  "block.hearty_grains.place_water": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      { "name": "cobblemon:block/hearty_grains/hearty_grains_place_water_1", "volume": 0.6 },
+      { "name": "cobblemon:block/hearty_grains/hearty_grains_place_water_2", "volume": 0.6 },
+      { "name": "cobblemon:block/hearty_grains/hearty_grains_place_water_3", "volume": 0.6 }
+    ]
+  },
   "block.mint.break": {
     "sounds": [
       { "name": "cobblemon:block/mint/mint_break_1", "volume": 0.6 },
