@@ -34,13 +34,10 @@ import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.valueproviders.UniformInt
 import net.minecraft.world.effect.MobEffects
-import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.level.BlockGetter
-import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.*
 import net.minecraft.world.level.block.state.BlockBehaviour
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.properties.BlockSetType
 import net.minecraft.world.level.block.state.properties.BlockStateProperties.LIT
@@ -179,7 +176,7 @@ object CobblemonBlocks : PlatformRegistry<Registry<Block>, ResourceKey<Registry<
     @JvmField
     val SACCHARINE_LOG = this.create("saccharine_log", SaccharineLogBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava()))
     @JvmField
-    val SACCHARINE_HONEY_LOG = this.create("saccharine_honey_log", SaccharineHoneyLogBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava()))
+    val SACCHARINE_LOG_SLATHERED = this.create("saccharine_log_slathered", SaccharineLogSlatheredBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava()))
 
     @JvmField
     val STRIPPED_SACCHARINE_LOG = this.create("stripped_saccharine_log", RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava())) //log("stripped_saccharine_log")
@@ -208,7 +205,7 @@ object CobblemonBlocks : PlatformRegistry<Registry<Block>, ResourceKey<Registry<
     val SACCHARINE_FENCE = this.create("saccharine_fence", FenceBlock(BlockBehaviour.Properties.of().mapColor(SACCHARINE_PLANKS.defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0f).sound(SoundType.WOOD)))
     @JvmField
     val SACCHARINE_FENCE_GATE = this.create("saccharine_fence_gate", FenceGateBlock(SACCHARINE_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(SACCHARINE_PLANKS.defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0f).sound(SoundType.WOOD)))
-
+    @JvmField
     val SACCHARINE_BUTTON = this.create("saccharine_button", BlocksInvoker.createWoodenButtonBlock(BlockSetType.OAK))
     @JvmField
     val SACCHARINE_PRESSURE_PLATE = this.create("saccharine_pressure_plate", PressurePlateBlockInvoker.`cobblemon$create`(SACCHARINE_BLOCK_SET_TYPE, BlockBehaviour.Properties.of().mapColor(SACCHARINE_PLANKS.defaultMapColor()).instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5f).sound(SoundType.WOOD)))
@@ -523,7 +520,7 @@ object CobblemonBlocks : PlatformRegistry<Registry<Block>, ResourceKey<Registry<
     val HEARTY_GRAINS = this.create("hearty_grains", HeartyGrainsBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).ignitedByLava().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak()))
 
     @JvmField
-    val GALARICA_NUT_BUSH = this.create("galarica_nut_bush", NutBushBlock(Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY)))
+    val GALARICA_NUT_BUSH = this.create("galarica_nut_bush", NutBushBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY)))
 
     @JvmField
     val POTTED_RED_APRICORN_SAPLING = this.create("potted_red_apricorn_sapling", BlocksInvoker.createFlowerPotBlock(RED_APRICORN_SAPLING))
@@ -559,10 +556,8 @@ object CobblemonBlocks : PlatformRegistry<Registry<Block>, ResourceKey<Registry<
         APRICORN_LOG to STRIPPED_APRICORN_LOG,
         SACCHARINE_WOOD to STRIPPED_SACCHARINE_WOOD,
         SACCHARINE_LOG to STRIPPED_SACCHARINE_LOG,
-        SACCHARINE_HONEY_LOG to STRIPPED_SACCHARINE_LOG
+        SACCHARINE_LOG_SLATHERED to STRIPPED_SACCHARINE_LOG
     )
-
-
 
     private fun apricornBlock(name: String, apricorn: Apricorn): ApricornBlock = this.create(name, ApricornBlock(BlockBehaviour.Properties.of().mapColor(apricorn.mapColor()).randomTicks().strength(Blocks.OAK_LOG.defaultDestroyTime(), Blocks.OAK_LOG.explosionResistance).sound(SoundType.WOOD).noOcclusion(), apricorn))
 
@@ -663,7 +658,19 @@ object CobblemonBlocks : PlatformRegistry<Registry<Block>, ResourceKey<Registry<
             Triple(APRICORN_FENCE, 5, 20),
             Triple(APRICORN_FENCE_GATE, 5, 20),
             Triple(APRICORN_SLAB, 5, 20),
-            Triple(APRICORN_STAIRS, 5, 20)
+            Triple(APRICORN_STAIRS, 5, 20),
+            Triple(SACCHARINE_LOG, 5, 5),
+            Triple(SACCHARINE_LOG_SLATHERED, 5, 5),
+            Triple(STRIPPED_SACCHARINE_LOG, 5, 5),
+            Triple(SACCHARINE_WOOD, 5, 5),
+            Triple(STRIPPED_SACCHARINE_WOOD, 5, 5),
+            Triple(SACCHARINE_PLANKS, 5, 20),
+            Triple(SACCHARINE_LEAVES, 30, 60),
+            Triple(SACCHARINE_FENCE, 5, 20),
+            Triple(SACCHARINE_FENCE_GATE, 5, 20),
+            Triple(SACCHARINE_SLAB, 5, 20),
+            Triple(SACCHARINE_STAIRS, 5, 20)
+
         ).onEach{ data -> setFlammable(data.first, data.second, data.third) }
     }
 

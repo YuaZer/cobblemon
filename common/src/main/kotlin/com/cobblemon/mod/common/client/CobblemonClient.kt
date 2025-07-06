@@ -206,7 +206,11 @@ object CobblemonClient {
 
     private fun registerBlockRenderTypes() {
 
-        this.implementation.registerBlockRenderType(RenderType.cutoutMipped(), CobblemonBlocks.APRICORN_LEAVES)
+        this.implementation.registerBlockRenderType(
+            RenderType.cutoutMipped(),
+            CobblemonBlocks.APRICORN_LEAVES,
+            CobblemonBlocks.SACCHARINE_LEAVES
+        )
 
         this.implementation.registerBlockRenderType(
             RenderType.cutout(),
@@ -293,7 +297,6 @@ object CobblemonClient {
             CobblemonBlocks.RED_CAMPFIRE_POT,
             CobblemonBlocks.WHITE_CAMPFIRE_POT,
             CobblemonBlocks.YELLOW_CAMPFIRE_POT
-
         )
 
         this.createBoatModelLayers()
