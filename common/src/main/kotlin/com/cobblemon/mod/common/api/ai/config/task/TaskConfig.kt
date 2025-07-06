@@ -100,6 +100,7 @@ interface TaskConfig {
             cobblemonResource("find_air") to FindAirTaskConfig::class.java,
             cobblemonResource("go_to_land") to GoToLandTaskConfig::class.java,
             cobblemonResource("manage_flight_in_battle") to ManageFlightInBattleTaskConfig::class.java,
+            cobblemonResource("attack_hostile_mobs") to AttackHostileMobsTaskConfig::class.java,
             cobblemonResource("move_into_fluid") to MoveIntoFluidTaskConfig::class.java,
             cobblemonResource("find_herd_leader") to FindHerdLeaderTaskConfig::class.java,
             cobblemonResource("follow_herd_leader") to FollowHerdLeaderTaskConfig::class.java,

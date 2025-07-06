@@ -171,7 +171,7 @@ class PokemonClientDelegate : PosableState(), PokemonSideDelegate {
                                 playedThrowingSound = true
                             }
                             lerpOnClient(POKEBALL_AIR_TIME) { ballOffset = it }
-                            ballRotOffset = ((Math.random()) * currentEntity.level().random.nextIntBetweenInclusive(-15, 15)).toFloat()
+                            ballRotOffset = ((Math.random()) * currentEntity.random.nextIntBetweenInclusive(-15, 15)).toFloat()
 
                             currentEntity.after(seconds = POKEBALL_AIR_TIME) {
                                 beamStartTime = System.currentTimeMillis()

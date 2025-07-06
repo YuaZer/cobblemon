@@ -87,6 +87,7 @@ object CobblemonClient {
 
     /** If true then we won't bother them anymore about choosing a starter even if it's a thing they can do. */
     var checkedStarterScreen = false
+    var lastPcBoxViewed = 0
     var requests = ClientPlayerActionRequests()
     var teamData = ClientPlayerTeamData()
     val overlay: PartyOverlay by lazy { PartyOverlay() }

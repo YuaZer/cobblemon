@@ -23,7 +23,7 @@ object OpenPCHandler : ClientNetworkPacketHandler<OpenPCPacket> {
                 pc = pc,
                 party = CobblemonClient.storage.party,
                 configuration = PCGUIConfiguration(),
-                openOnBox = packet.box,
+                openOnBox = packet.box ?: CobblemonClient.lastPcBoxViewed,
                 unseenWallpapers = packet.unseenWallpapers.toMutableSet()
             )
         )

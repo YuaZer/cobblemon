@@ -406,7 +406,9 @@ open class PokemonEntity(
         delegate.changePokemon(pokemon)
         addPosableFunctions(struct)
         moveControl = PokemonMoveControl(this)
-        remakeBrain()
+        if (!level().isClientSide) {
+            remakeBrain()
+        }
         refreshDimensions()
         refreshRiding()
     }
@@ -430,7 +432,7 @@ open class PokemonEntity(
         builder.define(LABEL_LEVEL, 1)
         builder.define(HIDE_LABEL, false)
         builder.define(UNBATTLEABLE, false)
-        builder.define(SPAWN_DIRECTION, ((level().random.nextFloat() * 360F - 180F) * 1000).toInt() / 1000F)
+        builder.define(SPAWN_DIRECTION, this.random.nextIntBetweenInclusive(-180_000, 180_000) / 1000F)
         builder.define(COUNTS_TOWARDS_SPAWN_CAP, true)
         builder.define(FRIENDSHIP, 0)
         builder.define(FREEZE_FRAME, -1F)
@@ -643,7 +645,6 @@ open class PokemonEntity(
      * Prevents flying type Pokémon from taking fall damage.
      */
     override fun causeFallDamage(fallDistance: Float, damageMultiplier: Float, damageSource: DamageSource): Boolean {
-        dampensVibrations()
         return if (ElementalTypes.FLYING in pokemon.types || pokemon.ability.name == "levitate" || pokemon.species.behaviour.moving.fly.canFly) {
             false
         } else {
@@ -741,6 +742,7 @@ open class PokemonEntity(
             tetheringNbt.putUUID(DataKeys.PC_ID, tethering.pcId)
             tetheringNbt.put(DataKeys.TETHER_MIN_ROAM_POS, NbtUtils.writeBlockPos(tethering.minRoamPos))
             tetheringNbt.put(DataKeys.TETHER_MAX_ROAM_POS, NbtUtils.writeBlockPos(tethering.maxRoamPos))
+            tetheringNbt.put(DataKeys.TETHER_PASTURE_POS, NbtUtils.writeBlockPos(tethering.pasturePos))
             nbt.put(DataKeys.TETHERING, tetheringNbt)
         } else {
             nbt.put(DataKeys.POKEMON, pokemon.saveToNBT(registryAccess()))
@@ -792,6 +794,7 @@ open class PokemonEntity(
             val playerId = tetheringNBT.getUUID(DataKeys.POKEMON_OWNER_ID)
             val minRoamPos = NbtUtils.readBlockPos(tetheringNBT, DataKeys.TETHER_MIN_ROAM_POS).get()
             val maxRoamPos = NbtUtils.readBlockPos(tetheringNBT, DataKeys.TETHER_MAX_ROAM_POS).get()
+            val pasturePos = NbtUtils.readBlockPos(tetheringNBT, DataKeys.TETHER_PASTURE_POS).get()
 
             val loadedPokemon = Cobblemon.storage.getPC(pcId, registryAccess())[pokemonId]
             if (loadedPokemon != null && loadedPokemon.tetheringId == tetheringId) {
@@ -804,7 +807,8 @@ open class PokemonEntity(
                     tetheringId = tetheringId,
                     pokemonId = pokemonId,
                     pcId = pcId,
-                    entityId = id // Doesn't really matter on the entity
+                    entityId = id, // Doesn't really matter on the entity
+                    pasturePos = pasturePos
                 )
             } else {
                 pokemon = this.createSidedPokemon()
@@ -909,7 +913,6 @@ open class PokemonEntity(
         } else {
             // Look around, nobody cares.
             val brain = brainProvider().makeBrain(dynamic)
-            this.brain = brain
             return brain
         }
     }
@@ -1124,12 +1127,14 @@ open class PokemonEntity(
             } else if (itemStack.`is`(CobblemonItems.NPC_EDITOR) && (player is ServerPlayer) && player.isCreative) {
                 BehaviourEditingTracker.startEditing(player, this)
                 player.sendPacket(OpenBehaviourEditorPacket(id, (this as MoLangScriptingEntity).behaviours.toSet()))
+                return InteractionResult.sidedSuccess(level().isClientSide)
             }
         }
 
         if (hand == InteractionHand.MAIN_HAND && player is ServerPlayer) {
             if (player.isShiftKeyDown) {
                 showInteractionWheel(player, itemStack)
+                return InteractionResult.sidedSuccess(level().isClientSide)
             }
             else if (pokemon.getOwnerPlayer() == player) {
                 // TODO #105
@@ -1216,6 +1221,13 @@ open class PokemonEntity(
 
     fun getBehaviourFlag(flag: PokemonBehaviourFlag): Boolean =
         getBitForByte(entityData.get(BEHAVIOUR_FLAGS), flag.bit)
+
+    fun getActiveBehaviourFlags(): Set<PokemonBehaviourFlag> {
+        val flagsByte = this.entityData.get(BEHAVIOUR_FLAGS).toInt()
+        return PokemonBehaviourFlag.entries.filterTo(mutableSetOf()) { flag ->
+            (flagsByte and (1 shl (flag.bit - 1))) != 0
+        }
+    }
 
     @Suppress("UNUSED_PARAMETER")
     fun canBattle(player: Player): Boolean {

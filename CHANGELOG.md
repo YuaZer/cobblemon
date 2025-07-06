@@ -228,6 +228,7 @@
 - Saccharine Leaves Age 1 or higher will now show Yellow particles when broken
 - Destroying a Saccharine Honey Log will now drop a Saccharine Log in stead of nothing
 - Reworked some compost chances
+- Updated interaction interface to include 4 more option spaces
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
@@ -293,6 +294,8 @@
 - Fixed Pokédex Scanner not respecting the "Invert Mouse" option
 - Fixed recoil eyes on Shellder & Cloyster.
 - Fixed Shroomish spinning at lightning speed when fainting (no longer allowed to let it rip.)
+- Fixed Pokédex Scanner not respecting the "Invert Mouse" option.
+- Fixed a crash due to a ConcurrentModificationException that could occur during world generation.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.

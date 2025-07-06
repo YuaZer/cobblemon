@@ -15,7 +15,15 @@ import com.cobblemon.mod.common.CobblemonSensors
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
 import com.cobblemon.mod.common.api.ai.config.ApplyBehaviours
 import com.cobblemon.mod.common.api.ai.config.BehaviourConfig
-import com.cobblemon.mod.common.entity.ai.*
+import com.cobblemon.mod.common.entity.ai.AttackAngryAtTask
+import com.cobblemon.mod.common.entity.ai.ChooseLandWanderTargetTask
+import com.cobblemon.mod.common.entity.ai.FleeFromAttackerTask
+import com.cobblemon.mod.common.entity.ai.FollowWalkTargetTask
+import com.cobblemon.mod.common.entity.ai.GetAngryAtAttackerTask
+import com.cobblemon.mod.common.entity.ai.LookAroundTaskWrapper
+import com.cobblemon.mod.common.entity.ai.MoveToAttackTargetTask
+import com.cobblemon.mod.common.entity.ai.StayAfloatTask
+import com.cobblemon.mod.common.entity.ai.SwapActivityTask
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.entity.pokemon.ai.sensors.DrowsySensor
 import com.cobblemon.mod.common.entity.pokemon.ai.tasks.*
@@ -215,10 +223,6 @@ object PokemonBrain {
     private fun idleTasks(pokemon: Pokemon) = buildList<Pair<Int, BehaviorControl<in PokemonEntity>>> {
         add(0 toDF WakeUpTask.create() )
         if (pokemon.form.behaviour.moving.canLook) {
-            if (pokemon.form.behaviour.moving.looksAtEntities) {
-                add(0 toDF LookAtMobTaskWrapper.create(15F))
-            }
-
             add(0 toDF LookAroundTaskWrapper(45, 90))
         }
 

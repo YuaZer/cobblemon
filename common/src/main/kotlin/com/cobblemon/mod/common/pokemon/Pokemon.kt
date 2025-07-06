@@ -259,8 +259,10 @@ open class Pokemon : ShowdownIdentifiable {
 
     var nickname: MutableComponent? = null
         set(value) {
-            field = value
-            onChange(NicknameUpdatePacket({ this }, value))
+            if (field != value) {
+                field = value
+                onChange(NicknameUpdatePacket({ this }, value))
+            }
         }
 
     fun getDisplayName(showTitle: Boolean = false): MutableComponent {
@@ -565,7 +567,7 @@ open class Pokemon : ShowdownIdentifiable {
             onChange(MarkingsUpdatePacket({ this }, value))
         }
 
-    fun asRenderablePokemon() = RenderablePokemon(species, aspects)
+    fun asRenderablePokemon() = RenderablePokemon(species, aspects, if (heldItemVisible) heldItem else ItemStack.EMPTY)
 
     /**
      * A set of aspects that were not calculated and must always be a part of the Pokémon's aspect list. This is the
@@ -638,6 +640,10 @@ open class Pokemon : ShowdownIdentifiable {
      * Whether this Pokémon's held item is visible or not
      */
     var heldItemVisible: Boolean = true
+        set(value) {
+            field = value
+            onChange()
+        }
 
     val riding: RidingProperties
         get() = this.form.riding

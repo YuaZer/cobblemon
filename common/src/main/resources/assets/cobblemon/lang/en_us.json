@@ -1210,7 +1210,6 @@
 
   "cobblemon.ui.pasture": "Pasture",
   "cobblemon.ui.pasture.recall_all": "Recall All",
-  "cobblemon.ui.pasture.owned_name": "%1$s (%2$s)",
   "cobblemon.pasture.too_many_nearby": "There are too many Pokémon nearby.",
 
   "cobblemon.ui.interact.give.item": "Change held item",
