@@ -89,16 +89,40 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
             if (!level.isClientSide) return
 
             val isLit = campfireBlockEntity.dataAccess.get(COOKING_PROGRESS_INDEX) > 0
-            val isSoundActive = BlockEntitySoundTracker.isActive(pos, campfireBlockEntity.runningSound.location)
+            val isRunningSoundActive = BlockEntitySoundTracker.isActive(pos, campfireBlockEntity.runningSound.location)
+            val isAmbientSoundActive = BlockEntitySoundTracker.isActive(pos, campfireBlockEntity.ambientSound.location)
+            val containsItems = campfireBlockEntity.getSeasonings().isNotEmpty() || campfireBlockEntity.getIngredients().isNotEmpty()
 
-            if (isLit && !isSoundActive) {
-                BlockEntitySoundTracker.play(
-                    pos,
-                    CancellableSoundInstance(campfireBlockEntity.runningSound, pos, true, 0.8f, 1.0f)
-                )
-            } else if (!isLit && isSoundActive) {
+            if (containsItems) {
+                if (isLit) {
+                    BlockEntitySoundTracker.stop(pos, campfireBlockEntity.ambientSound.location)
+                    if (!isRunningSoundActive) BlockEntitySoundTracker.play(pos, CancellableSoundInstance(campfireBlockEntity.runningSound, pos, true, 1.0f, 1.0f))
+                } else {
+                    BlockEntitySoundTracker.stop(pos, campfireBlockEntity.runningSound.location)
+                    if (!isAmbientSoundActive) BlockEntitySoundTracker.play(pos, CancellableSoundInstance(campfireBlockEntity.ambientSound, pos, true, 1.0f, 1.0f))
+                }
+            } else {
                 BlockEntitySoundTracker.stop(pos, campfireBlockEntity.runningSound.location)
+                BlockEntitySoundTracker.stop(pos, campfireBlockEntity.ambientSound.location)
             }
+
+            // if (containsItems && !isAmbientSoundActive) {
+            //     BlockEntitySoundTracker.play(
+            //         pos,
+            //         CancellableSoundInstance(campfireBlockEntity.ambientSound, pos, true, 1.0f, 1.0f)
+            //     )
+            // } else if ((!containsItems || isLit) && isAmbientSoundActive) {
+            //     BlockEntitySoundTracker.stop(pos, campfireBlockEntity.ambientSound.location)
+            // }
+
+            // if (isLit && !isRunningSoundActive) {
+            //     BlockEntitySoundTracker.play(
+            //         pos,
+            //         CancellableSoundInstance(campfireBlockEntity.runningSound, pos, true, 1.0f, 1.0f)
+            //     )
+            // } else if (!isLit && isRunningSoundActive) {
+            //     BlockEntitySoundTracker.stop(pos, campfireBlockEntity.runningSound.location)
+            // }
 
             campfireBlockEntity.brothColor =
                 getColourMixFromSeasonings(campfireBlockEntity.getSeasonings())
@@ -195,7 +219,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
 
                     level.playSoundServer(
                         position = pos.bottomCenter,
-                        sound = CobblemonSounds.CAMPFIRE_POT_CRAFT,
+                        sound = CobblemonSounds.CAMPFIRE_POT_COOK,
                     )
 
                     setChanged(level, pos, state);
@@ -204,7 +228,8 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
         }
     }
 
-    private val runningSound = CobblemonSounds.CAMPFIRE_POT_COOK
+    private val runningSound = CobblemonSounds.CAMPFIRE_POT_ACTIVE
+    private val ambientSound = CobblemonSounds.CAMPFIRE_POT_AMBIENT
     private var cookingProgress: Int = 0
     private var cookingTotalTime: Int = COOKING_TOTAL_TIME
     private var isLidOpen: Boolean = true

@@ -518,7 +518,7 @@ object CobblemonSounds : PlatformRegistry<Registry<SoundEvent>, ResourceKey<Regi
     )
 
     @JvmField
-    val CAMPFIRE_POT_PLACE_CAMPFIRE = this.create("block.campfire_pot.place_campfire")
+    val CAMPFIRE_POT_SET = this.create("block.campfire_pot.set")
     @JvmField
     val CAMPFIRE_POT_RETRIEVE = this.create("block.campfire_pot.retrieve")
     @JvmField
@@ -526,11 +526,13 @@ object CobblemonSounds : PlatformRegistry<Registry<SoundEvent>, ResourceKey<Regi
     @JvmField
     val CAMPFIRE_POT_CLOSE = this.create("block.campfire_pot.close")
     @JvmField
-    val CAMPFIRE_POT_USE = this.create("block.campfire_pot.use")
+    val CAMPFIRE_POT_TAKE_ITEM = this.create("block.campfire_pot.take_item")
+    @JvmField
+    val CAMPFIRE_POT_ACTIVE = this.create("block.campfire_pot.active")
+    @JvmField
+    val CAMPFIRE_POT_AMBIENT = this.create("block.campfire_pot.ambient")
     @JvmField
     val CAMPFIRE_POT_COOK = this.create("block.campfire_pot.cook")
-    @JvmField
-    val CAMPFIRE_POT_CRAFT = this.create("block.campfire_pot.craft")
     @JvmField
     val CAMPFIRE_POT_PLACE = this.create("block.campfire_pot.place")
     @JvmField
