@@ -44,6 +44,8 @@ object BagItems : DataRegistry {
     }
 
     override fun reload(manager: ResourceManager) {
+        this.bagItemsScripts.clear()
+        ShowdownService.service.resetRegistryData("bagItem")
         manager.listResources("bag_items") { it.path.endsWith(".js") }.forEach { (identifier, resource) ->
             resource.open().use { stream ->
                 stream.bufferedReader().use { reader ->
@@ -53,7 +55,7 @@ object BagItems : DataRegistry {
                 }
             }
         }
-        ShowdownService.service.sendMappedData(bagItemsScripts, "receiveBagItemData")
+        ShowdownService.service.sendRegistryData(bagItemsScripts, "bagItem")
 
         this.observable.emit(this)
     }

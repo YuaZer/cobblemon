@@ -44,7 +44,9 @@ object Moves : DataRegistry {
     override fun reload(manager: ResourceManager) {
         this.allMoves.clear()
         this.idMapping.clear()
+        this.moveScripts.clear()
 
+        ShowdownService.service.resetRegistryData("move")
         manager.listResources("moves") { it.path.endsWith(".js") }.forEach { (identifier, resource) ->
             resource.open().use { stream ->
                 stream.bufferedReader().use { reader ->
@@ -54,9 +56,9 @@ object Moves : DataRegistry {
                 }
             }
         }
-        ShowdownService.service.sendMappedData(moveScripts, "receiveMoveData")
+        ShowdownService.service.sendRegistryData(moveScripts, "move")
 
-        val movesJson = ShowdownService.service.getDataArray("getMoves")
+        val movesJson = ShowdownService.service.getRegistryData("move")
         for (i in 0 until movesJson.size()) {
             val jsMove = movesJson[i].asJsonObject
             val id = jsMove.get("id").asString

@@ -10,7 +10,6 @@ package com.cobblemon.mod.common.battles.runner.graal
 
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.api.battles.model.PokemonBattle
-import com.cobblemon.mod.common.api.pokemon.PokemonSpecies
 import com.cobblemon.mod.common.battles.ShowdownInterpreter
 import com.cobblemon.mod.common.battles.runner.ShowdownService
 import com.google.gson.Gson
@@ -32,6 +31,7 @@ import org.graalvm.polyglot.HostAccess.Export
 import org.graalvm.polyglot.PolyglotAccess
 import org.graalvm.polyglot.Value
 import org.graalvm.polyglot.io.FileSystem
+import kotlin.text.replace
 
 /**
  * Mediator service for communicating between the Cobblemon Minecraft mod and Cobblemon showdown service via
@@ -133,32 +133,33 @@ class GraalShowdownService : ShowdownService {
         sendToShowdown(battleId, messages)
     }
 
-    override fun getDataArray(func: String): JsonArray {
-        val func = context.getBindings("js").getMember(func)
-        val result = func.execute().asString()
+    override fun getRegistryData(type: String): JsonArray {
+        val func = context.getBindings("js").getMember("getData")
+        val result = func.execute(type).asString()
         return gson.fromJson(result, JsonArray::class.java)
     }
 
-    override fun sendMappedData(data: Map<String, String>, func: String) {
-        val func = this.context.getBindings("js").getMember(func)
-        for ((id, js) in data) {
-            func.execute(id, js.replace("\n", " "))
+    override fun sendRegistryData(data: Map<String, String>, type: String) {
+        val payload = data.entries.joinToString(prefix = "{", postfix = "}") { (k, v) ->
+            val newV = v.replace(Regex("[\r\n]+"), " ")
+            "\"$k\": $newV"
         }
+        val func = this.context.getBindings("js").getMember("receiveData")
+        func.execute(payload, type)
     }
 
-    override fun registerSpecies() {
-        val receiveSpeciesDataFn = this.context.getBindings("js").getMember("receiveSpeciesData")
-        val jsArray = this.context.eval("js", "new Array();")
-        var index = 0L
-        PokemonSpecies.species.forEach { species ->
-            jsArray.setArrayElement(index++, this.gson.toJson(PokemonSpecies.ShowdownSpecies(species, null)))
-            species.forms.forEach { form ->
-                if (form != species.standardForm) {
-                    jsArray.setArrayElement(index++, this.gson.toJson(PokemonSpecies.ShowdownSpecies(species, form)))
-                }
-            }
-        }
-        receiveSpeciesDataFn.execute(jsArray)
+    override fun sendRegistryEntry(data: String, type: String) {
+        val payload = data.replace(Regex("[\r\n]+"), " ")
+        val func = this.context.getBindings("js").getMember("receiveData")
+        func.execute(payload, type)
+    }
+
+    override fun resetRegistryData(type: String) {
+        this.context.getBindings("js").getMember("resetData").execute(type);
+    }
+
+    override fun resetAllRegistries() {
+        this.context.getBindings("js").getMember("resetAll").execute()
     }
 
     override fun indicateSpeciesInitialized() {

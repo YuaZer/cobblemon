@@ -28,9 +28,11 @@ interface ShowdownService {
     fun closeConnection()
     fun startBattle(battle: PokemonBattle, messages: Array<String>)
     fun send(battleId: UUID, messages: Array<String>)
-    fun getDataArray(func: String): JsonArray
-    fun sendMappedData(data: Map<String, String>, func: String)
-    fun registerSpecies()
+    fun getRegistryData(type: String): JsonArray
+    fun sendRegistryData(data: Map<String, String>, type: String)
+    fun sendRegistryEntry(data: String, type: String)
+    fun resetRegistryData(type: String)
+    fun resetAllRegistries()
     fun indicateSpeciesInitialized() {}
 
     companion object {

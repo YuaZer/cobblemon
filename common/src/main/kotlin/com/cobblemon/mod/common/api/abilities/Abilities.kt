@@ -41,7 +41,9 @@ object Abilities : DataRegistry {
         PotentialAbility.types.add(CommonAbilityType)
         PotentialAbility.types.add(HiddenAbilityType)
         this.abilityMap.clear()
+        this.abilityScripts.clear()
 
+        ShowdownService.service.resetRegistryData("ability")
         manager.listResources("abilities") { it.path.endsWith(".js") }.forEach { (identifier, resource) ->
             resource.open().use { stream ->
                 stream.bufferedReader().use { reader ->
@@ -51,11 +53,12 @@ object Abilities : DataRegistry {
                 }
             }
         }
-        ShowdownService.service.sendMappedData(abilityScripts, "receiveAbilityData")
+        ShowdownService.service.sendRegistryData(abilityScripts, "ability")
 
-        val abilitiesJson = ShowdownService.service.getDataArray("getAbilityIds")
+        val abilitiesJson = ShowdownService.service.getRegistryData("ability")
         for (i in 0 until abilitiesJson.size()) {
-            val id = abilitiesJson[i].asString
+            val jsonAbility = abilitiesJson[i].asJsonObject
+            val id = jsonAbility.get("id").asString
             val ability = AbilityTemplate(id)
             this.register(ability)
         }
