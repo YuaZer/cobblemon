@@ -288,7 +288,7 @@ class CampfireBlock(settings: Properties) : BaseEntityBlock(settings), SimpleWat
 
             level.playSoundServer(
                 position = blockPos.toVec3d(),
-                sound = CobblemonSounds.CAMPFIRE_POT_OPEN,
+                sound = CobblemonSounds.CAMPFIRE_POT_BREAK,
                 volume = 1.0F
             )
         }
