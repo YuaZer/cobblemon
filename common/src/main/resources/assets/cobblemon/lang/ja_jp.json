@@ -6811,5 +6811,9 @@
     "cobblemon.mark.ribbon_ability_double": "ダブルアビリティリボン",
     "cobblemon.pokedex.variation.size": "サイズ",
     "block.cobblemon.galarica_nut_bush": "ガラナツのナッツの茂み",
-    "block.cobblemon.campfire": "焚き火"
+    "block.cobblemon.campfire": "焚き火",
+    "cobblemon.seasoning_mob_effect_info_header": "エフェクト詳細：",
+    "cobblemon.seasoning_food_info_header": "料理詳細：",
+    "cobblemon.seasoning_flavor_info_header": "味詳細：",
+    "cobblemon.seasoning_bait_effect_info_header": "釣りエサ詳細："
 }
