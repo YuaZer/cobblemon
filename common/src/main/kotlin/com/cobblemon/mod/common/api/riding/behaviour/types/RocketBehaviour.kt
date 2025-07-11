@@ -191,7 +191,7 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         input: Vec3
     ): Vec3 {
         val retVel = calculateRideSpaceVel(settings, state, vehicle, driver)
-        //state.rideVelocity.set(retVel)
+        state.rideVelocity.set(retVel)
         return retVel
     }
 

@@ -274,6 +274,9 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
             //newVelocity = newVelocity.normalize().scale(mag)
         }
 
+        //Zero out lateral velocity possibly picked up from a controller transition
+        newVelocity = Vec3(0.0, newVelocity.y, newVelocity.z)
+
         return newVelocity
     }
 
