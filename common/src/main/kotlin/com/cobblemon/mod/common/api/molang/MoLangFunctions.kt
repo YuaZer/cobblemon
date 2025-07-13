@@ -368,6 +368,22 @@ object MoLangFunctions {
                     return@put DoubleValue.ZERO
                 }
             }
+            map.put("spawn_npc") { params ->
+                val x = params.getDouble(0)
+                val y = params.getDouble(1)
+                val z = params.getDouble(2)
+                val npcClass = params.getStringOrNull(3)?.let { NPCClasses.getByIdentifier(it.asIdentifierDefaultingNamespace()) }
+                val level = params.getInt(4)
+                if(npcClass == null) return@put DoubleValue.ZERO
+                val npc = NPCEntity(world)
+                npc.moveTo(x, y, z, npc.yRot, npc.xRot)
+                npc.npc = npcClass
+                npc.initialize(level)
+                if (world.addFreshEntity(npc)) {
+                    return@put npc.asMoLangValue()
+                }
+                return@put DoubleValue.ZERO
+            }
             map.put("play_sound_on_server") { params ->
                 val sound = params.getString(0).asResource()
                 val soundSource = params.getString(1).uppercase()
@@ -704,6 +720,9 @@ object MoLangFunctions {
                 }
 
                 return@put if (entity.isStandingOn(blocks, depth)) DoubleValue.ONE else DoubleValue.ZERO
+            }
+            map.put("discard") {
+                entity.discard()
             }
             if (entity is PosableEntity) {
                 map.put("play_animation") { params ->
