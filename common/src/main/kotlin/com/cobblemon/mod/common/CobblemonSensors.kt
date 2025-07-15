@@ -15,6 +15,7 @@ import com.cobblemon.mod.common.entity.pokemon.ai.sensors.PokemonGrowableCropSen
 import com.cobblemon.mod.common.pokemon.ai.PokemonDisturbancesSensor
 import com.cobblemon.mod.common.entity.sensor.BattlingPokemonSensor
 import com.cobblemon.mod.common.entity.sensor.NPCBattlingSensor
+import com.example.sensor.SweetBerryBushSensor
 import java.util.function.Supplier
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.ai.sensing.Sensor
@@ -35,6 +36,8 @@ object CobblemonSensors {
     val POKEMON_DEFEND_OWNER = register("pokemon_owner_under_attack", ::DefendOwnerSensor)
 
     val NEARBY_GROWABLE_CROPS = register("nearby_growable_crops", ::PokemonGrowableCropSensor)
+
+    val NEAREST_SWEET_BERRY_BUSH = register("nearest_sweet_berry_bush", ::SweetBerryBushSensor)
 
     fun <E : Entity, U : Sensor<E>> register(id: String, supplier: Supplier<U>): SensorType<U> {
         val sensor = SensorType(supplier)

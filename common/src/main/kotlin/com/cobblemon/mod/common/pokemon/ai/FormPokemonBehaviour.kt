@@ -37,6 +37,9 @@ class FormPokemonBehaviour {
     @SerializedName("entityInteract")
     private val _entityInteract: EntityBehaviour? = null
 
+    @SerializedName("blockInteract")
+    private val _blockInteract: BlockBehavior? = null
+
     @SerializedName("combat")
     private val _combat: CombatBehaviour? = null
 
@@ -57,6 +60,9 @@ class FormPokemonBehaviour {
 
     val entityInteract: EntityBehaviour
         get() = _entityInteract ?: parent.entityInteract
+
+    val blockInteract: BlockBehavior
+        get() = _blockInteract ?: parent.blockInteract
 
     val combat: CombatBehaviour
         get() = _combat ?: parent.combat

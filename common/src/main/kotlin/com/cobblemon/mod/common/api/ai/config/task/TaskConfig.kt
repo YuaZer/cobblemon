@@ -20,6 +20,7 @@ import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMostSpecificMoLangV
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.setup
 import com.cobblemon.mod.common.api.npc.configuration.MoLangConfigVariable
 import com.cobblemon.mod.common.entity.MoLangScriptingEntity
+import com.cobblemon.mod.common.entity.pokemon.ai.tasks.PickUpItemTask
 import com.cobblemon.mod.common.util.asExpression
 import com.cobblemon.mod.common.util.cobblemonResource
 import com.cobblemon.mod.common.util.lang
@@ -32,8 +33,6 @@ import com.cobblemon.mod.common.util.withQueryValue
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.behavior.BehaviorControl
-import net.minecraft.world.entity.ai.memory.MemoryModuleType
-import net.minecraft.world.entity.ai.sensing.SensorType
 
 /**
  * A configuration for a brain task. Its purpose is to generate a list of tasks to add to the brain of
@@ -100,6 +99,11 @@ interface TaskConfig {
             cobblemonResource("find_air") to FindAirTaskConfig::class.java,
             cobblemonResource("go_to_land") to GoToLandTaskConfig::class.java,
             cobblemonResource("manage_flight_in_battle") to ManageFlightInBattleTaskConfig::class.java,
+            cobblemonResource("move_to_sweet_berry_bush") to MoveToSweetBerryBushTaskConfig::class.java,
+            cobblemonResource("harvest_sweet_berry_bush") to HarvestSweetBerryBushTaskConfig::class.java,
+            cobblemonResource("eat_held_item") to EatHeldItemTaskConfig::class.java,
+            cobblemonResource("move_to_item") to MoveToItemTaskConfig::class.java,
+            cobblemonResource("pickup_item") to PickUpItemTaskConfig::class.java,
             cobblemonResource("move_into_fluid") to MoveIntoFluidTaskConfig::class.java,
             cobblemonResource("find_herd_leader") to FindHerdLeaderTaskConfig::class.java,
             cobblemonResource("follow_herd_leader") to FollowHerdLeaderTaskConfig::class.java,

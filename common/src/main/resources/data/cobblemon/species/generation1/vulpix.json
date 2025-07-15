@@ -59,8 +59,33 @@
     },
     "entityInteract": {
       "immuneToSweetBerryBushBlock": true
-    }
+    },
+	"blockInteract": {
+		"harvest_sweet_berries" : true
+	}
   },
+  "ai": [
+    {
+      "type": "cobblemon:add_tasks_to_activity",
+      "activity": "idle",
+      "tasksByPriority": {
+        "1": [
+			"eat_held_item",
+          {
+            "type": "pickup_item",
+            "itemPriority": "q.item.is_in('#minecraft:fox_food') ? 1 : 0"
+          },
+          {
+            "type": "move_to_item",
+            "condition": "(math.random(0, 1) < (1/40))",
+            "itemPriority": "q.item.is_in('#minecraft:fox_food') ? 1 : 0"
+          },
+			"harvest_sweet_berry_bush",
+			"move_to_sweet_berry_bush"
+        ]
+      }
+    }
+  ],
   "drops": {
     "amount": 5,
     "entries": [

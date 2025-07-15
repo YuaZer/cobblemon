@@ -60,7 +60,8 @@ object PokemonBrain {
         CobblemonSensors.POKEMON_DROWSY,
         CobblemonSensors.POKEMON_ADULT,
         SensorType.IS_IN_WATER,
-        CobblemonSensors.NEARBY_GROWABLE_CROPS
+        CobblemonSensors.NEARBY_GROWABLE_CROPS,
+        CobblemonSensors.NEAREST_SWEET_BERRY_BUSH,
 
 //            CobblemonSensors.BATTLING_POKEMON,
 //            CobblemonSensors.NPC_BATTLING
@@ -178,7 +179,8 @@ object PokemonBrain {
         CobblemonMemories.RECENTLY_ATE_GRASS,
         CobblemonMemories.HERD_LEADER,
         CobblemonMemories.HERD_SIZE,
-        CobblemonMemories.ATTACK_TARGET_DATA
+        CobblemonMemories.ATTACK_TARGET_DATA,
+        CobblemonMemories.NEAREST_SWEET_BERRY_BUSH
     )
 
     private fun coreTasks(pokemon: Pokemon) = buildList<Pair<Int, BehaviorControl<in PokemonEntity>>> {
@@ -236,7 +238,11 @@ object PokemonBrain {
         add(0 toDF SwapActivityTask.possessing(MemoryModuleType.AVOID_TARGET, Activity.AVOID))
 
 //        add(0 toDF HuntPlayerTask()) // commenting this out to test other things
-        add(1 toDF FertilizerTask())
+//        add(1 toDF FertilizerTask())
+
+        if(pokemon.form.behaviour.blockInteract.harvestSweetBerries) {
+            add(1 toDF MoveToSweetBerryBushTask.create(UniformInt.of(0, 11), 1.0f))
+        }
 
         if (pokemon.species.primaryType.name.equals("fire", true)) {
             add(1 toDF IgniteTask())

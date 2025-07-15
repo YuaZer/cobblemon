@@ -22,6 +22,7 @@ open class PokemonBehaviour {
     val idle = IdleBehaviour()
     val fireImmune = false
     val entityInteract = EntityBehaviour()
+    val blockInteract = BlockBehavior()
     val combat = CombatBehaviour()
     val herd = HerdBehaviour()
 
@@ -31,6 +32,7 @@ open class PokemonBehaviour {
         it.addFunction("moving") { moving.struct }
         it.addFunction("idle") { idle.struct }
         it.addFunction("entity_interact") { entityInteract.struct }
+        it.addFunction("block_interact") { blockInteract.struct }
         it.addFunction("combat") { combat.struct }
         it.addFunction("herd") { herd.struct }
     }
