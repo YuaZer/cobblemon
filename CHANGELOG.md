@@ -33,6 +33,7 @@
 - Added Galarica Nut Bushes
 - Many Pokémon (mostly cats) are now feared by phantoms
 - Added functionality to Everstone when held by a Pokémon; suppresses evolution notification and hides evolve button in summary interface.
+- Added optional `filePath` parameter to MoLang functions to allow for global stores (ex. `../global/`). Path must end in a forward slash.
 
 ### Pokémon Added
 
