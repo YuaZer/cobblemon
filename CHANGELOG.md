@@ -288,6 +288,7 @@
 - Improved flyers avoiding getting stuck on fence posts.
 - Fixed recoil eyes on Shellder & Cloyster.
 - Fixed Shroomish spinning at lightning speed when fainting (no longer allowed to let it rip.)
+- Fixed Quaxly's animations showing hidden wing sets
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
