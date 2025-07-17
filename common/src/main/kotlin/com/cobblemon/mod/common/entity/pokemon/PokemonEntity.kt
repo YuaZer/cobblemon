@@ -301,6 +301,8 @@ open class PokemonEntity(
         get() = entityData.get(SHOWN_HELD_ITEM)
         set(value) = entityData.set(SHOWN_HELD_ITEM, value)
 
+    var lastLightningBoltUUID: UUID? = null
+
     var drops: DropTable? = null
 
     var tethering: PokemonPastureBlockEntity.Tethering? = null
@@ -2445,6 +2447,24 @@ open class PokemonEntity(
                 )
             }
         )
+    }
+
+    override fun thunderHit(level: ServerLevel, lightning: LightningBolt) {
+        if (pokemon.aspects.any { it.contains("mooshtank") }) {
+            if (this.lastLightningBoltUUID != lightning.uuid) {
+                if (aspects.contains("mooshtank-brown")) {
+                    pokemon.forcedAspects = pokemon.forcedAspects.minus("mooshtank-brown").plus("mooshtank-red")
+                } else if (aspects.contains("mooshtank-red")) {
+                    pokemon.forcedAspects = pokemon.forcedAspects.minus("mooshtank-red").plus("mooshtank-brown")
+                }
+                this.lastLightningBoltUUID = lightning.uuid
+                this.playSound(SoundEvents.MOOSHROOM_CONVERT, 2.0F, 1.0F)
+                return
+            }
+        } else {
+            // Call up only if we're not a mooshtank
+            super.thunderHit(level, lightning)
+        }
     }
 
     override fun resolveEntityScan(): LivingEntity {
