@@ -1936,6 +1936,8 @@ open class PokemonEntity(
 
     override fun spawnChildFromBreeding(world: ServerLevel, other: Animal) {}
 
+    override fun dampensVibrations(): Boolean = pokemon.dampensVibrations()
+
     override fun shear(shearedSoundCategory: SoundSource) {
         this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, shearedSoundCategory, 1.0F, 1.0F)
         val feature = this.pokemon.getFeature<FlagSpeciesFeature>(DataKeys.HAS_BEEN_SHEARED) ?: return
