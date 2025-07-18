@@ -53,6 +53,9 @@
       "canSleep": true,
       "light": "0-4"
     },
+    "lightningHit": {
+      "rotateAspects": ["mooshtank-brown", "mooshtank-red"]
+    },
     "herd": {
       "maxSize": "9",
       "toleratedLeaders": [

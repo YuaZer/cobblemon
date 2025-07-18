@@ -106,6 +106,7 @@ import com.cobblemon.mod.common.util.codec.internal.ClientPokemonP3
 import com.cobblemon.mod.common.util.codec.internal.PokemonP1
 import com.cobblemon.mod.common.util.codec.internal.PokemonP2
 import com.cobblemon.mod.common.util.codec.internal.PokemonP3
+import com.cobblemon.mod.common.util.collections.RotatedIterable
 import com.cobblemon.mod.common.util.lang
 import com.cobblemon.mod.common.util.playSoundServer
 import com.cobblemon.mod.common.util.server
@@ -157,6 +158,7 @@ import net.minecraft.world.level.block.MagmaBlock
 import net.minecraft.world.level.block.SweetBerryBushBlock
 import net.minecraft.world.level.block.WitherRoseBlock
 import net.minecraft.world.phys.Vec3
+import kotlin.math.abs
 
 enum class OriginalTrainerType : StringRepresentable {
     NONE, PLAYER, NPC;
@@ -216,6 +218,8 @@ open class Pokemon : ShowdownIdentifiable {
             field.changeFunction = {}
             field = value
             value.changeFunction = oldChangeFunction
+            // Recalculate the characteristic on IV update
+            characteristic = calculateCharacteristic()
         }
 
     var evs = EVs.createEmpty().also { it.changeFunction = { onChange(EVsUpdatePacket({ this }, it as EVs)) } }
@@ -225,6 +229,20 @@ open class Pokemon : ShowdownIdentifiable {
             field = value
             value.changeFunction = oldChangeFunction
         }
+
+    // Yes this value can be `null`. Specifically, when a Pokémon has no IVs.
+    var characteristic: Characteristic? = calculateCharacteristic()
+        private set
+
+    fun calculateCharacteristic(): Characteristic? {
+        val ivList = ivs.toList();
+        // If multiple IVs are the highest maxWithOrNull always returns the first one found, so we rotate the first one
+        // found to depend on UUID (vis-à-vis Personality value)
+        val startAt = abs(uuid.hashCode()) % ivList.size
+        val relevantIv = RotatedIterable(ivList, startAt).maxWithOrNull { left, right -> right.value - left.value } ?: return null
+        val mod = relevantIv.value % CHARACTERISTIC_MODULUS
+        return Characteristic(relevantIv.key, mod)
+    }
 
     fun setIV(stat : Stat, value : Int) {
         val quotient = clamp(currentHealth / maxHealth.toFloat(), 0F, 1F)

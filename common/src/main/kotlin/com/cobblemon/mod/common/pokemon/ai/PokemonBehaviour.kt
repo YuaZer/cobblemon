@@ -23,9 +23,11 @@ open class PokemonBehaviour {
     val fireImmune = false
     val dampensVibrations = false
     val entityInteract = EntityBehaviour()
+    val lightningHit = ThunderstruckBehaviour()
     val blockInteract = BlockBehavior()
     val combat = CombatBehaviour()
     val herd = HerdBehaviour()
+    val characteristicRainbow = false
     val itemInteract = ItemBehavior()
 
     @Transient
@@ -35,6 +37,7 @@ open class PokemonBehaviour {
         it.addFunction("idle") { idle.struct }
         it.addFunction("entity_interact") { entityInteract.struct }
         it.addFunction("block_interact") { blockInteract.struct }
+        it.addFunction("lightning_hit") { lightningHit.struct }
         it.addFunction("combat") { combat.struct }
         it.addFunction("herd") { herd.struct }
         it.addFunction("item_interact") { itemInteract.struct }

@@ -2450,16 +2450,32 @@ open class PokemonEntity(
     }
 
     override fun thunderHit(level: ServerLevel, lightning: LightningBolt) {
-        if (pokemon.aspects.any { it.contains("mooshtank") }) {
+        if (pokemon.form.behaviour.lightningHit.isSpecial()) {
             if (this.lastLightningBoltUUID != lightning.uuid) {
-                if (aspects.contains("mooshtank-brown")) {
-                    pokemon.forcedAspects = pokemon.forcedAspects.minus("mooshtank-brown").plus("mooshtank-red")
-                } else if (aspects.contains("mooshtank-red")) {
-                    pokemon.forcedAspects = pokemon.forcedAspects.minus("mooshtank-red").plus("mooshtank-brown")
-                }
                 this.lastLightningBoltUUID = lightning.uuid
+
+                // Find all aspects in effect that need rotation. This should be one or zero, but for safety we make
+                // sure to remove all if there are more.
+                val rotatingAspects = aspects.intersect(pokemon.form.behaviour.lightningHit.rotateAspects)
+
+                // We only take the first one we find into consideration for the rotation. If there's nothing to rotate
+                // we exit out early. This can happen if this species has rotating aspects but this specific Pokémon
+                // doesn't have an aspect in the rotation chain.
+                val firstAspect = rotatingAspects.firstOrNull() ?: return
+                val newAspectIndexOver = pokemon.form.behaviour.lightningHit.rotateAspects.indexOf(firstAspect).inc()
+                val newAspectIndex = if (newAspectIndexOver < pokemon.form.behaviour.lightningHit.rotateAspects.size) {
+                    newAspectIndexOver
+                } else {
+                    0
+                }
+
+                val newAspect = pokemon.form.behaviour.lightningHit.rotateAspects[newAspectIndex]
+
+                pokemon.forcedAspects = pokemon.forcedAspects
+                    .minus(rotatingAspects)
+                    .plus(newAspect)
+
                 this.playSound(SoundEvents.MOOSHROOM_CONVERT, 2.0F, 1.0F)
-                return
             }
         } else {
             // Call up only if we're not a mooshtank
