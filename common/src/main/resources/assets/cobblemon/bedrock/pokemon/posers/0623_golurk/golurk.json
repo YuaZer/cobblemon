@@ -40,7 +40,8 @@
           "animation": "q.bedrock('golurk', 'ride_ground_run')"
         }
       ],
-      "transformTicks": 10
+      "transformTicks": 5,
+      "transformToTicks": 5
     },
     "run": {
       "poseName": "run",
@@ -55,7 +56,8 @@
           "animation": "q.bedrock('golurk', 'ride_ground_run')"
         }
       ],
-      "transformTicks": 10
+      "transformTicks": 5,
+      "transformToTicks": 5
     },
     "hover": {
       "poseTypes": ["HOVER"],
@@ -79,7 +81,9 @@
           "condition": "q.is_ridden",
           "animation": "q.bedrock('golurk', 'ride_air_fly')"
         }
-      ]
+      ],
+      "transformTicks": 5,
+      "transformToTicks": 5
     },
     "sleep": {
       "poseTypes": ["SLEEP"],

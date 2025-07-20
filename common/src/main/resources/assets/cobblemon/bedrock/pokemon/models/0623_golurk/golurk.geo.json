@@ -6,7 +6,7 @@
 				"identifier": "geometry.golurk",
 				"texture_width": 512,
 				"texture_height": 256,
-				"visible_bounds_width": 7,
+				"visible_bounds_width": 9,
 				"visible_bounds_height": 7.5,
 				"visible_bounds_offset": [0, 3.25, 0]
 			},

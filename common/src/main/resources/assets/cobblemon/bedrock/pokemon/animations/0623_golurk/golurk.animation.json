@@ -1954,8 +1954,8 @@
 			"loop": true,
 			"bones": {
 				"body": {
-					"rotation": ["40+Math.cos((query.anim_time)*90*8-90)*-1", 0, "0+Math.cos((query.anim_time)*90*32)*0.4"],
-					"position": ["0+Math.cos((query.anim_time)*90*32-90)*0.1", "-26+Math.cos((query.anim_time)*90*8)*1", -6]
+					"rotation": ["0+Math.cos((query.anim_time)*90*8-90)*-1", 0, "0+Math.cos((query.anim_time)*90*32)*0.4"],
+					"position": ["0+Math.cos((query.anim_time)*90*32-90)*0.1", "-4+Math.cos((query.anim_time)*90*8)*1", 0]
 				},
 				"fire_waist_base": {
 					"position": [0, -0.25, 0],
@@ -2045,7 +2045,7 @@
 			"loop": true,
 			"bones": {
 				"body": {
-					"rotation": ["q.r.velocity_forward(4)*30", "q.r.yaw_change(4)*10", 0],
+					"rotation": ["math.clamp(q.r.velocity_forward(0)*80, -20, 85)", "q.r.yaw_change(4)*10", 0],
 					"position": [0, "0+Math.cos((q.anim_time)*90*32-90)*math.clamp((q.r.velocity_y(0)*-0.5)-0.2, -0.5, 0)", 0]
 				},
 				"fire_waist": {
@@ -2091,7 +2091,7 @@
 			"bones": {
 				"body": {
 					"rotation": [
-						"0+math.clamp(q.r.velocity_forward(0)*50, -20, 50)+Math.cos((query.anim_time)*90*32-90)*math.clamp(q.r.velocity_forward(0)*1, 0, 1)*-0.5+q.r.input_up(0)*-10+q.r.velocity_y(0)*-20",
+						"0+math.clamp(q.r.velocity_forward(0)*80, -20, 85)+Math.cos((query.anim_time)*90*32-90)*math.clamp(q.r.velocity_forward(0)*1, 0, 1)*-0.5+q.r.input_up(0)*-10",
 						"0+q.r.yaw_change(0)*5",
 						"0+q.r.yaw_change(0)*-15"
 					]

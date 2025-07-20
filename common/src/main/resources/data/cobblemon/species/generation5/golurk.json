@@ -55,7 +55,7 @@
         "displayName": "Speed",
         "description": "Its top speed",
         "ranges": {
-          "LAND": "50-100",
+          "LAND": "10-50",
           "AIR": "50-100"
         }
       },
