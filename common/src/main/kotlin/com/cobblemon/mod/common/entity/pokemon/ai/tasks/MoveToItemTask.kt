@@ -36,7 +36,7 @@ object MoveToItemTask {
                 runtime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
 
                 val _condition = runtime.resolveBoolean(condition)
-                if (!_condition) {
+                if (!_condition || !entity.pokemon.canDropHeldItem) {
                     return@Trigger false
                 }
 
@@ -50,15 +50,17 @@ object MoveToItemTask {
                         entity.x + _maxDistance,
                         entity.y + _maxDistance,
                         entity.z + _maxDistance)
-                val list: List<ItemEntity> = entity.level().getEntitiesOfClass<ItemEntity>(ItemEntity::class.java, searchBox) { true }
+                val list: List<ItemEntity> = entity.level().getEntitiesOfClass(ItemEntity::class.java, searchBox) { true }
 
                 var itemEntity: ItemEntity? = null
 
 
-                //TODO: Find the value of the item that the pokemon is currently holding
-                //TODO: Probably do not want to drop items that have been given by a trainer
-                val highestValueSeen = if (entity is PokemonEntity && entity.pokemon.heldItem().isEmpty) 0 else 9999
+                // Probably do not want to drop items that have been given by a trainer
+                runtime.withQueryValue("item", entity.pokemon.heldItem.copy().asMoLangValue(entity.registryAccess()))
+                val highestValueSeen = if (entity is PokemonEntity && !entity.pokemon.canDropHeldItem) 9999
+                    else runtime.resolveInt(itemPriority)
 
+                println(entity.pokemon.heldItem.copy().displayName.string + "\t" + highestValueSeen)
                 for (item in list) {
                     runtime.withQueryValue("item", item.item.asMoLangValue(entity.registryAccess()))
                     val itemValue = runtime.resolveInt(itemPriority)

@@ -1383,7 +1383,7 @@ open class PokemonEntity(
         val returned = if (isCosmetic) {
             this.pokemon.swapCosmeticItem(stack = stack, decrement = !player.isCreative)
         } else {
-            this.pokemon.swapHeldItem(stack = stack, decrement = !player.isCreative)
+            this.pokemon.swapHeldItem(stack = stack, decrement = !player.isCreative, false)
         }
 
         val text = when {

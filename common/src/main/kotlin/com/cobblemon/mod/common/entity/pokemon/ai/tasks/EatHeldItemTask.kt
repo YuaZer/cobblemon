@@ -11,12 +11,15 @@ package com.cobblemon.mod.common.entity.pokemon.ai.tasks
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.google.common.collect.ImmutableMap
 import net.minecraft.core.component.DataComponents
+import net.minecraft.core.particles.ItemParticleOption
+import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.behavior.Behavior
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
 import net.minecraft.world.entity.ai.memory.MemoryStatus
 import net.minecraft.world.item.ItemStack
+
 
 class EatHeldItemTask : Behavior<LivingEntity>(
     ImmutableMap.of(
@@ -68,10 +71,25 @@ class EatHeldItemTask : Behavior<LivingEntity>(
                 } else if (this.timelastEaten > 0 && entity.random.nextFloat() < 0.4f) {
                     entity.playSound(entity.getEatingSound(itemstack), 1.0f, 1.0f)
                     world.broadcastEntityEvent(entity, 45.toByte())
+                    spawnFoodParticles(entity, itemstack)
                 }
             }
 
         }
     }
+
+    private fun spawnFoodParticles(entity: LivingEntity, itemStack: ItemStack) {
+
+        val serverLevel = entity.level() as ServerLevel
+        //TODO: Figure out how to this with snowstorm so we can use mouth/face/head locators
+        serverLevel.sendParticles(
+            ItemParticleOption(ParticleTypes.ITEM, itemStack),
+            entity.x, entity.y + 0.5, entity.z, // particle position (centered on entity)
+            5, // count
+            0.1, 0.1, 0.1, // x, y, z offset spread
+            0.05 // speed
+        )
+    }
+
 
 }

@@ -15,6 +15,7 @@ import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMostSpecificMoLangV
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.setup
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
+import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.entity.ai.behavior.OneShot
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder
 import net.minecraft.world.entity.ai.behavior.declarative.Trigger
@@ -34,7 +35,7 @@ object PickUpItemTask {
                 runtime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
 
                 val condition = runtime.resolveBoolean(condition)
-                if (!condition) {
+                if (!condition || (entity is PokemonEntity && !entity.pokemon.canDropHeldItem)) {
                     return@Trigger false
                 }
 
@@ -52,10 +53,12 @@ object PickUpItemTask {
 
                 var itemEntity: ItemEntity? = null
 
+                if (entity !is PokemonEntity) return@Trigger false
 
-                //TODO: Find the value of the item that the pokemon is currently holding
-                //TODO: Probably do not want to drop items that have been given by a trainer
-                val highestValueSeen = if (entity is PokemonEntity && entity.pokemon.heldItem().isEmpty) 0 else 9999
+                // Probably do not want to drop items that have been given by a trainer
+                runtime.withQueryValue("item", entity.pokemon.heldItem.copy().asMoLangValue(entity.registryAccess()))
+                val highestValueSeen = if (entity is PokemonEntity && !entity.pokemon.canDropHeldItem) 9999
+                    else runtime.resolveInt(itemPriority)
 
                 for (item in list) {
                     runtime.withQueryValue("item", item.item.asMoLangValue(entity.registryAccess()))
@@ -68,8 +71,21 @@ object PickUpItemTask {
                 if (itemEntity == null) {
                     return@Trigger false
                 }
-
-                entity.pokemon.swapHeldItem(itemEntity.item)
+                entity.take(itemEntity, 1)
+                val stack = entity.pokemon.swapHeldItem(itemEntity.item)
+                if (!stack.isEmpty() && !entity.level().isClientSide) {
+                    val itemEntity = ItemEntity(
+                        entity.level(),
+                        entity.x + entity.lookAngle.x,
+                        entity.y + 1.0,
+                        entity.z + entity.lookAngle.z,
+                        stack
+                    )
+                    itemEntity.setPickUpDelay(40)
+                    itemEntity.setThrower(entity)
+                    entity.playSound(SoundEvents.FOX_SPIT, 1.0f, 1.0f)
+                    entity.level().addFreshEntity(itemEntity)
+                }
 
                 return@Trigger true
             }

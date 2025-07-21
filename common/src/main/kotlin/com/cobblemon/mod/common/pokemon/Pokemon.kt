@@ -639,6 +639,11 @@ open class Pokemon : ShowdownIdentifiable {
      */
     var heldItemVisible: Boolean = true
 
+    /**
+     * Whether this Pokémon's held item was given by its owner.
+     */
+    internal var canDropHeldItem: Boolean = true
+
     val riding: RidingProperties
         get() = this.form.riding
 
@@ -1147,7 +1152,7 @@ open class Pokemon : ShowdownIdentifiable {
      *
      * @see [HeldItemEvent]
      */
-    fun swapHeldItem(stack: ItemStack, decrement: Boolean = true): ItemStack {
+    fun swapHeldItem(stack: ItemStack, decrement: Boolean = true, aiCanDrop: Boolean = true): ItemStack {
         val existing = this.heldItem()
         CobblemonEvents.HELD_ITEM_PRE.postThen(HeldItemEvent.Pre(this, stack, existing, decrement), ifSucceeded = { event ->
             val giving = event.receiving.copy().apply { count = 1 }
@@ -1155,6 +1160,7 @@ open class Pokemon : ShowdownIdentifiable {
                 event.receiving.shrink(1)
             }
             this.heldItem = giving
+            this.canDropHeldItem = giving.isEmpty || aiCanDrop
             onChange(HeldItemUpdatePacket({ this }, giving))
             CobblemonEvents.HELD_ITEM_POST.post(HeldItemEvent.Post(this, this.heldItem(), event.returning.copy(), event.decrement)) {
                 StashHandler.giveHeldItem(it)
@@ -1328,6 +1334,7 @@ open class Pokemon : ShowdownIdentifiable {
         this.nature = other.nature
         this.mintedNature = other.mintedNature
         this.heldItem = other.heldItem
+        this.canDropHeldItem = other.canDropHeldItem
         this.persistentData = other.persistentData
         this.tetheringId = other.tetheringId
         this.teraType = other.teraType

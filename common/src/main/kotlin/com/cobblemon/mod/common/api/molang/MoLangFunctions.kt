@@ -91,6 +91,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Holder
 import net.minecraft.core.Registry
 import net.minecraft.core.RegistryAccess
+import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
@@ -548,6 +549,7 @@ object MoLangFunctions {
             map.put("grow") { params -> stack.grow(params.getInt(0)) }
             map.put("is_of") { params -> DoubleValue(holder.`is`(params.getString(0).asIdentifierDefaultingNamespace())) }
             map.put("is_in") { params -> DoubleValue(holder.`is`(TagKey.create(Registries.ITEM, params.getString(0).replace("#", "").asIdentifierDefaultingNamespace()))) }
+            map.put("is_food") { params -> DoubleValue(stack.has(DataComponents.FOOD)) }
             return@mutableListOf map
         }
     )
