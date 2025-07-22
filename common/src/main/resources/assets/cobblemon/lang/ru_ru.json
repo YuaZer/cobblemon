@@ -5664,7 +5664,7 @@
     "cobblemon.ability.levitate": "Левитация",
     "cobblemon.ability.levitate.desc": "By floating in the air, the Pokémon receives full immunity to all Ground-type moves.",
     "cobblemon.ability.libero": "Либеро",
-    "cobblemon.ability.libero.desc": "Changes the Pokémon’s type to the type of the move it’s about to use.",
+    "cobblemon.ability.libero.desc": "Изменяет тип Покемона на тип того приёма, который он собирается использовать. Это срабатывает только один раз, когда Покемон вступает в битву.",
     "cobblemon.ability.lightmetal": "Лёгкий металл",
     "cobblemon.ability.lightmetal.desc": "Halves the Pokémon’s weight.",
     "cobblemon.ability.lightningrod": "Громоотвод",
