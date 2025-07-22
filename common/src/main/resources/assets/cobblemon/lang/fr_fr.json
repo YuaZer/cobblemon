@@ -8619,5 +8619,8 @@
     "cobblemon.item_class.seasonings": "Assaisonnements",
     "cobblemon.item_class.flavor_seasoning": "Aromates",
     "cobblemon.item_class.bait_effect_seasoning": "Assaisonnement pour appâts",
-    "cobblemon.item_class.food_seasoning": "Assaisonnement Culinaire"
+    "cobblemon.item_class.food_seasoning": "Assaisonnement Culinaire",
+    "cobblemon.seasoning_bait_effect_header": "Appât",
+    "cobblemon.seasoning_mob_effect_header": "Effet",
+    "cobblemon.seasoning_food_header": "Aliment"
 }
