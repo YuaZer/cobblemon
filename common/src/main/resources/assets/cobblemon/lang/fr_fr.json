@@ -8586,5 +8586,10 @@
     "item.cobblemon.scroll_of_waters.tooltip": "Fait évoluer Wushours en Shifours Style Mille Poings",
     "item.cobblemon.potato_mochi": "Mochi Pomme de terre",
     "item.cobblemon.fried_rice": "Riz Frit",
-    "item.cobblemon.candied_apple": "Pomme d'Amour"
+    "item.cobblemon.candied_apple": "Pomme d'Amour",
+    "item.cobblemon.health_mochi": "Mochi Santé",
+    "item.cobblemon.moomoo_milk": "Lait Meumeu",
+    "item.cobblemon.muscle_mochi": "Mochi Force",
+    "item.cobblemon.resist_mochi": "Mochi Armure",
+    "item.cobblemon.genius_mochi": "Mochi Esprit"
 }
