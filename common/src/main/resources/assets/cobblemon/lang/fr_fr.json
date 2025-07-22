@@ -8618,5 +8618,6 @@
     "item.cobblemon.smoked_tail_curry": "Curry de Queue Fumée",
     "cobblemon.item_class.seasonings": "Assaisonnements",
     "cobblemon.item_class.flavor_seasoning": "Aromates",
-    "cobblemon.item_class.bait_effect_seasoning": "Assaisonnement pour appâts"
+    "cobblemon.item_class.bait_effect_seasoning": "Assaisonnement pour appâts",
+    "cobblemon.item_class.food_seasoning": "Assaisonnement alimentaire"
 }
