@@ -33,6 +33,7 @@ import net.minecraft.world.phys.Vec2
 import net.minecraft.world.phys.Vec3
 import net.minecraft.world.phys.shapes.Shapes
 import org.joml.Matrix3f
+import java.lang.Math.clamp
 import org.joml.Vector3f
 import kotlin.math.*
 
@@ -87,7 +88,24 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
     ): Float {
         // Use this as a "tick" function and check to see if the driver is "boosting"
         if(vehicle.level().isClientSide) {
-            state.boosting.set( Minecraft.getInstance().options.keySprint.isDown() && Minecraft.getInstance().options.keyUp.isDown() )
+
+            //If the forward key is not held then it cannot be boosting
+            if(Minecraft.getInstance().options.keyUp.isDown()) {
+                val boostKeyPressed = Minecraft.getInstance().options.keySprint.isDown()
+
+                //If on the previous tick the boost key was held then don't change if the ride is boosting
+                if(state.boostIsToggleable.get() && boostKeyPressed) {
+                    //flip the boosting state if boost key is pressed
+                    state.boosting.set(!state.boosting.get())
+                }
+
+                //If the boost key is not held then next tick boosting is toggleable
+                state.boostIsToggleable.set(!boostKeyPressed)
+            } else {
+                state.boostIsToggleable.set(true)
+                state.boosting.set(false)
+            }
+
         }
 
         return state.rideVelocity.get().length().toFloat()
@@ -128,8 +146,19 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         val f = Mth.wrapDegrees(driver.yRot - vehicle.yRot)
         val lookYawLimit = 90.0f
         val g = Mth.clamp(f, -lookYawLimit, lookYawLimit)
+
+        val ticksBeforeCorrection = 40
+
+        if(state.prevCamYRot.get() == driver.yRot){
+            state.ticksNoInput.set(state.ticksNoInput.get() + 1)
+        } else {
+            state.ticksNoInput.set(0)
+        }
+        val correctionForce = if(state.ticksNoInput.get() >= ticksBeforeCorrection && f != 0.0f && state.boosting.get()) 1f * min(sqrt(lookYawLimit / (abs(f))), 10.0f) else 0.0f
         driver.yRotO += g - f
-        driver.yRot = driver.yRot + g - f
+        driver.yRot = driver.yRot + g - f - ( clamp(f.sign * correctionForce, -abs(f), abs(f)) )
+        //driver.yRot = driver.yRot + g - f - ( min )
+        state.prevCamYRot.set(driver.yRot)
         driver.setYHeadRot(driver.yRot)
     }
 
@@ -146,10 +175,10 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         val maxTurnMomentum = 3.0f
 
         if(state.boosting.get()) {
-            if(driver.xxa == 0.0f) { //If no turning input then lerp to 0
-                newMomentum = lerp(newMomentum, 0.0, 0.5)
-            } else if(abs(newMomentum + turnInput) < (maxTurnMomentum * 0.25)) { //If max momentum will not be exceeded then modulate
+            if(driver.xxa != 0.0f && abs(newMomentum + turnInput) < (maxTurnMomentum * 0.25)) { //If max momentum will not be exceeded then modulate
                 newMomentum += turnInput * 0.25
+            } else {
+                newMomentum = lerp(newMomentum, 0.0, 0.5)
             }
         } else {
             if(driver.xxa == 0.0f) { //If no turning input then lerp to 0
@@ -161,7 +190,7 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
 
 
         state.turnMomentum.set(newMomentum.toFloat())
-
+        driver.yRot += newMomentum.toFloat()
         return Vec2(driver.xRot, vehicle.yRot + newMomentum.toFloat())
 
     }
@@ -222,16 +251,14 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         vehicle: PokemonEntity,
         driver: Player
     ): Vec3 {
-        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) * 0.25
-        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) * 0.5
+        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
+        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr)
 
         var newVelocity = vehicle.deltaMovement
 
         // Align the direction of movement with the world coordinate space so as not to modify it through turning
         val yawAligned = Matrix3f().rotateY(vehicle.yRot.toRadians())
         newVelocity = (newVelocity.toVector3f().mul(yawAligned)).toVec3d()
-
-
 
         //speed up and slow down based on input
         if (driver.zza != 0.0f && state.stamina.get() > 0.0 && !state.boosting.get()) {
@@ -246,13 +273,10 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
                 newVelocity.y,
                 (newVelocity.z + (accel * forwardInput.toDouble())))
 
-        } else if ((driver.zza != 0.0f && state.stamina.get() > 0.0 && state.boosting.get())) {
+        } else if ((state.stamina.get() > 0.0 && state.boosting.get())) {
             val boostSpeed = topSpeed * 5
             val boostAccel = accel * 3
-            val forwardInput = when {
-                vehicle.deltaMovement.horizontalDistance() > boostSpeed && (driver.zza.sign == newVelocity.z.sign.toFloat()) -> 0.0
-                else -> driver.zza.sign
-            }
+            val forwardInput = 1.0f
 
             newVelocity = Vec3(
                 newVelocity.x,
@@ -263,20 +287,40 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         //Vertical movement based on driver input.
         val maxVertSpeed = 0.5f
         var vertInput = 0.0
-        if (driver.jumping && !(vehicle.deltaMovement.y > maxVertSpeed && (newVelocity.y.sign.toFloat() > 0.0))) {
-            vertInput = 1.0
 
-            // Reset falldistance if upward motion is detected
-            vehicle.resetFallDistance()
-        } else {
-            vertInput = -2.0
-        }
-        val vertAccel = accel
-        if (state.stamina.get() > 0.0) {
+        //If boosting then don't lose altitude
+        //otherwise propel up or fall
+        if (state.boosting.get() && !(driver.jumping || driver.isShiftKeyDown)) {
             newVelocity = Vec3(
                 newVelocity.x,
-                (newVelocity.y + (vertAccel * vertInput)), //.coerceIn(-vertTopSpeed, vertTopSpeed),
+                lerp(newVelocity.y, 0.0, 0.3),
                 newVelocity.z)
+        } else if(state.boosting.get() && abs(vehicle.deltaMovement.y) < maxVertSpeed) {
+            vertInput = when {
+                driver.jumping -> 1.0
+                driver.isShiftKeyDown -> -1.0
+                else -> 0.0
+            }
+            newVelocity = Vec3(
+                newVelocity.x,
+                (newVelocity.y + (accel * 0.5 * vertInput)),
+                newVelocity.z)
+        } else {
+            if (driver.jumping && !(vehicle.deltaMovement.y > maxVertSpeed && (newVelocity.y.sign.toFloat() > 0.0))) {
+                vertInput = 1.0
+
+                // Reset falldistance if upward motion is detected
+                vehicle.resetFallDistance()
+            } else {
+                vertInput = -2.0
+            }
+
+            if (state.stamina.get() > 0.0) {
+                newVelocity = Vec3(
+                    newVelocity.x,
+                    (newVelocity.y + (accel * vertInput)), //.coerceIn(-vertTopSpeed, vertTopSpeed),
+                    newVelocity.z)
+            }
         }
 
         return newVelocity
@@ -366,7 +410,16 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         vehicle: PokemonEntity,
         driver: Player
     ): Float {
-        return 1.0f
+        if (state.boosting.get()) {
+            val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
+            //val exceededSpeed = max(vehicle.deltaMovement.length() - topSpeed, 0.0)
+
+            //TODO: Remove this magic number and get a better comparison for boost top speed
+            val normalizedBoostSpeed = normalizeVal(state.rideVelocity.get().length(), topSpeed, topSpeed * 3)
+            return 1.0f + normalizedBoostSpeed.pow(2).toFloat() * 0.2f
+        } else {
+            return 1.0f
+        }
     }
 
     override fun useAngVelSmoothing(
@@ -448,12 +501,12 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
 class RocketSettings : RidingBehaviourSettings {
     override val key = RocketBehaviour.KEY
 
-    var speedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', 0.65, 0.3)".asExpression()
+    var speedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', 0.65, 0.3) * 0.25".asExpression()
         private set
 
     // Max accel is a whole 1.0 in 1 second. The conversion in the function below is to convert seconds to ticks
     var accelerationExpr: Expression =
-        "q.get_ride_stats('ACCELERATION', 'AIR', (1.0 / (20.0 * 1.5)), (1.0 / (20.0 * 3.0)))".asExpression()
+        "q.get_ride_stats('ACCELERATION', 'AIR', (1.0 / (20.0 * 1.5)), (1.0 / (20.0 * 3.0))) * 0.5".asExpression()
         private set
 
     // Between 30 seconds and 10 seconds at the lowest when at full speed.
@@ -492,11 +545,17 @@ class RocketSettings : RidingBehaviourSettings {
 
 class RocketState : RidingBehaviourState() {
     var boosting = ridingState(false, Side.BOTH)
-    val turnMomentum: SidedRidingState<Float> = ridingState(1.0F, Side.CLIENT)
+    var boostIsToggleable = ridingState(false, Side.BOTH)
+    var prevCamYRot: SidedRidingState<Float> = ridingState(0.0f, Side.CLIENT)
+    var ticksNoInput: SidedRidingState<Int> = ridingState(0, Side.CLIENT)
+    val turnMomentum: SidedRidingState<Float> = ridingState(0.0f, Side.CLIENT)
 
     override fun reset() {
         super.reset()
         boosting.set(false, forced = true)
+        boostIsToggleable.set(false, forced = true)
+        prevCamYRot.set(0.0f, forced = true)
+        ticksNoInput.set(0, forced = true)
         turnMomentum.set(0.0f, forced = true)
     }
 
@@ -504,24 +563,36 @@ class RocketState : RidingBehaviourState() {
         it.rideVelocity.set(this.rideVelocity.get(), forced = true)
         it.stamina.set(this.stamina.get(), forced = true)
         it.boosting.set(this.boosting.get(), forced = true)
+        it.boostIsToggleable.set(this.boosting.get(), forced = true)
+        it.prevCamYRot.set(this.prevCamYRot.get(), forced = true)
+        it.ticksNoInput.set(this.ticksNoInput.get(), forced = true)
         it.turnMomentum.set(this.turnMomentum.get(), forced = true)
     }
 
     override fun encode(buffer: FriendlyByteBuf) {
         super.encode(buffer)
         buffer.writeBoolean(boosting.get())
+        buffer.writeBoolean(boostIsToggleable.get())
+        buffer.writeFloat(prevCamYRot.get())
+        buffer.writeInt(ticksNoInput.get())
         buffer.writeFloat(turnMomentum.get())
     }
 
     override fun decode(buffer: FriendlyByteBuf) {
         super.decode(buffer)
         boosting.set(buffer.readBoolean(), forced = true)
+        boostIsToggleable.set(buffer.readBoolean(), forced = true)
+        prevCamYRot.set(buffer.readFloat(), forced = true)
+        ticksNoInput.set(buffer.readInt(), forced = true)
         turnMomentum.set(buffer.readFloat(), forced = true)
     }
 
     override fun shouldSync(previous: RidingBehaviourState): Boolean {
         if (previous !is RocketState) return false
         if (previous.boosting.get() != boosting.get()) return true
+        if (previous.boostIsToggleable.get() != boostIsToggleable.get()) return true
+        if (previous.prevCamYRot.get() != prevCamYRot.get()) return true
+        if (previous.ticksNoInput.get() != ticksNoInput.get()) return true
         if (previous.turnMomentum.get() != turnMomentum.get()) return true
         return super.shouldSync(previous)
     }

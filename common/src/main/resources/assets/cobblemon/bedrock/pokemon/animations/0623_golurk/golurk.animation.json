@@ -2093,7 +2093,7 @@
 					"rotation": [
 						"0+math.clamp(q.r.velocity_forward(0)*80, -20, 85)+Math.cos((query.anim_time)*90*32-90)*math.clamp(q.r.velocity_forward(0)*1, 0, 1)*-0.5+q.r.input_up(0)*-10",
 						"0+q.r.yaw_change(0)*5",
-						"0+q.r.yaw_change(0)*-15"
+						"0+q.r.yaw_change(0)*-35"
 					]
 				},
 				"fire_waist": {

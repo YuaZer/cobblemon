@@ -151,7 +151,7 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
     ): Vec2 {
         val turnAmount =  calcRotAmount(settings, state, vehicle, driver)
 
-        return Vec2(vehicle.xRot, vehicle.yRot + turnAmount )
+        return Vec2(vehicle.xRot, vehicle.yRot + turnAmount * 0.5f )
 
     }
 

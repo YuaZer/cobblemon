@@ -104,7 +104,7 @@
         "rideSounds": [
           {
             "soundLocation": "cobblemon:ride.loop.rocket",
-            "volumeExpr": "math.pow(math.min(q.driver_input() / 1.5, 1.0),2)",
+            "volumeExpr": "math.pow(math.min((q.driver_input() / 1.5) + (q.ride_velocity() / 1.5), 1.0),2)",
             "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.driver_input() / 1.5, 1.0),2))",
             "playForNonPassengers": true,
             "muffleEnabled": true
