@@ -218,10 +218,10 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
 
         // Check to see if the ride should be walking or sprinting
         val walkSpeed = getWalkSpeed(vehicle)
-        val rideTopSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
+        val rideTopSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) * 0.6 * 3
         val topSpeed = if(state.sprinting.get()) rideTopSpeed else walkSpeed
 
-        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr)
+        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) * 0.3
 
         //Flag for determining if player is actively inputting
         var activeInput = false
@@ -250,7 +250,10 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
         if (vehicle.onGround()) {
             newVelocity = Vec3(newVelocity.x, 0.0, newVelocity.z)
         } else {
-            val gravity = (9.8 / ( 20.0)) * 0.2
+            //TODO: Should we just go back to standard minecraft gravity or do the lerp modifications prevent that?
+            //I think minecrafts gravity logic is also too harsh and isn't gamefied enough for mounts maybe? Need
+            //to do some testing and get other's opinions
+            val gravity = (9.8 / ( 20.0)) * 0.2 * 0.15
             val terminalVel = 2.0
 
             val fallingForce = gravity -  ( newVelocity.z.sign *gravity *(abs(newVelocity.z) / 2.0))
@@ -262,13 +265,16 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
             newVelocity = newVelocity.subtract(0.0, 0.0, min(0.03 * newVelocity.z.sign, newVelocity.z))
         }
 
+        //TODO: Change this so its tied to a jumping stat and representative of the amount of jumps
         val canJump = vehicle.runtime.resolveBoolean(settings.canJump)
         //Jump the thang!
         if (driver.jumping && vehicle.onGround() && canJump) {
-            val jumpForce = 1.0
-            val horz = state.rideVelocity.get().horizontalDistance()
+            val jumpForce = 0.5
+            val velMag = newVelocity.length()
+
             newVelocity = newVelocity.add(0.0, jumpForce, 0.0)
 
+            val test = 0.0
             //Ensure this doesn't add unwanted forward velocity
             //val mag = if(newVelocity.length() < rideTopSpeed) newVelocity.length() else rideTopSpeed
             //newVelocity = newVelocity.normalize().scale(mag)
