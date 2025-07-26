@@ -25,7 +25,7 @@ public abstract class SweetBerryBushBlockMixin {
 
     @Inject(method = "entityInside", at = @At(value = "HEAD"), cancellable = true)
     private void cobblemon$entityInside(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo callbackInfo) {
-        if (entity instanceof PokemonEntity &&  ((PokemonEntity) entity).getBehaviour().getEntityInteract().getImmuneToSweetBerryBushBlock()) {
+        if (entity instanceof PokemonEntity &&  ((PokemonEntity) entity).getBehaviour().getBlockInteract().getImmuneToSweetBerryBushBlock()) {
             callbackInfo.cancel();
         }
     }

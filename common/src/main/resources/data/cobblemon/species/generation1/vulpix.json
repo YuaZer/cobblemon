@@ -58,10 +58,10 @@
       "light": "0-4"
     },
     "entityInteract": {
-      "immuneToSweetBerryBushBlock": true
     },
 	"blockInteract": {
-		"harvest_sweet_berries" : true
+      "immuneToSweetBerryBushBlock": true,
+      "canStandOnPowderSnow": true
 	},
     "itemInteract": {
       "desiredItems": [
@@ -84,7 +84,7 @@
         "1": [
 			"eat_held_item",
           {
-            "type": "pickup_item",
+            "type": "pickup_item"
           },
           {
             "type": "move_to_item",

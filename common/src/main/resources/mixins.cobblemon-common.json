@@ -65,6 +65,7 @@
     "PiglinEntityMixin",
     "PlayerAdvancementsMixin",
     "PlayerMixin",
+    "PowderSnowBlockMixin",
     "PointedDripstoneBlockMixin",
     "RecipeBookSettingsMixin",
     "RecipeBookTypeMixin",
