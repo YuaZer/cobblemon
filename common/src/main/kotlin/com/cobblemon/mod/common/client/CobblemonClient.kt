@@ -87,6 +87,7 @@ object CobblemonClient {
 
     /** If true then we won't bother them anymore about choosing a starter even if it's a thing they can do. */
     var checkedStarterScreen = false
+    var lastPcBoxViewed = 0
     var requests = ClientPlayerActionRequests()
     var teamData = ClientPlayerTeamData()
     val overlay: PartyOverlay by lazy { PartyOverlay() }
@@ -160,13 +161,16 @@ object CobblemonClient {
                 if (event.client.isPaused) {
                     return@subscribe
                 }
-                val nearbyShinies = player.level().getEntities(
+
+                val nearbyPokemon = player.level().getEntities(
                     player,
                     AABB.ofSize(player.position(), 16.0, 16.0, 16.0)
-                ) { it is PokemonEntity && it.pokemon.shiny && !it.isSilent }
-                nearbyShinies?.firstOrNull { player.isLookingAt(it) && !player.isSpectator }.let {
-                    if (it is PokemonEntity) {
-                        it.delegate.spawnShinyParticle(player)
+                ) { it is PokemonEntity }
+
+                nearbyPokemon?.forEach { entity ->
+                    if (entity is PokemonEntity && !entity.isSilent) {
+                        if (player.isLookingAt(entity) && !player.isSpectator && entity.pokemon.shiny) entity.delegate.spawnShinyParticle(player)
+                        entity.delegate.spawnAspectParticle()
                     }
                 }
             }
@@ -205,7 +209,11 @@ object CobblemonClient {
 
     private fun registerBlockRenderTypes() {
 
-        this.implementation.registerBlockRenderType(RenderType.cutoutMipped(), CobblemonBlocks.APRICORN_LEAVES)
+        this.implementation.registerBlockRenderType(
+            RenderType.cutoutMipped(),
+            CobblemonBlocks.APRICORN_LEAVES,
+            CobblemonBlocks.SACCHARINE_LEAVES
+        )
 
         this.implementation.registerBlockRenderType(
             RenderType.cutout(),
@@ -292,7 +300,6 @@ object CobblemonClient {
             CobblemonBlocks.RED_CAMPFIRE_POT,
             CobblemonBlocks.WHITE_CAMPFIRE_POT,
             CobblemonBlocks.YELLOW_CAMPFIRE_POT
-
         )
 
         this.createBoatModelLayers()

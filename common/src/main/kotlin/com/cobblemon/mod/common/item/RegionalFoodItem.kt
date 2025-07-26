@@ -8,22 +8,9 @@
 
 package com.cobblemon.mod.common.item
 
-import com.cobblemon.mod.common.CobblemonItemComponents
-import com.cobblemon.mod.common.CobblemonItems
-import com.cobblemon.mod.common.CobblemonSounds
-import com.cobblemon.mod.common.api.apricorn.Apricorn
-import com.cobblemon.mod.common.api.conditional.RegistryLikeIdentifierCondition
-import com.cobblemon.mod.common.api.cooking.Flavour
-import com.cobblemon.mod.common.api.cooking.PokePuffUtils
-import com.cobblemon.mod.common.api.cooking.Seasonings
 import com.cobblemon.mod.common.api.item.PokemonSelectingItem
-import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
-import com.cobblemon.mod.common.pokemon.Nature
 import com.cobblemon.mod.common.pokemon.Pokemon
-import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.network.chat.Component
-import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundEvents
@@ -43,8 +30,8 @@ class RegionalFoodItem(properties: Properties) : Item(properties), PokemonSelect
     override fun use(world: Level, player: Player, hand: InteractionHand): InteractionResultHolder<ItemStack> {
         val stack = player.getItemInHand(hand)
 
-        // Allow eating normally if player needs food
-        if (player.foodData.needsFood()) {
+        // Allow eating normally if player needs food OR in creative
+        if (player.foodData.needsFood() || player.isCreative) {
             player.startUsingItem(hand)
             return InteractionResultHolder.consume(stack)
         }
@@ -69,9 +56,7 @@ class RegionalFoodItem(properties: Properties) : Item(properties), PokemonSelect
         if (pokemon.status != null) {
             pokemon.status = null
             pokemon.entity?.playSound(SoundEvents.GENERIC_EAT, 1F, 1F)
-            if (!player.isCreative) {
-                stack.shrink(1)
-            }
+            stack.consume(1, player)
             return InteractionResultHolder.success(stack)
         }
         return InteractionResultHolder.fail(stack)

@@ -136,7 +136,7 @@ open class PokemonProperties {
             props.ability = parseStringOfRegistry(keyPairs, listOf("ability")) { Abilities.get(it)?.name }
             props.status = parseStringOfRegistry(keyPairs, listOf("status")) { (Statuses.getStatus(it) ?: Statuses.getStatus(it.asIdentifierDefaultingNamespace()))?.showdownName }
             props.nickname = parseText(keyPairs, listOf("nickname", "nick"))
-            props.type = parseStringOfRegistry(keyPairs, listOf("type", "elemental_type")) { ElementalTypes.get(it)?.name }
+            props.type = parseStringOfRegistry(keyPairs, listOf("type", "elemental_type")) { ElementalTypes.get(it)?.showdownId }
             props.teraType = parseIdentifierOfRegistry(keyPairs, listOf("tera_type", "tera")) { TeraTypes.get(it)?.id?.simplify() }
             props.dmaxLevel = parseIntProperty(keyPairs, listOf("dmax_level", "dmax"))?.coerceIn(0, Cobblemon.config.maxDynamaxLevel)
             props.gmaxFactor = parseBooleanProperty(keyPairs, listOf("gmax_factor", "gmax"))
@@ -463,7 +463,7 @@ open class PokemonProperties {
             val stack = ItemStack(result.item)
             stack.applyComponents(result.components)
             if (stack.isEmpty) return@let
-            pokemon.heldItem = stack
+            pokemon.swapHeldItem(stack)
         }
         pokemon.updateAspects()
     }

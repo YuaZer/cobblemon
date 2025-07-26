@@ -19,9 +19,8 @@
 - Added `/transformmodelpart (position|rotation|scale) <modelPart> <transform: x y z>` command that can add transformations to a pokemon's model part.
   - The player executing the command must be facing the target pokemon entity. Transformations are not persistent and will revert when resources are reloaded.
 - Added lang keys for all moves and abilities up to Generation 9.
-- Fixed Moon Ball moon phase logic to actually work correctly
 - Added `translucent_cull` boolean option into resolver's layer to allow for translucent textures with culling
-- Added [LambDynamicLights](https://modrinth.com/mod/lambdynamiclights) support for items held by Pokémon.
+- Added [LambDynamicLights](https://modrinth.com/mod/lambdynamiclights) support for items held by Pokémon, evolution stone blocks, evolution stone items, Pokédex, Luminous Moss, Flame Orb, and Magmarizer.
 - Added the Clear Amulet, Grip Claw, Lagging Tail, Luminous Moss, Metal Alloy, Scroll of Darkness, Scroll of Waters
 - Added Recipes for Masterpiece Cup, Eject Pack
 - Added modification to Minecraft Creative Inventory search to account for item names that contain `poké` when input contains `poke`.
@@ -32,6 +31,15 @@
 - Added `/pctake <player> <box> <slot>` command that takes a specific Pokémon from a player's PC. Removes the pokemon if target is self or ran from the server.
 - Added Hyper Training items (IV Modification) as well as some additional candy items to do so (Health Candy, Sickly Candy)
 - Added Galarica Nut Bushes
+- Many Pokémon (mostly cats) are now feared by phantoms
+- Lightning is now affected by a Pokemon's ability/typing
+  - Pokémon with the ability Lightning Rod draw in lightning similar to a lightning rod block albeit with a lower priority and range, gain immunity to lightning damage, and receive a temporary damage buff.
+  - Pokémon with the ability Motor Drive are immune to lightning damage and receive a temporary speed buff when struck by lightning
+  - Pokémon with the ability Volt Absorb are immune to lightning damage and receive Regeneration II for a short duration
+  - Ground type Pokémon are immune to lightning damage
+- Added functionality to Everstone when held by a Pokémon; suppresses evolution notification and hides evolve button in summary interface.
+- Added new optional property `attachment_options` for most EmitterShapes to be attached to the locator/entities scale, rotation, and/or position. Position is true by default.
+- Galarica Nut bushes now generate on beaches
 
 ### Pokémon Added
 
@@ -222,6 +230,14 @@
 - Saccharine Leaves Age 1 or higher will now show Yellow particles when broken
 - Destroying a Saccharine Honey Log will now drop a Saccharine Log in stead of nothing
 - Reworked some compost chances
+- Updated interaction interface to include 4 more option spaces
+- Made lecterns that hold a Pokédex emit light.
+- Updated light levels for active PC, Pasture, Healing Machine, and Data Monitor.
+- Vivichokes now always drop one seed when harvested, and converting a fully grown Vivichoke to seeds via crafting results in 1 seed.
+- Healing Machine recipe rebalanced.
+- Reorganised the `block` texture folder to be more organised, in line with the `item` texture folder.
+- Offset in EmitterShape now ignores scale to be more like Blockbench by default. You can get this behaviour back by adding `"scale": true` in the `attachment_options` property in most EmitterShapes.
+- Not specifying a dex in `/pokedex printcalculations {player} {dex}` will now print the National Dex statistics instead of showing all dexes. `/pokedex printcalculations {player} all` is how to view all dex statistics in one command.
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
@@ -283,7 +299,11 @@
 - Improved flyers avoiding getting stuck on fence posts.
 - Fixed air balloon battle text not correctly displaying the Pokémon or item name
 - Fixed an issue where items retrieved from a Display case would disappear if a player's inventory is full
-- Fixed Pokédex Scanner not respecting the "Invert Mouse" option
+- Fixed Pokédex Scanner not respecting the "Invert Mouse" option.
+- Fixed a crash due to a ConcurrentModificationException that could occur during world generation.
+- Fixed Moon Ball moon phase logic to actually work correctly
+- Fixed `/pokedex printcalculations` to now show the correct percentage completed of the Pokedex
+- Fixed mod incompatibility with the `Raised` mod
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -315,6 +335,10 @@
 - Added `HyperTrainedIvEvent.Pre` and `HyperTrainedIvEvent.Post`.
 - Added a `hoverText` option to PartySelectCallback, to display a tooltip on hovering over a Pokémon in the selection screen.
 - `PokemonEntity` instances spawned into the world now appropriately finalize the spawn for mod compatibility.
+- Added PokedexManager.obtain as a replacement for .catch which is not a friendly function name in Java.
+
+- Added `Pokemon#hyperTrainIV()` and `IVs#setHyperTrainedIV(Stat, Int)`
+- `ElementalType` now implelments `ShowdownIdentifiable` to ensure the communcation with showdown stays consistent (also in regards to TeraTypes)
   
 ### MoLang & Datapacks
 - The following usages for item predicates can now use item conditions like advancements do, you can learn about them in the [Minecraft wiki](https://minecraft.wiki/w/Advancement_definition#minecraft:filled_bucket)
@@ -343,7 +367,7 @@
 - Fixed `entity.find_nearby_block` causing crashes when attempting to use a block tag
 - Spawn Filters can now access `v.spawn.class` to get the identifier of an NPC class for when trying to influence NPC spawns
 - Adds Flows for `STARTER_CHOSEN`, `EV_GAINED`, `POKEMON_RELEASED`, `POKEMON_NICKNAMED`, `HELD_ITEM`, and `TRADE_COMPLETED` events
-- Adds Pokemon functions for `pokeball`, `held_item` and `remove_held_item`
+- Adds Pokemon functions for `pokeball`, `held_item`, `remove_held_item`, `add_aspects`, and `remove_aspects`
 - Added `pokemon.hyper_train_iv` as an available Molang function.
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)

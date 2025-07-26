@@ -1216,6 +1216,14 @@ object MoLangFunctions {
             map.put("remove_held_item") { _ ->
                 pokemon.removeHeldItem()
             }
+            map.put("add_aspects") { params ->
+                for (aspect in params.params) pokemon.forcedAspects += aspect.asString()
+                pokemon.updateAspects()
+            }
+            map.put("remove_aspects") { params ->
+                for (aspect in params.params) pokemon.forcedAspects -= aspect.asString()
+                pokemon.updateAspects()
+            }
             map.put("add_marks") { params ->
                 for (param in params.params) {
                     val identifier = param.asString().asIdentifierDefaultingNamespace()
@@ -1273,6 +1281,7 @@ object MoLangFunctions {
             map.put("is_sprinting") { DoubleValue(pokemonEntity.isUsingAltPose(cobblemonResource("sprinting"))) }
             map.put("in_air") { DoubleValue(pokemonEntity.isUsingAltPose(cobblemonResource("in_air"))) }
             map.put("is_wild") { DoubleValue(pokemonEntity.ownerUUID == null) }
+            map.put("is_in_party") { DoubleValue(pokemonEntity.pokemon.storeCoordinates.get()?.store is PartyStore) }
             map.put("is_ridden") { DoubleValue(pokemonEntity.hasControllingPassenger()) }
             map.put("has_aspect") { DoubleValue(it.getString(0) in pokemonEntity.aspects) }
             map.put("is_pokemon") { DoubleValue.ONE }
@@ -1281,6 +1290,12 @@ object MoLangFunctions {
             }) }
             map.put("is_wearing_hat") { DoubleValue(pokemonEntity.entityData.get(PokemonEntity.SHOWN_HELD_ITEM).`is`(CobblemonItemTags.WEARABLE_HAT_ITEMS)) }
             map.put("is_wearing_face") { DoubleValue(pokemonEntity.entityData.get(PokemonEntity.SHOWN_HELD_ITEM).`is`(CobblemonItemTags.WEARABLE_FACE_ITEMS)) }
+            map.put("is_pastured") {
+                DoubleValue((pokemonEntity.tethering != null))
+            }
+            map.put("pasture_conflict_enabled") {
+                DoubleValue(pokemonEntity.getBehaviourFlag(PokemonBehaviourFlag.PASTURE_CONFLICT))
+            }
             map
         }
     )
@@ -1547,8 +1562,8 @@ object MoLangFunctions {
 
             map.put("identifier") { StringValue(species.resourceIdentifier.toString()) }
             map.put("name") { StringValue(species.name) }
-            map.put("primary_type") { StringValue(species.primaryType.name) }
-            map.put("secondary_type") { StringValue(species.secondaryType?.name ?: "null") }
+            map.put("primary_type") { StringValue(species.primaryType.showdownId) }
+            map.put("secondary_type") { StringValue(species.secondaryType?.showdownId ?: "null") }
             map.put("experience_group") { StringValue(species.experienceGroup.name) }
             map.put("height") { DoubleValue(species.height) }
             map.put("weight") { DoubleValue(species.weight) }
