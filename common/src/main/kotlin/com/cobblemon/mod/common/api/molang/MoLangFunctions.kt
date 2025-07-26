@@ -51,6 +51,7 @@ import com.cobblemon.mod.common.api.scheduling.ClientTaskTracker
 import com.cobblemon.mod.common.api.scheduling.Schedulable
 import com.cobblemon.mod.common.api.scheduling.ServerTaskTracker
 import com.cobblemon.mod.common.api.scripting.CobblemonScripts
+import com.cobblemon.mod.common.api.spawning.TimeRange
 import com.cobblemon.mod.common.api.spawning.position.SpawnablePosition
 import com.cobblemon.mod.common.api.storage.PokemonStore
 import com.cobblemon.mod.common.api.storage.party.NPCPartyStore
@@ -252,6 +253,12 @@ object MoLangFunctions {
         { worldHolder ->
             val world = worldHolder.value()
             val map = hashMapOf<String, java.util.function.Function<MoParams, Any>>()
+            map.put("is_time_of_day") { params ->
+                val timeOfDay = TimeRange.timeRanges[params.getString(0).lowercase()]
+                    ?: return@put DoubleValue.ZERO
+                val time = world.dayTime % 24000
+                return@put DoubleValue(timeOfDay.contains(time.toInt()))
+            }
             map.put("game_time") { _ -> DoubleValue(world.gameTime.toDouble()) }
             map.put("time_of_day") {
                 val time = world.dayTime % 24000

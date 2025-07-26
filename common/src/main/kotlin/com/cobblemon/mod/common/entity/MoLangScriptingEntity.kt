@@ -17,7 +17,6 @@ import com.cobblemon.mod.common.api.npc.configuration.MoLangConfigVariable
 import com.cobblemon.mod.common.entity.npc.NPCEntity
 import com.cobblemon.mod.common.util.DataKeys
 import com.mojang.serialization.Dynamic
-import com.mojang.serialization.DynamicOps
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.ListTag
 import net.minecraft.nbt.StringTag
@@ -100,7 +99,7 @@ interface MoLangScriptingEntity {
     fun updateBehaviours(behaviours: Collection<ResourceLocation>) {
         val removingBehaviours = this@MoLangScriptingEntity.behaviours.filterNot(behaviours::contains).mapNotNull(CobblemonBehaviours.behaviours::get)
         removingBehaviours.forEach { behaviour ->
-            behaviour.undo(this as LivingEntity)
+            behaviour.onRemove(this as LivingEntity)
         }
         this@MoLangScriptingEntity.behaviours.clear()
         this@MoLangScriptingEntity.behaviours.addAll(behaviours)
