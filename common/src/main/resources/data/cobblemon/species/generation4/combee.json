@@ -105,7 +105,13 @@
     "tutor:ominouswind",
     "tutor:skittersmack",
     "tutor:sleeptalk",
-    "tutor:stringshot"
+    "tutor:stringshot",
+    "legacy:aircutter",
+    "legacy:dualwingbeat",
+    "legacy:mudslap",
+    "legacy:snore",
+    "legacy:swift",
+    "legacy:tailwind"
   ],
   "evolutions": [
     {
