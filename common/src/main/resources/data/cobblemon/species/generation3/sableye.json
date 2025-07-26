@@ -50,6 +50,44 @@
     "height": 1.2,
     "fixed": false
   },
+    "behaviour": {
+      "itemInteract": {
+        "desiredItems": [
+          {
+            "item": "minecraft:amethyst_shard",
+            "priority": 1,
+            "isFood": true,
+            "fullnessValue": 2,
+            "onUseEffect": "q.entity.heal(2)"
+          },
+          {
+            "item": "minecraft:diamond",
+            "pickupPriority": 2,
+            "isFood": true,
+            "fullnessValue": 5,
+            "onUseEffect": "q.entity.heal(10)"
+          }
+        ]
+      }
+  },
+  "ai": [
+    {
+      "type": "cobblemon:add_tasks_to_activity",
+      "activity": "idle",
+      "tasksByPriority": {
+        "1": [
+          "eat_held_item",
+          {
+            "type": "pickup_item"
+          },
+          {
+            "type": "move_to_item",
+            "condition": "(math.random(0, 1) < (1/10))"
+          }
+        ]
+      }
+    }
+  ],
   "drops": {
     "amount": 5,
     "entries": [

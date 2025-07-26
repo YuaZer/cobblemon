@@ -767,6 +767,10 @@ object MoLangFunctions {
     val livingEntityFunctions: MutableList<(LivingEntity) -> HashMap<String, java.util.function.Function<MoParams, Any>>> = mutableListOf<(LivingEntity) -> HashMap<String, java.util.function.Function<MoParams, Any>>>(
         { entity ->
             val map = hashMapOf<String, java.util.function.Function<MoParams, Any>>()
+            map.put("heal") { params ->
+                val amount = params.getDouble(0)
+                entity.heal(amount.toFloat())
+            }
             map.put("is_living_entity") { DoubleValue.ONE }
             map.put("is_flying") { _ -> DoubleValue(entity.isFallFlying) }
             map.put("is_sleeping") { _ -> DoubleValue(entity.isSleeping) }

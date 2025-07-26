@@ -37,7 +37,7 @@ object MoveToItemTask {
 
                 val _condition = runtime.resolveBoolean(condition)
                 if (!_condition || !entity.pokemon.canDropHeldItem) {
-                    return@Trigger false
+                    return@Trigger false // condition failed or Pokemon has been given an item to keep safe
                 }
 
                 val _maxDistance = runtime.resolveDouble(maxDistance)
@@ -53,17 +53,11 @@ object MoveToItemTask {
                 val list: List<ItemEntity> = entity.level().getEntitiesOfClass(ItemEntity::class.java, searchBox) { true }
 
                 var itemEntity: ItemEntity? = null
-
-
-                // Probably do not want to drop items that have been given by a trainer
-                runtime.withQueryValue("item", entity.pokemon.heldItem.copy().asMoLangValue(entity.registryAccess()))
-                val highestValueSeen = if (entity is PokemonEntity && !entity.pokemon.canDropHeldItem) 9999
-                    else runtime.resolveInt(itemPriority)
+                val highestValueSeen = entity.pokemon.species.behaviour.itemInteract.getItemPriority(entity.pokemon.heldItem.copy())
 
                 println(entity.pokemon.heldItem.copy().displayName.string + "\t" + highestValueSeen)
                 for (item in list) {
-                    runtime.withQueryValue("item", item.item.asMoLangValue(entity.registryAccess()))
-                    val itemValue = runtime.resolveInt(itemPriority)
+                    val itemValue = entity.pokemon.species.behaviour.itemInteract.getItemPriority(item.item)
                     if (itemValue > highestValueSeen) {
                         itemEntity = item
                     }

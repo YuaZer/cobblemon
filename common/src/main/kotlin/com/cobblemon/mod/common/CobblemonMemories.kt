@@ -43,6 +43,7 @@ object CobblemonMemories {
     val NEAREST_VISIBLE_ATTACKER = register<LivingEntity>("nearest_visible_attacker")
     val NEARBY_GROWABLE_CROPS = register<BlockPos>("nearby_growable_crops")
     val NEAREST_SWEET_BERRY_BUSH = register<BlockPos>("nearest_sweet_berry_bush")
+    val IS_CONSUMING_ITEM = register<Boolean>("is_consuming_item")
     val RECENTLY_ATE_GRASS = register<Boolean>("recently_ate_grass")
     /** who am i following rn? */
     val HERD_LEADER = register<String>("herd_leader", PrimitiveCodec.STRING)

@@ -244,10 +244,6 @@ object PokemonBrain {
 //        add(0 toDF HuntPlayerTask()) // commenting this out to test other things
 //        add(1 toDF FertilizerTask())
 
-        if(pokemon.form.behaviour.blockInteract.harvestSweetBerries) {
-            add(1 toDF MoveToSweetBerryBushTask.create(UniformInt.of(0, 11), 1.0f))
-        }
-
         if (pokemon.species.primaryType.name.equals("fire", true)) {
             add(1 toDF IgniteTask())
         }

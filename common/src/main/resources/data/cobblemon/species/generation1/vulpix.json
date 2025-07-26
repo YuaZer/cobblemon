@@ -62,7 +62,19 @@
     },
 	"blockInteract": {
 		"harvest_sweet_berries" : true
-	}
+	},
+    "itemInteract": {
+      "desiredItems": [
+        {
+          "item": "minecraft:sweet_berries",
+          "pickupPriority": 15,
+          "isFood": true,
+          "fullnessValue": 2,
+          "returnItem": false,
+          "onUseEffect": "q.entity.heal(1)"
+        }
+      ]
+    }
   },
   "ai": [
     {
@@ -73,12 +85,10 @@
 			"eat_held_item",
           {
             "type": "pickup_item",
-            "itemPriority": "q.item.is_in('#minecraft:fox_food') ? 2 : (q.item.is_food() ? 1 : 0 )"
           },
           {
             "type": "move_to_item",
-            "condition": "(math.random(0, 1) < (1/20))",
-            "itemPriority": "q.item.is_in('#minecraft:fox_food') ? 2 : (q.item.is_food() ? 1 : 0 )"
+            "condition": "(math.random(0, 1) < (1/10))"
           },
 			"harvest_sweet_berry_bush",
 			"move_to_sweet_berry_bush"

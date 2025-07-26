@@ -37,11 +37,14 @@ class FormPokemonBehaviour {
     @SerializedName("entityInteract")
     private val _entityInteract: EntityBehaviour? = null
 
-    @SerializedName("blockInteract")
-    private val _blockInteract: BlockBehavior? = null
+//    @SerializedName("blockInteract")
+//    private val _blockInteract: BlockBehavior? = null
 
     @SerializedName("combat")
     private val _combat: CombatBehaviour? = null
+
+    @SerializedName("itemInteract")
+    private val _itemInteract: ItemBehavior? = null
 
     @SerializedName("herd")
     private val _herd: HerdBehaviour? = null
@@ -61,14 +64,17 @@ class FormPokemonBehaviour {
     val entityInteract: EntityBehaviour
         get() = _entityInteract ?: parent.entityInteract
 
-    val blockInteract: BlockBehavior
-        get() = _blockInteract ?: parent.blockInteract
+//    val blockInteract: BlockBehavior
+//        get() = _blockInteract ?: parent.blockInteract
 
     val combat: CombatBehaviour
         get() = _combat ?: parent.combat
 
     val herd: HerdBehaviour
         get() = _herd ?: parent.herd
+
+    val itemInteract: ItemBehavior
+        get() = _itemInteract ?: parent.itemInteract
 
     @Transient
     val struct = ObjectValue(this).also {

@@ -1037,6 +1037,10 @@ open class PokemonEntity(
         return pokemon.form.shoulderMountable
     }
 
+    override fun wantsToPickUp(stack: ItemStack): Boolean {
+        return this.canHoldItem(stack) && (pokemon.species.behaviour.itemInteract.getMatchingEntry(stack)?.pickupPriority
+            ?: 0) > 0
+    }
     override fun mobInteract(player: Player, hand: InteractionHand): InteractionResult {
         if (!this.isBattling && this.isBattleClone()) {
             return InteractionResult.FAIL

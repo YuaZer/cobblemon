@@ -8,7 +8,9 @@
 
 package com.cobblemon.mod.common.api.ai.config.task
 
+import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
+import com.cobblemon.mod.common.api.ai.WrapperLivingEntityTask.Companion.wrapped
 import com.cobblemon.mod.common.api.npc.configuration.MoLangConfigVariable
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.entity.pokemon.ai.tasks.EatHeldItemTask
@@ -24,6 +26,9 @@ class EatHeldItemTaskConfig : SingleTaskConfig {
         if (entity !is PokemonEntity) {
             return null
         }
-        return EatHeldItemTask()
+        behaviourConfigurationContext.addMemories(
+        CobblemonMemories.IS_CONSUMING_ITEM,
+        )
+        return EatHeldItemTask().wrapped<PokemonEntity>()
     }
 }
