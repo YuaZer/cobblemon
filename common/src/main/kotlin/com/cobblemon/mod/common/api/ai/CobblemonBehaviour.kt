@@ -30,7 +30,7 @@ class CobblemonBehaviour(
     val entityType: ResourceLocation? = null,
     val configurations: List<BehaviourConfig> = mutableListOf(),
     // I feel like the onAdd+onAddScript etc could be merged using some interface and a clever deserializer,
-    // detect if it's a ResourceLocation and failing that, Expression. The on[..]Script fields are more fringe anyway.
+    // detect if it's a ResourceLocation and failing that, Expression. The on[..]Script fields are kinda fringe though.
     @SerializedName("onRemove", alternate = ["undo"])
     val onRemove: ExpressionLike? = null,
     @SerializedName("onRemoveScript", alternate = ["undoScript"])
@@ -40,16 +40,13 @@ class CobblemonBehaviour(
 ) {
     fun canBeApplied(entity: LivingEntity) = entityType?.let { entityType == entity.type.builtInRegistryHolder().unwrapKey().get().location() } != false
     fun configure(entity: LivingEntity, behaviourConfigurationContext: BehaviourConfigurationContext) {
-        configurations.forEach { it.configure(entity, behaviourConfigurationContext) }
-
-        val runtime = MoLangRuntime().setup()
-        runtime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
-        if (onAddScript != null) {
-            CobblemonScripts.run(onAddScript, runtime)
-        }
         if (onAdd != null) {
-            runtime.resolve(onAdd)
+            behaviourConfigurationContext.addOnAddScript(onAdd)
         }
+        if (onAddScript != null) {
+            behaviourConfigurationContext.addOnAddScript(onAddScript)
+        }
+        configurations.forEach { it.configure(entity, behaviourConfigurationContext) }
     }
 
     /** Undoes anything that needs undoing once this configuration is being removed from an entity that had it before. */
