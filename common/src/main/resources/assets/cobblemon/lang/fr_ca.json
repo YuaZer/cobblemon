@@ -8586,5 +8586,21 @@
     "item.cobblemon.genius_mochi": "Mochi Esprit",
     "item.cobblemon.genius_mochi.tooltip": "Augmente de 10 EV l'Attaque Spéciale de base d'un Pokémon",
     "item.cobblemon.clever_mochi": "Mochi Mental",
-    "item.cobblemon.clever_mochi.tooltip": "Augmente de 10 EV la Défense Spéciale de base d'un Pokémon"
+    "item.cobblemon.clever_mochi.tooltip": "Augmente de 10 EV la Défense Spéciale de base d'un Pokémon",
+    "item.cobblemon.aprijuice.prefix.plain": "Simple",
+    "item.cobblemon.aprijuice.quality_format": "%2$s %1$s",
+    "item.cobblemon.swift_mochi": "Mochi Sprint",
+    "item.cobblemon.swift_mochi.tooltip": "Augmente de 10 EV la Vitesse de base d'un Pokémon",
+    "item.cobblemon.fresh_start_mochi": "Mochi Renouveau",
+    "item.cobblemon.fresh_start_mochi.tooltip": "Réinitialise à 0 tous les EV de base d'un Pokémon",
+    "item.cobblemon.poke_bait": "Poké Appât",
+    "item.cobblemon.aprijuice_black": "Noigrume Drink Noir",
+    "item.cobblemon.aprijuice_blue": "Noigrume Drink Bleu",
+    "item.cobblemon.aprijuice_green": "Noigrume Drink Vert",
+    "item.cobblemon.aprijuice_pink": "Noigrume Drink Rose",
+    "item.cobblemon.aprijuice_red": "Noigrume Drink Rouge",
+    "item.cobblemon.aprijuice_white": "Noigrume Drink Blanc",
+    "item.cobblemon.aprijuice_yellow": "Noigrume Drink Jaune",
+    "item.cobblemon.aprijuice.prefix.tasty": "Savoureux",
+    "item.cobblemon.aprijuice.prefix.delicious": "Délicieux"
 }
