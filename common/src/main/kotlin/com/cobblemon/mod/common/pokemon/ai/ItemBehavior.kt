@@ -6,7 +6,6 @@ import com.cobblemon.mod.common.api.molang.MoLangFunctions.setup
 import com.cobblemon.mod.common.util.asExpression
 import com.cobblemon.mod.common.util.asIdentifierDefaultingNamespace
 import com.cobblemon.mod.common.util.resolveBoolean
-import com.cobblemon.mod.common.util.resolveInt
 import com.cobblemon.mod.common.util.server
 import com.cobblemon.mod.common.util.withQueryValue
 import net.minecraft.core.registries.BuiltInRegistries
@@ -21,7 +20,7 @@ class ItemBehavior {
     private val desiredItems = mutableListOf<ObtainableItem>()
     private val itemMap = mutableMapOf<ResourceLocation, ObtainableItem>()
     private val tagMap = mutableMapOf<TagKey<Item>, ObtainableItem>()
-    private val queryList = mutableMapOf<Expression, ObtainableItem>()
+    private val queryMap = LinkedHashMap<Expression, ObtainableItem>() // used LinkedHashMap for deterministic key ordering when iterating through molang queries
     fun getMatchingEntry(stack: ItemStack): ObtainableItem? {
         if (stack == ItemStack.EMPTY) {
             return null
@@ -42,10 +41,10 @@ class ItemBehavior {
         if (registryAccess != null) {
             val runtime = MoLangRuntime().setup()
             runtime.withQueryValue("item", stack.asMoLangValue(registryAccess))
-            for (query in queryList.keys) {
+            for (query in queryMap.keys) {
                 val match = runtime.resolveBoolean(query)
                 if (match) {
-                    return queryList[query]
+                    return queryMap[query]
                 }
             }
 
@@ -72,7 +71,7 @@ class ItemBehavior {
                 tag.let { tagMap[tag] = entry }
             }
             if (entry.itemQuery != null) {
-                queryList[entry.itemQuery.asExpression()] = entry
+                queryMap[entry.itemQuery.asExpression()] = entry
             }
         }
     }
