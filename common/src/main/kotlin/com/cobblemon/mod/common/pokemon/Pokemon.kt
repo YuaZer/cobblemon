@@ -2042,6 +2042,7 @@ open class Pokemon : ShowdownIdentifiable {
         if (packet != null && storeCoordinates.get() != null) {
             notify(packet)
         }
+
         changeObservable.emit(this)
     }
 

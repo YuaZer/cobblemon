@@ -23,6 +23,7 @@ import com.cobblemon.mod.common.CobblemonBlockEntities
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.CobblemonUnlockableWallpapers
 import com.cobblemon.mod.common.Environment
+import com.cobblemon.mod.common.api.ai.CobblemonWanderControl
 import com.cobblemon.mod.common.api.battles.model.PokemonBattle
 import com.cobblemon.mod.common.api.battles.model.actor.ActorType
 import com.cobblemon.mod.common.api.battles.model.actor.BattleActor
@@ -102,6 +103,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Holder
 import net.minecraft.core.Registry
 import net.minecraft.core.RegistryAccess
+import net.minecraft.core.Vec3i
 import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
@@ -881,6 +883,55 @@ object MoLangFunctions {
             map.put("is_sleeping") { _ -> DoubleValue(entity.isSleeping) }
             map.put("health") { _ -> DoubleValue(entity.health) }
             map.put("max_health") { _ -> DoubleValue(entity.maxHealth) }
+            map.put("get_wander_control_memory") {
+                val value = entity.brain.getMemorySafely(CobblemonMemories.WANDER_CONTROL).orElse(null)
+                    ?: CobblemonWanderControl()
+                if (
+                    !entity.brain.checkMemory(CobblemonMemories.WANDER_CONTROL, MemoryStatus.VALUE_PRESENT)
+                    && entity.brain.checkMemory(CobblemonMemories.WANDER_CONTROL, MemoryStatus.REGISTERED)
+                ) {
+                    entity.brain.setMemory(CobblemonMemories.WANDER_CONTROL, value)
+                }
+                return@put value.struct
+            }
+            map.put("get_position_memory") { params ->
+                val id = params.getString(0).asIdentifierDefaultingNamespace()
+                val memoryType = BuiltInRegistries.MEMORY_MODULE_TYPE.get(id)
+                if (entity.brain.checkMemory(memoryType, MemoryStatus.VALUE_PRESENT)) {
+                    val memory = entity.brain.getMemory(memoryType).get()
+                    return@put when (memory) {
+                        is Vec3i -> VariableStruct(
+                            mapOf(
+                                "x" to DoubleValue(memory.x),
+                                "y" to DoubleValue(memory.y),
+                                "z" to DoubleValue(memory.z)
+                            )
+                        )
+                        is net.minecraft.core.Position -> VariableStruct(
+                            mapOf(
+                                "x" to DoubleValue(memory.x()),
+                                "y" to DoubleValue(memory.y()),
+                                "z" to DoubleValue(memory.z())
+                            )
+                        )
+                        else -> DoubleValue.ZERO
+                    }
+                } else {
+                    return@put DoubleValue.ZERO
+                }
+            }
+            map.put("has_memory_value") { params ->
+                val memoryTypes = params.params.map {
+                    it.asString().asIdentifierDefaultingNamespace()
+                }.map(BuiltInRegistries.MEMORY_MODULE_TYPE::get)
+                return@put DoubleValue(memoryTypes.all { entity.brain.checkMemory(it, MemoryStatus.VALUE_PRESENT) })
+            }
+            map.put("lacks_memory_value") { params ->
+                val memoryTypes = params.params.map {
+                    it.asString().asIdentifierDefaultingNamespace()
+                }.map(BuiltInRegistries.MEMORY_MODULE_TYPE::get)
+                return@put DoubleValue(memoryTypes.none { entity.brain.checkMemory(it, MemoryStatus.VALUE_PRESENT) })
+            }
             map.put("can_see") { params ->
                 val target = params.get<MoValue>(0)
                 val range = params.getDoubleOrNull(1) ?: 32.0

@@ -69,7 +69,9 @@ object PokemonBrain {
         CobblemonSensors.POKEMON_ADULT,
         SensorType.IS_IN_WATER,
         CobblemonSensors.NEARBY_GROWABLE_CROPS,
-        CobblemonSensors.NEAREST_SWEET_BERRY_BUSH,
+        CobblemonSensors.NEARBY_BEE_HIVE,
+        CobblemonSensors.NEARBY_FLOWER,
+        CobblemonSensors.NEAREST_SWEET_BERRY_BUSH
 
 //            CobblemonSensors.BATTLING_POKEMON,
 //            CobblemonSensors.NPC_BATTLING
@@ -185,6 +187,11 @@ object PokemonBrain {
         MemoryModuleType.AVOID_TARGET,
         CobblemonMemories.POKEMON_SLEEPING,
         CobblemonMemories.RECENTLY_ATE_GRASS,
+        CobblemonMemories.HIVE_LOCATION,
+        CobblemonMemories.HIVE_COOLDOWN,
+        CobblemonMemories.NEARBY_FLOWERS,
+        CobblemonMemories.POLLINATED,
+        CobblemonMemories.RECENTLY_ATE_GRASS,
         CobblemonMemories.HERD_LEADER,
         CobblemonMemories.HERD_SIZE,
         CobblemonMemories.ATTACK_TARGET_DATA,
@@ -242,7 +249,7 @@ object PokemonBrain {
         add(0 toDF SwapActivityTask.possessing(MemoryModuleType.AVOID_TARGET, Activity.AVOID))
 
 //        add(0 toDF HuntPlayerTask()) // commenting this out to test other things
-//        add(1 toDF FertilizerTask())
+        add(1 toDF FertilizerTask())
 
         if (pokemon.species.primaryType.name.equals("fire", true)) {
             add(1 toDF IgniteTask())
