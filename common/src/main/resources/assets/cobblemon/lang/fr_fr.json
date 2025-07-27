@@ -8630,5 +8630,6 @@
     "item.cobblemon.health_mochi.tooltip": "Augmente de 10 EV les PV de base d'un Pokémon",
     "item.cobblemon.muscle_mochi.tooltip": "Augmente de 10 EV l'Attaque de base d'un Pokémon",
     "item.cobblemon.resist_mochi.tooltip": "Augmente de 10 EV la Défense de base d'un Pokémon",
-    "item.cobblemon.genius_mochi.tooltip": "Augmente de 10 EV l'Attaque Spéciale de base d'un Pokémon"
+    "item.cobblemon.genius_mochi.tooltip": "Augmente de 10 EV l'Attaque Spéciale de base d'un Pokémon",
+    "item.cobblemon.clever_mochi.tooltip": "Augmente de 10 EV la Défense Spéciale de base d'un Pokémon"
 }
