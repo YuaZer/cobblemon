@@ -8584,5 +8584,7 @@
     "item.cobblemon.resist_mochi": "Mochi Armure",
     "item.cobblemon.resist_mochi.tooltip": "Augmente de 10 EV la Défense de base d'un Pokémon",
     "item.cobblemon.genius_mochi": "Mochi Esprit",
-    "item.cobblemon.genius_mochi.tooltip": "Augmente de 10 EV l'Attaque Spéciale de base d'un Pokémon"
+    "item.cobblemon.genius_mochi.tooltip": "Augmente de 10 EV l'Attaque Spéciale de base d'un Pokémon",
+    "item.cobblemon.clever_mochi": "Mochi Mental",
+    "item.cobblemon.clever_mochi.tooltip": "Augmente de 10 EV la Défense Spéciale de base d'un Pokémon"
 }
