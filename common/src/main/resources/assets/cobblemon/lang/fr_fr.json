@@ -8681,5 +8681,6 @@
     "block.cobblemon.saccharine_trapdoor": "Trappe en saccarine",
     "block.cobblemon.saccharine_sapling": "Pousse de saccarine",
     "block.cobblemon.galarica_nut_bush": "Buisson de Noix Galanoa",
-    "block.cobblemon.campfire": "Feu de camp"
+    "block.cobblemon.campfire": "Feu de camp",
+    "item.cobblemon.open_faced_sandwich": "Tartine"
 }
