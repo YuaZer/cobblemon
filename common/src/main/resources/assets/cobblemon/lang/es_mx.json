@@ -2359,5 +2359,14 @@
     "cobblemon.mark.ribbon_ability_great.desc": "Una cinta obtenida por derrotar al Amo de la Torre en la Torre Batalla.",
     "cobblemon.mark.ribbon_ability_world.desc": "Una cinta obtenida por completar el Desafío Wi-Fi de la Torre Batalla.",
     "cobblemon.mark.ribbon_battler_expert.desc": "Una cinta que se le otorga a valientes Pokémon que ha dominado con maestría el arte de combatir.",
-    "cobblemon.fishing.no_bite": "Nada. Ni un mordisco."
+    "cobblemon.fishing.no_bite": "Nada. Ni un mordisco.",
+    "item.cobblemon.genius_mochi.tooltip": "Aumenta los EVs de Ataque Especial del Pokémon en 10",
+    "item.cobblemon.health_mochi.tooltip": "Aumenta los EVs de PS del Pokémon en 10",
+    "item.cobblemon.health_mochi": "Mochi Salud",
+    "item.cobblemon.clever_mochi": "Mochi Mental",
+    "item.cobblemon.muscle_mochi": "Mochi Fuerza",
+    "item.cobblemon.muscle_mochi.tooltip": "Aumenta los EVs de Ataque del Pokémon en 10",
+    "item.cobblemon.resist_mochi": "Mochi Resistencia",
+    "item.cobblemon.resist_mochi.tooltip": "Aumenta los EVs de Defensa del Pokémon en 10",
+    "item.cobblemon.genius_mochi": "Mochi Inteligencia"
 }
