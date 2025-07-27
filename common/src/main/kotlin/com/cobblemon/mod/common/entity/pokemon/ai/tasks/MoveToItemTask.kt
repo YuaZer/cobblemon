@@ -55,7 +55,6 @@ object MoveToItemTask {
                 var itemEntity: ItemEntity? = null
                 val highestValueSeen = entity.pokemon.species.behaviour.itemInteract.getItemPriority(entity.pokemon.heldItem.copy())
 
-                println(entity.pokemon.heldItem.copy().displayName.string + "\t" + highestValueSeen)
                 for (item in list) {
                     val itemValue = entity.pokemon.species.behaviour.itemInteract.getItemPriority(item.item)
                     if (itemValue > highestValueSeen) {
