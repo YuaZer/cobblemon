@@ -32,7 +32,7 @@ import net.minecraft.world.level.gameevent.GameEvent
 class HarvestSweetBerryBushTask : Behavior<LivingEntity>(
         mapOf(
                 MemoryModuleType.WALK_TARGET to MemoryStatus.VALUE_ABSENT,
-                CobblemonMemories.NEAREST_SWEET_BERRY_BUSH to MemoryStatus.VALUE_PRESENT
+                CobblemonMemories.NEARBY_SWEET_BERRY_BUSH to MemoryStatus.VALUE_PRESENT
         )
 ) {
 
@@ -46,7 +46,7 @@ class HarvestSweetBerryBushTask : Behavior<LivingEntity>(
         if (startTime > WAIT_TIME) {
             return false
         }
-        val blockPos = entity.brain.getMemory(CobblemonMemories.NEAREST_SWEET_BERRY_BUSH).get()
+        val blockPos = entity.brain.getMemory(CobblemonMemories.NEARBY_SWEET_BERRY_BUSH).get()
         val blockState = world.getBlockState(blockPos)
         return (blockState.block == Blocks.SWEET_BERRY_BUSH && blockState.getValue(SweetBerryBushBlock.AGE) >= 2)
                 || CaveVines.hasGlowBerries(blockState)
@@ -54,7 +54,7 @@ class HarvestSweetBerryBushTask : Behavior<LivingEntity>(
 
     override fun checkExtraStartConditions(world: ServerLevel, entity: LivingEntity): Boolean {
 
-        val blockPos = entity.brain.getMemory(CobblemonMemories.NEAREST_SWEET_BERRY_BUSH).get()
+        val blockPos = entity.brain.getMemory(CobblemonMemories.NEARBY_SWEET_BERRY_BUSH).get()
 
         val entityPos = entity.blockPosition()
 
@@ -78,7 +78,7 @@ class HarvestSweetBerryBushTask : Behavior<LivingEntity>(
             if (!world.gameRules.getRule(GameRules.RULE_MOBGRIEFING).get()) {
                 return
             }
-            val blockPos = entity.brain.getMemory(CobblemonMemories.NEAREST_SWEET_BERRY_BUSH).get()
+            val blockPos = entity.brain.getMemory(CobblemonMemories.NEARBY_SWEET_BERRY_BUSH).get()
             val blockState = world.getBlockState(blockPos)
             if (CaveVines.hasGlowBerries(blockState)) { // Glow Berries Case
                 CaveVines.use(entity, blockState, world, blockPos)

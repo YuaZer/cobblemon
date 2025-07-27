@@ -22,12 +22,10 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType
 
 class PickUpItemTaskConfig : SingleTaskConfig {
     val condition: ExpressionOrEntityVariable = Either.left("true".asExpression())
-    var itemPriority: ExpressionOrEntityVariable = Either.left("1".asExpression())
     var maxReach: ExpressionOrEntityVariable = Either.left("1.0".asExpression())
 
     override fun getVariables(entity: LivingEntity) = listOf(
         condition,
-        itemPriority,
         maxReach
     ).asVariables()
 
@@ -37,12 +35,12 @@ class PickUpItemTaskConfig : SingleTaskConfig {
     ): BehaviorControl<in LivingEntity>? {
         behaviourConfigurationContext.addMemories(
             MemoryModuleType.WALK_TARGET,
-            MemoryModuleType.LOOK_TARGET
+            MemoryModuleType.LOOK_TARGET,
+            MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM
         )
         return WrapperLivingEntityTask(
             PickUpItemTask.create(
                 condition = condition.asExpression(),
-                itemPriority = itemPriority.asExpression(),
                 maxReach = maxReach.asExpression()
             ),
             PokemonEntity::class.java

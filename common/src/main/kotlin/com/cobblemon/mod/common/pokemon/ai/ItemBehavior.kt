@@ -15,28 +15,39 @@ import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import kotlin.collections.mutableListOf
+import kotlin.math.max
 
 class ItemBehavior {
     private val desiredItems = mutableListOf<ObtainableItem>()
+    @Transient
     private val itemMap = mutableMapOf<ResourceLocation, ObtainableItem>()
+    @Transient
     private val tagMap = mutableMapOf<TagKey<Item>, ObtainableItem>()
+    @Transient
     private val queryMap = LinkedHashMap<Expression, ObtainableItem>() // used LinkedHashMap for deterministic key ordering when iterating through molang queries
+    @Transient
+    var highestPriorityItem = 0
+
     fun getMatchingEntry(stack: ItemStack): ObtainableItem? {
         if (stack == ItemStack.EMPTY) {
             return null
         }
+
         val item = stack.item
         val itemId = BuiltInRegistries.ITEM.getKey(item)
 
+        // Search items first
         if(itemId in itemMap.keys) {
             return itemMap[itemId]
         }
-        val tag = tagMap.keys.firstOrNull { stack.`is`(it)}
 
+        // Tags second
+        val tag = tagMap.keys.firstOrNull { stack.`is`(it)}
         if (tag != null) {
             return tagMap[tag]
         }
-        // run queries on item
+
+        // Queries last
         val registryAccess = server()?.registryAccess()
         if (registryAccess != null) {
             val runtime = MoLangRuntime().setup()
@@ -49,7 +60,6 @@ class ItemBehavior {
             }
 
         }
-
         return null
     }
 
@@ -73,6 +83,7 @@ class ItemBehavior {
             if (entry.itemQuery != null) {
                 queryMap[entry.itemQuery.asExpression()] = entry
             }
+            highestPriorityItem = max(entry.pickupPriority, highestPriorityItem)
         }
     }
 }

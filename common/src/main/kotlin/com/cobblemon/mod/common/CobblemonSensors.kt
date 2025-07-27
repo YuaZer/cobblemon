@@ -12,7 +12,6 @@ import com.cobblemon.mod.common.entity.pokemon.ai.sensors.*
 import com.cobblemon.mod.common.pokemon.ai.PokemonDisturbancesSensor
 import com.cobblemon.mod.common.entity.sensor.BattlingPokemonSensor
 import com.cobblemon.mod.common.entity.sensor.NPCBattlingSensor
-import com.example.sensor.SweetBerryBushSensor
 import java.util.function.Supplier
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.ai.sensing.Sensor
@@ -38,7 +37,9 @@ object CobblemonSensors {
 
     val NEARBY_FLOWER = register("nearby_flower", ::FlowerSensor)
 
-    val NEAREST_SWEET_BERRY_BUSH = register("nearest_sweet_berry_bush", ::SweetBerryBushSensor)
+    val NEARBY_SWEET_BERRY_BUSH = register("nearby_sweet_berry_bush", ::SweetBerryBushSensor)
+
+    val POKEMON_NEARBY_WANTED_ITEM = register("pokemon_nearby_wanted_item", ::PokemonItemSensor)
 
     fun <E : Entity, U : Sensor<E>> register(id: String, supplier: Supplier<U>): SensorType<U> {
         val sensor = SensorType(supplier)

@@ -27,8 +27,8 @@ class HarvestSweetBerryBushTaskConfig : SingleTaskConfig {
         if (entity !is PokemonEntity) {
             return null
         }
-        behaviourConfigurationContext.addMemories(CobblemonMemories.NEAREST_SWEET_BERRY_BUSH, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET)
-        behaviourConfigurationContext.addSensors(CobblemonSensors.NEAREST_SWEET_BERRY_BUSH)
+        behaviourConfigurationContext.addMemories(CobblemonMemories.NEARBY_SWEET_BERRY_BUSH, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET)
+        behaviourConfigurationContext.addSensors(CobblemonSensors.NEARBY_SWEET_BERRY_BUSH)
         return HarvestSweetBerryBushTask()
     }
 }

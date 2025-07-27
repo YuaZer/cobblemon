@@ -26,7 +26,7 @@ object MoveToSweetBerryBushTask {
         speed: Float
     ): OneShot<LivingEntity> = BehaviorBuilder.create { context ->
         context.group(
-            context.present(CobblemonMemories.NEAREST_SWEET_BERRY_BUSH),
+            context.present(CobblemonMemories.NEARBY_SWEET_BERRY_BUSH),
             context.registered(MemoryModuleType.LOOK_TARGET),
             context.absent(MemoryModuleType.WALK_TARGET)
         ).apply(context) { nearestSweetBerryBush, lookTarget, walkTarget ->

@@ -6,7 +6,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-package com.example.sensor
+package com.cobblemon.mod.common.entity.pokemon.ai.sensors
 
 import com.cobblemon.mod.common.CobblemonMemories
 import net.minecraft.core.BlockPos
@@ -27,14 +27,14 @@ class SweetBerryBushSensor : Sensor<LivingEntity>(SCAN_INTERVAL) {
         val nearestBush = findNearestBush(level, pos)
 
         if (!nearestBush.isEmpty) {
-            entity.brain.setMemory(CobblemonMemories.NEAREST_SWEET_BERRY_BUSH, nearestBush)
+            entity.brain.setMemory(CobblemonMemories.NEARBY_SWEET_BERRY_BUSH, nearestBush)
         } else {
-            entity.brain.eraseMemory(CobblemonMemories.NEAREST_SWEET_BERRY_BUSH)
+            entity.brain.eraseMemory(CobblemonMemories.NEARBY_SWEET_BERRY_BUSH)
         }
     }
 
     override fun requires(): Set<MemoryModuleType<*>> {
-        return setOf(CobblemonMemories.NEAREST_SWEET_BERRY_BUSH)
+        return setOf(CobblemonMemories.NEARBY_SWEET_BERRY_BUSH)
     }
 
     private fun findNearestBush(level: ServerLevel, origin: BlockPos): Optional<BlockPos> {
@@ -61,6 +61,5 @@ class SweetBerryBushSensor : Sensor<LivingEntity>(SCAN_INTERVAL) {
         const val SCAN_RADIUS_HORIZONTAL = 10
         const val SCAN_RADIUS_VERTICAL = 1
         const val SCAN_INTERVAL = 40
-
     }
 }

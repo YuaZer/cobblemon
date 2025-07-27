@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.api.ai.config.task
 
+import com.cobblemon.mod.common.CobblemonSensors
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
 import com.cobblemon.mod.common.api.ai.ExpressionOrEntityVariable
 import com.cobblemon.mod.common.api.ai.WrapperLivingEntityTask
@@ -37,10 +38,8 @@ class MoveToItemTaskConfig : SingleTaskConfig {
         entity: LivingEntity,
         behaviourConfigurationContext: BehaviourConfigurationContext
     ): BehaviorControl<in LivingEntity>? {
-        behaviourConfigurationContext.addMemories(
-            MemoryModuleType.WALK_TARGET,
-            MemoryModuleType.LOOK_TARGET
-        )
+        behaviourConfigurationContext.addMemories(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET)
+        behaviourConfigurationContext.addSensors(CobblemonSensors.POKEMON_NEARBY_WANTED_ITEM)
         return WrapperLivingEntityTask(
             MoveToItemTask.create(
                 condition = condition.asExpression(),
