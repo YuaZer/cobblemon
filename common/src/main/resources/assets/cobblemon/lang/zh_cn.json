@@ -8974,7 +8974,7 @@
     "cobblemon.behaviour.pokemon_eats_grass.desc": "宝可梦偶尔会吃掉脚下的草。",
     "cobblemon.behaviour.player_textured.name": "玩家纹理",
     "cobblemon.behaviour.player_textured.desc": "NPC将使用特定的玩家名字的纹理。",
-    "cobblemon.behaviour.wanders_hover.name": "空中徘徊",
+    "cobblemon.behaviour.wanders_hover.name": "空中盘旋",
     "cobblemon.behaviour.wanders_hover.desc": "在空中随机盘旋，并距离地面一定距离。",
     "cobblemon.behaviour.moves_to_water.name": "返回至水中",
     "cobblemon.behaviour.moves_to_lava.name": "返回至熔岩",
