@@ -8633,5 +8633,6 @@
     "item.cobblemon.genius_mochi.tooltip": "Augmente de 10 EV l'Attaque Spéciale de base d'un Pokémon",
     "item.cobblemon.clever_mochi.tooltip": "Augmente de 10 EV la Défense Spéciale de base d'un Pokémon",
     "item.cobblemon.fresh_start_mochi.tooltip": "Réinitialise à 0 tous les EV de base d'un Pokémon",
-    "item.cobblemon.aprijuice.prefix.plain": "Simple"
+    "item.cobblemon.aprijuice.prefix.plain": "Simple",
+    "item.cobblemon.swift_mochi.tooltip": "Augmente de 10 EV la Vitesse de base d'un Pokémon"
 }
