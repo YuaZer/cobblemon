@@ -93,7 +93,7 @@ class WaterWanderTaskConfig : SingleTaskConfig {
                         attempts++
                         target = BehaviorUtils.getRandomSwimmablePos(entity, horizontalRange.resolveInt(), verticalRange.resolveInt())
                             ?: continue
-                        pos = BlockPos.containing(target).takeIf { wanderControl.isSuitable(entity, it) }
+                        pos = BlockPos.containing(target).takeIf(wanderControl::isSuitable)
                     }
 
                     if (pos == null || target == null) {

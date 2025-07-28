@@ -162,7 +162,7 @@ class WanderTaskConfig : SingleTaskConfig {
                             minimumHeight = minimumHeight,
                             maximumHeight = maximumHeight,
                             world = world
-                        ).takeIf { pos -> wanderControl.isSuitable(entity, pos) }
+                        ).takeIf(wanderControl::isSuitable)
                     }
 
                     if (pos == null) {

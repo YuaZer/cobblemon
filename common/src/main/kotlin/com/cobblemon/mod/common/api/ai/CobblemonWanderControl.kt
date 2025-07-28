@@ -80,16 +80,11 @@ class CobblemonWanderControl(
             maxAttempts = 4
         }
 
-    fun isSuitable(entity: PathfinderMob, position: BlockPos): Boolean {
+    fun isSuitable(position: BlockPos): Boolean {
         val center = center ?: return true
         val centerPos = BlockPos(center.x.toInt(), center.y.toInt(), center.z.toInt())
         val distance = sqrt(centerPos.distSqr(position))
         val suitable = distance >= center.minRange && distance <= center.maxRange
-        if (!suitable) {
-            println("Point was not suitable! $position is $distance away from center ${center.x}, ${center.y}, ${center.z} with min range ${center.minRange} and max range ${center.maxRange}.")
-        } else {
-            println(":) Point is suitable! $position is $distance away from center ${center.x}, ${center.y}, ${center.z} with min range ${center.minRange} and max range ${center.maxRange}.")
-        }
         return suitable
     }
 }
