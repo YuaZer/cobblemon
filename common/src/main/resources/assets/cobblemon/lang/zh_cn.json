@@ -8780,7 +8780,7 @@
     "cobblemon.config.ui.despawner_min_age_ticks.tooltip": "宝可梦在「最大活动距离」外时能够存活的最短时间（游戏刻Ticks）。",
     "cobblemon.config.ui.despawner_max_age_ticks": "最大活动时间（Ticks）",
     "cobblemon.config.ui.despawner_max_age_ticks.tooltip": "宝可梦在「稳定活动距离」外能够存在的最短时间。",
-    "advancements.cobblemon.resurrect_galar_fossil": "没有停下思考",
+    "advancements.cobblemon.resurrect_galar_fossil": "没有停止思考",
     "advancements.cobblemon.ride_pokemon": "宝可梦骑师！",
     "advancements.cobblemon.ride_pokemon.description": "首次骑上一只宝可梦",
     "cobblemon.battle.sidestart.ally.lightscreen": "光墙使我方的特殊抗性提高了！",
