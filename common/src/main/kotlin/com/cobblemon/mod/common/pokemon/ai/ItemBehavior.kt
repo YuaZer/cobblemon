@@ -3,6 +3,7 @@ import com.bedrockk.molang.Expression
 import com.bedrockk.molang.runtime.MoLangRuntime
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMoLangValue
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.setup
+import com.cobblemon.mod.common.api.molang.ObjectValue
 import com.cobblemon.mod.common.util.asExpression
 import com.cobblemon.mod.common.util.asIdentifierDefaultingNamespace
 import com.cobblemon.mod.common.util.resolveBoolean
@@ -61,6 +62,12 @@ class ItemBehavior {
 
         }
         return null
+    }
+
+    @Transient
+    val struct = ObjectValue(this).also {
+//        it.addFunction("add_item") { DoubleValue(toleratedLeaders.isNotEmpty()) }
+//        it.addFunction("add_item") { params -> Resovle params[0] }
     }
 
     fun getItemPriority(stack: ItemStack): Int {

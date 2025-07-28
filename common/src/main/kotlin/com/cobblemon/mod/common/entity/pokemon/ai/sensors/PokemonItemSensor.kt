@@ -20,7 +20,7 @@ import java.util.function.Predicate
 import java.util.function.ToDoubleFunction
 
 class PokemonItemSensor(
-    private val width: Double = 16.0, // TODO: Can we configure sensors dynamically?  
+    private val width: Double = 16.0, // TODO: Can we configure sensors dynamically?
     private val height: Double = 8.0,
     private val maxTravelDistance: Double = 16.0,
 ) : Sensor<PokemonEntity>(30) {

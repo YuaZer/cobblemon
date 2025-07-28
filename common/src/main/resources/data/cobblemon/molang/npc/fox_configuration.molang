@@ -1,0 +1,2 @@
+q.entity.behaviour.block_interact.set_can_stand_on_powder_snow(1);
+q.entity.behaviour.block_interact.set_immune_to_sweet_berry_bush_block(1);
