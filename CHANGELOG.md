@@ -20,9 +20,8 @@
   - The player executing the command must be facing the target pokemon entity. Transformations are not persistent and will revert when resources are reloaded.
 - Added `legacy` and `special` sourced moves to Pokémon.
 - Added lang keys for all moves and abilities up to Generation 9.
-- Fixed Moon Ball moon phase logic to actually work correctly
 - Added `translucent_cull` boolean option into resolver's layer to allow for translucent textures with culling
-- Added [LambDynamicLights](https://modrinth.com/mod/lambdynamiclights) support for items held by Pokémon.
+- Added [LambDynamicLights](https://modrinth.com/mod/lambdynamiclights) support for items held by Pokémon, evolution stone blocks, evolution stone items, Pokédex, Luminous Moss, Flame Orb, and Magmarizer.
 - Added the Clear Amulet, Grip Claw, Lagging Tail, Luminous Moss, Metal Alloy, Scroll of Darkness, Scroll of Waters
 - Added Recipes for Masterpiece Cup, Eject Pack
 - Added modification to Minecraft Creative Inventory search to account for item names that contain `poké` when input contains `poke`.
@@ -33,6 +32,15 @@
 - Added `/pctake <player> <box> <slot>` command that takes a specific Pokémon from a player's PC. Removes the pokemon if target is self or ran from the server.
 - Added Hyper Training items (IV Modification) as well as some additional candy items to do so (Health Candy, Sickly Candy)
 - Added Galarica Nut Bushes
+- Many Pokémon (mostly cats) are now feared by phantoms
+- Lightning is now affected by a Pokemon's ability/typing
+  - Pokémon with the ability Lightning Rod draw in lightning similar to a lightning rod block albeit with a lower priority and range, gain immunity to lightning damage, and receive a temporary damage buff.
+  - Pokémon with the ability Motor Drive are immune to lightning damage and receive a temporary speed buff when struck by lightning
+  - Pokémon with the ability Volt Absorb are immune to lightning damage and receive Regeneration II for a short duration
+  - Ground type Pokémon are immune to lightning damage
+- Added functionality to Everstone when held by a Pokémon; suppresses evolution notification and hides evolve button in summary interface.
+- Added new optional property `attachment_options` for most EmitterShapes to be attached to the locator/entities scale, rotation, and/or position. Position is true by default.
+- Galarica Nut bushes now generate on beaches
 
 ### Pokémon Added
 
@@ -229,6 +237,14 @@
 - Destroying a Saccharine Honey Log will now drop a Saccharine Log in stead of nothing
 - Reworked some compost chances
 - Updated interaction interface to include 4 more option spaces
+- Made lecterns that hold a Pokédex emit light.
+- Updated light levels for active PC, Pasture, Healing Machine, and Data Monitor.
+- Vivichokes now always drop one seed when harvested, and converting a fully grown Vivichoke to seeds via crafting results in 1 seed.
+- Healing Machine recipe rebalanced.
+- Reorganised the `block` texture folder to be more organised, in line with the `item` texture folder.
+- Offset in EmitterShape now ignores scale to be more like Blockbench by default. You can get this behaviour back by adding `"scale": true` in the `attachment_options` property in most EmitterShapes.
+- Not specifying a dex in `/pokedex printcalculations {player} {dex}` will now print the National Dex statistics instead of showing all dexes. `/pokedex printcalculations {player} all` is how to view all dex statistics in one command.
+- Removed Braised Vivichoke
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
@@ -297,6 +313,9 @@
 - Fixed Pokédex Scanner not respecting the "Invert Mouse" option.
 - Fixed a crash due to a ConcurrentModificationException that could occur during world generation.
 - Fixed Quaxly's animations showing hidden wing sets
+- Fixed Moon Ball moon phase logic to actually work correctly
+- Fixed `/pokedex printcalculations` to now show the correct percentage completed of the Pokedex
+- Fixed mod incompatibility with the `Raised` mod
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -331,8 +350,13 @@
 - The IVs class has now been extended to include Hyper Trained values.
 - Added `Pokemon#hyperTrainIV()` and `IVs#setHyperTrainedIV(Stat, Int)`.
 - Added `HyperTrainedIvEvent.Pre` and `HyperTrainedIvEvent.Post`.
+- Added `Pokemon#validateMoveSet()` to validate an existing Pokemon's moveset, clearing illegal moves.
 - Added a `hoverText` option to PartySelectCallback, to display a tooltip on hovering over a Pokémon in the selection screen.
 - `PokemonEntity` instances spawned into the world now appropriately finalize the spawn for mod compatibility.
+- Added PokedexManager.obtain as a replacement for .catch which is not a friendly function name in Java.
+
+- Added `Pokemon#hyperTrainIV()` and `IVs#setHyperTrainedIV(Stat, Int)`
+- `ElementalType` now implelments `ShowdownIdentifiable` to ensure the communcation with showdown stays consistent (also in regards to TeraTypes)
   
 ### MoLang & Datapacks
 - The following usages for item predicates can now use item conditions like advancements do, you can learn about them in the [Minecraft wiki](https://minecraft.wiki/w/Advancement_definition#minecraft:filled_bucket)
@@ -363,8 +387,18 @@
 - The format of the `remedies.json` file has changed to allow for individual friendshipDrop amounts per remedy
 - Fixed `entity.find_nearby_block` causing crashes when attempting to use a block tag
 - Spawn Filters can now access `v.spawn.class` to get the identifier of an NPC class for when trying to influence NPC spawns
+- Added Molang functions for Party and PC: `set_pokemon`
+- Added Molang functions for Pokémon: `pokeball`, `held_item`, `remove_held_item`, `hyper_train_iv`, `validate_moveset`, `initialize_moveset`, and `add_exp`.
+- Added Molang functions for Pokémon: `aspects`, `form_aspects`, `unlearn_move`, `teach_learnable_moves`, `cosmetic_item`, and `remove_cosmetic_item`.
+- Added Molang functions for Pokémon: `ability`, `set_iv`, `set_ev`, `teach_move`, and `can_learn_move`.
+- Adds Flows for `STARTER_CHOSEN`, `SHOULDER_MOUNTED`, `EV_GAINED`, `POKEMON_RELEASED`, `POKEMON_NICKNAMED`, `HELD_ITEM`, and `TRADE_COMPLETED` events
+- Adds Flows for `POKEMON_HEALED`, `POKEMON_SCANNED`, `BERRY_HARVEST`, `LOOT_DROPPED`, `POKEMON_SEEN`, `COLLECT_EGG`, `HATCH_EGG`, and `EXPERIENCE_GAINED`.
+- Adds Flows for `POKEMON_CATCH_RATE`, `BAIT_SET`, `BAIT_SET_PRE`, `BAIT_CONSUMED`, `POKEROD_CAST_PRE`, `POKEROD_CAST_POST`, `POKEROD_REEL`, and `BOBBER_SPAWN_POKEMON_PRE`.
+- Adds Flows for `POKEMON_ASPECTS_CHANGED`, `FRIENDSHIP_UPDATED`, `CHANGE_PC_BOX_WALLPAPER_EVENT_PRE`, `CHANGE_PC_BOX_WALLPAPER_EVENT_POST`, and `FULLNESS_UPDATED`.
+- MoLang triggered battles may now set the battle format, whether to clone the player's party, set level, or heal prior.
+- Added Molang function for Player: `inventory`
 - Adds Flows for `STARTER_CHOSEN`, `EV_GAINED`, `POKEMON_RELEASED`, `POKEMON_NICKNAMED`, `HELD_ITEM`, and `TRADE_COMPLETED` events
-- Adds Pokemon functions for `pokeball`, `held_item` and `remove_held_item`
+- Adds Pokemon functions for `pokeball`, `held_item`, `remove_held_item`, `add_aspects`, and `remove_aspects`
 - Added `pokemon.hyper_train_iv` as an available Molang function.
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)

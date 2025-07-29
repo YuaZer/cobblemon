@@ -24,6 +24,7 @@ import com.cobblemon.mod.common.client.net.data.UnlockReloadPacketHandler
 import com.cobblemon.mod.common.client.net.dialogue.DialogueClosedHandler
 import com.cobblemon.mod.common.client.net.dialogue.DialogueOpenedHandler
 import com.cobblemon.mod.common.client.net.effect.RunPosableMoLangHandler
+import com.cobblemon.mod.common.client.net.effect.SaccharineLogBlockParticlesHandler
 import com.cobblemon.mod.common.client.net.effect.SpawnSnowstormEntityParticleHandler
 import com.cobblemon.mod.common.client.net.effect.SpawnSnowstormParticleHandler
 import com.cobblemon.mod.common.client.net.gui.InteractPokemonUIPacketHandler
@@ -77,6 +78,7 @@ import com.cobblemon.mod.common.net.messages.client.data.*
 import com.cobblemon.mod.common.net.messages.client.dialogue.DialogueClosedPacket
 import com.cobblemon.mod.common.net.messages.client.dialogue.DialogueOpenedPacket
 import com.cobblemon.mod.common.net.messages.client.effect.RunPosableMoLangPacket
+import com.cobblemon.mod.common.net.messages.client.effect.SaccharineLogBlockParticlesPacket
 import com.cobblemon.mod.common.net.messages.client.effect.SpawnSnowstormEntityParticlePacket
 import com.cobblemon.mod.common.net.messages.client.effect.SpawnSnowstormParticlePacket
 import com.cobblemon.mod.common.net.messages.client.npc.CloseNPCEditorPacket
@@ -142,6 +144,7 @@ import com.cobblemon.mod.common.net.messages.server.battle.BattleTeamRequestPack
 import com.cobblemon.mod.common.net.messages.server.battle.BattleTeamResponsePacket
 import com.cobblemon.mod.common.net.messages.server.battle.RemoveSpectatorPacket
 import com.cobblemon.mod.common.net.messages.server.battle.SpectateBattlePacket
+import com.cobblemon.mod.common.net.messages.server.behaviour.DamageOnCollisionPacket
 import com.cobblemon.mod.common.net.messages.server.behaviour.SetEntityBehaviourPacket
 import com.cobblemon.mod.common.net.messages.server.block.AdjustBlockEntityViewerCountPacket
 import com.cobblemon.mod.common.net.messages.server.callback.move.MoveSelectCancelledPacket
@@ -191,6 +194,7 @@ import com.cobblemon.mod.common.net.serverhandling.battle.SpectateBattleHandler
 import com.cobblemon.mod.common.net.serverhandling.battle.TeamLeaveHandler
 import com.cobblemon.mod.common.net.serverhandling.battle.TeamRequestHandler
 import com.cobblemon.mod.common.net.serverhandling.battle.TeamRequestResponseHandler
+import com.cobblemon.mod.common.net.serverhandling.behaviour.DamageOnCollisionPacketHandler
 import com.cobblemon.mod.common.net.serverhandling.behaviour.SetEntityBehaviourHandler
 import com.cobblemon.mod.common.net.serverhandling.block.AdjustBlockEntityViewerCountHandler
 import com.cobblemon.mod.common.net.serverhandling.callback.move.MoveSelectCancelledHandler
@@ -400,6 +404,7 @@ object CobblemonNetwork {
         list.add(PacketRegisterInfo(SpawnSnowstormParticlePacket.ID, SpawnSnowstormParticlePacket::decode, SpawnSnowstormParticleHandler))
         list.add(PacketRegisterInfo(SpawnSnowstormEntityParticlePacket.ID, SpawnSnowstormEntityParticlePacket::decode, SpawnSnowstormEntityParticleHandler))
         list.add(PacketRegisterInfo(RunPosableMoLangPacket.ID, RunPosableMoLangPacket::decode, RunPosableMoLangHandler))
+        list.add(PacketRegisterInfo(SaccharineLogBlockParticlesPacket.ID, SaccharineLogBlockParticlesPacket::decode, SaccharineLogBlockParticlesHandler))
 
         // Hax
         list.add(PacketRegisterInfo(UnvalidatedPlaySoundS2CPacket.ID, UnvalidatedPlaySoundS2CPacket::decode, UnvalidatedPlaySoundS2CPacketHandler))
@@ -424,7 +429,6 @@ object CobblemonNetwork {
         list.add(PacketRegisterInfo(ClosePasturePacket.ID, ClosePasturePacket::decode, ClosePastureHandler))
         list.add(PacketRegisterInfo(PokemonPasturedPacket.ID, PokemonPasturedPacket::decode, PokemonPasturedHandler))
         list.add(PacketRegisterInfo(PokemonUnpasturedPacket.ID, PokemonUnpasturedPacket::decode, PokemonUnpasturedHandler))
-        list.add(PacketRegisterInfo(SetPastureConflictPacket.ID, SetPastureConflictPacket::decode, SetPastureConflictHandler))
         list.add(PacketRegisterInfo(UpdatePastureConflictFlagPacket.ID, UpdatePastureConflictFlagPacket::decode, UpdatePastureConflictFlagHandler))
 
         // Orientation
@@ -573,6 +577,7 @@ object CobblemonNetwork {
 
         // Behaviour Packets
         list.add(PacketRegisterInfo(SetEntityBehaviourPacket.ID, SetEntityBehaviourPacket::decode, SetEntityBehaviourHandler))
+        list.add(PacketRegisterInfo(DamageOnCollisionPacket.ID, DamageOnCollisionPacket::decode, DamageOnCollisionPacketHandler))
 
         return list
     }
