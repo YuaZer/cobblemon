@@ -296,6 +296,7 @@
 - Fixed Shroomish spinning at lightning speed when fainting (no longer allowed to let it rip.)
 - Fixed Pokédex Scanner not respecting the "Invert Mouse" option.
 - Fixed a crash due to a ConcurrentModificationException that could occur during world generation.
+- Fixed Quaxly's animations showing hidden wing sets
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
