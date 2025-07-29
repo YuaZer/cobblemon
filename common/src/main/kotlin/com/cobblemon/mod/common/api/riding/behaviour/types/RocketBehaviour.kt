@@ -119,20 +119,7 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         vehicle: PokemonEntity,
         driver: LivingEntity
     ) {
-
-        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
-        val maxYawDiff = 90.0f
-
-        //Normalize the current rotation diff
-        val rotMod = Mth.wrapDegrees(driver.yRot - vehicle.yRot) / maxYawDiff
-
-        val rotAmount = 10.0f
-
-        //Take the inverse so that you turn more at higher speeds
-        val normSpeed = 1.0f - 0.5f*normalizeVal(state.rideVelocity.get().length(), 0.0, topSpeed).toFloat()
-
-        //driver.yRot += (entity.riding.deltaRotation.y - turnAmount)
-        //driver.setYHeadRot(driver.yHeadRot + (entity.riding.deltaRotation.y) - turnAmount)
+        return
     }
 
     override fun clampPassengerRotation(
@@ -169,13 +156,21 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
     ): Vec2 {
 
         var newMomentum = state.turnMomentum.get().toDouble()
-        val turnInput =  (driver.xxa *-1.5f) * 0.05f
-        val maxTurnMomentum = 3.0f
-        //TODO: tie this into the handling stat
+
+        // Grab turningAcceleration and divide 20 twice to get
+        val turningAcceleration = (vehicle.runtime.resolveDouble(settings.handlingExpr) / 20.0f) / 20.0f
+        val turnInput =  (driver.xxa *-1.0f) * turningAcceleration
+
+        // Maximum of 60 degrees per second for all rockets
+        val maxTurnMomentum = 60.0f / 20.0f
+
+        // Base boost stats off of normal turning stats
+        val boostMaxTurnMomentum = maxTurnMomentum * 0.1f
+        val boostTurnInput = turnInput * 0.15f
 
         if(state.boosting.get()) {
-            if(driver.xxa != 0.0f && abs(newMomentum + turnInput) < (maxTurnMomentum * 0.1)) { //If max momentum will not be exceeded then modulate
-                newMomentum += turnInput * 0.15
+            if(driver.xxa != 0.0f && abs(newMomentum + turnInput) < (boostMaxTurnMomentum)) { //If max momentum will not be exceeded then modulate
+                newMomentum += boostTurnInput
             } else {
                 newMomentum = lerp(newMomentum, 0.0, 0.05)
             }
@@ -485,7 +480,10 @@ class RocketSettings : RidingBehaviourSettings {
     var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'AIR', 10.0, 1.0)".asExpression()
         private set
 
-    var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 140.0, 20.0)".asExpression()
+    // Controls the acceleration of the turning speed since the max turning speed is locked at 60 degrees/second
+    // So this is a range of 60 degrees/second per second to 20. Meaning at max stats when holding a direction it
+    // takes a full second to be turning at max speed.
+    var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 60.0, 20.0)".asExpression()
         private set
 
     var rideSounds: RideSoundSettingsList = RideSoundSettingsList()

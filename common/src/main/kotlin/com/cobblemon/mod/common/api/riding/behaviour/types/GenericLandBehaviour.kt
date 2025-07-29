@@ -218,7 +218,7 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
 
         // Check to see if the ride should be walking or sprinting
         val walkSpeed = getWalkSpeed(vehicle)
-        val rideTopSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) * 0.6 * 3
+        val rideTopSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) * 0.6
         val topSpeed = if(state.sprinting.get()) rideTopSpeed else walkSpeed
 
         val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) * 0.3
@@ -246,7 +246,7 @@ class GenericLandBehaviour : RidingBehaviour<GenericLandSettings, GenericLandSta
             activeInput = true
         }
 
-        //Gravity logic
+        // Gravity logic
         if (vehicle.onGround()) {
             newVelocity = Vec3(newVelocity.x, 0.0, newVelocity.z)
         } else {
