@@ -1,0 +1,85 @@
+{
+  "portraitScale": 1.5,
+  "portraitTranslation": [0, 0.5, 0],
+  "profileScale": 0.5,
+  "profileTranslation": [0, 0.25, -5],
+  "rootBone": "cyclizar",
+  "firstPersonCameraOffset": {
+    "seat_1": [0, 0.25, 0]
+  },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 2.5, 5],
+    "seat_1_reverse": [0, 2.5, 5]
+  },
+  "animations": {
+  },
+  "poses": {
+    "portrait": {
+      "poseTypes": ["PORTRAIT", "PROFILE"],
+      "isBattle": false,
+      "animations": ["q.look('head')", "q.bedrock('cyclizar', 'ground_idle')"],
+      "quirks": ["q.bedrock_quirk('cyclizar', 'blink')"]
+    },
+    "ride_jump": {
+      "poseTypes": ["WALK","STAND", "FLOAT", "NONE"],
+      "isBattle": false,
+      "condition": "q.in_air && q.is_ridden",
+      "animations": ["q.look('head')", "q.bedrock('cyclizar', 'ride_jump')"],
+      "quirks": ["q.bedrock_quirk('cyclizar', 'blink')"]
+    },
+    "standing": {
+      "poseTypes": ["STAND", "NONE"],
+      "isBattle": false,
+      "animations": ["q.look('head')", "q.bedrock('cyclizar', 'ground_idle')"],
+      "condition": "!q.is_ridden",
+      "quirks": [
+        "q.bedrock_quirk('cyclizar', 'blink')"
+      ]
+    },
+    "walking": {
+      "poseTypes": ["WALK", "SWIM"],
+      "animations": ["q.look('head')", "q.bedrock('cyclizar', 'ground_walk')"],
+      "condition": "!q.is_ridden",
+      "quirks": ["q.bedrock_quirk('cyclizar', 'blink')"]
+    },
+    "mount_idle": {
+      "poseTypes": ["STAND"],
+      "isBattle": false,
+      "animations": ["q.look('head')", "q.bedrock('cyclizar', 'mount_idle')"],
+      "condition": "q.is_ridden && !q.in_air",
+      "quirks": ["q.bedrock_quirk('cyclizar', 'blink')"]
+    },
+    "mount_walk": {
+      "poseTypes": ["WALK"],
+      "isBattle": false,
+      "animations": [
+        "q.look('head')",
+        {
+          "condition": "!q.is_drifting",
+          "animation": "q.bedrock('cyclizar', 'ground_run')"
+        },
+        {
+          "condition": "q.is_drifting",
+          "animation": "q.bedrock('cyclizar', 'ride_drift')"
+        },
+        {
+          "condition": "q.is_drifting",
+          "animation": "q.bedrock('cyclizar', 'ride_drift_legs')"
+        },
+        {
+          "condition": "q.is_drifting",
+          "animation": "q.bedrock('cyclizar', 'ride_drift_override')"
+        }
+      ],
+      "condition": "q.is_ridden && !q.is_sprinting && !q.in_air",
+      "quirks": ["q.bedrock_quirk('cyclizar', 'blink')"]
+    },
+    "mount_run": {
+      "poseTypes": ["WALK"],
+      "isBattle": false,
+      "condition": "!q.in_air && q.is_sprinting",
+      "animations": ["q.look('head')", "q.bedrock('cyclizar', 'ground_run')"],
+      "quirks": ["q.bedrock_quirk('cyclizar', 'blink')"]
+    }
+  }
+}

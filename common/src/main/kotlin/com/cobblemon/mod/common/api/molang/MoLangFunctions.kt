@@ -1061,6 +1061,7 @@ object MoLangFunctions {
             map.put("get_alt_pose") { StringValue(pokemonEntity.getAltPose()) }
             map.put("is_gliding") { DoubleValue(pokemonEntity.isUsingAltPose(cobblemonResource("gliding"))) }
             map.put("is_sprinting") { DoubleValue(pokemonEntity.isUsingAltPose(cobblemonResource("sprinting"))) }
+            map.put("is_drifting") { DoubleValue(pokemonEntity.isUsingAltPose(cobblemonResource("drifting"))) }
             map.put("in_air") { DoubleValue(pokemonEntity.isUsingAltPose(cobblemonResource("in_air"))) }
             map.put("is_ridden") { DoubleValue(pokemonEntity.hasControllingPassenger()) }
             map.put("has_aspect") { DoubleValue(it.getString(0) in pokemonEntity.aspects) }

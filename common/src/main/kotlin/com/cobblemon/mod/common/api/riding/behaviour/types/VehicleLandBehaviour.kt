@@ -8,11 +8,13 @@
 
 package com.cobblemon.mod.common.api.riding.behaviour.types
 
+import com.bedrockk.molang.Expression
 import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.OrientationControllable
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
+import com.cobblemon.mod.common.api.riding.behaviour.types.air.RocketState
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
 import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
@@ -20,6 +22,7 @@ import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
+import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.SmoothDouble
@@ -28,9 +31,11 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec2
 import net.minecraft.world.phys.Vec3
 import net.minecraft.world.phys.shapes.Shapes
+import kotlin.math.abs
 import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.sign
 
 class VehicleLandBehaviour : RidingBehaviour<VehicleLandSettings, VehicleLandState> {
     companion object {
@@ -43,14 +48,6 @@ class VehicleLandBehaviour : RidingBehaviour<VehicleLandSettings, VehicleLandSta
         //Accel will lie between 1.0 second and 5.0 seconds
         val MAX_ACCEL = (MAX_TOP_SPEED) / (20*3) //3.0 second to max speed
         val MIN_ACCEL = (MAX_TOP_SPEED) / (20*8) // 8 seconds to max speed
-
-        //Can rotate 90 degrees
-        val MAX_HANDLING = 90.0
-        val MIN_HANDLING = 30.0
-
-
-        val MAX_YAW_HANDLING = 16.0
-        val MIN_YAW_HANDLING = 8.0
     }
 
     override val key = KEY
@@ -59,8 +56,10 @@ class VehicleLandBehaviour : RidingBehaviour<VehicleLandSettings, VehicleLandSta
         return RidingStyle.LAND
     }
 
-    val poseProvider = PoseProvider<VehicleLandSettings, VehicleLandState>(PoseType.STAND)
-        .with(PoseOption(PoseType.WALK) { _, _, entity -> entity.entityData.get(PokemonEntity.MOVING) })
+    val poseProvider = PoseProvider<VehicleSettings, VehicleState>(PoseType.STAND)
+        .with(PoseOption(PoseType.WALK) { _, state, _ ->
+            return@PoseOption abs(state.rideVelocity.get().z) > 0.0
+        })
 
     override fun isActive(settings: VehicleLandSettings, state: VehicleLandState, vehicle: PokemonEntity): Boolean {
         return Shapes.create(vehicle.boundingBox).blockPositionsAsListRounded().any {
@@ -110,6 +109,8 @@ class VehicleLandBehaviour : RidingBehaviour<VehicleLandSettings, VehicleLandSta
         val rotationDegrees = driver.xxa * vehicle.runtime.resolveFloat(settings.rotationSpeed)
         val rotation = Vec2(driver.xRot, vehicle.yRot - rotationDegrees)
         state.deltaRotation.set(Vec2(rotation.x - driver.rotationVector.x, rotation.y - vehicle.rotationVector.y))
+
+        driver.yRot -= rotationDegrees
         return rotation
     }
 
@@ -120,18 +121,81 @@ class VehicleLandBehaviour : RidingBehaviour<VehicleLandSettings, VehicleLandSta
         driver: Player,
         input: Vec3
     ): Vec3 {
-        val runtime = vehicle.runtime
-        val driveFactor = runtime.resolveFloat(settings.driveFactor)
-        var g = driver.zza * driveFactor
-        if (g <= 0.0f) {
-            g *= runtime.resolveFloat(settings.reverseDriveFactor)
-        }
-        if (driver.xxa != 0F && g.absoluteValue < runtime.resolveFloat(settings.minimumSpeedToTurn)) {
-            driver.xxa = 0F
-        }
-        val velocity = Vec3(0.0 /* Maybe do drifting here later */, 0.0, g.toDouble() * state.currSpeed.get())
+        state.rideVelocity.set(calculateRideSpaceVel(settings, state, vehicle, driver))
+        return state.rideVelocity.get()
+    }
 
-        return velocity
+
+    private fun calculateRideSpaceVel(
+        settings: VehicleSettings,
+        state: VehicleState,
+        vehicle: PokemonEntity,
+        driver: Player
+    ): Vec3 {
+
+        // Check to see if the ride should be walking or sprinting
+        //val walkSpeed = getWalkSpeed(vehicle)
+        val rideTopSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) * 0.6
+        val topSpeed = rideTopSpeed
+
+        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) * 0.3
+
+        //Flag for determining if player is actively inputting
+        var activeInput = false
+
+        var newVelocity = Vec3(state.rideVelocity.get().x, state.rideVelocity.get().y, state.rideVelocity.get().z)
+
+
+        //speed up and slow down based on input
+        if (driver.zza != 0.0f && state.stamina.get() > 0.0) {
+            //make sure it can't exceed top speed
+            val forwardInput = when {
+                driver.zza > 0 && newVelocity.z > topSpeed -> 0.0
+                driver.zza < 0 && newVelocity.z < (-topSpeed / 3.0) -> 0.0
+                else -> driver.zza.sign
+            }
+
+            newVelocity = Vec3(
+                newVelocity.x,
+                newVelocity.y,
+                (newVelocity.z + (accel * forwardInput.toDouble())))
+
+            activeInput = true
+        }
+
+        // Gravity logic
+        if (vehicle.onGround()) {
+            newVelocity = Vec3(newVelocity.x, 0.0, newVelocity.z)
+        } else {
+            //TODO: Should we just go back to standard minecraft gravity or do the lerp modifications prevent that?
+            //I think minecrafts gravity logic is also too harsh and isn't gamefied enough for mounts maybe? Need
+            //to do some testing and get other's opinions
+            val gravity = (9.8 / ( 20.0)) * 0.2 * 0.15
+            val terminalVel = 2.0
+
+            val fallingForce = gravity -  ( newVelocity.z.sign *gravity *(abs(newVelocity.z) / 2.0))
+            newVelocity = Vec3(newVelocity.x, max(newVelocity.y - fallingForce, -terminalVel), newVelocity.z)
+        }
+
+        //ground Friction
+        if( (newVelocity.horizontalDistance() > 0 && vehicle.onGround() && !activeInput) || newVelocity.horizontalDistance() > topSpeed) {
+            newVelocity = newVelocity.subtract(0.0, 0.0, min(0.03 * newVelocity.z.sign, newVelocity.z))
+        }
+
+        //TODO: Change this so its tied to a jumping stat and representative of the amount of jumps
+        val canJump = vehicle.runtime.resolveBoolean(settings.canJump)
+        //Jump the thang!
+        if (driver.jumping && vehicle.onGround() && canJump) {
+            val jumpForce = 0.5
+
+            newVelocity = newVelocity.add(0.0, jumpForce, 0.0)
+
+        }
+
+        //Zero out lateral velocity possibly picked up from a controller transition
+        newVelocity = Vec3(0.0, newVelocity.y, newVelocity.z)
+
+        return newVelocity
     }
 
     override fun angRollVel(
@@ -189,10 +253,7 @@ class VehicleLandBehaviour : RidingBehaviour<VehicleLandSettings, VehicleLandSta
         driver: Player,
         jumpStrength: Int
     ): Vec3 {
-        val runtime = vehicle.runtime
-        runtime.environment.query.addFunction("jump_strength") { DoubleValue(jumpStrength.toDouble()) }
-        val jumpVector = settings.jumpVector.map { runtime.resolveFloat(it) }
-        return Vec3(jumpVector[0].toDouble(), jumpVector[1].toDouble(), jumpVector[2].toDouble())
+        return Vec3.ZERO
     }
 
     override fun gravity(
@@ -227,11 +288,14 @@ class VehicleLandBehaviour : RidingBehaviour<VehicleLandSettings, VehicleLandSta
         vehicle: PokemonEntity,
         driver: Player
     ): ResourceLocation {
+        when {
+            state.drifting.get() -> return cobblemonResource("drifting")
+        }
         return cobblemonResource("no_pose")
     }
 
-    override fun inertia(settings: VehicleLandSettings, state: VehicleLandState, vehicle: PokemonEntity): Double {
-        return 0.5
+    override fun inertia(settings: VehicleSettings, state: VehicleState, vehicle: PokemonEntity): Double {
+        return 1.0
     }
 
     override fun shouldRoll(settings: VehicleLandSettings, state: VehicleLandState, vehicle: PokemonEntity): Boolean {
@@ -308,6 +372,25 @@ class VehicleLandSettings : RidingBehaviourSettings {
     var lookYawLimit = "101".asExpression()
         private set
 
+    var speedExpr: Expression = "q.get_ride_stats('SPEED', 'LAND', 1.0, 0.3)".asExpression()
+        private set
+
+    // Max accel is a whole 1.0 in 1 second. The conversion in the function below is to convert seconds to ticks
+    var accelerationExpr: Expression =
+        "q.get_ride_stats('ACCELERATION', 'LAND', (1.0 / (20.0 * 1.5)), (1.0 / (20.0 * 5.0)))".asExpression()
+        private set
+
+    // Between 30 seconds and 10 seconds at the lowest when at full speed.
+    var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'LAND', 30.0, 10.0)".asExpression()
+        private set
+
+    //Between a one block jump and a ten block jump
+    var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'LAND', 10.0, 1.0)".asExpression()
+        private set
+
+    var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'LAND', 140.0, 20.0)".asExpression()
+        private set
+
     var rideSounds: RideSoundSettingsList = RideSoundSettingsList()
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
@@ -345,11 +428,23 @@ class VehicleLandSettings : RidingBehaviourSettings {
 class VehicleLandState : RidingBehaviourState() {
     var currSpeed = ridingState(0.0, Side.BOTH)
     var deltaRotation = ridingState(Vec2.ZERO, Side.BOTH)
+    var drifting = ridingState(false, Side.CLIENT)
 
     override fun reset() {
         super.reset()
         currSpeed.set(0.0, forced = true)
         deltaRotation.set(Vec2.ZERO, forced = true)
+        drifting.set(false, forced = true)
+    }
+
+    override fun encode(buffer: FriendlyByteBuf) {
+        super.encode(buffer)
+        buffer.writeBoolean(drifting.get())
+    }
+
+    override fun decode(buffer: FriendlyByteBuf) {
+        super.decode(buffer)
+        drifting.set(buffer.readBoolean(), forced = true)
     }
 
     override fun toString(): String {
@@ -361,5 +456,12 @@ class VehicleLandState : RidingBehaviourState() {
         it.stamina.set(stamina.get(), forced = true)
         it.currSpeed.set(currSpeed.get(), forced = true)
         it.deltaRotation.set(deltaRotation.get(), forced = true)
+        it.drifting.set(drifting.get(), forced = true)
+    }
+
+    override fun shouldSync(previous: RidingBehaviourState): Boolean {
+        if (previous !is VehicleState) return false
+        if (previous.drifting.get() != drifting.get()) return true
+        return super.shouldSync(previous)
     }
 }
