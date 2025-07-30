@@ -8834,5 +8834,6 @@
     "cobblemon.entity.variable.home_radius.name": "Rayon d'origine",
     "cobblemon.entity.variable.locked_rotation.name": "Verrouillage de la rotation",
     "cobblemon.entity.variable.locked_rotation.desc": "Détermine le verrouillage de la rotation de l'entité.",
-    "cobblemon.entity.variable.locked_yaw.name": "Verrouillage du lacet"
+    "cobblemon.entity.variable.locked_yaw.name": "Verrouillage du lacet",
+    "cobblemon.entity.variable.locked_yaw.desc": "Rotation du lacet (degrés) de l'entité. Ne se verrouille que si l'option Verrouillage de la rotation est activée."
 }
