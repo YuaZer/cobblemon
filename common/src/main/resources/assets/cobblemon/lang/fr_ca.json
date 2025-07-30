@@ -8850,5 +8850,12 @@
     "cobblemon.behaviour.avoids_water.name": "Éviter l'eau",
     "cobblemon.behaviour.avoids_water.desc": "Essaie de trouver de l'air, puis s'éloigne de l'eau.",
     "cobblemon.behaviour.pokemon_eats_grass.name": "Manger du gazon",
-    "cobblemon.behaviour.pokemon_eats_grass.desc": "Le Pokémon mange parfois le gazon sous ses pieds."
+    "cobblemon.behaviour.pokemon_eats_grass.desc": "Le Pokémon mange parfois le gazon sous ses pieds.",
+    "cobblemon.behaviour.pokemon_herds.desc": "Les Pokémon formeront des troupeaux avec des Pokémon qu'ils considèrent comme de bons chefs.",
+    "cobblemon.behaviour.player_textured.desc": "Le PNJ sera texturé en fonction du nom d'utilisateur d'un joueur spécifique.",
+    "cobblemon.behaviour.player_textured.name": "Texture d'un joueur",
+    "cobblemon.behaviour.wanders_hover.desc": "Vole au hasard dans les airs, à une certaine distance du sol.",
+    "cobblemon.behaviour.moves_to_water.desc": "Se déplace vers l'eau lorsqu'elle est à proximité.",
+    "cobblemon.behaviour.moves_to_lava.desc": "Se déplace vers la lave lorsqu'elle est à proximité.",
+    "cobblemon.behaviour.pokemon_herds.name": "Troupeaux de Pokémon"
 }
