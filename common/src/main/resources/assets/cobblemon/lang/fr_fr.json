@@ -8835,5 +8835,8 @@
     "cobblemon.entity.variable.challenge_cooldown.name": "Temps de recharge du défi",
     "cobblemon.entity.variable.challenge_cooldown.desc": "Durée pendant laquelle le PNJ ne pourra plus être défié à partir du dernier défi lancé par le joueur.",
     "cobblemon.entity.variable.player_win_command.name": "Commande de victoire du joueur",
-    "cobblemon.entity.variable.player_win_command.desc": "Commande à exécuter quand un joueur gagne contre l'entité. Utilise {{player}} à la place du nom du joueur."
+    "cobblemon.entity.variable.player_win_command.desc": "Commande à exécuter quand un joueur gagne contre l'entité. Utilisez {{player}} à la place du nom du joueur.",
+    "cobblemon.entity.variable.locked_rotation.desc": "Détermine le verrouillage de la rotation de l'entité.",
+    "cobblemon.entity.variable.locked_rotation.name": "Verrouillage de la rotation",
+    "cobblemon.entity.variable.locked_yaw.name": "Verrouillage du lacet"
 }
