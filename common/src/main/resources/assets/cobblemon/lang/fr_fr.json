@@ -8850,7 +8850,7 @@
     "cobblemon.entity.variable.home_radius.name": "Rayon d'origine",
     "cobblemon.entity.variable.home_radius.desc": "Distance maximale à laquelle l'entité peut s'éloigner de sa position d'origine avant de revenir vers celle-ci.",
     "cobblemon.entity.variable.locked_yaw.desc": "Rotation du lacet (degrés) de l'entité. Ne se verrouille que si l'option Verrouillage de la rotation est activée.",
-    "cobblemon.entity.variable.exit_battle_when_hurt.name": "Sort du combat lorsque blessé",
+    "cobblemon.entity.variable.exit_battle_when_hurt.name": "Quitter le combat lorsque blessé",
     "cobblemon.ui.entity.behaviour_editor.label.inactive": "Comportements inactifs",
     "cobblemon.entity.variable.player_texture.desc": "Le nom d'utilisateur du joueur qui servira à texturer l'entité.",
     "cobblemon.behaviour.pokemon_sleeps_on_trainer_bed.desc": "Les Pokémon qui peuvent dormir se reposeront sur leur dresseur si celui-ci se met au lit.",
