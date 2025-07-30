@@ -8820,5 +8820,19 @@
     "tag.item.cobblemon.full_heal_bottles": "Bouteilles Total Soin",
     "cobblemon.entity.variable.player_win_command.name": "Commande de victoire du joueur",
     "cobblemon.entity.variable.challenge_cooldown.name": "Temps de recharge du défi",
-    "cobblemon.entity.variable.challenge_cooldown.desc": "Durée pendant laquelle le PNJ ne pourra plus être défié à partir du dernier défi lancé par le joueur."
+    "cobblemon.entity.variable.challenge_cooldown.desc": "Durée pendant laquelle le PNJ ne pourra plus être défié à partir du dernier défi lancé par le joueur.",
+    "cobblemon.entity.variable.player_win_command.desc": "Commande à exécuter quand un joueur gagne contre l'entité. Utilisez {{player}} à la place du nom du joueur.",
+    "cobblemon.entity.variable.home_y.desc": "Coordonnée Y de l'emplacement d'origine de l'entité.",
+    "cobblemon.entity.variable.home_radius.desc": "Distance maximale à laquelle l'entité peut s'éloigner de sa position d'origine avant de revenir vers celle-ci.",
+    "cobblemon.entity.variable.on_victory.desc": "Expression MoLang à exécuter lorsque l'entité gagne un combat. Elle a q.entity comme entité.",
+    "cobblemon.entity.variable.on_defeat.desc": "Expression MoLang à exécuter lorsque l'entité perd un combat. Elle a q.entity comme entité.",
+    "cobblemon.entity.variable.home_x.name": "Origine X",
+    "cobblemon.entity.variable.home_x.desc": "Coordonnée X de l'emplacement d'origine de l'entité.",
+    "cobblemon.entity.variable.home_y.name": "Origine Y",
+    "cobblemon.entity.variable.home_z.name": "Origine Z",
+    "cobblemon.entity.variable.home_z.desc": "Coordonnée Z de l'emplacement d'origine de l'entité.",
+    "cobblemon.entity.variable.home_radius.name": "Rayon d'origine",
+    "cobblemon.entity.variable.locked_rotation.name": "Verrouillage de la rotation",
+    "cobblemon.entity.variable.locked_rotation.desc": "Détermine le verrouillage de la rotation de l'entité.",
+    "cobblemon.entity.variable.locked_yaw.name": "Verrouillage du lacet"
 }
