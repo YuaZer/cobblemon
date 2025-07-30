@@ -8863,5 +8863,5 @@
     "cobblemon.behaviour.battle_commands.desc": "Exécute des commandes à la fin des combats.",
     "cobblemon.behaviour.avoids_water.name": "Éviter l'eau",
     "cobblemon.behaviour.avoids_water.desc": "Essaie de trouver de l'air, puis s'éloigne de l'eau.",
-    "cobblemon.behaviour.pokemon_eats_grass.name": "Mange de l'herbe"
+    "cobblemon.behaviour.pokemon_eats_grass.name": "Manger de l'herbe"
 }
