@@ -8846,5 +8846,7 @@
     "cobblemon.ui.entity.behaviour_editor.label.inactive": "Comportements inactifs",
     "cobblemon.behaviour.battle_scripts.name": "Script Hooks de combat",
     "cobblemon.behaviour.battle_scripts.desc": "Exécute les scripts MoLang à la fin des combats.",
-    "cobblemon.behaviour.battle_commands.name": "Commandes de combat"
+    "cobblemon.behaviour.battle_commands.name": "Commandes de combat",
+    "cobblemon.behaviour.avoids_water.name": "Éviter l'eau",
+    "cobblemon.behaviour.avoids_water.desc": "Essaie de trouver de l'air, puis s'éloigne de l'eau."
 }
