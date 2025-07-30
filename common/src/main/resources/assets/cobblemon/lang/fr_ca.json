@@ -8848,5 +8848,7 @@
     "cobblemon.behaviour.battle_scripts.desc": "Exécute les scripts MoLang à la fin des combats.",
     "cobblemon.behaviour.battle_commands.name": "Commandes de combat",
     "cobblemon.behaviour.avoids_water.name": "Éviter l'eau",
-    "cobblemon.behaviour.avoids_water.desc": "Essaie de trouver de l'air, puis s'éloigne de l'eau."
+    "cobblemon.behaviour.avoids_water.desc": "Essaie de trouver de l'air, puis s'éloigne de l'eau.",
+    "cobblemon.behaviour.pokemon_eats_grass.name": "Manger du gazon",
+    "cobblemon.behaviour.pokemon_eats_grass.desc": "Le Pokémon mange parfois le gazon sous ses pieds."
 }
