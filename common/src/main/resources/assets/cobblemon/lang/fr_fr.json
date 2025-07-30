@@ -8849,5 +8849,5 @@
     "cobblemon.entity.variable.home_z.name": "Origine Z",
     "cobblemon.entity.variable.home_radius.name": "Rayon d'origine",
     "cobblemon.entity.variable.home_radius.desc": "Distance maximale à laquelle l'entité peut s'éloigner de sa position d'origine avant de revenir vers celle-ci.",
-    "cobblemon.entity.variable.locked_yaw.desc": "Rotation en lacet (degrés) de l'entité. Ne se verrouille que si l'option Rotation Verrouillée est activée."
+    "cobblemon.entity.variable.locked_yaw.desc": "Rotation du lacet (degrés) de l'entité. Ne se verrouille que si l'option Verrouillage de la rotation est activée."
 }
