@@ -8861,5 +8861,7 @@
     "cobblemon.behaviour.battle_scripts.desc": "Exécute les scripts MoLang à la fin des combats.",
     "cobblemon.behaviour.battle_commands.name": "Commandes de combat",
     "cobblemon.behaviour.battle_commands.desc": "Exécute des commandes à la fin des combats.",
-    "cobblemon.behaviour.avoids_water.name": "Éviter l'eau"
+    "cobblemon.behaviour.avoids_water.name": "Éviter l'eau",
+    "cobblemon.behaviour.avoids_water.desc": "Essaie de trouver de l'air, puis s'éloigne de l'eau.",
+    "cobblemon.behaviour.pokemon_eats_grass.name": "Mange de l'herbe"
 }
