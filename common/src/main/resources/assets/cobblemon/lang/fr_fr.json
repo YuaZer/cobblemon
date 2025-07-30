@@ -8831,5 +8831,9 @@
     "tag.item.cobblemon.aprijuices": "Noigrumes Drinks",
     "tag.item.cobblemon.poke_food": "Poké Aliments",
     "tag.item.cobblemon.full_heal_bottles": "Bouteilles Total Soin",
-    "tag.item.cobblemon.mochis": "Mochis"
+    "tag.item.cobblemon.mochis": "Mochis",
+    "cobblemon.entity.variable.challenge_cooldown.name": "Temps de recharge du défi",
+    "cobblemon.entity.variable.challenge_cooldown.desc": "Durée pendant laquelle le PNJ ne pourra plus être défié à partir du dernier défi lancé par le joueur.",
+    "cobblemon.entity.variable.player_win_command.name": "Commande de victoire du joueur",
+    "cobblemon.entity.variable.player_win_command.desc": "Commande à exécuter quand un joueur gagne contre l'entité. Utilise {{player}} à la place du nom du joueur."
 }
