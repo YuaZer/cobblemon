@@ -8850,5 +8850,16 @@
     "cobblemon.entity.variable.home_radius.name": "Rayon d'origine",
     "cobblemon.entity.variable.home_radius.desc": "Distance maximale à laquelle l'entité peut s'éloigner de sa position d'origine avant de revenir vers celle-ci.",
     "cobblemon.entity.variable.locked_yaw.desc": "Rotation du lacet (degrés) de l'entité. Ne se verrouille que si l'option Verrouillage de la rotation est activée.",
-    "cobblemon.entity.variable.exit_battle_when_hurt.name": "Sort du combat lorsque blessé"
+    "cobblemon.entity.variable.exit_battle_when_hurt.name": "Sort du combat lorsque blessé",
+    "cobblemon.ui.entity.behaviour_editor.label.inactive": "Comportements inactifs",
+    "cobblemon.entity.variable.player_texture.desc": "Le nom d'utilisateur du joueur qui servira à texturer l'entité.",
+    "cobblemon.behaviour.pokemon_sleeps_on_trainer_bed.desc": "Les Pokémon qui peuvent dormir se reposeront sur leur dresseur si celui-ci se met au lit.",
+    "cobblemon.ui.entity.behaviour_editor": "Comportements",
+    "cobblemon.ui.entity.behaviour_editor.label": "Comportements - %1$s",
+    "cobblemon.ui.entity.behaviour_editor.label.active": "Comportements actifs",
+    "cobblemon.behaviour.battle_scripts.name": "Script Hooks de combat",
+    "cobblemon.behaviour.battle_scripts.desc": "Exécute les scripts MoLang à la fin des combats.",
+    "cobblemon.behaviour.battle_commands.name": "Commandes de combat",
+    "cobblemon.behaviour.battle_commands.desc": "Exécute des commandes à la fin des combats.",
+    "cobblemon.behaviour.avoids_water.name": "Évite l'eau"
 }
