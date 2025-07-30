@@ -8866,5 +8866,10 @@
     "cobblemon.behaviour.pokemon_eats_grass.name": "Manger de l'herbe",
     "cobblemon.behaviour.pokemon_eats_grass.desc": "Le Pokémon mange parfois l'herbe sous ses pieds.",
     "cobblemon.behaviour.player_textured.desc": "Le PNJ sera texturé en fonction du nom d'utilisateur d'un joueur spécifique.",
-    "cobblemon.behaviour.player_textured.name": "Texture d'un joueur"
+    "cobblemon.behaviour.player_textured.name": "Texture d'un joueur",
+    "cobblemon.behaviour.wanders_hover.desc": "Vole au hasard dans les airs, à une certaine distance du sol.",
+    "cobblemon.behaviour.moves_to_water.desc": "Se déplace vers l'eau lorsqu'elle est à proximité.",
+    "cobblemon.behaviour.moves_to_lava.desc": "Se déplace vers la lave lorsqu'elle est à proximité.",
+    "cobblemon.behaviour.pokemon_herds.name": "Troupeaux de Pokémon",
+    "cobblemon.behaviour.pokemon_herds.desc": "Les Pokémon formeront des troupeaux avec les Pokémon qu'ils considèrent comme des chefs appropriés."
 }
