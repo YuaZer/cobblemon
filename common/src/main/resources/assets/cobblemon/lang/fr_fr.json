@@ -8863,5 +8863,7 @@
     "cobblemon.behaviour.battle_commands.desc": "Exécute des commandes à la fin des combats.",
     "cobblemon.behaviour.avoids_water.name": "Éviter l'eau",
     "cobblemon.behaviour.avoids_water.desc": "Essaie de trouver de l'air, puis s'éloigne de l'eau.",
-    "cobblemon.behaviour.pokemon_eats_grass.name": "Manger de l'herbe"
+    "cobblemon.behaviour.pokemon_eats_grass.name": "Manger de l'herbe",
+    "cobblemon.behaviour.pokemon_eats_grass.desc": "Le Pokémon mange parfois l'herbe sous ses pieds.",
+    "cobblemon.behaviour.player_textured.desc": "Le PNJ sera texturé en fonction du nom d'utilisateur spécifique d'un joueur."
 }
