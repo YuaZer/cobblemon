@@ -67,11 +67,10 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
         const val RESULT_SLOT = 0
         val CRAFTING_GRID_SLOTS = 1..9
         val SEASONING_SLOTS = 10..12
-        const val PREVIEW_ITEM_SLOT = 13
-        const val ITEMS_SIZE = 14
+        const val ITEMS_SIZE = 13
 
-        val PLAYER_INVENTORY_SLOTS = 14..40
-        val PLAYER_HOTBAR_SLOTS = 41..49
+        val PLAYER_INVENTORY_SLOTS = 13..39
+        val PLAYER_HOTBAR_SLOTS = 40..48
 
         const val CRAFTING_GRID_WIDTH = 3
         const val PLAYER_INVENTORY_WIDTH = 9
@@ -149,7 +148,6 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
 
             if (optionalRecipe == null) {
                 campfireBlockEntity.cookingProgress = 0
-                campfireBlockEntity.setItem(PREVIEW_ITEM_SLOT, ItemStack.EMPTY)
                 return
             }
 
@@ -159,8 +157,6 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
             val resultSlotItem = campfireBlockEntity.getItem(0)
 
             recipe.applySeasoning(cookedItem, campfireBlockEntity.getSeasonings())
-
-            campfireBlockEntity.setItem(PREVIEW_ITEM_SLOT, cookedItem)
 
             if (campfireBlockEntity.isLidOpen) {
                 campfireBlockEntity.cookingProgress = 0

@@ -11,7 +11,6 @@ package com.cobblemon.mod.common.block.campfirepot
 import com.cobblemon.mod.common.CobblemonBlockEntities
 import com.cobblemon.mod.common.CobblemonSounds
 import com.cobblemon.mod.common.block.entity.CampfireBlockEntity
-import com.cobblemon.mod.common.block.entity.CampfireBlockEntity.Companion.PREVIEW_ITEM_SLOT
 import com.cobblemon.mod.common.item.CampfirePotItem
 import com.cobblemon.mod.common.util.playSoundServer
 import com.cobblemon.mod.common.util.toVec3d
@@ -182,7 +181,6 @@ class CampfireBlock(settings: Properties) : BaseEntityBlock(settings), SimpleWat
         blockEntity.setPotItem(ItemStack.EMPTY)
         level.playSoundServer(blockPos.bottomCenter, CobblemonSounds.CAMPFIRE_POT_RETRIEVE)
 
-        blockEntity.setItem(PREVIEW_ITEM_SLOT, ItemStack.EMPTY)
         Containers.dropContents(level, blockPos, blockEntity)
 
         val facing = blockState.getValue(FACING)
