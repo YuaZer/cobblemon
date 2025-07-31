@@ -8912,7 +8912,7 @@
     "cobblemon.entity.variable.flee_nearest_hostile.desc": "Détermine si l'entité fuit devant le monstre hostile le plus proche.",
     "cobblemon.entity.variable.get_angry_at_attacker.name": "Se mettre en colère contre l'agresseur",
     "cobblemon.entity.variable.stop_being_angry_if_attacker_dead.name": "Cesser d'être en colère si l'agresseur est mort",
-    "cobblemon.entity.variable.stop_being_angry_if_attacker_dead.desc": "Détermine si l'entité cessera d'être en colère si l'agresseur est décédé.",
+    "cobblemon.entity.variable.stop_being_angry_if_attacker_dead.desc": "Détermine si l'entité cesse d'être en colère si l'agresseur est décédé.",
     "cobblemon.entity.variable.look_at_battling_pokemon.name": "Regarder les combats Pokémon",
     "cobblemon.entity.variable.look_at_battling_pokemon.desc": "Détermine si l'entité regarde les combats Pokémon.",
     "cobblemon.entity.variable.should_attack_angry_at.name": "Attaquer si en colère",
