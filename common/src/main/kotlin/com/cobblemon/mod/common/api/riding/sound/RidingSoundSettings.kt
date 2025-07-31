@@ -44,14 +44,15 @@ data class RideSoundSettings(
         fun decode(buffer: RegistryFriendlyByteBuf): RideSoundSettings {
 
             // Try to read if available, fallback to default otherwise
-            val volumeExpr = if (buffer.isReadable) buffer.readExpression() else "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)".asExpression()
-            val pitchExpr = if (buffer.isReadable) buffer.readExpression() else "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))".asExpression()
-            val playForNonPassengers = if (buffer.isReadable) buffer.readBoolean() else false
-            val muffleEnabled = if (buffer.isReadable) buffer.readBoolean() else false
+            val soundLocation = buffer.readResourceLocation()
+            val volumeExpr = buffer.readExpression()
+            val pitchExpr = buffer.readExpression()
+            val playForNonPassengers = buffer.readBoolean()
+            val muffleEnabled = buffer.readBoolean()
             val attenuationModel = RideAttenuationModel.EXPONENTIAL
 
             return RideSoundSettings(
-                buffer.readResourceLocation(),
+                soundLocation,
                 volumeExpr,
                 pitchExpr,
                 playForNonPassengers,
