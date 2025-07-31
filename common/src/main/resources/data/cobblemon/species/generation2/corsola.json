@@ -251,6 +251,11 @@
             "canBreatheUnderwater": true,
             "canSwimInLava": false
           }
+        },
+        "resting": {
+          "canSleep": true,
+          "willSleepOnBed": false,
+          "light": "0-15"
         }
       },
       "drops": {
