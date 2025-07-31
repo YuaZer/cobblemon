@@ -107,6 +107,8 @@
 - Sandaconda
 - Sinistea
 - Polteageist
+- Galarian Corsola
+- Cursola
 
 #### Gen 9
 - Smoliv
@@ -195,6 +197,9 @@
 - Aegislash
 - Drowzee
 - Hypno
+- Mudkip
+- Marshtomp
+- Swampert
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
