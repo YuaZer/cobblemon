@@ -8905,5 +8905,7 @@
     "cobblemon.entity.variable.see_distance.desc": "Distance maximale à laquelle l'entité peut voir les autres entités pour les regarder.",
     "cobblemon.entity.variable.attacks_melee.name": "Attaques en mêlée",
     "cobblemon.entity.variable.melee_range.name": "Portée de mêlée",
-    "cobblemon.entity.variable.melee_cooldown.name": "Temps de recharge en mêlée"
+    "cobblemon.entity.variable.melee_cooldown.name": "Temps de recharge en mêlée",
+    "cobblemon.entity.variable.eat_grass_cooldown_ticks.name": "Intervalle pour manger de l'herbe",
+    "cobblemon.entity.variable.eat_grass_cooldown_ticks.desc": "Le nombre de ticks qui doivent passer entre la consommation d'herbe."
 }
