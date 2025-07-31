@@ -8918,5 +8918,7 @@
     "cobblemon.entity.variable.flee_desired_distance.name": "Distance de fuite souhaitée",
     "cobblemon.entity.variable.flee_desired_distance.desc": "La distance que l'entité souhaite maintenir avec son agresseur.",
     "cobblemon.entity.variable.flee_nearest_hostile.name": "Fuir en présence de monstre",
-    "cobblemon.entity.variable.flee_nearest_hostile.desc": "Détermine si l'entité fuira devant le monstre hostile le plus proche."
+    "cobblemon.entity.variable.flee_nearest_hostile.desc": "Détermine si l'entité fuira devant le monstre hostile le plus proche.",
+    "cobblemon.entity.variable.eat_grass_cooldown_ticks.desc": "Le nombre de ticks qui doivent passer entre la consommation de gazon.",
+    "cobblemon.entity.variable.eat_grass_cooldown_ticks.name": "Intervalle pour manger du gazon"
 }
