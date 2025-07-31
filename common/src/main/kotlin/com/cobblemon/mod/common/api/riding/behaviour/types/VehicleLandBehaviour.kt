@@ -126,14 +126,6 @@ class VehicleLandBehaviour : RidingBehaviour<VehicleLandSettings, VehicleLandSta
 
         var newMomentum = state.turnMomentum.get().toDouble()
 
-        // If in air then don't allow player modulation to the current turn momentum
-        if (state.inAir.get()) {
-            newMomentum = lerp(newMomentum, 0.0, 0.02)
-            state.turnMomentum.set(newMomentum.toFloat())
-            driver.yRot += newMomentum.toFloat()
-            return Vec2(driver.xRot, vehicle.yRot + newMomentum.toFloat())
-        }
-
         // Grab turningAcceleration and divide 20 twice to get
         val turningAcceleration = (vehicle.runtime.resolveDouble(settings.handlingExpr) * 1.5 / 20.0f) / 20.0f
         val turnInput =  (driver.xxa *-1.0f) * turningAcceleration
@@ -145,7 +137,7 @@ class VehicleLandBehaviour : RidingBehaviour<VehicleLandSettings, VehicleLandSta
         val driftMaxTurnMomentum = maxTurnMomentum * 3.0f
         val driftTurnInput = turnInput * 0.8f
 
-        if(state.drifting.get()) {
+        if(state.drifting.get() || state.inAir.get()) {
             if(driver.xxa != 0.0f && abs(newMomentum + turnInput) < (driftMaxTurnMomentum)) { //If max momentum will not be exceeded then modulate
                 newMomentum += driftTurnInput
             } else {
