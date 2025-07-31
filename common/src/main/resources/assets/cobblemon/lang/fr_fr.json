@@ -8902,5 +8902,8 @@
     "cobblemon.entity.variable.look_at_entities.name": "Regarder les entités",
     "cobblemon.entity.variable.look_at_entities.desc": "Détermine si l'entité va regarder les entités à proximité.",
     "cobblemon.entity.variable.see_distance.name": "Voir la distance",
-    "cobblemon.entity.variable.see_distance.desc": "Distance maximale à laquelle l'entité peut voir les autres entités pour les regarder."
+    "cobblemon.entity.variable.see_distance.desc": "Distance maximale à laquelle l'entité peut voir les autres entités pour les regarder.",
+    "cobblemon.entity.variable.attacks_melee.name": "Attaques en mêlée",
+    "cobblemon.entity.variable.melee_range.name": "Portée de mêlée",
+    "cobblemon.entity.variable.melee_cooldown.name": "Temps de recharge en mêlée"
 }
