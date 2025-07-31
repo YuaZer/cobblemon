@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.api.riding.behaviour.types
 
 import com.bedrockk.molang.Expression
+import com.bedrockk.molang.runtime.MoLangMath.lerp
 import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.OrientationControllable
@@ -22,15 +23,18 @@ import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
+import com.cobblemon.mod.common.util.math.geometry.toRadians
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.util.Mth
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec2
 import net.minecraft.world.phys.Vec3
 import net.minecraft.world.phys.shapes.Shapes
+import org.joml.Matrix3f
 import kotlin.math.abs
 import kotlin.math.absoluteValue
 import kotlin.math.max
@@ -58,7 +62,7 @@ class VehicleLandBehaviour : RidingBehaviour<VehicleLandSettings, VehicleLandSta
 
     val poseProvider = PoseProvider<VehicleSettings, VehicleState>(PoseType.STAND)
         .with(PoseOption(PoseType.WALK) { _, state, _ ->
-            return@PoseOption abs(state.rideVelocity.get().z) > 0.0
+            return@PoseOption abs(state.rideVelocity.get().horizontalDistance()) > 0.0
         })
 
     override fun isActive(settings: VehicleLandSettings, state: VehicleLandState, vehicle: PokemonEntity): Boolean {
@@ -86,18 +90,20 @@ class VehicleLandBehaviour : RidingBehaviour<VehicleLandSettings, VehicleLandSta
         vehicle: PokemonEntity,
         driver: Player
     ): Float {
-        val topSpeed = vehicle.getRideStat(RidingStat.SPEED, RidingStyle.AIR, MIN_TOP_SPEED, MAX_TOP_SPEED)
-        val accel = vehicle.getRideStat(RidingStat.ACCELERATION, RidingStyle.AIR, MIN_ACCEL, MAX_ACCEL)
 
-        //speed up and slow down based on input
-        if (driver.zza > 0.0 && state.currSpeed.get() < topSpeed) {
-            state.currSpeed.set(min(state.currSpeed.get() + accel , topSpeed))
-        } else if (driver.zza < 0.0 && state.currSpeed.get() > 0.0) {
-            //Decelerate is now always a constant half of max acceleration.
-            state.currSpeed.set(max(state.currSpeed.get() - (MAX_ACCEL / 2), 0.0))
+        if (driver.jumping) {
+            state.drifting.set(true)
+            if(driver.zza != 0.0f) {
+                state.poweredDrifting.set(true)
+            } else {
+                state.poweredDrifting.set(false)
+            }
+        } else {
+            state.drifting.set(false)
+            state.poweredDrifting.set(false)
         }
 
-        return state.currSpeed.get().toFloat()
+        return driver.deltaMovement.length().toFloat()
     }
 
     override fun rotation(
@@ -106,12 +112,39 @@ class VehicleLandBehaviour : RidingBehaviour<VehicleLandSettings, VehicleLandSta
         vehicle: PokemonEntity,
         driver: LivingEntity
     ): Vec2 {
-        val rotationDegrees = driver.xxa * vehicle.runtime.resolveFloat(settings.rotationSpeed)
-        val rotation = Vec2(driver.xRot, vehicle.yRot - rotationDegrees)
-        state.deltaRotation.set(Vec2(rotation.x - driver.rotationVector.x, rotation.y - vehicle.rotationVector.y))
 
-        driver.yRot -= rotationDegrees
-        return rotation
+        var newMomentum = state.turnMomentum.get().toDouble()
+
+        // Grab turningAcceleration and divide 20 twice to get
+        val turningAcceleration = (vehicle.runtime.resolveDouble(settings.handlingExpr) * 1.5 / 20.0f) / 20.0f
+        val turnInput =  (driver.xxa *-1.0f) * turningAcceleration
+
+        // Maximum of 60 degrees per second for all vehicles when not drifting
+        val maxTurnMomentum = 40.0f / 20.0f
+
+        // Base boost stats off of normal turning stats
+        val driftMaxTurnMomentum = maxTurnMomentum * 3.0f
+        val driftTurnInput = turnInput * 0.8f
+
+        if(state.drifting.get()) {
+            if(driver.xxa != 0.0f && abs(newMomentum + turnInput) < (driftMaxTurnMomentum)) { //If max momentum will not be exceeded then modulate
+                newMomentum += driftTurnInput
+            } else {
+                newMomentum = lerp(newMomentum, 0.0, 0.01)
+            }
+        } else {
+            if(driver.xxa == 0.0f ) { //If no turning input then lerp to 0
+                newMomentum = lerp(newMomentum, 0.0, 0.15)
+            } else if(abs(newMomentum + turnInput) > maxTurnMomentum) {
+                newMomentum = lerp(newMomentum, 0.0, 0.03)
+            } else { //If max momentum will not be exceeded then modulate
+                newMomentum += turnInput
+            }
+        }
+
+        state.turnMomentum.set(newMomentum.toFloat())
+        driver.yRot += newMomentum.toFloat()
+        return Vec2(driver.xRot, vehicle.yRot + newMomentum.toFloat())
     }
 
     override fun velocity(
@@ -136,14 +169,30 @@ class VehicleLandBehaviour : RidingBehaviour<VehicleLandSettings, VehicleLandSta
         // Check to see if the ride should be walking or sprinting
         //val walkSpeed = getWalkSpeed(vehicle)
         val rideTopSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) * 0.6
-        val topSpeed = rideTopSpeed
+        val topSpeed = if (state.drifting.get()) rideTopSpeed * 0.5 else rideTopSpeed
 
-        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) * 0.3
+        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) * 0.3 * 3
 
         //Flag for determining if player is actively inputting
         var activeInput = false
 
-        var newVelocity = Vec3(state.rideVelocity.get().x, state.rideVelocity.get().y, state.rideVelocity.get().z)
+        var newVelocity = Vec3.ZERO
+        if (!state.drifting.get()) {
+            newVelocity = vehicle.deltaMovement
+
+            newVelocity = newVelocity.yRot(vehicle.yRot.toRadians())
+
+//            val yawAligned = Matrix3f().rotateY(vehicle.yRot.toRadians())
+//            newVelocity = (newVelocity.toVector3f().mul(yawAligned)).toVec3d()
+        } else {
+            state
+            newVelocity = vehicle.deltaMovement
+
+            // Align the direction of movement with the world coordinate space so as not to modify it through turning
+            val yawAligned = Matrix3f().rotateY(vehicle.yRot.toRadians())
+            newVelocity = (newVelocity.toVector3f().mul(yawAligned)).toVec3d()
+        }
+
 
 
         //speed up and slow down based on input
@@ -178,22 +227,49 @@ class VehicleLandBehaviour : RidingBehaviour<VehicleLandSettings, VehicleLandSta
         }
 
         //ground Friction
-        if( (newVelocity.horizontalDistance() > 0 && vehicle.onGround() && !activeInput) || newVelocity.horizontalDistance() > topSpeed) {
-            newVelocity = newVelocity.subtract(0.0, 0.0, min(0.03 * newVelocity.z.sign, newVelocity.z))
+        var friction = 0.003
+        if (state.drifting.get()) {friction *= 0.1}
+        newVelocity = newVelocity.subtract(
+            min(friction , abs(newVelocity.x)) * newVelocity.x.sign,
+            0.0,
+            min(friction , abs(newVelocity.z)) * newVelocity.z.sign
+        )
+
+        // TEST FOR LATERAL SLIP OR WHATEVER
+        //TODO: calc lateral slip and friction better!
+        if (!state.drifting.get()) {
+            newVelocity = newVelocity.subtract(
+                min(friction , abs(newVelocity.x)) * newVelocity.x.sign,
+                0.0,
+                0.0,
+            )
         }
+//        if( (newVelocity.horizontalDistance() > 0 && vehicle.onGround() && !activeInput) || newVelocity.horizontalDistance() > topSpeed) {
+//
+//        }
 
-        //TODO: Change this so its tied to a jumping stat and representative of the amount of jumps
-        val canJump = vehicle.runtime.resolveBoolean(settings.canJump)
-        //Jump the thang!
-        if (driver.jumping && vehicle.onGround() && canJump) {
-            val jumpForce = 0.5
 
-            newVelocity = newVelocity.add(0.0, jumpForce, 0.0)
+        //
 
-        }
+//        //TODO: Change this so its tied to a jumping stat and representative of the amount of jumps
+//        val canJump = vehicle.runtime.resolveBoolean(settings.canJump)
+//        //Jump the thang!
+//        if (driver.jumping && vehicle.onGround() && canJump) {
+//            val jumpForce = 0.5
+//
+//            newVelocity = newVelocity.add(0.0, jumpForce, 0.0)
+//
+//        }
+//
+//        //Zero out lateral velocity possibly picked up from a controller transition
+//        newVelocity = Vec3(0.0, newVelocity.y, newVelocity.z)
 
-        //Zero out lateral velocity possibly picked up from a controller transition
-        newVelocity = Vec3(0.0, newVelocity.y, newVelocity.z)
+//        val yawAligned = Matrix3f().rotateY(vehicle.yRot.toRadians())
+//        newVelocity = (newVelocity.toVector3f().mul(yawAligned)).toVec3d()
+
+//        if (!state.drifting.get()) {
+//            newVelocity = newVelocity.yRot(-vehicle.yRot.toRadians())
+//        }
 
         return newVelocity
     }
@@ -289,6 +365,7 @@ class VehicleLandBehaviour : RidingBehaviour<VehicleLandSettings, VehicleLandSta
         driver: Player
     ): ResourceLocation {
         when {
+            state.poweredDrifting.get() -> return cobblemonResource("powered_drifting")
             state.drifting.get() -> return cobblemonResource("drifting")
         }
         return cobblemonResource("no_pose")
@@ -429,22 +506,31 @@ class VehicleLandState : RidingBehaviourState() {
     var currSpeed = ridingState(0.0, Side.BOTH)
     var deltaRotation = ridingState(Vec2.ZERO, Side.BOTH)
     var drifting = ridingState(false, Side.CLIENT)
+    var poweredDrifting = ridingState(false, Side.CLIENT)
+    val turnMomentum: SidedRidingState<Float> = ridingState(0.0f, Side.CLIENT)
+
 
     override fun reset() {
         super.reset()
         currSpeed.set(0.0, forced = true)
         deltaRotation.set(Vec2.ZERO, forced = true)
         drifting.set(false, forced = true)
+        poweredDrifting.set(false, forced = true)
+        turnMomentum.set(0.0f, forced = true)
     }
 
     override fun encode(buffer: FriendlyByteBuf) {
         super.encode(buffer)
         buffer.writeBoolean(drifting.get())
+        buffer.writeBoolean(poweredDrifting.get())
+        buffer.writeFloat(turnMomentum.get())
     }
 
     override fun decode(buffer: FriendlyByteBuf) {
         super.decode(buffer)
         drifting.set(buffer.readBoolean(), forced = true)
+        poweredDrifting.set(buffer.readBoolean(), forced = true)
+        turnMomentum.set(buffer.readFloat(), forced = true)
     }
 
     override fun toString(): String {
@@ -457,11 +543,15 @@ class VehicleLandState : RidingBehaviourState() {
         it.currSpeed.set(currSpeed.get(), forced = true)
         it.deltaRotation.set(deltaRotation.get(), forced = true)
         it.drifting.set(drifting.get(), forced = true)
+        it.poweredDrifting.set(poweredDrifting.get(), forced = true)
+        it.turnMomentum.set(turnMomentum.get(), forced = true)
     }
 
     override fun shouldSync(previous: RidingBehaviourState): Boolean {
         if (previous !is VehicleState) return false
         if (previous.drifting.get() != drifting.get()) return true
+        if (previous.poweredDrifting.get() != poweredDrifting.get()) return true
+        if (previous.turnMomentum.get() != turnMomentum.get()) return true
         return super.shouldSync(previous)
     }
 }
