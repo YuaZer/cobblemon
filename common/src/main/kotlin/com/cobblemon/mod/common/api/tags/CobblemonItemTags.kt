@@ -28,6 +28,7 @@ object CobblemonItemTags {
     @JvmField val APRICORN_POKE_BALLS = create("apricorn_poke_balls")
     @JvmField val APRICORN_SPROUTS = create("apricorn_sprouts")
     @JvmField val APRICORNS = create("apricorns")
+    @JvmField val APRIJUICES = create("aprijuices")
     /** This tag is only used for a Torterra aspect based easter egg evolution at the moment.
      * It simply includes the 'minecraft:azalea' and 'minecraft:flowering_azalea' items by default. */
     @JvmField val AZALEA_TREE = create("azalea_tree")
@@ -61,6 +62,7 @@ object CobblemonItemTags {
     @JvmField val MINT_LEAF = create("mint_leaf")
     @JvmField val MINT_SEEDS = create("mint_seeds")
     @JvmField val MINTS = create("mints")
+    @JvmField val MOCHIS = create("mochis")
     @JvmField val MOON_STONE_ORES = create("moon_stone_ores")
     @JvmField val MUTATED_BERRIES = create("mutated_berries")
     @JvmField val PLANTS = create("plants")
@@ -68,6 +70,7 @@ object CobblemonItemTags {
     @JvmField val POKE_RODS = create("poke_rods")
     @JvmField val POKEDEX = create("pokedex")
     @JvmField val POKEDEX_SCREEN = create("pokedex_screen")
+    @JvmField val POKE_FOOD = create("poke_food")
     @JvmField val POTIONS = create("potions")
     @JvmField val PROTEIN_INGREDIENTS = create("protein_ingredients")
     /** See [COOKED_MEAT] */
@@ -86,6 +89,7 @@ object CobblemonItemTags {
     @JvmField val SKY_TUMBLESTONES = create("sky_tumblestones")
     @JvmField val SUN_STONE_ORES = create("sun_stone_ores")
     @JvmField val SUPER_POTION_INGREDIENTS = create("super_potion_ingredients")
+    @JvmField val FULL_HEAL_BOTTLES = create("full_heal_bottles")
     @JvmField val SWEETS = create("sweets")
     @JvmField val TEACUPS = create("teacups")
     @JvmField val TEAPOTS = create("teapots")

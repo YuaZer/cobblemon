@@ -96,7 +96,7 @@
       "key": "cobblemon:composite",
       "transitionStrategy": "cobblemon:strategy/jump",
       "defaultBehaviour": {
-        "key": "cobblemon:land/generic"
+        "key": "cobblemon:land/horse"
       },
       "alternateBehaviour": {
         "key": "cobblemon:air/bird",
@@ -198,6 +198,10 @@
         "canWalkOnWater": true,
         "canSwimInLava": true
       }
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true
     }
   },
   "drops": {
@@ -327,10 +331,9 @@
     "tm:weatherball",
     "tm:willowisp",
     "tm:workup",
-    "tutor:aerialace",
-    "tutor:aircutter",
     "tutor:ancientpower",
     "tutor:blastburn",
+    "tutor:block",
     "tutor:bulldoze",
     "tutor:dragonpulse",
     "tutor:firefang",
@@ -356,7 +359,45 @@
     "tutor:sleeptalk",
     "tutor:swift",
     "tutor:thunderpunch",
-    "tutor:twister"
+    "tutor:twister",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:defensecurl",
+    "legacy:defog",
+    "legacy:doubleteam",
+    "legacy:dualwingbeat",
+    "legacy:dynamicpunch",
+    "legacy:falseswipe",
+    "legacy:fissure",
+    "legacy:frustration",
+    "legacy:furyswipes",
+    "legacy:hiddenpower",
+    "legacy:leer",
+    "legacy:mimic",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:rage",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:scaleshot",
+    "legacy:secretpower",
+    "legacy:seismictoss",
+    "legacy:skullbash",
+    "legacy:snore",
+    "legacy:submission",
+    "legacy:swagger",
+    "legacy:tailwind",
+    "legacy:toxic",
+    "special:blastburn",
+    "special:block",
+    "special:celebrate",
+    "special:holdhands",
+    "special:howl",
+    "special:quickattack"
   ],
   "preEvolution": "charmeleon",
   "evolutions": [],
@@ -432,7 +473,7 @@
           "key": "cobblemon:composite",
           "transitionStrategy": "cobblemon:strategy/jump",
           "defaultBehaviour": {
-            "key": "cobblemon:land/generic",
+            "key": "cobblemon:land/horse",
             "gravity": "q.gravity * (0.1 + (q.passenger_count - 1) * 0.1)",
             "speed": "Math.clamp(q.entity.velocity.horizontal_magnitude + 0.33, 0, 1)",
             "jumpVector": [
@@ -525,7 +566,7 @@
           "key": "cobblemon:composite",
           "transitionStrategy": "cobblemon:strategy/jump",
           "defaultBehaviour": {
-            "key": "cobblemon:land/generic",
+            "key": "cobblemon:land/horse",
             "gravity": "q.gravity * (0.1 + (q.passenger_count - 1) * 0.1)",
             "speed": "Math.clamp(q.entity.velocity.horizontal_magnitude + 0.33, 0, 1)",
             "jumpVector": [

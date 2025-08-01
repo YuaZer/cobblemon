@@ -40,9 +40,9 @@ interface RidingBehaviour<Settings : RidingBehaviourSettings, State : RidingBeha
 
     fun speed(settings: Settings, state: State, vehicle: PokemonEntity, driver: Player): Float
 
-    fun clampPassengerRotation(settings: Settings, state: State, entity: PokemonEntity, driver: LivingEntity) {}
+    fun clampPassengerRotation(settings: Settings, state: State, vehicle: PokemonEntity, driver: LivingEntity) {}
 
-    fun updatePassengerRotation(settings: Settings, state: State, entity: PokemonEntity, driver: LivingEntity) {}
+    fun updatePassengerRotation(settings: Settings, state: State, vehicle: PokemonEntity, driver: LivingEntity) {}
 
     fun rotation(settings: Settings, state: State, vehicle: PokemonEntity, driver: LivingEntity): Vec2
 
@@ -91,6 +91,14 @@ interface RidingBehaviour<Settings : RidingBehaviourSettings, State : RidingBeha
 
     fun getRideSounds(settings: Settings, state: State, vehicle: PokemonEntity): RideSoundSettingsList
 
+    fun maxUpStep(settings: Settings, state: State, vehicle: PokemonEntity): Float? = null
+
+    fun canStopRiding(settings: Settings, state: State, vehicle: PokemonEntity, passenger: Player): Boolean = true
+
     fun createDefaultState(settings: Settings): State
 
+    /**
+     * Calculate the damage a horizontal collision will do to a ridden Pokémon. This is only relevant to fast flying behaviours, fall damage is separate!
+     */
+    fun damageOnCollision(settings: Settings, state: State, vehicle: PokemonEntity, impactVec: Vec3): Boolean = false
 }

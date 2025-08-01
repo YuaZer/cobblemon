@@ -2,9 +2,14 @@
     "type": "cobblemon:cooking_pot_shapeless",
     "category": "foods",
     "ingredients": [
-        {
-            "item": "minecraft:apple"
-        },
+        [
+            {
+                "item": "minecraft:apple"
+            },
+            {
+                "tag": "cobblemon:apples"
+            }
+        ],
         {
             "item": "minecraft:sugar"
         },

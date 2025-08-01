@@ -72,6 +72,8 @@ object CobblemonEvents {
     @JvmField
     val FRIENDSHIP_UPDATED = EventObservable<FriendshipUpdatedEvent>()
     @JvmField
+    val FULLNESS_UPDATED = EventObservable<FullnessUpdatedEvent>()
+    @JvmField
     val POKEMON_FAINTED = EventObservable<PokemonFaintedEvent>()
     @JvmField
     val EVOLUTION_ACCEPTED = CancelableObservable<EvolutionAcceptedEvent>()
@@ -170,6 +172,11 @@ object CobblemonEvents {
     val EV_GAINED_EVENT_POST = EventObservable<EvGainedEvent.Post>()
 
     @JvmField
+    val HYPER_TRAINED_IV_PRE = CancelableObservable<HyperTrainedIvEvent.Pre>()
+    @JvmField
+    val HYPER_TRAINED_IV_POST = EventObservable<HyperTrainedIvEvent.Post>()
+
+    @JvmField
     val POKEMON_RELEASED_EVENT_PRE = CancelableObservable<ReleasePokemonEvent.Pre>()
     @JvmField
     val POKEMON_RELEASED_EVENT_POST = EventObservable<ReleasePokemonEvent.Post>()
@@ -224,7 +231,7 @@ object CobblemonEvents {
     @JvmField
     val POKEMON_GAINED = EventObservable<PokemonGainedEvent>()
     @JvmField
-    val POKEMON_SEEN = EventObservable<PokemonSeenEvent>()
+    val POKEMON_SEEN = CancelableObservable<PokemonSeenEvent>()
     @JvmField
     val POKEMON_ASPECTS_CHANGED = EventObservable<PokemonAspectsChangedEvent>()
     @JvmField

@@ -1,6 +1,6 @@
 {
     "type": "cobblemon:cooking_pot",
-    "category": "baits",
+    "category": "complex_dishes",
     "key": {
         "M": {
             "item": "minecraft:milk_bucket"
@@ -25,7 +25,6 @@
     },
     "seasoningProcessors": [
         "spawn_bait",
-        "flavour",
         "food_colour"
     ]
 }

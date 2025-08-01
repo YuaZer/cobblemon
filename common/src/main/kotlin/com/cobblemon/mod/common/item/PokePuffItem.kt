@@ -9,20 +9,12 @@
 package com.cobblemon.mod.common.item
 
 import com.cobblemon.mod.common.CobblemonItemComponents
-import com.cobblemon.mod.common.CobblemonItems
-import com.cobblemon.mod.common.CobblemonSounds
-import com.cobblemon.mod.common.api.apricorn.Apricorn
-import com.cobblemon.mod.common.api.conditional.RegistryLikeIdentifierCondition
 import com.cobblemon.mod.common.api.cooking.Flavour
 import com.cobblemon.mod.common.api.cooking.PokePuffUtils
-import com.cobblemon.mod.common.api.cooking.Seasonings
 import com.cobblemon.mod.common.api.item.PokemonSelectingItem
-import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.pokemon.Nature
 import com.cobblemon.mod.common.pokemon.Pokemon
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
-import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundEvents
@@ -100,6 +92,13 @@ class PokePuffItem : Item(Properties().stacksTo(16)), PokemonSelectingItem {
     }
 
     override fun applyToPokemon(player: ServerPlayer, stack: ItemStack, pokemon: Pokemon): InteractionResultHolder<ItemStack> {
+        if (!canUseOnPokemon(stack, pokemon)) {
+            return InteractionResultHolder.fail(stack)
+        }
+
+        // Feed the Pokémon 4 fullness points
+        pokemon.feedPokemon(4)
+
         val friendshipChange = PokePuffUtils.calculateFriendshipChange(stack, pokemon.nature)
 
         if (friendshipChange != 0) {
@@ -109,7 +108,7 @@ class PokePuffItem : Item(Properties().stacksTo(16)), PokemonSelectingItem {
             if (newValue != current) {
                 pokemon.setFriendship(newValue)
                 pokemon.entity?.playSound(SoundEvents.PLAYER_BURP, 1F, 1F)
-                if (!player.isCreative) stack.shrink(1)
+                stack.consume(1, player)
                 return InteractionResultHolder.success(stack)
             }
         }
@@ -152,9 +151,7 @@ class PokePuffItem : Item(Properties().stacksTo(16)), PokemonSelectingItem {
 
             if (user.foodData.needsFood()) {
                 user.foodData.eat(nutrition, saturation)
-                if (!user.isCreative) {
-                    stack.shrink(1)
-                }
+                stack.consume(1, user)
             }
         }
 
@@ -163,7 +160,7 @@ class PokePuffItem : Item(Properties().stacksTo(16)), PokemonSelectingItem {
 
 
     override fun canUseOnPokemon(stack: ItemStack, pokemon: Pokemon): Boolean {
-        return getFriendshipDelta(stack, pokemon) != 0
+        return getFriendshipDelta(stack, pokemon) != 0 && super.canUseOnPokemon(stack, pokemon)
     }
 
     private fun getFriendshipDelta(stack: ItemStack, pokemon: Pokemon): Int {

@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.api.ai.config.task
 
+import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
 import com.cobblemon.mod.common.api.ai.ExpressionOrEntityVariable
 import com.cobblemon.mod.common.api.ai.asVariables
@@ -47,13 +48,15 @@ class AirWanderTaskConfig : SingleTaskConfig {
     ): BehaviorControl<in LivingEntity>? {
         runtime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
         if (!condition.resolveBoolean()) return null
+        behaviourConfigurationContext.addMemories(MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET, CobblemonMemories.PATH_COOLDOWN)
         val wanderChanceExpression = wanderChance.asSimplifiedExpression(entity)
 
         return BehaviorBuilder.create {
             it.group(
                 it.absent(MemoryModuleType.WALK_TARGET),
-                it.registered(MemoryModuleType.LOOK_TARGET)
-            ).apply(it) { walkTarget, lookTarget ->
+                it.registered(MemoryModuleType.LOOK_TARGET),
+                it.absent(CobblemonMemories.PATH_COOLDOWN)
+            ).apply(it) { walkTarget, lookTarget, pathCooldown ->
                 Trigger { world, entity, time ->
                     if (entity !is PathfinderMob || entity.isInWater) {
                         return@Trigger false
@@ -64,6 +67,7 @@ class AirWanderTaskConfig : SingleTaskConfig {
                     if (wanderChance <= 0 || world.random.nextFloat() > wanderChance) return@Trigger false
 
                     val rotVec = entity.getViewVector(0F)
+                    pathCooldown.setWithExpiry(true, 60L)
                     val target = HoverRandomPos.getPos(entity, horizontalRange.resolveInt(), verticalRange.resolveInt(), rotVec.x, rotVec.y, 1.5707964f, minUpwardsMovement.resolveInt(), minDownwardsMovement.resolveInt())
                         ?: return@Trigger false
                     walkTarget.set(WalkTarget(target, speedMultiplier.resolveFloat(), 3))

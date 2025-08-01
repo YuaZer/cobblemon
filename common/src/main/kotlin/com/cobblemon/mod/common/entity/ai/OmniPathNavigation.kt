@@ -23,12 +23,14 @@ import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation
+import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.pathfinder.Node
 import net.minecraft.world.level.pathfinder.Path
 import net.minecraft.world.level.pathfinder.PathComputationType
 import net.minecraft.world.level.pathfinder.PathFinder
 import net.minecraft.world.level.pathfinder.PathType
+import net.minecraft.world.level.pathfinder.WalkNodeEvaluator
 import net.minecraft.world.phys.Vec3
 
 /**
@@ -51,31 +53,20 @@ class OmniPathNavigation(val world: Level, val entity: Mob) : GroundPathNavigati
         val onArrival: () -> Unit = {},
         val onCannotReach: () -> Unit = {},
         val sprinting: Boolean = false,
-        val destinationProximity: Float = 0.01F
+        val destinationProximity: Float = 0.01F,
+        val destinationPathTypeFilter: (PathType) -> Boolean = { true },
     )
 
     var navigationContext = NavigationContext()
+
+    companion object {
+        val verticallyPreciseNodeTypes = setOf(PathType.WATER, PathType.OPEN, PathType.LAVA)
+    }
 
     override fun createPathFinder(range: Int): PathFinder {
         this.nodeEvaluator = OmniPathNodeMaker()
         nodeEvaluator.setCanOpenDoors(false)
         return PathFinder(nodeEvaluator, range)
-    }
-
-    override fun isStableDestination(pos: BlockPos): Boolean {
-        return if (pather.canSwimInWater()) {
-            !super.isStableDestination(pos)
-        } else {
-            super.isStableDestination(pos)
-        }
-    }
-
-    override fun canMoveDirectly(origin: Vec3, target: Vec3): Boolean {
-        return if (pather.canSwimInWater()) {
-            isClearForMovementBetween(this.mob, origin, target, false)
-        } else {
-            super.canMoveDirectly(origin, target)
-        }
     }
 
     override fun canUpdatePath(): Boolean {
@@ -139,7 +130,9 @@ class OmniPathNavigation(val world: Level, val entity: Mob) : GroundPathNavigati
         val d = abs(mob.x - targetVec3d.x)
         val e = abs(mob.y - targetVec3d.y)
         val f = abs(mob.z - targetVec3d.z)
-        val closeEnough = d < maxDistanceToWaypoint.toDouble() && f < this.maxDistanceToWaypoint.toDouble() && e < 1.0
+        val closeEnough = d < maxDistanceToWaypoint.toDouble()
+                && f < this.maxDistanceToWaypoint.toDouble()
+                && e < (if (currentNode.type in verticallyPreciseNodeTypes) maxDistanceToWaypoint else 1.0).toDouble()
 
         // Corner cutting is commented out because it makes pokemon and NPCs 'cut' the corner and fall into water or lava
         if (closeEnough) {// || mob.navigation.canCutCorner(path!!.nextNode.type) && shouldTargetNextNodeInDirection(vec3d)) {
@@ -170,30 +163,6 @@ class OmniPathNavigation(val world: Level, val entity: Mob) : GroundPathNavigati
         world.getBlockState(pos).isPathfindable(PathComputationType.AIR)
                 && world.getBlockState(pos.below(1)).isPathfindable(PathComputationType.AIR)
                 && world.getBlockState(pos.below(2)).isPathfindable(PathComputationType.AIR)
-
-    override fun tick() {
-        super.tick()
-//        val currentPath = getCurrentPath()
-//        val node = if (currentPath == null || currentPath.isFinished) null else currentPath.lastNode
-//
-//        val isFlying = pokemonEntity.getBehaviourFlag(PokemonBehaviourFlag.FLYING)
-//        val canWalk = pokemonEntity.behaviour.moving.walk.canWalk
-//        val canFly = pokemonEntity.behaviour.moving.fly.canFly
-//        if (node != null) {
-//            if (node.type == PathNodeType.OPEN) {
-//                val canFly = moving.fly.canFly
-//                if (canFly && !pokemonEntity.getBehaviourFlag(PokemonBehaviourFlag.FLYING)) {
-//                    pokemonEntity.setBehaviourFlag(PokemonBehaviourFlag.FLYING, true)
-//                }
-//            } else if (node.type != PathNodeType.OPEN && isFlying && canWalk) {
-//                pokemonEntity.setBehaviourFlag(PokemonBehaviourFlag.FLYING, false)
-//            }
-//        } else if (!isFlying && canFly && isAirborne(pokemonEntity.world, pokemonEntity.blockPos)) {
-//            pokemonEntity.setBehaviourFlag(PokemonBehaviourFlag.FLYING, true)
-//        } else if (isFlying && canWalk && !pokemonEntity.world.getBlockState(pokemonEntity.blockPos).canPathfindThrough(pokemonEntity.world, pokemonEntity.blockPos.below(), NavigationType.LAND)) {
-//            pokemonEntity.setBehaviourFlag(PokemonBehaviourFlag.FLYING, false)
-//        }
-    }
 
     fun findPath(target: BlockPos, distance: Int): Path? = createPath(ImmutableSet.of(target), 8, false, distance)
 
@@ -250,6 +219,16 @@ class OmniPathNavigation(val world: Level, val entity: Mob) : GroundPathNavigati
     fun moveTo(x: Double, y: Double, z: Double, speed: Double = 1.0, navigationContext: NavigationContext) {
         this.navigationContext = navigationContext
         this.moveTo(x, y, z, speed)
+    }
+
+    override fun getGroundY(vec: Vec3): Double {
+        val blockGetter: BlockGetter = level
+        val blockPos = BlockPos.containing(vec)
+        if (pather.isFlying() && world.getBlockState(blockPos).isPathfindable(PathComputationType.AIR)) {
+            // If we can fly and we're airborne, return the current Y position
+            return vec.y
+        }
+        return if ((canFloat()) && blockGetter.getFluidState(blockPos).`is`(FluidTags.WATER)) vec.y + 0.5 else WalkNodeEvaluator.getFloorLevel(blockGetter, blockPos)
     }
 
     override fun createPath(entity: Entity, distance: Int): Path? {
