@@ -369,8 +369,8 @@ class BoatSettings : RidingBehaviourSettings {
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
-        terminalVelocity = buffer.readExpression()
         rideSounds = RideSoundSettingsList.decode(buffer)
+        terminalVelocity = buffer.readExpression()
     }
 }
 
