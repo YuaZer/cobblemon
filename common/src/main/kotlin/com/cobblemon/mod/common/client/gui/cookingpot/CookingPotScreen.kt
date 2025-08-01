@@ -175,9 +175,9 @@ class CookingPotScreen(
         }
 
         val resultSlot = menu.slots[menu.resultSlotIndex]
-        val optionalRecipe = menu.getCurrentRecipe()
+        val optionalRecipe = menu.currentActiveRecipe
         if (optionalRecipe != null && !optionalRecipe.value.result.isEmpty && !resultSlot.hasItem()) {
-            val resultItem = menu.assembleResultItem(optionalRecipe.value)
+            val resultItem = menu.previewItem
 
             RenderSystem.enableBlend()
             RenderSystem.setShaderColor(1F, 1F, 1F, 0.5F)
