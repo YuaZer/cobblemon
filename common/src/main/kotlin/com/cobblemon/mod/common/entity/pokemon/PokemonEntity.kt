@@ -165,12 +165,7 @@ import net.minecraft.world.level.material.FluidState
 import net.minecraft.world.level.pathfinder.PathType
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
-import kotlin.math.max
 import kotlin.math.min
-import java.util.*
-import java.util.concurrent.CompletableFuture
-import kotlin.math.PI
-import kotlin.math.ceil
 
 @Suppress("unused")
 open class PokemonEntity(
