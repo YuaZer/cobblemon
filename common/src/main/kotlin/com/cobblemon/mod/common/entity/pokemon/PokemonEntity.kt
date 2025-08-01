@@ -566,8 +566,6 @@ open class PokemonEntity(
 
         entityData.get(MOVING)
 
-        super.tick()
-
         // Update ride Specific data
         if (level().isClientSide) {
             rideSoundManager.tick()
