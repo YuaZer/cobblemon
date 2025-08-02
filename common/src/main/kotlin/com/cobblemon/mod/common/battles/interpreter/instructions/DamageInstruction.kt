@@ -25,7 +25,6 @@ import com.cobblemon.mod.common.battles.dispatch.UntilDispatch
 import com.cobblemon.mod.common.battles.pokemon.BattlePokemon
 import com.cobblemon.mod.common.net.messages.client.animation.PlayPosableAnimationPacket
 import com.cobblemon.mod.common.net.messages.client.battle.BattleHealthChangePacket
-import com.cobblemon.mod.common.net.messages.client.effect.RunPosableMoLangPacket
 import com.cobblemon.mod.common.pokemon.evolution.progress.DamageTakenEvolutionProgress
 import com.cobblemon.mod.common.pokemon.evolution.progress.RecoilEvolutionProgress
 import com.cobblemon.mod.common.pokemon.status.statuses.persistent.PoisonStatus
@@ -103,10 +102,12 @@ class DamageInstruction(
                 status = pokemon.effectedPokemon.status?.status ?: status
             }
 
-            // Damage effects without a action effect receive the generic damage effect
-            val actionEffect = status?.getActionEffect() ?: effect?.let {
-                ActionEffects.actionEffects["generic_damage".asIdentifierDefaultingNamespace()]
-            } ?: return@dispatch GO
+            // Damage effects without an action effect receive the generic damage effect
+            val actionEffect = status?.getActionEffect()
+                ?: effect?.let { ActionEffects.actionEffects["damage_${it.id}".asIdentifierDefaultingNamespace()] }
+                ?: ActionEffects.actionEffects["generic_damage".asIdentifierDefaultingNamespace()]
+                ?: return@dispatch GO // not likely bro
+
 
             val providers = mutableListOf<Any>(battle)
             battlePokemon.effectedPokemon.entity?.let { UsersProvider(it) }?.let(providers::add)
@@ -210,7 +211,7 @@ class DamageInstruction(
             } else if (causedFaint) {
                 GO
             } else {
-                UntilDispatch { "effects" !in holds}
+                UntilDispatch { "effects" !in holds }
             }
         }
     }

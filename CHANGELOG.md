@@ -239,6 +239,7 @@
 - Reorganised the `block` texture folder to be more organised, in line with the `item` texture folder.
 - Offset in EmitterShape now ignores scale to be more like Blockbench by default. You can get this behaviour back by adding `"scale": true` in the `attachment_options` property in most EmitterShapes.
 - Not specifying a dex in `/pokedex printcalculations {player} {dex}` will now print the National Dex statistics instead of showing all dexes. `/pokedex printcalculations {player} all` is how to view all dex statistics in one command.
+- Removed Braised Vivichoke
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
@@ -390,6 +391,10 @@
 - Adds Flows for `STARTER_CHOSEN`, `EV_GAINED`, `POKEMON_RELEASED`, `POKEMON_NICKNAMED`, `HELD_ITEM`, and `TRADE_COMPLETED` events
 - Adds Pokemon functions for `pokeball`, `held_item`, `remove_held_item`, `add_aspects`, and `remove_aspects`
 - Added `pokemon.hyper_train_iv` as an available Molang function.
+- Added `prepare_{effect}` and `damage_{effect}` action effect hooks in battles for more battle particle effects.
+- Added `q.has_argument(<argument_name>, [argument_value])` MoLang function to several battle-related action effect contexts.
+- Added `q.has_argument_at(<index>, [argument_value])` MoLang function to several battle-related action effect contexts.
+- Added `q.hit_count` MoLang function to move action effect contexts.
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)
 
