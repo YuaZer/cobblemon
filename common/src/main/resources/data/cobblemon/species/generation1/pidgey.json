@@ -68,7 +68,6 @@
         {
           "tag": "#minecraft:chicken_food",
           "pickupPriority": 1,
-          "isFood": true,
           "fullnessValue": 1,
           "onUseEffect": "q.entity.heal(1)"
         }

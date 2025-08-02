@@ -16,6 +16,7 @@ import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import kotlin.collections.mutableListOf
+import kotlin.collections.set
 import kotlin.math.max
 
 class ItemBehavior {
@@ -66,8 +67,32 @@ class ItemBehavior {
 
     @Transient
     val struct = ObjectValue(this).also {
-//        it.addFunction("add_item") { DoubleValue(toleratedLeaders.isNotEmpty()) }
-//        it.addFunction("add_item") { params -> Resovle params[0] }
+        it.addFunction("add_pickup_item") { params ->
+            println("ADD ITEM")
+            val npcId = params.get<ObjectValue<ObtainableItem>>(0) // (params.get<MoValue>(0) as? ObjectValue<ObtainableItem>)
+            val pickItem = npcId?.obj
+            if (pickItem != null) {
+                addPickupItem(pickItem)
+            }
+        }
+        it.addFunction("create_pickup_item") { params ->
+            println("pikupitem")
+            val itemName = params.getString(0)
+            val tagName = params.getString(1)
+            val itemQuery = params.getString(2)
+            val returnItemName = params.getString(5)
+            val onUseEffect = params.getString(6)
+            val pickupItem = ObtainableItem(
+                item = if (itemName.isNotEmpty()) ResourceLocation.parse(itemName) else null,
+                tag = tagName.ifEmpty { null },
+                itemQuery = itemQuery.ifEmpty { null },
+                pickupPriority = params.getInt(3),
+                fullnessValue = params.getInt(4),
+                returnItem = if (returnItemName.isNotEmpty()) ResourceLocation.parse(returnItemName) else null,
+                onUseEffect = onUseEffect.ifEmpty { null }
+            )
+            ObjectValue(pickupItem)
+        }
     }
 
     fun getItemPriority(stack: ItemStack): Int {
@@ -78,19 +103,23 @@ class ItemBehavior {
         return getMatchingEntry(stack)?.onUseEffect
     }
 
+    fun addPickupItem(entry: ObtainableItem) {
+        if (entry.item != null) {
+            itemMap[entry.item] = entry
+        }
+        if (entry.tag != null) {
+            val tag = TagKey.create(Registries.ITEM, entry.tag.replace("#", "").asIdentifierDefaultingNamespace())
+            tag.let { tagMap[tag] = entry }
+        }
+        if (entry.itemQuery != null) {
+            queryMap[entry.itemQuery.asExpression()] = entry
+        }
+        highestPriorityItem = max(entry.pickupPriority, highestPriorityItem)
+    }
+
     fun initialize() {
         desiredItems.forEach { entry ->
-            if (entry.item != null) {
-                itemMap[entry.item] = entry
-            }
-            if (entry.tag != null) {
-                val tag = TagKey.create(Registries.ITEM, entry.tag.replace("#", "").asIdentifierDefaultingNamespace())
-                tag.let { tagMap[tag] = entry }
-            }
-            if (entry.itemQuery != null) {
-                queryMap[entry.itemQuery.asExpression()] = entry
-            }
-            highestPriorityItem = max(entry.pickupPriority, highestPriorityItem)
+            addPickupItem(entry)
         }
     }
 }

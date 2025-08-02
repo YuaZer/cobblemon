@@ -56,14 +56,12 @@
           {
             "item": "minecraft:amethyst_shard",
             "priority": 1,
-            "isFood": true,
             "fullnessValue": 2,
             "onUseEffect": "q.entity.heal(2)"
           },
           {
             "item": "minecraft:diamond",
             "pickupPriority": 2,
-            "isFood": true,
             "fullnessValue": 5,
             "onUseEffect": "q.entity.heal(10)"
           }

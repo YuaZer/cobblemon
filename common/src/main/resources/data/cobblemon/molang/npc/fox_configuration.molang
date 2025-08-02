@@ -1,2 +1,30 @@
 q.entity.behaviour.block_interact.set_can_stand_on_powder_snow(1);
 q.entity.behaviour.block_interact.set_immune_to_sweet_berry_bush_block(1);
+q.entity.behaviour.item_interact.add_item();
+q.entity.behaviour.item_interact.add_pickup_item(q.entity.behaviour.item_interact.create_pickup_item(
+    '',
+    '#minecraft:fox_food',
+    '',
+    5,
+    1,
+    '',
+    'q.entity.heal(2)'
+    ));
+q.entity.behaviour.item_interact.add_pickup_item(q.entity.behaviour.item_interact.create_pickup_item(
+    '',
+    '',
+    'q.item.is_food()',
+    4,
+    1,
+    '',
+    'q.entity.heal(1)'
+    ));
+q.entity.behaviour.item_interact.add_pickup_item(q.entity.behaviour.item_interact.create_pickup_item(
+    '',
+    '',
+    '1',
+    1,
+    0,
+    '',
+    ''
+    ));

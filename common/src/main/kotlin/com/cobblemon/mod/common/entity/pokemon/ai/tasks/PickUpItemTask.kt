@@ -36,13 +36,13 @@ object PickUpItemTask {
             Trigger { _, entity, _ ->
 
                 val itemEntity = it.get(nearbyItem)
-                if (itemEntity == null || !itemEntity.isAlive) {
+                if (itemEntity == null || !itemEntity.isAlive || (entity is PokemonEntity && !entity.pokemon.canDropHeldItem)) {
                     return@Trigger false
                 }
 
                 runtime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
                 val condition = runtime.resolveBoolean(condition)
-                if (!condition || (entity is PokemonEntity && !entity.pokemon.canDropHeldItem)) {
+                if (!condition) {
                     return@Trigger false
                 }
 
@@ -54,7 +54,7 @@ object PickUpItemTask {
 
                 entity.take(itemEntity, 1)
                 val stack = entity.pokemon.swapHeldItem(itemEntity.item)
-                if (!stack.isEmpty() && !entity.level().isClientSide) {
+                if (!stack.isEmpty && !entity.level().isClientSide) {
                     val itemEntity = ItemEntity(
                         entity.level(),
                         entity.x + entity.lookAngle.x,

@@ -25,7 +25,7 @@ import net.minecraft.world.entity.ai.memory.WalkTarget
 object MoveToItemTask {
     val runtime = MoLangRuntime().setup()
 
-    fun create(condition: Expression, maxDistance: Expression, itemPriority: Expression, speedMultiplier: Expression): OneShot<PokemonEntity> = BehaviorBuilder.create {
+    fun create(condition: Expression, maxDistance: Expression, speedMultiplier: Expression): OneShot<PokemonEntity> = BehaviorBuilder.create {
         it.group(
             it.absent(MemoryModuleType.WALK_TARGET),
             it.present(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM)

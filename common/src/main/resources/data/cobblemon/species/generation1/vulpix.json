@@ -60,24 +60,13 @@
     "itemInteract": {
       "desiredItems": [
         {
-          "tag": "#minecraft:fox_food",
-          "pickupPriority": 5,
-          "isFood": true,
-          "fullnessValue": 2,
-          "returnItem": false,
-          "onUseEffect": "q.entity.heal(2)"
+          "item": "minecraft:glass_bottle",
+          "pickupPriority": -1
         },
         {
-          "itemQuery": "q.item.is_food()",
-          "pickupPriority": 4,
-          "isFood": true,
-          "fullnessValue": 2,
-          "onUseEffect": "q.entity.heal(1)"
-        },
-        {
-          "itemQuery": "1",
+          "item": "minecraft:potion",
           "pickupPriority": 1,
-          "isFood": false
+          "returnItem": "minecraft:glass_bottle"
         }
       ]
     }

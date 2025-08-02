@@ -83,7 +83,7 @@ class FormPokemonBehaviour {
         it.addFunction("idle") { idle.struct }
         it.addFunction("entity_interact") { entityInteract.struct }
         it.addFunction("block_interact") { blockInteract.struct }
-        it.addFunction("item_interact") {  }
+        it.addFunction("item_interact") { itemInteract.struct }
         it.addFunction("combat") { combat.struct }
         it.addFunction("herd") { herd.struct }
     }

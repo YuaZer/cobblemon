@@ -15,6 +15,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType
 import net.minecraft.world.entity.ai.sensing.Sensor
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.level.GameRules
 import java.util.*
 import java.util.function.Predicate
 import java.util.function.ToDoubleFunction
@@ -30,8 +31,8 @@ class PokemonItemSensor(
 
     override fun doTick(level: ServerLevel, entity: PokemonEntity) {
 
-        if (!entity.pokemon.canDropHeldItem) {
-            // Pokemon cannot swap out its item, so don't bother to search
+        if (!level.gameRules.getBoolean(GameRules.RULE_MOBGRIEFING) || !entity.pokemon.canDropHeldItem) {
+            // Mob griefing is disabled or the Pokemon cannot swap out its item, so don't bother to search
             return
         }
 

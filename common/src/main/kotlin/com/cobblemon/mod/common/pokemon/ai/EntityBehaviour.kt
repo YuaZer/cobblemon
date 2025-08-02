@@ -34,7 +34,9 @@ class EntityBehaviour {
         it.addFunction("avoided_by_fox") { DoubleValue(avoidedByFox) }
 //        it.addFunction("avoided_by_phantom") { DoubleValue(avoidedByPhantom) }
         it.addFunction("avoided_by_skeleton") { DoubleValue(avoidedBySkeleton) }
-        it.addFunction("immune_to_sweet_berry_bush") { DoubleValue(immuneToSweetBerryBushBlock) }
+        it.addFunction("immune_to_sweet_berry_bush") {
+            DoubleValue(immuneToSweetBerryBushBlock)
+        }
     }
 
     companion object {

@@ -26,6 +26,7 @@ import net.minecraft.world.entity.ai.behavior.Behavior
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
 import net.minecraft.world.entity.ai.memory.MemoryStatus
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
 
 
 class EatHeldItemTask : Behavior<PokemonEntity>(
@@ -54,7 +55,7 @@ class EatHeldItemTask : Behavior<PokemonEntity>(
     }
 
     private fun canEat(item: ItemStack, entity: PokemonEntity): Boolean {
-        return item.has(DataComponents.FOOD) || entity.pokemon.species.behaviour.itemInteract.getOnUseEffect(item) != null
+        return item.has(DataComponents.FOOD) || item.item == Items.POTION || entity.pokemon.species.behaviour.itemInteract.getOnUseEffect(item) != null
     }
 
     override fun start(world: ServerLevel, entity: PokemonEntity, time: Long) {
@@ -74,7 +75,7 @@ class EatHeldItemTask : Behavior<PokemonEntity>(
                 if (this.timelastEaten + MAX_DURATION <= time) {
                     var resultItemStack = itemStack.finishUsingItem(world, entity)
                     val configuredReturnItem = itemConfig?.returnItem
-                    resultItemStack = if (configuredReturnItem != null ) ItemStack(BuiltInRegistries.ITEM.get(configuredReturnItem))
+                    resultItemStack = if (configuredReturnItem != ItemStack.EMPTY) ItemStack(BuiltInRegistries.ITEM.get(configuredReturnItem))
                         else if (resultItemStack.item == itemStack.item)
                             ItemStack.EMPTY // Items that aren't normally edible return themselves
                         else
@@ -88,7 +89,8 @@ class EatHeldItemTask : Behavior<PokemonEntity>(
                     if (itemConfig != null && itemConfig.fullnessValue > 0) {
                         entity.pokemon.feedPokemon(itemConfig.fullnessValue, false)
                     }
-                } else if (itemConfig?.isFood == true && this.timelastEaten > 0 && entity.random.nextFloat() < 0.4f) {
+                } else if ((itemConfig?.fullnessValue ?: 0) > 0 && this.timelastEaten > 0 && entity.random.nextFloat() < 0.4f
+                ) {
                     entity.playSound(entity.getEatingSound(itemStack), 1.0f, 1.0f)
                     world.broadcastEntityEvent(entity, 45.toByte())
                     spawnFoodParticles(entity, itemStack)
