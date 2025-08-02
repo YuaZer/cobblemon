@@ -6,7 +6,7 @@
 				"identifier": "geometry.golurk",
 				"texture_width": 512,
 				"texture_height": 256,
-				"visible_bounds_width": 9,
+				"visible_bounds_width": 7,
 				"visible_bounds_height": 7.5,
 				"visible_bounds_offset": [0, 3.25, 0]
 			},
@@ -661,11 +661,27 @@
 					"pivot": [-24, 40.25, 0]
 				},
 				{
-					"name": "locator_seat_1",
+					"name": "seat_1_locator",
 					"parent": "torso",
-					"pivot": [0, 0, 0],
+					"pivot": [0, 77, 9],
 					"locators": {
-						"seat_1": [0, 76, 11]
+						"seat_1": [0, 77, 10]
+					}
+				},
+				{
+					"name": "seat_2_locator",
+					"parent": "torso",
+					"pivot": [-14, 77, 13],
+					"locators": {
+						"seat_2": [-14, 77, 13]
+					}
+				},
+				{
+					"name": "seat_3_locator",
+					"parent": "torso",
+					"pivot": [14, 77, 13],
+					"locators": {
+						"seat_3": [14, 77, 13]
 					}
 				},
 				{

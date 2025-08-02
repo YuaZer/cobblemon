@@ -154,7 +154,7 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         var newMomentum = state.turnMomentum.get().toDouble()
 
         // Grab turningAcceleration and divide 20 twice to get
-        val turningAcceleration = (vehicle.runtime.resolveDouble(settings.handlingExpr) / 20.0f) / 20.0f
+        val turningAcceleration = (vehicle.runtime.resolveDouble(settings.handlingExpr) / 20.0f) / 20.0f * 2
         val turnInput =  (driver.xxa *-1.0f) * turningAcceleration
 
         // Maximum of 60 degrees per second for all rockets
@@ -204,8 +204,8 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         vehicle: PokemonEntity,
         driver: Player
     ): Vec3 {
-        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
-        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) * 0.5
+        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) * 2
+        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) * 0.5 * 2
 
         var newVelocity = vehicle.deltaMovement
 
