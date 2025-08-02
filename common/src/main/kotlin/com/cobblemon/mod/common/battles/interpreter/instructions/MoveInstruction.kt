@@ -15,6 +15,7 @@ import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.api.battles.interpreter.BattleMessage
 import com.cobblemon.mod.common.api.battles.interpreter.Effect
 import com.cobblemon.mod.common.api.battles.model.PokemonBattle
+import com.cobblemon.mod.common.api.molang.MoLangFunctions.addBattleMessageFunctions
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.addStandardFunctions
 import com.cobblemon.mod.common.api.moves.Moves
 import com.cobblemon.mod.common.api.moves.animations.ActionEffectContext
@@ -102,6 +103,7 @@ class MoveInstruction(
             }
             val runtime = MoLangRuntime().also {
                 battle.addQueryFunctions(it.environment.query).addStandardFunctions()
+                it.environment.query.addBattleMessageFunctions(message)
             }
 
             actionEffect ?: return@dispatch GO
@@ -114,6 +116,7 @@ class MoveInstruction(
 
             val subsequentInstructions = instructionSet.findInstructionsCausedBy(this)
             val missedTargets = subsequentInstructions.filterIsInstance<MissInstruction>().mapNotNull { it.target }
+            val hitCountInstruction = subsequentInstructions.filterIsInstance<HitCountInstruction>().firstOrNull()
 
             runtime.environment.query.addFunction("missed") { params ->
                 if (params.params.size == 0) {
@@ -132,6 +135,10 @@ class MoveInstruction(
                     val entityUUID = params.getString(0)
                     return@addFunction DoubleValue(hurtTargets.any { it.entity?.stringUUID == entityUUID })
                 }
+            }
+
+            if (hitCountInstruction != null && hitCountInstruction.hitCount != null) {
+                runtime.environment.query.addFunction("hit_count") { DoubleValue(hitCountInstruction.hitCount.toDouble()) }
             }
 
             runtime.environment.query.addFunction("move") { move.struct }
