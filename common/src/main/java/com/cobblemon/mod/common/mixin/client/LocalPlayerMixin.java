@@ -19,6 +19,7 @@ import com.cobblemon.mod.common.client.render.models.blockbench.PosableModel;
 import com.cobblemon.mod.common.client.render.models.blockbench.repository.VaryingModelRepository;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.cobblemon.mod.common.net.messages.server.orientation.ServerboundUpdateOrientationPacket;
+import com.cobblemon.mod.common.net.messages.server.riding.ServerboundUpdateDriverInputPacket;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
@@ -81,6 +82,13 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer implements O
         if (!(this instanceof OrientationControllable controllable)) return;
         var shouldUseCustomOrientation = cobblemon$shouldUseCustomOrientation((LocalPlayer)(Object)this);
         controllable.getOrientationController().setActive(shouldUseCustomOrientation);
+    }
+
+    @Inject(method = "rideTick", at = @At("HEAD"))
+    private void cobblemon$updateDriverInputRideTick(CallbackInfo ci) {
+        if (Minecraft.getInstance().player != (Object)this) return;
+        if (!(this.getVehicle() instanceof PokemonEntity pokemonEntity)) return;
+        CobblemonNetwork.INSTANCE.sendToServer(new ServerboundUpdateDriverInputPacket(this.xxa, this.zza, this.jumping, this.isShiftKeyDown()));
     }
 
     @Unique

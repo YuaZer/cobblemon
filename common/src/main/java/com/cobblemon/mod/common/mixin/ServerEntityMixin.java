@@ -15,6 +15,7 @@ import com.cobblemon.mod.common.api.orientation.OrientationController;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.cobblemon.mod.common.mixin.accessor.ChunkMapAccessor;
 import com.cobblemon.mod.common.mixin.accessor.TrackedEntityAccessor;
+import com.cobblemon.mod.common.net.messages.client.orientation.ClientboundUpdateDriverInputPacket;
 import com.cobblemon.mod.common.net.messages.client.orientation.ClientboundUpdateOrientationPacket;
 import com.cobblemon.mod.common.net.messages.client.pokemon.update.ClientboundUpdateRidingStatePacket;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -55,6 +56,7 @@ public abstract class ServerEntityMixin {
     private void cobblemon$sendChanges(CallbackInfo ci) {
         cobblemon$sendOrientationChanges();
         cobblemon$sendRidingStateChanges();
+        cobblemon$sendDriverInput();
     }
 
     private void cobblemon$sendRidingStateChanges() {
@@ -80,6 +82,12 @@ public abstract class ServerEntityMixin {
         cobblemon$lastSentActive = currActive;
 
         cobblemon$broadcast(new ClientboundUpdateOrientationPacket(currOrientation, currActive, entity.getId()));
+    }
+
+    private void cobblemon$sendDriverInput() {
+        if (!(this.entity instanceof ServerPlayer serverPlayer)) return;
+        if(!(serverPlayer.getVehicle() instanceof PokemonEntity)) return;
+        cobblemon$broadcast(new ClientboundUpdateDriverInputPacket(serverPlayer.xxa, serverPlayer.zza, serverPlayer.jumping, serverPlayer.isShiftKeyDown(), entity.getId()));
     }
 
     private void cobblemon$broadcast(NetworkPacket<?> packet) {
