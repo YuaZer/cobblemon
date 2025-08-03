@@ -8941,7 +8941,7 @@
     "cobblemon.behaviour.floats.name": "Rester à flot",
     "cobblemon.behaviour.floats.desc": "Se maintient hors de l'eau lorsqu'elle est immergée.",
     "cobblemon.behaviour.does_action_effects.name": "Support des effets d'action",
-    "cobblemon.behaviour.does_action_effects.desc": "Suspend le mode veille lors de l'exécution d'effets d'action.",
+    "cobblemon.behaviour.does_action_effects.desc": "Suspend l'inactivité lors de l'exécution d'effets d'action.",
     "cobblemon.behaviour.panics.name": "Paniquer",
     "cobblemon.behaviour.panics.desc": "Panique lorsqu'elle est blessée ou en présence d'ennemis.",
     "cobblemon.behaviour.retaliates.name": "Riposter",
@@ -8957,5 +8957,13 @@
     "cobblemon.behaviour.looks_around.name": "Regarder autour",
     "cobblemon.behaviour.looks_around.desc": "Regarde les entités à proximité.",
     "cobblemon.behaviour.pokemon_battles.name": "Combats Pokémon",
-    "cobblemon.behaviour.pokemon_battles.desc": "Cesse de bouger et regarde ses adversaires pendant les combats Pokémon."
+    "cobblemon.behaviour.pokemon_battles.desc": "Cesse de bouger et regarde ses adversaires pendant les combats Pokémon.",
+    "cobblemon.behaviour.pokemon_follows_owner.desc": "Suit son dresseur partout, plus rarement s'il est dans un pâturage.",
+    "cobblemon.behaviour.pokemon_follows_owner.name": "Pokémon suit son dresseur",
+    "cobblemon.behaviour.pokemon_sleeps.name": "Pokémon dort",
+    "cobblemon.behaviour.pokemon_sleeps.desc": "Les Pokémon peuvent somnoler et s'endormir s'ils ne sont pas en combat ou dans une équipe.",
+    "cobblemon.behaviour.pokemon_sleeps_on_trainer_bed.name": "Pokémon dort sur le lit de son dresseur",
+    "cobblemon.behaviour.moves_to_water.name": "Retourner dans l'eau",
+    "cobblemon.behaviour.moves_to_lava.name": "Retourner dans la lave",
+    "cobblemon.behaviour.wanders_hover.name": "Bouger dans les airs"
 }
