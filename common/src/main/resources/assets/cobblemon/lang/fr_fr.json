@@ -8966,5 +8966,8 @@
     "cobblemon.behaviour.uses_healing_machine.desc": "Utilise une machine de soin au besoin.",
     "cobblemon.behaviour.battler.name": "Regarder les combats",
     "cobblemon.behaviour.battler.desc": "S'arrête et observe les combats.",
-    "cobblemon.behaviour.looks_in_one_direction.name": "Regarder une direction"
+    "cobblemon.behaviour.looks_in_one_direction.name": "Regarder une direction",
+    "cobblemon.behaviour.looks_in_one_direction.desc": "Regarde toujours dans une direction fixe.",
+    "cobblemon.behaviour.looks_around.name": "Regarder autour",
+    "cobblemon.behaviour.looks_around.desc": "Regarde les entités à proximité."
 }
