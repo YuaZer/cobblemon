@@ -8949,7 +8949,7 @@
     "cobblemon.behaviour.stationary.name": "Rester en position",
     "cobblemon.behaviour.stationary.desc": "Ne bouge pas d'une position spécifique.",
     "cobblemon.behaviour.uses_healing_machine.name": "Utiliser des Machines de soin",
-    "cobblemon.behaviour.uses_healing_machine.desc": "Soigne à une machine de soin lorsqu'elle est blessée.",
+    "cobblemon.behaviour.uses_healing_machine.desc": "Utilise une machine de soin au besoin.",
     "cobblemon.behaviour.battler.name": "Regarder les combats",
     "cobblemon.behaviour.battler.desc": "S'arrête et observe les combats.",
     "cobblemon.behaviour.looks_in_one_direction.name": "Regarder dans une direction",
