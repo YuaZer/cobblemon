@@ -8,18 +8,14 @@
 
 package com.cobblemon.mod.common.api.ai.config.task
 
-import com.bedrockk.molang.runtime.MoLangRuntime
 import com.cobblemon.mod.common.CobblemonSensors
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
 import com.cobblemon.mod.common.api.ai.ExpressionOrEntityVariable
 import com.cobblemon.mod.common.api.ai.WrapperLivingEntityTask
 import com.cobblemon.mod.common.api.ai.asVariables
-import com.cobblemon.mod.common.api.molang.MoLangFunctions.setup
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.entity.pokemon.ai.tasks.MoveToItemTask
-import com.cobblemon.mod.common.pokemon.ai.ObtainableItem
 import com.cobblemon.mod.common.util.asExpression
-import com.cobblemon.mod.common.util.resolveObject
 import com.mojang.datafixers.util.Either
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.behavior.BehaviorControl
@@ -42,8 +38,6 @@ class MoveToItemTaskConfig : SingleTaskConfig {
     ): BehaviorControl<in LivingEntity>? {
         behaviourConfigurationContext.addMemories(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET)
         behaviourConfigurationContext.addSensors(CobblemonSensors.POKEMON_NEARBY_WANTED_ITEM)
-//        val runtime = MoLangRuntime().setup()
-//        val item = runtime.resolveObject(itemEntry.asExpression()).obj as ObtainableItem
 
 
         return WrapperLivingEntityTask(

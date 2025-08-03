@@ -33,7 +33,7 @@ object MoveToItemTask {
             Trigger { _, entity, _ ->
 
                 val itemEntity = it.get(wantedItemEntity)
-                if (itemEntity == null || !itemEntity.isAlive) {
+                if (itemEntity == null || !itemEntity.isAlive || itemEntity.distanceTo(entity) > runtime.resolveFloat(maxDistance)) {
                     return@Trigger false
                 }
                 runtime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
