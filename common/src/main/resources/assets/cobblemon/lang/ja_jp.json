@@ -5936,7 +5936,7 @@
     "cobblemon.fishing_bait_effects.shiny_reroll.tooltip": "%1$s%% - %3$s× 色違い運",
     "cobblemon.fishing_bait_effects.ha_chance.tooltip": "%1$s%% - 隠れ特性引き寄せ",
     "cobblemon.fishing_bait_effects.pokemon_chance.tooltip": "%1$s%% - ポケモンの食いつき",
-    "cobblemon.fishing_bait_effects.friendship.tooltip": "%1$s%% - すぐに懐く +%3$s",
+    "cobblemon.fishing_bait_effects.friendship.tooltip": "%1$s%% - なかよし度上昇 +%3$s",
     "cobblemon.fishing_bait_effects.inert.tooltip": "効果は知られていないようだ",
     "entity.minecraft.villager.nurse": "ポケモンナース",
     "entity.minecraft.villager.cobblemon.nurse": "ポケモンナース",
@@ -6853,5 +6853,9 @@
     "block.cobblemon.campfire_pot_yellow": "きいろ焚き火鍋",
     "cobblemon.item_class.bait_effect_seasoning": "釣りエサ味付け",
     "block.cobblemon.campfire_pot_white": "しろいろ焚き火鍋",
-    "tag.item.cobblemon.campfire_pots": "焚き火鍋"
+    "tag.item.cobblemon.campfire_pots": "焚き火鍋",
+    "block.cobblemon.hearty_grain_bale": "いきいきイナホの俵",
+    "block.cobblemon.tatami_block": "畳",
+    "block.cobblemon.tatami_mat": "敷き畳",
+    "cobblemon.fishing_bait_effects.rarity_bucket.tooltip": "%1$s%% - レア度上昇 +%3$s 段階"
 }
