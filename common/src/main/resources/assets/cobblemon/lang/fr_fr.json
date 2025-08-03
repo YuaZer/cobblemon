@@ -8955,13 +8955,16 @@
     "cobblemon.behaviour.chats.desc": "S'arrête pour regarder l'interlocuteur pendant le dialogue.",
     "cobblemon.behaviour.floats.name": "Rester à flot",
     "cobblemon.behaviour.floats.desc": "Se maintient hors de l'eau lorsqu'elle est immergée.",
-    "cobblemon.behaviour.does_action_effects.name": "Support des effets d'action",
+    "cobblemon.behaviour.does_action_effects.name": "Support d'effets d'action",
     "cobblemon.behaviour.does_action_effects.desc": "Suspend l'inactivité lors de l'exécution d'effets d'action.",
     "cobblemon.behaviour.panics.name": "Paniquer",
     "cobblemon.behaviour.panics.desc": "Panique lorsqu'elle est blessée ou en présence d'ennemis.",
     "cobblemon.behaviour.retaliates.name": "Riposter",
     "cobblemon.behaviour.stationary.name": "Rester en position",
     "cobblemon.behaviour.stationary.desc": "Ne bouge pas d'une position spécifique.",
-    "cobblemon.behaviour.uses_healing_machine.name": "Utiliser des Machines de soin",
-    "cobblemon.behaviour.uses_healing_machine.desc": "Utilise une machine de soin au besoin."
+    "cobblemon.behaviour.uses_healing_machine.name": "Utiliser du soin",
+    "cobblemon.behaviour.uses_healing_machine.desc": "Utilise une machine de soin au besoin.",
+    "cobblemon.behaviour.battler.name": "Regarder les combats",
+    "cobblemon.behaviour.battler.desc": "S'arrête et observe les combats.",
+    "cobblemon.behaviour.looks_in_one_direction.name": "Regarder une direction"
 }
