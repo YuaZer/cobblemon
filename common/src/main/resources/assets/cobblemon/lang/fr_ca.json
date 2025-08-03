@@ -8950,9 +8950,12 @@
     "cobblemon.behaviour.stationary.desc": "Ne bouge pas d'une position spécifique.",
     "cobblemon.behaviour.uses_healing_machine.name": "Utiliser des Machines de soin",
     "cobblemon.behaviour.uses_healing_machine.desc": "Soigne à une machine de soin lorsqu'elle est blessée.",
-    "cobblemon.behaviour.battler.name": "Combats Pokémon",
+    "cobblemon.behaviour.battler.name": "Regarder les combats",
     "cobblemon.behaviour.battler.desc": "S'arrête et observe les combats.",
     "cobblemon.behaviour.looks_in_one_direction.name": "Regarder dans une direction",
     "cobblemon.behaviour.looks_in_one_direction.desc": "Regarde toujours dans une direction fixe.",
-    "cobblemon.behaviour.looks_around.name": "Regarder autour"
+    "cobblemon.behaviour.looks_around.name": "Regarder autour",
+    "cobblemon.behaviour.looks_around.desc": "Regarde les entités à proximité.",
+    "cobblemon.behaviour.pokemon_battles.name": "Combats Pokémon",
+    "cobblemon.behaviour.pokemon_battles.desc": "Cesse de bouger et regarde ses adversaires pendant les combats Pokémon."
 }
