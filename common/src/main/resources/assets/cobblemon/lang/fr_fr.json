@@ -8939,5 +8939,6 @@
     "cobblemon.entity.variable.flee_nearest_hostile.name": "Fuir en présence de monstre",
     "cobblemon.entity.variable.script.name": "Script",
     "cobblemon.entity.variable.script.desc": "Le script à exécuter à chaque tick dans le cadre de la logique de l'IA.",
-    "cobblemon.entity.variable.player_texture.name": "Nom d'utilisateur de la texture du joueur"
+    "cobblemon.entity.variable.player_texture.name": "Nom d'utilisateur de la texture du joueur",
+    "cobblemon.behaviour.fights_melee.name": "Combats en mêlée"
 }
