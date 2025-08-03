@@ -35,7 +35,7 @@ import net.minecraft.world.level.gameevent.GameEvent
 import net.minecraft.world.phys.BlockHitResult
 
 class PokeCakeBlock(settings: Properties): CakeBlock(settings) {
-    override fun codec(): MapCodec<out BaseEntityBlock?>? {
+    override fun codec(): MapCodec<out BaseEntityBlock?> {
         return simpleCodec(::PokeCakeBlock)
     }
 
@@ -62,7 +62,7 @@ class PokeCakeBlock(settings: Properties): CakeBlock(settings) {
         pos: BlockPos,
         player: Player,
         hitResult: BlockHitResult
-    ): InteractionResult? {
+    ): InteractionResult {
         if (level.isClientSide) {
             if (eat(level, pos, player).consumesAction()) {
                 return InteractionResult.SUCCESS
@@ -84,14 +84,14 @@ class PokeCakeBlock(settings: Properties): CakeBlock(settings) {
         player: Player,
         hand: InteractionHand,
         hitResult: BlockHitResult
-    ): ItemInteractionResult? {
+    ): ItemInteractionResult {
         val item = stack.item
         val block = state.block as? PokeCakeBlock
 
         if (stack.`is`(ItemTags.CANDLES) && block?.getBites(level, pos) == 0) {
             val candleBlock = byItem(item)
             if (candleBlock is CandleBlock) {
-                stack.shrink(1)
+                stack.consume(1, player)
                 level.playSound(null, pos, SoundEvents.CAKE_ADD_CANDLE, SoundSource.BLOCKS, 1.0f, 1.0f)
 
                 val oldCookingComponent = block.getFoodColourComponent(level, pos)

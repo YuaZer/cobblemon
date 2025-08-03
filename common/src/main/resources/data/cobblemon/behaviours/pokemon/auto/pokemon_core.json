@@ -5,9 +5,27 @@
       "type": "apply_behaviours",
       "behaviours": [
         "cobblemon:core",
-        "cobblemon:looks_around",
         "cobblemon:pokemon_battles"
       ]
+    },
+    {
+      "type": "apply_behaviours",
+      "condition": "q.entity.behaviour.moving.can_look",
+      "behaviours": [
+        "cobblemon:looks_around"
+      ]
+    },
+    {
+      "type": "add_tasks_to_activity",
+      "activity": "minecraft:idle",
+      "tasksByPriority": {
+        "0": [
+          {
+            "type": "cobblemon:run_script",
+            "script": "cobblemon:pokemon_wander_control"
+          }
+        ]
+      }
     }
   ]
 }

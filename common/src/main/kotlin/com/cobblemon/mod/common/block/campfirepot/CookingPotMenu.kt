@@ -12,6 +12,7 @@ import com.cobblemon.mod.common.CobblemonMenuType
 import com.cobblemon.mod.common.CobblemonRecipeTypes
 import com.cobblemon.mod.common.api.cooking.Seasonings
 import com.cobblemon.mod.common.block.entity.CampfireBlockEntity
+import com.cobblemon.mod.common.client.tooltips.itemTakesSeasoningData
 import com.cobblemon.mod.common.item.crafting.CookingPotRecipe
 import com.cobblemon.mod.common.item.crafting.CookingPotRecipeBase
 import net.minecraft.recipebook.ServerPlaceRecipe
@@ -109,17 +110,25 @@ class CookingPotMenu : RecipeBookMenu<CraftingInput, CookingPotRecipeBase>, Cont
     }
 
     override fun handlePlacement(placeAll: Boolean, recipe: RecipeHolder<*>, player: ServerPlayer) {
-        // Check if the recipe value implements CookingPotRecipeBase
         val recipeValue = recipe.value()
         if (recipeValue is CookingPotRecipeBase) {
             @Suppress("UNCHECKED_CAST")
             val castedRecipe = recipe as RecipeHolder<CookingPotRecipeBase>
+
+            // Save seasoning contents
+            val seasoningSlots = CampfireBlockEntity.SEASONING_SLOTS
+            val preservedSeasonings = seasoningSlots.map { container.getItem(it).copy() }
+
             this.beginPlacingRecipe()
             try {
                 val serverPlaceRecipe = ServerPlaceRecipe(this)
                 serverPlaceRecipe.recipeClicked(player, castedRecipe, placeAll)
             } finally {
                 this.finishPlacingRecipe(castedRecipe)
+            }
+
+            seasoningSlots.forEachIndexed { index, slot ->
+                container.setItem(slot, preservedSeasonings[index])
             }
         } else {
             throw IllegalArgumentException("Unsupported recipe type: ${recipeValue::class.java.name}")
@@ -178,7 +187,7 @@ class CookingPotMenu : RecipeBookMenu<CraftingInput, CookingPotRecipeBase>, Cont
     }
 
     override fun shouldMoveToInventory(slotIndex: Int): Boolean {
-        return slotIndex != CampfireBlockEntity.Companion.RESULT_SLOT && slotIndex != CampfireBlockEntity.Companion.PREVIEW_ITEM_SLOT
+        return slotIndex != CampfireBlockEntity.Companion.PREVIEW_ITEM_SLOT && !CampfireBlockEntity.SEASONING_SLOTS.contains(slotIndex)
     }
 
     override fun quickMoveStack(

@@ -47,7 +47,6 @@ import com.cobblemon.mod.common.net.messages.client.spawn.SpawnPokeballPacket
 import com.cobblemon.mod.common.pokeball.PokeBall
 import com.cobblemon.mod.common.pokemon.ai.PokemonBrain
 import com.cobblemon.mod.common.pokemon.properties.UncatchableProperty
-import com.cobblemon.mod.common.util.asArrayValue
 import com.cobblemon.mod.common.util.*
 import com.mojang.blaze3d.vertex.PoseStack
 import net.minecraft.client.Minecraft
@@ -65,6 +64,7 @@ import net.minecraft.sounds.SoundEvents
 import net.minecraft.util.Mth
 import net.minecraft.util.Mth.PI
 import net.minecraft.world.entity.*
+import net.minecraft.world.entity.decoration.LeashFenceKnotEntity
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.Level
@@ -354,6 +354,17 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
                         pokemon.pokemon.caughtBall = pokeBall
                         pokeBall.effects.forEach { effect -> effect.apply(player, pokemon.pokemon) }
                         party.add(pokemon.pokemon)
+                        val leashHolder = pokemon.leashHolder
+
+                        if (leashHolder != null) {
+                            val blockPos = leashHolder.blockPosition()
+                            val blockState = level().getBlockState(blockPos)
+                            val leashKnot = LeashFenceKnotEntity.getOrCreateKnot(level(), blockPos)
+                            leashKnot?.discard()
+                            pokemon.dropLeash(true, true)
+                            level().sendBlockUpdated(blockPos, blockState, blockState, 3)
+                        }
+
                         CobblemonEvents.POKEMON_CAPTURED.post(PokemonCapturedEvent(pokemon.pokemon, player, this))
                     }
                 }
@@ -382,6 +393,7 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
         pokemon.setPos(position())
         pokemon.beamMode = 2
         pokemon.isInvisible = false
+        pokemon.isSilent = false
 
         if (pokemon.battleId == null) {
             pokemon.pokemon.status?.takeIf { it.status == Statuses.SLEEP }?.let { pokemon.pokemon.status = null }
@@ -457,6 +469,7 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
             // Time to begin falling
             pokemonEntity.phasingTargetId = -1
             pokemonEntity.isInvisible = true
+            pokemonEntity.isSilent = true
             captureState = CaptureState.FALL
             after(seconds = 1.5F) {
                 // If it was still falling after a second and a half, just assume it's landed because we can't wait all day.

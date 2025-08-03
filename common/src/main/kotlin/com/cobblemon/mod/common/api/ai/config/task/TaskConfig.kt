@@ -32,6 +32,8 @@ import com.cobblemon.mod.common.util.withQueryValue
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.behavior.BehaviorControl
+import net.minecraft.world.entity.ai.memory.MemoryModuleType
+import net.minecraft.world.entity.ai.sensing.SensorType
 
 /**
  * A configuration for a brain task. Its purpose is to generate a list of tasks to add to the brain of
@@ -57,6 +59,7 @@ interface TaskConfig {
             cobblemonResource("do_nothing") to DoNothingTaskConfig::class.java,
             cobblemonResource("get_angry_at_attacker") to GetAngryAtAttackerTaskConfig::class.java,
             cobblemonResource("stop_being_angry_if_attacker_dead") to StopBeingAngryIfAttackerDeadTaskConfig::class.java,
+            cobblemonResource("stop_attacking_if_target_invalid") to StopAttackingIfTargetInvalidTaskConfig::class.java,
             cobblemonResource("switch_npc_to_battle") to SwitchToNPCBattleTaskConfig::class.java,
             cobblemonResource("look_at_battling_pokemon") to LookAtBattlingPokemonTaskConfig::class.java,
             cobblemonResource("switch_npc_from_battle") to SwitchFromNPCBattleTaskConfig::class.java,
@@ -82,6 +85,7 @@ interface TaskConfig {
             cobblemonResource("calm_down") to CalmDownTaskConfig::class.java,
             cobblemonResource("flee_attacker") to FleeAttackerTaskConfig::class.java,
             cobblemonResource("flee_nearest_hostile") to FleeNearestHostileTaskConfig::class.java,
+            cobblemonResource("fly_in_circles") to FlyInCirclesTaskConfig::class.java,
             cobblemonResource("run_script") to RunScript::class.java,
             cobblemonResource("look_in_direction") to LookInDirectionTaskConfig::class.java,
             cobblemonResource("wake_up") to WakeUpTaskConfig::class.java,
@@ -94,9 +98,27 @@ interface TaskConfig {
             cobblemonResource("point_to_spawn") to PointToSpawnTaskConfig::class.java,
             cobblemonResource("eat_grass") to EatGrassTaskConfig::class.java,
             cobblemonResource("find_air") to FindAirTaskConfig::class.java,
-            cobblemonResource("go_to_land") to GoToLandTaskConfig::class.java
+            cobblemonResource("go_to_land") to GoToLandTaskConfig::class.java,
+            cobblemonResource("path_to_hive") to PathToBeeHiveTaskConfig::class.java,
+            cobblemonResource("place_honey_in_hive") to PlaceHoneyInHiveTaskConfig::class.java,
+            cobblemonResource("path_to_flower") to PathToFlowerTaskConfig::class.java,
+            cobblemonResource("pollinate_flower") to PollinateFlowerTaskConfig::class.java,
+            cobblemonResource("go_to_land") to GoToLandTaskConfig::class.java,
+            cobblemonResource("manage_flight_in_battle") to ManageFlightInBattleTaskConfig::class.java,
+            cobblemonResource("attack_hostile_mobs") to AttackHostileMobsTaskConfig::class.java,
+            cobblemonResource("move_into_fluid") to MoveIntoFluidTaskConfig::class.java,
+            cobblemonResource("find_herd_leader") to FindHerdLeaderTaskConfig::class.java,
+            cobblemonResource("follow_herd_leader") to FollowHerdLeaderTaskConfig::class.java,
+            cobblemonResource("switch_to_herd") to SwitchToHerdTaskConfig::class.java,
+            cobblemonResource("switch_from_herd") to SwitchFromHerdTaskConfig::class.java,
+            cobblemonResource("maintain_herd_leader") to MaintainHerdLeaderTaskConfig::class.java,
+            cobblemonResource("count_followers") to CountFollowersTaskConfig::class.java,
+            cobblemonResource("hate_entity") to HateEntityTaskConfig::class.java,
+            cobblemonResource("target_entity") to TargetEntityTaskConfig::class.java,
+            cobblemonResource("memory_aspect") to MemoryAspectTaskConfig::class.java,
+            cobblemonResource("activity_change") to ActivityChangeTaskConfig::class.java,
         )
-        
+
         val runtime = MoLangRuntime().setup()
     }
 

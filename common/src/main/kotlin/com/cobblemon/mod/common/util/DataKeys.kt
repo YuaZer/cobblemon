@@ -18,8 +18,12 @@ object DataKeys {
     const val POKEMON_GENDER = "Gender"
     const val POKEMON_EXPERIENCE = "Experience"
     const val POKEMON_FRIENDSHIP = "Friendship"
+    const val POKEMON_FULLNESS = "Fullness"
+    const val POKEMON_INTERACTION_COOLDOWN = "InteractionCooldown"
 
     const val POKEMON_IVS = "IVs"
+    const val POKEMON_IVS_BASE = "Base"
+    const val POKEMON_IVS_HYPERTRAINED = "HyperTrained"
     const val POKEMON_EVS = "EVs"
     const val POKEMON_HEALTH = "Health"
     const val POKEMON_SCALE_MODIFIER = "ScaleModifier"
@@ -123,6 +127,7 @@ object DataKeys {
     const val TETHERING_POS = "Pos"
     const val TETHERING_PLAYER_ID = "PlayerId"
     const val TETHERING_ENTITY_ID = "EntityId"
+    const val TETHER_PASTURE_POS = "TetherPasturePos"
 
     // Form stuff
     const val ALOLAN = "alolan"
@@ -158,7 +163,6 @@ object DataKeys {
     const val POKEMON_ITEM_TINT_ALPHA = "TintAlpha"
 
     // Features
-    const val CAN_BE_MILKED = "milkable"
     const val HAS_BEEN_SHEARED = "sheared"
     const val CAN_BE_COLORED = "color"
 
@@ -237,7 +241,10 @@ object DataKeys {
     const val NPC_IS_INVULNERABLE = "IsInvulnerable"
     const val NPC_IS_LEASHABLE = "IsLeashable"
     const val NPC_ALLOW_PROJECTILE_HITS = "AllowProjectileHits"
+    @Deprecated("Divided into RENDER_SCALE and BOX_SCALE")
     const val NPC_BASE_SCALE = "BaseScale"
+    const val NPC_BOX_SCALE = "BoxScale"
+    const val NPC_RENDER_SCALE = "RenderScale"
     const val NPC_HITBOX = "Hitbox"
     const val NPC_HITBOX_WIDTH = "Width"
     const val NPC_HITBOX_HEIGHT = "Height"
