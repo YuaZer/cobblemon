@@ -1237,7 +1237,7 @@ open class PokemonEntity(
     }
 
     override fun shouldBeSaved(): Boolean {
-        if (ownerUUID == null && !pokemon.isNPCOwned() && (Cobblemon.config.savePokemonToWorld || isPersistenceRequired)) {
+        if (ownerUUID == null && !pokemon.isNPCOwned() && (Cobblemon.config.savePokemonToWorld || isPersistenceRequired || this.pokemon.canDropHeldItem)) {
             CobblemonEvents.POKEMON_ENTITY_SAVE_TO_WORLD.postThen(PokemonEntitySaveToWorldEvent(this)) {
                 return true
             }
@@ -1246,7 +1246,7 @@ open class PokemonEntity(
     }
 
     override fun checkDespawn() {
-        if (pokemon.getOwnerUUID() == null && !isPersistenceRequired && despawner.shouldDespawn(this)) {
+        if (pokemon.getOwnerUUID() == null && !isPersistenceRequired && !this.pokemon.canDropHeldItem && despawner.shouldDespawn(this) ) {
             discard()
         }
     }

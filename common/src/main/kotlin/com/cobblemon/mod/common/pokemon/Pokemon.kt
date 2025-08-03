@@ -648,7 +648,8 @@ open class Pokemon : ShowdownIdentifiable {
     /**
      * Whether this Pokémon's held item was given by its owner.
      */
-    internal var canDropHeldItem: Boolean = true
+    internal var canDropHeldItem: Boolean = false
+        get() = field || heldItem.isEmpty
 
     val riding: RidingProperties
         get() = this.form.riding

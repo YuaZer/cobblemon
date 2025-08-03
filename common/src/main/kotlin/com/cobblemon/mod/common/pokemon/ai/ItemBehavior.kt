@@ -68,7 +68,6 @@ class ItemBehavior {
     @Transient
     val struct = ObjectValue(this).also {
         it.addFunction("add_pickup_item") { params ->
-            println("ADD ITEM")
             val npcId = params.get<ObjectValue<ObtainableItem>>(0) // (params.get<MoValue>(0) as? ObjectValue<ObtainableItem>)
             val pickItem = npcId?.obj
             if (pickItem != null) {
@@ -76,7 +75,6 @@ class ItemBehavior {
             }
         }
         it.addFunction("create_pickup_item") { params ->
-            println("pikupitem")
             val itemName = params.getString(0)
             val tagName = params.getString(1)
             val itemQuery = params.getString(2)
