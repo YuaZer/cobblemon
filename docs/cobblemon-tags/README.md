@@ -20,4 +20,4 @@ The #cobblemon:is_thermal tag and #cobblemon:is_volcanic tag are different in th
 
 There are a whole set of tags to be specifically used in the Nether under #cobblemon/nether:is_[name].
 
-There are other tags which can be used for spawn biome conditions under #cobblemon/has_block:[name] which target biomes containing specific blocks, but these are also more likely to have trouble with biome mod compatability.
+There are other tags which can be used for spawn biome conditions under #cobblemon/has_block:[name] which target biomes containing specific blocks, but these are also more likely to have trouble with biome mod compatibility.
