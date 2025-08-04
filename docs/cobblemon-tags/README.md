@@ -16,7 +16,7 @@ The #cobblemon:is_beach tag and #cobblemon:is_coast tag are different in that th
 
 The #cobblemon:is_island tag and #cobblemon:is_tropical_island tag are different in that is_island defines any islands that generate in oceans, whereas is_tropical_island is for tropical ones specifically.
 
-The #cobblemon:is_thermal tag and #cobblemon:is_volcanic tag are different in that is_thermal defines biomes with hot springs or are otherwise volcanically heated without lava, whereas the is_volcanic tag is used for biomes with many actual lava pits and flows.
+The #cobblemon:is_thermal tag and #cobblemon:is_volcanic tag are different in that is_thermal defines biomes with hot springs or are otherwise geothermally heated without lava, whereas the is_volcanic tag is used for biomes with many actual lava pits and flows.
 
 There are a whole set of tags to be specifically used in the Nether under #cobblemon/nether:is_[name].
 
