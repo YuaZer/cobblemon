@@ -5362,11 +5362,11 @@
     "cobblemon.species.gimmighoul.name": "Гиммигул",
     "cobblemon.species.gimmighoul.desc": "-",
     "cobblemon.species.gholdengo.name": "Голденго",
-    "cobblemon.species.gholdengo.desc": "Its body seems to be made up of 1,000 coins. This Pokémon gets along well with others and is quick to make friends with anybody. ",
+    "cobblemon.species.gholdengo.desc": "Кажется, что его тело состоит из 1000 монет. Этот Покемон хорошо ладит с другими и быстро заводит дружбу с кем угодно. (Pokémon Scarlet)\n\nУ него прочное тело, состоящее из сложенных в стопку монет. Голденго одолевает своих врагов, выпуская в них монету за монетой в быстрой последовательности. (Pokémon Violet)",
     "cobblemon.species.wochien.name": "Во-Чьен",
-    "cobblemon.species.wochien.desc": "The grudge of a person punished for writing the king’s evil deeds upon wooden tablets has clad itself in dead leaves to become a Pokémon. ",
+    "cobblemon.species.wochien.desc": "Обида человека, наказанного за то, что он записал на деревянных скрижалях злодеяния короля, облеклась в сухие листья и превратилась в Покемона. (Pokémon Scarlet)\n\nОн высасывает жизненную силу из растительности, в результате чего близлежащие леса мгновенно увядают, а поля становятся бесплодными. (Pokémon Violet)",
     "cobblemon.species.chienpao.name": "Чьен-Пао",
-    "cobblemon.species.chienpao.desc": "This Pokémon can control 100 tons of fallen snow. It plays around innocently by leaping in and out of avalanches it has caused. ",
+    "cobblemon.species.chienpao.desc": "Этот Покемон может управлять 100 тоннами выпавшего снега. Он невинно играет, прыгая в лавины, которые сам же и вызвал. (Pokémon Scarlet)\n\nНенависть тех, кто давным-давно погиб от меча, облеклась в снег и превратилась в Покемона. (Pokémon Violet)",
     "cobblemon.species.tinglu.name": "Тинг-Лу",
     "cobblemon.species.tinglu.desc": "Страх, влитый в древний ритуальный сосуд, облёкся в камни и грязь, чтобы превратиться в Покемона. (Pokémon Scarlet)\n\nОн медленно опускает свою очень тяжёлую голову на землю, раскалывая её огромными трещинами глубиной более 50 метров. (Pokémon Violet)",
     "cobblemon.species.chiyu.name": "Чи-Ю",
@@ -6203,5 +6203,6 @@
     "cobblemon.species.ogerpon-hearthflame.desc": "Эта форма — самая агрессивная, обстреливающая врагов с интенсивностью пламени, пылающего в очаге. (Pokémon Scarlet)\n\nВ этой форме он использует силу огня. Он пронзает врагов колючим плющом. (Pokémon Violet)",
     "cobblemon.species.ogerpon-wellspring.desc": "Эта форма превосходна как в атаке, так и в защите. Он непрерывно совершает движения, как родник извергает воду. (Pokémon Scarlet)\n\nВ этой форме он использует силу воды. Он атакует без устали, нанося удары ногами и плющом. (Pokémon Violet)",
     "cobblemon.species.poltchageist-artisan.desc": "Он посыпает свое мучнистое тело на еду и высасывает жизненную силу из тех, кто только лизнёт его. (Pokémon Scarlet)\n\nОн поселился в очень дорогом чайном подстаканнике. Нужно быть экспертом, чтобы отличить дорогие чайные подставки от дешёвых. (Pokémon Violet)",
-    "cobblemon.species.sinistcha-masterpiece.desc": "Он живёт в превосходной чайной чашке, которую изготовил известный гончар. Коллекционеры просто обожают этого Покемона. (Pokémon Scarlet)\n\nЧем больше он помешивает чайным венчиком на голове, тем больше энергии он накапливает. Так он готовится к битве. (Pokémon Violet)"
+    "cobblemon.species.sinistcha-masterpiece.desc": "Он живёт в превосходной чайной чашке, которую изготовил известный гончар. Коллекционеры просто обожают этого Покемона. (Pokémon Scarlet)\n\nЧем больше он помешивает чайным венчиком на голове, тем больше энергии он накапливает. Так он готовится к битве. (Pokémon Violet)",
+    "cobblemon.species.gimmighoul-roaming.desc": "Этот Покемон родился из страсти, просочившейся в монету. Он блуждает, стремясь вернуться в сундук с сокровищами, в котором когда-то обитал. (Pokémon Scarlet)\n\nОн бродит по окрестностям, неся на спине старую монету. Он выживает, высасывая жизненные силы из людей, которые пытаются подобрать монету. (Pokémon Violet)"
 }
