@@ -7139,5 +7139,7 @@
     "cobblemon.mark.mark_curry.title": "カレーずきな %1$s",
     "cobblemon.mark.mark_curry.desc": "カレーずきな ポケモンである あかし",
     "cobblemon.mark.ribbon_training.desc": "過酷な 試練を 乗り越えた ポケモンに 贈られる リボン",
-    "cobblemon.mark.mark_destiny": "うんめいのあかし"
+    "cobblemon.mark.mark_destiny": "うんめいのあかし",
+    "cobblemon.mark.mark_destiny.title": "うんめいかんじる %1$s",
+    "cobblemon.mark.mark_destiny.desc": "うんめいかんじる ポケモンである あかし"
 }
