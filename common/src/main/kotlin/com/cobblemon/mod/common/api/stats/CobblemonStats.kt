@@ -33,7 +33,7 @@ object CobblemonStats {
     val TRADED = makeCustomStat("traded", StatFormatter.DEFAULT)
     val FOSSILS_REVIVED = makeCustomStat("fossils_revived", StatFormatter.DEFAULT)
     val POKEMON_INTERACTED_WITH = makeCustomStat("pokemon_interacted_with", StatFormatter.DEFAULT)
-    //TODO block stats (interact, fossil revival, gimmi), riding (styles?)
+    //TODO block stats (interact, gimmi), riding (styles?)
 
     private fun makeCustomStat(key: String, formatter: StatFormatter): ResourceLocation {
         val resourceLocation = ResourceLocation.fromNamespaceAndPath("cobblemon", key)

@@ -45,10 +45,10 @@ object AdvancementHandler : EventHandler {
         val advancementData = playerData.advancementData
         advancementData.updateTotalCaptureCount()
         advancementData.updateAspectsCollected(event.player, event.pokemon)
-        CobblemonCriteria.CATCH_POKEMON.trigger(event.player, CountablePokemonTypeContext(advancementData.totalCaptureCount, "any"))
+        CobblemonCriteria.CATCH_POKEMON.trigger(event.player, CountablePokemonTypeContext(advancementData.totalCaptureCount, event.pokemon.species.resourceIdentifier.toString(), "any"))
         event.pokemon.types.forEach {
             advancementData.updateTotalTypeCaptureCount(it)
-            CobblemonCriteria.CATCH_POKEMON.trigger(event.player, CountablePokemonTypeContext(advancementData.getTotalTypeCaptureCount(it), it.showdownId))
+            CobblemonCriteria.CATCH_POKEMON.trigger(event.player, CountablePokemonTypeContext(advancementData.getTotalTypeCaptureCount(it), event.pokemon.species.resourceIdentifier.toString(), it.showdownId))
         }
         if (event.pokemon.shiny) {
             advancementData.updateTotalShinyCaptureCount()

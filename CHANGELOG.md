@@ -41,6 +41,7 @@
 - Added functionality to Everstone when held by a Pokémon; suppresses evolution notification and hides evolve button in summary interface.
 - Added new optional property `attachment_options` for most EmitterShapes to be attached to the locator/entities scale, rotation, and/or position. Position is true by default.
 - Galarica Nut bushes now generate on beaches
+- Added Statistics for battles won, fled, and total, Pokémon captured, dex entries added, trades completed, Pokémon levels gained, Pokémon evolved and fossils revived.
 
 ### Pokémon Added
 
@@ -219,8 +220,8 @@
 - Quirk animations no longer play in the battle GUI since they were pretty distracting.
 - A number of Pokemon that float above the ground visually (Gastly, Klingklang, etc.)  are no longer considered to be touching the ground
 - Changed the recipes for Level, Lure, and Moon Balls to be cleaner
-- Renamed `pokemonId` and `type` to `species` in relevant Advancement triggers for conformity, this is a breaking change.
-- Added a separate `species` argument to the `pick_starter`, `pasture_use` and `resurrect_pokemon` Advancement triggers.
+- Renamed `pokemonId` and `type` to `species` and `evolved` to `has_evolved` in relevant Advancement triggers for conformity, this is a breaking change.
+- Added a separate `species` argument to the `catch_pokemon`, `pick_starter`, `pasture_use` and `resurrect_pokemon` Advancement triggers.
 - Made `CobblemonAgingDespawner` thresholds configurable via the config file.
 - Tweaked Berry flavor data to balance cooking pot mechanics
 - Made Red, Yellow, Green, Blue, Pink, Black, and White Apricorn Sprout and Saccharine Sapling able to be placed into flower pots.
