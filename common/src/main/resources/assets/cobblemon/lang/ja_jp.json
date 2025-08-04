@@ -7049,5 +7049,17 @@
     "cobblemon.mark.ribbon_day_smile.desc": "にっこり ほほえむことを 思い出して 人生を ゆたかにしてくれる リボン",
     "cobblemon.mark.ribbon_event.title": "イベントにさんかした %1$s",
     "cobblemon.mark.ribbon_event_champion_regional.desc": "ポケモンワールドチャンピオンシップス エリア大会 優勝記念リボン",
-    "cobblemon.mark.ribbon_event.desc": "ポケモンの イベントに 参加した 記念リボン"
+    "cobblemon.mark.ribbon_event.desc": "ポケモンの イベントに 参加した 記念リボン",
+    "cobblemon.mark.ribbon_event_champion_world": "ワールドチャンプリボン",
+    "cobblemon.mark.ribbon_event_champion_world.title": "ワールドチャンピオン %1$s",
+    "cobblemon.mark.ribbon_event_champion_world.desc": "ポケモンワールドチャンピオンシップス 世界大会 優勝記念リボン",
+    "cobblemon.mark.ribbon_event_classic": "クラシックリボン",
+    "cobblemon.mark.ribbon_event_classic.title": "ポケモンずきの %1$s",
+    "cobblemon.mark.ribbon_event_country": "カントリーリボン",
+    "cobblemon.mark.ribbon_event_country.title": "ゆうしょうしゃの %1$s",
+    "cobblemon.mark.ribbon_event_country.desc": "ポケモンリーグ 優勝 記念リボン",
+    "cobblemon.mark.ribbon_event_earth": "アースリボン",
+    "cobblemon.mark.ribbon_event_earth.title": "100にんぬきの %1$s",
+    "cobblemon.mark.ribbon_event_classic.desc": "ポケモンが 大好きな ことを 証明する 記念リボン",
+    "cobblemon.mark.ribbon_event_earth.desc": "100人抜き 達成 記念リボン"
 }
