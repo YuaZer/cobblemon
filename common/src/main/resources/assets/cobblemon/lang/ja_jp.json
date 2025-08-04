@@ -7127,5 +7127,17 @@
     "cobblemon.mark.ribbon_syndicate_royal": "ロイヤルリボン",
     "cobblemon.mark.ribbon_syndicate_royal.title": "ロイヤル %1$s",
     "cobblemon.mark.ribbon_syndicate_royal.desc": "とてつもなく ロイヤルで 気高い 感じのする リボン",
-    "cobblemon.mark.ribbon_syndicate_gorgeous": "ゴージャスリボン"
+    "cobblemon.mark.ribbon_syndicate_gorgeous": "ゴージャスリボン",
+    "cobblemon.mark.ribbon_syndicate_gorgeous.title": "ゴージャス %1$s",
+    "cobblemon.mark.ribbon_syndicate_gorgeous.desc": "このうえなく ゴージャスで きらびやかな 感じの リボン",
+    "cobblemon.mark.ribbon_syndicate_gorgeous_royal": "ゴージャスロイヤルリボン",
+    "cobblemon.mark.ribbon_syndicate_gorgeous_royal.title": "ゴージャスロイヤル %1$s",
+    "cobblemon.mark.ribbon_syndicate_gorgeous_royal.desc": "これ以上 素晴らしいものは ない ゴージャスで ロイヤルな リボン",
+    "cobblemon.mark.ribbon_training": "しゅぎょうリボン",
+    "cobblemon.mark.ribbon_training.title": "しれんをともにした %1$s",
+    "cobblemon.mark.mark_curry": "カレーのあかし",
+    "cobblemon.mark.mark_curry.title": "カレーずきな %1$s",
+    "cobblemon.mark.mark_curry.desc": "カレーずきな ポケモンである あかし",
+    "cobblemon.mark.ribbon_training.desc": "過酷な 試練を 乗り越えた ポケモンに 贈られる リボン",
+    "cobblemon.mark.mark_destiny": "うんめいのあかし"
 }
