@@ -7117,5 +7117,9 @@
     "cobblemon.mark.ribbon_memory_battle.title": "あついおもいでの %1$s",
     "cobblemon.mark.ribbon_memory_battle_gold.desc": "昔 どこかで 集めた リボン 戦いの 思い出が つまっている！",
     "cobblemon.mark.ribbon_memory_contest_gold.desc": "昔 どこかで 集めた リボン コンテストの 思い出が つまっている！",
-    "cobblemon.mark.ribbon_event_world.title": "せかいをせいした %1$s"
+    "cobblemon.mark.ribbon_event_world.title": "せかいをせいした %1$s",
+    "cobblemon.mark.ribbon_once-in-a-lifetime.desc": "ポケモンに ごくまれに つけられている めずらしいリボン",
+    "cobblemon.mark.ribbon_partner": "パートナーリボン",
+    "cobblemon.mark.ribbon_partner.desc": "特別なトレーナーから たくされた パートナーに ついている 特別なリボン",
+    "cobblemon.mark.ribbon_record": "レコードリボン"
 }
