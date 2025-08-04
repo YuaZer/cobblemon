@@ -139,7 +139,7 @@ open class PartyStore(override val uuid: UUID) : PokemonStore<PartyPosition>() {
     }
 
     override fun onPokemonChanged(pokemon: Pokemon) {
-        anyChangeObservable.emit()
+        anyChangeObservable.emit(Unit)
     }
 
     fun toGappyList() = slots.toList()

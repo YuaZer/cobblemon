@@ -100,7 +100,7 @@ open class PCBox(val pc: PCStore) : Iterable<Pokemon> {
         pokemon.forEachIndexed { slot, pokemon ->
             pokemon?.storeCoordinates?.set(StoreCoordinates(pc, PCPosition(boxNumber, slot)))
         }
-        boxChangeEmitter.emit()
+        boxChangeEmitter.emit(Unit)
     }
 
     fun sendTo(player: ServerPlayer) {

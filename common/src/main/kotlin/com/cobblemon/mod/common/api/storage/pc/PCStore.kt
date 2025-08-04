@@ -285,7 +285,7 @@ open class PCStore(
     }
 
     override fun onPokemonChanged(pokemon: Pokemon) {
-        pcChangeObservable.emit()
+        pcChangeObservable.emit(Unit)
     }
 
     fun clearPC() {
