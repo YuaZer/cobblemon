@@ -56,7 +56,7 @@ class CampfirePotItem(block: Block): BlockItem(block, Properties()) {
 
                 val newBlockState = CobblemonBlocks.CAMPFIRE.defaultBlockState()
                     .setValue(HorizontalDirectionalBlock.FACING, facing)
-                    .setValue(com.cobblemon.mod.common.block.campfirepot.CampfireBlock.Companion.ITEM_DIRECTION, itemFacing)
+                    .setValue(com.cobblemon.mod.common.block.campfirepot.CampfireBlock.Companion.ITEM_DIRECTION, itemFacing.opposite)
                     .setValue(com.cobblemon.mod.common.block.campfirepot.CampfireBlock.Companion.SOUL, isSoul)
                 world.setBlockAndUpdate(blockPos, newBlockState)
 

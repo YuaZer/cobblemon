@@ -695,7 +695,7 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
     @JvmField
     val SUPERB_REMEDY = compostableItem("superb_remedy", RemedyItem(RemedyItem.SUPERB), 0.85f)
     @JvmField
-    val MOOMOO_MILK = noSettingsItem("moomoo_milk")
+    val MOOMOO_MILK = create("moomoo_milk", CobblemonItem(Item.Properties().craftRemainder(Items.GLASS_BOTTLE)))
 
     @JvmField
     val POTION = create("potion", PotionItem(PotionType.POTION))

@@ -12,6 +12,7 @@ import com.cobblemon.mod.common.CobblemonBlockEntities
 import com.cobblemon.mod.common.CobblemonRecipeTypes
 import com.cobblemon.mod.common.CobblemonSounds
 import com.cobblemon.mod.common.api.cooking.getColourMixFromSeasonings
+import com.cobblemon.mod.common.block.campfirepot.CampfireBlock
 import com.cobblemon.mod.common.item.components.PotComponent
 import com.cobblemon.mod.common.block.campfirepot.CookingPotMenu
 import com.cobblemon.mod.common.client.particle.BedrockParticleOptionsRepository
@@ -39,11 +40,12 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.FastColor
 import net.minecraft.world.ContainerHelper
 import net.minecraft.world.WorldlyContainer
+import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.StackedContents
 import net.minecraft.world.inventory.*
+import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
 import net.minecraft.world.item.crafting.CraftingInput
 import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.item.crafting.RecipeManager
@@ -51,6 +53,7 @@ import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity
+import net.minecraft.world.level.block.entity.HopperBlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.gameevent.GameEvent
 import net.minecraft.world.phys.Vec3
@@ -187,7 +190,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
                         resultSlotItem.grow(cookedItem.count)
                     }
 
-                    campfireBlockEntity.consumeCraftingIngredients(recipe)
+                    campfireBlockEntity.consumeCraftingIngredients(recipe, level, pos, state, campfireBlockEntity)
 
                     level.playSoundServer(
                         position = pos.bottomCenter,
@@ -266,32 +269,17 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
         return particleStorm
     }
 
-    fun consumeCraftingIngredients(recipe: CookingPotRecipeBase) {
+    fun consumeCraftingIngredients(recipe: CookingPotRecipeBase, level: Level, pos: BlockPos, state: BlockState,  campfireBlockEntity: CampfireBlockEntity) {
+        val remainderItems = mutableMapOf<Item, Int>() //This is so we don't spawn multiple entities for buckets
+
         fun consumeItem(slot: Int) {
             val itemInSlot = getItem(slot)
             if (!itemInSlot.isEmpty) {
-                when (itemInSlot.item) {
-                    Items.LAVA_BUCKET, Items.WATER_BUCKET, Items.MILK_BUCKET -> {
-                        // Replace with empty bucket
-                        setItem(slot, ItemStack(Items.BUCKET))
-                    }
-
-                    Items.HONEY_BOTTLE -> {
-                        // TODO: Currently eats the empty bottles until the honey bottle stack is empty, replace with better system later.
-                        itemInSlot.shrink(1)
-                        if (itemInSlot.count <= 0) {
-                            setItem(slot, ItemStack.EMPTY)
-                        }
-                    }
-
-                    else -> {
-                        // Decrease the stack size by 1
-                        itemInSlot.shrink(1)
-                        if (itemInSlot.count <= 0) {
-                            setItem(slot, ItemStack.EMPTY) // Clear the slot if empty
-                        }
-                    }
+                if (itemInSlot.item.hasCraftingRemainingItem()) {
+                    remainderItems[itemInSlot.item.craftingRemainingItem!!] = (remainderItems[itemInSlot.item.craftingRemainingItem!!] ?: 0) + 1
                 }
+                itemInSlot.shrink(1)
+                if (itemInSlot.count <= 0) setItem(slot, ItemStack.EMPTY)
             }
         }
 
@@ -300,6 +288,24 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
         }
         for (i in SEASONING_SLOTS.first..SEASONING_SLOTS.last) {
             if (recipe.seasoningProcessors.any { it.consumesItem(getItem(i)) }) consumeItem(i)
+        }
+
+        val direction = state.getValue(CampfireBlock.ITEM_DIRECTION)
+        val container = HopperBlockEntity.getContainerAt(level, pos.relative(direction))
+
+        for (remainder in remainderItems) {
+            var remainderItem = ItemStack(remainder.key, remainder.value)
+
+            if (container != null) {
+                remainderItem = HopperBlockEntity.addItem(campfireBlockEntity, container, remainderItem, direction.opposite)
+            }
+
+            if (!remainderItem.isEmpty) {
+                val spawnPos = Vec3.atCenterOf(pos).relative(direction, 0.7)
+                val itemEntity = ItemEntity(level, spawnPos.x, spawnPos.y, spawnPos.z, remainderItem)
+                itemEntity.setDeltaMovement(direction.stepX * 0.05, 0.0, direction.stepZ * 0.05)
+                level.addFreshEntity(itemEntity) //Wanted to use default dispenser behavior but its too much speed
+            }
         }
     }
 
