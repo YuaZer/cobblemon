@@ -381,6 +381,7 @@ open class PokemonEntity(
     override val registeredVariables = mutableListOf<MoLangConfigVariable>()
     override var config = VariableStruct()
     override var data = VariableStruct()
+    override var callbacks = EntityCallbacks(this)
 
     var platform: PlatformType
         get() = entityData.get(PLATFORM_TYPE)

@@ -57,6 +57,7 @@ import com.cobblemon.mod.common.api.scheduling.ClientTaskTracker
 import com.cobblemon.mod.common.api.scheduling.Schedulable
 import com.cobblemon.mod.common.api.scheduling.ServerTaskTracker
 import com.cobblemon.mod.common.api.scripting.CobblemonScripts
+import com.cobblemon.mod.common.api.spawning.TimeRange
 import com.cobblemon.mod.common.api.spawning.position.SpawnablePosition
 import com.cobblemon.mod.common.api.storage.PokemonStore
 import com.cobblemon.mod.common.api.storage.party.NPCPartyStore
@@ -72,6 +73,7 @@ import com.cobblemon.mod.common.battles.BattleRegistry
 import com.cobblemon.mod.common.battles.actor.PlayerBattleActor
 import com.cobblemon.mod.common.battles.actor.PokemonBattleActor
 import com.cobblemon.mod.common.client.render.models.blockbench.wavefunction.WaveFunctions
+import com.cobblemon.mod.common.entity.MoLangScriptingEntity
 import com.cobblemon.mod.common.entity.PosableEntity
 import com.cobblemon.mod.common.entity.npc.NPCBattleActor
 import com.cobblemon.mod.common.entity.npc.NPCEntity
@@ -302,6 +304,12 @@ object MoLangFunctions {
         { worldHolder ->
             val world = worldHolder.value()
             val map = hashMapOf<String, java.util.function.Function<MoParams, Any>>()
+            map.put("is_time_of_day") { params ->
+                val timeOfDay = TimeRange.timeRanges[params.getString(0).lowercase()]
+                    ?: return@put DoubleValue.ZERO
+                val time = world.dayTime % 24000
+                return@put DoubleValue(timeOfDay.contains(time.toInt()))
+            }
             map.put("game_time") { _ -> DoubleValue(world.gameTime.toDouble()) }
             map.put("time_of_day") {
                 val time = world.dayTime % 24000
@@ -685,6 +693,34 @@ object MoLangFunctions {
                 return@put owner?.asMostSpecificMoLangValue() ?: DoubleValue.ZERO
             }
 
+            if (entity is MoLangScriptingEntity) {
+                map.put("add_callback") { params ->
+                    val type = params.getString(0).asIdentifierDefaultingNamespace()
+                    val callback = params.getString(1).asIdentifierDefaultingNamespace()
+                    val allowDuplicates = params.getBooleanOrNull(2) ?: false
+                    entity.callbacks.addCallback(type, callback, allowDuplicates)
+                }
+                map.put("remove_callback") { params ->
+                    val type = params.getString(0).asIdentifierDefaultingNamespace()
+                    val callback = params.getString(1).asIdentifierDefaultingNamespace()
+                    entity.callbacks.removeCallback(type, callback)
+                }
+                map.put("has_callback") { params ->
+                    val type = params.getString(0).asIdentifierDefaultingNamespace()
+                    val callback = params.getString(1).asIdentifierDefaultingNamespace()
+                    return@put DoubleValue(callback in (entity.callbacks[type] ?: emptySet()))
+                }
+                map.put("clear_callbacks") { params ->
+                    val type = params.getStringOrNull(0)?.asIdentifierDefaultingNamespace()
+                    if (type != null) {
+                        entity.callbacks[type]?.clear()
+                    } else {
+                        entity.callbacks.clear()
+                    }
+                    return@put DoubleValue.ONE
+                }
+            }
+
             if (entity is PathfinderMob) {
                 map.put("walk_to") { params ->
                     val x = params.getDouble(0)
@@ -910,6 +946,22 @@ object MoLangFunctions {
                 } else {
                     return@put DoubleValue.ZERO
                 }
+            }
+            map.put("set_uuid_memory") { params ->
+                val memory = params.getString(0).asIdentifierDefaultingNamespace().let(BuiltInRegistries.MEMORY_MODULE_TYPE::get) as MemoryModuleType<UUID>
+                val uuid = params.getString(1).asUUID ?: return@put DoubleValue.ZERO
+                val expiry = params.getIntOrNull(2) ?: -1
+                if (expiry != -1) {
+                    entity.brain.setMemoryWithExpiry(memory, uuid, expiry.toLong())
+                } else {
+                    entity.brain.setMemory(memory, uuid)
+                }
+                return@put DoubleValue.ONE
+            }
+            map.put("erase_memory") { params ->
+                val memories = params.params.map { it.asString().asIdentifierDefaultingNamespace() }.map(BuiltInRegistries.MEMORY_MODULE_TYPE::get)
+                memories.forEach { entity.brain.eraseMemory(it) }
+                return@put DoubleValue.ONE
             }
             map.put("has_memory_value") { params ->
                 val memoryTypes = params.params.map {
