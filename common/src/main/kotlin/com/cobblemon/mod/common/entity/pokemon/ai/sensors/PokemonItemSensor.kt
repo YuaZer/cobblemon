@@ -11,15 +11,12 @@ package com.cobblemon.mod.common.entity.pokemon.ai.sensors
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.google.common.collect.ImmutableSet
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
 import net.minecraft.world.entity.ai.sensing.Sensor
 import net.minecraft.world.entity.item.ItemEntity
-import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.GameRules
 import java.util.*
 import java.util.function.Predicate
-import java.util.function.ToDoubleFunction
 
 class PokemonItemSensor(
     private val width: Double = 16.0, // TODO: Can we configure sensors dynamically?
@@ -43,20 +40,30 @@ class PokemonItemSensor(
             return
         }
 
-        val brain = entity.getBrain()
         val list = level.getEntitiesOfClass(
             ItemEntity::class.java,
             entity.boundingBox.inflate(width, height, width),
-            Predicate { arg: ItemEntity? -> entity.pokemon.species.behaviour.itemInteract.getItemPriority(arg?.item ?: ItemStack.EMPTY) > heldItemValue })
-        Objects.requireNonNull<Mob?>(entity)
-        list.sortWith(Comparator.comparingDouble(ToDoubleFunction { entity: ItemEntity? ->
-            entity?.distanceToSqr(entity) ?: Double.MAX_VALUE
-        }))
-        val filteredList = list.filter { arg2: ItemEntity? -> entity.wantsToPickUp(arg2?.item ?: ItemStack.EMPTY) }
-            .filter { arg2: ItemEntity? -> arg2?.closerThan(entity, maxTravelDistance) ?: false }
-        Objects.requireNonNull<Mob?>(entity)
-        val nearestItem = filteredList.firstOrNull { it -> entity.hasLineOfSight(it) }
-        brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, Optional.ofNullable(nearestItem))
+            Predicate { it: ItemEntity? ->
+                it != null
+                    && entity.wantsToPickUp(it.item)
+                    && entity.hasLineOfSight(it)
+                    && it.closerThan(entity, maxTravelDistance)
+            }
+        )
+
+        // Find the closest item to the entity
+        var nearestItemEntity : ItemEntity? = null
+        var shortestDistance = Float.MAX_VALUE
+        list.forEach { itemEntity ->
+            val distanceToEntity = entity.distanceTo(itemEntity)
+            if (distanceToEntity < shortestDistance) {
+                shortestDistance = distanceToEntity
+                nearestItemEntity = itemEntity
+            }
+        }
+
+        val brain = entity.getBrain()
+        brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, Optional.ofNullable(nearestItemEntity))
     }
 
 }
