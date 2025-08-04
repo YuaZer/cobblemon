@@ -1,0 +1,1 @@
+The #cobblemon:is_cold biome is defined as being even slightly chill regardless of dimension. Don't use it as a primary condition or they'll spawn in places like The End and taigas. We use it for anticonditions.
