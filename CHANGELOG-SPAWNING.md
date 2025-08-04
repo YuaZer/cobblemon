@@ -4,6 +4,7 @@
 
 ### Fixes
 - Fixed the "enabled" property in spawn files not actually being respected. Where do they find these devs?
+- Fixed newer Fabric versions having lots of Pokémon spawning in The End when they should not.
 
 ### Developer
 - Spawning Influences now have the context of what the other buckets are when adjusting bucket weights. This will break existing influences that do bucket weight adjustment.

@@ -11,10 +11,6 @@
       "required": false
     },
 	{
-      "id": "#c:is_cold",
-      "required": false
-    },
-	{
       "id": "#c:is_cold/overworld",
       "required": false
     },
