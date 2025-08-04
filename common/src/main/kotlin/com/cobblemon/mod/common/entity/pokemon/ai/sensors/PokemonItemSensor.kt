@@ -50,12 +50,10 @@ class PokemonItemSensor(
             Predicate { arg: ItemEntity? -> entity.pokemon.species.behaviour.itemInteract.getItemPriority(arg?.item ?: ItemStack.EMPTY) > heldItemValue })
         Objects.requireNonNull<Mob?>(entity)
         list.sortWith(Comparator.comparingDouble(ToDoubleFunction { entity: ItemEntity? ->
-            entity!!.distanceToSqr(
-                entity
-            )
+            entity?.distanceToSqr(entity) ?: Double.MAX_VALUE
         }))
-        val filteredList = list.filter { arg2: ItemEntity? -> entity.wantsToPickUp(arg2!!.item) }
-            .filter { arg2: ItemEntity? -> arg2!!.closerThan(entity, maxTravelDistance) }
+        val filteredList = list.filter { arg2: ItemEntity? -> entity.wantsToPickUp(arg2?.item ?: ItemStack.EMPTY) }
+            .filter { arg2: ItemEntity? -> arg2?.closerThan(entity, maxTravelDistance) ?: false }
         Objects.requireNonNull<Mob?>(entity)
         val nearestItem = filteredList.firstOrNull { it -> entity.hasLineOfSight(it) }
         brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, Optional.ofNullable(nearestItem))
