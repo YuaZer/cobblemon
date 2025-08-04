@@ -7233,5 +7233,6 @@
     "cobblemon.mark.mark_gourmand.title": "グルメな %1$s",
     "cobblemon.mark.mark_jumbo.desc": "最大な ポケモンである あかし",
     "cobblemon.mark.mark_personality_flustered.title": "あわてんぼうの %1$s",
-    "cobblemon.mark.mark_personality_rowdy.desc": "あばれんぼうの ポケモンである あかし"
+    "cobblemon.mark.mark_personality_rowdy.desc": "あばれんぼうの ポケモンである あかし",
+    "cobblemon.mark.mark_personality_slump.desc": "どこかくたびれた ポケモンである あかし"
 }
