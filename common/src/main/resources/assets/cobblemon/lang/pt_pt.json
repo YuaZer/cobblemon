@@ -6030,5 +6030,13 @@
     "cobblemon.config.ui.lucky_egg_multiplier": "Multiplicador de Ovo Sortudo",
     "cobblemon.config.ui.lucky_egg_multiplier.tooltip": "Multiplicador de quanta Experiência é dada a um Pokémon que segure um Ovo Sortudo.",
     "cobblemon.config.ui.allow_spectating": "Permitir Espectadores",
-    "cobblemon.config.ui.allow_spectating.tooltip": "Permitir ou não que batalhas sejam assistidas."
+    "cobblemon.config.ui.allow_spectating.tooltip": "Permitir ou não que batalhas sejam assistidas.",
+    "cobblemon.mark.mark_uncommon": "Marca Incomum",
+    "cobblemon.mark.mark_personality_zero_energy.desc": "Uma marca para um Pokémon apático.",
+    "cobblemon.ui.pokedex.info.form.snake-pattern-dark": "Sombrio",
+    "cobblemon.mark.mark_personality_ferocious": "Marca Feroz",
+    "cobblemon.config.ui.default_drop_item_method.on_entity": "Na Entidade",
+    "cobblemon.config.ui.default_drop_item_method.on_player": "No Jogador",
+    "advancements.cobblemon.ride_pokemon.description": "Monta um Pokémon pela primeira vez",
+    "cobblemon.battle.sideend.ally.stealthrock": "As pedras pontiagudas desapareceram do lado da tua equipa!"
 }
