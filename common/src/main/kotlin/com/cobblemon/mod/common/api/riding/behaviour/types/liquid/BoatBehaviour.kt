@@ -343,7 +343,7 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
         state: BoatState,
         vehicle: PokemonEntity
     ): RideSoundSettingsList {
-        TODO("Not yet implemented")
+        return settings.rideSounds
     }
 
     override fun maxUpStep(settings: BoatSettings, state: BoatState, vehicle: PokemonEntity) = 0f
@@ -354,6 +354,7 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
 
 class BoatSettings : RidingBehaviourSettings {
     override val key = BoatBehaviour.KEY
+    var rideSounds: RideSoundSettingsList = RideSoundSettingsList()
 
     var terminalVelocity = "-2.0".asExpression()
         private set
@@ -363,10 +364,12 @@ class BoatSettings : RidingBehaviourSettings {
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeResourceLocation(key)
+        rideSounds.encode(buffer)
         buffer.writeExpression(terminalVelocity)
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
+        rideSounds = RideSoundSettingsList.decode(buffer)
         terminalVelocity = buffer.readExpression()
     }
 }

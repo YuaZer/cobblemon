@@ -23,7 +23,9 @@ import com.cobblemon.mod.common.CobblemonBlockEntities
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.CobblemonUnlockableWallpapers
 import com.cobblemon.mod.common.Environment
+import com.cobblemon.mod.common.api.ai.CobblemonBlockPosTracker
 import com.cobblemon.mod.common.api.ai.CobblemonWanderControl
+import com.cobblemon.mod.common.api.battles.interpreter.BattleMessage
 import com.cobblemon.mod.common.api.battles.model.PokemonBattle
 import com.cobblemon.mod.common.api.battles.model.actor.ActorType
 import com.cobblemon.mod.common.api.battles.model.actor.BattleActor
@@ -32,7 +34,6 @@ import com.cobblemon.mod.common.api.dialogue.ReferenceDialogueFaceProvider
 import com.cobblemon.mod.common.api.drop.DropEntry
 import com.cobblemon.mod.common.api.mark.Marks
 import com.cobblemon.mod.common.api.moves.BenchedMove
-import com.cobblemon.mod.common.api.moves.MoveTemplate
 import com.cobblemon.mod.common.api.moves.Moves
 import com.cobblemon.mod.common.api.moves.animations.ActionEffectContext
 import com.cobblemon.mod.common.api.moves.animations.ActionEffects
@@ -57,6 +58,7 @@ import com.cobblemon.mod.common.api.scheduling.ClientTaskTracker
 import com.cobblemon.mod.common.api.scheduling.Schedulable
 import com.cobblemon.mod.common.api.scheduling.ServerTaskTracker
 import com.cobblemon.mod.common.api.scripting.CobblemonScripts
+import com.cobblemon.mod.common.api.spawning.TimeRange
 import com.cobblemon.mod.common.api.spawning.position.SpawnablePosition
 import com.cobblemon.mod.common.api.storage.PokemonStore
 import com.cobblemon.mod.common.api.storage.party.NPCPartyStore
@@ -68,13 +70,11 @@ import com.cobblemon.mod.common.api.tags.CobblemonItemTags
 import com.cobblemon.mod.common.api.text.text
 import com.cobblemon.mod.common.battles.BattleBuilder
 import com.cobblemon.mod.common.battles.BattleFormat
-import com.cobblemon.mod.common.battles.BattleFormat.Companion.GEN_9_DOUBLES
-import com.cobblemon.mod.common.battles.BattleFormat.Companion.GEN_9_SINGLES
-import com.cobblemon.mod.common.battles.BattleFormat.Companion.GEN_9_TRIPLES
 import com.cobblemon.mod.common.battles.BattleRegistry
 import com.cobblemon.mod.common.battles.actor.PlayerBattleActor
 import com.cobblemon.mod.common.battles.actor.PokemonBattleActor
 import com.cobblemon.mod.common.client.render.models.blockbench.wavefunction.WaveFunctions
+import com.cobblemon.mod.common.entity.MoLangScriptingEntity
 import com.cobblemon.mod.common.entity.PosableEntity
 import com.cobblemon.mod.common.entity.npc.NPCBattleActor
 import com.cobblemon.mod.common.entity.npc.NPCEntity
@@ -305,6 +305,12 @@ object MoLangFunctions {
         { worldHolder ->
             val world = worldHolder.value()
             val map = hashMapOf<String, java.util.function.Function<MoParams, Any>>()
+            map.put("is_time_of_day") { params ->
+                val timeOfDay = TimeRange.timeRanges[params.getString(0).lowercase()]
+                    ?: return@put DoubleValue.ZERO
+                val time = world.dayTime % 24000
+                return@put DoubleValue(timeOfDay.contains(time.toInt()))
+            }
             map.put("game_time") { _ -> DoubleValue(world.gameTime.toDouble()) }
             map.put("time_of_day") {
                 val time = world.dayTime % 24000
@@ -688,6 +694,34 @@ object MoLangFunctions {
                 return@put owner?.asMostSpecificMoLangValue() ?: DoubleValue.ZERO
             }
 
+            if (entity is MoLangScriptingEntity) {
+                map.put("add_callback") { params ->
+                    val type = params.getString(0).asIdentifierDefaultingNamespace()
+                    val callback = params.getString(1).asIdentifierDefaultingNamespace()
+                    val allowDuplicates = params.getBooleanOrNull(2) ?: false
+                    entity.callbacks.addCallback(type, callback, allowDuplicates)
+                }
+                map.put("remove_callback") { params ->
+                    val type = params.getString(0).asIdentifierDefaultingNamespace()
+                    val callback = params.getString(1).asIdentifierDefaultingNamespace()
+                    entity.callbacks.removeCallback(type, callback)
+                }
+                map.put("has_callback") { params ->
+                    val type = params.getString(0).asIdentifierDefaultingNamespace()
+                    val callback = params.getString(1).asIdentifierDefaultingNamespace()
+                    return@put DoubleValue(callback in (entity.callbacks[type] ?: emptySet()))
+                }
+                map.put("clear_callbacks") { params ->
+                    val type = params.getStringOrNull(0)?.asIdentifierDefaultingNamespace()
+                    if (type != null) {
+                        entity.callbacks[type]?.clear()
+                    } else {
+                        entity.callbacks.clear()
+                    }
+                    return@put DoubleValue.ONE
+                }
+            }
+
             if (entity is PathfinderMob) {
                 map.put("walk_to") { params ->
                     val x = params.getDouble(0)
@@ -877,6 +911,15 @@ object MoLangFunctions {
             map.put("is_sleeping") { _ -> DoubleValue(entity.isSleeping) }
             map.put("health") { _ -> DoubleValue(entity.health) }
             map.put("max_health") { _ -> DoubleValue(entity.maxHealth) }
+            map.put("look_at_position") { params ->
+                val x = params.getDouble(0)
+                val y = params.getDouble(1)
+                val z = params.getDouble(2)
+                val duration = params.getIntOrNull(3) ?: 20
+                val flags = params.params.subList(4, params.params.size).map { it.asString() }
+                val brain = entity.brain
+                brain.setMemoryWithExpiry(MemoryModuleType.LOOK_TARGET, CobblemonBlockPosTracker(Vec3(x, y, z), flags.toSet()), duration.toLong())
+            }
             map.put("get_wander_control_memory") {
                 val value = entity.brain.getMemorySafely(CobblemonMemories.WANDER_CONTROL).orElse(null)
                     ?: CobblemonWanderControl()
@@ -913,6 +956,22 @@ object MoLangFunctions {
                 } else {
                     return@put DoubleValue.ZERO
                 }
+            }
+            map.put("set_uuid_memory") { params ->
+                val memory = params.getString(0).asIdentifierDefaultingNamespace().let(BuiltInRegistries.MEMORY_MODULE_TYPE::get) as MemoryModuleType<UUID>
+                val uuid = params.getString(1).asUUID ?: return@put DoubleValue.ZERO
+                val expiry = params.getIntOrNull(2) ?: -1
+                if (expiry != -1) {
+                    entity.brain.setMemoryWithExpiry(memory, uuid, expiry.toLong())
+                } else {
+                    entity.brain.setMemory(memory, uuid)
+                }
+                return@put DoubleValue.ONE
+            }
+            map.put("erase_memory") { params ->
+                val memories = params.params.map { it.asString().asIdentifierDefaultingNamespace() }.map(BuiltInRegistries.MEMORY_MODULE_TYPE::get)
+                memories.forEach { entity.brain.eraseMemory(it) }
+                return@put DoubleValue.ONE
             }
             map.put("has_memory_value") { params ->
                 val memoryTypes = params.params.map {
@@ -1227,6 +1286,23 @@ object MoLangFunctions {
                 map.put("player") { battleActor.entity?.asMoLangValue() ?: DoubleValue.ZERO }
             } else if (battleActor is PokemonBattleActor) {
                 map.put("pokemon") { battleActor.entity?.asMoLangValue() ?: DoubleValue.ZERO }
+            }
+            return@mutableListOf map
+        }
+    )
+
+    val battleMessageFunctions = mutableListOf<(BattleMessage) -> HashMap<String, java.util.function.Function<MoParams, Any>>>(
+        { message ->
+            val map = hashMapOf<String, java.util.function.Function<MoParams, Any>>()
+            map.put("has_argument_at") { params ->
+                val index = params.getInt(0)
+                val value = params.getStringOrNull(1) ?: ""
+                return@put DoubleValue(value == message.argumentAt(index))
+            }
+            map.put("has_argument") { params ->
+                val argumentName = params.getString(0)
+                val value = params.getStringOrNull(1) ?: ""
+                return@put DoubleValue(value == message.optionalArgument(argumentName))
             }
             return@mutableListOf map
         }
@@ -2187,6 +2263,14 @@ object MoLangFunctions {
     fun QueryStruct.addPokemonFunctions(pokemon: Pokemon): QueryStruct {
         val addedFunctions = pokemonFunctions
             .flatMap { it.invoke(pokemon).entries }
+            .associate { it.key to it.value }
+        functions.putAll(addedFunctions)
+        return this
+    }
+
+    fun QueryStruct.addBattleMessageFunctions(battleMessage: BattleMessage): QueryStruct {
+        val addedFunctions = battleMessageFunctions
+            .flatMap { it.invoke(battleMessage).entries }
             .associate { it.key to it.value }
         functions.putAll(addedFunctions)
         return this

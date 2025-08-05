@@ -196,6 +196,11 @@ class RidingController<Settings : RidingBehaviourSettings, State : RidingBehavio
         return behaviour.maxUpStep(settings, state, vehicle)
     }
 
+    override fun getRideSounds(settings: Settings, state: State, vehicle: PokemonEntity): RideSoundSettingsList {
+        if (!isActive(settings, state, vehicle)) return RideSoundSettingsList()
+        return behaviour.getRideSounds(settings, state, vehicle)
+    }
+
     override fun createDefaultState(settings: Settings): State {
         return behaviour.createDefaultState(settings)
     }

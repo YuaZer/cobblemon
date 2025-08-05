@@ -386,6 +386,7 @@ open class PokemonEntity(
     override val registeredVariables = mutableListOf<MoLangConfigVariable>()
     override var config = VariableStruct()
     override var data = VariableStruct()
+    override var callbacks = EntityCallbacks(this)
 
     var platform: PlatformType
         get() = entityData.get(PLATFORM_TYPE)
@@ -564,10 +565,7 @@ open class PokemonEntity(
         isPokemonFlying = flyDist - flyDistO > 0.005F
         isPokemonWalking = walkDist - walkDistO > 0.005F
 
-        entityData.get(MOVING)
-
-        // Update ride Specific data
-        if (level().isClientSide) {
+        if (passengers.isNotEmpty() && level().isClientSide) {
             rideSoundManager.tick()
             ridingAnimationData.update()
         }

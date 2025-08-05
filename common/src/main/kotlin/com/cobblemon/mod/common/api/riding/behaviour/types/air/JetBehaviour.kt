@@ -382,7 +382,11 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         return false
     }
 
-    override fun shouldRotatePlayerHead(settings: JetSettings, state: JetState, vehicle: PokemonEntity): Boolean {
+    override fun shouldRotatePlayerHead(
+        settings: JetSettings,
+        state: JetState,
+        vehicle: PokemonEntity
+    ): Boolean {
         return false
     }
 
