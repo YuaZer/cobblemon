@@ -22,7 +22,8 @@
             "condition": "(math.random(0, 1) < (1/10))"
           },
 			"harvest_sweet_berry_bush",
-			"move_to_sweet_berry_bush"
+			"move_to_sweet_berry_bush",
+            "stop_moving_to_sweet_berry_bush"
         ]
       }
     }

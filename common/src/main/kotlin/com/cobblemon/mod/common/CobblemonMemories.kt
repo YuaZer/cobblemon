@@ -44,6 +44,8 @@ object CobblemonMemories {
     val NEAREST_VISIBLE_ATTACKER = register<LivingEntity>("nearest_visible_attacker")
     val NEARBY_GROWABLE_CROPS = register<BlockPos>("nearby_growable_crops")
     val NEARBY_SWEET_BERRY_BUSH = register<BlockPos>("nearest_sweet_berry_bush")
+    val DISABLE_WALK_TO_BERRY_BUSH = register<Boolean>("disable_walk_to_berry_bush")
+    val TIME_TRYING_TO_REACH_BERRY_BUSH = register<Int>("time_trying_to_reach_berry_bush")
     val IS_CONSUMING_ITEM = register<Boolean>("is_consuming_item")
     val RECENTLY_ATE_GRASS = register<Boolean>("recently_ate_grass")
     val HIVE_LOCATION = register<BlockPos>("hive_location")

@@ -24,6 +24,8 @@ class SweetBerryBushSensor : Sensor<LivingEntity>(SCAN_INTERVAL) {
 
     override fun doTick(level: ServerLevel, entity: LivingEntity) {
         val pos = entity.blockPosition()
+        val isDisabled = entity.brain.getMemory(CobblemonMemories.DISABLE_WALK_TO_BERRY_BUSH).orElse(false)
+        if (isDisabled) return
         val nearestBush = findNearestBush(level, pos)
 
         if (!nearestBush.isEmpty) {

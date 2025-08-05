@@ -105,6 +105,7 @@ interface TaskConfig {
             cobblemonResource("manage_flight_in_battle") to ManageFlightInBattleTaskConfig::class.java,
             cobblemonResource("attack_hostile_mobs") to AttackHostileMobsTaskConfig::class.java,
             cobblemonResource("move_to_sweet_berry_bush") to MoveToSweetBerryBushTaskConfig::class.java,
+            cobblemonResource("stop_moving_to_sweet_berry_bush") to StopIfTiredOfTryingToReachSweetBerryBushTaskConfig::class.java,
             cobblemonResource("harvest_sweet_berry_bush") to HarvestSweetBerryBushTaskConfig::class.java,
             cobblemonResource("eat_held_item") to EatHeldItemTaskConfig::class.java,
             cobblemonResource("move_to_item") to MoveToItemTaskConfig::class.java,
