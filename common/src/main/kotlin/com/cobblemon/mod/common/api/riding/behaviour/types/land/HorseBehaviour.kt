@@ -111,26 +111,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         state: HorseState,
         vehicle: PokemonEntity,
         driver: LivingEntity
-    ) {
-
-        //Take the inverse so that it cancels out how
-        //much the entity rotates.
-        val turnAmount = calcRotAmount(settings, state, vehicle, driver)
-
-        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
-        val maxYawDiff = 90.0f
-
-        //Normalize the current rotation diff
-        val rotMod = Mth.wrapDegrees(driver.yRot - vehicle.yRot) / maxYawDiff
-
-        val rotAmount = 10.0f
-
-        //Take the inverse so that you turn more at higher speeds
-        val normSpeed = 1.0f - 0.5f*normalizeVal(state.rideVelocity.get().length(), 0.0, topSpeed).toFloat()
-
-        //driver.yRot += (entity.riding.deltaRotation.y - turnAmount)
-        //driver.setYHeadRot(driver.yHeadRot + (entity.riding.deltaRotation.y) - turnAmount)
-    }
+    ) { return }
 
     override fun clampPassengerRotation(
         settings: HorseSettings,
@@ -153,7 +134,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         vehicle: PokemonEntity,
         driver: LivingEntity
     ): Vec2 {
-        val turnAmount =  calcRotAmount(settings, state, vehicle, driver)
+        var turnAmount =  calcRotAmount(settings, state, vehicle, driver)
 
         return Vec2(vehicle.xRot, vehicle.yRot + turnAmount * 0.5f )
 
@@ -173,9 +154,9 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
     ): Float {
         val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
 
-        //In degrees per second
-        val walkHandling = 140.0 * 2
-        val handling = vehicle.runtime.resolveDouble(settings.handlingExpr) * 2
+        val handling = vehicle.runtime.resolveDouble(settings.handlingExpr) * 3
+        val walkHandlingBoost = 5
+        val walkHandling = handling * walkHandlingBoost
 
         val maxYawDiff = 90.0f
 
@@ -189,13 +170,14 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         val rotDiffMod = (sqrt(abs(rotDiffNorm)) * rotDiffNorm.sign)
 
         //Take the inverse so that you turn less at higher speeds
-        val normSpeed = 1.0f // = 1.0f - 0.5f*normalizeVal(state.rideVelocityocity.length(), 0.0, topSpeed).toFloat()
+        val normSpeed = 1.0f
 
         // TurnRate should always be quick if not sprinting
-        val turnRate = if(state.sprinting.get()) (handling.toFloat() / 20.0f) else (walkHandling.toFloat() / 20.0f)
+        val invRelSpeed = (inverseLerp(vehicle.deltaMovement.horizontalDistance(), 0.0, topSpeed ).pow(0.5) - 1.0f) * -1.0f
+        val turnRate = ((handling.toFloat() / 20.0f) * max(walkHandlingBoost * invRelSpeed, 1.0)).toFloat()
 
         //Ensure you only ever rotate as much difference as there is between the angles.
-        val turnSpeed = turnRate  * rotDiffMod * normSpeed
+        val turnSpeed = turnRate * rotDiffMod * normSpeed
         val rotAmount = turnSpeed.coerceIn(-abs(rotDiff), abs(rotDiff))
 
         return rotAmount
@@ -222,16 +204,16 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
 
         // Check to see if the ride should be walking or sprinting
         val walkSpeed = getWalkSpeed(vehicle)
-        val rideTopSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) * 0.6
+        val rideTopSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) * 1.3
         val topSpeed = if(state.sprinting.get()) rideTopSpeed else walkSpeed
 
-        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) * 0.3
+        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) * 2
 
         //Flag for determining if player is actively inputting
         var activeInput = false
 
-        var newVelocity = Vec3(state.rideVelocity.get().x, state.rideVelocity.get().y, state.rideVelocity.get().z)
-
+        var newVelocity = Vec3(state.rideVelocity.get().x, state.rideVelocity.get().y, state.rideVelocity.get().z).normalize().scale(vehicle.deltaMovement.length())
+        //var newVelocity = vehicle.deltaMovement.normalize()
 
         //speed up and slow down based on input
         if (driver.zza != 0.0f && state.stamina.get() > 0.0) {
@@ -257,7 +239,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
             //TODO: Should we just go back to standard minecraft gravity or do the lerp modifications prevent that?
             //I think minecrafts gravity logic is also too harsh and isn't gamefied enough for mounts maybe? Need
             //to do some testing and get other's opinions
-            val gravity = (9.8 / ( 20.0)) * 0.2 * 0.15
+            val gravity = (9.8 / ( 20.0)) * 0.2 * 0.8
             val terminalVel = 2.0
 
             val fallingForce = gravity -  ( newVelocity.z.sign *gravity *(abs(newVelocity.z) / 2.0))
@@ -273,7 +255,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         val canJump = vehicle.runtime.resolveBoolean(settings.canJump)
         //Jump the thang!
         if (driver.jumping && vehicle.onGround() && canJump) {
-            val jumpForce = 0.5
+            val jumpForce = 1.0
             val velMag = newVelocity.length()
 
             newVelocity = newVelocity.add(0.0, jumpForce, 0.0)
@@ -291,12 +273,12 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
     }
 
     /*
-    *  Normalizes the current speed between minSpeed and maxSpeed.
-    *  The result is clamped between 0.0 and 1.0, where 0.0 represents minSpeed and 1.0 represents maxSpeed.
+    *  Normalizes the current val between minVal and maxVal.
+    *  The result is clamped between 0.0 and 1.0, where 0.0 represents minVal and 1.0 represents maxVal.
     */
-    private fun normalizeVal(currSpeed: Double, minSpeed: Double, maxSpeed: Double): Double {
-        require(maxSpeed > minSpeed) { "maxSpeed must be greater than minSpeed" }
-        return ((currSpeed - minSpeed) / (maxSpeed - minSpeed)).coerceIn(0.0, 1.0)
+    private fun inverseLerp(currVal: Double, minVal: Double, maxVal: Double): Double {
+        require(maxVal > minVal) { "minVal must be greater than maxVal" }
+        return ((currVal - minVal) / (maxVal - minVal)).coerceIn(0.0, 1.0)
     }
 
     private fun getWalkSpeed( vehicle: PokemonEntity ): Double {

@@ -130,29 +130,28 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
         var newMomentum = state.turnMomentum.get().toDouble()
 
         // Grab turningAcceleration and divide 20 twice to get
-        val turningAcceleration = (vehicle.runtime.resolveDouble(settings.handlingExpr) * 1.5 / 20.0f) / 20.0f
+        val turningAcceleration = (vehicle.runtime.resolveDouble(settings.handlingExpr) * 1.5 / 20.0f) / 20.0f * 4.0
         val turnInput =  (driver.xxa *-1.0f) * turningAcceleration
 
-        // Maximum of 60 degrees per second for all vehicles when not drifting
-        val maxTurnMomentum = 40.0f / 20.0f
+        val maxTurnMomentum = 80.0f / 20.0f
 
         // Base boost stats off of normal turning stats
         val driftMaxTurnMomentum = maxTurnMomentum * 3.0f
-        val driftTurnInput = turnInput * 0.8f
+        var driftTurnInput = turnInput * 0.4f
 
         if(state.drifting.get() || state.inAir.get()) {
-            if(driver.xxa != 0.0f && abs(newMomentum + turnInput) < (driftMaxTurnMomentum)) { //If max momentum will not be exceeded then modulate
+            if( newMomentum < driftMaxTurnMomentum) {
+                driftTurnInput = driftTurnInput * (vehicle.deltaMovement.horizontalDistance() / vehicle.runtime.resolveDouble(settings.speedExpr))
                 newMomentum += driftTurnInput
-            } else {
-                newMomentum = lerp(newMomentum, 0.0, 0.01)
             }
+            newMomentum = lerp(newMomentum, 0.0, 0.03)
+            if( abs(newMomentum) < 0.05 ) {newMomentum = 0.0}
         } else {
-            if(driver.xxa == 0.0f ) { //If no turning input then lerp to 0
-                newMomentum = lerp(newMomentum, 0.0, 0.15)
-            } else if(abs(newMomentum + turnInput) > maxTurnMomentum) {
-                newMomentum = lerp(newMomentum, 0.0, 0.03)
-            } else { //If max momentum will not be exceeded then modulate
+            if(abs(newMomentum) <= maxTurnMomentum && turnInput != 0.0 ) {
                 newMomentum += turnInput
+                newMomentum.coerceIn(-maxTurnMomentum.toDouble(), maxTurnMomentum.toDouble())
+            } else {
+                newMomentum = lerp(newMomentum, 0.0, 0.15)
             }
         }
 
@@ -182,10 +181,10 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
 
         // Check to see if the ride should be walking or sprinting
         //val walkSpeed = getWalkSpeed(vehicle)
-        val rideTopSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) * 0.6
+        val rideTopSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) * 0.6 * 2.0
         val topSpeed = if (state.drifting.get()) rideTopSpeed * 0.5 else rideTopSpeed
 
-        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) * 0.3 * 3
+        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) * 0.3 * 3 * 2.0
 
         //Flag for determining if player is actively inputting
         var activeInput = false
@@ -229,7 +228,7 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
             //TODO: Should we just go back to standard minecraft gravity or do the lerp modifications prevent that?
             //I think minecrafts gravity logic is also too harsh and isn't gamefied enough for mounts maybe? Need
             //to do some testing and get other's opinions
-            val gravity = (9.8 / ( 20.0)) * 0.2 * 0.25
+            val gravity = (9.8 / ( 20.0)) * 0.2 * 0.25 * 3.0
             val terminalVel = 2.0
 
             val fallingForce = gravity -  ( newVelocity.z.sign *gravity *(abs(newVelocity.z) / 2.0))
@@ -237,7 +236,7 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
         }
 
         //ground Friction
-        var friction = 0.003
+        var friction = 0.003 * 2.0
         if (state.drifting.get()) {friction *= 0.1}
         if (!state.inAir.get()) {
             newVelocity = newVelocity.subtract(
@@ -250,7 +249,7 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
             //TODO: calc lateral slip and friction better!
             if (!state.drifting.get()) {
                 newVelocity = newVelocity.subtract(
-                    min(friction , abs(newVelocity.x)) * newVelocity.x.sign,
+                    min(friction * 10, abs(newVelocity.x)) * newVelocity.x.sign,
                     0.0,
                     0.0,
                 )
@@ -261,7 +260,7 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
         val canJump = vehicle.runtime.resolveBoolean(settings.canJump)
         //Jump the thang!
         if (driver.jumping && vehicle.onGround() && canJump) {
-            val jumpForce = 0.35
+            val jumpForce = 0.5
 
             newVelocity = newVelocity.add(0.0, jumpForce, 0.0)
 

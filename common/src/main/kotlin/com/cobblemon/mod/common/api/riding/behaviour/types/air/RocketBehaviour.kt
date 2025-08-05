@@ -157,8 +157,7 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         val turningAcceleration = (vehicle.runtime.resolveDouble(settings.handlingExpr) / 20.0f) / 20.0f * 2
         val turnInput =  (driver.xxa *-1.0f) * turningAcceleration
 
-        // Maximum of 60 degrees per second for all rockets
-        val maxTurnMomentum = 60.0f / 20.0f
+        val maxTurnMomentum = 80.0f / 20.0f
 
         // Base boost stats off of normal turning stats
         val boostMaxTurnMomentum = maxTurnMomentum * 0.1f
@@ -257,7 +256,7 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
                 newVelocity.z)
         } else if(state.boosting.get() && vehicle.deltaMovement.y < maxVertSpeed) {
             vertInput = when {
-                driver.jumping -> 1.0
+                driver.jumping -> 2.0
                 else -> 0.0
             }
             newVelocity = Vec3(
@@ -277,7 +276,7 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
             if (state.stamina.get() > 0.0) {
                 newVelocity = Vec3(
                     newVelocity.x,
-                    (newVelocity.y + (accel * vertInput)), //.coerceIn(-vertTopSpeed, vertTopSpeed),
+                    (newVelocity.y + (accel * vertInput)),
                     newVelocity.z)
             }
         }
