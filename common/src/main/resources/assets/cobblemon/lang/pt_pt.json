@@ -6073,5 +6073,11 @@
     "cobblemon.ui.entity.behaviour_editor.label.inactive": "Comportamentos Inativos",
     "cobblemon.behaviour.stationary.name": "Permanece na Posição",
     "cobblemon.behaviour.stationary.desc": "Não se move de uma posição específica.",
-    "cobblemon.behaviour.avoids_water.name": "Evita Água"
+    "cobblemon.behaviour.avoids_water.name": "Evita Água",
+    "cobblemon.behaviour.uses_healing_machine.desc": "Cura-se numa máquina de cura quando ferido.",
+    "cobblemon.behaviour.uses_healing_machine.name": "Usa Máquinas de Cura",
+    "cobblemon.behaviour.moves_to_water.name": "Regressa à Água",
+    "cobblemon.behaviour.moves_to_water.desc": "Move-se para a água quando esta está próxima.",
+    "cobblemon.behaviour.moves_to_lava.desc": "Move-se para a lava quando esta está próxima.",
+    "cobblemon.behaviour.moves_to_lava.name": "Regressa à Lava"
 }
