@@ -186,11 +186,6 @@ class RidingController<Settings : RidingBehaviourSettings, State : RidingBehavio
         return behaviour.setRideBar(settings, state, vehicle, driver)
     }
 
-    override fun getRideSounds(settings: Settings, state: State, vehicle: PokemonEntity): RideSoundSettingsList {
-        if (!isActive(settings, state, vehicle)) return RideSoundSettingsList()
-        return behaviour.getRideSounds(settings, state, vehicle)
-    }
-
     override fun maxUpStep(settings: Settings, state: State, vehicle: PokemonEntity): Float? {
         if (!isActive(settings, state, vehicle)) return null
         return behaviour.maxUpStep(settings, state, vehicle)
