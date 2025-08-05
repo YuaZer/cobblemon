@@ -5712,7 +5712,7 @@
     "cobblemon.mark.ribbon_ability_multi.desc": "Uma Fita premiada por completar o desafio Múltiplo da Torre de Batalha.",
     "cobblemon.ui.pokedex.search": "Pesquisar",
     "cobblemon.mark.ribbon_event": "Fita de Evento",
-    "cobblemon.mark.ribbon_event_mystery_zone_land": "Fita da Terra",
+    "cobblemon.mark.ribbon_event_mystery_zone_land": "Fita do Terreno",
     "cobblemon.mark.ribbon_event_mystery_zone_sky": "Fita do Céu",
     "cobblemon.mark.ribbon_event_mystery_zone_marine": "Fita Marinha",
     "cobblemon.mark.mark_destiny": "Marca do Destino",
@@ -6048,5 +6048,6 @@
     "cobblemon.battle.damage.snaptrap": "%1$s sofreu dano da Armadilha Surpresa!",
     "cobblemon.battle.damage.thundercage": "%1$s sofreu dano da Jaula Trovejante!",
     "cobblemon.battle.end.neutralizinggas": "Os efeitos do gás neutralizador acabaram!",
-    "cobblemon.battle.block.aromaveil": "%1$s está protegido(a) por um véu aromático!"
+    "cobblemon.battle.block.aromaveil": "%1$s está protegido(a) por um véu aromático!",
+    "cobblemon.mark.ribbon_event_earth": "Fita da Terra"
 }
