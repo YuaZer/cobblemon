@@ -37,26 +37,26 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sign
 
-class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
+class MinekartBehaviour : RidingBehaviour<MinekartSettings, MinekartState> {
     companion object {
-        val KEY = cobblemonResource("land/vehicle")
+        val KEY = cobblemonResource("land/minekart")
     }
 
     override val key = KEY
 
-    override fun getRidingStyle(settings: VehicleSettings, state: VehicleState): RidingStyle {
+    override fun getRidingStyle(settings: MinekartSettings, state: MinekartState): RidingStyle {
         return RidingStyle.LAND
     }
 
-    val poseProvider = PoseProvider<VehicleSettings, VehicleState>(PoseType.STAND)
+    val poseProvider = PoseProvider<MinekartSettings, MinekartState>(PoseType.STAND)
         .with(PoseOption(PoseType.WALK) { _, state, _ ->
             return@PoseOption abs(state.rideVelocity.get().horizontalDistance()) > 0.0
         })
 
-//    val poseProvider = PoseProvider<VehicleSettings, VehicleState>(PoseType.STAND)
+//    val poseProvider = PoseProvider<MinekartSettings, MinekartState>(PoseType.STAND)
 //        .with(PoseOption(PoseType.WALK) { _, _, entity -> entity.entityData.get(PokemonEntity.MOVING) })
 
-    override fun isActive(settings: VehicleSettings, state: VehicleState, vehicle: PokemonEntity): Boolean {
+    override fun isActive(settings: MinekartSettings, state: MinekartState, vehicle: PokemonEntity): Boolean {
         return Shapes.create(vehicle.boundingBox).blockPositionsAsListRounded().any {
             //Need to check other fluids
             if (vehicle.isInWater || vehicle.isUnderWater) {
@@ -71,27 +71,42 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
         }
     }
 
-    override fun pose(settings: VehicleSettings, state: VehicleState, vehicle: PokemonEntity): PoseType {
+    override fun pose(settings: MinekartSettings, state: MinekartState, vehicle: PokemonEntity): PoseType {
         return poseProvider.select(settings, state, vehicle)
     }
 
     override fun speed(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity,
         driver: Player
     ): Float {
 
-        if (driver.isShiftKeyDown) {
-            state.drifting.set(true)
-            if(driver.zza != 0.0f) {
-                state.poweredDrifting.set(true)
+        val boostMax = vehicle.runtime.resolveFloat(settings.boostLimit)
+        //TODO: should this be by how much turn has accumulated or simply time turning... or both?
+        val boostPerSecond = 20.0f
+        val boostLoss = 40.0f
+
+        if (driver.jumping && driver.zza > 0.0f) {
+            if (!state.drifting.get()) {
+                if (driver.xxa != 0.0f) {
+                    state.clockwiseDrift.set(driver.xxa.sign > 0.0)
+                    state.turnMomentum.set(0.0f)
+                    state.drifting.set(true)
+                    state.boost.set(0.0f)
+                } else {
+                    //TODO: Add jumping logic
+                }
             } else {
-                state.poweredDrifting.set(false)
+                state.boost.set((state.boost.get() + boostPerSecond / 20.0f).coerceIn(0.0f, boostMax))
             }
         } else {
+            if(driver.zza <= 0.0 && state.boost.get() != 0.0f){
+                state.boost.set(0.0f)
+            } else if( state.boost.get() > 0.0f ) {
+                state.boost.set(max(state.boost.get() - boostLoss, 0.0f))
+            }
             state.drifting.set(false)
-            state.poweredDrifting.set(false)
         }
 
         inAirCheck(state, vehicle)
@@ -99,7 +114,7 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
     }
 
     fun inAirCheck(
-        state: VehicleState,
+        state: MinekartState,
         vehicle: PokemonEntity,
     ) {
         // Check both vertical movement and if there are blocks below.
@@ -116,48 +131,54 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
     }
 
     override fun rotation(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity,
         driver: LivingEntity
     ): Vec2 {
 
         var newMomentum = state.turnMomentum.get().toDouble()
 
-        // Grab turningAcceleration and divide 20 twice to get
+        //TODO: maybe tie this to max turnspeeds rather than the turn acceleration
         val turningAcceleration = (vehicle.runtime.resolveDouble(settings.handlingExpr) * 1.5 / 20.0f) / 20.0f * 4.0
         val turnInput =  (driver.xxa *-1.0f) * turningAcceleration
-
+        val forcedDriftTurnMomentum = 100.0f / 20.0f
         val maxTurnMomentum = 80.0f / 20.0f
+        val maxDriftMomentum = forcedDriftTurnMomentum * 0.5f
 
-        // Base boost stats off of normal turning stats
-        val driftMaxTurnMomentum = maxTurnMomentum * 3.0f
-        var driftTurnInput = turnInput * 0.4f
-
-        if(state.drifting.get() || state.inAir.get()) {
-            if( newMomentum < driftMaxTurnMomentum) {
-                driftTurnInput = driftTurnInput * (vehicle.deltaMovement.horizontalDistance() / vehicle.runtime.resolveDouble(settings.speedExpr))
-                newMomentum += driftTurnInput
-            }
-            newMomentum = lerp(newMomentum, 0.0, 0.03)
-            if( abs(newMomentum) < 0.05 ) {newMomentum = 0.0}
-        } else {
+        if (!state.drifting.get()){
+            // perform non drift turning
             if(abs(newMomentum) <= maxTurnMomentum && turnInput != 0.0 ) {
                 newMomentum += turnInput
                 newMomentum.coerceIn(-maxTurnMomentum.toDouble(), maxTurnMomentum.toDouble())
             } else {
                 newMomentum = lerp(newMomentum, 0.0, 0.15)
             }
+
+            state.turnMomentum.set(newMomentum.toFloat())
+            driver.yRot += newMomentum.toFloat()
+            return Vec2(driver.xRot, vehicle.yRot + newMomentum.toFloat())
+        } else {
+            // perform drift turning
+            if(abs(newMomentum) <= maxDriftMomentum && turnInput != 0.0 ) {
+                newMomentum += turnInput
+                newMomentum.coerceIn(-maxDriftMomentum.toDouble(), maxDriftMomentum.toDouble())
+            } else {
+                newMomentum = lerp(newMomentum, 0.0, 0.15)
+            }
+
+            val signedDriftTurn = if(state.clockwiseDrift.get()) forcedDriftTurnMomentum else forcedDriftTurnMomentum * -1.0f
+            state.turnMomentum.set(newMomentum.toFloat())
+            driver.yRot += newMomentum.toFloat()
+            return Vec2(driver.xRot, vehicle.yRot + newMomentum.toFloat() + signedDriftTurn)
         }
 
-        state.turnMomentum.set(newMomentum.toFloat())
-        driver.yRot += newMomentum.toFloat()
-        return Vec2(driver.xRot, vehicle.yRot + newMomentum.toFloat())
+
     }
 
     override fun velocity(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity,
         driver: Player,
         input: Vec3
@@ -168,14 +189,13 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
 
 
     private fun calculateRideSpaceVel(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity,
         driver: Player
     ): Vec3 {
 
         // Check to see if the ride should be walking or sprinting
-        //val walkSpeed = getWalkSpeed(vehicle)
         val rideTopSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) * 0.6 * 2.0
         val topSpeed = if (state.drifting.get()) rideTopSpeed * 0.5 else rideTopSpeed
 
@@ -184,28 +204,29 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
         //Flag for determining if player is actively inputting
         var activeInput = false
 
-        var newVelocity = Vec3.ZERO
-        if (!state.drifting.get()) {
-            newVelocity = vehicle.deltaMovement
+        //Align the direction of this vector with the vehicles current heading.
+        var newVelocity = vehicle.deltaMovement
+        newVelocity = newVelocity.yRot(vehicle.yRot.toRadians())
 
-            newVelocity = newVelocity.yRot(vehicle.yRot.toRadians())
-
-        } else {
-            state
-            newVelocity = vehicle.deltaMovement
-
-            // Align the direction of movement with the world coordinate space so as not to modify it through turning
-            val yawAligned = Matrix3f().rotateY(vehicle.yRot.toRadians())
-            newVelocity = (newVelocity.toVector3f().mul(yawAligned)).toVec3d()
+        //  rotate the angle of force if drifting
+        if (state.drifting.get()) {
+            //TODO: Check to see if this is the correct direction
+            val driftAngle = 20.0f
+            val signedDriftAngle = if(state.clockwiseDrift.get()) driftAngle else driftAngle * -1.0f
+            newVelocity = newVelocity.yRot(signedDriftAngle.toRadians())
         }
 
         //speed up and slow down based on input
         if (driver.zza != 0.0f && state.stamina.get() > 0.0 && !state.inAir.get()) {
             //make sure it can't exceed top speed
-            val forwardInput = when {
+            var forwardInput = when {
                 driver.zza > 0 && newVelocity.z > topSpeed -> 0.0
                 driver.zza < 0 && newVelocity.z <= 0.0 -> 0.0
                 else -> driver.zza.sign
+            }
+
+            if (!state.drifting.get() && state.boost.get() != 0.0f) {
+                forwardInput = 2.0;
             }
 
             newVelocity = Vec3(
@@ -265,8 +286,8 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
     }
 
     override fun angRollVel(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity,
         driver: Player,
         deltaTime: Double
@@ -275,8 +296,8 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
     }
 
     override fun rotationOnMouseXY(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity,
         driver: Player,
         mouseY: Double,
@@ -295,8 +316,8 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
     }
 
     override fun canJump(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity,
         driver: Player
     ): Boolean {
@@ -304,8 +325,8 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
     }
 
     override fun setRideBar(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity,
         driver: Player
     ): Float {
@@ -313,8 +334,8 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
     }
 
     override fun jumpForce(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity,
         driver: Player,
         jumpStrength: Int
@@ -323,8 +344,8 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
     }
 
     override fun gravity(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity,
         regularGravity: Double
     ): Double {
@@ -332,105 +353,97 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
     }
 
     override fun rideFovMultiplier(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity,
         driver: Player
     ): Float {
-        return 1.0f
+        var fov = 1.0f
+        if(!state.drifting.get() && state.boost.get() != 0.0f) {
+            //TODO: is this too abrupt? Possibly caluclate differently?
+            fov = 1.2f
+        }
+        return fov
     }
 
     override fun useAngVelSmoothing(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity
     ): Boolean {
         return false
     }
 
     override fun useRidingAltPose(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity,
         driver: Player
     ): ResourceLocation {
         when {
-            state.poweredDrifting.get() -> return cobblemonResource("powered_drifting")
             state.drifting.get() -> return cobblemonResource("drifting")
         }
         return cobblemonResource("no_pose")
     }
 
-    override fun inertia(settings: VehicleSettings, state: VehicleState, vehicle: PokemonEntity): Double {
+    override fun inertia(settings: MinekartSettings, state: MinekartState, vehicle: PokemonEntity): Double {
         return 1.0
     }
 
-    override fun shouldRoll(settings: VehicleSettings, state: VehicleState, vehicle: PokemonEntity): Boolean {
+    override fun shouldRoll(settings: MinekartSettings, state: MinekartState, vehicle: PokemonEntity): Boolean {
         return false
     }
 
     override fun turnOffOnGround(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity
     ): Boolean {
         return false
     }
 
     override fun dismountOnShift(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity
     ): Boolean {
         return false
     }
 
     override fun shouldRotatePokemonHead(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity
     ): Boolean {
         return false
     }
 
     override fun shouldRotatePlayerHead(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity
     ): Boolean {
         return true
     }
 
     override fun getRideSounds(
-        settings: VehicleSettings,
-        state: VehicleState,
+        settings: MinekartSettings,
+        state: MinekartState,
         vehicle: PokemonEntity
     ): RideSoundSettingsList {
         return settings.rideSounds
     }
 
-    override fun createDefaultState(settings: VehicleSettings) = VehicleState()
+    override fun createDefaultState(settings: MinekartSettings) = MinekartState()
 }
 
-class VehicleSettings : RidingBehaviourSettings {
-    override val key = VehicleBehaviour.KEY
+class MinekartSettings : RidingBehaviourSettings {
+    override val key = MinekartBehaviour.KEY
 
     var canJump = "true".asExpression()
         private set
 
-    var speed = "0.3".asExpression()
-        private set
-
-    var driveFactor = "1.0".asExpression()
-        private set
-
-    var reverseDriveFactor = "0.25".asExpression()
-        private set
-
-    var rotationSpeed = "45/20".asExpression()
-        private set
-
-    var lookYawLimit = "101".asExpression()
+    var boostLimit = "100.0f".asExpression()
         private set
 
     var speedExpr: Expression = "q.get_ride_stats('SPEED', 'LAND', 1.0, 0.3)".asExpression()
@@ -441,7 +454,6 @@ class VehicleSettings : RidingBehaviourSettings {
         "q.get_ride_stats('ACCELERATION', 'LAND', (1.0 / (20.0 * 1.5)), (1.0 / (20.0 * 5.0)))".asExpression()
         private set
 
-    // Between 30 seconds and 10 seconds at the lowest when at full speed.
     var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'LAND', 30.0, 10.0)".asExpression()
         private set
 
@@ -458,29 +470,22 @@ class VehicleSettings : RidingBehaviourSettings {
         buffer.writeResourceLocation(key)
         rideSounds.encode(buffer)
         buffer.writeExpression(canJump)
-        buffer.writeExpression(speed)
-        buffer.writeExpression(driveFactor)
-        buffer.writeExpression(reverseDriveFactor)
-        buffer.writeExpression(rotationSpeed)
-        buffer.writeExpression(lookYawLimit)
+        buffer.writeExpression(boostLimit)
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
         rideSounds = RideSoundSettingsList.decode(buffer)
         canJump = buffer.readExpression()
-        speed = buffer.readExpression()
-        driveFactor = buffer.readExpression()
-        reverseDriveFactor = buffer.readExpression()
-        rotationSpeed = buffer.readExpression()
-        lookYawLimit = buffer.readExpression()
+        boostLimit = buffer.readExpression()
     }
 }
 
-class VehicleState : RidingBehaviourState() {
+class MinekartState : RidingBehaviourState() {
     var currSpeed = ridingState(0.0, Side.BOTH)
     var deltaRotation = ridingState(Vec2.ZERO, Side.BOTH)
     var drifting = ridingState(false, Side.CLIENT)
-    var poweredDrifting = ridingState(false, Side.CLIENT)
+    var clockwiseDrift = ridingState(false, Side.CLIENT)
+    val boost: SidedRidingState<Float> = ridingState(0.0f, Side.CLIENT)
     val turnMomentum: SidedRidingState<Float> = ridingState(0.0f, Side.CLIENT)
     var inAir = ridingState(false, Side.CLIENT)
 
@@ -490,7 +495,8 @@ class VehicleState : RidingBehaviourState() {
         currSpeed.set(0.0, forced = true)
         deltaRotation.set(Vec2.ZERO, forced = true)
         drifting.set(false, forced = true)
-        poweredDrifting.set(false, forced = true)
+        clockwiseDrift.set(false, forced = true)
+        boost.set(0.0f, forced = true)
         turnMomentum.set(0.0f, forced = true)
         inAir.set(false, forced = true)
     }
@@ -498,7 +504,8 @@ class VehicleState : RidingBehaviourState() {
     override fun encode(buffer: FriendlyByteBuf) {
         super.encode(buffer)
         buffer.writeBoolean(drifting.get())
-        buffer.writeBoolean(poweredDrifting.get())
+        buffer.writeBoolean(clockwiseDrift.get())
+        buffer.writeFloat(boost.get())
         buffer.writeFloat(turnMomentum.get())
         buffer.writeBoolean(inAir.get())
     }
@@ -506,30 +513,33 @@ class VehicleState : RidingBehaviourState() {
     override fun decode(buffer: FriendlyByteBuf) {
         super.decode(buffer)
         drifting.set(buffer.readBoolean(), forced = true)
-        poweredDrifting.set(buffer.readBoolean(), forced = true)
+        clockwiseDrift.set(buffer.readBoolean(), forced = true)
+        boost.set(buffer.readFloat(), forced = true)
         turnMomentum.set(buffer.readFloat(), forced = true)
         inAir.set(buffer.readBoolean(), forced = true)
     }
 
     override fun toString(): String {
-        return "VehicleState(currSpeed=${currSpeed.get()}, deltaRotation=${deltaRotation.get()})"
+        return "MinekartState(currSpeed=${currSpeed.get()}, deltaRotation=${deltaRotation.get()})"
     }
 
-    override fun copy() = VehicleState().also {
+    override fun copy() = MinekartState().also {
         it.rideVelocity.set(rideVelocity.get(), forced = true)
         it.stamina.set(stamina.get(), forced = true)
         it.currSpeed.set(currSpeed.get(), forced = true)
         it.deltaRotation.set(deltaRotation.get(), forced = true)
         it.drifting.set(drifting.get(), forced = true)
-        it.poweredDrifting.set(poweredDrifting.get(), forced = true)
+        it.clockwiseDrift.set(clockwiseDrift.get(), forced = true)
+        it.boost.set(boost.get(), forced = true)
         it.turnMomentum.set(turnMomentum.get(), forced = true)
         it.inAir.set(inAir.get(), forced = true)
     }
 
     override fun shouldSync(previous: RidingBehaviourState): Boolean {
-        if (previous !is VehicleState) return false
+        if (previous !is MinekartState) return false
         if (previous.drifting.get() != drifting.get()) return true
-        if (previous.poweredDrifting.get() != poweredDrifting.get()) return true
+        if (previous.clockwiseDrift.get() != clockwiseDrift.get()) return true
+        if (previous.boost.get() != boost.get()) return true
         if (previous.turnMomentum.get() != turnMomentum.get()) return true
         if (previous.inAir.get() != inAir.get()) return true
         return super.shouldSync(previous)

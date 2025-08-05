@@ -12,6 +12,7 @@ import com.cobblemon.mod.common.api.riding.behaviour.types.air.*
 import com.cobblemon.mod.common.api.riding.behaviour.types.composite.CompositeBehaviour
 import com.cobblemon.mod.common.api.riding.behaviour.types.land.HorseBehaviour
 import com.cobblemon.mod.common.api.riding.behaviour.types.land.VehicleBehaviour
+import com.cobblemon.mod.common.api.riding.behaviour.types.land.MinekartBehaviour
 import com.cobblemon.mod.common.api.riding.behaviour.types.liquid.BoatBehaviour
 import com.cobblemon.mod.common.api.riding.behaviour.types.liquid.BurstBehaviour
 import com.cobblemon.mod.common.api.riding.behaviour.types.liquid.DolphinBehaviour
@@ -30,6 +31,7 @@ object RidingBehaviours {
         register(JetBehaviour.KEY, JetBehaviour())
         register(BurstBehaviour.KEY, BurstBehaviour())
         register(VehicleBehaviour.KEY, VehicleBehaviour())
+        register(MinekartBehaviour.KEY, MinekartBehaviour())
         register(HoverBehaviour.KEY, HoverBehaviour())
         register(RocketBehaviour.KEY, RocketBehaviour())
         register(CompositeBehaviour.KEY, CompositeBehaviour())

@@ -469,7 +469,7 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         state: BirdState,
         vehicle: PokemonEntity
     ): Boolean {
-        return true
+        return false
     }
 
     override fun getRideSounds(
