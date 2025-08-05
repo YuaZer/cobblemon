@@ -568,6 +568,9 @@ open class PokemonEntity(
         if (passengers.isNotEmpty() && level().isClientSide) {
             rideSoundManager.tick()
             ridingAnimationData.update()
+        } else if (!passengers.isNotEmpty() && level().isClientSide)
+        {
+            rideSoundManager.stop()
         }
 
         flyDistO = flyDist
