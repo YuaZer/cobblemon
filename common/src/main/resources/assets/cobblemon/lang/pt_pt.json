@@ -6095,5 +6095,13 @@
     "cobblemon.behaviour.pokemon_follows_owner.desc": "Segue o dono, mais raramente se estiver numa pastagem.",
     "cobblemon.behaviour.pokemon_sleeps_on_trainer_bed.name": "Pokémon Dorme na Cama do Treinador",
     "cobblemon.behaviour.pokemon_sleeps_on_trainer_bed.desc": "Pokémon que conseguem dormir irão descansar em cima do treinador se este se deitar na cama.",
-    "npc.variable.player_win_command.desc": "Comando a ser executado quando um jogador ganha contra o NPC. Usa {{player}} onde o nome do jogador deve estar."
+    "npc.variable.player_win_command.desc": "Comando a ser executado quando um jogador ganha contra o NPC. Usa {{player}} onde o nome do jogador deve estar.",
+    "cobblemon.entity.variable.see_distance.name": "Alcance da Visão",
+    "cobblemon.entity.variable.see_distance.desc": "Distância máxima a que a entidade pode ver outras entidades, para olhar para elas.",
+    "cobblemon.entity.variable.stop_being_angry_if_attacker_dead.name": "Deixa de estar Zangado se Atacante Morto",
+    "cobblemon.entity.variable.stop_being_angry_if_attacker_dead.desc": "Se a entidade deixará de estar zangada se o atacante estiver morto.",
+    "cobblemon.behaviour.floats.name": "Permanece a Flutuar",
+    "cobblemon.behaviour.floats.desc": "Mantém-se acima da água quando submerso.",
+    "npc.variable.player_win_command.name": "Comando de Vitória do Jogador",
+    "npc.variable.player_lose_command.name": "Comando de Derrota do Jogador"
 }
