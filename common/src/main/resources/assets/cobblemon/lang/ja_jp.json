@@ -5118,7 +5118,7 @@
     "cobblemon.species.arboliva.name": "オリーヴァ",
     "cobblemon.species.arboliva.desc": "穏やかで とても 慈悲深い。 栄養豊富な 美味しい オイルを 弱った ポケモンに 分け与える。",
     "cobblemon.species.squawkabilly.name": "イキリンコ",
-    "cobblemon.species.squawkabilly.desc": "街中で 暮らすことを 好む。 羽の 色で グループを 作り 縄張り争いを 繰り広げる。",
+    "cobblemon.species.squawkabilly.desc": "緑色の 羽の イキリンコが 最大勢力。エサを 探す 朝と 晩は とても 騒がしい。",
     "cobblemon.species.nacli.name": "コジオ",
     "cobblemon.species.nacli.desc": "地底の 岩塩層で 生まれた。 貴重な 塩を 分けてくれるため 昔は とくに 大事にされた。",
     "cobblemon.species.naclstack.name": "ジオヅム",
@@ -7298,7 +7298,11 @@
     "cobblemon.mark.mark_weather_blizzard.desc": "こごえふるえる ポケモンである あかし",
     "cobblemon.species.squawkabilly-blue.desc": "青い 羽の グループは 最大勢力である 緑の 羽の グループを ライバル視している。",
     "cobblemon.ui.pokedex.info.form.squawkabilly-yellow": "黄色の イキリンコは とくに 荒っぽい。ほかの 鳥ポケモンを 街から 追い出したこともある。",
-    "cobblemon.species.squawkabilly-yellow.desc": "いちばん 数の 少ない 色だが 建物の 色に 紛れるため 街中では 暮らしやすいのだ。",
+    "cobblemon.species.squawkabilly-yellow.desc": "黄色の イキリンコは とくに 荒っぽい。ほかの 鳥ポケモンを 街から 追い出したこともある。",
     "cobblemon.species.squawkabilly-white.desc": "いちばん 数の 少ない 色だが 建物の 色に 紛れるため 街中では 暮らしやすいのだ。",
-    "cobblemon.species.aegislash-blade.desc": "攻撃に 特化した 体勢。 鋼の 重さと 強度を 活かして 相手を 叩き割る。"
+    "cobblemon.species.aegislash-blade.desc": "攻撃に 特化した 体勢。 鋼の 重さと 強度を 活かして 相手を 叩き割る。",
+    "cobblemon.species.appletun-gmax.desc": "体内の 蜜を 大量に 噴射して 浴びせかけ べたべたの 粘液の 中で 窒息させる。",
+    "cobblemon.species.stunfisk-galar.desc": "泥に 隠れて 目立つ 唇で 獲物を おびき寄せる。ギザギザの 鋼の ヒレで がっちり 挟む。",
+    "cobblemon.species.tatsugiri-droopy.desc": "体の色や 模様の 違いは おびき寄せる 獲物の 好みに 合わせて 変化した 結果らしい。",
+    "cobblemon.species.tatsugiri-stretchy.desc": "鳥ポケモンが おもな 獲物だ。自分の 弱さを 知っており 仲間と コンビで 狩りをするぞ。"
 }
