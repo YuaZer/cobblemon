@@ -273,7 +273,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
     }
 
     /*
-    *  Normalizes the current val between minVal and maxVal.
+    *  lerps the current val between minVal and maxVal.
     *  The result is clamped between 0.0 and 1.0, where 0.0 represents minVal and 1.0 represents maxVal.
     */
     private fun inverseLerp(currVal: Double, minVal: Double, maxVal: Double): Double {

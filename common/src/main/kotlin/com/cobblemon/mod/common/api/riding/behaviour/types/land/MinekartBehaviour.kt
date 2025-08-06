@@ -35,6 +35,7 @@ import org.joml.Matrix3f
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.pow
 import kotlin.math.sign
 
 class MinekartBehaviour : RidingBehaviour<MinekartSettings, MinekartState> {
@@ -140,17 +141,21 @@ class MinekartBehaviour : RidingBehaviour<MinekartSettings, MinekartState> {
         var newMomentum = state.turnMomentum.get().toDouble()
 
         //TODO: maybe tie this to max turnspeeds rather than the turn acceleration
+        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
         val turningAcceleration = (vehicle.runtime.resolveDouble(settings.handlingExpr) * 1.5 / 20.0f) / 20.0f * 4.0
         val turnInput =  (driver.xxa *-1.0f) * turningAcceleration
-        val forcedDriftTurnMomentum = 100.0f / 20.0f
-        val maxTurnMomentum = 80.0f / 20.0f
-        val maxDriftMomentum = forcedDriftTurnMomentum * 0.5f
+        val driftInput = turnInput * 0.25f
+
+        val lowSpeedTurnBoost = (inverseLerp(vehicle.deltaMovement.horizontalDistance(), 0.0, topSpeed ).pow(0.5) - 2.0f) * -1.0f
+        val forcedDriftTurnMomentum = (80.0f / 20.0f) * lowSpeedTurnBoost
+        val maxTurnMomentum = (60.0f / 20.0f) * lowSpeedTurnBoost
+        val maxDriftMomentum = forcedDriftTurnMomentum * 0.6f
 
         if (!state.drifting.get()){
             // perform non drift turning
             if(abs(newMomentum) <= maxTurnMomentum && turnInput != 0.0 ) {
                 newMomentum += turnInput
-                newMomentum.coerceIn(-maxTurnMomentum.toDouble(), maxTurnMomentum.toDouble())
+                newMomentum = min(max(newMomentum, maxTurnMomentum * -1.0), maxTurnMomentum.toDouble())
             } else {
                 newMomentum = lerp(newMomentum, 0.0, 0.15)
             }
@@ -160,17 +165,17 @@ class MinekartBehaviour : RidingBehaviour<MinekartSettings, MinekartState> {
             return Vec2(driver.xRot, vehicle.yRot + newMomentum.toFloat())
         } else {
             // perform drift turning
-            if(abs(newMomentum) <= maxDriftMomentum && turnInput != 0.0 ) {
-                newMomentum += turnInput
-                newMomentum.coerceIn(-maxDriftMomentum.toDouble(), maxDriftMomentum.toDouble())
+            if(abs(newMomentum) <= maxDriftMomentum && driftInput != 0.0 ) {
+                newMomentum += driftInput
+                newMomentum = min(max(newMomentum, maxDriftMomentum * -1.0), maxDriftMomentum.toDouble())
             } else {
-                newMomentum = lerp(newMomentum, 0.0, 0.15)
+                      newMomentum = lerp(newMomentum, 0.0, 0.15)
             }
 
-            val signedDriftTurn = if(state.clockwiseDrift.get()) forcedDriftTurnMomentum else forcedDriftTurnMomentum * -1.0f
+            val signedDriftTurn = if(state.clockwiseDrift.get()) forcedDriftTurnMomentum * -1.0f else forcedDriftTurnMomentum
             state.turnMomentum.set(newMomentum.toFloat())
-            driver.yRot += newMomentum.toFloat()
-            return Vec2(driver.xRot, vehicle.yRot + newMomentum.toFloat() + signedDriftTurn)
+            driver.yRot += newMomentum.toFloat() + signedDriftTurn.toFloat()
+            return Vec2(driver.xRot, vehicle.yRot + newMomentum.toFloat() + signedDriftTurn.toFloat())
         }
 
 
@@ -197,21 +202,16 @@ class MinekartBehaviour : RidingBehaviour<MinekartSettings, MinekartState> {
 
         // Check to see if the ride should be walking or sprinting
         val rideTopSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) * 0.6 * 2.0
-        val topSpeed = if (state.drifting.get()) rideTopSpeed * 0.5 else rideTopSpeed
-
+        val topSpeed = if (state.drifting.get()) rideTopSpeed * 0.7 else rideTopSpeed
         val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) * 0.3 * 3 * 2.0
-
-        //Flag for determining if player is actively inputting
-        var activeInput = false
+        val driftAngle = 20.0f
 
         //Align the direction of this vector with the vehicles current heading.
         var newVelocity = vehicle.deltaMovement
         newVelocity = newVelocity.yRot(vehicle.yRot.toRadians())
 
-        //  rotate the angle of force if drifting
+        // rotate the angle of force if drifting
         if (state.drifting.get()) {
-            //TODO: Check to see if this is the correct direction
-            val driftAngle = 20.0f
             val signedDriftAngle = if(state.clockwiseDrift.get()) driftAngle else driftAngle * -1.0f
             newVelocity = newVelocity.yRot(signedDriftAngle.toRadians())
         }
@@ -229,12 +229,13 @@ class MinekartBehaviour : RidingBehaviour<MinekartSettings, MinekartState> {
                 forwardInput = 2.0;
             }
 
+            // If drifting we need more acceleration due to the constant turn
+            val driftAccelBoost = if (state.drifting.get()) 1.5 else 1.0
+
             newVelocity = Vec3(
                 newVelocity.x,
                 newVelocity.y,
-                (newVelocity.z + (accel * forwardInput.toDouble())))
-
-            activeInput = true
+                (newVelocity.z + (accel * forwardInput.toDouble() * driftAccelBoost)))
         }
 
         // Gravity logic
@@ -253,7 +254,7 @@ class MinekartBehaviour : RidingBehaviour<MinekartSettings, MinekartState> {
 
         //ground Friction
         var friction = 0.003 * 2.0
-        if (state.drifting.get()) {friction *= 0.1}
+        if (state.drifting.get()) {friction *= 0.5}
         if (!state.inAir.get()) {
             newVelocity = newVelocity.subtract(
                 min(friction , abs(newVelocity.x)) * newVelocity.x.sign,
@@ -273,16 +274,31 @@ class MinekartBehaviour : RidingBehaviour<MinekartSettings, MinekartState> {
         }
 
         //TODO: Change this so its tied to a jumping stat and representative of the amount of jumps
-        val canJump = vehicle.runtime.resolveBoolean(settings.canJump)
-        //Jump the thang!
-        if (driver.jumping && vehicle.onGround() && canJump) {
-            val jumpForce = 0.5
+//        val canJump = vehicle.runtime.resolveBoolean(settings.canJump)
+//        //Jump the thang!
+//        if (driver.jumping && vehicle.onGround() && canJump) {
+//            val jumpForce = 0.5
+//
+//            newVelocity = newVelocity.add(0.0, jumpForce, 0.0)
+//
+//        }
 
-            newVelocity = newVelocity.add(0.0, jumpForce, 0.0)
-
+        // unrotate the angle of force if drifting
+        if (state.drifting.get()) {
+            val inverseSignedDriftAngle = if(state.clockwiseDrift.get()) driftAngle * -1.0f else driftAngle
+            newVelocity = newVelocity.yRot(inverseSignedDriftAngle.toRadians())
         }
 
         return newVelocity
+    }
+
+    /*
+    *  lerps the current val between minVal and maxVal.
+    *  The result is clamped between 0.0 and 1.0, where 0.0 represents minVal and 1.0 represents maxVal.
+    */
+    private fun inverseLerp(currVal: Double, minVal: Double, maxVal: Double): Double {
+        require(maxVal > minVal) { "minVal must be greater than maxVal" }
+        return ((currVal - minVal) / (maxVal - minVal)).coerceIn(0.0, 1.0)
     }
 
     override fun angRollVel(
