@@ -7295,5 +7295,10 @@
     "cobblemon.mark.mark_weather_rainy.desc": "あめにむせぶ ポケモンである あかし",
     "cobblemon.mark.mark_weather_dry.desc": "のどカラカラの ポケモンである あかし",
     "cobblemon.mark.mark_personality_zero_energy.desc": "やるきゼロの ポケモンである あかし",
-    "cobblemon.mark.mark_weather_blizzard.desc": "こごえふるえる ポケモンである あかし"
+    "cobblemon.mark.mark_weather_blizzard.desc": "こごえふるえる ポケモンである あかし",
+    "cobblemon.species.squawkabilly-blue.desc": "青い 羽の グループは 最大勢力である 緑の 羽の グループを ライバル視している。",
+    "cobblemon.ui.pokedex.info.form.squawkabilly-yellow": "黄色の イキリンコは とくに 荒っぽい。ほかの 鳥ポケモンを 街から 追い出したこともある。",
+    "cobblemon.species.squawkabilly-yellow.desc": "いちばん 数の 少ない 色だが 建物の 色に 紛れるため 街中では 暮らしやすいのだ。",
+    "cobblemon.species.squawkabilly-white.desc": "いちばん 数の 少ない 色だが 建物の 色に 紛れるため 街中では 暮らしやすいのだ。",
+    "cobblemon.species.aegislash-blade.desc": "攻撃に 特化した 体勢。 鋼の 重さと 強度を 活かして 相手を 叩き割る。"
 }
