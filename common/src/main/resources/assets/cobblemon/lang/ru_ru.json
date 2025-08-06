@@ -6062,7 +6062,7 @@
     "block.cobblemon.dusk_stone_block": "Блок сумеречного камня",
     "cobblemon.fishing_bait_effect_header": "Эффекты приманки:",
     "cobblemon.fishing_bait_effects.nature.tooltip": "%1$s%% - Привлекает %2$s характер",
-    "cobblemon.fishing_bait_effects.iv.tooltip": "%1$s%% - Индивидуальные очки (ИО/IV) %2$s +%3$s",
+    "cobblemon.fishing_bait_effects.iv.tooltip": "%1$s%% - индивидуальные очки (ИО/IV) %2$s +%3$s",
     "cobblemon.ui.starter.narrator.backbutton": "Нажата кнопка назад",
     "cobblemon.ui.moves.forget": "Забыть приём",
     "item.cobblemon.automaton_armor_trim_smithing_template": "Кузнечный шаблон",
@@ -6302,5 +6302,15 @@
     "item.cobblemon.rare_candy.tooltip": "Повышает уровень Покемона на один",
     "item.cobblemon.exp_candy_s.tooltip": "Повышает уровень Покемона на 800 очков опыта",
     "item.cobblemon.exp_candy_m.tooltip": "Повышает уровень Покемона на 3000 очков опыта",
-    "item.cobblemon.exp_candy_xl.tooltip": "Повышает уровень Покемона на 30000 очков опыта"
+    "item.cobblemon.exp_candy_xl.tooltip": "Повышает уровень Покемона на 30000 очков опыта",
+    "item.cobblemon.iron.tooltip": "Повышает тренировочные очки (ТО/EV) Защиты у Покемона на 10",
+    "item.cobblemon.potion.tooltip": "Восстанавливает 20 ОЗ Покемону",
+    "item.cobblemon.carbos.tooltip": "Повышает тренировочные очки (ТО/EV) Скорости у Покемона на 10",
+    "item.cobblemon.calcium.tooltip": "Повышает тренировочные очки (ТО/EV) Спец. Атаки у Покемона на 10",
+    "item.cobblemon.hp_up.tooltip": "Повышает тренировочные очки (ТО/EV) ОЗ у Покемона на 10",
+    "item.cobblemon.protein.tooltip": "Повышает тренировочные очки (ТО/EV) Атаки у Покемона на 10",
+    "item.cobblemon.zinc.tooltip": "Повышает тренировочные очки (ТО/EV) Спец. Защиты у Покемона на 10",
+    "item.cobblemon.super_potion.tooltip": "Восстанавливает 60 ОЗ Покемону",
+    "item.cobblemon.hyper_potion.tooltip": "Восстанавливает 120 ОЗ Покемону",
+    "item.cobblemon.max_potion.tooltip": "Полностью восстанавливает ОЗ Покемону"
 }
