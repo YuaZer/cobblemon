@@ -6103,5 +6103,7 @@
     "cobblemon.behaviour.floats.name": "Permanece a Flutuar",
     "cobblemon.behaviour.floats.desc": "Mantém-se acima da água quando submerso.",
     "npc.variable.player_win_command.name": "Comando de Vitória do Jogador",
-    "npc.variable.player_lose_command.name": "Comando de Derrota do Jogador"
+    "npc.variable.player_lose_command.name": "Comando de Derrota do Jogador",
+    "cobblemon.config.ui.big_root_propagation_chance.tooltip": "A chance de que Raízes Grandes façam mais raízes crescer onde for possível.",
+    "cobblemon.config.ui.big_root_propagation_chance": "Chance de Propagação de Raiz Grande"
 }
