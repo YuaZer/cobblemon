@@ -323,7 +323,7 @@
     "item.cobblemon.sandy_mulch": "Adubo Arenoso",
     "item.cobblemon.surprise_mulch": "Adubo Surpresa",
     "item.cobblemon.medicinal_leek": "Alho-porro Medicinal",
-    "item.cobblemon.energy_root": "Raiz de Energia",
+    "item.cobblemon.energy_root": "Raiz Energética",
     "item.cobblemon.revival_herb": "Erva do Renascimento",
     "item.cobblemon.roasted_leek": "Alho-porro Assado",
     "item.cobblemon.leek_and_potato_stew": "Ensopado de Alho-porro e Batata",
@@ -6105,5 +6105,7 @@
     "npc.variable.player_win_command.name": "Comando de Vitória do Jogador",
     "npc.variable.player_lose_command.name": "Comando de Derrota do Jogador",
     "cobblemon.config.ui.big_root_propagation_chance.tooltip": "A chance de que Raízes Grandes façam mais raízes crescer onde for possível.",
-    "cobblemon.config.ui.big_root_propagation_chance": "Chance de Propagação de Raiz Grande"
+    "cobblemon.config.ui.big_root_propagation_chance": "Chance de Propagação de Raiz Grande",
+    "cobblemon.config.ui.energy_root_chance": "Chance de Raiz Energética",
+    "cobblemon.config.ui.energy_root_chance.tooltip": "A chance de uma Raiz Grande fazer uma Raiz Energética crescer."
 }
