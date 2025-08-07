@@ -90,8 +90,6 @@ class BirdNoRollBehaviour : RidingBehaviour<BirdNoRollSettings, BirdNoRollState>
         //Translate ride space velocity to world space velocity.
         val controller = (driver as? OrientationControllable)?.orientationController
         if (controller != null) {
-            //Need to deadzone this when straight up or down
-
             upForce += -1.0 * sin(Math.toRadians(controller.pitch.toDouble())) * state.rideVelocity.get().z
             forwardForce += cos(Math.toRadians(controller.pitch.toDouble())) * state.rideVelocity.get().z
 
@@ -99,20 +97,10 @@ class BirdNoRollBehaviour : RidingBehaviour<BirdNoRollSettings, BirdNoRollState>
             forwardForce += sin(Math.toRadians(controller.pitch.toDouble())) * state.rideVelocity.get().y
         }
 
-
         //Bring the ride out of the sky when stamina is depleted.
         if (state.stamina.get() <= 0.0) {
             upForce -= 0.3
         }
-
-        val altitudeLimit = vehicle.runtime.resolveDouble(settings.jumpExpr)
-
-        //Only limit altitude if altitude is not infinite
-        if (!vehicle.runtime.resolveBoolean(settings.infiniteAltitude)) {
-            //Provide a hard limit on altitude
-            upForce = if (vehicle.y >= altitudeLimit && upForce > 0) 0.0 else upForce
-        }
-
 
         val velocity = Vec3(state.rideVelocity.get().x , upForce, forwardForce)
         return velocity

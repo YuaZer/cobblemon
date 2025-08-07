@@ -107,14 +107,6 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
             upForce -= 0.3
         }
 
-        val altitudeLimit = vehicle.runtime.resolveDouble(settings.jumpExpr)
-
-        //Only limit altitude if altitude is not infinite
-        if (!vehicle.runtime.resolveBoolean(settings.infiniteAltitude)) {
-            //Provide a hard limit on altitude
-            upForce = if (vehicle.y >= altitudeLimit && upForce > 0) 0.0 else upForce
-        }
-
 
         val velocity = Vec3(state.rideVelocity.get().x , upForce, forwardForce)
         return velocity
@@ -129,12 +121,7 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         val glideTopSpeed = vehicle.runtime.resolveDouble(settings.glidespeedExpr)
         val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr)
         val staminaStat = vehicle.runtime.resolveDouble(settings.staminaExpr)
-
         var glideSpeedChange = 0.0
-
-        val currSpeed = state.rideVelocity.get().length()
-
-        //Flag for determining if player is actively inputting
         var activeInput = false
 
         var newVelocity = Vec3(state.rideVelocity.get().x, state.rideVelocity.get().y, state.rideVelocity.get().z)

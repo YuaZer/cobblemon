@@ -122,14 +122,6 @@ class JetNoRollBehaviour : RidingBehaviour<JetNoRollSettings, JetNoRollState> {
         //If stamina has run out then initiate forced glide down.
         upForce = if (state.stamina.get() > 0.0) upForce else -0.7
 
-        val altitudeLimit = vehicle.runtime.resolveDouble(settings.jumpExpr)
-
-        //Only limit altitude if altitude is not infinite
-        if (!vehicle.runtime.resolveBoolean(settings.infiniteAltitude)) {
-            //Provide a hard limit on altitude
-            upForce = if (vehicle.y >= altitudeLimit && upForce > 0) 0.0 else upForce
-        }
-
         val velocity = Vec3(0.0, upForce, forwardForce)
 
         return velocity
@@ -146,17 +138,12 @@ class JetNoRollBehaviour : RidingBehaviour<JetNoRollSettings, JetNoRollState> {
     ) {
         val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
         val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr)
-        val altitudeLimit = vehicle.runtime.resolveDouble(settings.jumpExpr)
         val minSpeed = vehicle.runtime.resolveDouble(settings.minSpeed)
         val speed = state.rideVelocity.get().length()
 
-        //Give no altitude limit if at max jump stat.
-        val pushingHeightLimit = if (vehicle.runtime.resolveBoolean(settings.infiniteStamina)) false
-        else (vehicle.y >= altitudeLimit && vehicle.xRot <= 0)
-
 
         //speed up and slow down based on input
-        if (driver.zza > 0.0 && speed < topSpeed && state.stamina.get() > 0.0f && !pushingHeightLimit) {
+        if (driver.zza > 0.0 && speed < topSpeed && state.stamina.get() > 0.0f) {
             //modify acceleration to be slower when at closer speeds to top speed
             val accelMod = max(-(normalizeSpeed(speed, minSpeed, topSpeed)) + 1, 0.0)
             state.rideVelocity.set(
@@ -166,7 +153,7 @@ class JetNoRollBehaviour : RidingBehaviour<JetNoRollSettings, JetNoRollState> {
                     min(state.rideVelocity.get().z + (accel * accelMod), topSpeed)
                 )
             )
-        } else if (driver.zza >= 0.0 && (state.stamina.get() == 0.0f || pushingHeightLimit)) {
+        } else if (driver.zza >= 0.0 && (state.stamina.get() == 0.0f)) {
             state.rideVelocity.set(
                 Vec3(
                     state.rideVelocity.get().x,
@@ -409,9 +396,6 @@ class JetNoRollSettings : RidingBehaviourSettings {
     var infiniteStamina: Expression = "false".asExpression()
         private set
 
-    var infiniteAltitude: Expression = "false".asExpression()
-        private set
-
     var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'AIR', 300.0, 128.0)".asExpression()
         private set
     var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 140.0, 20.0)".asExpression()
@@ -433,7 +417,6 @@ class JetNoRollSettings : RidingBehaviourSettings {
         buffer.writeExpression(minSpeed)
         buffer.writeExpression(handlingYawExpr)
         buffer.writeExpression(infiniteStamina)
-        buffer.writeExpression(infiniteAltitude)
         buffer.writeExpression(jumpExpr)
         buffer.writeExpression(handlingExpr)
         buffer.writeExpression(speedExpr)
@@ -447,7 +430,6 @@ class JetNoRollSettings : RidingBehaviourSettings {
         minSpeed = buffer.readExpression()
         handlingYawExpr = buffer.readExpression()
         infiniteStamina = buffer.readExpression()
-        infiniteAltitude = buffer.readExpression()
         jumpExpr = buffer.readExpression()
         handlingExpr = buffer.readExpression()
         speedExpr = buffer.readExpression()
