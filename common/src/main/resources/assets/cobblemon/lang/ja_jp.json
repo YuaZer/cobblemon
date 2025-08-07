@@ -578,7 +578,7 @@
     "key.cobblemon.translateportraitright": "画像を右に移動",
     "key.cobblemon.printmodelsettings": "モデル表示設定",
     "key.cobblemon.categories.cobblemon.debug": "Cobblemonデバッグ",
-    "cobblemon.subtitle.poke_ball.capture_succeeded": "モンスターボールの捕獲に成功",
+    "cobblemon.subtitle.poke_ball.capture_succeeded": "やったー! ポケモンを 捕まえたぞ!",
     "cobblemon.subtitle.fossilmachine.activate": "ふくげんマシン 起動!",
     "cobblemon.subtitle.fossilmachine.active_loop": "マシンが うなっている……",
     "cobblemon.subtitle.fossilmachine.dna_full": "タンクが 一杯に なった!",
@@ -7584,5 +7584,6 @@
     "cobblemon.ui.pokedex.info.form.tyranitar": " ",
     "cobblemon.ui.pokedex.info.form.swampert": " ",
     "cobblemon.ui.pokedex.info.form.mawile": " ",
-    "cobblemon.ui.pokedex.info.form.sableye": " "
+    "cobblemon.ui.pokedex.info.form.sableye": " ",
+    "cobblemon.subtitle.wallpaper.unlock": "パソコンのボックスに使える壁紙がアンロックされた!"
 }
