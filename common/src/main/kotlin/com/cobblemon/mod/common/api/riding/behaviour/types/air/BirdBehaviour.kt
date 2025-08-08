@@ -304,15 +304,18 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         val smoothingSpeed = 4.0
         val invertRoll = if (Cobblemon.config.invertRoll) -1 else 1
         val invertPitch = if (Cobblemon.config.invertPitch) -1 else 1
+        val rollSensitivity = Cobblemon.config.rollSensitivity
+        val pitchSensitivity = Cobblemon.config.pitchSensitivity
+        val swapRollAndPitch = Cobblemon.config.swapRollAndPitch
         val mouseXc = (mouseX).coerceIn(-60.0, 60.0)
         val mouseYc = (mouseY).coerceIn(-60.0, 60.0)
-        val xInput = mouseXSmoother.getNewDeltaValue(mouseXc * 0.1 * invertRoll, deltaTime * smoothingSpeed);
-        val yInput = mouseYSmoother.getNewDeltaValue(mouseYc * 0.1 * invertPitch, deltaTime * smoothingSpeed);
+        val rollInput = mouseXSmoother.getNewDeltaValue((if (swapRollAndPitch) mouseYc else mouseXc) * 0.1 * invertRoll * rollSensitivity, deltaTime * smoothingSpeed);
+        val pitchInput = mouseYSmoother.getNewDeltaValue(if (swapRollAndPitch) mouseXc else mouseYc * 0.1 * invertPitch * pitchSensitivity, deltaTime * smoothingSpeed);
 
         //limit rolling based on handling and current speed.
         //modulated by speed so that when flapping idle in air you are ont wobbling around to look around
         val rotMin = 15.0
-        var rollForce = xInput
+        var rollForce = rollInput
         val rotLimit = max(90 * sqrt(normalizeVal(state.rideVelocity.get().length(), 0.0, topSpeed)), rotMin)
 
         //Limit roll by non linearly decreasing inputs towards
@@ -329,11 +332,11 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         }
 
         //Give the ability to yaw with x mouse input when at low speeds.
-        val yawForce =  xInput * ( 1.0 - sqrt(normalizeVal(state.rideVelocity.get().length(), 0.0, topSpeed)))
+        val yawForce =  rollInput * ( 1.0 - sqrt(normalizeVal(state.rideVelocity.get().length(), 0.0, topSpeed)))
 
         //Yaw locally a bit when up or down so that its more intuitive to make it out of a dive or a straight vertical
         //climb
-        val yawForcePitched = xInput * sin(Math.toRadians(abs(controller.pitch.toDouble()))) * 0.25
+        val yawForcePitched = rollInput * sin(Math.toRadians(abs(controller.pitch.toDouble()))) * 0.25
 
 
         //Apply yaw globally as we don't want roll or pitch changes due to local yaw when looking up or down.
@@ -343,14 +346,14 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
 
 
         // Pitch up globally
-        controller.applyGlobalPitch(-1 * yInput.toFloat())
+        controller.applyGlobalPitch(-1 * pitchInput.toFloat())
         // roll to 0 if pitching and not upside down. This is to prevent odd back and forth wobbling when
         // pitching globally and experiencing axis changes
         if (controller.upVector.dot(Vector3f(0f,1f,0f)) > 0) {
             // correct roll equal to the amount the ride is pitching (yInput)
             // correct roll only when near to horizontal (cos(pitch))
             // correct roll proportional to how rolled the ride currently is
-            rollForce += controller.roll * -0.01 * abs(yInput) * abs(cos(controller.pitch.toRadians())) * abs(sin(controller.roll.toRadians()))
+            rollForce += controller.roll * -0.01 * abs(pitchInput) * abs(cos(controller.pitch.toRadians())) * abs(sin(controller.roll.toRadians()))
         }
 
         //yaw, pitch, roll
