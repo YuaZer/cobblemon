@@ -6139,5 +6139,20 @@
     "cobblemon.config.ui.default_pastured_pokemon_limit": "Limite Padrão de Pokémon em Pastagens",
     "cobblemon.config.ui.default_pastured_pokemon_limit.tooltip": "O número máximo de Pokémon que podem ser colocados num Bloco de Pastagem.",
     "cobblemon.config.ui.summary_pokemon_follow_cursor": "Fazer com que Pokémon sigam o Cursor",
-    "cobblemon.config.ui.summary_pokemon_follow_cursor.tooltip": "Se Pokémon devem ou não seguir o cursor do rato com as suas cabeças no ecrã de Resumo."
+    "cobblemon.config.ui.summary_pokemon_follow_cursor.tooltip": "Se Pokémon devem ou não seguir o cursor do rato com as suas cabeças no ecrã de Resumo.",
+    "cobblemon.entity.variable.float_chance.desc": "Chance da entidade optar por saltar em direção à superfície a cada tick. Valores mais altos nadam para cima mais rapidamente.",
+    "cobblemon.move.supersonicskystrike.desc": "O utilizador voa com o seu Poder-Z e mergulha a toda a velocidade. O poder varia, dependendo do movimento original.",
+    "cobblemon.battle.sideend.ally.tailwind": "O Vento Caudal da tua equipa dissipou-se!",
+    "cobblemon.battle.sideend.opponent.tailwind": "O Vento Caudal da equipa adversária dissipou-se!",
+    "tag.item.cobblemon.full_heal_bottles": "Garrafas de Cura Completa",
+    "cobblemon.entity.variable.float_chance.name": "Chance de Flutuar",
+    "cobblemon.entity.variable.look_at_entities.name": "Olha para Entidades",
+    "cobblemon.entity.variable.look_at_entities.desc": "Se a entidade irá olhar para as entidades próximas.",
+    "cobblemon.behaviour.wanders.name": "Vagueia",
+    "cobblemon.behaviour.wanders.desc": "Vagueia aleatoriamente.",
+    "cobblemon.behaviour.wanders_water.name": "Vagueia pela Água",
+    "cobblemon.behaviour.wanders_water.desc": "Nada aleatoriamente na água.",
+    "cobblemon.behaviour.wanders_air.name": "Vagueia no Ar",
+    "cobblemon.behaviour.wanders_air.desc": "Voa aleatoriamente pelo ar.",
+    "cobblemon.move.supersonicskystrike": "Picado Supersónico"
 }
