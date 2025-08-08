@@ -390,6 +390,7 @@
 - Adds Flows for `STARTER_CHOSEN`, `EV_GAINED`, `POKEMON_RELEASED`, `POKEMON_NICKNAMED`, `HELD_ITEM`, and `TRADE_COMPLETED` events
 - Adds Pokemon functions for `pokeball`, `held_item`, `remove_held_item`, `add_aspects`, and `remove_aspects`
 - Added `pokemon.hyper_train_iv` as an available Molang function.
+- Added `is_included`, `to_lower`, `to_upper`, and `string_length` as available Molang functions.
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)
 
