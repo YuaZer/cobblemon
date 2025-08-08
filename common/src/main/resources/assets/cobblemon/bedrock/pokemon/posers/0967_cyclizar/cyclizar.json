@@ -60,24 +60,9 @@
       "animations": [
         "q.look('head')",
         "q.bedrock('cyclizar', 'ride_ground_run')",
-        {
-          "condition": "!q.is_drifting && !q.is_powered_drifting",
-          "animation": "q.bedrock('cyclizar', 'ground_run')"
-        },
-        {
-          "condition": "q.is_powered_drifting || q.is_drifting",
-          "animation": "q.bedrock('cyclizar', 'ride_drift')"
-        },
-        {
-          "condition": "q.is_powered_drifting",
-          "animation": "q.bedrock('cyclizar', 'ride_drift_legs')"
-        },
-        {
-          "condition": "q.is_powered_drifting",
-          "animation": "q.bedrock('cyclizar', 'ride_drift_override')"
-        }
+        "q.bedrock('cyclizar', 'ground_run')"
       ],
-      "condition": "q.is_ridden && !q.is_sprinting && !q.in_air",
+      "condition": "q.is_ridden && !q.is_sprinting && !q.in_air && !q.is_drifting && !q.is_powered_drifting",
       "quirks": ["q.bedrock_quirk('cyclizar', 'blink')"],
       "transformTicks": 5,
       "transformToTicks": 5
@@ -88,17 +73,9 @@
       "animations": [
         "q.look('head')",
         "q.bedrock('cyclizar', 'ride_ground_run')",
-        "q.bedrock('cyclizar', 'ride_drift')",
-        {
-          "condition": "q.is_powered_drifting",
-          "animation": "q.bedrock('cyclizar', 'ride_drift_legs')"
-        },
-        {
-          "condition": "q.is_powered_drifting",
-          "animation": "q.bedrock('cyclizar', 'ride_drift_override')"
-        }
+        "q.bedrock('cyclizar', 'ride_drift')"
       ],
-      "condition": "q.is_ridden && !q.is_sprinting && !q.in_air && (q.is_drifting || q.is_powered_drifting)",
+      "condition": "q.is_ridden && !q.is_sprinting && !q.in_air && q.is_drifting && !q.is_powered_drifting",
       "quirks": ["q.bedrock_quirk('cyclizar', 'blink')"],
       "transformTicks": 5,
       "transformToTicks": 5
@@ -113,7 +90,7 @@
         "q.bedrock('cyclizar', 'ride_drift_legs')",
         "q.bedrock('cyclizar', 'ride_drift_override')"
       ],
-      "condition": "q.is_ridden && !q.is_sprinting && !q.in_air && q.is_powered_drifting",
+      "condition": "q.is_ridden && !q.is_sprinting && !q.in_air && !q.is_drifting && q.is_powered_drifting",
       "quirks": ["q.bedrock_quirk('cyclizar', 'blink')"],
       "transformTicks": 5,
       "transformToTicks": 5
