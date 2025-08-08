@@ -93,7 +93,7 @@ class SentOutState() : ActivePokemonState() {
         this.dimension = entity.level().dimension()
     }
 
-    override fun getIcon(pokemon: Pokemon) = cobblemonResource("textures/gui/party/party_icon_released.png")
+    override fun getIcon(pokemon: Pokemon) = cobblemonResource("textures/gui/party/party_icon_${if ((pokemon.entity?.countPlayerPassengers() ?: 0) > 0) "mounted" else "released"}.png")
     override fun writeToNBT(nbt: CompoundTag) = null
     override fun writeToJSON(json: JsonObject) = null
 
