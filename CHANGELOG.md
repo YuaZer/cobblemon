@@ -307,6 +307,8 @@
 - Fixed Moon Ball moon phase logic to actually work correctly
 - Fixed `/pokedex printcalculations` to now show the correct percentage completed of the Pokedex
 - Fixed mod incompatibility with the `Raised` mod
+- Fixed a vulnerability that could cause party and PC rollbacks under specific circumstances.
+- Fixed a rare edge case where sorting your PC could be rolled back later.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -347,7 +349,8 @@
 - Added PokedexManager.obtain as a replacement for .catch which is not a friendly function name in Java.
 
 - Added `Pokemon#hyperTrainIV()` and `IVs#setHyperTrainedIV(Stat, Int)`
-- `ElementalType` now implelments `ShowdownIdentifiable` to ensure the communcation with showdown stays consistent (also in regards to TeraTypes)
+- `ElementalType` now implements `ShowdownIdentifiable` to ensure the communcation with showdown stays consistent (also in regards to TeraTypes)
+- Pokemon no longer have a change observable
   
 ### MoLang & Datapacks
 - The following usages for item predicates can now use item conditions like advancements do, you can learn about them in the [Minecraft wiki](https://minecraft.wiki/w/Advancement_definition#minecraft:filled_bucket)
