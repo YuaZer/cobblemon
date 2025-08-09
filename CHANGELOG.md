@@ -51,6 +51,8 @@
 
 #### Gen 3
 - Azurill
+- Electrike
+- Manectric
 - Spoink
 - Grumpig
 - Snorunt
@@ -92,6 +94,10 @@
 - Mienshao
 
 #### Gen 6
+- Skiddo
+- Gogoat
+- Espurr
+- Meowstic
 - Inkay
 - Malamar
 - Hawlucha
@@ -100,9 +106,16 @@
 - Noivern
 
 #### Gen 7
+- Yungoos
+- Gumshoos
 - Drampa
 
 #### Gen 8
+- Skwovet
+- Greedent
+- Toxel
+- Toxtricity
+- Morpeko
 - Silicobra
 - Sandaconda
 - Sinistea
