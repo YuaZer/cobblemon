@@ -40,7 +40,8 @@
   - Ground type Pokémon are immune to lightning damage
 - Added functionality to Everstone when held by a Pokémon; suppresses evolution notification and hides evolve button in summary interface.
 - Added new optional property `attachment_options` for most EmitterShapes to be attached to the locator/entities scale, rotation, and/or position. Position is true by default.
-- Galarica Nut bushes now generate on beaches
+- Galarica Nut bushes now generate on beaches.
+- Some Pokémon now pitch their bodies in the direction they're moving.
 
 ### Pokémon Added
 
@@ -398,6 +399,7 @@
 - Added `q.has_argument(<argument_name>, [argument_value])` MoLang function to several battle-related action effect contexts.
 - Added `q.has_argument_at(<index>, [argument_value])` MoLang function to several battle-related action effect contexts.
 - Added `q.hit_count` MoLang function to move action effect contexts.
+- Added `is_included`, `to_lower`, `to_upper`, and `string_length` as available Molang functions.
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)
 

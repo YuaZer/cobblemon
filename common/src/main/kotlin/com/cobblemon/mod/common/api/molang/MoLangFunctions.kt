@@ -168,6 +168,20 @@ object MoLangFunctions {
             val replace = params.getString(2)
             return@Function StringValue(text.replace(search, replace))
         },
+        "is_included" to java.util.function.Function { params ->
+            val text = params.getString(0)
+            val search = params.getString(1)
+            return@Function DoubleValue(text.contains(search))
+        },
+        "to_lower" to java.util.function.Function { params ->
+            return@Function StringValue(params.getString(0).lowercase())
+        },
+        "to_upper" to java.util.function.Function { params ->
+            return@Function StringValue(params.getString(0).uppercase())
+        },
+        "string_length" to java.util.function.Function { params ->
+            return@Function DoubleValue(params.getString(0).length)
+        },
         "is_blank" to java.util.function.Function { params ->
             val arg = params.get<MoValue>(0)
             return@Function DoubleValue((arg is StringValue && (arg.value.isBlank() || arg.value.toDoubleOrNull() == 0.0)) || (arg is DoubleValue && arg.value == 0.0))
@@ -692,6 +706,9 @@ object MoLangFunctions {
                 }
                 val owner = entity.owner
                 return@put owner?.asMostSpecificMoLangValue() ?: DoubleValue.ZERO
+            }
+            map.put("delta_movement") {
+                return@put listOf(entity.deltaMovement.x, entity.deltaMovement.y, entity.deltaMovement.z).asArrayValue(::DoubleValue)
             }
 
             if (entity is MoLangScriptingEntity) {
