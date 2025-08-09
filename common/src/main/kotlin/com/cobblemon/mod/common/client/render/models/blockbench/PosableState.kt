@@ -45,7 +45,6 @@ import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.resources.sounds.SimpleSoundInstance
 import net.minecraft.commands.arguments.item.ItemParser
 import net.minecraft.sounds.SoundEvent
-import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.phys.Vec3
@@ -72,9 +71,10 @@ abstract class PosableState : Schedulable {
             field = value
             if (value != null && changed) {
                 runtime.environment.query.addFunctions(value.functions.functions)
-
                 val entity = getEntity() as? PosableEntity ?: return
                 entity.struct.addFunctions(value.functions.functions)
+                // clear locators to remove potentially non-existent locators from previous model
+                locatorStates.clear()
                 // Locators need to be initialized asap, even if they aren't in perfect positions. The reason for this
                 // is that the locators might be called upon by frame 0 particle effects and if they aren't defined
                 // it'll crash. For non-entity states we don't give a shit though.
@@ -342,14 +342,14 @@ abstract class PosableState : Schedulable {
                 val locator = if (params.params.size > 1) params.getString(1) else "root"
                 val effect = BedrockParticleOptionsRepository.getEffect(effectId) ?: run {
                     LOGGER.error("Unable to find a particle effect with id $effectId")
-                    return@addFunction Unit
+                    return@addFunction DoubleValue.ZERO
                 }
 
-                val entity = getEntity() ?: return@addFunction Unit
+                val entity = getEntity() ?: return@addFunction DoubleValue.ZERO
                 val world = entity.level() as ClientLevel
 
-                val rootMatrix = locatorStates["root"]!!
-                val locatorMatrix = locatorStates[locator] ?: locatorStates["root"]!!
+                val rootMatrix = locatorStates["root"] ?: return@addFunction DoubleValue.ZERO // Played before it's on screen for the first time
+                val locatorMatrix = locatorStates[locator] ?: rootMatrix
                 val particleMatrix = effect.emitter.space.initializeEmitterMatrix(rootMatrix, locatorMatrix)
                 val particleRuntime = MoLangRuntime().setup().setupClient()
                 particleRuntime.environment.query.addFunction("entity") { runtime.environment.query }
@@ -358,7 +358,7 @@ abstract class PosableState : Schedulable {
                         effect = effect,
                         entity = entity,
                         emitterSpaceMatrix = particleMatrix,
-                        locatorSpaceMatrix = locatorMatrix,
+                        attachedMatrix = locatorMatrix,
                         world = world,
                         runtime = particleRuntime,
                         sourceVelocity = { entity.deltaMovement },

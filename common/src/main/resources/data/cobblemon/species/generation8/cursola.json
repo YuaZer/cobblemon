@@ -43,10 +43,10 @@
   "catchRate": 30,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.9,
   "hitbox": {
     "width": 1,
-    "height": 1,
+    "height": 2,
     "fixed": false
   },
   "behaviour": {
@@ -57,6 +57,11 @@
         "canBreatheUnderwater": true,
         "swimSpeed": "0.2"
       }
+    },
+    "resting": {
+      "canSleep": true,
+      "willSleepOnBed": false,
+      "light": "0-4"
     }
   },
   "drops": {

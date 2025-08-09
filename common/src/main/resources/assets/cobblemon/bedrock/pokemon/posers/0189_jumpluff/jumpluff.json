@@ -1,0 +1,65 @@
+{
+  "portraitScale": 2.04,
+  "portraitTranslation": [ -0.06, -1.12, 0],
+  "profileScale": 0.91,
+  "profileTranslation": [ 0, 0.37, 0],
+  "rootBone": "jumpluff",
+  "animations": {
+    "cry": "q.bedrock_stateful('jumpluff', 'cry')"
+  },
+  "poses": {
+	"walking": {
+      "poseTypes": [
+		"STAND",
+		"WALK",
+		"SWIM",
+		"PORTRAIT",
+        "PROFILE"
+	  ],
+      "animations": [
+	  "q.bedrock('jumpluff', 'ground_idle')"
+	  ],
+	  "transformTicks": 10,
+      "quirks": [
+	  "q.bedrock_quirk('jumpluff', 'blink')"
+	  ]
+    },
+    "sleep": {
+      "poseName": "sleep",
+      "poseTypes": [
+        "SLEEP"
+      ],
+      "animations": [
+        "q.bedrock('jumpluff', 'sleep')"
+      ]
+    },
+    "hover": {
+      "poseName": "hover",
+      "poseTypes": [
+        "FLOAT",
+        "HOVER",
+        "NONE"
+      ],
+      "animations": [
+        "q.bedrock('jumpluff', 'air_idle')"
+      ],
+      "transformTicks": 10,
+      "quirks": [
+        "q.bedrock_quirk('jumpluff', 'blink')"
+      ]
+    },
+    "fly": {
+      "poseName": "fly",
+      "poseTypes": [
+        "FLY"
+      ],
+      "animations": [
+        "q.bedrock('jumpluff', 'air_fly')"
+      ],
+      "transformTicks": 10,
+      "quirks": [
+        "q.bedrock_quirk('jumpluff', 'blink')"
+      ]
+    }
+  }
+}

@@ -1,0 +1,128 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.corsola_galarian.ground_idle": {
+			"loop": true,
+			"bones": {
+				"horn": {
+					"scale": 0
+				},
+				"spine_front_right": {
+					"scale": 0
+				},
+				"spine_back_right": {
+					"scale": 0
+				},
+				"arm_front_right": {
+					"scale": 0
+				},
+				"spine_front_left": {
+					"scale": 0
+				},
+				"spine_back_left": {
+					"scale": 0
+				},
+				"eyes": {
+					"position": [0, 0, 0.8]
+				},
+				"arm_front_left": {
+					"scale": 0
+				}
+			}
+		},
+		"animation.corsola_galarian.battle_idle": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"position": [0, 3, 0]
+				},
+				"head_angle": {
+					"rotation": [2, 0, 0]
+				},
+				"locator_top": {
+					"position": [0, 3, 0]
+				},
+				"locator_target": {
+					"position": [0, 0, 0]
+				}
+			}
+		},
+		"animation.corsola_galarian.sleep": {
+			"loop": true,
+			"bones": {
+				"horn": {
+					"scale": 0
+				},
+				"spine_front_right": {
+					"scale": 0
+				},
+				"spine_back_right": {
+					"scale": 0
+				},
+				"arm_front_right": {
+					"scale": 0
+				},
+				"spine_front_left": {
+					"scale": 0
+				},
+				"spine_back_left": {
+					"scale": 0
+				},
+				"eyes": {
+					"position": [0, 0, 0.8]
+				},
+				"arm_front_left": {
+					"scale": 0
+				}
+			}
+		},
+		"animation.corsola_galarian.blink": {
+			"animation_length": 0.1667,
+			"bones": {
+				"eyes": {
+					"position": {
+						"0.0": [0, 0, 0.8],
+						"0.1667": {"pre": [0, 0, 0.8], "post": [0, 0, 0]}
+					}
+				}
+			}
+		},
+		"animation.corsola_galarian.branchless": {
+			"loop": true,
+			"bones": {
+				"horn": {
+					"scale": 0
+				},
+				"spine_front_right": {
+					"scale": 0
+				},
+				"spine_back_right": {
+					"scale": 0
+				},
+				"arm_front_right": {
+					"scale": 0
+				},
+				"spine_front_left": {
+					"scale": 0
+				},
+				"spine_back_left": {
+					"scale": 0
+				},
+				"arm_front_left": {
+					"scale": 0
+				}
+			}
+		},
+		"animation.corsola_galarian.render": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"position": [0, 1, 0]
+				},
+				"head_angle": {
+					"rotation": [10, -35, 0]
+				}
+			}
+		}
+	}
+}

@@ -99,6 +99,15 @@ open class Learnset : ClientDataSynchronizer<Learnset> {
         .flatMap { it.value }
         .toSet()
 
+    fun getAllLegalMoves(): Set<MoveTemplate> {
+        return levelUpMoves.values.flatten().toSet() +
+                eggMoves +
+                tutorMoves +
+                tmMoves +
+                formChangeMoves +
+                evolutionMoves
+    }
+
     // We only sync level up moves atm
     override fun shouldSynchronize(other: Learnset) = other.levelUpMoves != this.levelUpMoves
 

@@ -1,0 +1,216 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.jumpluff.ground_idle": {
+			"loop": true,
+			"bones": {
+				"foot_right": {
+					"rotation": [0, 22.5, 0]
+				},
+				"foot_left": {
+					"rotation": [0, -22.5, 0]
+				},
+				"tail": {
+					"rotation": [-12.5, 0, 0]
+				},
+				"arm_left": {
+					"rotation": [0, -10, 22.5]
+				},
+				"hand_left": {
+					"rotation": [0, 0, -15]
+				},
+				"arm_right": {
+					"rotation": [0, 10, -22.5]
+				},
+				"hand_right": {
+					"rotation": [0, 0, 15]
+				}
+			}
+		},
+		"animation.jumpluff.air_idle": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"position": [0, 3, 0]
+				},
+				"foot_right": {
+					"rotation": [0, 25, 0]
+				},
+				"foot_left": {
+					"rotation": [0, -25, 0]
+				},
+				"tail": {
+					"rotation": [-32.5, 0, 0]
+				},
+				"arm_right": {
+					"rotation": [0, 10, -25]
+				},
+				"feet": {
+					"rotation": [-72.5, 0, 0],
+					"position": [0, 1, -5]
+				},
+				"arm_left": {
+					"rotation": [0, -10, 25]
+				}
+			}
+		},
+		"animation.jumpluff.air_fly": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"position": [0, 3, 0]
+				},
+				"foot_right": {
+					"rotation": [0, 25, 0]
+				},
+				"foot_left": {
+					"rotation": [0, -25, 0]
+				},
+				"tail": {
+					"rotation": [-32.5, 0, 0]
+				},
+				"arm_right": {
+					"rotation": [0, 10, -25]
+				},
+				"feet": {
+					"rotation": [-72.5, 0, 0],
+					"position": [0, 1, -5]
+				},
+				"arm_left": {
+					"rotation": [0, -10, 25]
+				}
+			}
+		},
+		"animation.jumpluff.sleep": {
+			"loop": true,
+			"bones": {
+				"foot_right": {
+					"rotation": [0, 22.5, 0]
+				},
+				"foot_left": {
+					"rotation": [0, -22.5, 0]
+				},
+				"tail": {
+					"rotation": [-27.5, 0, 0]
+				},
+				"arm_left": {
+					"rotation": [10, 22.5, 22.5]
+				},
+				"hand_left": {
+					"rotation": [0, 0, -15]
+				},
+				"arm_right": {
+					"rotation": [10, -22.5, -22.5]
+				},
+				"hand_right": {
+					"rotation": [0, 0, 15]
+				},
+				"torso": {
+					"rotation": [5, 0, 0],
+					"position": [0, -0.25, 0]
+				},
+				"puff_stalk": {
+					"rotation": [-12.5, 0, 0]
+				},
+				"eye_left": {
+					"position": [0, 0, 0.1]
+				},
+				"eyelid_left": {
+					"position": [0, 0, -0.1]
+				},
+				"eye_right": {
+					"position": [0, 0, 0.1]
+				},
+				"eyelid_right": {
+					"position": [0, 0, -0.1]
+				}
+			}
+		},
+		"animation.jumpluff.air_sleep": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"rotation": [10, 0, 0],
+					"position": [0, 3, 0]
+				},
+				"foot_right": {
+					"rotation": [0, 25, 0]
+				},
+				"foot_left": {
+					"rotation": [0, -25, 0]
+				},
+				"tail": {
+					"rotation": [-32.5, 0, 0]
+				},
+				"arm_right": {
+					"rotation": [22.5, -35, -45]
+				},
+				"feet": {
+					"rotation": [-72.5, 0, 0],
+					"position": [0, 1, -5]
+				},
+				"arm_left": {
+					"rotation": [22.5, 35, 45]
+				},
+				"puff_stalk": {
+					"rotation": [-15, 0, 0]
+				},
+				"eye_left": {
+					"position": [0, 0, 0.1]
+				},
+				"eyelid_left": {
+					"position": [0, 0, -0.1]
+				},
+				"eye_right": {
+					"position": [0, 0, 0.1]
+				},
+				"eyelid_right": {
+					"position": [0, 0, -0.1]
+				}
+			}
+		},
+		"animation.jumpluff.blink": {
+			"animation_length": 0.1667,
+			"bones": {
+				"flame_left": {
+					"position": {
+						"0.0": [-2, 0, 1],
+						"0.125": [-2, 0, 1],
+						"0.1667": [0, 0, 0]
+					}
+				},
+				"flame_right": {
+					"position": {
+						"0.0": [2, 0, 1],
+						"0.125": [2, 0, 1],
+						"0.1667": [0, 0, 0]
+					}
+				},
+				"eyelid_right": {
+					"position": {
+						"0.0": [0, 0, -0.1],
+						"0.1667": {"pre": [0, 0, -0.1], "post": [0, 0, 0]}
+					}
+				},
+				"eyelid_left": {
+					"position": {
+						"0.0": [0, 0, -0.1],
+						"0.1667": {"pre": [0, 0, -0.1], "post": [0, 0, 0]}
+					}
+				},
+				"eye_left": {
+					"position": {
+						"0.0": [0, 0, 0.1],
+						"0.1667": {"pre": [0, 0, 0.1], "post": [0, 0, 0]}
+					}
+				},
+				"eye_right": {
+					"position": {
+						"0.0": [0, 0, 0.1],
+						"0.1667": {"pre": [0, 0, 0.1], "post": [0, 0, 0]}
+					}
+				}
+			}
+		}
+	}
+}
