@@ -68,6 +68,8 @@
 - Froslass
 - Glameow
 - Purugly
+- Skorupi
+- Drapion
 
 #### Gen 5
 - Pansage
@@ -90,6 +92,9 @@
 - Solosis
 - Duosion
 - Reuniclus
+- Tynamo
+- Eelektrik
+- Eelektross
 - Mienfoo
 - Mienshao
 
