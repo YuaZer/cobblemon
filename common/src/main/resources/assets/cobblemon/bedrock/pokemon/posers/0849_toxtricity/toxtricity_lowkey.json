@@ -18,7 +18,6 @@
         "PORTRAIT",
         "PROFILE"
       ],
-      "isBattle": false,
       "animations": ["q.look('head')", "q.bedrock('toxtricity_lowkey', 'ground_idle')"]
     },
     "walking": {

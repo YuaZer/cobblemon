@@ -132,7 +132,7 @@
 				}
 			}
 		},
-		"animation.toxtricity_amped.battle_idle": {
+		"animation.toxtricity_amped.battle_idle": { 
 			"loop": true,
 			"bones": {
 				"body": {
