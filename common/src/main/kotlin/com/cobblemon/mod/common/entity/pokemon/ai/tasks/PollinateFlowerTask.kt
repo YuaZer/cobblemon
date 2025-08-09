@@ -16,13 +16,12 @@ import net.minecraft.world.entity.ai.behavior.OneShot
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder
 import net.minecraft.world.entity.ai.behavior.declarative.Trigger
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
-import net.minecraft.world.phys.Vec3
 
 object PollinateFlowerTask {
     fun create(): OneShot<in LivingEntity> {
         return BehaviorBuilder.create {
             it.group(
-                it.present(CobblemonMemories.NEARBY_FLOWERS),
+                it.present(CobblemonMemories.NEARBY_FLOWER),
                 it.absent(MemoryModuleType.WALK_TARGET),
                 it.absent(CobblemonMemories.POLLINATED),
                 it.absent(CobblemonMemories.HIVE_COOLDOWN)
@@ -30,8 +29,8 @@ object PollinateFlowerTask {
                 Trigger { world, entity, time ->
                     if (entity !is PathfinderMob || !entity.isAlive) return@Trigger false
 
-                    val flowerLocations = it.get(flowerMemory)
-                    if (flowerLocations.any { it.distSqr(entity.blockPosition()) < 1 }) {
+                    val flowerBlockPos = it.get(flowerMemory)
+                    if (flowerBlockPos.distSqr(entity.blockPosition()) < 1 ) {
                         entity.brain.setMemoryWithExpiry(CobblemonMemories.POLLINATED, true, 20 * 20L) // 20 seconds to dump the pollen
                         if (entity is PokemonEntity) {
                             entity.pokemon.updateAspects()

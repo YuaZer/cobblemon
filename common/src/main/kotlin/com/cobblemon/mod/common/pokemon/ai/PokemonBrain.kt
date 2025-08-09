@@ -188,7 +188,7 @@ object PokemonBrain {
         CobblemonMemories.RECENTLY_ATE_GRASS,
         CobblemonMemories.HIVE_LOCATION,
         CobblemonMemories.HIVE_COOLDOWN,
-        CobblemonMemories.NEARBY_FLOWERS,
+        CobblemonMemories.NEARBY_FLOWER,
         CobblemonMemories.POLLINATED,
         CobblemonMemories.RECENTLY_ATE_GRASS,
         CobblemonMemories.HERD_LEADER,

@@ -11,45 +11,74 @@ package com.cobblemon.mod.common.entity.pokemon.ai.sensors
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Vec3i
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.tags.BlockTags
 import net.minecraft.world.entity.ai.sensing.Sensor
+import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.level.block.DoublePlantBlock
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.level.block.state.properties.BlockStateProperties
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf
+import kotlin.time.measureTime
 
 class FlowerSensor : Sensor<PokemonEntity>(120) {
-    override fun requires() = setOf(CobblemonMemories.NEARBY_FLOWERS)
+
+    override fun requires() = setOf(CobblemonMemories.NEARBY_FLOWER)
 
     override fun doTick(world: ServerLevel, entity: PokemonEntity) {
         val brain = entity.brain
 
-        val searchRadius = 32
+        val searchRadius = 5
         val centerPos = entity.blockPosition()
-        val flowers = mutableListOf<BlockPos>()
-
-        BlockPos.betweenClosedStream(
-            centerPos.offset(-searchRadius, -2, -searchRadius),
-            centerPos.offset(searchRadius, 2, searchRadius)
-        ).forEach { pos ->
-            val state = world.getBlockState(pos)
-            if (isFlower(state) && isPathfindableTo(entity, pos)) {
-                flowers += pos.immutable()
+        var flowerPos : BlockPos? = null
+        var shortestDist = Double.MAX_VALUE
+        val duration = measureTime {
+            BlockPos.betweenClosedStream(
+                centerPos.offset(-searchRadius, -2, -searchRadius),
+                centerPos.offset(searchRadius, 2, searchRadius)
+            ).forEach { pos ->
+                val state = world.getBlockState(pos)
+                if (isFlower(state)) {
+                    val distance = pos.distSqr(Vec3i(centerPos.x, centerPos.y, centerPos.z))
+                    if (distance < shortestDist) {
+                        flowerPos = BlockPos(pos)
+                        shortestDist = distance
+                    }
+                }
             }
         }
 
-        if (!flowers.isEmpty()) {
-            brain.setMemory(CobblemonMemories.NEARBY_FLOWERS, flowers)
+        println("Flower sensor tick in $duration")
+
+        if (flowerPos != null) {
+            brain.setMemory(CobblemonMemories.NEARBY_FLOWER, flowerPos)
         } else {
-            brain.eraseMemory(CobblemonMemories.NEARBY_FLOWERS)
+            brain.eraseMemory(CobblemonMemories.NEARBY_FLOWER)
         }
     }
 
     private fun isFlower(state: BlockState): Boolean {
-        return state.`is`(BlockTags.FLOWERS)
+        // Borrowed from Bee.class
+        if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(
+                BlockStateProperties.WATERLOGGED
+            ) as Boolean
+        ) {
+            return false
+        } else if (state.`is`(BlockTags.FLOWERS)) {
+            if (state.`is`(Blocks.SUNFLOWER)) {
+                return state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER
+            } else {
+                return true
+            }
+        } else {
+            return false
+        }
     }
 
-    private fun isPathfindableTo(entity: PokemonEntity, pos: BlockPos): Boolean {
-        val nav = entity.navigation
-        val path = nav.createPath(pos, 0)
-        return path != null && path.canReach()
-    }
+//    private fun isPathfindableTo(entity: PokemonEntity, pos: BlockPos): Boolean {
+//        val nav = entity.navigation
+//        val path = nav.createPath(pos, 0)
+//        return path != null && path.canReach()
+//    }
 }

@@ -51,7 +51,7 @@ class PollinateFlowerTaskConfig : SingleTaskConfig {
 
         return object : Behavior<LivingEntity>(
             mapOf(
-                CobblemonMemories.NEARBY_FLOWERS to MemoryStatus.VALUE_PRESENT,
+                CobblemonMemories.NEARBY_FLOWER to MemoryStatus.VALUE_PRESENT,
                 MemoryModuleType.WALK_TARGET to MemoryStatus.VALUE_ABSENT,
                 CobblemonMemories.POLLINATED to MemoryStatus.VALUE_ABSENT,
                 CobblemonMemories.HIVE_COOLDOWN to MemoryStatus.VALUE_ABSENT,
@@ -60,9 +60,8 @@ class PollinateFlowerTaskConfig : SingleTaskConfig {
             45
         ) {
             override fun checkExtraStartConditions(level: ServerLevel, owner: LivingEntity): Boolean {
-                return entity.brain.getMemorySafely(CobblemonMemories.NEARBY_FLOWERS).orElse(emptyList()).any {
-                    Vec3.atCenterOf(it).distanceTo(entity.position()) <= 1.0
-                }
+                val optionalBlockPos = entity.brain.getMemorySafely(CobblemonMemories.NEARBY_FLOWER)
+                return optionalBlockPos.isPresent && Vec3.atCenterOf(optionalBlockPos.get()).distanceTo(entity.position()) <= 1.0
             }
 
             override fun canStillUse(level: ServerLevel, entity: LivingEntity, gameTime: Long): Boolean {
