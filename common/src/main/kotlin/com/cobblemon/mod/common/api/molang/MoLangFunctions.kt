@@ -709,6 +709,9 @@ object MoLangFunctions {
                 val owner = entity.owner
                 return@put owner?.asMostSpecificMoLangValue() ?: DoubleValue.ZERO
             }
+            map.put("delta_movement") {
+                return@put listOf(entity.deltaMovement.x, entity.deltaMovement.y, entity.deltaMovement.z).asArrayValue(::DoubleValue)
+            }
 
             if (entity is MoLangScriptingEntity) {
                 map.put("add_callback") { params ->
