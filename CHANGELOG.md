@@ -42,6 +42,7 @@
 - Added new optional property `attachment_options` for most EmitterShapes to be attached to the locator/entities scale, rotation, and/or position. Position is true by default.
 - Galarica Nut bushes now generate on beaches.
 - Some Pokémon now pitch their bodies in the direction they're moving.
+- Added Syrupy Apples.
 
 ### Pokémon Added
 
@@ -93,6 +94,9 @@
 - Reuniclus
 - Mienfoo
 - Mienshao
+- Sewaddle
+- Swadloon
+- Leavanny
 
 #### Gen 6
 - Skiddo
@@ -110,6 +114,8 @@
 - Yungoos
 - Gumshoos
 - Drampa
+- Alolan Grimer
+- Alolan Muk
 
 #### Gen 8
 - Skwovet
@@ -135,6 +141,10 @@
 - Cyclizar
 - Poltchageist
 - Sinistcha
+- Capsakid
+- Scovillain
+- Tadbulb
+- Bellibolt
 
 ### Animation updates for the following Pokémon
 - Garchomp
@@ -203,7 +213,6 @@
 - Cacturne
 - Taillow
 - Swellow
-- Added Syrupy Apples.
 - Seel
 - Dewgong
 - Honedge
