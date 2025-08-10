@@ -40,7 +40,9 @@
   - Ground type Pokémon are immune to lightning damage
 - Added functionality to Everstone when held by a Pokémon; suppresses evolution notification and hides evolve button in summary interface.
 - Added new optional property `attachment_options` for most EmitterShapes to be attached to the locator/entities scale, rotation, and/or position. Position is true by default.
-- Galarica Nut bushes now generate on beaches
+- Galarica Nut bushes now generate on beaches.
+- Some Pokémon now pitch their bodies in the direction they're moving.
+- Added Syrupy Apples.
 
 ### Pokémon Added
 
@@ -97,6 +99,9 @@
 - Eelektross
 - Mienfoo
 - Mienshao
+- Sewaddle
+- Swadloon
+- Leavanny
 
 #### Gen 6
 - Skiddo
@@ -114,6 +119,8 @@
 - Yungoos
 - Gumshoos
 - Drampa
+- Alolan Grimer
+- Alolan Muk
 
 #### Gen 8
 - Skwovet
@@ -139,6 +146,10 @@
 - Cyclizar
 - Poltchageist
 - Sinistcha
+- Capsakid
+- Scovillain
+- Tadbulb
+- Bellibolt
 
 ### Animation updates for the following Pokémon
 - Garchomp
@@ -207,7 +218,6 @@
 - Cacturne
 - Taillow
 - Swellow
-- Added Syrupy Apples.
 - Seel
 - Dewgong
 - Honedge
@@ -339,6 +349,8 @@
 - Fixed Moon Ball moon phase logic to actually work correctly
 - Fixed `/pokedex printcalculations` to now show the correct percentage completed of the Pokedex
 - Fixed mod incompatibility with the `Raised` mod
+- Fixed a vulnerability that could cause party and PC rollbacks under specific circumstances.
+- Fixed a rare edge case where sorting your PC could be rolled back later.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -379,7 +391,8 @@
 - Added PokedexManager.obtain as a replacement for .catch which is not a friendly function name in Java.
 
 - Added `Pokemon#hyperTrainIV()` and `IVs#setHyperTrainedIV(Stat, Int)`
-- `ElementalType` now implelments `ShowdownIdentifiable` to ensure the communcation with showdown stays consistent (also in regards to TeraTypes)
+- `ElementalType` now implements `ShowdownIdentifiable` to ensure the communcation with showdown stays consistent (also in regards to TeraTypes)
+- Pokemon no longer have a change observable
   
 ### MoLang & Datapacks
 - The following usages for item predicates can now use item conditions like advancements do, you can learn about them in the [Minecraft wiki](https://minecraft.wiki/w/Advancement_definition#minecraft:filled_bucket)
@@ -423,6 +436,11 @@
 - Adds Flows for `STARTER_CHOSEN`, `EV_GAINED`, `POKEMON_RELEASED`, `POKEMON_NICKNAMED`, `HELD_ITEM`, and `TRADE_COMPLETED` events
 - Adds Pokemon functions for `pokeball`, `held_item`, `remove_held_item`, `add_aspects`, and `remove_aspects`
 - Added `pokemon.hyper_train_iv` as an available Molang function.
+- Added `prepare_{effect}` and `damage_{effect}` action effect hooks in battles for more battle particle effects.
+- Added `q.has_argument(<argument_name>, [argument_value])` MoLang function to several battle-related action effect contexts.
+- Added `q.has_argument_at(<index>, [argument_value])` MoLang function to several battle-related action effect contexts.
+- Added `q.hit_count` MoLang function to move action effect contexts.
+- Added `is_included`, `to_lower`, `to_upper`, and `string_length` as available Molang functions.
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)
 
