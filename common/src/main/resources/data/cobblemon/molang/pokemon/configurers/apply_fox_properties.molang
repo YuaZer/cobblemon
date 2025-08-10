@@ -1,5 +1,5 @@
-q.entity.behaviour.block_interact.set_can_stand_on_powder_snow(true);
-q.entity.behaviour.block_interact.set_immune_to_sweet_berry_bush_block(true);
+q.entity.config.can_stand_on_powder_snow = true;
+q.entity.config.immune_to_sweet_berry_bush_block = true;
 
 'Add fox food to the pickup behaviour';
 t.fox_food = q.create_pickup_item('#minecraft:fox_food', 5);

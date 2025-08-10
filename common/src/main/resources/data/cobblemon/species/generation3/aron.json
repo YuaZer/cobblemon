@@ -66,22 +66,6 @@
       ]
     }
   },
-  "ai": [
-    {
-      "type": "cobblemon:add_tasks_to_activity",
-      "activity": "idle",
-      "tasksByPriority": {
-        "1": [
-          "eat_held_item",
-          "pickup_item",
-          {
-            "type": "move_to_item",
-            "condition": "(math.random(0, 1) < (1/10))"
-          }
-        ]
-      }
-    }
-  ],
   "drops": {
     "amount": 3,
     "entries": [

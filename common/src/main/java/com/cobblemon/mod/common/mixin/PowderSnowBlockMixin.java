@@ -8,7 +8,8 @@
 
 package com.cobblemon.mod.common.mixin;
 
-import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
+import com.bedrockk.molang.runtime.value.DoubleValue;
+import com.cobblemon.mod.common.entity.MoLangScriptingEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.PowderSnowBlock;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,8 +21,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class PowderSnowBlockMixin {
     @Inject(method = "canEntityWalkOnPowderSnow", at = @At(value = "RETURN"), cancellable = true)
     private static void cobblemon$canEntityWalkOnPowderSnow(Entity entity, CallbackInfoReturnable<Boolean> ci) {
-        if (ci.getReturnValue() == false && entity instanceof PokemonEntity) {
-            ci.setReturnValue(((PokemonEntity) entity).getPokemon().getSpecies().getBehaviour().getBlockInteract().getCanStandOnPowderSnow());
+        if (ci.getReturnValue() == false && entity instanceof MoLangScriptingEntity) {
+            ci.setReturnValue(((MoLangScriptingEntity) entity).getConfig().getMap().getOrDefault("can_stand_on_powder_snow", DoubleValue.ZERO).asDouble() == 1.0);
         }
     }
 }
