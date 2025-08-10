@@ -432,7 +432,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         return false
     }
 
-    override fun shouldRotatePlayerHead(
+    override fun shouldRotateRiderHead(
         settings: HorseSettings,
         state: HorseState,
         vehicle: PokemonEntity
