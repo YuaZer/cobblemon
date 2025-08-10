@@ -8,10 +8,8 @@
 
 package com.cobblemon.mod.common.client.net.riding
 
-import com.cobblemon.mod.common.OrientationControllable
 import com.cobblemon.mod.common.api.net.ClientNetworkPacketHandler
 import com.cobblemon.mod.common.net.messages.client.orientation.ClientboundUpdateDriverInputPacket
-import com.cobblemon.mod.common.net.messages.client.orientation.ClientboundUpdateOrientationPacket
 import net.minecraft.client.Minecraft
 import net.minecraft.client.player.RemotePlayer
 
@@ -21,10 +19,10 @@ object ClientboundUpdateDriverInputHandler : ClientNetworkPacketHandler<Clientbo
             val level = client.level ?: return@executeIfPossible
             val entity = level.getEntity(packet.entityId)
             if (entity is RemotePlayer) {
-                entity.xxa = packet.xxa
-                entity.zza = packet.zza
-                entity.jumping = packet.jumping
-                entity.isShiftKeyDown = packet.crouching
+                entity.xxa = packet.driverInput.x
+                entity.zza = packet.driverInput.z
+                entity.jumping = packet.driverInput.y == 1.0f
+                entity.isShiftKeyDown = packet.driverInput.y == -1.0f
             }
         }
     }

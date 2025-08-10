@@ -12,6 +12,7 @@ import com.cobblemon.mod.common.CobblemonNetwork;
 import com.cobblemon.mod.common.OrientationControllable;
 import com.cobblemon.mod.common.api.net.NetworkPacket;
 import com.cobblemon.mod.common.api.orientation.OrientationController;
+import com.cobblemon.mod.common.duck.ServerEntityDuck;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.cobblemon.mod.common.mixin.accessor.ChunkMapAccessor;
 import com.cobblemon.mod.common.mixin.accessor.TrackedEntityAccessor;
@@ -27,6 +28,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerPlayerConnection;
 import net.minecraft.world.entity.Entity;
 import org.joml.Matrix3f;
+import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -39,7 +41,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 @Mixin(ServerEntity.class)
-public abstract class ServerEntityMixin {
+public abstract class ServerEntityMixin implements ServerEntityDuck {
 
     @Shadow
     @Final
@@ -51,6 +53,10 @@ public abstract class ServerEntityMixin {
     private Matrix3f cobblemon$lastSentOrientation;
     @Unique
     private boolean cobblemon$lastSentActive;
+    @Unique
+    private Vector3f cobblemon$driverInput;
+    @Unique
+    private Vector3f cobblemon$lastSentDriverInput;
 
     @Inject(method = "sendChanges", at = @At("TAIL"))
     private void cobblemon$sendChanges(CallbackInfo ci) {
@@ -87,7 +93,12 @@ public abstract class ServerEntityMixin {
     private void cobblemon$sendDriverInput() {
         if (!(this.entity instanceof ServerPlayer serverPlayer)) return;
         if(!(serverPlayer.getVehicle() instanceof PokemonEntity)) return;
-        cobblemon$broadcast(new ClientboundUpdateDriverInputPacket(serverPlayer.xxa, serverPlayer.zza, serverPlayer.jumping, serverPlayer.isShiftKeyDown(), entity.getId()));
+        if(cobblemon$driverInput == null) return;
+
+        // If no change in input is detected then don't send a new packet
+        if (cobblemon$driverInput.equals(cobblemon$lastSentDriverInput)) return;
+        cobblemon$lastSentDriverInput = cobblemon$driverInput;
+        cobblemon$broadcast(new ClientboundUpdateDriverInputPacket(cobblemon$driverInput, entity.getId()));
     }
 
     private void cobblemon$broadcast(NetworkPacket<?> packet) {
@@ -105,5 +116,9 @@ public abstract class ServerEntityMixin {
         }
     }
 
+    @Override
+    public void setDriverInput(Vector3f driverInput) {
+        cobblemon$driverInput = driverInput;
+    }
 
 }

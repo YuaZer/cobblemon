@@ -16,6 +16,7 @@ import com.cobblemon.mod.common.util.writeMatrix3f
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.world.entity.player.Player
 import org.joml.Matrix3f
+import org.joml.Vector3f
 
 /**
  * Packet sent from the server to update the current input from
@@ -27,30 +28,21 @@ import org.joml.Matrix3f
  */
 
 class ClientboundUpdateDriverInputPacket internal constructor(
-    val xxa: Float,
-    val zza: Float,
-    val jumping: Boolean,
-    val crouching: Boolean,
+    val driverInput: Vector3f,
     val entityId: Int
 ) : NetworkPacket<ClientboundUpdateDriverInputPacket> {
     override val id = ID
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeVarInt(entityId)
-        buffer.writeFloat(xxa)
-        buffer.writeFloat(zza)
-        buffer.writeBoolean(jumping)
-        buffer.writeBoolean(crouching)
+        buffer.writeVector3f(driverInput)
     }
 
     companion object {
         val ID = cobblemonResource("s2c_update_driver_input")
         fun decode(buffer: RegistryFriendlyByteBuf): ClientboundUpdateDriverInputPacket {
             val entityId = buffer.readVarInt()
-            val xxa = buffer.readFloat()
-            val zza = buffer.readFloat()
-            val jumping = buffer.readBoolean()
-            val crouching = buffer.readBoolean()
-            return ClientboundUpdateDriverInputPacket(xxa, zza, jumping, crouching, entityId)
+            val driverInput = buffer.readVector3f()
+            return ClientboundUpdateDriverInputPacket(driverInput, entityId)
         }
     }
 }
