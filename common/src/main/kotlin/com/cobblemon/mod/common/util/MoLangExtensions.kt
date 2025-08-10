@@ -16,6 +16,7 @@ import com.bedrockk.molang.runtime.MoLangRuntime
 import com.bedrockk.molang.runtime.MoParams
 import com.bedrockk.molang.runtime.struct.ArrayStruct
 import com.bedrockk.molang.runtime.struct.ContextStruct
+import com.bedrockk.molang.runtime.struct.VariableStruct
 import com.bedrockk.molang.runtime.value.DoubleValue
 import com.bedrockk.molang.runtime.value.MoValue
 import com.cobblemon.mod.common.Cobblemon
@@ -202,6 +203,22 @@ fun ArrayStruct.getDouble(index: Int) = map["$index"]!!.asDouble()
 fun ArrayStruct.getString(index: Int) = map["$index"]!!.asString()
 fun ArrayStruct.asBlockPos() = BlockPos(getDouble(0).toInt(), getDouble(1).toInt(), getDouble(2).toInt())
 fun ArrayStruct.asVec3d() = Vec3(getDouble(0), getDouble(1), getDouble(2))
+
+fun <T> VariableStruct.getObject(name: String): T? {
+    val value = map[name] ?: return null
+    if (value !is ObjectValue<*>) {
+        return null
+    }
+    return value.obj as? T
+}
+
+fun <T> VariableStruct.getObjectList(name: String): List<T> {
+    val value = map[name] ?: return emptyList()
+    if (value !is ArrayStruct) {
+        return emptyList()
+    }
+    return value.map.values.mapNotNull { (it as? ObjectValue<T>)?.obj }
+}
 
 fun MoLangRuntime.clone(): MoLangRuntime {
     val runtime = MoLangRuntime()

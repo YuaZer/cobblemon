@@ -9,33 +9,39 @@
 package com.cobblemon.mod.common.entity.pokemon.ai.sensors
 
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
+import com.cobblemon.mod.common.pokemon.ai.ObtainableItem
+import com.cobblemon.mod.common.util.findMatchingEntry
+import com.cobblemon.mod.common.util.getObjectList
 import com.google.common.collect.ImmutableSet
+import java.util.Optional
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
 import net.minecraft.world.entity.ai.sensing.Sensor
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.level.GameRules
-import java.util.*
-import java.util.function.Predicate
 
 class PokemonItemSensor(
-    private val width: Double = 16.0, // TODO: Can we configure sensors dynamically?
+    private val width: Double = 16.0, // TODO: Can we configure sensors dynamically? // Nope. Could be done with a config struct option but it's a bit crass.
     private val height: Double = 8.0,
     private val maxTravelDistance: Double = 16.0,
 ) : Sensor<PokemonEntity>(30) {
+    companion object {
+        const val PICKUP_ITEMS = "pickup_items"
+    }
+
     override fun requires(): MutableSet<MemoryModuleType<*>?> {
         return ImmutableSet.of<MemoryModuleType<*>?>(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM)
     }
 
     override fun doTick(level: ServerLevel, entity: PokemonEntity) {
-
+        val pickupItems = entity.config.getObjectList<ObtainableItem>(PICKUP_ITEMS)
         if (!level.gameRules.getBoolean(GameRules.RULE_MOBGRIEFING) || !entity.pokemon.canDropHeldItem) {
             // Mob griefing is disabled or the Pokemon cannot swap out its item, so don't bother to search
             return
         }
 
-        val heldItemValue = entity.behaviour.itemInteract.getItemPriority(entity.pokemon.heldItem())
-        if (heldItemValue >= entity.behaviour.itemInteract.highestPriorityItem) {
+        val heldItemValue = pickupItems.findMatchingEntry(entity.pokemon.heldItem())?.pickupPriority ?: 0
+        if (heldItemValue >= (pickupItems.maxOfOrNull { it.pickupPriority } ?: 0)) {
             // It's already holding the highest value item it can have, no need to look for better.
             return
         }

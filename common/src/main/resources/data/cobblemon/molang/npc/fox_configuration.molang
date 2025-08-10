@@ -5,15 +5,16 @@ q.entity.behaviour.block_interact.set_immune_to_sweet_berry_bush_block(true);
 t.fox_food = q.create_pickup_item('#minecraft:fox_food', 5);
 t.fox_food.set_fullness_value(2);
 t.fox_food.set_on_use_effect('q.entity.heal(2)');
-q.entity.behaviour.item_interact.add_pickup_item(t.fox_food);
+q.append(q.entity.config.pickup_items, t.fox_food);
 
 'Add regular food to the pickup behaviour';
 t.regular_food = q.create_pickup_item('q.item.is_food()', 4);
 t.regular_food.set_fullness_value(1);
 t.regular_food.set_on_use_effect('q.entity.heal(1)');
-q.entity.behaviour.item_interact.add_pickup_item(t.regular_food);
+q.append(q.entity.config.pickup_items, t.regular_food);
 
-'Add a generic item to the pickup behaviour';
+'Add items in general to the pickup behaviour since foxes love picking up shit';
 t.generic_item = q.create_pickup_item(true, 1);
 t.generic_item.set_fullness_value(0);
 q.entity.behaviour.item_interact.add_pickup_item(t.generic_item);
+q.append(q.entity.config.pickup_items, t.generic_item);

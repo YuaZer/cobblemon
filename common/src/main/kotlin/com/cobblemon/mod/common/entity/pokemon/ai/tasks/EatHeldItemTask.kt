@@ -11,8 +11,11 @@ package com.cobblemon.mod.common.entity.pokemon.ai.tasks
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMostSpecificMoLangValue
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
+import com.cobblemon.mod.common.entity.pokemon.ai.sensors.PokemonItemSensor.Companion.PICKUP_ITEMS
 import com.cobblemon.mod.common.entity.pokemon.ai.tasks.MoveToItemTask.runtime
-import com.cobblemon.mod.common.util.asExpressionLike
+import com.cobblemon.mod.common.pokemon.ai.ObtainableItem
+import com.cobblemon.mod.common.util.findMatchingEntry
+import com.cobblemon.mod.common.util.getObjectList
 import com.cobblemon.mod.common.util.resolve
 import com.cobblemon.mod.common.util.withQueryValue
 import com.google.common.collect.ImmutableMap
@@ -29,7 +32,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 
 
-class EatHeldItemTask : Behavior<PokemonEntity>(
+class EatHeldItemTask(entity: PokemonEntity) : Behavior<PokemonEntity>(
     ImmutableMap.of(
         MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT
     )
@@ -41,6 +44,7 @@ class EatHeldItemTask : Behavior<PokemonEntity>(
     }
 
     private var timelastEaten: Long = 0
+    val pickupItems = entity.config.getObjectList<ObtainableItem>(PICKUP_ITEMS)
 
     override fun checkExtraStartConditions(world: ServerLevel, entity: PokemonEntity): Boolean {
         if (timelastEaten + COOLDOWN > world.gameTime) {
@@ -55,7 +59,7 @@ class EatHeldItemTask : Behavior<PokemonEntity>(
     }
 
     private fun canEat(item: ItemStack, entity: PokemonEntity): Boolean {
-        return item.has(DataComponents.FOOD) || item.item == Items.POTION || entity.behaviour.itemInteract.getOnUseEffect(item) != null
+        return item.has(DataComponents.FOOD) || item.item == Items.POTION || pickupItems.findMatchingEntry(item)?.onUseEffect != null
     }
 
     override fun start(world: ServerLevel, entity: PokemonEntity, time: Long) {
@@ -70,7 +74,7 @@ class EatHeldItemTask : Behavior<PokemonEntity>(
     override fun tick(world: ServerLevel, entity: PokemonEntity, time: Long) {
         if (!world.isClientSide && entity.isAlive && entity.isEffectiveAi) {
             val itemStack: ItemStack = entity.pokemon.heldItem()
-            val itemConfig = entity.behaviour.itemInteract.getMatchingEntry(itemStack)
+            val itemConfig = pickupItems.findMatchingEntry(itemStack)
             if (canEat(itemStack, entity)) {
                 if (this.timelastEaten + MAX_DURATION <= time) {
                     var resultItemStack = itemStack.finishUsingItem(world, entity)

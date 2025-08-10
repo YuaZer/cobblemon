@@ -26,6 +26,10 @@
           }
         ]
       }
+    },
+    {
+      "type": "script",
+      "script": "cobblemon:add_pickup_items"
     }
   ]
 }

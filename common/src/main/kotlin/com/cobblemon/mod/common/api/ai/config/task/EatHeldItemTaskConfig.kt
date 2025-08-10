@@ -29,6 +29,6 @@ class EatHeldItemTaskConfig : SingleTaskConfig {
         behaviourConfigurationContext.addMemories(
         CobblemonMemories.IS_CONSUMING_ITEM,
         )
-        return EatHeldItemTask().wrapped<PokemonEntity>()
+        return EatHeldItemTask(entity).wrapped<PokemonEntity>()
     }
 }
