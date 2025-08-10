@@ -66,7 +66,7 @@
 	"itemInteract": {
       "desiredItems": [
         {
-          "tag": "#minecraft:chicken_food",
+          "item": "#minecraft:chicken_food",
           "pickupPriority": 1,
           "fullnessValue": 1,
           "onUseEffect": "q.entity.heal(1)"

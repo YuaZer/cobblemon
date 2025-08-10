@@ -34,36 +34,24 @@ class PokemonItemSensor(
             return
         }
 
-        val heldItemValue = entity.pokemon.species.behaviour.itemInteract.getItemPriority(entity.pokemon.heldItem())
-        if (heldItemValue >= entity.pokemon.species.behaviour.itemInteract.highestPriorityItem) {
+        val heldItemValue = entity.behaviour.itemInteract.getItemPriority(entity.pokemon.heldItem())
+        if (heldItemValue >= entity.behaviour.itemInteract.highestPriorityItem) {
             // It's already holding the highest value item it can have, no need to look for better.
             return
         }
 
         val list = level.getEntitiesOfClass(
             ItemEntity::class.java,
-            entity.boundingBox.inflate(width, height, width),
-            Predicate { it: ItemEntity? ->
-                it != null
-                    && entity.wantsToPickUp(it.item)
+            entity.boundingBox.inflate(width, height, width)
+        ) {
+            entity.wantsToPickUp(it.item)
                     && entity.hasLineOfSight(it)
                     && it.closerThan(entity, maxTravelDistance)
-            }
-        )
-
-        // Find the closest item to the entity
-        var nearestItemEntity : ItemEntity? = null
-        var shortestDistance = Float.MAX_VALUE
-        list.forEach { itemEntity ->
-            val distanceToEntity = entity.distanceTo(itemEntity)
-            if (distanceToEntity < shortestDistance) {
-                shortestDistance = distanceToEntity
-                nearestItemEntity = itemEntity
-            }
         }
 
-        val brain = entity.getBrain()
-        brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, Optional.ofNullable(nearestItemEntity))
+        // Find the closest item to the entity
+        val nearestItemEntity = list.minByOrNull { it.distanceTo(entity) }
+        entity.getBrain().setMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, Optional.ofNullable(nearestItemEntity))
     }
 
 }

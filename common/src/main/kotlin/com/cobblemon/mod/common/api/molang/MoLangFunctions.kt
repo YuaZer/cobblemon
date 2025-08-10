@@ -90,6 +90,8 @@ import com.cobblemon.mod.common.pokemon.Gender
 import com.cobblemon.mod.common.pokemon.IVs
 import com.cobblemon.mod.common.pokemon.Pokemon
 import com.cobblemon.mod.common.pokemon.Species
+import com.cobblemon.mod.common.pokemon.ai.ObtainableItem
+import com.cobblemon.mod.common.pokemon.ai.ObtainableItemCondition
 import com.cobblemon.mod.common.pokemon.evolution.variants.ItemInteractionEvolution
 import com.cobblemon.mod.common.pokemon.evolution.variants.LevelUpEvolution
 import com.cobblemon.mod.common.pokemon.evolution.variants.TradeEvolution
@@ -132,6 +134,7 @@ import net.minecraft.world.entity.ai.behavior.BlockPosTracker
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
 import net.minecraft.world.entity.ai.memory.MemoryStatus
 import net.minecraft.world.entity.ai.memory.WalkTarget
+import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ClipContext
@@ -313,6 +316,12 @@ object MoLangFunctions {
         "create_simple_party_provider" to java.util.function.Function { params ->
             val partyProvider = SimplePartyProvider()
             return@Function partyProvider.struct
+        },
+        "create_pickup_item" to java.util.function.Function { params ->
+            val item = params.getOrNull<MoValue>(0)?.asString()?.let(ObtainableItemCondition::parseFromString)
+            val pickupPriority = params.getIntOrNull(1) ?: 0
+            val pickupItem = ObtainableItem(item = item, pickupPriority = pickupPriority)
+            return@Function pickupItem.struct
         }
     )
     val biomeFunctions = mutableListOf<(Holder<Biome>) -> HashMap<String, java.util.function.Function<MoParams, Any>>>()
@@ -2218,6 +2227,11 @@ object MoLangFunctions {
             is Player -> asMoLangValue()
             is PokemonEntity -> struct
             is NPCEntity -> struct
+            is ItemEntity -> ObjectValue(this).also {
+                it.addStandardFunctions()
+                it.addFunctions(entityFunctions.flatMap { it(this).entries.map { it.key to it.value } }.toMap())
+                it.addFunctions(itemStackFunctions.flatMap { it(this.item, this.registryAccess()).entries.map { it.key to it.value } }.toMap())
+            }
             else -> ObjectValue(this).also {
                 it.addStandardFunctions()
                 it.addFunctions(entityFunctions.flatMap { it(this).entries.map { it.key to it.value } }.toMap())

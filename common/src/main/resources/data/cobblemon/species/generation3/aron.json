@@ -59,22 +59,21 @@
       "desiredItems": [
         {
           "item": "minecraft:iron_ingot",
-          "priority": 1,
+          "pickupPriority": 1,
+          "fullnessValue": 1,
           "onUseEffect": "q.entity.heal(1)"
         }
       ]
     }
   },
-    "ai": [
+  "ai": [
     {
       "type": "cobblemon:add_tasks_to_activity",
       "activity": "idle",
       "tasksByPriority": {
         "1": [
-			"eat_held_item",
-          {
-            "type": "pickup_item"
-          },
+          "eat_held_item",
+          "pickup_item",
           {
             "type": "move_to_item",
             "condition": "(math.random(0, 1) < (1/10))"

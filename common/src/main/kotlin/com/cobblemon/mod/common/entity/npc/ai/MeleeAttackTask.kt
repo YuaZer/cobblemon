@@ -9,12 +9,8 @@
 package com.cobblemon.mod.common.entity.npc.ai
 
 import com.bedrockk.molang.Expression
-import com.bedrockk.molang.runtime.struct.QueryStruct
 import com.cobblemon.mod.common.api.ai.config.task.TaskConfig.Companion.runtime
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMostSpecificMoLangValue
-import com.cobblemon.mod.common.entity.PosableEntity
-import com.cobblemon.mod.common.entity.npc.NPCEntity
-import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.resolveFloat
 import com.cobblemon.mod.common.util.resolveInt
 import com.cobblemon.mod.common.util.withQueryValue

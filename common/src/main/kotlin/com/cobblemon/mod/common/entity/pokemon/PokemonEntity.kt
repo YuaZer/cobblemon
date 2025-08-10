@@ -1049,7 +1049,7 @@ open class PokemonEntity(
     }
 
     override fun wantsToPickUp(stack: ItemStack): Boolean {
-        return this.canHoldItem(stack) && (pokemon.species.behaviour.itemInteract.getMatchingEntry(stack)?.pickupPriority
+        return this.canHoldItem(stack) && (behaviour.itemInteract.getMatchingEntry(stack)?.pickupPriority
             ?: 0) > 0
     }
     override fun mobInteract(player: Player, hand: InteractionHand): InteractionResult {

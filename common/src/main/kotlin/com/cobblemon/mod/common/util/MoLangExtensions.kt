@@ -24,11 +24,13 @@ import com.cobblemon.mod.common.api.molang.ListExpression
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMoLangValue
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.setup
 import com.cobblemon.mod.common.api.molang.ObjectValue
+import com.cobblemon.mod.common.api.molang.ReferenceExpression
 import com.cobblemon.mod.common.api.molang.SingleExpression
 import com.cobblemon.mod.common.battles.pokemon.BattlePokemon
 import com.cobblemon.mod.common.entity.npc.NPCEntity
 import com.cobblemon.mod.common.pokemon.Pokemon
 import net.minecraft.core.BlockPos
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec3
 
@@ -146,11 +148,16 @@ fun String.asExpression() = try {
 }
 
 fun String.asExpressionLike() = try {
-    val ls = MoLang.createParser(if (this == "") "0.0" else this).parse()
-    if (ls.size == 1) {
-        SingleExpression(ls[0])
+    val identifier = ResourceLocation.tryParse(this)
+    if (":" in this && identifier != null) {
+        ReferenceExpression(identifier)
     } else {
-        ListExpression(ls)
+        val ls = MoLang.createParser(if (this == "") "0.0" else this).parse()
+        if (ls.size == 1) {
+            SingleExpression(ls[0])
+        } else {
+            ListExpression(ls)
+        }
     }
 } catch (exc: Exception) {
     Cobblemon.LOGGER.error("Failed to parse MoLang expressions: $this")

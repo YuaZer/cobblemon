@@ -55,7 +55,7 @@ class EatHeldItemTask : Behavior<PokemonEntity>(
     }
 
     private fun canEat(item: ItemStack, entity: PokemonEntity): Boolean {
-        return item.has(DataComponents.FOOD) || item.item == Items.POTION || entity.pokemon.species.behaviour.itemInteract.getOnUseEffect(item) != null
+        return item.has(DataComponents.FOOD) || item.item == Items.POTION || entity.behaviour.itemInteract.getOnUseEffect(item) != null
     }
 
     override fun start(world: ServerLevel, entity: PokemonEntity, time: Long) {
@@ -70,7 +70,7 @@ class EatHeldItemTask : Behavior<PokemonEntity>(
     override fun tick(world: ServerLevel, entity: PokemonEntity, time: Long) {
         if (!world.isClientSide && entity.isAlive && entity.isEffectiveAi) {
             val itemStack: ItemStack = entity.pokemon.heldItem()
-            val itemConfig = entity.pokemon.species.behaviour.itemInteract.getMatchingEntry(itemStack)
+            val itemConfig = entity.behaviour.itemInteract.getMatchingEntry(itemStack)
             if (canEat(itemStack, entity)) {
                 if (this.timelastEaten + MAX_DURATION <= time) {
                     var resultItemStack = itemStack.finishUsingItem(world, entity)
@@ -81,9 +81,10 @@ class EatHeldItemTask : Behavior<PokemonEntity>(
                         else
                             resultItemStack
                     entity.pokemon.swapHeldItem(resultItemStack)
-                    if (itemConfig != null && itemConfig.onUseEffect != null) {
+                    val onUseEffect = itemConfig?.onUseEffect
+                    if (onUseEffect != null) {
                         runtime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
-                        runtime.resolve(itemConfig.onUseEffect.asExpressionLike())
+                        runtime.resolve(onUseEffect)
                     }
                     this.timelastEaten = time
                     if (itemConfig != null && itemConfig.fullnessValue > 0) {
