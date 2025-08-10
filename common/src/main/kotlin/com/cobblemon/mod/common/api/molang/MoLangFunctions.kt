@@ -38,6 +38,7 @@ import com.cobblemon.mod.common.api.moves.Moves
 import com.cobblemon.mod.common.api.moves.animations.ActionEffectContext
 import com.cobblemon.mod.common.api.moves.animations.ActionEffects
 import com.cobblemon.mod.common.api.moves.animations.NPCProvider
+import com.cobblemon.mod.common.api.moves.animations.TargetsProvider
 import com.cobblemon.mod.common.api.npc.NPCClasses
 import com.cobblemon.mod.common.api.npc.configuration.interaction.DialogueNPCInteractionConfiguration
 import com.cobblemon.mod.common.api.npc.configuration.interaction.ScriptNPCInteractionConfiguration
@@ -854,14 +855,12 @@ object MoLangFunctions {
             }
             map.put("is_standing_on_blocks") { params ->
                 val depth = params.getDouble(0).toInt()
-                val blocks: MutableSet<Block> = mutableSetOf()
+                val blockStrings: MutableSet<String> = mutableSetOf()
                 for (blockIndex in 1..<params.params.size) {
-                    val blockString = params.getString(blockIndex)
-                    val block = BuiltInRegistries.BLOCK.get(blockString.asIdentifierDefaultingNamespace("minecraft"))
-                    blocks.add(block)
+                    blockStrings.add(params.getString(blockIndex))
                 }
 
-                return@put if (entity.isStandingOn(blocks, depth)) DoubleValue.ONE else DoubleValue.ZERO
+                return@put if (entity.isStandingOn(blockStrings, depth)) DoubleValue.ONE else DoubleValue.ZERO
             }
             if (entity is PosableEntity) {
                 map.put("play_animation") { params ->
@@ -886,6 +885,10 @@ object MoLangFunctions {
                         packet.sendToPlayersAround(entity.x, entity.y, entity.z, 64.0, entity.level().dimension())
                         return@put DoubleValue.ONE
                     }
+                }
+
+                map.put("face") { params -> ObjectValue(ReferenceDialogueFaceProvider(entity.id, params.getBooleanOrNull(0) != false))
+
                 }
             }
             if (entity is Schedulable) {
@@ -1056,7 +1059,6 @@ object MoLangFunctions {
             map.put("name") { StringValue(npc.name.string) }
             map.put("level") { DoubleValue(npc.level) }
             map.put("has_aspect") { params -> DoubleValue(npc.aspects.contains(params.getString(0))) }
-            map.put("face") { params -> ObjectValue(ReferenceDialogueFaceProvider(npc.id, params.getBooleanOrNull(0) != false)) }
             map.put("in_battle") { DoubleValue(npc.isInBattle()) }
             map.put("battles") { ArrayStruct(npc.battleIds.mapNotNull { BattleRegistry.getBattle(it)?.struct }.mapIndexed { index, value -> "$index" to value }.toMap()) }
             map.put("stop_battles") { _ -> npc.battleIds.forEach { BattleRegistry.getBattle(it)?.stop() } }
@@ -1678,6 +1680,34 @@ object MoLangFunctions {
             }
             map.put("pasture_conflict_enabled") {
                 DoubleValue(pokemonEntity.getBehaviourFlag(PokemonBehaviourFlag.PASTURE_CONFLICT))
+            }
+            map.put("run_action_effect") { params ->
+                val runtime = MoLangRuntime().setup()
+                runtime.environment.cloneFrom(params.environment)
+                runtime.withQueryValue("entity", pokemonEntity.struct)
+                val actionEffect = ActionEffects.actionEffects[params.getString(0).asIdentifierDefaultingNamespace()]
+                if (actionEffect != null) {
+                    val context = ActionEffectContext(
+                        actionEffect = actionEffect,
+                        providers = mutableListOf(TargetsProvider(pokemonEntity)),
+                        runtime = runtime,
+                        level = pokemonEntity.level()
+                    )
+                    // This was taken from NPC run_action_effect but this variable isn't used, so I just commented it out.
+                    // pokemonEntity.actionEffect = context
+                    pokemonEntity.brain.setMemory(CobblemonMemories.ACTIVE_ACTION_EFFECT, context)
+                    pokemonEntity.brain.setActiveActivityIfPossible(CobblemonActivities.ACTION_EFFECT)
+                    actionEffect.run(context).thenRun {
+                        val pokemonActionEffect = pokemonEntity.brain.getMemory(CobblemonMemories.ACTIVE_ACTION_EFFECT).orElse(null)
+                        if (pokemonActionEffect == context && pokemonEntity.brain.isActive(CobblemonActivities.ACTION_EFFECT)) {
+                            pokemonEntity.brain.eraseMemory(CobblemonMemories.ACTIVE_ACTION_EFFECT)
+                            //pokemonEntity.actionEffect = null
+                        }
+                    }
+
+                    return@put DoubleValue.ONE
+                }
+                return@put DoubleValue.ZERO
             }
             map
         }
