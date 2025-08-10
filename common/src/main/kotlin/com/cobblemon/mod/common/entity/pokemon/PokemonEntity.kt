@@ -52,7 +52,6 @@ import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourState
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviours
 import com.cobblemon.mod.common.api.riding.events.SelectDriverEvent
-import com.cobblemon.mod.common.api.riding.sound.RideLoopSound
 import com.cobblemon.mod.common.api.riding.sound.RideSoundManager
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.api.riding.util.RidingAnimationData
@@ -153,6 +152,7 @@ import net.minecraft.world.item.ItemUtils
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LightLayer
+import net.minecraft.world.level.block.entity.BeehiveBlockEntity
 import net.minecraft.world.level.gameevent.GameEvent
 import net.minecraft.world.level.material.FluidState
 import net.minecraft.world.level.pathfinder.PathType
@@ -2444,4 +2444,25 @@ open class PokemonEntity(
             herdLeader.behaviour.herd.bestMatchLeader(follower = this, possibleLeader = herdLeader)?.tier ?: 0
         }
     }
+
+    // TODO: move this function somewhere else
+    fun enterHiveAsPokemon(level: Level, hivePos: BlockPos) {
+        val blockEntity = level.getBlockEntity(hivePos)
+        if (blockEntity !is BeehiveBlockEntity) return
+
+//        // Serialize this Pokémon to NBT
+//        val pokemonTag = CompoundTag()
+//        this.saveWithoutId(pokemonTag)
+//
+//        // Decide how many ticks to store it
+//        val ticksInHive = 200 // BeehiveBlockEntity.MIN_OCCUPATION_TICKS_WITHOUT_NECTAR
+//        val hasNectar = false
+
+        // Store Pokémon in hive
+        blockEntity.addOccupant(this)
+
+        // Remove entity from the world
+        this.discard()
+    }
+
 }

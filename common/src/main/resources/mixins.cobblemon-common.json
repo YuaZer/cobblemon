@@ -46,6 +46,7 @@
   "mixins": [
     "ChannelMixin",
     "BeeEntityMixin",
+    "BeeOccupantMixin",
     "ChunkStorageMixin",
     "CrashReportMixin",
     "DecoratedPotPatternsMixin",

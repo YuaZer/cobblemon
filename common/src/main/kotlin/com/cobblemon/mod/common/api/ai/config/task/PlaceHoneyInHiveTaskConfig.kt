@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.api.ai.config.task
 
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
+import com.cobblemon.mod.common.api.ai.WrapperLivingEntityTask
 import com.cobblemon.mod.common.api.ai.asVariables
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.entity.pokemon.ai.tasks.PlaceHoneyInHiveTask
@@ -36,6 +37,9 @@ class PlaceHoneyInHiveTaskConfig : SingleTaskConfig {
         if (!checkCondition(entity, condition)) {
             return null
         }
-        return PlaceHoneyInHiveTask.create()
+        return WrapperLivingEntityTask(
+            PlaceHoneyInHiveTask.create(),
+            PokemonEntity::class.java
+        )
     }
 }

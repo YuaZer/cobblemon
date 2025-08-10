@@ -49,7 +49,7 @@ class FlowerSensor : Sensor<PokemonEntity>(120) {
             }
         }
 
-        println("Flower sensor tick in $duration")
+//        println("Flower sensor tick in $duration")
 
         if (flowerPos != null) {
             brain.setMemory(CobblemonMemories.NEARBY_FLOWER, flowerPos)

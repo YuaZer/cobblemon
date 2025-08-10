@@ -10,17 +10,20 @@ package com.cobblemon.mod.common.entity.pokemon.ai.tasks
 
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.block.SaccharineLeafBlock
-import net.minecraft.world.entity.LivingEntity
+import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
+import net.minecraft.sounds.SoundEvents
+import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.entity.ai.behavior.OneShot
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder
 import net.minecraft.world.entity.ai.behavior.declarative.Trigger
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.block.BeehiveBlock
 import net.minecraft.world.phys.Vec3
 
 object PlaceHoneyInHiveTask {
-    fun create(): OneShot<in LivingEntity> {
+    fun create(): OneShot<PokemonEntity> {
         return BehaviorBuilder.create {
             it.group(
                 it.absent(MemoryModuleType.WALK_TARGET),
@@ -48,6 +51,7 @@ object PlaceHoneyInHiveTask {
                         val currentLevel = state.getValue(BeehiveBlock.HONEY_LEVEL)
                         if (currentLevel < BeehiveBlock.MAX_HONEY_LEVELS) {
                             world.setBlock(hiveLocation, state.setValue(BeehiveBlock.HONEY_LEVEL, currentLevel + 1), 3)
+                            entity.enterHiveAsPokemon(world, hiveLocation)
                             entity.brain.setMemoryWithExpiry(CobblemonMemories.HIVE_COOLDOWN, true, hiveCooldown)
                             entity.brain.eraseMemory(CobblemonMemories.POLLINATED)
                         }
