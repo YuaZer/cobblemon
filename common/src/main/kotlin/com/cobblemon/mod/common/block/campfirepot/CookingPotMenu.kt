@@ -271,7 +271,7 @@ class CookingPotMenu : RecipeBookMenu<CraftingInput, CookingPotRecipeBase>, Cont
     }
 
     override fun slotChanged(containerToSend: AbstractContainerMenu, dataSlotIndex: Int, stack: ItemStack) {
-        if (CampfireBlockEntity.CRAFTING_GRID_SLOTS.contains(dataSlotIndex)) recalculateRecipe()
+        if (CampfireBlockEntity.CRAFTING_GRID_SLOTS.contains(dataSlotIndex) || CampfireBlockEntity.SEASONING_SLOTS.contains(dataSlotIndex)) recalculateRecipe()
         broadcastChanges()
     }
 
