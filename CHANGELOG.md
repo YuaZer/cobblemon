@@ -42,6 +42,7 @@
 - Added new optional property `attachment_options` for most EmitterShapes to be attached to the locator/entities scale, rotation, and/or position. Position is true by default.
 - Galarica Nut bushes now generate on beaches.
 - Some Pokémon now pitch their bodies in the direction they're moving.
+- Added `/runmolang <molang> [<npc>|<player>|<pokemon>]` command that executes a MoLang expression with the provided options as environment variables, as well as the entity (as `q.entity`) that executed the command.
 
 ### Pokémon Added
 
@@ -244,6 +245,7 @@
 - MoLang `face` function can now be run on any `PosableEntity` (Like Pokémon!) instead of just NPCs.
 - MoLang `run_action_effect` now works on Pokémon.
 - Changed MoLang entity function `is_standing_on` to allow for block tags in the list. 
+- Added entity (as `q.entity`) that executed the command to the `executemolangscript` command.
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
