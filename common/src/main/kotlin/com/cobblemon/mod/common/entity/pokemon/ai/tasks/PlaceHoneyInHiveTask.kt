@@ -9,30 +9,33 @@
 package com.cobblemon.mod.common.entity.pokemon.ai.tasks
 
 import com.cobblemon.mod.common.CobblemonMemories
-import com.cobblemon.mod.common.block.SaccharineLeafBlock
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
-import net.minecraft.sounds.SoundEvents
-import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.entity.ai.behavior.OneShot
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder
 import net.minecraft.world.entity.ai.behavior.declarative.Trigger
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
-import net.minecraft.world.entity.player.Player
+import net.minecraft.world.entity.ai.memory.MemoryStatus
 import net.minecraft.world.level.block.BeehiveBlock
+import net.minecraft.world.level.block.entity.BeehiveBlockEntity
 import net.minecraft.world.phys.Vec3
 
 object PlaceHoneyInHiveTask {
+
+//    val TICKS_WITHOUT_NECTAR_BEFORE_GOING_HOME = 3600
+//    val STAY_OUT_OF_HIVE_COOLDOWN = 400
+
     fun create(): OneShot<PokemonEntity> {
         return BehaviorBuilder.create {
             it.group(
                 it.absent(MemoryModuleType.WALK_TARGET),
-                it.present(CobblemonMemories.POLLINATED),
+                it.registered(CobblemonMemories.POLLINATED),
                 it.present(CobblemonMemories.HIVE_LOCATION),
-                it.absent(CobblemonMemories.HIVE_COOLDOWN)
+                it.absent(CobblemonMemories.HIVE_COOLDOWN),
+//                it.registered(MemoryModuleType.ANGRY_AT)
             ).apply(it) { walkTarget, pollinated, hiveMemory, hiveCooldown ->
                 Trigger { world, entity, time ->
-                    if (entity !is PathfinderMob) {
+                    if (entity !is PathfinderMob || !wantsToEnterHive(entity)) {
                         return@Trigger false
                     }
 
@@ -48,25 +51,23 @@ object PlaceHoneyInHiveTask {
                     val state = world.getBlockState(hiveLocation)
                     val block = state.block
                     if (block is BeehiveBlock) {
-                        val currentLevel = state.getValue(BeehiveBlock.HONEY_LEVEL)
-                        if (currentLevel < BeehiveBlock.MAX_HONEY_LEVELS) {
-                            world.setBlock(hiveLocation, state.setValue(BeehiveBlock.HONEY_LEVEL, currentLevel + 1), 3)
-                            entity.enterHiveAsPokemon(world, hiveLocation)
-                            entity.brain.setMemoryWithExpiry(CobblemonMemories.HIVE_COOLDOWN, true, hiveCooldown)
-                            entity.brain.eraseMemory(CobblemonMemories.POLLINATED)
-                        }
-                    } else if (block is SaccharineLeafBlock) {
-                        val currentAge = state.getValue(SaccharineLeafBlock.AGE)
-                        if (currentAge < SaccharineLeafBlock.MAX_AGE) {
-                            world.setBlock(hiveLocation, state.setValue(SaccharineLeafBlock.AGE, currentAge + 1), 3)
-                            entity.brain.setMemoryWithExpiry(CobblemonMemories.HIVE_COOLDOWN, true, hiveCooldown)
-                            entity.brain.eraseMemory(CobblemonMemories.POLLINATED)
-                        }
+                        val blockEntity = world.getBlockEntity(hiveLocation)
+                        if (blockEntity !is BeehiveBlockEntity) return@Trigger false
+                        blockEntity.addOccupant(entity)
                     }
 
                     return@Trigger true
                 }
             }
         }
+    }
+
+    fun wantsToEnterHive(entity: PokemonEntity) : Boolean {
+        // TODO Check if hive is near fire
+        // TODO Check if currently pollinating
+        // TODO Check if we're too angry to go home
+        return !entity.brain.checkMemory(CobblemonMemories.HIVE_COOLDOWN, MemoryStatus.VALUE_PRESENT)
+//                && entity.brain.checkMemory(MemoryModuleType.ANGRY_AT, MemoryStatus.VALUE_ABSENT)
+                && (entity.level().isRaining || entity.level().isNight || entity.brain.getMemory(CobblemonMemories.POLLINATED).orElse(false))
     }
 }

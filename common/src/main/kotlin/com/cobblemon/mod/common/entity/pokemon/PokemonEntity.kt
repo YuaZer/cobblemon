@@ -2444,25 +2444,4 @@ open class PokemonEntity(
             herdLeader.behaviour.herd.bestMatchLeader(follower = this, possibleLeader = herdLeader)?.tier ?: 0
         }
     }
-
-    // TODO: move this function somewhere else
-    fun enterHiveAsPokemon(level: Level, hivePos: BlockPos) {
-        val blockEntity = level.getBlockEntity(hivePos)
-        if (blockEntity !is BeehiveBlockEntity) return
-
-//        // Serialize this Pokémon to NBT
-//        val pokemonTag = CompoundTag()
-//        this.saveWithoutId(pokemonTag)
-//
-//        // Decide how many ticks to store it
-//        val ticksInHive = 200 // BeehiveBlockEntity.MIN_OCCUPATION_TICKS_WITHOUT_NECTAR
-//        val hasNectar = false
-
-        // Store Pokémon in hive
-        blockEntity.addOccupant(this)
-
-        // Remove entity from the world
-        this.discard()
-    }
-
 }

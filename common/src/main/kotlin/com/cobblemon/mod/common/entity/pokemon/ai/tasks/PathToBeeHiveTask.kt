@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.entity.pokemon.ai.tasks
 
 import com.cobblemon.mod.common.CobblemonMemories
+import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PathfinderMob
@@ -22,17 +23,19 @@ import net.minecraft.world.phys.Vec3
 
 object PathToBeeHiveTask {
 
+    val STAY_OUT_OF_HIVE_COOLDOWN = 400
+
     fun create(): OneShot<in LivingEntity> {
         return BehaviorBuilder.create {
             it.group(
                 it.registered(MemoryModuleType.LOOK_TARGET),
                 it.absent(MemoryModuleType.WALK_TARGET),
-                it.present(CobblemonMemories.POLLINATED),
+                it.registered(CobblemonMemories.POLLINATED),
                 it.present(CobblemonMemories.HIVE_LOCATION),
                 it.absent(CobblemonMemories.HIVE_COOLDOWN)
             ).apply(it) { lookTarget, walkTarget, pollinated, hiveMemory, hiveCooldown ->
                 Trigger { world, entity, time ->
-                    if (entity !is PathfinderMob || !entity.isAlive) {
+                    if (entity !is PathfinderMob || !entity.isAlive || !(entity is PokemonEntity && PlaceHoneyInHiveTask.wantsToEnterHive(entity))) {
                         return@Trigger false
                     }
 
