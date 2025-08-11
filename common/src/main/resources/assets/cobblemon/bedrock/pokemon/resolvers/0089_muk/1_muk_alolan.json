@@ -11,7 +11,7 @@
     },
     {
       "aspects": ["shiny", "alolan"],
-      "texture": "cobblemon:textures/pokemon/0089_muk/muk_shiny_alola.png"
+      "texture": "cobblemon:textures/pokemon/0089_muk/muk_alolan_shiny.png"
     }
   ]
 }
