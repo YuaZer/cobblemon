@@ -42,6 +42,7 @@
 - Added new optional property `attachment_options` for most EmitterShapes to be attached to the locator/entities scale, rotation, and/or position. Position is true by default.
 - Galarica Nut bushes now generate on beaches.
 - Some Pokémon now pitch their bodies in the direction they're moving.
+- Added `/runmolang <molang> [<npc>|<player>|<pokemon>]` command that executes a MoLang expression with the provided options as environment variables, as well as the entity (as `q.entity`) that executed the command.
 
 ### Pokémon Added
 
@@ -241,6 +242,7 @@
 - Offset in EmitterShape now ignores scale to be more like Blockbench by default. You can get this behaviour back by adding `"scale": true` in the `attachment_options` property in most EmitterShapes.
 - Not specifying a dex in `/pokedex printcalculations {player} {dex}` will now print the National Dex statistics instead of showing all dexes. `/pokedex printcalculations {player} all` is how to view all dex statistics in one command.
 - Removed Braised Vivichoke
+- Added entity (as `q.entity`) that executed the command to the `executemolangscript` command.
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
