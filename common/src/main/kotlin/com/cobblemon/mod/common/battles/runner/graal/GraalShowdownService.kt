@@ -155,7 +155,7 @@ class GraalShowdownService : ShowdownService {
     }
 
     override fun resetRegistryData(type: String) {
-        this.context.getBindings("js").getMember("resetData").execute(type);
+        this.context.getBindings("js").getMember("resetData").execute(type)
     }
 
     override fun resetAllRegistries() {
