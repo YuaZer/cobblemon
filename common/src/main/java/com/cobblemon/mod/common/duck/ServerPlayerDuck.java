@@ -10,6 +10,9 @@ package com.cobblemon.mod.common.duck;
 
 import org.joml.Vector3f;
 
-public interface ServerEntityDuck {
+public interface ServerPlayerDuck {
 	void setDriverInput(Vector3f driverInput);
+	Vector3f getDriverInput();
+	void setLastSentDriverInput(Vector3f driverInput);
+	Vector3f getLastSentDriverInput();
 }

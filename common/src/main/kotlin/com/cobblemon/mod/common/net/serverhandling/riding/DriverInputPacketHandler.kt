@@ -9,7 +9,7 @@
 package com.cobblemon.mod.common.net.serverhandling.riding
 
 import com.cobblemon.mod.common.api.net.ServerNetworkPacketHandler
-import com.cobblemon.mod.common.duck.ServerEntityDuck
+import com.cobblemon.mod.common.duck.ServerPlayerDuck
 import com.cobblemon.mod.common.mixin.accessor.ChunkMapAccessor
 import com.cobblemon.mod.common.mixin.accessor.TrackedEntityAccessor
 import com.cobblemon.mod.common.net.messages.server.riding.ServerboundUpdateDriverInputPacket
@@ -25,22 +25,14 @@ object DriverInputPacketHandler : ServerNetworkPacketHandler<ServerboundUpdateDr
         server: MinecraftServer,
         player: ServerPlayer
     ) {
-        val chunkMap = player.serverLevel().chunkSource.chunkMap
-        val entityMap = (chunkMap as ChunkMapAccessor).entityMap
-        val trackedEntity = entityMap[player.id]
-        if (trackedEntity is TrackedEntityAccessor) {
-            val serverEntity = trackedEntity.getServerEntity()
-            if (serverEntity is ServerEntityDuck) {
-                val vertInput = when {
-                    packet.jumping-> 1.0f
-                    packet.crouching -> -1.0f
-                    else -> 0.0f
-                }
-                val driverInput = Vector3f(packet.xxa.sign, vertInput, packet.zza.sign)
-                serverEntity.setDriverInput(driverInput)
+        if (player is ServerPlayerDuck) {
+            val vertInput = when {
+                packet.jumping-> 1.0f
+                packet.crouching -> -1.0f
+                else -> 0.0f
             }
+            val driverInput = Vector3f(packet.xxa.sign, vertInput, packet.zza.sign)
+            player.setDriverInput(driverInput)
         }
-
-
     }
 }
