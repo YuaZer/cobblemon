@@ -21,7 +21,6 @@ import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
-import com.bedrockk.molang.runtime.MoLangMath.lerp
 import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.SmoothDouble
@@ -368,7 +367,7 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         return false
     }
 
-    override fun shouldRotatePlayerHead(
+    override fun shouldRotateRiderHead(
         settings: JetSettings,
         state: JetState,
         vehicle: PokemonEntity

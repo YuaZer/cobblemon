@@ -52,7 +52,6 @@ import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourState
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviours
 import com.cobblemon.mod.common.api.riding.events.SelectDriverEvent
-import com.cobblemon.mod.common.api.riding.sound.RideLoopSound
 import com.cobblemon.mod.common.api.riding.sound.RideSoundManager
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.api.riding.util.RidingAnimationData
@@ -112,6 +111,7 @@ import kotlin.math.PI
 import kotlin.math.ceil
 import net.minecraft.client.Minecraft
 import net.minecraft.core.BlockPos
+import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
@@ -160,6 +160,7 @@ import net.minecraft.world.item.ItemUtils
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LightLayer
+import net.minecraft.world.level.block.SuspiciousEffectHolder
 import net.minecraft.world.level.gameevent.GameEvent
 import net.minecraft.world.level.material.FluidState
 import net.minecraft.world.level.pathfinder.PathType
@@ -1076,22 +1077,10 @@ open class PokemonEntity(
                     player.playSound(SoundEvents.MOOSHROOM_MILK, 1.0f, 1.0f)
                     // if the Mooshtank ate a Flower beforehand
                     if (pokemon.lastFlowerFed != ItemStack.EMPTY && pokemon.aspects.any { it.contains("mooshtank-brown") }) {
-                        when (pokemon.lastFlowerFed.item) {
-                            Items.ALLIUM -> MobEffects.FIRE_RESISTANCE to 80
-                            Items.AZURE_BLUET -> MobEffects.BLINDNESS to 160
-                            Items.BLUE_ORCHID, Items.DANDELION -> MobEffects.SATURATION to 7
-                            Items.CORNFLOWER -> MobEffects.JUMP to 120
-                            Items.LILY_OF_THE_VALLEY -> MobEffects.POISON to 240
-                            Items.OXEYE_DAISY -> MobEffects.REGENERATION to 160
-                            Items.POPPY, Items.TORCHFLOWER -> MobEffects.NIGHT_VISION to 100
-                            Items.PINK_TULIP, Items.RED_TULIP, Items.WHITE_TULIP, Items.ORANGE_TULIP -> MobEffects.WEAKNESS to 180
-                            Items.WITHER_ROSE -> MobEffects.WITHER to 160
-                            CobblemonItems.PEP_UP_FLOWER -> MobEffects.LEVITATION to 160
-                            else -> null
-                        }?.let {
+                        SuspiciousEffectHolder.tryGet(pokemon.lastFlowerFed.item)?.let {
                             // modify the suspicious stew with the effect
-                            val susStewStack = Items.SUSPICIOUS_STEW.defaultInstance
-                            //SuspiciousStewItem.addEffectsToStew(susStewStack, listOf(StewEffect(it.first, it.second)))
+                            val susStewStack = Items.SUSPICIOUS_STEW.defaultInstance.copy()
+                            susStewStack.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, it.suspiciousEffects)
                             val susStewEffect = ItemUtils.createFilledResult(itemStack, player, susStewStack)
                             //give player modified Suspicious Stew
                             player.setItemInHand(hand, susStewEffect)
@@ -1124,7 +1113,7 @@ open class PokemonEntity(
                 itemStack.`is`(Items.WITHER_ROSE) ||
                 itemStack.`is`(CobblemonItems.PEP_UP_FLOWER)
             ) {
-                if (pokemon.aspects.any { it.contains("mooshtank") }) {
+                if (pokemon.aspects.any { it.contains("mooshtank-brown") }) {
                     player.playSound(SoundEvents.MOOSHROOM_EAT, 1.0f, 1.0f)
                     pokemon.lastFlowerFed = itemStack
                     return InteractionResult.sidedSuccess(level().isClientSide)

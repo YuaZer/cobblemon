@@ -40,7 +40,9 @@
   - Ground type Pokémon are immune to lightning damage
 - Added functionality to Everstone when held by a Pokémon; suppresses evolution notification and hides evolve button in summary interface.
 - Added new optional property `attachment_options` for most EmitterShapes to be attached to the locator/entities scale, rotation, and/or position. Position is true by default.
-- Galarica Nut bushes now generate on beaches
+- Galarica Nut bushes now generate on beaches.
+- Some Pokémon now pitch their bodies in the direction they're moving.
+- Added `/runmolang <molang> [<npc>|<player>|<pokemon>]` command that executes a MoLang expression with the provided options as environment variables, as well as the entity (as `q.entity`) that executed the command.
 
 ### Pokémon Added
 
@@ -241,6 +243,10 @@
 - Not specifying a dex in `/pokedex printcalculations {player} {dex}` will now print the National Dex statistics instead of showing all dexes. `/pokedex printcalculations {player} all` is how to view all dex statistics in one command.
 - Removed Braised Vivichoke
 - Updated Pokémon state icons shown in party interfaces
+- MoLang `face` function can now be run on any `PosableEntity` (Like Pokémon!) instead of just NPCs.
+- MoLang `run_action_effect` now works on Pokémon.
+- Changed MoLang entity function `is_standing_on` to allow for block tags in the list. 
+- Added entity (as `q.entity`) that executed the command to the `executemolangscript` command.
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
@@ -399,6 +405,7 @@
 - Added `q.has_argument(<argument_name>, [argument_value])` MoLang function to several battle-related action effect contexts.
 - Added `q.has_argument_at(<index>, [argument_value])` MoLang function to several battle-related action effect contexts.
 - Added `q.hit_count` MoLang function to move action effect contexts.
+- Added `is_included`, `to_lower`, `to_upper`, and `string_length` as available Molang functions.
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)
 

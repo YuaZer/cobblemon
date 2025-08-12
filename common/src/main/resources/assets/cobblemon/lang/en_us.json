@@ -2340,6 +2340,7 @@
   "cobblemon.command.takemark": "%1$s was taken from %2$s's %3$s.",
   "cobblemon.command.takemark.does_not_have": "%1$s's %2$s does not have a %3$s!",
   "cobblemon.command.mark.invalid": "Invalid mark name.",
+  "cobblemon.command.molang.out":  "MoLang output: %1$s",
   "cobblemon.command.pokeheal.in_battle": "You cannot heal your party while in a battle!",
   "cobblemon.command.spawnpokemonfrompool": "A %1$s has spawned in the area.",
   "cobblemon.command.spawnpokemonfrompool.unable_to_spawn": "Unable to spawn a Pokémon.",

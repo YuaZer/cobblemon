@@ -306,7 +306,7 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         return false
     }
 
-    override fun shouldRotatePlayerHead(
+    override fun shouldRotateRiderHead(
         settings: DolphinSettings,
         state: DolphinState,
         vehicle: PokemonEntity
