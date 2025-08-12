@@ -122,16 +122,10 @@ interface TaskConfig {
             cobblemonResource("memory_aspect") to MemoryAspectTaskConfig::class.java,
             cobblemonResource("activity_change") to ActivityChangeTaskConfig::class.java,
         )
-
-        val runtime = MoLangRuntime().setup()
     }
 
-    val runtime: MoLangRuntime
-        get() = Companion.runtime
-
-    fun checkCondition(entity: LivingEntity, expressionOrEntityVariable: ExpressionOrEntityVariable): Boolean {
-        runtime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
-        return expressionOrEntityVariable.resolveBoolean()
+    fun checkCondition(runtime: MoLangRuntime, expressionOrEntityVariable: ExpressionOrEntityVariable): Boolean {
+        return expressionOrEntityVariable.resolveBoolean(runtime)
     }
 
     fun ExpressionOrEntityVariable.asSimplifiedExpression(entity: LivingEntity): Expression {
@@ -152,11 +146,11 @@ interface TaskConfig {
     }
 
     fun ExpressionOrEntityVariable.asExpression() = map({ it }, { "q.entity.config.${it.variableName}".asExpression() })
-    fun ExpressionOrEntityVariable.resolveString() = runtime.resolveString(asExpression())
-    fun ExpressionOrEntityVariable.resolveBoolean() = runtime.resolveBoolean(asExpression())
-    fun ExpressionOrEntityVariable.resolveInt() = runtime.resolveInt(asExpression())
-    fun ExpressionOrEntityVariable.resolveDouble() = runtime.resolveDouble(asExpression())
-    fun ExpressionOrEntityVariable.resolveFloat() = runtime.resolveFloat(asExpression())
+    fun ExpressionOrEntityVariable.resolveString(runtime: MoLangRuntime) = runtime.resolveString(asExpression())
+    fun ExpressionOrEntityVariable.resolveBoolean(runtime: MoLangRuntime) = runtime.resolveBoolean(asExpression())
+    fun ExpressionOrEntityVariable.resolveInt(runtime: MoLangRuntime) = runtime.resolveInt(asExpression())
+    fun ExpressionOrEntityVariable.resolveDouble(runtime: MoLangRuntime) = runtime.resolveDouble(asExpression())
+    fun ExpressionOrEntityVariable.resolveFloat(runtime: MoLangRuntime) = runtime.resolveFloat(asExpression())
 
     private fun variable(category: String, name: String, type: MoLangConfigVariable.MoLangVariableType, default: String) = MoLangConfigVariable(
         variableName = name,
@@ -172,12 +166,10 @@ interface TaskConfig {
     fun booleanVariable(category: String, name: String, default: Boolean) = variable(category = category, name = name, type = MoLangConfigVariable.MoLangVariableType.BOOLEAN, default = default.toString())
 
     fun getVariableExpression(name: String) = "q.entity.config.$name".asExpression()
-    fun resolveStringVariable(name: String) = runtime.resolveString(getVariableExpression(name))
-    fun resolveBooleanVariable(name: String) = runtime.resolveBoolean(getVariableExpression(name))
-    fun resolveNumberVariable(name: String) = runtime.resolveDouble(getVariableExpression(name))
+    fun resolveBooleanVariable(name: String, runtime: MoLangRuntime) = runtime.resolveBoolean(getVariableExpression(name))
 
     /** The variables that this task config uses. These are used to declare variables on the entity cleanly. */
-    fun getVariables(entity: LivingEntity): List<MoLangConfigVariable>
+    fun getVariables(entity: LivingEntity, behaviourConfigurationContext: BehaviourConfigurationContext): List<MoLangConfigVariable>
     /** Given the entity in construction, returns a list of tasks. */
     fun createTasks(entity: LivingEntity, behaviourConfigurationContext: BehaviourConfigurationContext): List<BehaviorControl<in LivingEntity>>
 }

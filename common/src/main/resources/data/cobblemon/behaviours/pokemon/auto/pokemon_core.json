@@ -3,6 +3,7 @@
   "configurations": [
     {
       "type": "script",
+      "executeEarly": true,
       "script": "cobblemon:apply_species_properties"
     },
     {

@@ -24,7 +24,7 @@ class PickUpItemTaskConfig : SingleTaskConfig {
     val condition: ExpressionOrEntityVariable = Either.left("true".asExpression())
     var maxReach: ExpressionOrEntityVariable = Either.left("1.0".asExpression())
 
-    override fun getVariables(entity: LivingEntity) = listOf(
+    override fun getVariables(entity: LivingEntity, behaviourConfigurationContext: BehaviourConfigurationContext) = listOf(
         condition,
         maxReach
     ).asVariables()

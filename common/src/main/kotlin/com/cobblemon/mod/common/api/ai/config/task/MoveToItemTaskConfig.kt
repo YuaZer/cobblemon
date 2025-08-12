@@ -26,7 +26,7 @@ class MoveToItemTaskConfig : SingleTaskConfig {
     var speedMultiplier: ExpressionOrEntityVariable = Either.left("0.6".asExpression())
     var maxDistance: ExpressionOrEntityVariable = Either.left("7.0".asExpression())
 
-    override fun getVariables(entity: LivingEntity) = listOf(
+    override fun getVariables(entity: LivingEntity, behaviourConfigurationContext: BehaviourConfigurationContext) = listOf(
         condition,
         speedMultiplier,
         maxDistance

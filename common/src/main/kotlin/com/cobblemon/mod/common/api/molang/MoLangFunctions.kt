@@ -224,7 +224,7 @@ object MoLangFunctions {
             return@Function array
         },
         "length" to java.util.function.Function { params ->
-            val array = params.getOrNull<ArrayStruct>(0) ?: return@Function DoubleValue.ZERO
+            val array = (params.getOrNull<MoValue>(0) as? VariableStruct) ?: return@Function DoubleValue.ZERO
             return@Function DoubleValue(array.map.size.toDouble())
         },
         "append" to java.util.function.Function { params ->

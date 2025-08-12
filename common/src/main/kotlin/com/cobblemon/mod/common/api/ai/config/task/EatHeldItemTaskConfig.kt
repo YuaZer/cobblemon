@@ -18,7 +18,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.behavior.BehaviorControl
 
 class EatHeldItemTaskConfig : SingleTaskConfig {
-    override fun getVariables(entity: LivingEntity) = emptyList<MoLangConfigVariable>()
+    override fun getVariables(entity: LivingEntity, behaviourConfigurationContext: BehaviourConfigurationContext) = emptyList<MoLangConfigVariable>()
     override fun createTask(
         entity: LivingEntity,
         behaviourConfigurationContext: BehaviourConfigurationContext

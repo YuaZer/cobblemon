@@ -36,6 +36,8 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec3
 
 val genericRuntime = MoLangRuntime().setup()
+/** Don't run this from not-the-main thread. */
+val mainThreadRuntime: MoLangRuntime by lazy { MoLangRuntime().setup() }
 
 fun MoLangRuntime.resolve(expression: Expression, context: Map<String, MoValue> = contextOrEmpty): MoValue = try {
 //    environment.structs["context"] = ContextStruct(context)
