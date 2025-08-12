@@ -437,7 +437,7 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         return false
     }
 
-    override fun shouldRotatePlayerHead(
+    override fun shouldRotateRiderHead(
         settings: RocketSettings,
         state: RocketState,
         vehicle: PokemonEntity

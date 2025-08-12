@@ -351,7 +351,7 @@ class JetNoRollBehaviour : RidingBehaviour<JetNoRollSettings, JetNoRollState> {
         return false
     }
 
-    override fun shouldRotatePlayerHead(
+    override fun shouldRotateRiderHead(
         settings: JetNoRollSettings,
         state: JetNoRollState,
         vehicle: PokemonEntity

@@ -409,7 +409,7 @@ class BirdNoRollBehaviour : RidingBehaviour<BirdNoRollSettings, BirdNoRollState>
         return false
     }
 
-    override fun shouldRotatePlayerHead(
+    override fun shouldRotateRiderHead(
         settings: BirdNoRollSettings,
         state: BirdNoRollState,
         vehicle: PokemonEntity

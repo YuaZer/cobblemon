@@ -434,7 +434,7 @@ class MinekartBehaviour : RidingBehaviour<MinekartSettings, MinekartState> {
         return false
     }
 
-    override fun shouldRotatePlayerHead(
+    override fun shouldRotateRiderHead(
         settings: MinekartSettings,
         state: MinekartState,
         vehicle: PokemonEntity
