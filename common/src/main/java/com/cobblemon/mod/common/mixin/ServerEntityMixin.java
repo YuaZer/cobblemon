@@ -12,7 +12,7 @@ import com.cobblemon.mod.common.CobblemonNetwork;
 import com.cobblemon.mod.common.OrientationControllable;
 import com.cobblemon.mod.common.api.net.NetworkPacket;
 import com.cobblemon.mod.common.api.orientation.OrientationController;
-import com.cobblemon.mod.common.duck.ServerPlayerDuck;
+import com.cobblemon.mod.common.duck.PlayerDuck;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.cobblemon.mod.common.mixin.accessor.ChunkMapAccessor;
 import com.cobblemon.mod.common.mixin.accessor.TrackedEntityAccessor;
@@ -89,13 +89,13 @@ public abstract class ServerEntityMixin {
     private void cobblemon$sendDriverInput() {
         if (!(this.entity instanceof ServerPlayer serverPlayer)) return;
         if(!(serverPlayer.getVehicle() instanceof PokemonEntity)) return;
-        Vector3f driverInput = ((ServerPlayerDuck)serverPlayer).getDriverInput();
+        Vector3f driverInput = ((PlayerDuck)serverPlayer).getDriverInput();
         if(driverInput == null) return;
 
         // If no change in input is detected then don't send a new packet
-        Vector3f lastSentDriverInput = ((ServerPlayerDuck)serverPlayer).getLastSentDriverInput();
+        Vector3f lastSentDriverInput = ((PlayerDuck)serverPlayer).getLastSentDriverInput();
         if (driverInput.equals(lastSentDriverInput)) return;
-        ((ServerPlayerDuck)serverPlayer).setLastSentDriverInput(driverInput);
+        ((PlayerDuck)serverPlayer).setLastSentDriverInput(driverInput);
         cobblemon$broadcast(new ClientboundUpdateDriverInputPacket(driverInput, entity.getId()));
     }
 

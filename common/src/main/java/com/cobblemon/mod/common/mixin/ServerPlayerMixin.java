@@ -9,10 +9,8 @@
 package com.cobblemon.mod.common.mixin;
 
 import com.cobblemon.mod.common.OrientationControllable;
-import com.cobblemon.mod.common.duck.ServerPlayerDuck;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import net.minecraft.server.level.ServerPlayer;
-import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,12 +18,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayer.class)
-public abstract class ServerPlayerMixin implements ServerPlayerDuck {
-
-    @Unique
-    private Vector3f cobblemon$driverInput;
-    @Unique
-    private Vector3f cobblemon$lastSentDriverInput;
+public abstract class ServerPlayerMixin {
 
     @Inject(method = "rideTick", at = @At("HEAD"))
     private void cobblemon$updateOrientationControllerRideTick(CallbackInfo ci) {
@@ -48,26 +41,6 @@ public abstract class ServerPlayerMixin implements ServerPlayerDuck {
     public void cobblemon$resetOrientationOnDismount(CallbackInfo ci) {
         if (!(this instanceof OrientationControllable controllable)) return;
         controllable.getOrientationController().setActive(false);
-    }
-
-    @Override
-    public void setDriverInput(Vector3f driverInput) {
-        cobblemon$driverInput = driverInput;
-    }
-
-    @Override
-    public Vector3f getDriverInput() {
-        return cobblemon$driverInput;
-    }
-
-    @Override
-    public void setLastSentDriverInput(Vector3f lastSentDriverInput) {
-        cobblemon$lastSentDriverInput = lastSentDriverInput;
-    }
-
-    @Override
-    public Vector3f getLastSentDriverInput() {
-        return cobblemon$lastSentDriverInput;
     }
 
 }
