@@ -242,6 +242,7 @@
 - Offset in EmitterShape now ignores scale to be more like Blockbench by default. You can get this behaviour back by adding `"scale": true` in the `attachment_options` property in most EmitterShapes.
 - Not specifying a dex in `/pokedex printcalculations {player} {dex}` will now print the National Dex statistics instead of showing all dexes. `/pokedex printcalculations {player} all` is how to view all dex statistics in one command.
 - Removed Braised Vivichoke
+- Updated Pokémon state icons shown in party interfaces
 - MoLang `face` function can now be run on any `PosableEntity` (Like Pokémon!) instead of just NPCs.
 - MoLang `run_action_effect` now works on Pokémon.
 - Changed MoLang entity function `is_standing_on` to allow for block tags in the list. 

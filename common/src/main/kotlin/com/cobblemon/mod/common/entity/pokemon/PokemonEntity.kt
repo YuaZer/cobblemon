@@ -100,9 +100,16 @@ import com.cobblemon.mod.common.pokemon.evolution.variants.ItemInteractionEvolut
 import com.cobblemon.mod.common.pokemon.feature.StashHandler
 import com.cobblemon.mod.common.pokemon.properties.UncatchableProperty
 import com.cobblemon.mod.common.util.*
+import com.cobblemon.mod.common.util.math.geometry.toRadians
 import com.cobblemon.mod.common.world.gamerules.CobblemonGameRules
 import com.mojang.serialization.Codec
 import com.mojang.serialization.Dynamic
+import java.util.Optional
+import java.util.UUID
+import java.util.concurrent.CompletableFuture
+import kotlin.math.PI
+import kotlin.math.ceil
+import net.minecraft.client.Minecraft
 import net.minecraft.core.BlockPos
 import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
@@ -159,10 +166,7 @@ import net.minecraft.world.level.material.FluidState
 import net.minecraft.world.level.pathfinder.PathType
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
-import java.util.*
-import java.util.concurrent.CompletableFuture
-import kotlin.math.PI
-import kotlin.math.ceil
+import kotlin.math.min
 
 @Suppress("unused")
 open class PokemonEntity(
@@ -302,6 +306,7 @@ open class PokemonEntity(
             .also {
                 it.environment.query.addFunction("passenger_count") { DoubleValue(passengers.size.toDouble()) }
                 it.environment.query.addFunction("ride_velocity") { DoubleValue(getRideVelocity().length()) }
+                it.environment.query.addFunction("driver_input") { DoubleValue(min(ridingAnimationData.driverInputSpring.value.length(),1.0)) }
                 it.environment.query.addFunction("get_ride_stats") { params ->
                     val rideStat = RidingStat.valueOf(params.getString(0).uppercase())
                     val rideStyle = RidingStyle.valueOf(params.getString(1).uppercase())
@@ -561,9 +566,12 @@ open class PokemonEntity(
         isPokemonFlying = flyDist - flyDistO > 0.005F
         isPokemonWalking = walkDist - walkDistO > 0.005F
 
-        if (passengers.isNotEmpty()) {
+        if (passengers.isNotEmpty() && level().isClientSide) {
             rideSoundManager.tick()
             ridingAnimationData.update()
+        } else if (!passengers.isNotEmpty() && level().isClientSide)
+        {
+            rideSoundManager.stop()
         }
 
         flyDistO = flyDist
@@ -1755,8 +1763,8 @@ open class PokemonEntity(
                 }
 
                 // Rotate velocity vector to face the current y rotation
-                val f = Mth.sin(this.yRot * 0.017453292f)
-                val g = Mth.cos(this.yRot * 0.017453292f)
+                val f = Mth.sin(this.yRot.toRadians())
+                val g = Mth.cos(this.yRot.toRadians())
                 val v = Vec3(
                     inp.x * g.toDouble() - inp.z * f.toDouble(),
                     inp.y,
@@ -2117,8 +2125,9 @@ open class PokemonEntity(
                 }
             }
 
-            val rotation = behaviour.rotation(settings, state, this, driver)
             this.yRotO = this.yRot
+            val rotation = behaviour.rotation(settings, state, this, driver)
+
             setRot(rotation.y, rotation.x)
             this.yHeadRot = this.yRot
             this.yBodyRot = this.yRot
