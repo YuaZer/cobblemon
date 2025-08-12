@@ -16,14 +16,11 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.tags.FluidTags
+import net.minecraft.util.Mth
 import net.minecraft.util.RandomSource
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.context.BlockPlaceContext
-import net.minecraft.world.level.BlockGetter
-import net.minecraft.world.level.ItemLike
-import net.minecraft.world.level.Level
-import net.minecraft.world.level.LevelAccessor
-import net.minecraft.world.level.LevelReader
+import net.minecraft.world.level.*
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.CropBlock
@@ -211,7 +208,9 @@ class HeartyGrainsBlock(settings: Properties) : CropBlock(settings), SimpleWater
         }
     }
 
-    override fun getBonemealAgeIncrease(world: Level): Int = 1
+    override fun getBonemealAgeIncrease(level: Level): Int {
+        return Mth.nextInt(level.random, 1, 3)
+    }
 
     override fun canSurvive(state: BlockState, world: LevelReader, pos: BlockPos): Boolean {
         return when (state.getValue(HALF)) {

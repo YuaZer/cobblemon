@@ -42,6 +42,8 @@
 - Added new optional property `attachment_options` for most EmitterShapes to be attached to the locator/entities scale, rotation, and/or position. Position is true by default.
 - Galarica Nut bushes now generate on beaches.
 - Some Pokémon now pitch their bodies in the direction they're moving.
+- Added new advancements Didn't Stop To Think, We Need To Cook, and Pokémon Jockey!.
+- Berries can now be smelted into their respective dyes.
 - Added `/runmolang <molang> [<npc>|<player>|<pokemon>]` command that executes a MoLang expression with the provided options as environment variables, as well as the entity (as `q.entity`) that executed the command.
 
 ### Pokémon Added
