@@ -67,7 +67,8 @@
         {
           "item": "minecraft:potion",
           "pickupPriority": 1,
-          "returnItem": "minecraft:glass_bottle"
+          "returnItem": "minecraft:glass_bottle",
+          "fullnessValue": 10
         }
       ]
     }
