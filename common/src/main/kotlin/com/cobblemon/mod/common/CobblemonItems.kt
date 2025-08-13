@@ -349,15 +349,15 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
     @JvmField
     val SACCHARINE_SAPLING = compostableBlockItem("saccharine_sapling", CobblemonBlocks.SACCHARINE_SAPLING, 0.30f)
 
-    @JvmField
-    val BUGWORT = compostableBlockItem("bugwort", CobblemonBlocks.BUGWORT)
+//    @JvmField
+//    val BUGWORT = compostableBlockItem("bugwort", CobblemonBlocks.BUGWORT) // TODO after 1.7
     @JvmField
     val POKE_BAIT = noSettingsItem("poke_bait")
 
     @JvmField
-    val LURE_CAKE = blockItem("lure_cake", CobblemonBlocks.LURE_CAKE)
+    val POKE_SNACK = blockItem("poke_snack", CobblemonBlocks.POKE_SNACK)
     @JvmField
-    val POKE_CAKE = blockItem("poke_cake", CobblemonBlocks.POKE_CAKE)
+    val LURE_POKE_SNACK = blockItem("lure_poke_snack", CobblemonBlocks.LURE_POKE_SNACK)
 
     val aprijuices = mutableListOf<AprijuiceItem>()
     @JvmField
@@ -386,7 +386,7 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
 
     // FOODS
     @JvmField
-    val SWEET_HEART = noSettingsItem("sweet_heart") // todo make a SweetHeartItem class for breeding purposes
+    val SWEET_HEART = noSettingsItem("sweet_heart") // TODO make a SweetHeartItem class for breeding purposes
 
     @JvmField
     val TASTY_TAIL = create("tasty_tail", foodItem(3, 0.3f))
@@ -460,8 +460,8 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
     val PASTURE = blockItem("pasture", CobblemonBlocks.PASTURE)
     @JvmField
     val DISPLAY_CASE = blockItem("display_case", CobblemonBlocks.DISPLAY_CASE)
-    @JvmField
-    val INCENSE_SWEET = blockItem("incense_sweet", CobblemonBlocks.INCENSE_SWEET)
+//    @JvmField
+//    val INCENSE_SWEET = blockItem("incense_sweet", CobblemonBlocks.INCENSE_SWEET) // TODO after 1.7
 
 
     // Evolution items
