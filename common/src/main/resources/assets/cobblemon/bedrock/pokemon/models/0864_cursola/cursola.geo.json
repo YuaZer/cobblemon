@@ -152,6 +152,120 @@
 					}
 				},
 				{
+					"name": "face2",
+					"parent": "shell",
+					"pivot": [0, 8, -0.7],
+					"cubes": [
+						{"origin": [-3.5, 4.5, -4.2], "size": [7, 7, 7], "uv": [90, 1]},
+						{"origin": [-1.5, 4.5, -4.23], "size": [3, 1, 0], "uv": [1, 11]}
+					]
+				},
+				{
+					"name": "eyes2",
+					"parent": "face2",
+					"pivot": [0, 8.2, -4.2]
+				},
+				{
+					"name": "eye_left2",
+					"parent": "eyes2",
+					"pivot": [1.6, 8.4, -4.21],
+					"rotation": [0, 0, -7.5],
+					"cubes": [
+						{"origin": [2.1, 6.7, -4.21], "size": [1, 2, 0], "uv": [4, 5]},
+						{"origin": [1.6, 7.2, -4.22], "size": [1, 2, 0], "uv": [4, 8]}
+					]
+				},
+				{
+					"name": "pupil_left2",
+					"parent": "eye_left2",
+					"pivot": [1.6, 8.4, -4.23],
+					"cubes": [
+						{"origin": [1.1, 7.4, -4.23], "size": [1, 1, 0], "uv": [4, 3]}
+					]
+				},
+				{
+					"name": "pupil_top_left2",
+					"parent": "pupil_left2",
+					"pivot": [1.6, 8.4, -4.23],
+					"cubes": [
+						{"origin": [1.1, 8.4, -4.23], "size": [1, 1, 0], "uv": [4, 2]}
+					]
+				},
+				{
+					"name": "pupil_emote_left2",
+					"parent": "pupil_left2",
+					"pivot": [1.6, 8.4, -4.13],
+					"cubes": [
+						{"origin": [1.1, 8.4, -4.13], "size": [1, 1, 0], "uv": [4, 1]}
+					]
+				},
+				{
+					"name": "eye_right2",
+					"parent": "eyes2",
+					"pivot": [-1.6, 8.4, -4.21],
+					"rotation": [0, 0, 7.5],
+					"cubes": [
+						{"origin": [-3.1, 6.7, -4.21], "size": [1, 2, 0], "uv": [1, 5], "mirror": true},
+						{"origin": [-2.6, 7.2, -4.22], "size": [1, 2, 0], "uv": [1, 8], "mirror": true}
+					]
+				},
+				{
+					"name": "pupil_right2",
+					"parent": "eye_right2",
+					"pivot": [-1.6, 8.4, -4.23],
+					"cubes": [
+						{"origin": [-2.1, 7.4, -4.23], "size": [1, 1, 0], "uv": [1, 3], "mirror": true}
+					]
+				},
+				{
+					"name": "pupil_top_right2",
+					"parent": "pupil_right2",
+					"pivot": [-1.6, 8.4, -4.23],
+					"cubes": [
+						{"origin": [-2.1, 8.4, -4.23], "size": [1, 1, 0], "uv": [1, 2], "mirror": true}
+					]
+				},
+				{
+					"name": "pupil_emote_right2",
+					"parent": "pupil_right2",
+					"pivot": [-1.6, 8.4, -4.13],
+					"cubes": [
+						{"origin": [-2.1, 8.4, -4.13], "size": [1, 1, 0], "uv": [1, 1], "mirror": true}
+					]
+				},
+				{
+					"name": "mouth2",
+					"parent": "face2",
+					"pivot": [0, 6.7, -4.2]
+				},
+				{
+					"name": "mouth_closed2",
+					"parent": "mouth2",
+					"pivot": [0, 6.7, -4.2],
+					"rotation": [0, 0, 45],
+					"cubes": [
+						{"origin": [-0.4, 5.1, -4.22], "size": [2, 2, 0], "uv": [7, 5]},
+						{"origin": [-1, 5.7, -4.21], "size": [2, 2, 0], "uv": [7, 8]}
+					]
+				},
+				{
+					"name": "mouth_open2",
+					"parent": "mouth2",
+					"pivot": [0, 6.5, -4.1],
+					"cubes": [
+						{"origin": [-1, 6.5, -4.11], "size": [2, 1, 0], "uv": [1, 41]},
+						{"origin": [-1.5, 5.75, -4.11], "size": [3, 1, 0], "uv": [1, 39]}
+					]
+				},
+				{
+					"name": "locator_jaw_lower2",
+					"parent": "mouth2",
+					"pivot": [0, 5.7, -4.2],
+					"locators": {
+						"jaw4": [0, 5.7, -4.2]
+					}
+				},
+				{
 					"name": "torso2",
 					"parent": "torso",
 					"pivot": [0, 5, -0.2],
