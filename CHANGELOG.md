@@ -177,6 +177,10 @@
 - Dratini
 - Dragonair
 - Dragonite
+- G. Corsola
+- Cursola
+- Dunsparce
+- Dudunsparce (both forms)
 
 ### Model updates for the following Pokémon
 - Gyarados
@@ -235,6 +239,9 @@
 - Marshtomp
 - Swampert
 - Shelmet
+- Klink
+- Klank
+- Klinklang
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
