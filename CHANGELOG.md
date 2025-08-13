@@ -50,6 +50,9 @@
 #### Gen 2
 - Marill
 - Azumarill
+- Hoppip
+- Skiploom
+- Jumpluff
 - Dunsparce
 
 #### Gen 3
@@ -151,6 +154,8 @@
 - Scovillain
 - Tadbulb
 - Bellibolt
+- Toedscool
+- Toedscruel
 
 ### Animation updates for the following Pokémon
 - Garchomp
