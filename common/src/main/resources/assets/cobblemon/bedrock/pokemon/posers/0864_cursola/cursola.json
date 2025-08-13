@@ -5,22 +5,36 @@
   "profileTranslation": [0.01, 0.65, 0],
   "rootBone": "cursola",
   "animations": {
-    "cry": "q.bedrock_stateful('cursola', 'cry')"
+      "faint": "q.bedrock_primary('cursola', 'faint', q.curve('one'))",
+      "cry": "q.bedrock_stateful('cursola', 'cry')",
+      "recoil": "q.bedrock_stateful('cursola', 'recoil')",
+      "special": "q.bedrock_primary('cursola', 'special', q.curve('symmetrical_wide'))"
   },
   "poses": {
+      "battle-standing": {
+      "isBattle": true,
+      "poseTypes": ["STAND"],
+      "animations": [
+        "q.look('head_ai', 0.5)",
+        "q.bedrock('cursola', 'battle_idle')"
+      ],
+      "quirks": ["q.bedrock_quirk('cursola', 'blink')"]
+    },
     "standing": {
+      "isBattle": false,
       "poseTypes": ["STAND", "FLOAT", "PORTRAIT", "PROFILE", "NONE"],
       "animations": [
         "q.look('head_ai', 0.5)",
         "q.bedrock('cursola', 'ground_idle')"
       ],
-      "quirks": ["q.bedrock_quirk('cursola', 'blink')"]
+        "quirks": [
+          "q.bedrock_quirk('cursola', 'blink')"
+        ]
     },
     "walking": {
       "poseTypes": ["WALK", "SWIM"],
       "animations": [
-        "q.look('head_ai', 0.5)",
-        "q.bedrock('cursola', 'ground_idle')"
+        "q.bedrock('cursola', 'ground_walk')"
       ],
       "quirks": ["q.bedrock_quirk('cursola', 'blink')"]
     },
