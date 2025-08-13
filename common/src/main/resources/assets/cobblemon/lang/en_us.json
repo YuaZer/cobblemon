@@ -3372,8 +3372,8 @@
   "block.cobblemon.terracotta_sun_stone_ore": "Terracotta Sun Stone Ore",
   "block.cobblemon.pasture": "Pasture Block",
 
-  "block.cobblemon.lure_cake": "Lure Cake",
-  "block.cobblemon.poke_cake": "Poké Cake",
+  "block.cobblemon.poke_snack": "Poké Snack",
+  "block.cobblemon.lure_poke_snack": "Lure Poké Snack",
 
   "gamerule.doPokemonSpawning": "Spawn Pokémon",
   "gamerule.doShinyStarters": "Starters will be shiny",

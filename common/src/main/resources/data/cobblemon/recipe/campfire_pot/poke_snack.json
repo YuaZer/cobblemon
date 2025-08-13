@@ -5,8 +5,8 @@
         "M": {
             "item": "minecraft:milk_bucket"
         },
-        "H": {
-            "item": "minecraft:honey_bottle"
+        "S": {
+            "item": "minecraft:sugar"
         },
         "V": {
             "item": "cobblemon:vivichoke"
@@ -17,14 +17,14 @@
     },
     "pattern": [
         "MMM",
-        "HVH",
+        "SVS",
         "GGG"
     ],
     "result": {
-        "id": "cobblemon:lure_cake"
+        "id": "cobblemon:poke_snack"
     },
     "seasoningProcessors": [
-        "spawn_bait",
-        "food_colour"
+        "flavour",
+        "ingredient"
     ]
 }
