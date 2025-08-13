@@ -16,7 +16,8 @@
         }
     ],
     "result": {
-        "id": "cobblemon:lumiose_galette"
+        "id": "cobblemon:lumiose_galette",
+        "count": 2
     },
     "seasoningProcessors": []
 }

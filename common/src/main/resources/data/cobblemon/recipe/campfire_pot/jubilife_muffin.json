@@ -6,13 +6,13 @@
             "item": "cobblemon:hearty_grains"
         },
         {
+        "item": "cobblemon:hearty_grains"
+        },
+        {
             "item": "minecraft:honey_bottle"
         },
         {
             "item": "minecraft:sweet_berries"
-        },
-        {
-            "item": "minecraft:wheat_seeds"
         }
     ],
     "result": {

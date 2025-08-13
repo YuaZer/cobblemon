@@ -207,7 +207,7 @@ object CobblemonClient {
                 }
             }
             return@BlockColor 0xFFFFFF
-        }, CobblemonBlocks.POKE_SNACK, CobblemonBlocks.LURE_POKE_SNACK)
+        }, CobblemonBlocks.POKE_SNACK, CobblemonBlocks.POKE_CAKE)
     }
 
     private fun registerBlockRenderTypes() {
@@ -380,7 +380,7 @@ object CobblemonClient {
 
     private fun registerItemColors() {
         implementation.registerItemColors(AprijuiceItemColorProvider, *CobblemonItems.aprijuices.toTypedArray())
-        implementation.registerItemColors(PokeSnackItemColorProvider, CobblemonItems.POKE_SNACK, CobblemonItems.LURE_POKE_SNACK)
+        implementation.registerItemColors(PokeSnackItemColorProvider, CobblemonItems.POKE_SNACK, CobblemonItems.POKE_CAKE)
         implementation.registerItemColors(PokeBaitItemColorProvider, CobblemonItems.POKE_BAIT)
         implementation.registerItemColors(PonigiriItemColorProvider, CobblemonItems.PONIGIRI)
         implementation.registerItemColors(SinisterTeaItemColorProvider, CobblemonItems.SINISTER_TEA)

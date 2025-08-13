@@ -22,7 +22,7 @@ import net.minecraft.world.item.UseAnim
 import net.minecraft.world.level.Level
 
 class PonigiriItem : Item(
-        Properties().stacksTo(16)
+        Properties().stacksTo(64)
                 .food(FoodProperties.Builder()
                         .alwaysEdible()
                         .nutrition(4)
