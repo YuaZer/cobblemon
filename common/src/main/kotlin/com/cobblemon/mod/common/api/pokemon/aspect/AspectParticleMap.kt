@@ -25,7 +25,7 @@ val aspectParticleMap: Map<String, ParticleData> = mapOf(
     LurePokeSnackDetector.POKE_SNACK_CRUMBED_ASPECT to ParticleData.MinecraftParticle(
         BlockParticleOption(
             ParticleTypes.BLOCK,
-            CobblemonBlocks.LURE_POKE_SNACK.defaultBlockState()
+            CobblemonBlocks.POKE_SNACK.defaultBlockState()
         ), 0.05, 3),
 )
 

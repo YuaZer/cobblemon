@@ -355,9 +355,9 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
     val POKE_BAIT = noSettingsItem("poke_bait")
 
     @JvmField
-    val POKE_SNACK = blockItem("poke_snack", CobblemonBlocks.POKE_SNACK)
+    val POKE_CAKE = this.create("poke_cake", BlockItem(CobblemonBlocks.POKE_CAKE, Item.Properties().stacksTo(1)))
     @JvmField
-    val LURE_POKE_SNACK = blockItem("lure_poke_snack", CobblemonBlocks.LURE_POKE_SNACK)
+    val POKE_SNACK = this.create("poke_snack", BlockItem(CobblemonBlocks.POKE_SNACK, Item.Properties().stacksTo(16)))
 
     val aprijuices = mutableListOf<AprijuiceItem>()
     @JvmField
@@ -392,25 +392,25 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
     val TASTY_TAIL = create("tasty_tail", foodItem(3, 0.3f))
 
     @JvmField
-    val PEWTER_CRUNCHIES = regionalFoodItem("pewter_crunchies", 16, 7, 0.343f, false)
+    val PEWTER_CRUNCHIES = regionalFoodItem("pewter_crunchies", 64, 7, 0.343f, false)
     @JvmField
-    val RAGE_CANDY_BAR = regionalFoodItem("rage_candy_bar", 16, 8, 0.2f, false)
+    val RAGE_CANDY_BAR = regionalFoodItem("rage_candy_bar", 64, 8, 0.2f, false)
     @JvmField
-    val LAVA_COOKIE = regionalFoodItem("lava_cookie", 16, 7, 0.343f, false)
+    val LAVA_COOKIE = regionalFoodItem("lava_cookie", 64, 2, 0.3f, false)
     @JvmField
-    val OLD_GATEAU = regionalFoodItem("old_gateau", 16, 9, 0.1335f, false)
+    val OLD_GATEAU = regionalFoodItem("old_gateau", 64, 9, 0.1335f, false)
     @JvmField
-    val CASTELIACONE = regionalFoodItem("casteliacone", 16, 5, .28f, false)
+    val CASTELIACONE = regionalFoodItem("casteliacone", 64, 5, .28f, false)
     @JvmField
-    val LUMIOSE_GALETTE = regionalFoodItem("lumiose_galette", 16, 8, 0.2f, false)
+    val LUMIOSE_GALETTE = regionalFoodItem("lumiose_galette", 64, 4, 0.4f, false)
     @JvmField
-    val BIG_MALASADA = regionalFoodItem("big_malasada", 16, 7, 0.343f, false)
+    val BIG_MALASADA = regionalFoodItem("big_malasada", 64, 7, 0.343f, false)
     @JvmField
-    val SMOKED_TAIL_CURRY = regionalFoodItem("smoked_tail_curry", 16, 10, 0.6f, false, ItemStack(Items.BOWL, 1))
+    val SMOKED_TAIL_CURRY = regionalFoodItem("smoked_tail_curry", 64, 10, 0.6f, false, ItemStack(Items.BOWL, 1))
     @JvmField
-    val JUBILIFE_MUFFIN = regionalFoodItem("jubilife_muffin", 16, 8, 0.2f, false)
+    val JUBILIFE_MUFFIN = regionalFoodItem("jubilife_muffin", 64, 8, 0.2f, false)
     @JvmField
-    val OPEN_FACED_SANDWICH = regionalFoodItem("open_faced_sandwich", 16, 13, 0.5f, false)
+    val OPEN_FACED_SANDWICH = regionalFoodItem("open_faced_sandwich", 64, 13, 0.5f, false)
 
     // todo we might need to wait on these for later? These impact battles and may be harder to do
     /*@JvmField
@@ -421,20 +421,20 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
     val TWICE_SPICED_BEETROOT = noSettingsItem("twice_spiced_beetroot") // todo make a TwiceSpiceBeetrootItem class for battle purposes
 */
     @JvmField
-    val POTATO_MOCHI = create("potato_mochi", CobblemonItem(Properties().stacksTo(16)
+    val POTATO_MOCHI = create("potato_mochi", CobblemonItem(Properties().stacksTo(64)
         .food(FoodProperties.Builder()
-            .nutrition(8)
-            .saturationModifier(0.2375F)
+            .nutrition(4)
+            .saturationModifier(0.4F)
             .build())))
     @JvmField
-    val CANDIED_APPLE = create("candied_apple",  CobblemonItem(Properties().stacksTo(16)
+    val CANDIED_APPLE = create("candied_apple",  CobblemonItem(Properties().stacksTo(64)
         .food(FoodProperties.Builder()
             .nutrition(6)
             .saturationModifier(0.2335F)
             .usingConvertsTo(Items.STICK)
             .build())))
     @JvmField
-    val CANDIED_BERRY = create("candied_berry",  CobblemonItem(Properties().stacksTo(16)
+    val CANDIED_BERRY = create("candied_berry",  CobblemonItem(Properties().stacksTo(64)
         .food(FoodProperties.Builder()
             .nutrition(5)
             .saturationModifier(0.22F)

@@ -3,15 +3,15 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "cobblemon:campfire_pot/lure_cake"
+        "recipe": "cobblemon:campfire_pot/poke_snack"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_berry": {
+    "has_vivichoke": {
       "conditions": {
         "items": [
           {
-            "items": "#cobblemon:berries"
+            "items": "cobblemon:vivichoke"
           }
         ]
       },
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_berry"
+      "has_vivichoke"
     ]
   ],
   "rewards": {
     "recipes": [
-      "cobblemon:campfire_pot/lure_cake"
+      "cobblemon:campfire_pot/poke_snack"
     ]
   }
 }

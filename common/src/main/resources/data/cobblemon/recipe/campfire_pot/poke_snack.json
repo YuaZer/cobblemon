@@ -5,8 +5,8 @@
         "M": {
             "item": "minecraft:milk_bucket"
         },
-        "S": {
-            "item": "minecraft:sugar"
+        "H": {
+            "item": "minecraft:honey_bottle"
         },
         "V": {
             "item": "cobblemon:vivichoke"
@@ -17,7 +17,7 @@
     },
     "pattern": [
         "MMM",
-        "SVS",
+        "HVH",
         "GGG"
     ],
     "result": {
@@ -25,6 +25,7 @@
     },
     "seasoningProcessors": [
         "flavour",
-        "ingredient"
+        "ingredient",
+        "spawn_bait"
     ]
 }

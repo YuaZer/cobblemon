@@ -524,6 +524,7 @@ object CobblemonItemGroups {
 
         entries.accept(CobblemonItems.POKE_BAIT)
         entries.accept(CobblemonItems.POKE_SNACK)
+        entries.accept(CobblemonItems.POKE_CAKE)
         entries.accept(CobblemonItems.POKE_PUFF)
 
         entries.accept(CobblemonItems.APRIJUICE_RED)
@@ -782,6 +783,8 @@ object CobblemonItemGroups {
 
         injector.putAfter(CobblemonItems.LEEK_AND_POTATO_STEW, Items.RABBIT_STEW)
         injector.putAfter(CobblemonItems.VIVICHOKE_DIP, CobblemonItems.LEEK_AND_POTATO_STEW)
+
+        injector.putAfter(CobblemonItems.POKE_CAKE, Items.CAKE)
 
         injector.putAfter(CobblemonItems.SINISTER_TEA, Items.MILK_BUCKET)
     }

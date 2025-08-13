@@ -243,9 +243,9 @@ object CobblemonBlocks : PlatformRegistry<Registry<Block>, ResourceKey<Registry<
     val REVIVAL_HERB = this.create("revival_herb", RevivalHerbBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).mapColor(MapColor.PLANT).ignitedByLava().noCollission().instabreak().sound(CobblemonSounds.REVIVAL_HERB_SOUNDS)))
 
     @JvmField
-    val POKE_SNACK = this.create("poke_snack", PokeSnackBlock(BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY).lightLevel { if (it.getValue(LIT)) 3 else 0 }, false))
+    val POKE_CAKE = this.create("poke_cake", PokeSnackBlock(BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY).lightLevel { if (it.getValue(LIT)) 3 else 0 }, false))
     @JvmField
-    val LURE_POKE_SNACK = this.create("lure_poke_snack", PokeSnackBlock(BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY).lightLevel { if (it.getValue(LIT)) 3 else 0 }, true))
+    val POKE_SNACK = this.create("poke_snack", PokeSnackBlock(BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY).lightLevel { if (it.getValue(LIT)) 3 else 0 }, true))
 
     @JvmField
     val TUMBLESTONE_CLUSTER = tumblestoneBlock("tumblestone_cluster", GrowableStoneBlock.STAGE_3, 7, 3, null)

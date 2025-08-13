@@ -16,7 +16,8 @@
         }
     ],
     "result": {
-        "id": "cobblemon:lava_cookie"
+        "id": "cobblemon:lava_cookie",
+        "count": 4
     },
     "seasoningProcessors": []
 }
