@@ -170,7 +170,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
                 if (!ItemStack.isSameItemSameComponents(
                         resultSlotItem,
                         cookedItem
-                    ) || resultSlotItem.count >= resultSlotItem.maxStackSize
+                    ) || resultSlotItem.count + cookedItem.count > resultSlotItem.maxStackSize
                 ) {
                     campfireBlockEntity.cookingProgress = 0
                     return

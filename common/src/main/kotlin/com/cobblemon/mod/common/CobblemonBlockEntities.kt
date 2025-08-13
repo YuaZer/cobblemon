@@ -95,7 +95,10 @@ object CobblemonBlockEntities : PlatformRegistry<Registry<BlockEntityType<*>>, R
 
     @JvmField
     val CAMPFIRE: BlockEntityType<CampfireBlockEntity> = this.create("campfire_pot",
-            BlockEntityType.Builder.of(::CampfireBlockEntity, CobblemonBlocks.CAMPFIRE).build(null)
+            BlockEntityType.Builder.of(::CampfireBlockEntity,
+                CobblemonBlocks.CAMPFIRE,
+                CobblemonBlocks.SOUL_CAMPFIRE
+            ).build(null)
     )
 
     @JvmField

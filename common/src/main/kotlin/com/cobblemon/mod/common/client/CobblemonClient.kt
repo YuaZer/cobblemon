@@ -295,6 +295,7 @@ object CobblemonClient {
             CobblemonBlocks.POKE_SNACK,
             CobblemonBlocks.LECTERN,
             CobblemonBlocks.CAMPFIRE,
+            CobblemonBlocks.SOUL_CAMPFIRE,
             CobblemonBlocks.BLACK_CAMPFIRE_POT,
             CobblemonBlocks.BLUE_CAMPFIRE_POT,
             CobblemonBlocks.GREEN_CAMPFIRE_POT,

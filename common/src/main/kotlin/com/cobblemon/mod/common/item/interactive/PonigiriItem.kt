@@ -49,7 +49,7 @@ class PonigiriItem : Item(
 
         if (effects != null && !world.isClientSide) {
             if (user is Player) { // todo maybe we want to be able to let other mobs eat these? or modded creatures that have hunder? idk
-                user.foodData.eat(effects.hunger, effects.saturation)
+                user.foodData.add(effects.hunger, effects.saturation)
             }
         }
 
