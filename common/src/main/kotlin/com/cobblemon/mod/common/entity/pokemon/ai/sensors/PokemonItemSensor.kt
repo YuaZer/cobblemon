@@ -8,9 +8,11 @@
 
 package com.cobblemon.mod.common.entity.pokemon.ai.sensors
 
+import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.pokemon.ai.ObtainableItem
 import com.cobblemon.mod.common.util.findMatchingEntry
+import com.cobblemon.mod.common.util.getMemorySafely
 import com.cobblemon.mod.common.util.getObjectList
 import com.google.common.collect.ImmutableSet
 import java.util.Optional
@@ -35,8 +37,10 @@ class PokemonItemSensor(
 
     override fun doTick(level: ServerLevel, entity: PokemonEntity) {
         val pickupItems = entity.config.getObjectList<ObtainableItem>(PICKUP_ITEMS)
-        if (!level.gameRules.getBoolean(GameRules.RULE_MOBGRIEFING) || !entity.pokemon.canDropHeldItem) {
-            // Mob griefing is disabled or the Pokemon cannot swap out its item, so don't bother to search
+        if (!level.gameRules.getBoolean(GameRules.RULE_MOBGRIEFING) || !entity.pokemon.canDropHeldItem || entity.brain.getMemorySafely(
+                CobblemonMemories.DISABLE_WALK_TO_WANTED_ITEM).orElse(false)) {
+            // Mob griefing is disabled, the Pokemon cannot swap out its item, or it's exhausted from attempting to go to an unreachable item
+            // so don't bother to search
             return
         }
 

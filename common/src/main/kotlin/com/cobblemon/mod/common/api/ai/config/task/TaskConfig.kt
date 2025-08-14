@@ -109,6 +109,7 @@ interface TaskConfig {
             cobblemonResource("harvest_sweet_berry_bush") to HarvestSweetBerryBushTaskConfig::class.java,
             cobblemonResource("eat_held_item") to EatHeldItemTaskConfig::class.java,
             cobblemonResource("move_to_item") to MoveToItemTaskConfig::class.java,
+            cobblemonResource("stop_moving_to_item") to StopIfTiredOfTryingToReachWantedItemTaskConfig::class.java,
             cobblemonResource("pickup_item") to PickUpItemTaskConfig::class.java,
             cobblemonResource("move_into_fluid") to MoveIntoFluidTaskConfig::class.java,
             cobblemonResource("find_herd_leader") to FindHerdLeaderTaskConfig::class.java,

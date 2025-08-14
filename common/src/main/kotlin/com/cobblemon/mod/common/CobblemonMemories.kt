@@ -58,6 +58,8 @@ object CobblemonMemories {
     val HERD_SIZE = register<Int>("herd_size") // Don't bother saving it, we'll try to keep count roughly.
     val ATTACK_TARGET_DATA = register<CobblemonAttackTargetData>("attack_target_data") // This is used to store additional information about the attack target, such as when to give up pursuit.
     val WANDER_CONTROL = register<CobblemonWanderControl>("wander_control")
+    val DISABLE_WALK_TO_WANTED_ITEM = register<Boolean>("disable_walk_to_wanted_item")
+    val TIME_TRYING_TO_REACH_WANTED_ITEM = register<Int>("time_trying_to_wanted_item")
 
     fun <U> register(id: String, codec: Codec<U>): MemoryModuleType<U> {
         val memoryModule = MemoryModuleType(Optional.of(codec))

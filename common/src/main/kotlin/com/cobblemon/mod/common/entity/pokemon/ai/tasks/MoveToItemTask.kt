@@ -10,6 +10,7 @@ package com.cobblemon.mod.common.entity.pokemon.ai.tasks
 
 import com.bedrockk.molang.Expression
 import com.bedrockk.molang.runtime.MoLangRuntime
+import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMostSpecificMoLangValue
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.setup
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
@@ -28,8 +29,9 @@ object MoveToItemTask {
     fun create(condition: Expression, maxDistance: Expression, speedMultiplier: Expression): OneShot<PokemonEntity> = BehaviorBuilder.create {
         it.group(
             it.absent(MemoryModuleType.WALK_TARGET),
-            it.present(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM)
-        ).apply(it) { walkTarget, wantedItemEntity ->
+            it.present(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM),
+            it.absent(CobblemonMemories.DISABLE_WALK_TO_WANTED_ITEM)
+        ).apply(it) { walkTarget, wantedItemEntity, isDisabledMemory ->
             Trigger { _, entity, _ ->
 
                 val itemEntity = it.get(wantedItemEntity)
