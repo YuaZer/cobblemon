@@ -8,27 +8,69 @@
     "cry": "q.bedrock_stateful('hoppip', 'cry')"
   },
   "poses": {
-	"walking": {
+	"battle-standing": {
+     "poseTypes": [
+		"STAND"
+	  ],
+     "isBattle": true,
+     "animations": [
+        "q.bedrock('hoppip', 'battle_idle')"
+      ],
+	  "transformTicks": 10,
+      "quirks": [
+	  "q.bedrock_quirk('hoppip', 'blink')"
+	  ]
+    },
+    "standing": {
       "poseTypes": [
 		"STAND",
-		"WALK",
-		"SWIM",
 		"PORTRAIT",
         "PROFILE"
 	  ],
+	  "isBattle": false,
       "animations": [
-	  "q.bedrock('hoppip', 'ground_idle')"
+        "q.bedrock('hoppip', 'ground_idle')"
+      ],
+	  "transformTicks": 10,
+      "quirks": [
+	  "q.bedrock_quirk('hoppip', 'blink')"
+	  ]
+    },
+	"walking": {
+      "poseTypes": [
+		"WALK",
+		"SWIM"
+	  ],
+      "animations": [
+	  "q.bedrock('hoppip', 'ground_walk')"
 	  ],
 	  "transformTicks": 10,
       "quirks": [
 	  "q.bedrock_quirk('hoppip', 'blink')"
 	  ]
     },
+	"air-sleep": {
+      "poseTypes": [
+	    "SLEEP"
+	  ],
+      "condition": "q.is_flying",
+       "namedAnimations": {
+         "cry": "q.bedrock_stateful('dummy', 'cry')"
+      },
+      "animations": [
+        "q.bedrock('hoppip', 'air_sleep')",
+		"q.bedrock('hoppip', 'fly_overlay')"
+      ]
+    },
     "sleep": {
       "poseName": "sleep",
       "poseTypes": [
         "SLEEP"
       ],
+	  "condition": "!q.is_flying",
+       "namedAnimations": {
+         "cry": "q.bedrock_stateful('dummy', 'cry')"
+       },
       "animations": [
         "q.bedrock('hoppip', 'sleep')"
       ]
