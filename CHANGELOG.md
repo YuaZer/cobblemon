@@ -125,6 +125,7 @@
 - Drampa
 - Alolan Grimer
 - Alolan Muk
+- Togedemaru
 
 #### Gen 8
 - Skwovet
