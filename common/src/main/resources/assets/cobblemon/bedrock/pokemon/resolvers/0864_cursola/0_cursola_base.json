@@ -18,7 +18,8 @@
           "name": "ectoplasm",
           "emissive": false,
           "texture": "cobblemon:textures/pokemon/0864_cursola/cursola_ectoplasm.png",
-          "translucent": true
+          "translucent": true,
+          "translucent_cull": true
         }
       ]
     },
@@ -36,7 +37,8 @@
           "name": "ectoplasm",
           "emissive": false,
           "texture": "cobblemon:textures/pokemon/0864_cursola/cursola_ectoplasm_shiny.png",
-          "translucent": true
+          "translucent": true,
+          "translucent_cull": true
         }
       ]
     }
