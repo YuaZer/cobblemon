@@ -2,7 +2,7 @@
   "portraitScale": 1.59,
   "portraitTranslation": [0.02, -0.7, 0],
   "profileScale": 0.9,
-  "profileTranslation": [0.01, 0.45, 0],
+  "profileTranslation": [0.01, 0.39, 0],
   "rootBone": "corsola",
   "animations": {
       "faint": "q.bedrock_primary('corsola_galarian', 'faint', q.curve('one'))",

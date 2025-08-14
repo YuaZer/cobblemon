@@ -4968,6 +4968,9 @@
   "pokemon.corsola.cry": {
     "sounds": [ { "name": "cobblemon:pokemon/corsola/corsola_cry", "volume": 0.8 } ]
   },
+  "pokemon.corsola_galarian.cry": {
+    "sounds": [ { "name": "cobblemon:pokemon/corsola/corsola_galarian_cry", "volume": 0.8 } ]
+  },
   "pokemon.remoraid.cry": {
     "sounds": [ { "name": "cobblemon:pokemon/remoraid/remoraid_cry", "volume": 0.8 } ]
   },

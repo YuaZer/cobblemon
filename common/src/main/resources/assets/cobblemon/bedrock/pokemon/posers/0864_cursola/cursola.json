@@ -2,7 +2,7 @@
   "portraitScale": 1.59,
   "portraitTranslation": [-0.1, 0.76, 0],
   "profileScale": 0.7,
-  "profileTranslation": [0.01, 0.65, 0],
+  "profileTranslation": [0.01, 0.73, 0],
   "rootBone": "cursola",
   "animations": {
       "faint": "q.bedrock_primary('cursola', 'faint', q.curve('one'))",
@@ -34,6 +34,7 @@
     "walking": {
       "poseTypes": ["WALK", "SWIM"],
       "animations": [
+        "q.look('head_ai', 0.5)",
         "q.bedrock('cursola', 'ground_walk')"
       ],
       "quirks": ["q.bedrock_quirk('cursola', 'blink')"]
