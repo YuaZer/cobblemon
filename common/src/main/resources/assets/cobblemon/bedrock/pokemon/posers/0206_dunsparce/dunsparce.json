@@ -1,6 +1,6 @@
 {
   "portraitScale": 1.73,
-  "portraitTranslation": [-0.45, -1, 0],
+  "portraitTranslation": [-0.45, -1.17, 0],
   "profileScale": 0.7,
   "profileTranslation": [-0.06, 0.59, 0],
   "rootBone": "dunsparce",
@@ -17,13 +17,13 @@
       "poseTypes": ["STAND"],
       "animations": [
         "q.look('head')",
-        "q.bedrock('dunsparce', 'ground_idle')"
+        "q.bedrock('dunsparce', 'battle_idle')"
       ],
       "quirks": [
         "q.bedrock_quirk('dunsparce', 'blink')","q.bedrock_quirk('dunsparce', 'wingflap_quirk')"
       ],
         "namedAnimations": {
-            "cry": "q.bedrock_primary('dunsparce', 'battle_cry', q.curve('one'))"
+            "cry": "q.bedrock_primary('dunsparce', 'battle_cry', q.curve('symmetrical_wide'))"
           }
     },
     "standing": {
@@ -45,7 +45,6 @@
         "q.bedrock('dunsparce', 'ground_walk')"
       ],
       "quirks": [
-        "q.look('head')",
         "q.bedrock_quirk('dunsparce', 'blink')"
       ]
     },
@@ -55,7 +54,6 @@
         "q.bedrock('dunsparce', 'unused flying')"
       ],
       "quirks": [
-        "q.look('head')",
         "q.bedrock_quirk('dunsparce', 'blink')"
       ]
     },

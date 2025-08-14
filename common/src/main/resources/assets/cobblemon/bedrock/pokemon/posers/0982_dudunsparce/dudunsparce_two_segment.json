@@ -1,10 +1,13 @@
 {
   "portraitScale": 1.1,
-  "portraitTranslation": [-0.8, -0.18, 0],
+  "portraitTranslation": [-0.8, -0.009, 0],
   "profileScale": 0.5,
-  "profileTranslation": [-0.18, 0.77, 0],
+  "profileTranslation": [-0.18, 0.96, 0],
   "rootBone": "dudunsparce",
-  "animations": {},
+  "animations": {
+    "cry": "q.bedrock_stateful('dudunsparce_two_segment', 'cry')",
+    "recoil": "q.bedrock_stateful('dudunsparce_two_segment', 'recoil')"
+  },
  "poses": {
       "battle-standing": {
       "isBattle": true,

@@ -1,8 +1,8 @@
 {
   "portraitScale": 1.1,
-  "portraitTranslation": [-1.2, -0.18, 0],
+  "portraitTranslation": [-1.2, -0.009, 0],
   "profileScale": 0.5,
-  "profileTranslation": [-0.18, 0.77, 0],
+  "profileTranslation": [-0.18, 0.96, 0],
   "rootBone": "dudunsparce",
   "animations": {
       "cry": "q.bedrock_stateful('dudunsparce_three_segment', 'cry')",
