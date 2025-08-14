@@ -102,21 +102,10 @@ class EatHeldItemTask(entity: PokemonEntity) : Behavior<PokemonEntity>(
                         // Drop item
                         resultItemStack = entity.pokemon.swapHeldItem(resultItemStack)
                         if (!resultItemStack.isEmpty && !entity.level().isClientSide) {
-                            val itemEntity = ItemEntity(
-                                entity.level(),
-                                entity.x + entity.lookAngle.x,
-                                entity.y + 1.0,
-                                entity.z + entity.lookAngle.z,
-                                resultItemStack
-                            )
-                            itemEntity.setPickUpDelay(40)
-                            itemEntity.setThrower(entity)
-                            entity.playSound(SoundEvents.FOX_SPIT, 1.0f, 1.0f) // TODO: customize this sound?
-                            entity.level().addFreshEntity(itemEntity)
+                            PickUpItemTask.dropItem(entity, resultItemStack)
                         }
                     }
-                } else if ((itemConfig?.fullnessValue ?: 0) > 0 && this.timelastEaten > 0 && entity.random.nextFloat() < 0.4f
-                ) {
+                } else if ((itemConfig?.fullnessValue ?: 0) > 0 && this.timelastEaten > 0 && entity.random.nextFloat() < 0.4f) {
                     entity.playSound(entity.getEatingSound(itemStack), 1.0f, 1.0f)
                     world.broadcastEntityEvent(entity, 45.toByte())
                     spawnFoodParticles(entity, itemStack)
@@ -129,6 +118,7 @@ class EatHeldItemTask(entity: PokemonEntity) : Behavior<PokemonEntity>(
     private fun spawnFoodParticles(entity: LivingEntity, itemStack: ItemStack) {
         val serverLevel = entity.level() as ServerLevel
         //TODO: Figure out how to this with snowstorm so we can use mouth/face/head locators
+        // The issue as of this writing is we don't have a clean way to utilize the item texture for the particle in snowstorm
         serverLevel.sendParticles(
             ItemParticleOption(ParticleTypes.ITEM, itemStack),
             entity.x, entity.y + 0.5, entity.z, // particle position (centered on entity)
