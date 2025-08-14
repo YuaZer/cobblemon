@@ -3495,6 +3495,8 @@
   "tag.item.cobblemon.poke_food": "Poké Foods",
   "tag.item.cobblemon.full_heal_bottles": "Full Heal Bottles",
   "tag.item.cobblemon.small_flowers": "Small Flowers",
+  "tag.item.cobblemon.held.blacklisted_items_to_hold": "Blacklisted Held Items",
+  "tag.item.cobblemon.held.whitelisted_items_to_hold": "Whitelisted Held Items",
 
 
   "cobblemon.entity.variable.challenge_cooldown.name": "Challenge Cooldown",

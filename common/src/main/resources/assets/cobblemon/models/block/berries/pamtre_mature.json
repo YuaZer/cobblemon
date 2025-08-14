@@ -2,8 +2,8 @@
 	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "cobblemon:block/pamtre_tree",
-		"particle": "cobblemon:block/pamtre_tree"
+		"0": "cobblemon:block/berries/pamtre_tree",
+		"particle": "cobblemon:block/berries/pamtre_tree"
 	},
 	"elements": [
 		{
