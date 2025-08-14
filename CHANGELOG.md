@@ -240,6 +240,7 @@
 - Marshtomp
 - Swampert
 - Shelmet
+- Escavalier
 - Klink
 - Klank
 - Klinklang
