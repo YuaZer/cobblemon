@@ -394,6 +394,8 @@
 - Added Molang functions for Pokémon: `pokeball`, `held_item`, `remove_held_item`, `hyper_train_iv`, `validate_moveset`, `initialize_moveset`, and `add_exp`.
 - Added Molang functions for Pokémon: `aspects`, `form_aspects`, `unlearn_move`, `teach_learnable_moves`, `cosmetic_item`, and `remove_cosmetic_item`.
 - Added Molang functions for Pokémon: `ability`, `set_iv`, `set_ev`, `teach_move`, and `can_learn_move`.
+- Added Molang function `q.delete_variable(<struct>, <variable_name>)` to delete a value from a variable structure in MoLang data.
+- Added Molang function `q.delete_variables(<struct>)` to delete all values from a variable structure in MoLang data.
 - Adds Flows for `STARTER_CHOSEN`, `SHOULDER_MOUNTED`, `EV_GAINED`, `POKEMON_RELEASED`, `POKEMON_NICKNAMED`, `HELD_ITEM`, and `TRADE_COMPLETED` events
 - Adds Flows for `POKEMON_HEALED`, `POKEMON_SCANNED`, `BERRY_HARVEST`, `LOOT_DROPPED`, `POKEMON_SEEN`, `COLLECT_EGG`, `HATCH_EGG`, and `EXPERIENCE_GAINED`.
 - Adds Flows for `POKEMON_CATCH_RATE`, `BAIT_SET`, `BAIT_SET_PRE`, `BAIT_CONSUMED`, `POKEROD_CAST_PRE`, `POKEROD_CAST_POST`, `POKEROD_REEL`, and `BOBBER_SPAWN_POKEMON_PRE`.

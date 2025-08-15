@@ -76,6 +76,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.level.biome.Biome
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.levelgen.structure.Structure
+import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.phys.AABB
 
 object PokemonSpecies : JsonDataRegistry<Species> {
@@ -123,6 +124,7 @@ object PokemonSpecies : JsonDataRegistry<Species> {
         .registerTypeAdapter(TypeToken.getParameterized(RegistryLikeCondition::class.java, Block::class.java).type, BlockLikeConditionAdapter)
         .registerTypeAdapter(TypeToken.getParameterized(RegistryLikeCondition::class.java, Item::class.java).type, ItemLikeConditionAdapter)
         .registerTypeAdapter(TypeToken.getParameterized(RegistryLikeCondition::class.java, Structure::class.java).type, StructureLikeConditionAdapter)
+        .registerTypeAdapter(TypeToken.getParameterized(RegistryLikeCondition::class.java, Fluid::class.java).type, FluidLikeConditionAdapter)
         .registerTypeAdapter(EggGroup::class.java, EggGroupAdapter)
         .registerTypeAdapter(MobEffect::class.java, RegistryElementAdapter<MobEffect>(BuiltInRegistries::MOB_EFFECT))
         .registerTypeAdapter(ItemPredicate::class.java, LegacyItemConditionWrapperAdapter)
