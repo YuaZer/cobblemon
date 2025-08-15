@@ -12,6 +12,7 @@ import com.bedrockk.molang.runtime.MoLangEnvironment
 import com.bedrockk.molang.runtime.MoLangRuntime
 import com.bedrockk.molang.runtime.MoParams
 import com.bedrockk.molang.runtime.struct.ArrayStruct
+import com.bedrockk.molang.runtime.struct.MoStruct
 import com.bedrockk.molang.runtime.struct.QueryStruct
 import com.bedrockk.molang.runtime.struct.VariableStruct
 import com.bedrockk.molang.runtime.value.DoubleValue
@@ -156,6 +157,17 @@ object MoLangFunctions {
         "print" to java.util.function.Function { params ->
             val message = params.get<MoValue>(0).asString()
             Cobblemon.LOGGER.info(message)
+        },
+        "delete_variable" to java.util.function.Function { params ->
+            val struct = params.get<VariableStruct>(0)
+            val variable = params.getString(1)
+            struct.map.remove(variable)
+            DoubleValue.ONE
+        },
+        "delete_variables" to java.util.function.Function { params ->
+            val struct = params.get<VariableStruct>(0)
+            struct.map.clear()
+            DoubleValue.ONE
         },
         "set_query" to java.util.function.Function { params ->
             val variable = params.getString(0)
