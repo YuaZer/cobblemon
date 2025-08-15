@@ -11,8 +11,13 @@ package com.cobblemon.mod.common.entity.pokemon
 import com.bedrockk.molang.runtime.MoLangRuntime
 import com.bedrockk.molang.runtime.struct.VariableStruct
 import com.bedrockk.molang.runtime.value.DoubleValue
-import com.cobblemon.mod.common.*
+import com.cobblemon.mod.common.Cobblemon
+import com.cobblemon.mod.common.CobblemonCosmeticItems
+import com.cobblemon.mod.common.CobblemonEntities
+import com.cobblemon.mod.common.CobblemonItems
+import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.CobblemonNetwork.sendPacket
+import com.cobblemon.mod.common.CobblemonSounds
 import com.cobblemon.mod.common.api.battles.model.PokemonBattle
 import com.cobblemon.mod.common.api.drop.DropTable
 import com.cobblemon.mod.common.api.entity.Despawner
@@ -68,7 +73,13 @@ import com.cobblemon.mod.common.battles.BattleRegistry
 import com.cobblemon.mod.common.battles.SuccessfulBattleStart
 import com.cobblemon.mod.common.block.entity.PokemonPastureBlockEntity
 import com.cobblemon.mod.common.client.entity.PokemonClientDelegate
-import com.cobblemon.mod.common.entity.*
+import com.cobblemon.mod.common.entity.BehaviourEditingTracker
+import com.cobblemon.mod.common.entity.EntityCallbacks
+import com.cobblemon.mod.common.entity.MoLangScriptingEntity
+import com.cobblemon.mod.common.entity.OmniPathingEntity
+import com.cobblemon.mod.common.entity.PlatformType
+import com.cobblemon.mod.common.entity.PosableEntity
+import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.PoseType.Companion.NO_GRAV_POSES
 import com.cobblemon.mod.common.entity.ai.OmniPathNavigation
 import com.cobblemon.mod.common.entity.generic.GenericBedrockEntity
@@ -109,11 +120,10 @@ import java.util.UUID
 import java.util.concurrent.CompletableFuture
 import kotlin.math.PI
 import kotlin.math.ceil
-import net.minecraft.client.Minecraft
+import kotlin.math.min
 import net.minecraft.core.BlockPos
 import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtOps
 import net.minecraft.nbt.NbtUtils
@@ -162,11 +172,11 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.level.LightLayer
 import net.minecraft.world.level.block.SuspiciousEffectHolder
 import net.minecraft.world.level.gameevent.GameEvent
+import net.minecraft.world.level.material.EmptyFluid
 import net.minecraft.world.level.material.FluidState
 import net.minecraft.world.level.pathfinder.PathType
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
-import kotlin.math.min
 
 @Suppress("unused")
 open class PokemonEntity(
@@ -1006,30 +1016,6 @@ open class PokemonEntity(
 //            goalSelector.add(5, EatGrassGoal(this))
 //        }
 
-    fun canSleep(): Boolean {
-        val rest = behaviour.resting
-        val worldTime = (level().dayTime % 24000).toInt()
-        val light = level().getMaxLocalRawBrightness(blockPosition())
-        val block = level().getBlockState(blockPosition()).block
-        val biome = level().getBiome(blockPosition()).value()
-
-        return rest.canSleep &&
-                !this.getBehaviourFlag(PokemonBehaviourFlag.EXCITED) &&
-                worldTime in this.behaviour.resting.times &&
-                light in rest.light &&
-                (rest.blocks.isEmpty() || rest.blocks.any {
-                    it.fits(
-                        block,
-                        this.level().registryAccess().registryOrThrow(Registries.BLOCK)
-                    )
-                }) &&
-                (rest.biomes.isEmpty() || rest.biomes.any {
-                    it.fits(
-                        biome,
-                        this.level().registryAccess().registryOrThrow(Registries.BIOME)
-                    )
-                })
-    }
 
     fun canSleepAt(pos: BlockPos): Boolean {
         val rest = behaviour.resting
@@ -1038,6 +1024,7 @@ open class PokemonEntity(
         val blockState = world.getBlockState(pos)
         val block = blockState.block
         val biome = world.getBiome(pos).value()
+        val fluid = world.getFluidState(pos.above()).type
         val seesSky = world.canSeeSky(pos.above())
         val fits = true
         val canStayAt = world.canEntityStayAt(pos, ceil(bbWidth).toInt(), ceil(bbHeight).toInt(), PositionType.LAND)
@@ -1046,6 +1033,7 @@ open class PokemonEntity(
                 (rest.skyLight == null || world.lightEngine.getLayerListener(LightLayer.SKY).getLightValue(pos) in rest.skyLight) &&
                 (rest.blocks.isEmpty() || rest.blocks.any { it.fits(block, world.blockRegistry) }) &&
                 (rest.biomes.isEmpty() || rest.biomes.any { it.fits(biome, world.biomeRegistry) }) &&
+                ((fluid is EmptyFluid && rest.fluids.isEmpty()) || rest.fluids.any { it.fits(fluid, world.fluidRegistry) }) &&
                 (rest.canSeeSky == null || rest.canSeeSky == seesSky) &&
                 fits &&
                 canStayAt
