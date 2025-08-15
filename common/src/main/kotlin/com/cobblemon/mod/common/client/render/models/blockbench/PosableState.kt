@@ -271,7 +271,7 @@ abstract class PosableState : Schedulable {
 
             val topSpeed = 1.0//pokemon.riding.getController(pokemon)?.getStat(pokemon, RidingStat.SPEED)
             //?: return@addFunction DoubleValue(0.0)
-            return@addFunction DoubleValue((partialTickZVel / topSpeed).coerceIn(-1.0,1.0) * -1.0)
+            return@addFunction DoubleValue((partialTickZVel / topSpeed).coerceIn(-1.0,1.0))
         }
         .addFunction("input_up") { params ->
             val lookBackTick = params.getInt(0)
