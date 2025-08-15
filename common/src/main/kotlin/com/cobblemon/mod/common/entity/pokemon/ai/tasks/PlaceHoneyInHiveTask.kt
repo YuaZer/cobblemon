@@ -10,6 +10,7 @@ package com.cobblemon.mod.common.entity.pokemon.ai.tasks
 
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
+import com.cobblemon.mod.common.util.getMemorySafely
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.entity.ai.behavior.OneShot
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder
@@ -62,12 +63,18 @@ object PlaceHoneyInHiveTask {
         }
     }
 
-    fun wantsToEnterHive(entity: PokemonEntity) : Boolean {
+    fun wantsToEnterHive( entity: PokemonEntity) : Boolean {
         // TODO Check if hive is near fire
         // TODO Check if currently pollinating
         // TODO Check if we're too angry to go home
-        return !entity.brain.checkMemory(CobblemonMemories.HIVE_COOLDOWN, MemoryStatus.VALUE_PRESENT)
+        val result = !entity.brain.checkMemory(CobblemonMemories.HIVE_COOLDOWN, MemoryStatus.VALUE_PRESENT)
 //                && entity.brain.checkMemory(MemoryModuleType.ANGRY_AT, MemoryStatus.VALUE_ABSENT)
                 && (entity.level().isRaining || entity.level().isNight || entity.brain.getMemory(CobblemonMemories.POLLINATED).orElse(false))
+        if (result) {
+            val blockPos = entity.brain.getMemorySafely(CobblemonMemories.HIVE_LOCATION).orElse(null)
+            val blockEntity = entity.level().getBlockEntity(blockPos)
+            return !(blockEntity is BeehiveBlockEntity && blockEntity.isFireNearby)
+        }
+        return false
     }
 }

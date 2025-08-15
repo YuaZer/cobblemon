@@ -46,10 +46,11 @@ public abstract class BeeOccupantMixin {
                 var facing = state.getValue(HorizontalDirectionalBlock.FACING);
                 var newPos = pos.relative(facing);
                 entity.setPos(newPos.getCenter());
+                entity.yRotO = facing.toYRot();
                 // Do honey logic
                 var brain = pokemonEntity.getBrain();
                 // When we became part of the beehive's data we lost all Brain memories.
-                // Restoring the pollenated flag from the compound tag
+                // Restoring the pollinated flag from the compound tag
                 var hasNectar = compoundTag.getBoolean("HasNectar");
                 brain.setMemory(CobblemonMemories.INSTANCE.getHIVE_LOCATION(), pos);
                 if (hasNectar) {

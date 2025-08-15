@@ -47,6 +47,7 @@ object CobblemonMemories {
     val HIVE_LOCATION = register<BlockPos>("hive_location")
     val HIVE_COOLDOWN = register<Boolean>("hive_cooldown")
     val NEARBY_FLOWER = register<BlockPos>("nearby_flower")
+    val PATH_TO_NEARBY_FLOWER_COOLDOWN = register<Boolean>("path_to_nearby_flower_cooldown")
     val POLLINATED = register<Boolean>("pollinated", PrimitiveCodec.BOOL)
     /** who am i following rn? */
     val HERD_LEADER = register<String>("herd_leader", PrimitiveCodec.STRING)

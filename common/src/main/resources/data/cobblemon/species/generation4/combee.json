@@ -74,8 +74,8 @@
     {
       "type": "cobblemon:set_variables",
       "variableValues": {
-        "hover_wander_minimum_height": 2,
-        "hover_wander_maximum_height": 10
+        "hover_wander_minimum_height": 1,
+        "hover_wander_maximum_height": 3
       }
     }
   ],

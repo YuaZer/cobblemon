@@ -20,6 +20,8 @@ import net.minecraft.world.entity.ai.memory.WalkTarget
 import net.minecraft.world.phys.Vec3
 
 object PathToFlowerTask {
+
+
     fun create(): OneShot<in LivingEntity> {
         return BehaviorBuilder.create {
             it.group(
@@ -27,8 +29,9 @@ object PathToFlowerTask {
                 it.absent(MemoryModuleType.WALK_TARGET),
                 it.present(CobblemonMemories.NEARBY_FLOWER),
                 it.absent(CobblemonMemories.POLLINATED),
+                it.absent(CobblemonMemories.PATH_TO_NEARBY_FLOWER_COOLDOWN),
                 it.absent(CobblemonMemories.HIVE_COOLDOWN)
-            ).apply(it) { lookTarget, walkTarget, flowerMemory, pollinated, hiveCooldown ->
+            ).apply(it) { lookTarget, walkTarget, flowerMemory, pollinated, flowerCooldown, hiveCooldown ->
                 Trigger { world, entity, time ->
                     if (entity !is PathfinderMob || !entity.isAlive) return@Trigger false
 

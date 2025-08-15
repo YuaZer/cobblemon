@@ -15,10 +15,9 @@ import com.cobblemon.mod.common.api.ai.asVariables
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.asExpression
 import com.cobblemon.mod.common.util.getMemorySafely
-import com.cobblemon.mod.common.util.sendParticlesServer
 import com.mojang.datafixers.util.Either
-import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.behavior.Behavior
 import net.minecraft.world.entity.ai.behavior.BehaviorControl
@@ -29,10 +28,10 @@ import net.minecraft.world.phys.Vec3
 class PollinateFlowerTaskConfig : SingleTaskConfig {
     companion object {
         const val POLLINATE = "pollinate"
+        const val PATH_TO_FLOWER_COOLDOWN_TICKS : Long = 200
     }
 
     val condition = booleanVariable(POLLINATE, "can_pollinate", true).asExpressible()
-    val durationTicks: ExpressionOrEntityVariable = Either.left("30".asExpression())
 
     override fun getVariables(entity: LivingEntity) = listOf(
         condition
@@ -56,10 +55,16 @@ class PollinateFlowerTaskConfig : SingleTaskConfig {
                 CobblemonMemories.POLLINATED to MemoryStatus.VALUE_ABSENT,
                 CobblemonMemories.HIVE_COOLDOWN to MemoryStatus.VALUE_ABSENT,
             ),
-            15,
-            45
+            600,
+            625
         ) {
+            val REQUIRED_SUCCESSFUL_POLLINATION_TICKS = 400
+            var successfulPollinationTicks = 0
+            var lastSoundPlayedTick = 0
+            var hoverPos: Vec3? = null
+
             override fun checkExtraStartConditions(level: ServerLevel, owner: LivingEntity): Boolean {
+                if (level.isNight || level.isRaining) return false
                 val optionalBlockPos = entity.brain.getMemorySafely(CobblemonMemories.NEARBY_FLOWER)
                 return optionalBlockPos.isPresent && Vec3.atCenterOf(optionalBlockPos.get()).distanceTo(entity.position()) <= 1.0
             }
@@ -73,20 +78,48 @@ class PollinateFlowerTaskConfig : SingleTaskConfig {
             }
 
             override fun tick(level: ServerLevel, owner: LivingEntity, gameTime: Long) {
-                level.sendParticlesServer(
-                    particleType = ParticleTypes.DRIPPING_HONEY,
-                    position = owner.eyePosition,
-                    particles = 3,
-                    offset = Vec3.ZERO,
-                    speed = 0.0
-                )
+                ++successfulPollinationTicks
+                if (entity.random.nextFloat() < 0.05f && successfulPollinationTicks > this.lastSoundPlayedTick + 60) {
+                    this.lastSoundPlayedTick = successfulPollinationTicks
+                    entity.playSound(SoundEvents.BEE_POLLINATE, 1.0f, 1.0f)
+                }
+                val flowerPos = entity.brain.getMemorySafely(CobblemonMemories.NEARBY_FLOWER).orElse(null)
+
+
+                val bl = hoverPos == null || entity.position().distanceTo(hoverPos!!) <= 0.1
+                val bl3 = entity.random.nextInt(40) == 0
+                if (bl && bl3) {
+                    // mimics the wriggling over a flower the vanilla bees do
+                    if (hoverPos == null) {
+                        hoverPos = flowerPos.bottomCenter.add(0.0, 0.4, 0.0)
+                    }
+
+                    if (flowerPos != null) {
+                        hoverPos = flowerPos.bottomCenter.add(Vec3((entity.random.nextDouble() * 2.0 - 1.0) * (1.0/5.0), 0.3 + (entity.random.nextDouble() * 2.0 - 1.0) * (1.0/7.0), (entity.random.nextDouble() * 2.0 - 1.0) * (1.0/5.0)))
+                        entity.getMoveControl()
+                            .setWantedPosition(hoverPos!!.x(), hoverPos!!.y(), hoverPos!!.z(), 0.35)
+                        entity.lookControl.setLookAt(flowerPos.bottomCenter.add(0.0,0.5,0.0))
+                    }
+                } else if (!bl) {
+                    entity.getMoveControl()
+                        .setWantedPosition(hoverPos!!.x(), hoverPos!!.y(), hoverPos!!.z(), 0.35)
+                }
+                entity.lookControl.setLookAt(flowerPos.bottomCenter.add(0.0,0.5,0.0))
+
             }
 
             override fun stop(level: ServerLevel, entity: LivingEntity, gameTime: Long) {
-                val flowerStillThere = canStillUse(level, entity, gameTime)
-                if (flowerStillThere) {
+
+                if (successfulPollinationTicks > REQUIRED_SUCCESSFUL_POLLINATION_TICKS) {
                     entity.brain.setMemory(CobblemonMemories.POLLINATED, true)
                 }
+                successfulPollinationTicks = 0
+                entity.brain.setMemoryWithExpiry(CobblemonMemories.PATH_TO_NEARBY_FLOWER_COOLDOWN, true, PATH_TO_FLOWER_COOLDOWN_TICKS)
+
+//                val flowerStillThere = canStillUse(level, entity, gameTime)
+//                if (flowerStillThere) {
+//                    entity.brain.setMemory(CobblemonMemories.POLLINATED, true)
+//                }
             }
         }
     }
