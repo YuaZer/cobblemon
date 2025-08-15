@@ -53,7 +53,7 @@ object LurePokeSnackDetector : SpawningInfluenceDetector {
 
         val searchRange = RANGE + ceil(sqrt(((input.length pow 2) + (input.width pow 2)).toDouble())).toInt()
         val lurePokeSnackPositions = world.poiManager.findAll(
-            { holder: Holder<PoiType> -> holder.`is`(CobblemonPoiTypes.LURE_POKE_SNACK_KEY) },
+            { holder: Holder<PoiType> -> holder.`is`(CobblemonPoiTypes.POKE_SNACK_KEY) },
             { true },
             input.getCenter().toBlockPos(),
             searchRange,

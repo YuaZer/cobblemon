@@ -26,7 +26,7 @@ object CobblemonPoiTypes: PlatformRegistry<Registry<PoiType>, ResourceKey<Regist
     @JvmField
     val NURSE_KEY = createKey("nurse", CobblemonBlocks.HEALING_MACHINE, 1, 1)
     @JvmField
-    val LURE_POKE_SNACK_KEY = createKey("lure_poke_snack", CobblemonBlocks.POKE_SNACK, 0, 1)
+    val POKE_SNACK_KEY = createKey("poke_snack", CobblemonBlocks.POKE_SNACK, 0, 1)
     @JvmField
     val SACCHARINE_LOG_SLATHERED_KEY = createKey("saccharine_log_slathered", CobblemonBlocks.SACCHARINE_LOG_SLATHERED, 0, 1)
     // TODO after 1.7
