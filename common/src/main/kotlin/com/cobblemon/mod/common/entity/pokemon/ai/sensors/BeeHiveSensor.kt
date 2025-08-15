@@ -37,8 +37,6 @@ class BeeHiveSensor : Sensor<PokemonEntity>(300) {
 
             if (!isValidHiveOrLeaf(state) || !hasReachableAdjacentSide(world, currentHive)) {
                 brain.eraseMemory(CobblemonMemories.HIVE_LOCATION)
-            } else if (isAtMaxHoney(state)) {
-                brain.eraseMemory(CobblemonMemories.HIVE_LOCATION)
             } else {
                 return // We already have a valid hive, no need to search for another
             }

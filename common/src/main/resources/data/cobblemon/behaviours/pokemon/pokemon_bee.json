@@ -34,7 +34,7 @@
           {
             "type": "cobblemon:activity_change",
             "activity": "cobblemon:pokemon_pollination",
-            "condition": "q.entity.has_memory_value('cobblemon:nearby_flower', 'cobblemon:hive_location') && !q.entity.has_memory_value('cobblemon:hive_cooldown')"
+            "condition": "(q.entity.has_memory_value('cobblemon:nearby_flower') || q.entity.has_memory_value('cobblemon:hive_location')) && !q.entity.has_memory_value('cobblemon:hive_cooldown')"
           }
         ],
         "1": [
