@@ -30,7 +30,7 @@ class PollinateFlowerTaskConfig : SingleTaskConfig {
 
     val condition = booleanVariable(POLLINATE, "can_pollinate", true).asExpressible()
 
-    override fun getVariables(entity: LivingEntity) = listOf(
+    override fun getVariables(entity: LivingEntity, behaviourConfigurationContext: BehaviourConfigurationContext) = listOf(
         condition
     ).asVariables()
 
@@ -41,7 +41,7 @@ class PollinateFlowerTaskConfig : SingleTaskConfig {
         if (entity !is PokemonEntity) {
             return null
         }
-        if (!checkCondition(entity, condition)) {
+        if (!checkCondition(behaviourConfigurationContext.runtime, condition)) {
             return null
         }
 
