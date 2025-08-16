@@ -13,6 +13,7 @@ import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
 import com.cobblemon.mod.common.api.ai.asVariables
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMostSpecificMoLangValue
+import com.cobblemon.mod.common.api.molang.MoLangFunctions.setup
 import com.cobblemon.mod.common.api.npc.configuration.MoLangConfigVariable
 import com.cobblemon.mod.common.api.scripting.CobblemonScripts
 import com.cobblemon.mod.common.util.asIdentifierDefaultingNamespace
@@ -51,7 +52,7 @@ class RunScript : SingleTaskConfig {
     ): BehaviorControl<in LivingEntity>? = BehaviorBuilder.create {
         behaviourConfigurationContext.addMemories(memories + MemoryModuleType.LOOK_TARGET)
         behaviourConfigurationContext.addSensors(sensors)
-        val runtime = MoLangRuntime()
+        val runtime = MoLangRuntime().setup()
         it.group(
             it.registered(MemoryModuleType.LOOK_TARGET) // I think I need to have at least something here?
         ).apply(it) { _ ->
