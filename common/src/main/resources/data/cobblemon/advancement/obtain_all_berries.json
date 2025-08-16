@@ -294,7 +294,7 @@
       "trigger": "minecraft:inventory_changed",
       "conditions": {"items": [{"items": ["cobblemon:yache_berry"]}]}
     },
-	"obtain_yache_berry": {
+	"obtain_eggant_berry": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {"items": [{"items": ["cobblemon:eggant_berry"]}]}
     }

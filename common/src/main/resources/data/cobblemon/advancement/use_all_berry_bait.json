@@ -430,7 +430,8 @@
       "trigger": "cobblemon:reel_in_pokemon",
       "conditions": {
         "baitId": "cobblemon:yache_berry"
-      },
+      }
+    },
     "use_eggant_berry": {
       "trigger": "cobblemon:reel_in_pokemon",
       "conditions": {
