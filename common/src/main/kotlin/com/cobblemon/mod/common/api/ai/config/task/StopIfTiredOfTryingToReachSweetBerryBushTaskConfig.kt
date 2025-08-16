@@ -30,6 +30,6 @@ class StopIfTiredOfTryingToReachSweetBerryBushTaskConfig : SingleTaskConfig {
         behaviourConfigurationContext.addMemories(CobblemonMemories.NEARBY_SWEET_BERRY_BUSH, CobblemonMemories.DISABLE_WALK_TO_BERRY_BUSH,
             CobblemonMemories.TIME_TRYING_TO_REACH_BERRY_BUSH, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET)
         behaviourConfigurationContext.addSensors(CobblemonSensors.NEARBY_SWEET_BERRY_BUSH)
-        return StopIfTiredOfTryingToReachSweetBerryBushTask.create(100, 20*30)
+        return StopIfTiredOfTryingToReachSweetBerryBushTask.create(100, 20*15)
     }
 }

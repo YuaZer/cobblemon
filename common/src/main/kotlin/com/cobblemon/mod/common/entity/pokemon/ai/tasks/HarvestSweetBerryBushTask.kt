@@ -97,6 +97,8 @@ class HarvestSweetBerryBushTask : Behavior<LivingEntity>(
                 entity.level().setBlock(blockPos, blockState.setValue(SweetBerryBushBlock.AGE, 1) as BlockState, 2)
                 entity.level().gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(entity))
             }
+            entity.brain.eraseMemory(CobblemonMemories.TIME_TRYING_TO_REACH_BERRY_BUSH)
+            entity.brain.eraseMemory(CobblemonMemories.NEARBY_SWEET_BERRY_BUSH)
         }
     }
 

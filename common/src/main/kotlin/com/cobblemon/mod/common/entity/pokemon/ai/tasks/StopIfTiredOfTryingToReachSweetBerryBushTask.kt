@@ -19,24 +19,20 @@ object StopIfTiredOfTryingToReachSweetBerryBushTask {
         return BehaviorBuilder.create {
             it.group(
                 it.present(CobblemonMemories.NEARBY_SWEET_BERRY_BUSH),
-                it.registered(CobblemonMemories.TIME_TRYING_TO_REACH_BERRY_BUSH),
+                it.present(CobblemonMemories.TIME_TRYING_TO_REACH_BERRY_BUSH),
                 it.registered(CobblemonMemories.DISABLE_WALK_TO_BERRY_BUSH)
             ).apply(it) { blockPosMemory, timeTryingMemory, isDisabledMemory ->
                 Trigger { world, entity, time ->
                     if (entity == null) return@Trigger false
 
-                    val timeSpentTryingToMoveToBerryBush = entity.brain.getMemory(CobblemonMemories.TIME_TRYING_TO_REACH_BERRY_BUSH).orElse(null)
+                    val timeSpentTryingToMoveToBerryBush = entity.brain.getMemory(CobblemonMemories.TIME_TRYING_TO_REACH_BERRY_BUSH).orElse(0)
 
-                    if (timeSpentTryingToMoveToBerryBush == null) {
-                        timeTryingMemory.set(0)
+                    if (timeSpentTryingToMoveToBerryBush > maxTimeToReachItem) {
+                        blockPosMemory.erase()
+                        timeTryingMemory.erase()
+                        isDisabledMemory.setWithExpiry(true, disableDuration.toLong())
                     } else {
-                        if (timeSpentTryingToMoveToBerryBush > maxTimeToReachItem) {
-                            blockPosMemory.erase()
-                            timeTryingMemory.erase()
-                            isDisabledMemory.setWithExpiry(true, disableDuration.toLong())
-                        } else {
-                            timeTryingMemory.set(timeSpentTryingToMoveToBerryBush + 1)
-                        }
+                        timeTryingMemory.set(timeSpentTryingToMoveToBerryBush + 1)
                     }
 
                     return@Trigger true
