@@ -14,6 +14,7 @@ import com.cobblemon.mod.common.api.riding.behaviour.*
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
 import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
+import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
@@ -472,6 +473,7 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
 
 class HoverSettings : RidingBehaviourSettings {
     override val key = HoverBehaviour.KEY
+    override val stats = mutableMapOf<RidingStat, IntRange>()
 
     var rideSound: ResourceLocation = "ride.loop.saucer".asIdentifierDefaultingNamespace()
     var volumeExpr: Expression = "math.pow(math.min(q.ride_velocity() / 0.8, 1.0),2)".asExpression()
@@ -503,6 +505,7 @@ class HoverSettings : RidingBehaviourSettings {
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeResourceLocation(key)
+        buffer.writeRidingStats(stats)
         rideSounds.encode(buffer)
         buffer.writeExpression(speedExpr)
         buffer.writeExpression(accelerationExpr)
@@ -512,6 +515,7 @@ class HoverSettings : RidingBehaviourSettings {
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
+        stats.putAll(buffer.readRidingStats())
         rideSounds = RideSoundSettingsList.decode(buffer)
         speedExpr = buffer.readExpression()
         accelerationExpr = buffer.readExpression()

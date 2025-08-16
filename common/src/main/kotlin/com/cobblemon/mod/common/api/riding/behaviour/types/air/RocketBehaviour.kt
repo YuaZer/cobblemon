@@ -15,6 +15,7 @@ import com.cobblemon.mod.common.api.riding.behaviour.*
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
 import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
+import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
@@ -458,6 +459,7 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
 
 class RocketSettings : RidingBehaviourSettings {
     override val key = RocketBehaviour.KEY
+    override val stats = mutableMapOf<RidingStat, IntRange>()
 
     var speedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', 0.65, 0.3) * 0.25".asExpression()
         private set
@@ -485,6 +487,7 @@ class RocketSettings : RidingBehaviourSettings {
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeResourceLocation(key)
+        buffer.writeRidingStats(stats)
         rideSounds.encode(buffer)
         buffer.writeExpression(speedExpr)
         buffer.writeExpression(accelerationExpr)
@@ -494,6 +497,7 @@ class RocketSettings : RidingBehaviourSettings {
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
+        stats.putAll(buffer.readRidingStats())
         rideSounds = RideSoundSettingsList.decode(buffer)
         speedExpr = buffer.readExpression()
         accelerationExpr = buffer.readExpression()

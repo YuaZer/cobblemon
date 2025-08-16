@@ -25,21 +25,22 @@ object ServerboundUpdateRidingStatRangeHandler : ServerNetworkPacketHandler<Serv
         if (entity !is PokemonEntity) return
         if (entity.controllingPassenger != player) return
 
-        if (packet.minSpeed < packet.maxSpeed) {
-            entity.rideProp.updateStatRange(RidingStat.SPEED, packet.ridingStyle, packet.minSpeed, packet.maxSpeed)
-        }
-        if (packet.minAcceleration < packet.maxAcceleration) {
-            entity.rideProp.updateStatRange(RidingStat.ACCELERATION, packet.ridingStyle, packet.minAcceleration, packet.maxAcceleration)
-        }
-        if (packet.minSkill < packet.maxSkill) {
-            entity.rideProp.updateStatRange(RidingStat.SKILL, packet.ridingStyle, packet.minSkill, packet.maxSkill)
-        }
-        if (packet.minJump < packet.maxJump) {
-            entity.rideProp.updateStatRange(RidingStat.JUMP, packet.ridingStyle, packet.minJump, packet.maxJump)
-        }
-        if (packet.minStamina < packet.maxStamina) {
-            entity.rideProp.updateStatRange(RidingStat.STAMINA, packet.ridingStyle, packet.minStamina, packet.maxStamina)
-        }
+        // TODO
+//        if (packet.minSpeed < packet.maxSpeed) {
+//            entity.rideProp.updateStatRange(RidingStat.SPEED, packet.ridingStyle, packet.minSpeed, packet.maxSpeed)
+//        }
+//        if (packet.minAcceleration < packet.maxAcceleration) {
+//            entity.rideProp.updateStatRange(RidingStat.ACCELERATION, packet.ridingStyle, packet.minAcceleration, packet.maxAcceleration)
+//        }
+//        if (packet.minSkill < packet.maxSkill) {
+//            entity.rideProp.updateStatRange(RidingStat.SKILL, packet.ridingStyle, packet.minSkill, packet.maxSkill)
+//        }
+//        if (packet.minJump < packet.maxJump) {
+//            entity.rideProp.updateStatRange(RidingStat.JUMP, packet.ridingStyle, packet.minJump, packet.maxJump)
+//        }
+//        if (packet.minStamina < packet.maxStamina) {
+//            entity.rideProp.updateStatRange(RidingStat.STAMINA, packet.ridingStyle, packet.minStamina, packet.maxStamina)
+//        }
     }
 
 }

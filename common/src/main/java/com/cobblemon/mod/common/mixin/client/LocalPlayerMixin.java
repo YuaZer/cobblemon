@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.mixin.client;
 
 import com.cobblemon.mod.common.CobblemonNetwork;
+import com.cobblemon.mod.common.DoubleJump;
 import com.cobblemon.mod.common.OrientationControllable;
 import com.cobblemon.mod.common.api.orientation.OrientationController;
 import com.cobblemon.mod.common.api.riding.Seat;
@@ -49,9 +50,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Map;
 
 @Mixin(LocalPlayer.class)
-public abstract class LocalPlayerMixin extends AbstractClientPlayer implements OrientationControllable{
+public abstract class LocalPlayerMixin extends AbstractClientPlayer implements OrientationControllable, DoubleJump {
 
     @Unique Matrix3f cobblemon$lastOrientation;
+
+    @Unique boolean cobblemon$isDoubleJumping = false;
 
     @Shadow
     private float jumpRidingScale;
@@ -133,6 +136,21 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer implements O
                 cir.setReturnValue(rideValue);
             }
         }
+    }
+
+    @Inject(method = "aiStep", at = @At("HEAD"))
+    private void cobblemon$aiStep(CallbackInfo ci) {
+        this.cobblemon$isDoubleJumping = false;
+    }
+
+    @Inject(method = "aiStep", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;onUpdateAbilities()V", ordinal = 1))
+    private void cobblemon$updateDoubleJumping(CallbackInfo ci) {
+        this.cobblemon$isDoubleJumping = true;
+    }
+
+    @Override
+    public boolean isDoubleJumping() {
+        return this.cobblemon$isDoubleJumping;
     }
 
     @Override
