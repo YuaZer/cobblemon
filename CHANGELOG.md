@@ -45,6 +45,7 @@
 - Added new advancements Didn't Stop To Think, We Need To Cook, and Pokémon Jockey!.
 - Berries can now be smelted into their respective dyes.
 - Added `/runmolang <molang> [<npc>|<player>|<pokemon>]` command that executes a MoLang expression with the provided options as environment variables, as well as the entity (as `q.entity`) that executed the command.
+- Added new 69th berry, Eggant.
 
 ### Pokémon Added
 
