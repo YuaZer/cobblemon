@@ -21,7 +21,9 @@ object ServerboundUpdateRidingStateHandler : ServerNetworkPacketHandler<Serverbo
         if (entity !is PokemonEntity) return
         if (entity.controllingPassenger != player) return
         val buffer = packet.data ?: return
-        if (entity.ridingController?.context?.settings?.key != packet.behaviour) return
+        if (entity.ridingController?.context?.settings?.key != packet.behaviour) {
+            entity.ridingController?.changeBehaviour(packet.behaviour)
+        }
         entity.ridingController?.context?.state?.decode(buffer)
     }
 

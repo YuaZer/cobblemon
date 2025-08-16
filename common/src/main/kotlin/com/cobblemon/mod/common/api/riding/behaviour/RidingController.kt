@@ -10,18 +10,11 @@ package com.cobblemon.mod.common.api.riding.behaviour
 
 import com.cobblemon.mod.common.DoubleJump
 import com.cobblemon.mod.common.api.riding.RidingStyle
-import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
-import com.cobblemon.mod.common.util.blockPositionsAsListRounded
-import com.cobblemon.mod.common.util.cobblemonResource
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.FluidTags
-import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.player.Player
-import net.minecraft.world.phys.Vec2
-import net.minecraft.world.phys.Vec3
-import net.minecraft.world.phys.shapes.Shapes
+import kotlin.collections.get
 
 /**
  * Small wrapper around a RidingBehaviour to provide sane defaults in the event that the behaviour is not active.
@@ -37,6 +30,16 @@ class RidingController(
 
     var context: ActiveRidingContext? = null
         private set
+
+    fun changeBehaviour(behaviour: ResourceLocation) {
+        if (entity.form.riding.behaviours == null) return
+        val style = entity.form.riding.behaviours!!.filter { it.value.key == behaviour }.keys.firstOrNull() ?: return
+        val behaviourSettings = entity.pokemon.riding.behaviours?.get(style) ?: return
+        val newState = RidingBehaviours.get(behaviourSettings.key).createDefaultState(behaviourSettings)
+        context?.let { newState.stamina.set(it.state.stamina.get(), forced = true) }
+        context = ActiveRidingContext(behaviourSettings.key, behaviourSettings, newState, style)
+        lastTransitionAge = entity.ticksLived
+    }
 
     fun tick() {
         if (entity.ticksLived - lastTransitionAge < 10) return

@@ -21,7 +21,9 @@ object ClientboundUpdateRidingStateHandler : ClientNetworkPacketHandler<Clientbo
             if (entity !is PokemonEntity) return@executeIfPossible
             if (entity.controllingPassenger == player) return@executeIfPossible
             val buffer = packet.data ?: return@executeIfPossible
-            if (entity.ridingController?.context?.settings?.key != packet.behaviour) return@executeIfPossible
+            if (entity.ridingController?.context?.settings?.key != packet.behaviour) {
+                entity.ridingController?.changeBehaviour(packet.behaviour)
+            }
             entity.ridingController?.context?.state?.decode(buffer)
         }
     }
