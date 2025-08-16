@@ -31,8 +31,9 @@ object PickUpItemTask {
         it.group(
             it.absent(MemoryModuleType.WALK_TARGET),
             it.absent(CobblemonMemories.IS_CONSUMING_ITEM),
-            it.present(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM)
-        ).apply(it) { walkTarget, isConsumingItem, nearbyItem ->
+            it.present(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM),
+            it.registered(CobblemonMemories.TIME_TRYING_TO_REACH_WANTED_ITEM)
+        ).apply(it) { walkTarget, isConsumingItem, nearbyItem, timeSpentReachingItem ->
             Trigger { _, entity, _ ->
 
                 val itemEntity = it.get(nearbyItem)
@@ -57,6 +58,7 @@ object PickUpItemTask {
                 if (!stack.isEmpty && !entity.level().isClientSide) {
                     dropItem(entity, stack)
                 }
+                entity.brain.eraseMemory(CobblemonMemories.TIME_TRYING_TO_REACH_WANTED_ITEM)
 
                 return@Trigger true
             }

@@ -20,24 +20,19 @@ object StopIfTiredOfTryingToReachItemTask {
         return BehaviorBuilder.create {
             it.group(
                 it.present(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM),
-                it.registered(CobblemonMemories.TIME_TRYING_TO_REACH_WANTED_ITEM),
+                it.present(CobblemonMemories.TIME_TRYING_TO_REACH_WANTED_ITEM),
                 it.registered(CobblemonMemories.DISABLE_WALK_TO_WANTED_ITEM)
             ).apply(it) { itemBlockPosMemory, timeTryingMemory, isDisabledMemory ->
                 Trigger { world, entity, time ->
                     if (entity == null) return@Trigger false
 
-                    val timeSpentTryingToMoveToWantedItem = it.tryGet(timeTryingMemory).orElse(null)
-
-                    if (timeSpentTryingToMoveToWantedItem == null) {
-                        timeTryingMemory.set(0)
+                    val timeSpentTryingToMoveToWantedItem = it.get(timeTryingMemory)
+                    if (timeSpentTryingToMoveToWantedItem > maxTimeToReachItem) {
+                        itemBlockPosMemory.erase()
+                        timeTryingMemory.erase()
+                        isDisabledMemory.setWithExpiry(true, disableDuration.toLong())
                     } else {
-                        if (timeSpentTryingToMoveToWantedItem > maxTimeToReachItem) {
-                            itemBlockPosMemory.erase()
-                            timeTryingMemory.erase()
-                            isDisabledMemory.setWithExpiry(true, disableDuration.toLong())
-                        } else {
-                            timeTryingMemory.set(timeSpentTryingToMoveToWantedItem + 1)
-                        }
+                        timeTryingMemory.set(timeSpentTryingToMoveToWantedItem + 1)
                     }
 
                     return@Trigger true

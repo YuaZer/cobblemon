@@ -24,14 +24,11 @@ import net.minecraft.core.particles.ItemParticleOption
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.behavior.Behavior
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
 import net.minecraft.world.entity.ai.memory.MemoryStatus
-import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
 
 
 class EatHeldItemTask(entity: PokemonEntity) : Behavior<PokemonEntity>(
@@ -42,7 +39,7 @@ class EatHeldItemTask(entity: PokemonEntity) : Behavior<PokemonEntity>(
 
     companion object {
         private const val MAX_DURATION = 60
-        private const val COOLDOWN = 700
+        private const val COOLDOWN = 120
     }
 
     private var timelastEaten: Long = 0
@@ -61,7 +58,7 @@ class EatHeldItemTask(entity: PokemonEntity) : Behavior<PokemonEntity>(
     }
 
     private fun canEat(item: ItemStack, entity: PokemonEntity): Boolean {
-        return item.has(DataComponents.FOOD) || item.item == Items.POTION || pickupItems.findMatchingEntry(item)?.onUseEffect != null
+        return item.has(DataComponents.FOOD) || pickupItems.findMatchingEntry(item)?.onUseEffect != null
     }
 
     override fun start(world: ServerLevel, entity: PokemonEntity, time: Long) {

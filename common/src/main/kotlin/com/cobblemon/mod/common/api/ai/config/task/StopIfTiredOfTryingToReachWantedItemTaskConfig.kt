@@ -31,6 +31,6 @@ class StopIfTiredOfTryingToReachWantedItemTaskConfig : SingleTaskConfig {
         behaviourConfigurationContext.addMemories(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, CobblemonMemories.DISABLE_WALK_TO_WANTED_ITEM,
             CobblemonMemories.TIME_TRYING_TO_REACH_WANTED_ITEM, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET)
         behaviourConfigurationContext.addSensors(CobblemonSensors.POKEMON_NEARBY_WANTED_ITEM)
-        return StopIfTiredOfTryingToReachItemTask.create(120, 20*30)
+        return StopIfTiredOfTryingToReachItemTask.create(120, 20*15)
     }
 }

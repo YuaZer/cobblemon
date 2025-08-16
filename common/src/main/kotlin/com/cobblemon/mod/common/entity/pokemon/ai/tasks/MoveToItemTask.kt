@@ -20,6 +20,7 @@ import net.minecraft.world.entity.ai.behavior.OneShot
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder
 import net.minecraft.world.entity.ai.behavior.declarative.Trigger
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
+import net.minecraft.world.entity.ai.memory.MemoryStatus
 import net.minecraft.world.entity.ai.memory.WalkTarget
 
 
@@ -30,8 +31,9 @@ object MoveToItemTask {
         it.group(
             it.absent(MemoryModuleType.WALK_TARGET),
             it.present(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM),
-            it.absent(CobblemonMemories.DISABLE_WALK_TO_WANTED_ITEM)
-        ).apply(it) { walkTarget, wantedItemEntity, isDisabledMemory ->
+            it.absent(CobblemonMemories.DISABLE_WALK_TO_WANTED_ITEM),
+            it.registered(CobblemonMemories.TIME_TRYING_TO_REACH_WANTED_ITEM)
+        ).apply(it) { walkTarget, wantedItemEntity, isDisabledMemory, timeSpentReachingItem ->
             Trigger { _, entity, _ ->
 
                 val itemEntity = it.get(wantedItemEntity)
@@ -44,9 +46,11 @@ object MoveToItemTask {
                 if (!_condition || !entity.pokemon.canDropHeldItem) {
                     return@Trigger false // condition failed or Pokemon has been given an item to keep safe
                 }
-
                 val _speedMultiplier = runtime.resolveFloat(speedMultiplier)
 
+                if (entity.brain.checkMemory(CobblemonMemories.TIME_TRYING_TO_REACH_WANTED_ITEM, MemoryStatus.VALUE_ABSENT)) {
+                    entity.brain.setMemory(CobblemonMemories.TIME_TRYING_TO_REACH_WANTED_ITEM, 0)
+                }
                 entity.brain.setMemory(MemoryModuleType.LOOK_TARGET, EntityTracker(itemEntity, true))
                 entity.brain.setMemory(MemoryModuleType.WALK_TARGET, WalkTarget(itemEntity, _speedMultiplier, 0))
                 return@Trigger true
