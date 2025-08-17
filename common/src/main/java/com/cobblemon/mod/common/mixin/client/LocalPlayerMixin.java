@@ -27,6 +27,7 @@ import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.player.Input;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -58,6 +59,14 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer implements O
 
     @Shadow
     private float jumpRidingScale;
+
+    @Shadow public Input input;
+
+    @Shadow private int autoJumpTime;
+
+    @Unique private int cobblemon$survivalJumpTriggerTime;
+
+    @Unique private boolean cobblemon$isJumping;
 
     public LocalPlayerMixin(ClientLevel clientLevel, GameProfile gameProfile) {
         super(clientLevel, gameProfile);
@@ -141,11 +150,23 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer implements O
     @Inject(method = "aiStep", at = @At("HEAD"))
     private void cobblemon$aiStep(CallbackInfo ci) {
         this.cobblemon$isDoubleJumping = false;
+        this.cobblemon$isJumping = this.input.jumping;
     }
 
-    @Inject(method = "aiStep", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;onUpdateAbilities()V", ordinal = 1))
+    @Inject(method = "aiStep", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;isSprinting()Z", shift = At.Shift.BEFORE))
     private void cobblemon$updateDoubleJumping(CallbackInfo ci) {
-        this.cobblemon$isDoubleJumping = true;
+        if (!this.cobblemon$isJumping && this.input.jumping && this.autoJumpTime <= 0 && !this.isSwimming()) {
+            if (this.cobblemon$survivalJumpTriggerTime != 0) {
+                this.cobblemon$isDoubleJumping = true;
+                this.cobblemon$survivalJumpTriggerTime = 0;
+            }
+            else {
+                this.cobblemon$survivalJumpTriggerTime = 7;
+            }
+        }
+        else if (this.cobblemon$survivalJumpTriggerTime > 0) {
+            this.cobblemon$survivalJumpTriggerTime--;
+        }
     }
 
     @Override

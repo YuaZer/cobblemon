@@ -56,7 +56,7 @@ class RidingController(
             }
         }
 
-        if (context == null) {
+        if (context == null && !this.entity.level().isClientSide) {
             entity.ejectPassengers()
         }
     }
@@ -89,7 +89,8 @@ class RidingController(
             null -> {
                 if (canTransitionToAir(driver)) return RidingStyle.AIR
                 if (canTransitionToLiquid()) return RidingStyle.LIQUID
-                return RidingStyle.LAND
+                if (canTransitionToLand()) return RidingStyle.LAND
+                return null
             }
         }
     }
