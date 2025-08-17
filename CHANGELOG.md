@@ -182,6 +182,9 @@
 - Cursola
 - Dunsparce
 - Dudunsparce (both forms)
+- Porygon
+- Porygon2
+- Porygon-Z
 
 ### Model updates for the following Pokémon
 - Gyarados

@@ -6,7 +6,11 @@
   "rootBone": "porygon",
   "animations": {
     "faint": "q.bedrock_primary('porygon', math.random(0, 1) < 0.1 ? 'faint2' : 'faint', q.curve('one'))",
-    "cry": "q.bedrock_stateful('porygon', 'cry')"
+    "cry": "q.bedrock_stateful('porygon', 'cry')",
+    "recoil": "q.bedrock_stateful('porygon', 'recoil')",
+    "physical": "q.bedrock_primary('porygon', 'physical', q.curve('symmetrical_wide'))",
+    "special": "q.bedrock_primary('porygon', 'special', q.curve('symmetrical_wide'))",
+    "status": "q.bedrock_primary('porygon', 'status', q.curve('symmetrical_wide'))"
   },
   "poses": {
     "portrait": {
