@@ -80,13 +80,11 @@ class JetNoRollBehaviour : RidingBehaviour<JetNoRollSettings, JetNoRollState> {
         return state.rideVelocity.get().length().toFloat()
     }
 
-    //TODO: Move these functions to a riding util class.
     /*
     *  Normalizes the current speed between minSpeed and maxSpeed.
     *  The result is clamped between 0.0 and 1.0, where 0.0 represents minSpeed and 1.0 represents maxSpeed.
     */
     private fun normalizeSpeed(currSpeed: Double, minSpeed: Double, maxSpeed: Double): Double {
-        require(maxSpeed > minSpeed) { "maxSpeed must be greater than minSpeed" }
         return ((currSpeed - minSpeed) / (maxSpeed - minSpeed)).coerceIn(0.0, 1.0)
     }
 
