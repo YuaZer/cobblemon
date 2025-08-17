@@ -108,24 +108,6 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
                 BlockEntitySoundTracker.stop(pos, campfireBlockEntity.ambientSound.location)
             }
 
-            // if (containsItems && !isAmbientSoundActive) {
-            //     BlockEntitySoundTracker.play(
-            //         pos,
-            //         CancellableSoundInstance(campfireBlockEntity.ambientSound, pos, true, 1.0f, 1.0f)
-            //     )
-            // } else if ((!containsItems || isLit) && isAmbientSoundActive) {
-            //     BlockEntitySoundTracker.stop(pos, campfireBlockEntity.ambientSound.location)
-            // }
-
-            // if (isLit && !isRunningSoundActive) {
-            //     BlockEntitySoundTracker.play(
-            //         pos,
-            //         CancellableSoundInstance(campfireBlockEntity.runningSound, pos, true, 1.0f, 1.0f)
-            //     )
-            // } else if (!isLit && isRunningSoundActive) {
-            //     BlockEntitySoundTracker.stop(pos, campfireBlockEntity.runningSound.location)
-            // }
-
             campfireBlockEntity.brothColor =
                 getColourMixFromSeasonings(campfireBlockEntity.getSeasonings())
                     ?: BASE_BROTH_COLOR
@@ -456,6 +438,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
 
         if (level?.isClientSide == true) {
             BlockEntitySoundTracker.stop(blockPos, runningSound.location)
+            BlockEntitySoundTracker.stop(blockPos, ambientSound.location)
         }
     }
 
