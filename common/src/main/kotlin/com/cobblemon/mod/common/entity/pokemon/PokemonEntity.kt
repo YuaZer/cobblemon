@@ -1049,7 +1049,9 @@ open class PokemonEntity(
 
     override fun wantsToPickUp(stack: ItemStack): Boolean {
         val pickupItems = config.getObjectList<ObtainableItem>(PokemonItemSensor.PICKUP_ITEMS)
-        return this.canHoldItem(stack) && (pickupItems.findMatchingEntry(stack)?.pickupPriority ?: 0) > 0
+        return this.canHoldItem(stack) &&
+                (pickupItems.findMatchingEntry(stack)?.pickupPriority
+                    ?: 0) > (pickupItems.findMatchingEntry(this.pokemon.heldItem)?.pickupPriority ?: 0)
     }
 
     override fun mobInteract(player: Player, hand: InteractionHand): InteractionResult {

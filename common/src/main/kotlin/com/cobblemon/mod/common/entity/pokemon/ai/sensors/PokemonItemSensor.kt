@@ -54,9 +54,9 @@ class PokemonItemSensor(
             ItemEntity::class.java,
             entity.boundingBox.inflate(width, height, width)
         ) {
-            entity.wantsToPickUp(it.item)
-                    && entity.hasLineOfSight(it)
+            (pickupItems.findMatchingEntry(it.item)?.pickupPriority ?: 0) > heldItemValue
                     && it.closerThan(entity, maxTravelDistance)
+                    && entity.hasLineOfSight(it)
         }
 
         // Find the closest item to the entity
