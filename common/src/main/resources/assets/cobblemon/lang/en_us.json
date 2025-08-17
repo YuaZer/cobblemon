@@ -307,10 +307,6 @@
   "item.cobblemon.serious_mint": "Serious Mint",
   "item.cobblemon.serious_mint.tooltip": "Changes a Pokémon's stats to be that of a Serious nature",
 
-  "item.cobblemon.potato_mochi": "Potato Mochi",
-  "item.cobblemon.fried_rice": "Fried Rice",
-  "item.cobblemon.candied_apple": "Candied Apple",
-
   "item.cobblemon.ability_shield": "Ability Shield",
   "item.cobblemon.ability_shield.tooltip": "Prevents the holder's ability from being changed or suppressed",
   "item.cobblemon.absorb_bulb": "Absorb Bulb",
@@ -597,10 +593,9 @@
   "item.cobblemon.energy_root": "Energy Root",
   "item.cobblemon.energy_root.tooltip": "Restores 80 HP of a Pokémon whilst reducing friendship",
   "item.cobblemon.revival_herb": "Revival Herb",
-  "item.cobblemon.revival_herb.tooltip": "Fully revives a fainted Pokémon whilst reducing Friendship",
+  "item.cobblemon.revival_herb.tooltip": "Revives a fainted Pokémon to 25% of their max HP whilst reducing Friendship",
   "item.cobblemon.roasted_leek": "Roasted Leek",
   "item.cobblemon.leek_and_potato_stew": "Leek and Potato Stew",
-  "item.cobblemon.braised_vivichoke": "Braised Vivichoke",
   "item.cobblemon.vivichoke_dip": "Vivichoke Dip",
   "item.cobblemon.berry_juice": "Berry Juice",
   "item.cobblemon.berry_juice.tooltip": "Restores 20 HP when a Pokémon holding the item falls below 50% HP",
@@ -775,7 +770,6 @@
   "item.cobblemon.tasty_tail": "Tasty Tail",
   "item.cobblemon.candied_berry": "Candied Berries",
   "item.cobblemon.candied_apple": "Candied Apple",
-  "item.cobblemon.fried_rice": "Fried Rice",
   "item.cobblemon.pewter_crunchies": "Pewter Crunchies",
   "item.cobblemon.rage_candy_bar": "Rage Candy Bar",
   "item.cobblemon.lava_cookie": "Lava Cookie",
@@ -804,15 +798,15 @@
   "cobblemon.item_class.flavor_seasoning": "Flavor Seasoning",
   "cobblemon.item_class.bait_effect_seasoning": "Bait Seasoning",
   "cobblemon.item_class.mob_effect_seasoning": "Effect Seasoning",
-  "cobblemon.item_class.food_seasoning": "Food Seasoning",
+  "cobblemon.item_class.food_seasoning": "Nutrition Seasoning",
 
   "cobblemon.seasoning_bait_effect_header": "Bait",
   "cobblemon.seasoning_mob_effect_header": "Effect",
-  "cobblemon.seasoning_food_header": "Food",
+  "cobblemon.seasoning_food_header": "Nutrition",
   "cobblemon.seasoning_flavor_header": "Flavor",
   "cobblemon.seasoning_bait_effect_info_header": "Bait Info:",
   "cobblemon.seasoning_mob_effect_info_header": "Effect Info:",
-  "cobblemon.seasoning_food_info_header": "Food Info:",
+  "cobblemon.seasoning_food_info_header": "Nutrition Info:",
   "cobblemon.seasoning_flavor_info_header": "Flavor Info:",
   "cobblemon.seasoning_flavor.spicy": "Spicy",
   "cobblemon.seasoning_flavor.dry": "Dry",
@@ -2346,6 +2340,7 @@
   "cobblemon.command.takemark": "%1$s was taken from %2$s's %3$s.",
   "cobblemon.command.takemark.does_not_have": "%1$s's %2$s does not have a %3$s!",
   "cobblemon.command.mark.invalid": "Invalid mark name.",
+  "cobblemon.command.molang.out":  "MoLang output: %1$s",
   "cobblemon.command.pokeheal.in_battle": "You cannot heal your party while in a battle!",
   "cobblemon.command.spawnpokemonfrompool": "A %1$s has spawned in the area.",
   "cobblemon.command.spawnpokemonfrompool.unable_to_spawn": "Unable to spawn a Pokémon.",
@@ -2683,6 +2678,8 @@
   "advancements.cobblemon.craft_pokedex.description": "Craft a Pokédex out of Apricorns, Iron, Copper, and any glowing powder",
   "advancements.cobblemon.ride_pokemon": "Pokémon Jockey!",
   "advancements.cobblemon.ride_pokemon.description": "Ride a Pokémon for the first time",
+  "advancements.cobblemon.place_campfire_pot": "We Need To Cook",
+  "advancements.cobblemon.place_campfire_pot.description": "Place down a Campfire Pot on a lit Campfire",
 
   "cobblemon.battle.crash": "A battle error has occurred. If playing single-player, report this to the mod team. Otherwise, report this to the servers administrator.",
   "cobblemon.battle.damage_dealt": "%1$s took %2$s damage!",
@@ -3088,6 +3085,7 @@
   "cobblemon.battle.end.powershift": "%1$s swapped its offensive stats with its defensive stats!",
   "cobblemon.battle.end.powertrick": "%1$s switched its Attack and Defense!",
   "cobblemon.battle.end.protosynthesis": "The effects of %1$s's Protosynthesis wore off!",
+  "cobblemon.battle.end.sandtomb": "%1$s was freed from Sand Tomb!",
   "cobblemon.battle.end.skydrop": "%1$s was freed from the Sky Drop!",
   "cobblemon.battle.end.stockpile": "%1$s's stockpiled effect wore off!",
   "cobblemon.battle.end.substitute": "%1$s's substitute faded!",
@@ -3374,8 +3372,8 @@
   "block.cobblemon.terracotta_sun_stone_ore": "Terracotta Sun Stone Ore",
   "block.cobblemon.pasture": "Pasture Block",
 
-  "block.cobblemon.lure_cake": "Lure Cake",
   "block.cobblemon.poke_cake": "Poké Cake",
+  "block.cobblemon.poke_snack": "Poké Snack",
 
   "gamerule.doPokemonSpawning": "Spawn Pokémon",
   "gamerule.doShinyStarters": "Starters will be shiny",
@@ -3496,6 +3494,9 @@
   "tag.item.cobblemon.mochis": "Mochis",
   "tag.item.cobblemon.poke_food": "Poké Foods",
   "tag.item.cobblemon.full_heal_bottles": "Full Heal Bottles",
+  "tag.item.cobblemon.small_flowers": "Small Flowers",
+  "tag.item.cobblemon.held.blacklisted_items_to_hold": "Blacklisted Held Items",
+  "tag.item.cobblemon.held.whitelisted_items_to_hold": "Whitelisted Held Items",
 
 
   "cobblemon.entity.variable.challenge_cooldown.name": "Challenge Cooldown",
@@ -3731,6 +3732,15 @@
 
   "cobblemon.behaviour.npc_scale_configuration.name": "NPC Entity Scales",
   "cobblemon.behaviour.npc_scale_configuration.desc": "Allows configuring the render- and hitbox-scale of the NPC.",
+
+  "cobblemon.behaviour.pokemon_gets_mad_at_thrower.name": "Gets Mad At Poké Ball Thrower",
+  "cobblemon.behaviour.pokemon_gets_mad_at_thrower.desc": "Gets angry at the player that threw a Poké Ball at it. Aggressive Pokémon will attack the player, while non-aggressive Pokémon will flee.",
+
+  "cobblemon.behaviour.attack_hostile_mobs.name": "Attacks Hostile Mobs",
+  "cobblemon.behaviour.attack_hostile_mobs.desc": "Attacks hostile mobs that are nearby, even if unprovoked.",
+
+  "cobblemon.behaviour.pokemon_bee.name": "Pollinates Flowers",
+  "cobblemon.behaviour.pokemon_bee.desc": "Pollinates flowers and adds honey to hives and Saccharine tree leaves.",
 
   "npc.sacchi.name": "Professor Sacchi",
 

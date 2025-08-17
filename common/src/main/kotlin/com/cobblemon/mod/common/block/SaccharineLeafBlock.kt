@@ -161,19 +161,19 @@ class SaccharineLeafBlock(settings: Properties) : LeavesBlock(settings) {
 
         val particleCount = random.nextInt(3)
 
-        if (state.getValue(AGE) == 2) {
+        if (state.getValue(AGE) == 1) {
             repeat(particleCount) {
-                spawnHoneyParticles(level, pos, state, 0.75F)
+                spawnHoneyParticles(level, pos, state, 0.025F)
             }
-        } else if (state.getValue(AGE) == 1) {
+        } else if (state.getValue(AGE) == 2) {
             repeat(particleCount) {
-                spawnHoneyParticles(level, pos, state, 0.9F)
+                spawnHoneyParticles(level, pos, state, 0.05F)
             }
         }
     }
 
     private fun spawnHoneyParticles(level: Level, pos: BlockPos, state: BlockState, rate: Float) {
-        if (state.fluidState.isEmpty && !(level.random.nextFloat() < rate)) {
+        if (state.fluidState.isEmpty && (level.random.nextFloat() < rate)) {
             val voxelShape = state.getCollisionShape(level, pos)
             val d = voxelShape.max(Direction.Axis.Y)
             if (d >= 1.0 && !state.`is`(BlockTags.IMPERMEABLE)) {
@@ -225,7 +225,7 @@ class SaccharineLeafBlock(settings: Properties) : LeavesBlock(settings) {
 
             if (isGlassBottle && !isAtMinAge(state)) {
                 // Decrement stack if not in creative mode
-                if (!player.isCreative) itemStack.shrink(1)
+                itemStack.consume(1, player)
 
                 // Give player honey bottle for now
                 player.addItem(Items.HONEY_BOTTLE.defaultInstance)
@@ -236,7 +236,7 @@ class SaccharineLeafBlock(settings: Properties) : LeavesBlock(settings) {
                 return ItemInteractionResult.SUCCESS
             } else if (isHoneyBottle && !isAtMaxAge(state)) {
                 // Decrement stack if not in creative mode
-                if (!player.isCreative) itemStack.shrink(1)
+                itemStack.consume(1, player)
 
                 level.playSound(null, pos, SoundEvents.HONEY_BLOCK_PLACE, SoundSource.BLOCKS)
                 level.setBlock(pos, state.setValue(AGE, 2), 2)

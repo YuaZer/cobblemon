@@ -37,10 +37,12 @@ import com.cobblemon.mod.common.api.pokemon.stats.Stat
 import com.cobblemon.mod.common.api.pokemon.stats.Stats
 import com.cobblemon.mod.common.api.reactive.SimpleObservable
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
+import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
 import com.cobblemon.mod.common.api.riding.stats.RidingStatDefinition
 import com.cobblemon.mod.common.api.spawning.TimeRange
 import com.cobblemon.mod.common.api.types.ElementalType
 import com.cobblemon.mod.common.api.types.adapters.ElementalTypeAdapter
+import com.cobblemon.mod.common.battles.runner.ShowdownService
 import com.cobblemon.mod.common.net.messages.client.data.SpeciesRegistrySyncPacket
 import com.cobblemon.mod.common.pokemon.FormData
 import com.cobblemon.mod.common.pokemon.Species
@@ -75,6 +77,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.level.biome.Biome
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.levelgen.structure.Structure
+import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.phys.AABB
 
 object PokemonSpecies : JsonDataRegistry<Species> {
@@ -122,11 +125,13 @@ object PokemonSpecies : JsonDataRegistry<Species> {
         .registerTypeAdapter(TypeToken.getParameterized(RegistryLikeCondition::class.java, Block::class.java).type, BlockLikeConditionAdapter)
         .registerTypeAdapter(TypeToken.getParameterized(RegistryLikeCondition::class.java, Item::class.java).type, ItemLikeConditionAdapter)
         .registerTypeAdapter(TypeToken.getParameterized(RegistryLikeCondition::class.java, Structure::class.java).type, StructureLikeConditionAdapter)
+        .registerTypeAdapter(TypeToken.getParameterized(RegistryLikeCondition::class.java, Fluid::class.java).type, FluidLikeConditionAdapter)
         .registerTypeAdapter(EggGroup::class.java, EggGroupAdapter)
         .registerTypeAdapter(MobEffect::class.java, RegistryElementAdapter<MobEffect>(BuiltInRegistries::MOB_EFFECT))
         .registerTypeAdapter(ItemPredicate::class.java, LegacyItemConditionWrapperAdapter)
         .registerTypeAdapter(RidingBehaviourSettings::class.java, RidingBehaviourSettingsAdapter)
         .registerTypeAdapter(RidingStatDefinition::class.java, RidingStatDefinitionAdapter)
+        .registerTypeAdapter(RideSoundSettingsList::class.java, RideSoundSettingsListAdapter)
         .registerTypeAdapter(Expression::class.java, ExpressionAdapter)
         .disableHtmlEscaping()
         .enableComplexMapKeySerialization()
@@ -155,7 +160,8 @@ object PokemonSpecies : JsonDataRegistry<Species> {
             }
             this.species.forEach(Species::resolveEvolutionMoves)
             Cobblemon.showdownThread.queue {
-                it.registerSpecies()
+                it.resetRegistryData("species")
+                it.sendRegistryData(allShowdownSpecies(), "species")
                 it.indicateSpeciesInitialized()
                 // Reload this with the mod
                 CobblemonHeldItemManager.load()
@@ -265,7 +271,7 @@ object PokemonSpecies : JsonDataRegistry<Species> {
             "H" to "No Ability",
             "S" to "No Ability"
         )
-        val types = (form?.types ?: species.types).map { it.name.replaceFirstChar(Char::uppercase) }
+        val types = (form?.types ?: species.types).map { it.name }
         val preevo: String? = (form?.preEvolution ?: species.preEvolution)?.let { if (it.form == it.species.standardForm) createShowdownName(it.species) else "${createShowdownName(it.species)}-${it.form.name}" }
         // For the context of battles the content here doesn't matter whatsoever and due to how PokemonProperties work we can't guarantee an actual specific species is defined.
         val evos = if ((form?.evolutions ?: species.evolutions).isEmpty()) emptyList() else arrayListOf("")
@@ -310,4 +316,18 @@ object PokemonSpecies : JsonDataRegistry<Species> {
         return "${species.resourceIdentifier.namespace}:${species.name}"
     }
 
+    internal fun allShowdownSpecies(): Map<String, String> {
+        val result = mutableMapOf<String, String>()
+        this.species.forEach {species ->
+            val baseSpecies = ShowdownSpecies(species, null)
+            result[baseSpecies.name] = this.gson.toJson(baseSpecies)
+            species.forms.forEach { form ->
+                if (form != species.standardForm) {
+                    val formSpecies = ShowdownSpecies(species, form)
+                    result[formSpecies.name] = this.gson.toJson(formSpecies)
+                }
+            }
+        }
+        return result
+    }
 }

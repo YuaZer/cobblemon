@@ -12,11 +12,13 @@ import com.bedrockk.molang.Expression
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.OrientationControllable
 import com.cobblemon.mod.common.api.riding.RidingStyle
-import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourState
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviour
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
+import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourState
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
+import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
+import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
@@ -268,8 +270,16 @@ class HelicopterBehaviour : RidingBehaviour<HelicopterSettings, RidingBehaviourS
         return false
     }
 
-    override fun shouldRotatePlayerHead(settings: HelicopterSettings, state: RidingBehaviourState, vehicle: PokemonEntity): Boolean {
+    override fun shouldRotateRiderHead(
+        settings: HelicopterSettings,
+        state: RidingBehaviourState,
+        vehicle: PokemonEntity
+    ): Boolean {
         return false
+    }
+
+    override fun getRideSounds(settings: HelicopterSettings, state: RidingBehaviourState, vehicle: PokemonEntity): RideSoundSettingsList {
+        return settings.rideSounds
     }
 
     override fun createDefaultState(settings: HelicopterSettings) = RidingBehaviourState()
@@ -278,6 +288,7 @@ class HelicopterBehaviour : RidingBehaviour<HelicopterSettings, RidingBehaviourS
 
 class HelicopterSettings : RidingBehaviourSettings {
     override val key = HelicopterBehaviour.KEY
+    override val stats = mutableMapOf<RidingStat, IntRange>()
 
     var gravity: Expression = "1.0".asExpression()
         private set
@@ -291,8 +302,12 @@ class HelicopterSettings : RidingBehaviourSettings {
     var speed: Expression = "1.0".asExpression()
         private set
 
+    var rideSounds: RideSoundSettingsList = RideSoundSettingsList()
+
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeResourceLocation(key)
+        buffer.writeRidingStats(stats)
+        rideSounds.encode(buffer)
         buffer.writeExpression(gravity)
         buffer.writeExpression(horizontalAcceleration)
         buffer.writeExpression(verticalVelocity)
@@ -300,6 +315,8 @@ class HelicopterSettings : RidingBehaviourSettings {
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
+        stats.putAll(buffer.readRidingStats())
+        rideSounds = RideSoundSettingsList.decode(buffer)
         gravity = buffer.readExpression()
         horizontalAcceleration = buffer.readExpression()
         verticalVelocity = buffer.readExpression()

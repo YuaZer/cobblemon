@@ -16,6 +16,8 @@ import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
+import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
+import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
@@ -104,14 +106,6 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
             upForce -= 0.3
         }
 
-        val altitudeLimit = vehicle.runtime.resolveDouble(settings.jumpExpr)
-
-        //Only limit altitude if altitude is not infinite
-        if (!vehicle.runtime.resolveBoolean(settings.infiniteAltitude)) {
-            //Provide a hard limit on altitude
-            upForce = if (vehicle.y >= altitudeLimit && upForce > 0) 0.0 else upForce
-        }
-
 
         val velocity = Vec3(state.rideVelocity.get().x , upForce, forwardForce)
         return velocity
@@ -126,12 +120,7 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         val glideTopSpeed = vehicle.runtime.resolveDouble(settings.glidespeedExpr)
         val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr)
         val staminaStat = vehicle.runtime.resolveDouble(settings.staminaExpr)
-
         var glideSpeedChange = 0.0
-
-        val currSpeed = state.rideVelocity.get().length()
-
-        //Flag for determining if player is actively inputting
         var activeInput = false
 
         var newVelocity = Vec3(state.rideVelocity.get().x, state.rideVelocity.get().y, state.rideVelocity.get().z)
@@ -461,12 +450,20 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         return false
     }
 
-    override fun shouldRotatePlayerHead(
+    override fun shouldRotateRiderHead(
         settings: BirdSettings,
         state: BirdState,
         vehicle: PokemonEntity
     ): Boolean {
-        return true
+        return false
+    }
+
+    override fun getRideSounds(
+        settings: BirdSettings,
+        state: BirdState,
+        vehicle: PokemonEntity
+    ): RideSoundSettingsList {
+        return settings.rideSounds
     }
 
     override fun createDefaultState(settings: BirdSettings) = BirdState()
@@ -474,6 +471,7 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
 
 class BirdSettings : RidingBehaviourSettings {
     override val key = BirdBehaviour.KEY
+    override val stats = mutableMapOf<RidingStat, IntRange>()
 
     var infiniteAltitude: Expression = "false".asExpression()
         private set
@@ -491,8 +489,12 @@ class BirdSettings : RidingBehaviourSettings {
     var glidespeedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', 2.0, 1.0)".asExpression()
         private set
 
+    var rideSounds: RideSoundSettingsList = RideSoundSettingsList()
+
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeResourceLocation(key)
+        buffer.writeRidingStats(stats)
+        rideSounds.encode(buffer)
         buffer.writeExpression(infiniteAltitude)
         buffer.writeExpression(infiniteStamina)
         buffer.writeExpression(glidespeedExpr)
@@ -504,6 +506,8 @@ class BirdSettings : RidingBehaviourSettings {
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
+        stats.putAll(buffer.readRidingStats())
+        rideSounds = RideSoundSettingsList.decode(buffer)
         infiniteAltitude = buffer.readExpression()
         infiniteStamina = buffer.readExpression()
         glidespeedExpr = buffer.readExpression()

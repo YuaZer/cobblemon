@@ -60,6 +60,36 @@
       }
     }
   },
+  "riding": {
+    "behaviours": {
+      "LIQUID": {
+        "key": "cobblemon:liquid/dolphin",
+        "stats": {
+          "SPEED": "50-100",
+          "ACCELERATION": "50-100",
+          "SKILL": "50-100",
+          "JUMP": "50-100",
+          "STAMINA": "50-100"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0,
+          "y": 0.4,
+          "z": 0
+        }
+      },
+      {
+        "offset": {
+          "x": 0,
+          "y": 0.4,
+          "z": 1
+        }
+      }
+    ]
+  },
   "drops": {
     "amount": 4,
     "entries": [
@@ -185,29 +215,28 @@
     "tutor:sleeptalk",
     "tutor:tripleaxel",
     "tutor:uproar",
-    "tutor:waterpulse"
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:megahorn",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:peck",
+    "legacy:rage",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:skullbash",
+    "legacy:snore",
+    "legacy:strength",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "seel",
-  "evolutions": [],
-  "riding": {
-    "stats": {
-      "SPEED": {
-        "ranges": "15-30"
-      },
-      "ACCELERATION": {
-        "ranges": "25-50"
-      },
-      "SKILL": {
-        "ranges": "15-30"
-      },
-      "JUMP": {
-        "ranges": "20-40"
-      },
-      "STAMINA": {
-        "ranges": "30-60"
-      }
-    },
-    "seats": [],
-    "behaviour": null
-  }
+  "evolutions": []
 }
