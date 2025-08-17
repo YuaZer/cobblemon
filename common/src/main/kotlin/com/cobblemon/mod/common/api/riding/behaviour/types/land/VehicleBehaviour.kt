@@ -17,6 +17,7 @@ import com.cobblemon.mod.common.api.riding.behaviour.*
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
 import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
+import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
@@ -414,6 +415,7 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
 
 class VehicleSettings : RidingBehaviourSettings {
     override val key = VehicleBehaviour.KEY
+    override val stats = mutableMapOf<RidingStat, IntRange>()
 
     var canJump = "true".asExpression()
         private set
@@ -456,6 +458,7 @@ class VehicleSettings : RidingBehaviourSettings {
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeResourceLocation(key)
+        buffer.writeRidingStats(stats)
         rideSounds.encode(buffer)
         buffer.writeExpression(canJump)
         buffer.writeExpression(speed)
@@ -466,6 +469,7 @@ class VehicleSettings : RidingBehaviourSettings {
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
+        stats.putAll(buffer.readRidingStats())
         rideSounds = RideSoundSettingsList.decode(buffer)
         canJump = buffer.readExpression()
         speed = buffer.readExpression()

@@ -22,6 +22,7 @@ import com.cobblemon.mod.common.util.*
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
 import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
+import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
@@ -398,6 +399,7 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
 
 class JetSettings : RidingBehaviourSettings {
     override val key = JetBehaviour.KEY
+    override val stats = mutableMapOf<RidingStat, IntRange>()
 
     var gravity: Expression = "0".asExpression()
         private set
@@ -428,6 +430,7 @@ class JetSettings : RidingBehaviourSettings {
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeResourceLocation(key)
+        buffer.writeRidingStats(stats)
         rideSounds.encode(buffer)
         buffer.writeExpression(gravity)
         buffer.writeExpression(minSpeed)
@@ -441,6 +444,7 @@ class JetSettings : RidingBehaviourSettings {
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
+        stats.putAll(buffer.readRidingStats())
         rideSounds = RideSoundSettingsList.decode(buffer)
         gravity = buffer.readExpression()
         minSpeed = buffer.readExpression()
