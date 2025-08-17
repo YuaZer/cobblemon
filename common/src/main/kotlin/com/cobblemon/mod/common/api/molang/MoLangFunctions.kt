@@ -195,6 +195,14 @@ object MoLangFunctions {
         "string_length" to java.util.function.Function { params ->
             return@Function DoubleValue(params.getString(0).length)
         },
+        "split_string" to java.util.function.Function { params ->
+            val text = params.getString(0)
+            val delimiter = params.getString(1)
+            val parts = text.split(delimiter).map { StringValue(it) }
+            val struct = ArrayStruct(hashMapOf())
+            parts.forEachIndexed { index, moValue -> struct.setDirectly("$index", moValue) }
+            return@Function struct
+        },
         "is_blank" to java.util.function.Function { params ->
             val arg = params.get<MoValue>(0)
             return@Function DoubleValue((arg is StringValue && (arg.value.isBlank() || arg.value.toDoubleOrNull() == 0.0)) || (arg is DoubleValue && arg.value == 0.0))
