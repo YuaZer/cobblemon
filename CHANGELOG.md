@@ -57,10 +57,14 @@
 
 #### Gen 3
 - Azurill
+- Meditite
+- Medicham
 - Electrike
 - Manectric
 - Spoink
 - Grumpig
+- Swablu
+- Altaria
 - Snorunt
 - Glalie
 - Latias
