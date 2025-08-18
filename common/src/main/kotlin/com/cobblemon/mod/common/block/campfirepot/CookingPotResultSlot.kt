@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.block.campfirepot
 
+import com.cobblemon.mod.common.CobblemonItemComponents
 import com.cobblemon.mod.common.CobblemonSounds
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.player.Player
@@ -23,8 +24,11 @@ class CookingPotResultSlot(
 ) : Slot(container, index, x, y) {
 
     override fun onTake(player: Player, stack: ItemStack) {
-        val menu = player.containerMenu
+        if (stack.has(CobblemonItemComponents.FLAVOUR)) {
+            stack.set(CobblemonItemComponents.CRAFTED, true)
+        }
 
+        val menu = player.containerMenu
         if (menu is CookingPotMenu) {
             menu.broadcastChanges()
             player.playNotifySound(CobblemonSounds.CAMPFIRE_POT_USE, SoundSource.MASTER, 1.0f, 1.0f)
@@ -34,5 +38,4 @@ class CookingPotResultSlot(
     }
 
     override fun mayPlace(stack: ItemStack): Boolean = false
-    override fun isActive(): Boolean = hasItem()
 }
