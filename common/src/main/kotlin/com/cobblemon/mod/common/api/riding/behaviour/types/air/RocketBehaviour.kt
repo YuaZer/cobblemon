@@ -285,15 +285,6 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         return newVelocity
     }
 
-    /*
-    *  Normalizes the current speed between minSpeed and maxSpeed.
-    *  The result is clamped between 0.0 and 1.0, where 0.0 represents minSpeed and 1.0 represents maxSpeed.
-    */
-    private fun normalizeVal(currSpeed: Double, minSpeed: Double, maxSpeed: Double): Double {
-        require(maxSpeed > minSpeed) { "maxSpeed must be greater than minSpeed" }
-        return ((currSpeed - minSpeed) / (maxSpeed - minSpeed)).coerceIn(0.0, 1.0)
-    }
-
     override fun angRollVel(
         settings: RocketSettings,
         state: RocketState,
@@ -374,7 +365,7 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
             //val exceededSpeed = max(vehicle.deltaMovement.length() - topSpeed, 0.0)
 
             //TODO: Remove this magic number and get a better comparison for boost top speed
-            val normalizedBoostSpeed = normalizeVal(state.rideVelocity.get().length(), topSpeed, topSpeed * 3)
+            val normalizedBoostSpeed = RidingBehaviour.scaleToRange(state.rideVelocity.get().length(), topSpeed, topSpeed * 3)
             return 1.0f + normalizedBoostSpeed.pow(2).toFloat() * 0.2f
         } else {
             return 1.0f

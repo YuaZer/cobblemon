@@ -104,7 +104,7 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         val rotAmount = 10.0f
 
         //Take the inverse so that you turn more at higher speeds
-        val normSpeed = 1.0f - 0.5f*normalizeVal(state.rideVelocity.get().length(), 0.0, topSpeed).toFloat()
+        val normSpeed = 1.0f - 0.5f*RidingBehaviour.scaleToRange(state.rideVelocity.get().length(), 0.0, topSpeed).toFloat()
 
         //driver.yRot += (entity.riding.deltaRotation.y - turnAmount)
         //driver.setYHeadRot(driver.yHeadRot + (entity.riding.deltaRotation.y) - turnAmount)
@@ -164,7 +164,7 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         val rotDiffMod = (sqrt(abs(rotDiffNorm)) * rotDiffNorm.sign)
 
         //Take the inverse so that you turn less at higher speeds
-        val normSpeed = 1.0f // = 1.0f - 0.5f*normalizeVal(state.rideVelocityocity.length(), 0.0, topSpeed).toFloat()
+        val normSpeed = 1.0f // = 1.0f - 0.5f*RidingBehaviour.scaleToRange(state.rideVelocityocity.length(), 0.0, topSpeed).toFloat()
 
         val turnRate = (handling.toFloat() / 20.0f)
 
@@ -306,15 +306,6 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         }
 
         return newVelocity
-    }
-
-    /*
-    *  Normalizes the current speed between minSpeed and maxSpeed.
-    *  The result is clamped between 0.0 and 1.0, where 0.0 represents minSpeed and 1.0 represents maxSpeed.
-    */
-    private fun normalizeVal(currSpeed: Double, minSpeed: Double, maxSpeed: Double): Double {
-        require(maxSpeed > minSpeed) { "maxSpeed must be greater than minSpeed" }
-        return ((currSpeed - minSpeed) / (maxSpeed - minSpeed)).coerceIn(0.0, 1.0)
     }
 
     override fun angRollVel(
