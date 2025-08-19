@@ -229,7 +229,7 @@ class BirdNoRollBehaviour : RidingBehaviour<BirdNoRollSettings, BirdNoRollState>
         val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
         //This rotation limit will be used to know if the ride has exceeded it and its needs correcting.
         val rotMin = 15.0
-        val rotLimit = max(handling * sqrt(normalizeVal(state.rideVelocity.get().length(), 0.0, topSpeed)), rotMin)
+        val rotLimit = max(handling * sqrt(RidingBehaviour.scaleToRange(state.rideVelocity.get().length(), 0.0, topSpeed)), rotMin)
 
         var yawDeltaDeg =  deltaTime * handling * sin(Math.toRadians(controller.roll.toDouble())) //sin(Math.toRadians(controller.roll.toDouble())) * abs(cos(Math.toRadians(controller.pitch.toDouble())))
         val trueYawDelt = yawDeltaDeg * abs(cos(Math.toRadians(controller.pitch.toDouble())))
@@ -283,7 +283,7 @@ class BirdNoRollBehaviour : RidingBehaviour<BirdNoRollSettings, BirdNoRollState>
         val yInput = mouseYSmoother.getNewDeltaValue(mouseYc * 0.1 * invertPitch, deltaTime * smoothingSpeed);
 
         //Give the ability to yaw with x mouse input when at low speeds.
-        val yawForce =  xInput * ( 1.0 - min(sqrt(normalizeVal(state.rideVelocity.get().length(), 0.0, topSpeed)), 0.5))
+        val yawForce =  xInput * ( 1.0 - min(sqrt(RidingBehaviour.scaleToRange(state.rideVelocity.get().length(), 0.0, topSpeed)), 0.5))
 
         //Apply yaw globally as we don't want roll or pitch changes due to local yaw when looking up or down.
 
@@ -301,16 +301,6 @@ class BirdNoRollBehaviour : RidingBehaviour<BirdNoRollSettings, BirdNoRollState>
 
         //yaw, pitch, roll
         return Vec3.ZERO
-    }
-
-    /*
-    *  Normalizes the given value between a min and a max.
-    *  The result is clamped between 0.0 and 1.0, where 0.0 represents x is at or below min
-    *  and 1.0 represents x is at or above it.
-    */
-    private fun normalizeVal(x: Double, min: Double, max: Double): Double {
-        require(max > min) { "max must be greater than min" }
-        return ((x - min) / (max - min)).coerceIn(0.0, 1.0)
     }
 
     override fun canJump(
@@ -360,7 +350,7 @@ class BirdNoRollBehaviour : RidingBehaviour<BirdNoRollSettings, BirdNoRollState>
         val glideTopSpeed = vehicle.runtime.resolveDouble(settings.glidespeedExpr)
 
         //Must I ensure that topspeed is greater than minimum?
-        val normalizedGlideSpeed = normalizeVal(state.rideVelocity.get().length(), topSpeed, glideTopSpeed)
+        val normalizedGlideSpeed = RidingBehaviour.scaleToRange(state.rideVelocity.get().length(), topSpeed, glideTopSpeed)
 
         //Only ever want the fov change to be a max of 0.2 and for it to have non linear scaling.
         return 1.0f + normalizedGlideSpeed.pow(2).toFloat() * 0.2f

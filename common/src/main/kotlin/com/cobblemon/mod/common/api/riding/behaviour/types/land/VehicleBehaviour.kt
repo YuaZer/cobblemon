@@ -221,9 +221,6 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
         if (vehicle.onGround()) {
             newVelocity = Vec3(newVelocity.x, 0.0, newVelocity.z)
         } else {
-            //TODO: Should we just go back to standard minecraft gravity or do the lerp modifications prevent that?
-            //I think minecrafts gravity logic is also too harsh and isn't gamefied enough for mounts maybe? Need
-            //to do some testing and get other's opinions
             val gravity = (9.8 / ( 20.0)) * 0.2 * 0.25 * 3.0
             val terminalVel = 2.0
 

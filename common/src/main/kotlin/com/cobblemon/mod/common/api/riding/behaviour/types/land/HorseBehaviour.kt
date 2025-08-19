@@ -174,7 +174,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         val normSpeed = 1.0f
 
         // TurnRate should always be quick if not sprinting
-        val invRelSpeed = (inverseLerp(vehicle.deltaMovement.horizontalDistance(), 0.0, topSpeed ).pow(0.5) - 1.0f) * -1.0f
+        val invRelSpeed = (RidingBehaviour.scaleToRange(vehicle.deltaMovement.horizontalDistance(), 0.0, topSpeed ).pow(0.5) - 1.0f) * -1.0f
         val turnRate = ((handling.toFloat() / 20.0f) * max(walkHandlingBoost * invRelSpeed, 1.0)).toFloat()
 
         //Ensure you only ever rotate as much difference as there is between the angles.
@@ -260,15 +260,6 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         newVelocity = Vec3(0.0, newVelocity.y, newVelocity.z)
 
         return newVelocity
-    }
-
-    /*
-    *  lerps the current val between minVal and maxVal.
-    *  The result is clamped between 0.0 and 1.0, where 0.0 represents minVal and 1.0 represents maxVal.
-    */
-    private fun inverseLerp(currVal: Double, minVal: Double, maxVal: Double): Double {
-        require(maxVal > minVal) { "minVal must be greater than maxVal" }
-        return ((currVal - minVal) / (maxVal - minVal)).coerceIn(0.0, 1.0)
     }
 
     private fun getWalkSpeed( vehicle: PokemonEntity ): Double {
