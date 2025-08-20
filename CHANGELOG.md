@@ -410,6 +410,7 @@
 - Added `q.has_argument_at(<index>, [argument_value])` MoLang function to several battle-related action effect contexts.
 - Added `q.hit_count` MoLang function to move action effect contexts.
 - Added `is_included`, `to_lower`, `to_upper`, and `string_length` as available Molang functions.
+- Fixed a crash that would occur during battles if the opponent wild Pokémon species comes from a namespace other than cobblemon
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)
 
