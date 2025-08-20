@@ -2630,7 +2630,7 @@
 			},
 			"sound_effects": {
 				"0.3333": {
-					"effect": "altaria_cry"
+					"effect": "pokemon.altaria.cry"
 				}
 			}
 		},
