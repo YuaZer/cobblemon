@@ -2375,6 +2375,7 @@ open class PokemonEntity(
     override fun canSwimInWater() = exposedForm.behaviour.moving.swim.canSwimInWater
     override fun canFly() = exposedForm.behaviour.moving.fly.canFly
     override fun canSwimInLava() = exposedForm.behaviour.moving.swim.canSwimInLava
+    override fun canPathThroughLeaves() = this.config.getMap().getOrDefault("can_path_through_leaves", DoubleValue.ZERO).asDouble() == 1.0
     override fun entityOnGround() = onGround()
 
     override fun canSwimUnderFluid(fluidState: FluidState): Boolean {

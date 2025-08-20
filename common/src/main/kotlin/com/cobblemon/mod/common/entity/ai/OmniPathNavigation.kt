@@ -9,14 +9,13 @@
 package com.cobblemon.mod.common.entity.ai
 
 import com.cobblemon.mod.common.entity.OmniPathingEntity
+import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.pokemon.ai.OmniPathNodeMaker
 import com.cobblemon.mod.common.util.getWaterAndLavaIn
 import com.cobblemon.mod.common.util.toVec3d
 import com.google.common.collect.ImmutableSet
-import kotlin.math.PI
-import kotlin.math.abs
-import kotlin.math.acos
 import net.minecraft.core.BlockPos
+import net.minecraft.tags.BlockTags
 import net.minecraft.tags.FluidTags
 import net.minecraft.util.Mth
 import net.minecraft.world.damagesource.DamageSource
@@ -25,13 +24,11 @@ import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.pathfinder.Node
-import net.minecraft.world.level.pathfinder.Path
-import net.minecraft.world.level.pathfinder.PathComputationType
-import net.minecraft.world.level.pathfinder.PathFinder
-import net.minecraft.world.level.pathfinder.PathType
-import net.minecraft.world.level.pathfinder.WalkNodeEvaluator
+import net.minecraft.world.level.pathfinder.*
 import net.minecraft.world.phys.Vec3
+import kotlin.math.PI
+import kotlin.math.abs
+import kotlin.math.acos
 
 /**
  * A navigator designed to work with the [OmniPathNodeMaker], allowing a path that can cross land, water, and air
@@ -181,7 +178,9 @@ class OmniPathNavigation(val world: Level, val entity: Mob) : GroundPathNavigati
             target = blockPos
         }
 
-        val path = if (!this.world.getBlockState(target).isSolid) {
+        val blockState = this.world.getBlockState(target)
+        val path = if (!blockState.isSolid
+            || (blockState.`is`(BlockTags.LEAVES)) && (this.entity as PokemonEntity).canPathThroughLeaves()) {
             findPath(target, distance)
         } else {
             blockPos = target.above()
@@ -228,6 +227,10 @@ class OmniPathNavigation(val world: Level, val entity: Mob) : GroundPathNavigati
             // If we can fly and we're airborne, return the current Y position
             return vec.y
         }
+        if (world.getBlockState(blockPos).`is`(BlockTags.LEAVES) && (this.entity as PokemonEntity).canPathThroughLeaves()) {
+            return vec.y + 0.5
+        }
+
         return if ((canFloat()) && blockGetter.getFluidState(blockPos).`is`(FluidTags.WATER)) vec.y + 0.5 else WalkNodeEvaluator.getFloorLevel(blockGetter, blockPos)
     }
 

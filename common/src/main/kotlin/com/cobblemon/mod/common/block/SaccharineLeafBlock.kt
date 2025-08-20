@@ -108,7 +108,7 @@ class SaccharineLeafBlock(settings: Properties) : LeavesBlock(settings) {
         )
     }
 
-    override fun isRandomlyTicking(state: BlockState): Boolean = !state.getValue(PERSISTENT) && state.getValue(DISTANCE) > 6
+    override fun isRandomlyTicking(state: BlockState): Boolean = true //!state.getValue(PERSISTENT) && state.getValue(DISTANCE) > 6
 
     override fun randomTick(state: BlockState, world: ServerLevel, pos: BlockPos, random: RandomSource) {
         val currentAge = state.getValue(AGE)
@@ -123,8 +123,8 @@ class SaccharineLeafBlock(settings: Properties) : LeavesBlock(settings) {
                 } else if (belowState.block is SaccharineLeafBlock) {
                     val belowAge = belowState.getValue(AGE)
                     if (belowAge < MAX_AGE) {
-                        changeAge(state, -1)
-                        changeAge(belowState, 1)
+                        world.setBlock(pos, changeAge(state, -1), UPDATE_CLIENTS)
+                        world.setBlock(belowPos,changeAge(belowState, 1), UPDATE_CLIENTS)
                     }
                     break
                 } else {

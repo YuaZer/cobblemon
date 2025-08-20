@@ -9,7 +9,6 @@
 package com.cobblemon.mod.common.entity.pokemon.ai.sensors
 
 import com.cobblemon.mod.common.CobblemonMemories
-import com.cobblemon.mod.common.block.SaccharineLeafBlock
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -19,7 +18,6 @@ import net.minecraft.world.entity.ai.sensing.Sensor
 import net.minecraft.world.entity.ai.village.poi.PoiManager
 import net.minecraft.world.entity.ai.village.poi.PoiRecord
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.BeehiveBlock
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity
 import net.minecraft.world.level.block.entity.BlockEntity
@@ -35,7 +33,7 @@ class BeeHiveSensor : Sensor<PokemonEntity>(300) {
         if (currentHive != null) {
             val state = world.getBlockState(currentHive)
 
-            if (!isValidHiveOrLeaf(state) || !hasReachableAdjacentSide(world, currentHive)) {
+            if (!isValidHive(state) || !hasReachableAdjacentSide(world, currentHive)) {
                 brain.eraseMemory(CobblemonMemories.HIVE_LOCATION)
             } else {
                 return // We already have a valid hive, no need to search for another
@@ -87,21 +85,10 @@ class BeeHiveSensor : Sensor<PokemonEntity>(300) {
         }
     }
 
-    private fun isAtMaxHoney(state: net.minecraft.world.level.block.state.BlockState): Boolean {
-        return when {
-            isHiveBlock(state) -> state.getValue(BeehiveBlock.HONEY_LEVEL) == BeehiveBlock.MAX_HONEY_LEVELS
-            isSaccharineLeafBlock(state) -> state.getValue(SaccharineLeafBlock.AGE) == SaccharineLeafBlock.MAX_AGE
-            else -> true // Unknown block type
-        }
+    private fun isValidHive(state: net.minecraft.world.level.block.state.BlockState): Boolean {
+        return isHiveBlock(state)
     }
 
-    private fun isValidHiveOrLeaf(state: net.minecraft.world.level.block.state.BlockState): Boolean {
-        return isHiveBlock(state) || isSaccharineLeafBlock(state)
-    }
-
-    private fun isSaccharineLeafBlock(state: net.minecraft.world.level.block.state.BlockState): Boolean {
-        return state.block is SaccharineLeafBlock
-    }
 
     private fun isHiveBlock(state: net.minecraft.world.level.block.state.BlockState): Boolean {
         return state.`is`(Blocks.BEEHIVE) || state.`is`(Blocks.BEE_NEST)

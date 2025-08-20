@@ -53,6 +53,7 @@ object CobblemonMemories {
     val NEARBY_FLOWER = register<BlockPos>("nearby_flower")
     val PATH_TO_NEARBY_FLOWER_COOLDOWN = register<Boolean>("path_to_nearby_flower_cooldown")
     val POLLINATED = register<Boolean>("pollinated", PrimitiveCodec.BOOL)
+    val NEARBY_SACC_LEAVES = register<BlockPos>("nearby_sac_leaves")
     /** who am i following rn? */
     val HERD_LEADER = register<String>("herd_leader", PrimitiveCodec.STRING)
     /** how many are following me rn? */

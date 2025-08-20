@@ -23,6 +23,7 @@ interface OmniPathingEntity {
     fun canSwimInWater(): Boolean
     fun canSwimInLava(): Boolean
     fun canSwimUnderFluid(fluidState: FluidState): Boolean
+    fun canPathThroughLeaves(): Boolean
     fun canFly(): Boolean
     fun isFlying(): Boolean
     fun setFlying(state: Boolean)

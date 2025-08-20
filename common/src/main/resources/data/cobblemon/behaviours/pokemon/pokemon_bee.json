@@ -2,7 +2,22 @@
   "name": "cobblemon.behaviour.pokemon_bee.name",
   "description": "cobblemon.behaviour.pokemon_bee.desc",
   "entityType": "cobblemon:pokemon",
+  "onAdd": [
+    "q.entity.data.original_leaves_malus = q.entity.get_pathfinding_malus('LEAVES');",
+    "q.entity.set_pathfinding_malus('LEAVES', 4.0);",
+    "q.entity.config.can_path_through_leaves = true;"
+
+  ],
+  "onRemove": [
+    "q.entity.set_pathfinding_malus('LEAVES', q.entity.data.original_leaves_malus);",
+    "q.entity.config.can_path_through_leaves = false;"
+  ],
   "configurations": [
+    {
+      "type": "script",
+      "executeEarly": true,
+      "script": "cobblemon:apply_bee_properties"
+    },
     {
       "type": "add_tasks_to_activity",
       "activity": "cobblemon:pokemon_pollination",
@@ -17,11 +32,13 @@
         ],
         "2": [
           "pollinate_flower",
-          "place_honey_in_hive"
+          "place_honey_in_hive",
+          "place_honey_in_sacc_leaves"
         ],
         "3": [
           "path_to_flower",
-          "path_to_hive"
+          "path_to_hive",
+          "path_to_sacc_leaves"
         ]
       }
     },

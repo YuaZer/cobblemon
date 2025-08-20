@@ -14,10 +14,11 @@ import com.cobblemon.mod.common.api.molang.ObjectValue
 class BlockBehavior {
     private val immuneToSweetBerryBushBlock = false
     private val canStandOnPowderSnow = false
-
+    val canPathThroughLeaves = false
     @Transient
     val struct = ObjectValue(this).also {
         it.addFunction("immune_to_sweet_berry_bush_block") { DoubleValue(immuneToSweetBerryBushBlock) }
         it.addFunction("can_stand_on_powder_snow") { DoubleValue(canStandOnPowderSnow) }
+        it.addFunction("can_path_through_leaves") { DoubleValue(canPathThroughLeaves) }
     }
 }

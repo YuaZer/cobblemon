@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.entity.pokemon.ai.tasks
 
 import com.cobblemon.mod.common.CobblemonMemories
+import com.cobblemon.mod.common.util.getMemorySafely
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker
@@ -28,12 +29,12 @@ object PathToFlowerTask {
                 it.registered(MemoryModuleType.LOOK_TARGET),
                 it.absent(MemoryModuleType.WALK_TARGET),
                 it.present(CobblemonMemories.NEARBY_FLOWER),
-                it.absent(CobblemonMemories.POLLINATED),
+                it.registered(CobblemonMemories.POLLINATED),
                 it.absent(CobblemonMemories.PATH_TO_NEARBY_FLOWER_COOLDOWN),
                 it.absent(CobblemonMemories.HIVE_COOLDOWN)
             ).apply(it) { lookTarget, walkTarget, flowerMemory, pollinated, flowerCooldown, hiveCooldown ->
                 Trigger { world, entity, time ->
-                    if (entity !is PathfinderMob || !entity.isAlive) return@Trigger false
+                    if (entity !is PathfinderMob || !entity.isAlive || entity.brain.getMemorySafely(CobblemonMemories.POLLINATED).orElse(false)) return@Trigger false
 
                     val flowerLocation = it.get(flowerMemory)
 //                    if (flowerLocation.isEmpty()) {
