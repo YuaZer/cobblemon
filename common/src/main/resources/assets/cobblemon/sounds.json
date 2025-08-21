@@ -4378,7 +4378,7 @@
     "sounds": [ {  "name": "cobblemon:pokemon/raichu/raichu_cry", "volume": 0.8 } ]
   },
   "pokemon.raichu_alolan.cry": {
-    "sounds": [ { "name": "cobblemon:pokemon/raichu/alolan_raichu_cry", "volume": 0.8 } ]
+    "sounds": [ { "name": "cobblemon:pokemon/raichu/raichu_alolan_cry", "volume": 0.8 } ]
   },
   "pokemon.sandshrew.cry": {
     "sounds": [ { "name": "cobblemon:pokemon/sandshrew/sandshrew_cry", "volume": 0.8 } ]
@@ -4546,7 +4546,7 @@
     "sounds": [ { "name": "cobblemon:pokemon/ponyta/galarian_ponyta_cry", "volume": 0.8 } ]
   },
   "pokemon.rapidash_galar.cry": {
-    "sounds": [ { "name": "cobblemon:pokemon/rapidash/galarian_rapidash_cry", "volume": 0.8 } ]
+    "sounds": [ { "name": "cobblemon:pokemon/rapidash/rapidash_galarian_cry", "volume": 0.8 } ]
   },
   "pokemon.slowpoke.cry": {
     "sounds": [ { "name": "cobblemon:pokemon/slowpoke/slowpoke_cry", "volume": 0.8 } ]
