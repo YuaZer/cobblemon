@@ -4551,8 +4551,14 @@
   "pokemon.slowpoke.cry": {
     "sounds": [ { "name": "cobblemon:pokemon/slowpoke/slowpoke_cry", "volume": 0.8 } ]
   },
+  "pokemon.slowpoke_galarian.cry": {
+    "sounds": [ { "name": "cobblemon:pokemon/slowpoke/slowpoke_galarian_cry", "volume": 0.8 } ]
+  },
   "pokemon.slowbro.cry": {
     "sounds": [ { "name": "cobblemon:pokemon/slowbro/slowbro_cry", "volume": 0.8 } ]
+  },
+  "pokemon.slowbro_galarian.cry": {
+    "sounds": [ { "name": "cobblemon:pokemon/slowbro/slowbro_galarian_cry", "volume": 0.8 } ]
   },
   "pokemon.magnemite.cry": {
     "sounds": [ { "name": "cobblemon:pokemon/magnemite/magnemite_cry", "volume": 0.8 } ]
@@ -4931,6 +4937,9 @@
   },
   "pokemon.slowking.cry": {
     "sounds": [ { "name": "cobblemon:pokemon/slowking/slowking_cry", "volume": 0.8 } ]
+  },
+  "pokemon.slowking_galarian.cry": {
+    "sounds": [ { "name": "cobblemon:pokemon/slowking/slowking_galarian_cry", "volume": 0.8 } ]
   },
   "pokemon.misdreavus.cry": {
     "sounds": [ { "name": "cobblemon:pokemon/misdreavus/misdreavus_cry", "volume": 0.8 } ]
