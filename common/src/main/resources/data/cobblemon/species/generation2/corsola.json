@@ -48,6 +48,9 @@
   "features": [
     "galarian"
   ],
+  "standingEyeHeight": 0.6,
+  "swimmingEyeHeight": 0.6,
+  "flyingEyeHeight": 0.6,
   "baseScale": 0.9,
   "hitbox": {
     "width": 0.65,
@@ -55,9 +58,14 @@
     "fixed": false
   },
   "behaviour": {
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
+    },
     "moving": {
-      "walking":
-      {"walkSpeed": 0.2},
+      "walk": {
+        "walkSpeed": 0.14
+      },
       "swim": {
         "swimSpeed": 0.2,
         "canSwimInWater": true,
