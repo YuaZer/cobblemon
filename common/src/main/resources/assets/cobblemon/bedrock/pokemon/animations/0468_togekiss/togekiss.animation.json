@@ -585,7 +585,7 @@
 			}
 		},
 		"animation.togekiss.special": {
-			"animation_length": 3.5,
+			"animation_length": 4,
 			"bones": {
 				"body": {
 					"rotation": {
