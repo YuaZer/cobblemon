@@ -178,6 +178,38 @@
 					"position": [0, 0, -0.1]
 				}
 			}
+		},
+		"animation.leavanny.cry": {
+			"animation_length": 1,
+			"bones": {
+				"head_angle": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.125": [-12.5, 0, 0],
+						"0.8333": [-12.5, 0, 0],
+						"0.9583": [0, 0, 0]
+					}
+				},
+				"mouth_closed": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.0417": {"pre": [0, 0, 0], "post": [0, 0, 0.1]},
+						"0.9583": {"pre": [0, 0, 0.1], "post": [0, 0, 0]}
+					}
+				},
+				"mouth_open": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.0417": {"pre": [0, 0, 0], "post": [0, 0, -0.1]},
+						"0.9583": {"pre": [0, 0, -0.1], "post": [0, 0, 0]}
+					}
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "pokemon.leavanny.cry"
+				}
+			}
 		}
 	}
 }
