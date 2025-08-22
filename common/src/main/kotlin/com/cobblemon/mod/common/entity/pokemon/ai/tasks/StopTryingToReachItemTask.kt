@@ -15,7 +15,7 @@ import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder
 import net.minecraft.world.entity.ai.behavior.declarative.Trigger
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
 
-object StopIfTiredOfTryingToReachItemTask {
+object StopTryingToReachItemTask {
     fun create(maxTimeToReachItem: Int, disableDuration: Int): BehaviorControl<LivingEntity?> {
         return BehaviorBuilder.create {
             it.group(

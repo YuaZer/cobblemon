@@ -13,12 +13,12 @@ import com.cobblemon.mod.common.CobblemonSensors
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
 import com.cobblemon.mod.common.api.npc.configuration.MoLangConfigVariable
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
-import com.cobblemon.mod.common.entity.pokemon.ai.tasks.StopIfTiredOfTryingToReachSweetBerryBushTask
+import com.cobblemon.mod.common.entity.pokemon.ai.tasks.StopTryingToReachSweetBerryBushTask
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.behavior.BehaviorControl
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
 
-class StopIfTiredOfTryingToReachSweetBerryBushTaskConfig : SingleTaskConfig {
+class StopTryingToReachSweetBerryBushTaskConfig : SingleTaskConfig {
     override fun getVariables(entity: LivingEntity, behaviourConfigurationContext: BehaviourConfigurationContext) = emptyList<MoLangConfigVariable>()
     override fun createTask(
         entity: LivingEntity,
@@ -30,6 +30,6 @@ class StopIfTiredOfTryingToReachSweetBerryBushTaskConfig : SingleTaskConfig {
         behaviourConfigurationContext.addMemories(CobblemonMemories.NEARBY_SWEET_BERRY_BUSH, CobblemonMemories.DISABLE_WALK_TO_BERRY_BUSH,
             CobblemonMemories.TIME_TRYING_TO_REACH_BERRY_BUSH, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET)
         behaviourConfigurationContext.addSensors(CobblemonSensors.NEARBY_SWEET_BERRY_BUSH)
-        return StopIfTiredOfTryingToReachSweetBerryBushTask.create(100, 20*15)
+        return StopTryingToReachSweetBerryBushTask.create(100, 20*15)
     }
 }
