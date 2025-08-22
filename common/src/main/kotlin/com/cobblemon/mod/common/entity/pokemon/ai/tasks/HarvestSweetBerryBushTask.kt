@@ -8,9 +8,7 @@
 
 package com.cobblemon.mod.common.entity.pokemon.ai.tasks
 
-import com.bedrockk.molang.runtime.MoLangRuntime
 import com.cobblemon.mod.common.CobblemonMemories
-import com.cobblemon.mod.common.api.molang.MoLangFunctions.setup
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.getMemorySafely
 import net.minecraft.server.level.ServerLevel
@@ -39,7 +37,6 @@ class HarvestSweetBerryBushTask : Behavior<LivingEntity>(
 
     var startTime : Int = 0
     companion object {
-        val runtime = MoLangRuntime().setup()
         const val WAIT_TIME = 40
     }
 
