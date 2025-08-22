@@ -149,6 +149,7 @@ import net.minecraft.world.level.levelgen.Heightmap
 import net.minecraft.world.level.pathfinder.PathType
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
+import kotlin.toString
 
 /**
  * Holds a bunch of useful MoLang trickery that can be used or extended in API
@@ -559,8 +560,23 @@ object MoLangFunctions {
             }
             map.put("is_player") { DoubleValue.ONE }
             if (player is ServerPlayer) {
+                map.put("seen_credits") { _ ->
+                    DoubleValue( DoubleValue(player.seenCredits) )
+                }
+                map.put("is_in_dialogue") { _ ->
+                    DoubleValue( DoubleValue(player.isInDialogue) )
+                }
+                map.put("active_dialogue") { _ ->
+                    if (player.isInDialogue) {
+                        player.activeDialogue?.dialogueId.toString()
+                        return@put DoubleValue.ONE
+                    } else {
+                        DoubleValue.ZERO
+                    }
+                }
                 map.put("is_spectator") { DoubleValue(player.isSpectator) }
                 map.put("is_creative") { DoubleValue(player.isCreative) }
+                map.put("is_survival") { DoubleValue(player.gameMode.isSurvival) }
                 map.put("run_command") { params ->
                     val command = params.getString(0)
                     player.server.commands.performPrefixedCommand(player.createCommandSourceStack(), command)
@@ -962,6 +978,18 @@ object MoLangFunctions {
             map.put("heal") { params ->
                 val amount = params.getDouble(0)
                 entity.heal(amount.toFloat())
+            }
+            map.put("is_looking_at") { params ->
+                val targetEntity = params.get<MoValue>(0)
+                val maxDistance = params.getDoubleOrNull(1)?.toFloat() ?: 2.0F
+
+                val entity = if (targetEntity is ObjectValue<*> && targetEntity.obj is Entity) {
+                    targetEntity.obj as Entity
+                } else {
+                    return@put DoubleValue.ZERO
+                }
+
+                return@put DoubleValue(entity.isLookingAt(entity, maxDistance))
             }
             map.put("is_living_entity") { DoubleValue.ONE }
             map.put("is_flying") { _ -> DoubleValue(entity.isFallFlying) }
