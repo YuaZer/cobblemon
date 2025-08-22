@@ -559,6 +559,8 @@ object MoLangFunctions {
             }
             map.put("is_player") { DoubleValue.ONE }
             if (player is ServerPlayer) {
+                map.put("is_spectator") { DoubleValue(player.isSpectator) }
+                map.put("is_creative") { DoubleValue(player.isCreative) }
                 map.put("run_command") { params ->
                     val command = params.getString(0)
                     player.server.commands.performPrefixedCommand(player.createCommandSourceStack(), command)
