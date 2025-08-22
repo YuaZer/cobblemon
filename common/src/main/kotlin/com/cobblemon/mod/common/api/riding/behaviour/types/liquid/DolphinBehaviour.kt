@@ -195,7 +195,7 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         // Yaw
         // TODO:move all magic numbers to handling expression
         val yawSpeed = handling * deltaTime * 0.25
-        val yawForce =  sin(controller.roll.toRadians()) * yawSpeed * ( 1.0 - min(sqrt(normalizeVal(state.rideVelocity.get().length(), 0.0, topSpeed)), 0.5))
+        val yawForce =  sin(controller.roll.toRadians()) * yawSpeed * ( 1.0 - min(sqrt(RidingBehaviour.scaleToRange(state.rideVelocity.get().length(), 0.0, topSpeed)), 0.5))
         //Apply yaw globally as we don't want roll or pitch changes due to local yaw when looking up or down.
         controller.applyGlobalYaw(yawForce.toFloat())
 
@@ -209,16 +209,6 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
 
         //yaw, pitch, roll
         return Vec3.ZERO
-    }
-
-    /*
-    *  Normalizes the given value between a min and a max.
-    *  The result is clamped between 0.0 and 1.0, where 0.0 represents x is at or below min
-    *  and 1.0 represents x is at or above it.
-    */
-    private fun normalizeVal(x: Double, min: Double, max: Double): Double {
-        require(max > min) { "max must be greater than min" }
-        return ((x - min) / (max - min)).coerceIn(0.0, 1.0)
     }
 
     override fun canJump(
