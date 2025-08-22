@@ -12,10 +12,10 @@ import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMostSpecificMoLangValue
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.entity.pokemon.ai.sensors.PokemonItemSensor.Companion.PICKUP_ITEMS
-import com.cobblemon.mod.common.entity.pokemon.ai.tasks.MoveToItemTask.runtime
 import com.cobblemon.mod.common.pokemon.ai.ObtainableItem
 import com.cobblemon.mod.common.util.findMatchingEntry
 import com.cobblemon.mod.common.util.getObjectList
+import com.cobblemon.mod.common.util.mainThreadRuntime
 import com.cobblemon.mod.common.util.resolve
 import com.cobblemon.mod.common.util.withQueryValue
 import com.google.common.collect.ImmutableMap
@@ -58,7 +58,7 @@ class EatHeldItemTask(entity: PokemonEntity) : Behavior<PokemonEntity>(
     }
 
     private fun canEat(item: ItemStack, entity: PokemonEntity): Boolean {
-        return item.has(DataComponents.FOOD) || pickupItems.findMatchingEntry(item)?.onUseEffect != null
+        return item.has(DataComponents.FOOD) || pickupItems.findMatchingEntry(entity.registryAccess(), item)?.onUseEffect != null
     }
 
     override fun start(world: ServerLevel, entity: PokemonEntity, time: Long) {
@@ -73,7 +73,7 @@ class EatHeldItemTask(entity: PokemonEntity) : Behavior<PokemonEntity>(
     override fun tick(world: ServerLevel, entity: PokemonEntity, time: Long) {
         if (!world.isClientSide && entity.isAlive) {
             val itemStack: ItemStack = entity.pokemon.heldItem()
-            val itemConfig = pickupItems.findMatchingEntry(itemStack)
+            val itemConfig = pickupItems.findMatchingEntry(entity.registryAccess(), itemStack)
             if (canEat(itemStack, entity)) {
                 if (this.timelastEaten + MAX_DURATION <= time) {
                     var resultItemStack = itemStack.finishUsingItem(world, entity)
@@ -86,8 +86,8 @@ class EatHeldItemTask(entity: PokemonEntity) : Behavior<PokemonEntity>(
                     entity.pokemon.swapHeldItem(resultItemStack)
                     val onUseEffect = itemConfig?.onUseEffect
                     if (onUseEffect != null) {
-                        runtime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
-                        runtime.resolve(onUseEffect)
+                        mainThreadRuntime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
+                        mainThreadRuntime.resolve(onUseEffect)
                     }
                     this.timelastEaten = time
                     if (itemConfig != null && itemConfig.fullnessValue > 0) {
@@ -95,7 +95,7 @@ class EatHeldItemTask(entity: PokemonEntity) : Behavior<PokemonEntity>(
                     }
                     // Check if the result item is something that should be dropped
                     resultItemStack = entity.pokemon.heldItem()
-                    if ((pickupItems.findMatchingEntry(resultItemStack)?.pickupPriority ?: 0) < 0) {
+                    if ((pickupItems.findMatchingEntry(entity.registryAccess(), resultItemStack)?.pickupPriority ?: 0) < 0) {
                         // Drop item
                         resultItemStack = entity.pokemon.swapHeldItem(resultItemStack)
                         if (!resultItemStack.isEmpty && !entity.level().isClientSide) {
