@@ -1,12 +1,4 @@
 {
-  "bookshelf:load_conditions": [
-    {
-      "type": "bookshelf:block_exists",
-      "values": [
-        "cobblemon:roseli_berry"
-      ]
-    }
-  ],
   "type": "botanypots:crop",
   "input": {
     "item": "cobblemon:roseli_berry"

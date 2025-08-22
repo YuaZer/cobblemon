@@ -1,12 +1,4 @@
 {
-  "bookshelf:load_conditions": [
-    {
-      "type": "bookshelf:block_exists",
-      "values": [
-        "cobblemon:pink_mint"
-      ]
-    }
-  ],
   "type": "botanypots:crop",
   "input": {
     "item": "cobblemon:pink_mint_seeds"

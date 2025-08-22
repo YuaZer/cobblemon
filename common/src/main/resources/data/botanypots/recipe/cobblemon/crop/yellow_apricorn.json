@@ -1,12 +1,4 @@
 {
-  "bookshelf:load_conditions": [
-    {
-      "type": "bookshelf:block_exists",
-      "values": [
-        "cobblemon:yellow_apricorn_sapling"
-      ]
-    }
-  ],
   "type": "botanypots:crop",
   "input": {
     "item": "cobblemon:yellow_apricorn_seed"

@@ -1,12 +1,4 @@
 {
-  "bookshelf:load_conditions": [
-    {
-      "type": "bookshelf:block_exists",
-      "values": [
-        "cobblemon:kee_berry"
-      ]
-    }
-  ],
   "type": "botanypots:crop",
   "input": {
     "item": "cobblemon:kee_berry"

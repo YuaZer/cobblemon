@@ -1,12 +1,4 @@
 {
-  "bookshelf:load_conditions": [
-    {
-      "type": "bookshelf:block_exists",
-      "values": [
-        "cobblemon:apricorn_log"
-      ]
-    }
-  ],
   "type": "minecraft:block",
   "pools": [
     {
