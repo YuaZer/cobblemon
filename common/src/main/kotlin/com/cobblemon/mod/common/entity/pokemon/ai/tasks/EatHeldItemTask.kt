@@ -49,8 +49,8 @@ class EatHeldItemTask(entity: PokemonEntity) : Behavior<PokemonEntity>(
         if (timelastEaten + COOLDOWN > world.gameTime) {
             return false
         }
-        val itemstack = entity.pokemon.heldItem()
-        return !itemstack.isEmpty && canEat(itemstack, entity) && !entity.isBusy
+        val itemStack = entity.pokemon.heldItem()
+        return !itemStack.isEmpty && canEat(itemStack, entity) && !entity.isBusy
     }
 
     override fun canStillUse(world: ServerLevel, entity: PokemonEntity, time: Long): Boolean {
