@@ -67,7 +67,7 @@ class MinekartBehaviour : RidingBehaviour<MinekartSettings, MinekartState> {
             //This might not actually work, depending on what the yPos actually is. yPos of the middle of the entity? the feet?
             if (it.y.toDouble() == (vehicle.position().y)) {
                 val blockState = vehicle.level().getBlockState(it.below())
-                return@any !(!blockState.isAir && blockState.fluidState.isEmpty)
+                return@any (!blockState.isAir && blockState.fluidState.isEmpty)
             }
             true
         }
