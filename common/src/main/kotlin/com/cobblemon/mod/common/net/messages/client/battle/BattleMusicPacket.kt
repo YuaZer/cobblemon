@@ -15,6 +15,7 @@ import com.cobblemon.mod.common.util.readIdentifier
 import com.cobblemon.mod.common.util.writeIdentifier
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.RegistryFriendlyByteBuf
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.sounds.SoundEvent
 
 /**
@@ -26,11 +27,11 @@ import net.minecraft.sounds.SoundEvent
  * @author Segfault Guy
  * @since April 20th, 2023
  */
-class BattleMusicPacket(var music : SoundEvent? = null, var volume: Float = 1.0f, var pitch: Float = 1.0f) : NetworkPacket<BattleMusicPacket> {
+class BattleMusicPacket(var music : ResourceLocation? = null, var volume: Float = 1.0f, var pitch: Float = 1.0f) : NetworkPacket<BattleMusicPacket> {
     companion object {
         val ID = cobblemonResource("battle_music")
         fun decode(buffer: RegistryFriendlyByteBuf) =  BattleMusicPacket(
-            music = BuiltInRegistries.SOUND_EVENT.get(buffer.readIdentifier()),
+            music = buffer.readIdentifier(),
             volume = buffer.readFloat(),
             pitch = buffer.readFloat()
         )
@@ -39,7 +40,7 @@ class BattleMusicPacket(var music : SoundEvent? = null, var volume: Float = 1.0f
     override val id = ID
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
-        music?.let { buffer.writeIdentifier(it.location) } ?: buffer.writeIdentifier("".asIdentifierDefaultingNamespace())
+        music?.let { buffer.writeIdentifier(it) } ?: buffer.writeIdentifier("".asIdentifierDefaultingNamespace())
         buffer.writeFloat(volume)
         buffer.writeFloat(pitch)
     }

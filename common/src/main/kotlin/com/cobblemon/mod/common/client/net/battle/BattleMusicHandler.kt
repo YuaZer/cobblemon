@@ -13,6 +13,7 @@ import com.cobblemon.mod.common.client.sound.BattleMusicController
 import com.cobblemon.mod.common.client.sound.instances.BattleMusicInstance
 import com.cobblemon.mod.common.net.messages.client.battle.BattleMusicPacket
 import net.minecraft.client.Minecraft
+import net.minecraft.sounds.SoundEvent
 
 /**
  * The handler for [BattleMusicPacket]s. Interfaces with [BattleMusicController] to change battle music.
@@ -24,9 +25,16 @@ object BattleMusicHandler : ClientNetworkPacketHandler<BattleMusicPacket> {
 
     override fun handle(packet: BattleMusicPacket, client: Minecraft) {
         val soundManager = client.soundManager
-        val newMusic = packet.music?.let { BattleMusicInstance(it, packet.volume, packet.pitch) }
+        val loc = packet.music
+        val newMusic = loc?.let {
+            val event = SoundEvent.createVariableRangeEvent(loc)
+            BattleMusicInstance(event, packet.volume, packet.pitch)
+        }
         val currMusic = BattleMusicController.music
 
+        if (newMusic?.location == currMusic.location) {
+            return
+        }
         if (newMusic == null)
             BattleMusicController.endMusic()
         else if (!soundManager.isActive(currMusic))
