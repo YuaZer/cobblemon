@@ -84,6 +84,7 @@ import com.cobblemon.mod.common.entity.pokemon.PokemonBehaviourFlag
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.entity.pokemon.ai.PokemonMoveControl
 import com.cobblemon.mod.common.net.messages.client.animation.PlayPosableAnimationPacket
+import com.cobblemon.mod.common.net.messages.client.battle.BattleMusicPacket
 import com.cobblemon.mod.common.net.messages.client.effect.RunPosableMoLangPacket
 import com.cobblemon.mod.common.net.messages.client.effect.SpawnSnowstormEntityParticlePacket
 import com.cobblemon.mod.common.net.messages.client.effect.SpawnSnowstormParticlePacket
@@ -580,6 +581,25 @@ object MoLangFunctions {
                 map.put("run_command") { params ->
                     val command = params.getString(0)
                     player.server.commands.performPrefixedCommand(player.createCommandSourceStack(), command)
+                }
+                map.put("battle_music") { params ->
+                    val soundId = params.getString(0).asResource()
+                    val volume = params.getDoubleOrNull(1)?.toFloat() ?: 1.0f
+                    val pitch = params.getDoubleOrNull(2)?.toFloat() ?: 1.0f
+
+                    val soundEvent = BuiltInRegistries.SOUND_EVENT.get(soundId)
+                    if (soundEvent != null) {
+                        val packet = BattleMusicPacket(soundEvent, volume, pitch)
+                        packet.sendToPlayer(player)
+                        return@put DoubleValue.ONE
+                    } else {
+                        return@put DoubleValue.ZERO
+                    }
+                }
+                map.put("stop_battle_music") { _ ->
+                    val packet = BattleMusicPacket(null, 0.0f, 0.0f)
+                    packet.sendToPlayer(player)
+                    return@put DoubleValue.ONE
                 }
                 map.put("play_sound_on_server") { params ->
                     val sound = params.getString(0).asResource()
