@@ -150,6 +150,8 @@ import net.minecraft.world.level.levelgen.Heightmap
 import net.minecraft.world.level.pathfinder.PathType
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
+import kotlin.text.get
+import kotlin.text.toInt
 import kotlin.toString
 
 /**
@@ -1734,6 +1736,15 @@ object MoLangFunctions {
                 } else {
                     return@put DoubleValue.ZERO
                 }
+            }
+            map.put("can_evolve") { _ ->
+                DoubleValue(pokemon.evolutions.any())
+            }
+            map.put("force_evolve") { params ->
+                val idx = params.getInt(0)
+                val evolution = if (idx >= 0) pokemon.evolutions.elementAtOrNull(idx) else return@put DoubleValue.ZERO
+                evolution?.evolve(pokemon)
+                StringValue(evolution.toString())
             }
             map
         }
