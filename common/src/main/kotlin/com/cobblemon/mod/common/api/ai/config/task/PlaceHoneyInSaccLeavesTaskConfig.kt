@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.api.ai.config.task
 
+import com.cobblemon.mod.common.CobblemonBlocks
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
 import com.cobblemon.mod.common.api.ai.asVariables
@@ -64,7 +65,8 @@ class PlaceHoneyInSaccLeavesTaskConfig : SingleTaskConfig {
             override fun checkExtraStartConditions(level: ServerLevel, owner: LivingEntity): Boolean {
                 if (level.isNight || level.isRaining || !(entity.brain.getMemorySafely(CobblemonMemories.HAS_NECTAR).orElse(false))) return false
                 val optionalBlockPos = entity.brain.getMemorySafely(CobblemonMemories.NEARBY_SACC_LEAVES)
-                return optionalBlockPos.isPresent && Vec3.atCenterOf(optionalBlockPos.get()).distanceTo(entity.position()) <= 1.5
+                if (!optionalBlockPos.isPresent || level.getBlockState(optionalBlockPos.get()).block != CobblemonBlocks.SACCHARINE_LEAVES) return false
+                return Vec3.atCenterOf(optionalBlockPos.get()).distanceTo(entity.position()) <= 0.6
             }
 
             override fun canStillUse(level: ServerLevel, entity: LivingEntity, gameTime: Long): Boolean {
@@ -84,7 +86,6 @@ class PlaceHoneyInSaccLeavesTaskConfig : SingleTaskConfig {
                 }
                 val leavesPos = entity.brain.getMemorySafely(CobblemonMemories.NEARBY_SACC_LEAVES).orElse(null)
 
-
                 val bl = hoverPos == null || entity.position().distanceTo(hoverPos!!) <= 0.1
                 val bl3 = entity.random.nextInt(40) == 0
                 if (bl && bl3) {
@@ -92,7 +93,6 @@ class PlaceHoneyInSaccLeavesTaskConfig : SingleTaskConfig {
                     if (hoverPos == null) {
                         hoverPos = leavesPos.bottomCenter.add(0.0, 0.4, 0.0)
                     }
-
                     if (leavesPos != null) {
                         hoverPos = leavesPos.bottomCenter.add(Vec3((entity.random.nextDouble() * 2.0 - 1.0) * (1.0/5.0), 0.3 + (entity.random.nextDouble() * 2.0 - 1.0) * (1.0/7.0), (entity.random.nextDouble() * 2.0 - 1.0) * (1.0/5.0)))
                         entity.getMoveControl()
@@ -103,28 +103,25 @@ class PlaceHoneyInSaccLeavesTaskConfig : SingleTaskConfig {
                     entity.getMoveControl()
                         .setWantedPosition(hoverPos!!.x(), hoverPos!!.y(), hoverPos!!.z(), 0.35)
                 }
-//                entity.lookControl.setLookAt(leavesPos.bottomCenter.add(0.0,0.5,0.0))
-
             }
 
             override fun stop(level: ServerLevel, entity: LivingEntity, gameTime: Long) {
-
                 if (successfulPollinationTicks > REQUIRED_SUCCESSFUL_POLLINATION_TICKS) {
-                    entity.brain.eraseMemory(CobblemonMemories.HAS_NECTAR)
                     val blockPos = entity.brain.getMemorySafely(CobblemonMemories.NEARBY_SACC_LEAVES).orElse(null)
                     blockPos.let {
                         val blockState = level.getBlockState(blockPos)
-                        val saccAge = blockState.getValue( SaccharineLeafBlock.AGE)
-                        if (saccAge < SaccharineLeafBlock.MAX_AGE) {
-                            val newBlockState = blockState.setValue(SaccharineLeafBlock.AGE,  saccAge + 1)
-                            level.setBlock(blockPos, newBlockState, 3)
+                        if (blockState.block == CobblemonBlocks.SACCHARINE_LEAVES) {
+                            val saccAge = blockState.getValue( SaccharineLeafBlock.AGE)
+                            if (saccAge < SaccharineLeafBlock.MAX_AGE) {
+                                entity.brain.eraseMemory(CobblemonMemories.HAS_NECTAR)
+                                val newBlockState = blockState.setValue(SaccharineLeafBlock.AGE,  saccAge + 1)
+                                level.setBlock(blockPos, newBlockState, 3)
+                            }
                         }
                     }
                 }
-                (entity as PokemonEntity).navigation.stop()
                 successfulPollinationTicks = 0
                 entity.brain.eraseMemory(MemoryModuleType.WALK_TARGET)
-
             }
         }
     }
