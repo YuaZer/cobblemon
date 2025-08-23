@@ -27,11 +27,11 @@ import net.minecraft.sounds.SoundEvent
  * @author Segfault Guy
  * @since April 20th, 2023
  */
-class BattleMusicPacket(var music : ResourceLocation? = null, var volume: Float = 1.0f, var pitch: Float = 1.0f) : NetworkPacket<BattleMusicPacket> {
+class BattleMusicPacket(var music: ResourceLocation? = null, var volume: Float = 1.0f, var pitch: Float = 1.0f) : NetworkPacket<BattleMusicPacket> {
     companion object {
         val ID = cobblemonResource("battle_music")
-        fun decode(buffer: RegistryFriendlyByteBuf) =  BattleMusicPacket(
-            music = buffer.readIdentifier(),
+        fun decode(buffer: RegistryFriendlyByteBuf) = BattleMusicPacket(
+            music = if (buffer.readBoolean()) buffer.readIdentifier() else null,
             volume = buffer.readFloat(),
             pitch = buffer.readFloat()
         )
@@ -40,7 +40,11 @@ class BattleMusicPacket(var music : ResourceLocation? = null, var volume: Float 
     override val id = ID
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
-        music?.let { buffer.writeIdentifier(it) } ?: buffer.writeIdentifier("".asIdentifierDefaultingNamespace())
+        val hasMusic = music != null
+        buffer.writeBoolean(hasMusic)
+        if (hasMusic) {
+            buffer.writeIdentifier(music!!)
+        }
         buffer.writeFloat(volume)
         buffer.writeFloat(pitch)
     }

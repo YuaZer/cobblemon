@@ -51,7 +51,7 @@ object SpectateBattleHandler : ServerNetworkPacketHandler<SpectateBattlePacket> 
             this.spectateBattle(targetedPlayerEntity, player)
 
             // Handle music
-            target?.battleTheme?.let { player.sendPacket(BattleMusicPacket(it)) }
+            target?.battleTheme?.let { player.sendPacket(BattleMusicPacket(it.location)) }
         }
         else {
             LOGGER.error("Battle of player id ${packet.targetedEntityId} not found (${player.uuid} tried spectating)")

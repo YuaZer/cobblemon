@@ -32,17 +32,13 @@ object BattleMusicHandler : ClientNetworkPacketHandler<BattleMusicPacket> {
         }
         val currMusic = BattleMusicController.music
 
-        if (newMusic?.location == currMusic.location) {
+        if (newMusic?.location == currMusic.location && soundManager.isActive(currMusic)) {
             return
         }
-        if (newMusic == null)
-            BattleMusicController.endMusic()
-        else if (!soundManager.isActive(currMusic))
-            BattleMusicController.initializeMusic(newMusic)
-        else if (newMusic.location != currMusic.location)
-            BattleMusicController.switchMusic(newMusic)
-        else
-            BattleMusicController.switchMusic(newMusic)
+        when {
+            newMusic == null -> BattleMusicController.endMusic()
+            !soundManager.isActive(currMusic) -> BattleMusicController.initializeMusic(newMusic)
+            else -> BattleMusicController.switchMusic(newMusic)
+        }
     }
-
 }

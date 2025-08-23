@@ -601,7 +601,7 @@ object MoLangFunctions {
                     val volume = params.getDoubleOrNull(1)?.toFloat() ?: 1.0f
                     val pitch = params.getDoubleOrNull(2)?.toFloat() ?: 1.0f
 
-                    val soundEvent = BuiltInRegistries.SOUND_EVENT.get(soundId)
+                    val soundEvent = soundId
                     if (soundEvent != null) {
                         val packet = BattleMusicPacket(soundEvent, volume, pitch)
                         packet.sendToPlayer(player)
