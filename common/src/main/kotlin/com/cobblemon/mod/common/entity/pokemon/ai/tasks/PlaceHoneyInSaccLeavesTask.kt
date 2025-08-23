@@ -10,13 +10,11 @@ package com.cobblemon.mod.common.entity.pokemon.ai.tasks
 
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
-import com.cobblemon.mod.common.util.getMemorySafely
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.entity.ai.behavior.OneShot
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder
 import net.minecraft.world.entity.ai.behavior.declarative.Trigger
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
-import net.minecraft.world.entity.ai.memory.MemoryStatus
 import net.minecraft.world.level.block.BeehiveBlock
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity
 import net.minecraft.world.phys.Vec3
@@ -30,7 +28,7 @@ object PlaceHoneyInSaccLeavesTask {
         return BehaviorBuilder.create {
             it.group(
                 it.absent(MemoryModuleType.WALK_TARGET),
-                it.registered(CobblemonMemories.POLLINATED),
+                it.registered(CobblemonMemories.HAS_NECTAR),
                 it.present(CobblemonMemories.HIVE_LOCATION),
                 it.absent(CobblemonMemories.HIVE_COOLDOWN),
 //                it.registered(MemoryModuleType.ANGRY_AT)

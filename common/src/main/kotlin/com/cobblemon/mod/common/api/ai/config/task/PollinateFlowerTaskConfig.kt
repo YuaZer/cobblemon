@@ -49,7 +49,7 @@ class PollinateFlowerTaskConfig : SingleTaskConfig {
             mapOf(
                 CobblemonMemories.NEARBY_FLOWER to MemoryStatus.VALUE_PRESENT,
                 MemoryModuleType.WALK_TARGET to MemoryStatus.VALUE_ABSENT,
-                CobblemonMemories.POLLINATED to MemoryStatus.REGISTERED,
+                CobblemonMemories.HAS_NECTAR to MemoryStatus.REGISTERED,
                 CobblemonMemories.HIVE_COOLDOWN to MemoryStatus.VALUE_ABSENT,
             ),
             600,
@@ -61,7 +61,7 @@ class PollinateFlowerTaskConfig : SingleTaskConfig {
             var hoverPos: Vec3? = null
 
             override fun checkExtraStartConditions(level: ServerLevel, owner: LivingEntity): Boolean {
-                if (level.isNight || level.isRaining || entity.brain.getMemorySafely(CobblemonMemories.POLLINATED).orElse(false)) return false
+                if (level.isNight || level.isRaining || entity.brain.getMemorySafely(CobblemonMemories.HAS_NECTAR).orElse(false)) return false
                 val optionalBlockPos = entity.brain.getMemorySafely(CobblemonMemories.NEARBY_FLOWER)
                 return optionalBlockPos.isPresent && Vec3.atCenterOf(optionalBlockPos.get()).distanceTo(entity.position()) <= 1.0
             }
@@ -108,15 +108,11 @@ class PollinateFlowerTaskConfig : SingleTaskConfig {
             override fun stop(level: ServerLevel, entity: LivingEntity, gameTime: Long) {
 
                 if (successfulPollinationTicks > REQUIRED_SUCCESSFUL_POLLINATION_TICKS) {
-                    entity.brain.setMemory(CobblemonMemories.POLLINATED, true)
+                    entity.brain.setMemory(CobblemonMemories.HAS_NECTAR, true)
                 }
                 successfulPollinationTicks = 0
                 entity.brain.setMemoryWithExpiry(CobblemonMemories.PATH_TO_NEARBY_FLOWER_COOLDOWN, true, PATH_TO_FLOWER_COOLDOWN_TICKS)
 
-//                val flowerStillThere = canStillUse(level, entity, gameTime)
-//                if (flowerStillThere) {
-//                    entity.brain.setMemory(CobblemonMemories.POLLINATED, true)
-//                }
             }
         }
     }

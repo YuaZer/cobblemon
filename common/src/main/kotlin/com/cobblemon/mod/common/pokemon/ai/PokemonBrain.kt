@@ -190,7 +190,7 @@ object PokemonBrain {
         CobblemonMemories.HIVE_LOCATION,
         CobblemonMemories.HIVE_COOLDOWN,
         CobblemonMemories.NEARBY_FLOWER,
-        CobblemonMemories.POLLINATED,
+        CobblemonMemories.HAS_NECTAR,
         CobblemonMemories.RECENTLY_ATE_GRASS,
         CobblemonMemories.HERD_LEADER,
         CobblemonMemories.HERD_SIZE,

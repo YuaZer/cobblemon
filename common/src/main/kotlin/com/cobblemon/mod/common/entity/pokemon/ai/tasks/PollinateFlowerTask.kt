@@ -23,7 +23,7 @@ object PollinateFlowerTask {
             it.group(
                 it.present(CobblemonMemories.NEARBY_FLOWER),
                 it.absent(MemoryModuleType.WALK_TARGET),
-                it.absent(CobblemonMemories.POLLINATED),
+                it.absent(CobblemonMemories.HAS_NECTAR),
                 it.absent(CobblemonMemories.HIVE_COOLDOWN)
             ).apply(it) { flowerMemory, walkTarget, pollinated, hiveCooldown ->
                 Trigger { world, entity, time ->
@@ -31,7 +31,7 @@ object PollinateFlowerTask {
 
                     val flowerBlockPos = it.get(flowerMemory)
                     if (flowerBlockPos.distSqr(entity.blockPosition()) < 1 ) {
-                        entity.brain.setMemoryWithExpiry(CobblemonMemories.POLLINATED, true, 20 * 20L) // 20 seconds to dump the pollen
+                        entity.brain.setMemoryWithExpiry(CobblemonMemories.HAS_NECTAR, true, 20 * 20L) // 20 seconds to dump the pollen
                         if (entity is PokemonEntity) {
                             entity.pokemon.updateAspects()
                         }

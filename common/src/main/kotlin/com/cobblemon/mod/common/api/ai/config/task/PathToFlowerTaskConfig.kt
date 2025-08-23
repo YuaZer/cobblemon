@@ -8,7 +8,6 @@
 
 package com.cobblemon.mod.common.api.ai.config.task
 
-import com.bedrockk.molang.runtime.MoLangRuntime
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.CobblemonSensors
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
@@ -45,7 +44,7 @@ class PathToFlowerTaskConfig : SingleTaskConfig {
             CobblemonMemories.PATH_TO_NEARBY_FLOWER_COOLDOWN,
             CobblemonMemories.HIVE_COOLDOWN,
             CobblemonMemories.HIVE_LOCATION,
-            CobblemonMemories.POLLINATED
+            CobblemonMemories.HAS_NECTAR
         )
         behaviourConfigurationContext.addSensors(CobblemonSensors.NEARBY_BEE_HIVE, CobblemonSensors.NEARBY_FLOWER)
         return PathToFlowerTask.create()

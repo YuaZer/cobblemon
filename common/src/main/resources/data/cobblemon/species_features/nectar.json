@@ -1,0 +1,6 @@
+{
+  "keys": ["hasNectar"],
+  "type": "flag",
+  "isAspect": true,
+  "default": false
+}

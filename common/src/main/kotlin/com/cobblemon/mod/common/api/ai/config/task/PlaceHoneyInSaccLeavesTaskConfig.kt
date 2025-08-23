@@ -52,7 +52,7 @@ class PlaceHoneyInSaccLeavesTaskConfig : SingleTaskConfig {
             mapOf(
                 CobblemonMemories.NEARBY_SACC_LEAVES to MemoryStatus.VALUE_PRESENT,
                 MemoryModuleType.WALK_TARGET to MemoryStatus.VALUE_ABSENT,
-                CobblemonMemories.POLLINATED to MemoryStatus.VALUE_PRESENT,
+                CobblemonMemories.HAS_NECTAR to MemoryStatus.VALUE_PRESENT,
             ),
             MIN_DURATION,
             MAX_DURATION
@@ -62,7 +62,7 @@ class PlaceHoneyInSaccLeavesTaskConfig : SingleTaskConfig {
             var hoverPos: Vec3? = null
 
             override fun checkExtraStartConditions(level: ServerLevel, owner: LivingEntity): Boolean {
-                if (level.isNight || level.isRaining || !(entity.brain.getMemorySafely(CobblemonMemories.POLLINATED).orElse(false))) return false
+                if (level.isNight || level.isRaining || !(entity.brain.getMemorySafely(CobblemonMemories.HAS_NECTAR).orElse(false))) return false
                 val optionalBlockPos = entity.brain.getMemorySafely(CobblemonMemories.NEARBY_SACC_LEAVES)
                 return optionalBlockPos.isPresent && Vec3.atCenterOf(optionalBlockPos.get()).distanceTo(entity.position()) <= 1.5
             }
@@ -110,7 +110,7 @@ class PlaceHoneyInSaccLeavesTaskConfig : SingleTaskConfig {
             override fun stop(level: ServerLevel, entity: LivingEntity, gameTime: Long) {
 
                 if (successfulPollinationTicks > REQUIRED_SUCCESSFUL_POLLINATION_TICKS) {
-                    entity.brain.setMemory(CobblemonMemories.POLLINATED, false)
+                    entity.brain.eraseMemory(CobblemonMemories.HAS_NECTAR)
                     val blockPos = entity.brain.getMemorySafely(CobblemonMemories.NEARBY_SACC_LEAVES).orElse(null)
                     blockPos.let {
                         val blockState = level.getBlockState(blockPos)

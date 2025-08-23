@@ -28,7 +28,7 @@ object PathToSacLeafTask {
             it.group(
                 it.registered(MemoryModuleType.LOOK_TARGET),
                 it.absent(MemoryModuleType.WALK_TARGET),
-                it.present(CobblemonMemories.POLLINATED),
+                it.present(CobblemonMemories.HAS_NECTAR),
                 it.present(CobblemonMemories.NEARBY_SACC_LEAVES)
             ).apply(it) { lookTarget, walkTarget, pollinated, saccLeavesPos ->
                 Trigger { world, entity, time ->

@@ -71,8 +71,8 @@
         "9": [
           {
             "type": "cobblemon:memory_aspect",
-            "memory": "cobblemon:pollinated",
-            "aspect": "pollinated"
+            "memory": "cobblemon:has_nectar",
+            "aspect": "hasNectar"
           }
         ]
       }

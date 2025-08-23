@@ -30,7 +30,7 @@ object PathToBeeHiveTask {
             it.group(
                 it.registered(MemoryModuleType.LOOK_TARGET),
                 it.absent(MemoryModuleType.WALK_TARGET),
-                it.registered(CobblemonMemories.POLLINATED),
+                it.registered(CobblemonMemories.HAS_NECTAR),
                 it.present(CobblemonMemories.HIVE_LOCATION),
                 it.absent(CobblemonMemories.HIVE_COOLDOWN)
             ).apply(it) { lookTarget, walkTarget, pollinated, hiveMemory, hiveCooldown ->

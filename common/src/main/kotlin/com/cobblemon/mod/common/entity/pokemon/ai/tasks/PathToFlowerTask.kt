@@ -29,12 +29,12 @@ object PathToFlowerTask {
                 it.registered(MemoryModuleType.LOOK_TARGET),
                 it.absent(MemoryModuleType.WALK_TARGET),
                 it.present(CobblemonMemories.NEARBY_FLOWER),
-                it.registered(CobblemonMemories.POLLINATED),
+                it.registered(CobblemonMemories.HAS_NECTAR),
                 it.absent(CobblemonMemories.PATH_TO_NEARBY_FLOWER_COOLDOWN),
                 it.absent(CobblemonMemories.HIVE_COOLDOWN)
             ).apply(it) { lookTarget, walkTarget, flowerMemory, pollinated, flowerCooldown, hiveCooldown ->
                 Trigger { world, entity, time ->
-                    if (entity !is PathfinderMob || !entity.isAlive || entity.brain.getMemorySafely(CobblemonMemories.POLLINATED).orElse(false)) return@Trigger false
+                    if (entity !is PathfinderMob || !entity.isAlive || entity.brain.getMemorySafely(CobblemonMemories.HAS_NECTAR).orElse(false)) return@Trigger false
 
                     val flowerLocation = it.get(flowerMemory)
 //                    if (flowerLocation.isEmpty()) {

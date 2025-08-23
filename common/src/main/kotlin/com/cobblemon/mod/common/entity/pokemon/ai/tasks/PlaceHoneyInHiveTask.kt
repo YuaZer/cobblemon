@@ -30,7 +30,7 @@ object PlaceHoneyInHiveTask {
         return BehaviorBuilder.create {
             it.group(
                 it.absent(MemoryModuleType.WALK_TARGET),
-                it.registered(CobblemonMemories.POLLINATED),
+                it.registered(CobblemonMemories.HAS_NECTAR),
                 it.present(CobblemonMemories.HIVE_LOCATION),
                 it.absent(CobblemonMemories.HIVE_COOLDOWN),
 //                it.registered(MemoryModuleType.ANGRY_AT)
@@ -73,7 +73,7 @@ object PlaceHoneyInHiveTask {
         // TODO Check if we're too angry to go home
         val result = !entity.brain.checkMemory(CobblemonMemories.HIVE_COOLDOWN, MemoryStatus.VALUE_PRESENT)
 //                && entity.brain.checkMemory(MemoryModuleType.ANGRY_AT, MemoryStatus.VALUE_ABSENT)
-                && (entity.level().isRaining || entity.level().isNight || entity.brain.getMemory(CobblemonMemories.POLLINATED).orElse(false))
+                && (entity.level().isRaining || entity.level().isNight || entity.brain.getMemory(CobblemonMemories.HAS_NECTAR).orElse(false))
         if (result) {
             val blockPos = entity.brain.getMemorySafely(CobblemonMemories.HIVE_LOCATION).orElse(null)
             val blockEntity = entity.level().getBlockEntity(blockPos)

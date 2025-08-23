@@ -55,7 +55,7 @@ public abstract class BeeOccupantMixin {
                 brain.setMemory(CobblemonMemories.INSTANCE.getHIVE_LOCATION(), pos);
                 if (hasNectar) {
                     // Remove nectar and reset got to hive cooldown
-                    brain.eraseMemory(CobblemonMemories.INSTANCE.getPOLLINATED());
+                    brain.eraseMemory(CobblemonMemories.INSTANCE.getHAS_NECTAR());
                     brain.setMemoryWithExpiry(CobblemonMemories.INSTANCE.getHIVE_COOLDOWN(), true, PathToBeeHiveTask.INSTANCE.getSTAY_OUT_OF_HIVE_COOLDOWN());
                     // Increment honey level of the hive
                     if (state.is(BlockTags.BEEHIVES, (blockStateBase) -> blockStateBase.hasProperty(BeehiveBlock.HONEY_LEVEL))) {
@@ -85,7 +85,7 @@ public abstract class BeeOccupantMixin {
 //            var10000.forEach(compoundTag::remove);
 
 
-            Boolean hasNectar = pokemonEntity.getBrain().getMemory(CobblemonMemories.INSTANCE.getPOLLINATED()).orElse(false);
+            Boolean hasNectar = pokemonEntity.getBrain().getMemory(CobblemonMemories.INSTANCE.getHAS_NECTAR()).orElse(false);
             // All brain memories are lost when we become a part of beehive
             // Need to store anything we want to read later as a tag
             // for when the entity gets rehydrated
