@@ -45,6 +45,7 @@ import kotlin.collections.filterIsInstance
 import kotlin.collections.first
 import kotlin.collections.flatMap
 import kotlin.collections.forEach
+import kotlin.collections.get
 import kotlin.collections.isNotEmpty
 import kotlin.collections.mapNotNull
 import kotlin.collections.mutableSetOf
@@ -157,6 +158,11 @@ object BattleBuilder {
 
         val battlePartyStores = mutableListOf<PlayerPartyStore>()
 
+        val side1Actors = listOf(playerActors[0], playerActors[1])
+        val side2Actors = listOf(playerActors[2], playerActors[3])
+        val side2Theme = resourceLocationToSoundEvent(players[2].getBattleTheme() as? ResourceLocation)
+        val side1Theme = resourceLocationToSoundEvent(players[0].getBattleTheme() as? ResourceLocation)
+
         if (adjustLevel > 0) {
             teams.forEachIndexed { playerIndex, battleTeam ->
                 val tempStore = PlayerPartyStore(players[playerIndex].uuid)
@@ -215,10 +221,8 @@ object BattleBuilder {
         }
 
         // TODO: less hard coding
-        playerActors[0].battleTheme = resourceLocationToSoundEvent(players[2].getBattleTheme() as? ResourceLocation)
-        playerActors[1].battleTheme = resourceLocationToSoundEvent(players[2].getBattleTheme() as? ResourceLocation)
-        playerActors[2].battleTheme = resourceLocationToSoundEvent(players[0].getBattleTheme() as? ResourceLocation)
-        playerActors[4].battleTheme = resourceLocationToSoundEvent(players[0].getBattleTheme() as? ResourceLocation)
+        side1Actors.forEach { it.battleTheme = side2Theme }
+        side2Actors.forEach { it.battleTheme = side1Theme }
 
         return if (errors.isEmpty) {
             BattleRegistry.startBattle(
