@@ -146,6 +146,7 @@ import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ClipContext
+import net.minecraft.world.level.GameType
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.Level.ExplosionInteraction
 import net.minecraft.world.level.biome.Biome
@@ -585,9 +586,15 @@ object MoLangFunctions {
                 map.put("is_spectator") { DoubleValue(player.isSpectator) }
                 map.put("is_creative") { DoubleValue(player.isCreative) }
                 map.put("is_survival") { DoubleValue(player.gameMode.isSurvival) }
+                map.put("is_adventure") { DoubleValue(player.gameMode.getGameModeForPlayer() == GameType.ADVENTURE) }
                 map.put("run_command") { params ->
                     val command = params.getString(0)
                     player.server.commands.performPrefixedCommand(player.createCommandSourceStack(), command)
+                }
+                map.put("set_battle_theme") { params ->
+                    val soundId = params.getString(0).asResource()
+                    Cobblemon.playerDataManager.getGenericData(player).battleTheme = soundId
+                    return@put DoubleValue.ONE
                 }
                 map.put("battle_music") { params ->
                     val soundId = params.getString(0).asResource()
@@ -1396,6 +1403,11 @@ object MoLangFunctions {
             map.put("has_party") { DoubleValue(npc.party != null) }
             map.put("is_npc") { DoubleValue.ONE }
             map.put("can_battle") { DoubleValue(npc.party?.any { it.currentHealth > 0 } == true || npc.npc.party?.isStatic == false) }
+            map.put("set_battle_theme") { params ->
+                val soundId = params.getString(0).asResource()
+                npc.npc.battleTheme = soundId
+                return@put DoubleValue.ONE
+            }
             map
         }
     )
