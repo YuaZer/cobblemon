@@ -126,18 +126,23 @@ import net.minecraft.sounds.SoundSource
 import net.minecraft.tags.TagKey
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.damagesource.DamageTypes
+import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityDimensions
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LightningBolt
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.entity.TamableAnimal
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
 import net.minecraft.world.entity.ai.memory.MemoryStatus
 import net.minecraft.world.entity.ai.memory.WalkTarget
+import net.minecraft.world.entity.animal.Animal
 import net.minecraft.world.entity.item.ItemEntity
+import net.minecraft.world.entity.monster.Enemy
+import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ClipContext
@@ -997,6 +1002,41 @@ object MoLangFunctions {
     val livingEntityFunctions: MutableList<(LivingEntity) -> HashMap<String, java.util.function.Function<MoParams, Any>>> = mutableListOf<(LivingEntity) -> HashMap<String, java.util.function.Function<MoParams, Any>>>(
         { entity ->
             val map = hashMapOf<String, java.util.function.Function<MoParams, Any>>()
+            map.put("is_player") { _ -> DoubleValue(entity is Player) }
+            map.put("is_npc") { _ -> DoubleValue(entity is NPCEntity) }
+            map.put("is_mob") { _ -> DoubleValue(entity is Mob) }
+            map.put("is_pokemon") { _ -> DoubleValue(entity is PokemonEntity) }
+            map.put("is_animal") { _ -> DoubleValue(entity is Animal) }
+            map.put("is_tamable") { _ -> DoubleValue(entity is TamableAnimal) }
+            map.put("is_tamed") { _ -> DoubleValue(entity is TamableAnimal && entity.isTame) }
+            map.put("is_hostile") { _ -> DoubleValue(entity is Monster) }
+            map.put("is_baby") { _ -> DoubleValue(entity.isBaby) }
+            map.put("is_adult") { _ -> DoubleValue(!entity.isBaby) }
+            map.put("remove_effect") { params ->
+                val effectId = params.getString(0).asIdentifierDefaultingNamespace()
+                val effectHolder = BuiltInRegistries.MOB_EFFECT.getHolder(effectId).orElse(null)
+                if (effectHolder != null) {
+                    entity.removeEffect(effectHolder)
+                    return@put DoubleValue.ONE
+                }
+            }
+            map.put("add_effect") { params ->
+                val effectId = params.getString(0).asIdentifierDefaultingNamespace()
+                val duration = params.getInt(1)
+                val amplifier = params.getIntOrNull(2) ?: 0
+                val ambient = params.getBooleanOrNull(3) ?: false
+                val visible = params.getBooleanOrNull(4) ?: true
+                val effectHolder = BuiltInRegistries.MOB_EFFECT.getHolder(effectId).orElse(null)
+                if (effectHolder != null) {
+                    entity.addEffect(MobEffectInstance(effectHolder, duration, amplifier, ambient, visible))
+                    return@put DoubleValue.ONE
+                }
+            }
+            map.put("has_effect") { params ->
+                val effectId = params.getString(0).asIdentifierDefaultingNamespace()
+                val effectHolder = BuiltInRegistries.MOB_EFFECT.getHolder(effectId).orElse(null)
+                return@put DoubleValue(if (effectHolder != null) entity.hasEffect(effectHolder) else false)
+            }
             map.put("heal") { params ->
                 val amount = params.getDouble(0)
                 entity.heal(amount.toFloat())
