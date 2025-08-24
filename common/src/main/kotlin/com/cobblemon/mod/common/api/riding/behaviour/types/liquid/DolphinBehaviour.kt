@@ -174,12 +174,10 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
 
         //Interpret mouse input
         val smoothingSpeed = 4.0
-        val invertRoll = if (Cobblemon.config.invertRoll) -1 else 1
-        val invertPitch = if (Cobblemon.config.invertPitch) -1 else 1
         val mouseXc = (mouseX).coerceIn(-60.0, 60.0)
         val mouseYc = (mouseY).coerceIn(-60.0, 60.0)
-        val xInput = mouseXSmoother.getNewDeltaValue(mouseXc * 0.1 * invertRoll, deltaTime * smoothingSpeed);
-        val yInput = mouseYSmoother.getNewDeltaValue(mouseYc * 0.1 * invertPitch, deltaTime * smoothingSpeed);
+        val xInput = mouseXSmoother.getNewDeltaValue(mouseXc * 0.1, deltaTime * smoothingSpeed);
+        val yInput = mouseYSmoother.getNewDeltaValue(mouseYc * 0.1, deltaTime * smoothingSpeed);
         val rollRot = xInput
         val pitchRot = yInput
 
