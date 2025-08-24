@@ -47,6 +47,13 @@
     "height": 2,
     "fixed": false
   },
+  "behaviour": {
+    "moving": {
+      "walk": {
+        "walkSpeed": 0.24
+      }
+    }
+  },
   "drops": {
     "amount": 3,
     "entries": [

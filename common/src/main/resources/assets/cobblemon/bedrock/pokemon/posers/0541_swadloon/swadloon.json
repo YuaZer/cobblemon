@@ -4,6 +4,9 @@
   "profileScale": 0.64,
   "profileTranslation": [0.0, 0.72, 0.0],
   "rootBone": "swadloon",
+  "animations": {
+    "cry": "q.bedrock_stateful('swadloon', 'cry')"
+  },
   "poses": {
     "standing": {
       "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],

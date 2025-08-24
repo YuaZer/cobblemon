@@ -54,6 +54,10 @@
 - Skiploom
 - Jumpluff
 - Dunsparce
+- Togepi
+- Togetic
+- Houndour
+- Houndoom
 
 #### Gen 3
 - Azurill
@@ -69,6 +73,8 @@
 - Glalie
 - Latias
 - Latios
+- Swablu
+- Altaria
 
 #### Gen 4
 - Bronzor
@@ -80,6 +86,7 @@
 - Purugly
 - Skorupi
 - Drapion
+- Togekiss
 
 #### Gen 5
 - Pansage

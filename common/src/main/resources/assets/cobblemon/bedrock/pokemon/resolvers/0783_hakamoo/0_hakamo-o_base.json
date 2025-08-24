@@ -6,12 +6,12 @@
       "aspects": [],
       "poser": "cobblemon:hakamo-o",
       "model": "cobblemon:hakamo-o.geo",
-      "texture": "cobblemon:textures/pokemon/0783_hakamo-o/hakamo-o.png",
+      "texture": "cobblemon:textures/pokemon/0783_hakamoo/hakamo-o.png",
       "layers": []
     },
     {
       "aspects": ["shiny"],
-      "texture": "cobblemon:textures/pokemon/0783_hakamo-o/hakamo-o_shiny.png"
+      "texture": "cobblemon:textures/pokemon/0783_hakamoo/hakamo-o_shiny.png"
     }
   ]
 }
