@@ -105,6 +105,9 @@
 - Tynamo
 - Eelektrik
 - Eelektross
+- Axew
+- Fraxure
+- Haxorus
 - Mienfoo
 - Mienshao
 - Sewaddle
