@@ -131,6 +131,14 @@ abstract class PosableState : Schedulable {
     /** A list of items to be rendered on a PosableModel during an animation */
     val animationItems = mutableMapOf<String, ItemStack>()
 
+    /** Just some numbers that might be getting arbitrarily set and referenced. */
+    val numbers = mutableMapOf<String, Float>()
+    /**
+     * Markers that have been added to the state this render, cleared when animation is about to start.
+     * This is used to hand basic state from one animation to another.
+     */
+    val renderMarkers = mutableSetOf<String>()
+
     /** All of the MoLang functions that can be expose current riding data. */
     val ridingFunctions = QueryStruct(hashMapOf())
         .addFunction("pitch") { params ->
@@ -250,6 +258,36 @@ abstract class PosableState : Schedulable {
             val pokemon = getEntity() as? PokemonEntity ?: return@addFunction DoubleValue(0.0)
 
             val partialTickZVel = pokemon.ridingAnimationData.localVelocitySpring.getInterpolated(currentPartialTicks.toDouble(), lookBackTick).z
+
+            val topSpeed = 1.0//pokemon.riding.getController(pokemon)?.getStat(pokemon, RidingStat.SPEED)
+            //?: return@addFunction DoubleValue(0.0)
+            return@addFunction DoubleValue((partialTickZVel / topSpeed).coerceIn(-1.0,1.0))
+        }
+        .addFunction("input_right") { params ->
+            val lookBackTick = params.getInt(0)
+            val pokemon = getEntity() as? PokemonEntity ?: return@addFunction DoubleValue(0.0)
+
+            val partialTickZVel = pokemon.ridingAnimationData.driverInputSpring.getInterpolated(currentPartialTicks.toDouble(), lookBackTick).x
+
+            val topSpeed = 1.0//pokemon.riding.getController(pokemon)?.getStat(pokemon, RidingStat.SPEED)
+            //?: return@addFunction DoubleValue(0.0)
+            return@addFunction DoubleValue((partialTickZVel / topSpeed).coerceIn(-1.0,1.0))
+        }
+        .addFunction("input_up") { params ->
+            val lookBackTick = params.getInt(0)
+            val pokemon = getEntity() as? PokemonEntity ?: return@addFunction DoubleValue(0.0)
+
+            val partialTickZVel = pokemon.ridingAnimationData.driverInputSpring.getInterpolated(currentPartialTicks.toDouble(), lookBackTick).y
+
+            val topSpeed = 1.0//pokemon.riding.getController(pokemon)?.getStat(pokemon, RidingStat.SPEED)
+            //?: return@addFunction DoubleValue(0.0)
+            return@addFunction DoubleValue((partialTickZVel / topSpeed).coerceIn(-1.0,1.0))
+        }
+        .addFunction("input_forward") { params ->
+            val lookBackTick = params.getInt(0)
+            val pokemon = getEntity() as? PokemonEntity ?: return@addFunction DoubleValue(0.0)
+
+            val partialTickZVel = pokemon.ridingAnimationData.driverInputSpring.getInterpolated(currentPartialTicks.toDouble(), lookBackTick).z
 
             val topSpeed = 1.0//pokemon.riding.getController(pokemon)?.getStat(pokemon, RidingStat.SPEED)
             //?: return@addFunction DoubleValue(0.0)

@@ -14,6 +14,7 @@ import com.cobblemon.mod.common.api.riding.behaviour.*
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
 import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
+import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
@@ -83,7 +84,15 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
 
         // Use this as a "tick" function and calculate sprinting and inAir state here
         state.sprinting.set(driver.isSprinting)
+        inAirCheck(state, vehicle)
 
+        return state.rideVelocity.get().length().toFloat()
+    }
+
+    fun inAirCheck(
+        state: HorseState,
+        vehicle: PokemonEntity,
+    ) {
         // Check both vertical movement and if there are blocks below.
         val posBelow = vehicle.blockPosition().below()
         val blockStateBelow = vehicle.level().getBlockState(posBelow)
@@ -92,14 +101,10 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         val canSupportEntity = blockStateBelow.isFaceSturdy(vehicle.level(), posBelow, Direction.UP)
         val standingOnSolid = canSupportEntity && !isAirOrLiquid
 
-//        val level = vehicle.level()
-//        val toesBox = vehicle.boundingBox.move(0.0, -0.1, 0.0)
 
         // inAir if not on the ground
         val inAir = !(vehicle.deltaMovement.y == 0.0 || standingOnSolid)
         state.inAir.set(inAir)
-
-        return state.rideVelocity.get().length().toFloat()
     }
 
     override fun updatePassengerRotation(
@@ -107,26 +112,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         state: HorseState,
         vehicle: PokemonEntity,
         driver: LivingEntity
-    ) {
-
-        //Take the inverse so that it cancels out how
-        //much the entity rotates.
-        val turnAmount = calcRotAmount(settings, state, vehicle, driver)
-
-        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
-        val maxYawDiff = 90.0f
-
-        //Normalize the current rotation diff
-        val rotMod = Mth.wrapDegrees(driver.yRot - vehicle.yRot) / maxYawDiff
-
-        val rotAmount = 10.0f
-
-        //Take the inverse so that you turn more at higher speeds
-        val normSpeed = 1.0f - 0.5f*normalizeVal(state.rideVelocity.get().length(), 0.0, topSpeed).toFloat()
-
-        //driver.yRot += (entity.riding.deltaRotation.y - turnAmount)
-        //driver.setYHeadRot(driver.yHeadRot + (entity.riding.deltaRotation.y) - turnAmount)
-    }
+    ) { return }
 
     override fun clampPassengerRotation(
         settings: HorseSettings,
@@ -149,9 +135,9 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         vehicle: PokemonEntity,
         driver: LivingEntity
     ): Vec2 {
-        val turnAmount =  calcRotAmount(settings, state, vehicle, driver)
+        var turnAmount =  calcRotAmount(settings, state, vehicle, driver)
 
-        return Vec2(vehicle.xRot, vehicle.yRot + turnAmount )
+        return Vec2(vehicle.xRot, vehicle.yRot + turnAmount * 0.5f )
 
     }
 
@@ -169,9 +155,9 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
     ): Float {
         val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
 
-        //In degrees per second
-        val walkHandling = 140.0 * 2
-        val handling = vehicle.runtime.resolveDouble(settings.handlingExpr) * 2
+        val handling = vehicle.runtime.resolveDouble(settings.handlingExpr) * 3
+        val walkHandlingBoost = 5
+        val walkHandling = handling * walkHandlingBoost
 
         val maxYawDiff = 90.0f
 
@@ -185,13 +171,14 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         val rotDiffMod = (sqrt(abs(rotDiffNorm)) * rotDiffNorm.sign)
 
         //Take the inverse so that you turn less at higher speeds
-        val normSpeed = 1.0f // = 1.0f - 0.5f*normalizeVal(state.rideVelocityocity.length(), 0.0, topSpeed).toFloat()
+        val normSpeed = 1.0f
 
         // TurnRate should always be quick if not sprinting
-        val turnRate = if(state.sprinting.get()) (handling.toFloat() / 20.0f) else (walkHandling.toFloat() / 20.0f)
+        val invRelSpeed = (RidingBehaviour.scaleToRange(vehicle.deltaMovement.horizontalDistance(), 0.0, topSpeed ).pow(0.5) - 1.0f) * -1.0f
+        val turnRate = ((handling.toFloat() / 20.0f) * max(walkHandlingBoost * invRelSpeed, 1.0)).toFloat()
 
         //Ensure you only ever rotate as much difference as there is between the angles.
-        val turnSpeed = turnRate  * rotDiffMod * normSpeed
+        val turnSpeed = turnRate * rotDiffMod * normSpeed
         val rotAmount = turnSpeed.coerceIn(-abs(rotDiff), abs(rotDiff))
 
         return rotAmount
@@ -215,19 +202,17 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         vehicle: PokemonEntity,
         driver: Player
     ): Vec3 {
-
-        // Check to see if the ride should be walking or sprinting
+        val canSprint = vehicle.runtime.resolveBoolean(settings.canSprint)
+        val canJump = vehicle.runtime.resolveBoolean(settings.canJump)
+        val rideTopSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) * 1.3
         val walkSpeed = getWalkSpeed(vehicle)
-        val rideTopSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
-        val topSpeed = if(state.sprinting.get()) rideTopSpeed else walkSpeed
-
-        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr)
+        val topSpeed = if(canSprint && state.sprinting.get()) rideTopSpeed else walkSpeed
+        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) * 2
 
         //Flag for determining if player is actively inputting
         var activeInput = false
 
-        var newVelocity = Vec3(state.rideVelocity.get().x, state.rideVelocity.get().y, state.rideVelocity.get().z)
-
+        var newVelocity = Vec3(state.rideVelocity.get().x, state.rideVelocity.get().y, state.rideVelocity.get().z).normalize().scale(vehicle.deltaMovement.length())
 
         //speed up and slow down based on input
         if (driver.zza != 0.0f && state.stamina.get() > 0.0) {
@@ -246,11 +231,11 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
             activeInput = true
         }
 
-        //Gravity logic
+        // Gravity logic
         if (vehicle.onGround()) {
             newVelocity = Vec3(newVelocity.x, 0.0, newVelocity.z)
         } else {
-            val gravity = (9.8 / ( 20.0)) * 0.2
+            val gravity = (9.8 / ( 20.0)) * 0.2 * 0.8
             val terminalVel = 2.0
 
             val fallingForce = gravity -  ( newVelocity.z.sign *gravity *(abs(newVelocity.z) / 2.0))
@@ -262,27 +247,19 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
             newVelocity = newVelocity.subtract(0.0, 0.0, min(0.03 * newVelocity.z.sign, newVelocity.z))
         }
 
+        //TODO: Change this so its tied to a jumping stat and representative of the amount of jumps
         //Jump the thang!
-        if (driver.jumping && vehicle.onGround()) {
+        if (driver.jumping && vehicle.onGround() && canJump) {
             val jumpForce = 1.0
-            val horz = state.rideVelocity.get().horizontalDistance()
-            newVelocity = newVelocity.add(0.0, jumpForce, 0.0)
+            val velMag = newVelocity.length()
 
-            //Ensure this doesn't add unwanted forward velocity
-            //val mag = if(newVelocity.length() < rideTopSpeed) newVelocity.length() else rideTopSpeed
-            //newVelocity = newVelocity.normalize().scale(mag)
+            newVelocity = newVelocity.add(0.0, jumpForce, 0.0)
         }
 
-        return newVelocity
-    }
+        //Zero out lateral velocity possibly picked up from a controller transition
+        newVelocity = Vec3(0.0, newVelocity.y, newVelocity.z)
 
-    /*
-    *  Normalizes the current speed between minSpeed and maxSpeed.
-    *  The result is clamped between 0.0 and 1.0, where 0.0 represents minSpeed and 1.0 represents maxSpeed.
-    */
-    private fun normalizeVal(currSpeed: Double, minSpeed: Double, maxSpeed: Double): Double {
-        require(maxSpeed > minSpeed) { "maxSpeed must be greater than minSpeed" }
-        return ((currSpeed - minSpeed) / (maxSpeed - minSpeed)).coerceIn(0.0, 1.0)
+        return newVelocity
     }
 
     private fun getWalkSpeed( vehicle: PokemonEntity ): Double {
@@ -432,7 +409,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         return false
     }
 
-    override fun shouldRotatePlayerHead(
+    override fun shouldRotateRiderHead(
         settings: HorseSettings,
         state: HorseState,
         vehicle: PokemonEntity
@@ -453,8 +430,12 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
 
 class HorseSettings : RidingBehaviourSettings {
     override val key = HorseBehaviour.KEY
+    override val stats = mutableMapOf<RidingStat, IntRange>()
 
     var canJump = "true".asExpression()
+        private set
+
+    var canSprint = "true".asExpression()
         private set
 
     var speedExpr: Expression = "q.get_ride_stats('SPEED', 'LAND', 1.0, 0.3)".asExpression()
@@ -480,6 +461,7 @@ class HorseSettings : RidingBehaviourSettings {
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeResourceLocation(key)
+        buffer.writeRidingStats(stats)
         rideSounds.encode(buffer)
         buffer.writeExpression(speedExpr)
         buffer.writeExpression(accelerationExpr)
@@ -489,6 +471,7 @@ class HorseSettings : RidingBehaviourSettings {
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
+        stats.putAll(buffer.readRidingStats())
         rideSounds = RideSoundSettingsList.decode(buffer)
         speedExpr = buffer.readExpression()
         accelerationExpr = buffer.readExpression()
@@ -496,7 +479,6 @@ class HorseSettings : RidingBehaviourSettings {
         jumpExpr = buffer.readExpression()
         handlingExpr = buffer.readExpression()
     }
-
 }
 
 class HorseState : RidingBehaviourState() {

@@ -12,6 +12,7 @@ import com.bedrockk.molang.runtime.MoLangEnvironment
 import com.bedrockk.molang.runtime.MoLangRuntime
 import com.bedrockk.molang.runtime.MoParams
 import com.bedrockk.molang.runtime.struct.ArrayStruct
+import com.bedrockk.molang.runtime.struct.MoStruct
 import com.bedrockk.molang.runtime.struct.QueryStruct
 import com.bedrockk.molang.runtime.struct.VariableStruct
 import com.bedrockk.molang.runtime.value.DoubleValue
@@ -38,6 +39,7 @@ import com.cobblemon.mod.common.api.moves.Moves
 import com.cobblemon.mod.common.api.moves.animations.ActionEffectContext
 import com.cobblemon.mod.common.api.moves.animations.ActionEffects
 import com.cobblemon.mod.common.api.moves.animations.NPCProvider
+import com.cobblemon.mod.common.api.moves.animations.TargetsProvider
 import com.cobblemon.mod.common.api.npc.NPCClasses
 import com.cobblemon.mod.common.api.npc.configuration.interaction.DialogueNPCInteractionConfiguration
 import com.cobblemon.mod.common.api.npc.configuration.interaction.ScriptNPCInteractionConfiguration
@@ -90,6 +92,8 @@ import com.cobblemon.mod.common.pokemon.Gender
 import com.cobblemon.mod.common.pokemon.IVs
 import com.cobblemon.mod.common.pokemon.Pokemon
 import com.cobblemon.mod.common.pokemon.Species
+import com.cobblemon.mod.common.pokemon.ai.ObtainableItem
+import com.cobblemon.mod.common.pokemon.ai.ObtainableItemCondition
 import com.cobblemon.mod.common.pokemon.evolution.variants.ItemInteractionEvolution
 import com.cobblemon.mod.common.pokemon.evolution.variants.LevelUpEvolution
 import com.cobblemon.mod.common.pokemon.evolution.variants.TradeEvolution
@@ -104,6 +108,7 @@ import net.minecraft.core.Holder
 import net.minecraft.core.Registry
 import net.minecraft.core.RegistryAccess
 import net.minecraft.core.Vec3i
+import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
@@ -131,6 +136,7 @@ import net.minecraft.world.entity.ai.behavior.BlockPosTracker
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
 import net.minecraft.world.entity.ai.memory.MemoryStatus
 import net.minecraft.world.entity.ai.memory.WalkTarget
+import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ClipContext
@@ -156,6 +162,17 @@ object MoLangFunctions {
             val message = params.get<MoValue>(0).asString()
             Cobblemon.LOGGER.info(message)
         },
+        "delete_variable" to java.util.function.Function { params ->
+            val struct = params.get<VariableStruct>(0)
+            val variable = params.getString(1)
+            struct.map.remove(variable)
+            DoubleValue.ONE
+        },
+        "delete_variables" to java.util.function.Function { params ->
+            val struct = params.get<VariableStruct>(0)
+            struct.map.clear()
+            DoubleValue.ONE
+        },
         "set_query" to java.util.function.Function { params ->
             val variable = params.getString(0)
             val value = params.get<MoValue>(1)
@@ -167,6 +184,20 @@ object MoLangFunctions {
             val search = params.getString(1)
             val replace = params.getString(2)
             return@Function StringValue(text.replace(search, replace))
+        },
+        "is_included" to java.util.function.Function { params ->
+            val text = params.getString(0)
+            val search = params.getString(1)
+            return@Function DoubleValue(text.contains(search))
+        },
+        "to_lower" to java.util.function.Function { params ->
+            return@Function StringValue(params.getString(0).lowercase())
+        },
+        "to_upper" to java.util.function.Function { params ->
+            return@Function StringValue(params.getString(0).uppercase())
+        },
+        "string_length" to java.util.function.Function { params ->
+            return@Function DoubleValue(params.getString(0).length)
         },
         "is_blank" to java.util.function.Function { params ->
             val arg = params.get<MoValue>(0)
@@ -206,7 +237,7 @@ object MoLangFunctions {
             return@Function array
         },
         "length" to java.util.function.Function { params ->
-            val array = params.get<ArrayStruct>(0)
+            val array = (params.getOrNull<MoValue>(0) as? VariableStruct) ?: return@Function DoubleValue.ZERO
             return@Function DoubleValue(array.map.size.toDouble())
         },
         "append" to java.util.function.Function { params ->
@@ -298,6 +329,12 @@ object MoLangFunctions {
         "create_simple_party_provider" to java.util.function.Function { params ->
             val partyProvider = SimplePartyProvider()
             return@Function partyProvider.struct
+        },
+        "create_pickup_item" to java.util.function.Function { params ->
+            val item = params.getOrNull<MoValue>(0)?.asString()?.let(ObtainableItemCondition::parseFromString)
+            val pickupPriority = params.getIntOrNull(1) ?: 0
+            val pickupItem = ObtainableItem(item = item, pickupPriority = pickupPriority)
+            return@Function pickupItem.struct
         }
     )
     val biomeFunctions = mutableListOf<(Holder<Biome>) -> HashMap<String, java.util.function.Function<MoParams, Any>>>()
@@ -661,6 +698,7 @@ object MoLangFunctions {
             map.put("grow") { params -> stack.grow(params.getInt(0)) }
             map.put("is_of") { params -> DoubleValue(holder.`is`(params.getString(0).asIdentifierDefaultingNamespace())) }
             map.put("is_in") { params -> DoubleValue(holder.`is`(TagKey.create(Registries.ITEM, params.getString(0).replace("#", "").asIdentifierDefaultingNamespace()))) }
+            map.put("is_food") { params -> DoubleValue(stack.has(DataComponents.FOOD)) }
             return@mutableListOf map
         }
     )
@@ -692,6 +730,9 @@ object MoLangFunctions {
                 }
                 val owner = entity.owner
                 return@put owner?.asMostSpecificMoLangValue() ?: DoubleValue.ZERO
+            }
+            map.put("delta_movement") {
+                return@put listOf(entity.deltaMovement.x, entity.deltaMovement.y, entity.deltaMovement.z).asArrayValue(::DoubleValue)
             }
 
             if (entity is MoLangScriptingEntity) {
@@ -837,14 +878,12 @@ object MoLangFunctions {
             }
             map.put("is_standing_on_blocks") { params ->
                 val depth = params.getDouble(0).toInt()
-                val blocks: MutableSet<Block> = mutableSetOf()
+                val blockStrings: MutableSet<String> = mutableSetOf()
                 for (blockIndex in 1..<params.params.size) {
-                    val blockString = params.getString(blockIndex)
-                    val block = BuiltInRegistries.BLOCK.get(blockString.asIdentifierDefaultingNamespace("minecraft"))
-                    blocks.add(block)
+                    blockStrings.add(params.getString(blockIndex))
                 }
 
-                return@put if (entity.isStandingOn(blocks, depth)) DoubleValue.ONE else DoubleValue.ZERO
+                return@put if (entity.isStandingOn(blockStrings, depth)) DoubleValue.ONE else DoubleValue.ZERO
             }
             if (entity is PosableEntity) {
                 map.put("play_animation") { params ->
@@ -869,6 +908,10 @@ object MoLangFunctions {
                         packet.sendToPlayersAround(entity.x, entity.y, entity.z, 64.0, entity.level().dimension())
                         return@put DoubleValue.ONE
                     }
+                }
+
+                map.put("face") { params -> ObjectValue(ReferenceDialogueFaceProvider(entity.id, params.getBooleanOrNull(0) != false))
+
                 }
             }
             if (entity is Schedulable) {
@@ -906,6 +949,10 @@ object MoLangFunctions {
     val livingEntityFunctions: MutableList<(LivingEntity) -> HashMap<String, java.util.function.Function<MoParams, Any>>> = mutableListOf<(LivingEntity) -> HashMap<String, java.util.function.Function<MoParams, Any>>>(
         { entity ->
             val map = hashMapOf<String, java.util.function.Function<MoParams, Any>>()
+            map.put("heal") { params ->
+                val amount = params.getDouble(0)
+                entity.heal(amount.toFloat())
+            }
             map.put("is_living_entity") { DoubleValue.ONE }
             map.put("is_flying") { _ -> DoubleValue(entity.isFallFlying) }
             map.put("is_sleeping") { _ -> DoubleValue(entity.isSleeping) }
@@ -1039,7 +1086,6 @@ object MoLangFunctions {
             map.put("name") { StringValue(npc.name.string) }
             map.put("level") { DoubleValue(npc.level) }
             map.put("has_aspect") { params -> DoubleValue(npc.aspects.contains(params.getString(0))) }
-            map.put("face") { params -> ObjectValue(ReferenceDialogueFaceProvider(npc.id, params.getBooleanOrNull(0) != false)) }
             map.put("in_battle") { DoubleValue(npc.isInBattle()) }
             map.put("battles") { ArrayStruct(npc.battleIds.mapNotNull { BattleRegistry.getBattle(it)?.struct }.mapIndexed { index, value -> "$index" to value }.toMap()) }
             map.put("stop_battles") { _ -> npc.battleIds.forEach { BattleRegistry.getBattle(it)?.stop() } }
@@ -1645,6 +1691,8 @@ object MoLangFunctions {
             map.put("get_alt_pose") { StringValue(pokemonEntity.getAltPose()) }
             map.put("is_gliding") { DoubleValue(pokemonEntity.isUsingAltPose(cobblemonResource("gliding"))) }
             map.put("is_sprinting") { DoubleValue(pokemonEntity.isUsingAltPose(cobblemonResource("sprinting"))) }
+            map.put("is_drifting") { DoubleValue(pokemonEntity.isUsingAltPose(cobblemonResource("drifting"))) }
+            map.put("is_powered_drifting") { DoubleValue(pokemonEntity.isUsingAltPose(cobblemonResource("powered_drifting"))) }
             map.put("in_air") { DoubleValue(pokemonEntity.isUsingAltPose(cobblemonResource("in_air"))) }
             map.put("is_wild") { DoubleValue(pokemonEntity.ownerUUID == null) }
             map.put("is_in_party") { DoubleValue(pokemonEntity.pokemon.storeCoordinates.get()?.store is PartyStore) }
@@ -1661,6 +1709,34 @@ object MoLangFunctions {
             }
             map.put("pasture_conflict_enabled") {
                 DoubleValue(pokemonEntity.getBehaviourFlag(PokemonBehaviourFlag.PASTURE_CONFLICT))
+            }
+            map.put("run_action_effect") { params ->
+                val runtime = MoLangRuntime().setup()
+                runtime.environment.cloneFrom(params.environment)
+                runtime.withQueryValue("entity", pokemonEntity.struct)
+                val actionEffect = ActionEffects.actionEffects[params.getString(0).asIdentifierDefaultingNamespace()]
+                if (actionEffect != null) {
+                    val context = ActionEffectContext(
+                        actionEffect = actionEffect,
+                        providers = mutableListOf(TargetsProvider(pokemonEntity)),
+                        runtime = runtime,
+                        level = pokemonEntity.level()
+                    )
+                    // This was taken from NPC run_action_effect but this variable isn't used, so I just commented it out.
+                    // pokemonEntity.actionEffect = context
+                    pokemonEntity.brain.setMemory(CobblemonMemories.ACTIVE_ACTION_EFFECT, context)
+                    pokemonEntity.brain.setActiveActivityIfPossible(CobblemonActivities.ACTION_EFFECT)
+                    actionEffect.run(context).thenRun {
+                        val pokemonActionEffect = pokemonEntity.brain.getMemory(CobblemonMemories.ACTIVE_ACTION_EFFECT).orElse(null)
+                        if (pokemonActionEffect == context && pokemonEntity.brain.isActive(CobblemonActivities.ACTION_EFFECT)) {
+                            pokemonEntity.brain.eraseMemory(CobblemonMemories.ACTIVE_ACTION_EFFECT)
+                            //pokemonEntity.actionEffect = null
+                        }
+                    }
+
+                    return@put DoubleValue.ONE
+                }
+                return@put DoubleValue.ZERO
             }
             map
         }
@@ -2195,6 +2271,11 @@ object MoLangFunctions {
             is Player -> asMoLangValue()
             is PokemonEntity -> struct
             is NPCEntity -> struct
+            is ItemEntity -> ObjectValue(this).also {
+                it.addStandardFunctions()
+                it.addFunctions(entityFunctions.flatMap { it(this).entries.map { it.key to it.value } }.toMap())
+                it.addFunctions(itemStackFunctions.flatMap { it(this.item, this.registryAccess()).entries.map { it.key to it.value } }.toMap())
+            }
             else -> ObjectValue(this).also {
                 it.addStandardFunctions()
                 it.addFunctions(entityFunctions.flatMap { it(this).entries.map { it.key to it.value } }.toMap())

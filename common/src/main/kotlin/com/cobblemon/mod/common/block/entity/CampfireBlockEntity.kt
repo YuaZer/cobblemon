@@ -12,6 +12,7 @@ import com.cobblemon.mod.common.CobblemonBlockEntities
 import com.cobblemon.mod.common.CobblemonRecipeTypes
 import com.cobblemon.mod.common.CobblemonSounds
 import com.cobblemon.mod.common.api.cooking.getColourMixFromSeasonings
+import com.cobblemon.mod.common.block.campfirepot.CampfireBlock
 import com.cobblemon.mod.common.item.components.PotComponent
 import com.cobblemon.mod.common.block.campfirepot.CookingPotMenu
 import com.cobblemon.mod.common.client.particle.BedrockParticleOptionsRepository
@@ -39,11 +40,12 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.FastColor
 import net.minecraft.world.ContainerHelper
 import net.minecraft.world.WorldlyContainer
+import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.StackedContents
 import net.minecraft.world.inventory.*
+import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
 import net.minecraft.world.item.crafting.CraftingInput
 import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.item.crafting.RecipeManager
@@ -51,6 +53,7 @@ import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity
+import net.minecraft.world.level.block.entity.HopperBlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.gameevent.GameEvent
 import net.minecraft.world.phys.Vec3
@@ -67,11 +70,10 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
         const val RESULT_SLOT = 0
         val CRAFTING_GRID_SLOTS = 1..9
         val SEASONING_SLOTS = 10..12
-        const val PREVIEW_ITEM_SLOT = 13
-        const val ITEMS_SIZE = 14
+        const val ITEMS_SIZE = 13
 
-        val PLAYER_INVENTORY_SLOTS = 14..40
-        val PLAYER_HOTBAR_SLOTS = 41..49
+        val PLAYER_INVENTORY_SLOTS = 13..39
+        val PLAYER_HOTBAR_SLOTS = 40..48
 
         const val CRAFTING_GRID_WIDTH = 3
         const val PLAYER_INVENTORY_WIDTH = 9
@@ -89,15 +91,21 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
             if (!level.isClientSide) return
 
             val isLit = campfireBlockEntity.dataAccess.get(COOKING_PROGRESS_INDEX) > 0
-            val isSoundActive = BlockEntitySoundTracker.isActive(pos, campfireBlockEntity.runningSound.location)
+            val isRunningSoundActive = BlockEntitySoundTracker.isActive(pos, campfireBlockEntity.runningSound.location)
+            val isAmbientSoundActive = BlockEntitySoundTracker.isActive(pos, campfireBlockEntity.ambientSound.location)
+            val containsItems = campfireBlockEntity.getSeasonings().isNotEmpty() || campfireBlockEntity.getIngredients().isNotEmpty()
 
-            if (isLit && !isSoundActive) {
-                BlockEntitySoundTracker.play(
-                    pos,
-                    CancellableSoundInstance(campfireBlockEntity.runningSound, pos, true, 0.8f, 1.0f)
-                )
-            } else if (!isLit && isSoundActive) {
+            if (containsItems) {
+                if (isLit) {
+                    BlockEntitySoundTracker.stop(pos, campfireBlockEntity.ambientSound.location)
+                    if (!isRunningSoundActive) BlockEntitySoundTracker.play(pos, CancellableSoundInstance(campfireBlockEntity.runningSound, pos, true, 1.0f, 1.0f))
+                } else {
+                    BlockEntitySoundTracker.stop(pos, campfireBlockEntity.runningSound.location)
+                    if (!isAmbientSoundActive) BlockEntitySoundTracker.play(pos, CancellableSoundInstance(campfireBlockEntity.ambientSound, pos, true, 1.0f, 1.0f))
+                }
+            } else {
                 BlockEntitySoundTracker.stop(pos, campfireBlockEntity.runningSound.location)
+                BlockEntitySoundTracker.stop(pos, campfireBlockEntity.ambientSound.location)
             }
 
             campfireBlockEntity.brothColor =
@@ -149,7 +157,6 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
 
             if (optionalRecipe == null) {
                 campfireBlockEntity.cookingProgress = 0
-                campfireBlockEntity.setItem(PREVIEW_ITEM_SLOT, ItemStack.EMPTY)
                 return
             }
 
@@ -160,8 +167,6 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
 
             recipe.applySeasoning(cookedItem, campfireBlockEntity.getSeasonings())
 
-            campfireBlockEntity.setItem(PREVIEW_ITEM_SLOT, cookedItem)
-
             if (campfireBlockEntity.isLidOpen) {
                 campfireBlockEntity.cookingProgress = 0
                 return
@@ -171,7 +176,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
                 if (!ItemStack.isSameItemSameComponents(
                         resultSlotItem,
                         cookedItem
-                    ) || resultSlotItem.count >= resultSlotItem.maxStackSize
+                    ) || resultSlotItem.count + cookedItem.count > resultSlotItem.maxStackSize
                 ) {
                     campfireBlockEntity.cookingProgress = 0
                     return
@@ -191,11 +196,11 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
                         resultSlotItem.grow(cookedItem.count)
                     }
 
-                    campfireBlockEntity.consumeCraftingIngredients(recipe)
+                    campfireBlockEntity.consumeCraftingIngredients(recipe, level, pos, state, campfireBlockEntity)
 
                     level.playSoundServer(
                         position = pos.bottomCenter,
-                        sound = CobblemonSounds.CAMPFIRE_POT_CRAFT,
+                        sound = CobblemonSounds.CAMPFIRE_POT_COOK,
                     )
 
                     setChanged(level, pos, state);
@@ -204,7 +209,8 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
         }
     }
 
-    private val runningSound = CobblemonSounds.CAMPFIRE_POT_COOK
+    private val runningSound = CobblemonSounds.CAMPFIRE_POT_ACTIVE
+    private val ambientSound = CobblemonSounds.CAMPFIRE_POT_AMBIENT
     private var cookingProgress: Int = 0
     private var cookingTotalTime: Int = COOKING_TOTAL_TIME
     private var isLidOpen: Boolean = true
@@ -270,32 +276,17 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
         return particleStorm
     }
 
-    fun consumeCraftingIngredients(recipe: CookingPotRecipeBase) {
+    fun consumeCraftingIngredients(recipe: CookingPotRecipeBase, level: Level, pos: BlockPos, state: BlockState,  campfireBlockEntity: CampfireBlockEntity) {
+        val remainderItems = mutableMapOf<Item, Int>() //This is so we don't spawn multiple entities for buckets
+
         fun consumeItem(slot: Int) {
             val itemInSlot = getItem(slot)
             if (!itemInSlot.isEmpty) {
-                when (itemInSlot.item) {
-                    Items.LAVA_BUCKET, Items.WATER_BUCKET, Items.MILK_BUCKET -> {
-                        // Replace with empty bucket
-                        setItem(slot, ItemStack(Items.BUCKET))
-                    }
-
-                    Items.HONEY_BOTTLE -> {
-                        // TODO: Currently eats the empty bottles until the honey bottle stack is empty, replace with better system later.
-                        itemInSlot.shrink(1)
-                        if (itemInSlot.count <= 0) {
-                            setItem(slot, ItemStack.EMPTY)
-                        }
-                    }
-
-                    else -> {
-                        // Decrease the stack size by 1
-                        itemInSlot.shrink(1)
-                        if (itemInSlot.count <= 0) {
-                            setItem(slot, ItemStack.EMPTY) // Clear the slot if empty
-                        }
-                    }
+                if (itemInSlot.item.hasCraftingRemainingItem()) {
+                    remainderItems[itemInSlot.item.craftingRemainingItem!!] = (remainderItems[itemInSlot.item.craftingRemainingItem!!] ?: 0) + 1
                 }
+                itemInSlot.shrink(1)
+                if (itemInSlot.count <= 0) setItem(slot, ItemStack.EMPTY)
             }
         }
 
@@ -304,6 +295,24 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
         }
         for (i in SEASONING_SLOTS.first..SEASONING_SLOTS.last) {
             if (recipe.seasoningProcessors.any { it.consumesItem(getItem(i)) }) consumeItem(i)
+        }
+
+        val direction = state.getValue(CampfireBlock.ITEM_DIRECTION)
+        val container = HopperBlockEntity.getContainerAt(level, pos.relative(direction))
+
+        for (remainder in remainderItems) {
+            var remainderItem = ItemStack(remainder.key, remainder.value)
+
+            if (container != null) {
+                remainderItem = HopperBlockEntity.addItem(campfireBlockEntity, container, remainderItem, direction.opposite)
+            }
+
+            if (!remainderItem.isEmpty) {
+                val spawnPos = Vec3.atCenterOf(pos).relative(direction, 0.7)
+                val itemEntity = ItemEntity(level, spawnPos.x, spawnPos.y, spawnPos.z, remainderItem)
+                itemEntity.setDeltaMovement(direction.stepX * 0.05, 0.0, direction.stepZ * 0.05)
+                level.addFreshEntity(itemEntity) //Wanted to use default dispenser behavior but its too much speed
+            }
         }
     }
 
@@ -429,6 +438,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
 
         if (level?.isClientSide == true) {
             BlockEntitySoundTracker.stop(blockPos, runningSound.location)
+            BlockEntitySoundTracker.stop(blockPos, ambientSound.location)
         }
     }
 

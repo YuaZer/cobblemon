@@ -643,6 +643,12 @@ open class Pokemon : ShowdownIdentifiable {
             onChange()
         }
 
+    /**
+     * Whether this Pokémon's held item was given by its owner.
+     */
+    internal var canDropHeldItem: Boolean = false
+        get() = field || heldItem.isEmpty
+
     val riding: RidingProperties
         get() = this.form.riding
 
@@ -914,6 +920,8 @@ open class Pokemon : ShowdownIdentifiable {
         return ElementalTypes.FIRE in types || form.behaviour.moving.swim.canSwimInLava || form.behaviour.fireImmune
     }
 
+    fun dampensVibrations(): Boolean = form.behaviour.dampensVibrations
+
     // function to return the max hunger for the pokemon
     fun getMaxFullness(): Int = ((getGrassKnotPower(this.species.weight.toDouble()) / 10 / 2) + 1)
 
@@ -1151,7 +1159,7 @@ open class Pokemon : ShowdownIdentifiable {
      *
      * @see [HeldItemEvent]
      */
-    fun swapHeldItem(stack: ItemStack, decrement: Boolean = true): ItemStack {
+    fun swapHeldItem(stack: ItemStack, decrement: Boolean = true, aiCanDrop: Boolean = true): ItemStack {
         val existing = this.heldItem()
         val event = HeldItemEvent.Pre(this, stack, existing, decrement)
         if (!isClient) {
@@ -1163,6 +1171,7 @@ open class Pokemon : ShowdownIdentifiable {
                 event.receiving.shrink(1)
             }
             this.heldItem = giving
+            this.canDropHeldItem = giving.isEmpty || aiCanDrop
             onChange(HeldItemUpdatePacket({ this }, giving))
             CobblemonEvents.HELD_ITEM_POST.post(HeldItemEvent.Post(this, this.heldItem(), event.returning.copy(), event.decrement)) {
                 StashHandler.giveHeldItem(it)
@@ -1367,6 +1376,7 @@ open class Pokemon : ShowdownIdentifiable {
         this.nature = other.nature
         this.mintedNature = other.mintedNature
         this.heldItem = other.heldItem
+        this.canDropHeldItem = other.canDropHeldItem
         this.persistentData = other.persistentData
         this.tetheringId = other.tetheringId
         this.teraType = other.teraType
@@ -1810,7 +1820,7 @@ open class Pokemon : ShowdownIdentifiable {
     }
 
     fun getMaxRideBoost(stat: RidingStat): Int {
-        return form.riding.stats[stat]?.ranges?.maxOf { it.value.endInclusive } ?: 0
+        return form.riding.behaviours?.maxOf { it.value.stats[stat]?.endInclusive ?: 0 } ?: 0
     }
 
     fun getRideBoost(stat: RidingStat): Float {
