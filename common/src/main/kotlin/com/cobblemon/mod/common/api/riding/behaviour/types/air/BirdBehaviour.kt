@@ -288,12 +288,10 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
 
         //Smooth out mouse input.
         val smoothingSpeed = 4.0
-        val invertRoll = if (Cobblemon.config.invertRoll) -1 else 1
-        val invertPitch = if (Cobblemon.config.invertPitch) -1 else 1
         val mouseXc = (mouseX).coerceIn(-60.0, 60.0)
         val mouseYc = (mouseY).coerceIn(-60.0, 60.0)
-        val xInput = mouseXSmoother.getNewDeltaValue(mouseXc * 0.1 * invertRoll, deltaTime * smoothingSpeed);
-        val yInput = mouseYSmoother.getNewDeltaValue(mouseYc * 0.1 * invertPitch, deltaTime * smoothingSpeed);
+        val xInput = mouseXSmoother.getNewDeltaValue(mouseXc * 0.1, deltaTime * smoothingSpeed);
+        val yInput = mouseYSmoother.getNewDeltaValue(mouseYc * 0.1, deltaTime * smoothingSpeed);
 
         //limit rolling based on handling and current speed.
         //modulated by speed so that when flapping idle in air you are ont wobbling around to look around
