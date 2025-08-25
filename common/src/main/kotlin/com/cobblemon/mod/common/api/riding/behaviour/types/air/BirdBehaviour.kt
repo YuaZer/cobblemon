@@ -280,6 +280,95 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         sensitivity: Double,
         deltaTime: Double
     ): Vec3 {
+        return when {
+            Cobblemon.config.disableRoll -> noRollRotation(
+                settings,
+                state,
+                vehicle,
+                driver,
+                mouseY,
+                mouseX,
+                mouseYSmoother,
+                mouseXSmoother,
+                sensitivity,
+                deltaTime
+            )
+            else -> rollRotation(
+                settings,
+                state,
+                vehicle,
+                driver,
+                mouseY,
+                mouseX,
+                mouseYSmoother,
+                mouseXSmoother,
+                sensitivity,
+                deltaTime
+            )
+        }
+    }
+
+    fun noRollRotation(
+        settings: BirdSettings,
+        state: BirdState,
+        vehicle: PokemonEntity,
+        driver: Player,
+        mouseY: Double,
+        mouseX: Double,
+        mouseYSmoother: SmoothDouble,
+        mouseXSmoother: SmoothDouble,
+        sensitivity: Double,
+        deltaTime: Double
+    ): Vec3 {
+        if (driver !is OrientationControllable) return Vec3.ZERO
+        val controller = (driver as OrientationControllable).orientationController
+
+        // Set roll to zero if transitioning to noroll config
+        controller.rotateRoll(controller.roll * -1.0f)
+
+        //TODO: hook up handling in parity with normal bird
+        val handling = vehicle.runtime.resolveDouble(settings.handlingExpr)
+        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
+
+        //Smooth out mouse input.
+        val smoothingSpeed = 4.0
+        val mouseXc = (mouseX).coerceIn(-60.0, 60.0)
+        val mouseYc = (mouseY).coerceIn(-60.0, 60.0)
+        val xInput = mouseXSmoother.getNewDeltaValue(mouseXc * 0.1, deltaTime * smoothingSpeed);
+        val yInput = mouseYSmoother.getNewDeltaValue(mouseYc * 0.1, deltaTime * smoothingSpeed);
+
+        //Give the ability to yaw with x mouse input when at low speeds.
+        val yawForce =  xInput * ( 1.0 - min(sqrt(RidingBehaviour.scaleToRange(state.rideVelocity.get().length(), 0.0, topSpeed)), 0.5))
+
+        //Apply yaw globally as we don't want roll or pitch changes due to local yaw when looking up or down.
+        controller.applyGlobalYaw(yawForce.toFloat())
+
+        var pitchRot = yInput
+
+        // Pitch up globally
+        if (abs(controller.pitch + pitchRot) >= 89.5 ) {
+            pitchRot = 0.0
+            mouseYSmoother.reset()
+        } else {
+            controller.applyGlobalPitch(pitchRot.toFloat()  * -1.0f)
+        }
+
+        //yaw, pitch, roll
+        return Vec3.ZERO
+    }
+
+    fun rollRotation(
+        settings: BirdSettings,
+        state: BirdState,
+        vehicle: PokemonEntity,
+        driver: Player,
+        mouseY: Double,
+        mouseX: Double,
+        mouseYSmoother: SmoothDouble,
+        mouseXSmoother: SmoothDouble,
+        sensitivity: Double,
+        deltaTime: Double
+    ): Vec3 {
         if (driver !is OrientationControllable) return Vec3.ZERO
         val controller = (driver as OrientationControllable).orientationController
 
@@ -315,9 +404,9 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         //Give the ability to yaw with x mouse input when at low speeds.
         val yawForce =  xInput * ( 1.0 - sqrt(RidingBehaviour.scaleToRange(state.rideVelocity.get().length(), 0.0, topSpeed)))
 
-        //Yaw locally a bit when up or down so that its more intuitive to make it out of a dive or a straight vertical
-        //climb
-        val yawForcePitched = xInput * sin(Math.toRadians(abs(controller.pitch.toDouble()))) * 0.25
+        //        //Yaw locally a bit when up or down so that its more intuitive to make it out of a dive or a straight vertical
+        //        //climb
+        //        val yawForcePitched = xInput * sin(Math.toRadians(abs(controller.pitch.toDouble()))) * 0.25
 
 
         //Apply yaw globally as we don't want roll or pitch changes due to local yaw when looking up or down.
@@ -340,6 +429,7 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         //yaw, pitch, roll
         return Vec3(0.0, 0.0, rollForce)
     }
+
 
     override fun canJump(
         settings: BirdSettings,
