@@ -40,6 +40,7 @@ import com.cobblemon.mod.common.api.moves.animations.ActionEffectContext
 import com.cobblemon.mod.common.api.moves.animations.ActionEffects
 import com.cobblemon.mod.common.api.moves.animations.NPCProvider
 import com.cobblemon.mod.common.api.moves.animations.TargetsProvider
+import com.cobblemon.mod.common.api.npc.NPCClass
 import com.cobblemon.mod.common.api.npc.NPCClasses
 import com.cobblemon.mod.common.api.npc.configuration.interaction.DialogueNPCInteractionConfiguration
 import com.cobblemon.mod.common.api.npc.configuration.interaction.ScriptNPCInteractionConfiguration
@@ -480,6 +481,29 @@ object MoLangFunctions {
 
                 if (world.addFreshEntity(pokemon)) {
                     return@put pokemon.struct
+                } else {
+                    return@put DoubleValue.ZERO
+                }
+            }
+            map.put("spawn_npc") { params ->
+                val x = params.getInt(0)
+                val y = params.getInt(1)
+                val z = params.getInt(2)
+                val npcClass = params.getString(3)
+
+                val pos = BlockPos(x, y, z)
+
+                if (!Level.isInSpawnableBounds(pos)) {
+                    return@put DoubleValue.ZERO
+                }
+
+                val npc = NPCEntity(world) ?: return@put DoubleValue.ZERO
+                npc.moveTo(pos, npc.yRot, npc.xRot)
+                npc.npc = NPCClasses.getByIdentifier(npcClass.asIdentifierDefaultingNamespace()) ?: return@put DoubleValue.ZERO
+                npc.initialize(1)
+
+                if (world.addFreshEntity(npc)) {
+                    return@put npc.struct
                 } else {
                     return@put DoubleValue.ZERO
                 }
