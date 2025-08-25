@@ -22,6 +22,7 @@ import com.cobblemon.mod.common.util.battleLang
 import com.cobblemon.mod.common.util.getPlayer
 import java.util.UUID
 import net.minecraft.network.chat.MutableComponent
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundEvents
@@ -40,9 +41,9 @@ class PlayerBattleActor(
     }
 
     /** The [SoundEvent] to play to the player during a battle. Will start playing as soon as the battle starts. */
-    var battleTheme: SoundEvent? = null
+    var battleTheme: ResourceLocation? = null
         set(value) {
-            if (this.isInitialized() && this.battle.started) this.sendUpdate(BattleMusicPacket(value?.location))
+            if (this.isInitialized() && this.battle.started) this.sendUpdate(BattleMusicPacket(value))
             field = value
         }
 

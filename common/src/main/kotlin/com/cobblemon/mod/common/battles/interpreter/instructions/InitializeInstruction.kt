@@ -53,7 +53,7 @@ class InitializeInstruction(val instructionSet: InstructionSet, val message: Bat
         battle.actors.filterIsInstance<PlayerBattleActor>().forEach { actor ->
             val initializePacket = BattleInitializePacket(battle, actor.getSide())
             actor.sendUpdate(initializePacket)
-            actor.sendUpdate(BattleMusicPacket(actor.battleTheme?.location))
+            actor.sendUpdate(BattleMusicPacket(actor.battleTheme))
         }
 
         battle.actors.forEach { actor ->

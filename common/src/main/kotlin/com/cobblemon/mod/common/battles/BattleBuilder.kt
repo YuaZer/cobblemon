@@ -9,7 +9,6 @@
 package com.cobblemon.mod.common.battles
 
 import com.cobblemon.mod.common.Cobblemon
-import com.cobblemon.mod.common.CobblemonSounds
 import com.cobblemon.mod.common.api.battles.model.PokemonBattle
 import com.cobblemon.mod.common.api.battles.model.actor.BattleActor
 import com.cobblemon.mod.common.api.storage.party.NPCPartyStore
@@ -29,12 +28,10 @@ import com.cobblemon.mod.common.util.party
 import java.util.UUID
 import com.cobblemon.mod.common.util.update
 import com.cobblemon.mod.common.util.*
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.sounds.SoundEvent
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.phys.Vec3
 import kotlin.collections.HashMap
@@ -45,7 +42,6 @@ import kotlin.collections.filterIsInstance
 import kotlin.collections.first
 import kotlin.collections.flatMap
 import kotlin.collections.forEach
-import kotlin.collections.get
 import kotlin.collections.isNotEmpty
 import kotlin.collections.mapNotNull
 import kotlin.collections.mutableSetOf
@@ -56,14 +52,6 @@ import kotlin.collections.sortedBy
 
 object BattleBuilder {
     @JvmOverloads
-    fun resourceLocationToSoundEvent(location: ResourceLocation?): SoundEvent? {
-        if (location == null) return null
-        val registered = BuiltInRegistries.SOUND_EVENT.getOptional(location)
-        if (registered.isPresent) {
-            return registered.get()
-        }
-        return SoundEvent.createVariableRangeEvent(location)
-    }
     fun pvp1v1(
         player1: ServerPlayer,
         player2: ServerPlayer,
@@ -121,8 +109,8 @@ object BattleBuilder {
                 errors.participantErrors[actor] += BattleStartError.alreadyInBattle(player)
             }
         }
-        player1Actor.battleTheme = resourceLocationToSoundEvent(player2.getBattleTheme() as? ResourceLocation)
-        player2Actor.battleTheme = resourceLocationToSoundEvent(player1.getBattleTheme() as? ResourceLocation)
+        player1Actor.battleTheme = player2.getBattleTheme() as? ResourceLocation
+        player2Actor.battleTheme = player1.getBattleTheme() as? ResourceLocation
 
         return if (errors.isEmpty) {
             BattleRegistry.startBattle(
@@ -160,8 +148,8 @@ object BattleBuilder {
 
         val side1Actors = listOf(playerActors[0], playerActors[1])
         val side2Actors = listOf(playerActors[2], playerActors[3])
-        val side2Theme = resourceLocationToSoundEvent(players[2].getBattleTheme() as? ResourceLocation)
-        val side1Theme = resourceLocationToSoundEvent(players[0].getBattleTheme() as? ResourceLocation)
+        val side2Theme = players[2].getBattleTheme() as? ResourceLocation
+        val side1Theme = players[0].getBattleTheme() as? ResourceLocation
 
         if (adjustLevel > 0) {
             teams.forEachIndexed { playerIndex, battleTeam ->
@@ -294,7 +282,7 @@ object BattleBuilder {
         if (pokemonEntity.battleId != null) {
             errors.participantErrors[wildActor] += BattleStartError.alreadyInBattle(wildActor)
         }
-        playerActor.battleTheme = resourceLocationToSoundEvent(pokemonEntity.getBattleTheme() as? ResourceLocation)
+        playerActor.battleTheme = pokemonEntity.getBattleTheme() as? ResourceLocation
 
         return if (errors.isEmpty) {
             BattleRegistry.startBattle(
@@ -393,7 +381,7 @@ object BattleBuilder {
             errors.participantErrors[playerActor] += BattleStartError.targetIsBusy(player.displayName ?: player.name)
         }
 
-        playerActor.battleTheme = this.resourceLocationToSoundEvent(npcEntity.getBattleTheme() as? ResourceLocation)
+        playerActor.battleTheme = npcEntity.getBattleTheme() as? ResourceLocation
         return if (errors.isEmpty) {
             BattleRegistry.startBattle(
                 battleFormat = battleFormat,
