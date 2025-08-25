@@ -56,6 +56,7 @@
 - Dunsparce
 - Togepi
 - Togetic
+- Unown
 - Houndour
 - Houndoom
 
