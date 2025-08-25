@@ -23,6 +23,7 @@ import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
 import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
+import com.cobblemon.mod.common.config.CobblemonConfig
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
@@ -188,6 +189,9 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         driver: Player,
         deltaTime: Double
     ): Vec3 {
+        //don't yaw this way if
+        if (Cobblemon.config.disableRoll) return Vec3.ZERO
+
         //Cap at a rate of 5fps so frame skips dont lead to huge jumps
         val cappedDeltaTime = min(deltaTime, 0.2)
 
@@ -207,6 +211,105 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
     }
 
     override fun rotationOnMouseXY(
+        settings: JetSettings,
+        state: JetState,
+        vehicle: PokemonEntity,
+        driver: Player,
+        mouseY: Double,
+        mouseX: Double,
+        mouseYSmoother: SmoothDouble,
+        mouseXSmoother: SmoothDouble,
+        sensitivity: Double,
+        deltaTime: Double
+    ): Vec3 {
+        return when {
+            Cobblemon.config.disableRoll -> noRollRotation(
+                settings,
+                state,
+                vehicle,
+                driver,
+                mouseY,
+                mouseX,
+                mouseYSmoother,
+                mouseXSmoother,
+                sensitivity,
+                deltaTime
+            )
+            else -> rollRotation(
+                settings,
+                state,
+                vehicle,
+                driver,
+                mouseY,
+                mouseX,
+                mouseYSmoother,
+                mouseXSmoother,
+                sensitivity,
+                deltaTime
+            )
+        }
+    }
+
+    fun noRollRotation(
+        settings: JetSettings,
+        state: JetState,
+        vehicle: PokemonEntity,
+        driver: Player,
+        mouseY: Double,
+        mouseX: Double,
+        mouseYSmoother: SmoothDouble,
+        mouseXSmoother: SmoothDouble,
+        sensitivity: Double,
+        deltaTime: Double
+    ): Vec3 {
+        if (driver !is OrientationControllable) return Vec3.ZERO
+        val controller = (driver as OrientationControllable).orientationController
+
+        // Set roll to zero if transitioning to noroll config
+        controller.rotateRoll(controller.roll * -1.0f)
+
+        //Cap at a rate of 5fps so frame skips dont lead to huge jumps
+        val cappedDeltaTime = min(deltaTime, 0.2)
+
+        // Accumulate the mouse input
+        state.currMouseXForce.set((state.currMouseXForce.get() + (0.0015 * mouseX)).coerceIn(-1.0, 1.0))
+        state.currMouseYForce.set((state.currMouseYForce.get() + (0.0015 * mouseY)).coerceIn(-1.0, 1.0))
+
+        //Get handling in degrees per second
+        var handling = vehicle.runtime.resolveDouble(settings.handlingExpr)
+        //convert it to delta time
+        handling *= (cappedDeltaTime)
+        //apply stamina debuff if applicable
+        handling *= if (state.stamina.get() > 0.0) 1.0 else 0.5
+
+        var pitchRot = handling * state.currMouseYForce.get()
+
+        // Yaw
+        val yawRot = handling * 0.5 * state.currMouseXForce.get()
+        controller.applyGlobalYaw(yawRot.toFloat())
+
+        if (abs(controller.pitch + pitchRot) >= 89.5 ) {
+            pitchRot = 0.0
+            state.currMouseYForce.set(0.0)
+            mouseYSmoother.reset()
+        } else {
+            controller.applyGlobalPitch(pitchRot.toFloat()  * -1.0f)
+        }
+
+        // Have accumulated input begin decay when no input detected
+        if (abs(mouseX) == 0.0) {
+            // Have decay on roll be much stronger.
+            state.currMouseXForce.set(lerp(state.currMouseXForce.get(), 0.0, 0.02))
+        }
+        if (mouseY == 0.0) {
+            state.currMouseYForce.set(lerp(state.currMouseYForce.get(), 0.0, 0.005))
+        }
+
+        //yaw, pitch, roll
+        return Vec3.ZERO
+    }
+
+    fun rollRotation(
         settings: JetSettings,
         state: JetState,
         vehicle: PokemonEntity,
@@ -258,7 +361,6 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         if (mouseY == 0.0) {
             state.currMouseYForce.set(lerp(state.currMouseYForce.get(), 0.0, 0.005))
         }
-
 
         //yaw, pitch, roll
         return mouseRotation
