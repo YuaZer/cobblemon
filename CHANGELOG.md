@@ -389,6 +389,7 @@
 - Fixed mod incompatibility with the `Raised` mod
 - Fixed a vulnerability that could cause party and PC rollbacks under specific circumstances.
 - Fixed a rare edge case where sorting your PC could be rolled back later.
+- Fixed BotanyPots built-in integration
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
