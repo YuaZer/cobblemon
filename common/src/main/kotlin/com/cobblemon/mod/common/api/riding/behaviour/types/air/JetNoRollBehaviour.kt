@@ -208,11 +208,9 @@ class JetNoRollBehaviour : RidingBehaviour<JetNoRollSettings, JetNoRollState> {
         //TODO: figure out a cleaner solution to this issue of large jumps when skipping frames or lagging
         //Cap at a rate of 5fps so frame skips dont lead to huge jumps
         val cappedDeltaTime = min(deltaTime, 0.2)
-        val invertRoll = if (Cobblemon.config.invertRoll) -1 else 1
-        val invertPitch = if (Cobblemon.config.invertPitch) -1 else 1
         // Accumulate the mouse input
-        state.currMouseXForce.set((state.currMouseXForce.get() + (0.0015 * mouseX * invertRoll)).coerceIn(-1.0, 1.0))
-        state.currMouseYForce.set((state.currMouseYForce.get() + (0.0015 * mouseY * invertPitch)).coerceIn(-1.0, 1.0))
+        state.currMouseXForce.set((state.currMouseXForce.get() + (0.0015 * mouseX)).coerceIn(-1.0, 1.0))
+        state.currMouseYForce.set((state.currMouseYForce.get() + (0.0015 * mouseY)).coerceIn(-1.0, 1.0))
         //Get handling in degrees per second
         var handling = vehicle.runtime.resolveDouble(settings.handlingExpr)
         //convert it to delta time

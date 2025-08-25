@@ -1,4 +1,5 @@
-{ "implemented": true,
+{
+  "implemented": true,
   "nationalPokedexNumber": 939,
   "name": "Bellibolt",
   "primaryType": "electric",
@@ -50,6 +51,9 @@
         "canBreatheUnderwater": true,
         "swimSpeed": "0.2"
       }
+    },
+    "herd": {
+      "maxSize": "7"
     }
   },
   "drops": {

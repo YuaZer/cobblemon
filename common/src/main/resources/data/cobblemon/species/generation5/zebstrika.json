@@ -1,4 +1,5 @@
-{ "implemented": true,
+{
+  "implemented": true,
   "nationalPokedexNumber": 523,
   "name": "Zebstrika",
   "primaryType": "electric",
@@ -52,6 +53,31 @@
       "walk": {
         "walkSpeed": 0.24
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "mudsdale",
+          "tier": 1
+        },
+        {
+          "pokemon": "rapidash",
+          "tier": 1
+        },
+        {
+          "pokemon": "zebstrika",
+          "tier": 2
+        },
+        {
+          "pokemon": "glastrier",
+          "tier": 3
+        },
+        {
+          "pokemon": "spectrier",
+          "tier": 3
+        }
+      ]
     }
   },
   "drops": {

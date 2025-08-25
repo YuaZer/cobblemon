@@ -72,6 +72,15 @@
         "canBreatheUnderwater": true,
         "canSwimInLava": false
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "corsola galarian=false",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -255,8 +264,9 @@
       },
       "behaviour": {
         "moving": {
-          "walking":
-          {"walkSpeed": 0.125},
+          "walking": {
+            "walkSpeed": 0.125
+          },
           "swim": {
             "swimSpeed": 0.125,
             "canSwimInWater": true,
@@ -268,6 +278,19 @@
           "canSleep": true,
           "willSleepOnBed": false,
           "light": "0-15"
+        },
+        "herd": {
+          "maxSize": "9",
+          "toleratedLeaders": [
+            {
+              "pokemon": "corsola galarian",
+              "tier": 1
+            },
+            {
+              "pokemon": "cursola",
+              "tier": 2
+            }
+          ]
         }
       },
       "drops": {
