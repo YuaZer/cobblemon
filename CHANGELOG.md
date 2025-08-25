@@ -145,6 +145,8 @@
 #### Gen 8
 - Skwovet
 - Greedent
+- Chewtle
+- Drednaw
 - Toxel
 - Toxtricity
 - Morpeko
