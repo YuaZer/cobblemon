@@ -165,6 +165,9 @@
     "combat": {
       "willDefendSelf": true,
       "willDefendOwner": true
+    },
+    "herd": {
+      "maxSize": "5"
     }
   },
   "drops": {
@@ -456,6 +459,11 @@
             ]
           }
         }
+      },
+      "behaviour": {
+        "herd": {
+          "maxSize": "6"
+        }
       }
     },
     {
@@ -548,6 +556,11 @@
               0
             ]
           }
+        }
+      },
+      "behaviour": {
+        "herd": {
+          "maxSize": "6"
         }
       }
     },

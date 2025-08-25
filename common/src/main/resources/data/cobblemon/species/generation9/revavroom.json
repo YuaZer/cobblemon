@@ -68,6 +68,15 @@
       "canSleep": true,
       "light": "0-4",
       "willSleepOnBed": true
+    },
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "revavroom",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {

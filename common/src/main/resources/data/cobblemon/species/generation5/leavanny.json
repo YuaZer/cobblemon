@@ -1,4 +1,5 @@
-{ "implemented": true,
+{
+  "implemented": true,
   "nationalPokedexNumber": 542,
   "name": "Leavanny",
   "primaryType": "bug",
@@ -207,5 +208,10 @@
     "legacy:toxic"
   ],
   "preEvolution": "swadloon",
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {
+    "herd": {
+      "maxSize": "6"
+    }
+  }
 }
