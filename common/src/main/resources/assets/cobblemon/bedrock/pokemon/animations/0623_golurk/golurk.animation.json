@@ -976,10 +976,6 @@
 				"leg_right": {
 					"position": [2.25, 15, 0],
 					"scale": [0.7, 0.4, 0.7]
-				},
-				"seat_1_locator": {
-					"rotation": [-90, 0, 0],
-					"position": [0, -9, 8]
 				}
 			}
 		},
