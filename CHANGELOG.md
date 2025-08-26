@@ -214,6 +214,8 @@
 - Porygon
 - Porygon2
 - Porygon-Z
+- Wattrel
+- Kilowattrel
 
 ### Model updates for the following Pokémon
 - Gyarados
