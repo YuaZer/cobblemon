@@ -58,6 +58,7 @@
 - Dunsparce
 - Togepi
 - Togetic
+- Unown
 - Houndour
 - Houndoom
 
@@ -114,11 +115,15 @@
 - Tynamo
 - Eelektrik
 - Eelektross
+- Axew
+- Fraxure
+- Haxorus
 - Mienfoo
 - Mienshao
 - Sewaddle
 - Swadloon
 - Leavanny
+- Druddigon
 
 #### Gen 6
 - Skiddo
@@ -143,6 +148,8 @@
 #### Gen 8
 - Skwovet
 - Greedent
+- Chewtle
+- Drednaw
 - Toxel
 - Toxtricity
 - Morpeko
@@ -152,6 +159,11 @@
 - Polteageist
 - Galarian Corsola
 - Cursola
+- Mr. Rime
+- Galarian Mr. Mime
+- Clobbopus
+- Grapploct
+- Galarian Weezing
 
 #### Gen 9
 - Smoliv
@@ -170,6 +182,10 @@
 - Bellibolt
 - Toedscool
 - Toedscruel
+- Rellor
+- Rabsca
+- Bramblin
+- Brambleghast
 
 ### Animation updates for the following Pokémon
 - Garchomp
