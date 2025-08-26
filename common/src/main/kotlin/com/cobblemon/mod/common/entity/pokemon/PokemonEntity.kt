@@ -2032,7 +2032,7 @@ open class PokemonEntity(
     }
 
     /** Retrieves the battle theme associated with this Pokemon's Species/Form, or the default PVW theme if not found. */
-    fun getBattleTheme() = this.form.battleTheme ?: CobblemonSounds.PVW_BATTLE
+    fun getBattleTheme() = this.form.battleTheme ?: CobblemonSounds.PVW_BATTLE.location
 
     /**
      * A utility method to instance a [Pokemon] aware if the [world] is client sided or not.

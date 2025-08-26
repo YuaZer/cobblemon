@@ -463,8 +463,7 @@ fun Player.dropFakeItem(stack: ItemStack): ItemEntity {
 }
 
 /** Retrieves the battle theme associated with this player, or the default PVP theme if null. */
-fun ServerPlayer.getBattleTheme() = Cobblemon.playerDataManager.getGenericData(this).battleTheme ?: CobblemonSounds.PVP_BATTLE
-
+fun ServerPlayer.getBattleTheme() = Cobblemon.playerDataManager.getGenericData(this).battleTheme ?: CobblemonSounds.PVP_BATTLE.location
 
 /** Checks if any [PokemonEntity]s belonging to a player's party has any busy locks. */
 fun Player.isPartyBusy() =

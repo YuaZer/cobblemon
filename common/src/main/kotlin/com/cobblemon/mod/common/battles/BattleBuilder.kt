@@ -30,7 +30,6 @@ import com.cobblemon.mod.common.util.update
 import com.cobblemon.mod.common.util.*
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.phys.Vec3
@@ -109,8 +108,8 @@ object BattleBuilder {
                 errors.participantErrors[actor] += BattleStartError.alreadyInBattle(player)
             }
         }
-        player1Actor.battleTheme = player2.getBattleTheme() as? ResourceLocation
-        player2Actor.battleTheme = player1.getBattleTheme() as? ResourceLocation
+        player1Actor.battleTheme = player2.getBattleTheme()
+        player2Actor.battleTheme = player1.getBattleTheme()
 
         return if (errors.isEmpty) {
             BattleRegistry.startBattle(
@@ -145,11 +144,6 @@ object BattleBuilder {
         val playerActors = teams.mapIndexed { index, team -> PlayerBattleActor(players[index].uuid, team)}.toMutableList()
 
         val battlePartyStores = mutableListOf<PlayerPartyStore>()
-
-        val side1Actors = listOf(playerActors[0], playerActors[1])
-        val side2Actors = listOf(playerActors[2], playerActors[3])
-        val side2Theme = players[2].getBattleTheme() as? ResourceLocation
-        val side1Theme = players[0].getBattleTheme() as? ResourceLocation
 
         if (adjustLevel > 0) {
             teams.forEachIndexed { playerIndex, battleTeam ->
@@ -208,7 +202,11 @@ object BattleBuilder {
             playerActors.swap(2,3)
         }
 
-        // TODO: less hard coding
+        val side1Actors = listOf(playerActors[0], playerActors[1])
+        val side2Actors = listOf(playerActors[2], playerActors[3])
+        val side1Theme = players[0].getBattleTheme()
+        val side2Theme = players[2].getBattleTheme()
+
         side1Actors.forEach { it.battleTheme = side2Theme }
         side2Actors.forEach { it.battleTheme = side1Theme }
 
@@ -282,7 +280,7 @@ object BattleBuilder {
         if (pokemonEntity.battleId != null) {
             errors.participantErrors[wildActor] += BattleStartError.alreadyInBattle(wildActor)
         }
-        playerActor.battleTheme = pokemonEntity.getBattleTheme() as? ResourceLocation
+        playerActor.battleTheme = pokemonEntity.getBattleTheme()
 
         return if (errors.isEmpty) {
             BattleRegistry.startBattle(
@@ -381,7 +379,7 @@ object BattleBuilder {
             errors.participantErrors[playerActor] += BattleStartError.targetIsBusy(player.displayName ?: player.name)
         }
 
-        playerActor.battleTheme = npcEntity.getBattleTheme() as? ResourceLocation
+        playerActor.battleTheme = npcEntity.getBattleTheme()
         return if (errors.isEmpty) {
             BattleRegistry.startBattle(
                 battleFormat = battleFormat,

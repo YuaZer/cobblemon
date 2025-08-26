@@ -40,7 +40,7 @@ class PlayerBattleActor(
         initialPos = entity?.position();
     }
 
-    /** The [SoundEvent] to play to the player during a battle. Will start playing as soon as the battle starts. */
+    /** The [ResourceLocation] to play to the player during a battle. Will start playing as soon as the battle starts. */
     var battleTheme: ResourceLocation? = null
         set(value) {
             if (this.isInitialized() && this.battle.started) this.sendUpdate(BattleMusicPacket(value))

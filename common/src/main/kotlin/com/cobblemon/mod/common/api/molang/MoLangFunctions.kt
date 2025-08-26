@@ -625,9 +625,9 @@ object MoLangFunctions {
                     val volume = params.getDoubleOrNull(1)?.toFloat() ?: 1.0f
                     val pitch = params.getDoubleOrNull(2)?.toFloat() ?: 1.0f
 
-                    val soundEvent = soundId
-                    if (soundEvent != null) {
-                        val packet = BattleMusicPacket(soundEvent, volume, pitch)
+                    val music = soundId
+                    if (music != null) {
+                        val packet = BattleMusicPacket(music, volume, pitch)
                         packet.sendToPlayer(player)
                         return@put DoubleValue.ONE
                     } else {
@@ -818,7 +818,26 @@ object MoLangFunctions {
             map.put("delta_movement") {
                 return@put listOf(entity.deltaMovement.x, entity.deltaMovement.y, entity.deltaMovement.z).asArrayValue(::DoubleValue)
             }
-
+            map.put("tags") {
+                val tags = entity.tags
+                val array = ArrayStruct(hashMapOf())
+                tags.forEachIndexed { index, tag -> array.setDirectly("$index", StringValue(tag)) }
+                return@put array
+            }
+            map.put("add_tag") { params ->
+                val tag = params.getString(0)
+                entity.addTag(tag)
+                return@put DoubleValue.ONE
+            }
+            map.put("remove_tag") { params ->
+                val tag = params.getString(0)
+                entity.removeTag(tag)
+                return@put DoubleValue.ONE
+            }
+            map.put("has_tag") { params ->
+                val tag = params.getString(0)
+                return@put DoubleValue(entity.tags.contains(tag))
+            }
             if (entity is MoLangScriptingEntity) {
                 map.put("add_callback") { params ->
                     val type = params.getString(0).asIdentifierDefaultingNamespace()
@@ -1819,7 +1838,7 @@ object MoLangFunctions {
             map.put("force_evolve") { params ->
                 val idx = params.getInt(0)
                 val evolution = if (idx >= 0) pokemon.evolutions.elementAtOrNull(idx) else return@put DoubleValue.ZERO
-                evolution?.evolve(pokemon)
+                evolution?.forceEvolve(pokemon)
                 StringValue(evolution.toString())
             }
             map
