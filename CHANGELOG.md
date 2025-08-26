@@ -76,8 +76,7 @@
 - Glalie
 - Latias
 - Latios
-- Swablu
-- Altaria
+
 
 #### Gen 4
 - Bronzor
@@ -214,6 +213,7 @@
 - Porygon
 - Porygon2
 - Porygon-Z
+- Golurk
 
 ### Model updates for the following Pokémon
 - Gyarados
