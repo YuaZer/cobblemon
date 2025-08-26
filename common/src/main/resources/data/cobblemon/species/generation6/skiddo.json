@@ -179,5 +179,20 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "skiddo",
+          "tier": 1
+        },
+        {
+          "pokemon": "gogoat",
+          "tier": 2
+        }
+      ]
+    }
+  }
 }

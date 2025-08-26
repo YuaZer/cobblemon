@@ -42,6 +42,8 @@
 - Added new optional property `attachment_options` for most EmitterShapes to be attached to the locator/entities scale, rotation, and/or position. Position is true by default.
 - Galarica Nut bushes now generate on beaches.
 - Some Pokémon now pitch their bodies in the direction they're moving.
+- Added new advancements Didn't Stop To Think, We Need To Cook, and Pokémon Jockey!.
+- Berries can now be smelted into their respective dyes.
 - Added Syrupy Apples.
 - Added `/runmolang <molang> [<npc>|<player>|<pokemon>]` command that executes a MoLang expression with the provided options as environment variables, as well as the entity (as `q.entity`) that executed the command.
 
@@ -121,6 +123,7 @@
 - Sewaddle
 - Swadloon
 - Leavanny
+- Druddigon
 
 #### Gen 6
 - Skiddo
@@ -145,6 +148,8 @@
 #### Gen 8
 - Skwovet
 - Greedent
+- Chewtle
+- Drednaw
 - Toxel
 - Toxtricity
 - Morpeko
@@ -154,6 +159,11 @@
 - Polteageist
 - Galarian Corsola
 - Cursola
+- Mr. Rime
+- Galarian Mr. Mime
+- Clobbopus
+- Grapploct
+- Galarian Weezing
 
 #### Gen 9
 - Smoliv
@@ -172,6 +182,10 @@
 - Bellibolt
 - Toedscool
 - Toedscruel
+- Rellor
+- Rabsca
+- Bramblin
+- Brambleghast
 
 ### Animation updates for the following Pokémon
 - Garchomp
@@ -312,6 +326,7 @@
 - Offset in EmitterShape now ignores scale to be more like Blockbench by default. You can get this behaviour back by adding `"scale": true` in the `attachment_options` property in most EmitterShapes.
 - Not specifying a dex in `/pokedex printcalculations {player} {dex}` will now print the National Dex statistics instead of showing all dexes. `/pokedex printcalculations {player} all` is how to view all dex statistics in one command.
 - Removed Braised Vivichoke
+- Updated Pokémon state icons shown in party interfaces
 - MoLang `face` function can now be run on any `PosableEntity` (Like Pokémon!) instead of just NPCs.
 - MoLang `run_action_effect` now works on Pokémon.
 - Changed MoLang entity function `is_standing_on` to allow for block tags in the list.
@@ -390,6 +405,7 @@
 - Fixed mod incompatibility with the `Raised` mod
 - Fixed a vulnerability that could cause party and PC rollbacks under specific circumstances.
 - Fixed a rare edge case where sorting your PC could be rolled back later.
+- Fixed BotanyPots built-in integration
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -466,6 +482,8 @@
 - Added Molang functions for Pokémon: `pokeball`, `held_item`, `remove_held_item`, `hyper_train_iv`, `validate_moveset`, `initialize_moveset`, and `add_exp`.
 - Added Molang functions for Pokémon: `aspects`, `form_aspects`, `unlearn_move`, `teach_learnable_moves`, `cosmetic_item`, and `remove_cosmetic_item`.
 - Added Molang functions for Pokémon: `ability`, `set_iv`, `set_ev`, `teach_move`, and `can_learn_move`.
+- Added Molang function `q.delete_variable(<struct>, <variable_name>)` to delete a value from a variable structure in MoLang data.
+- Added Molang function `q.delete_variables(<struct>)` to delete all values from a variable structure in MoLang data.
 - Adds Flows for `STARTER_CHOSEN`, `SHOULDER_MOUNTED`, `EV_GAINED`, `POKEMON_RELEASED`, `POKEMON_NICKNAMED`, `HELD_ITEM`, and `TRADE_COMPLETED` events
 - Adds Flows for `POKEMON_HEALED`, `POKEMON_SCANNED`, `BERRY_HARVEST`, `LOOT_DROPPED`, `POKEMON_SEEN`, `COLLECT_EGG`, `HATCH_EGG`, and `EXPERIENCE_GAINED`.
 - Adds Flows for `POKEMON_CATCH_RATE`, `BAIT_SET`, `BAIT_SET_PRE`, `BAIT_CONSUMED`, `POKEROD_CAST_PRE`, `POKEROD_CAST_POST`, `POKEROD_REEL`, and `BOBBER_SPAWN_POKEMON_PRE`.
@@ -480,6 +498,8 @@
 - Added `q.has_argument_at(<index>, [argument_value])` MoLang function to several battle-related action effect contexts.
 - Added `q.hit_count` MoLang function to move action effect contexts.
 - Added `is_included`, `to_lower`, `to_upper`, and `string_length` as available Molang functions.
+- Fixed a crash that would occur during battles if the opponent wild Pokémon species comes from a namespace other than cobblemon
+- Fixed `clientActions` inside Dialogue pages being executed twice
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)
 
