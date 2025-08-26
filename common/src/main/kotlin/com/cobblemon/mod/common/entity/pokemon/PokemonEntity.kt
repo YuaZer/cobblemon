@@ -2157,7 +2157,7 @@ open class PokemonEntity(
         return this.level().getBlockState(blockBelow).isSolid
     }
 
-    override fun onPassengerTurned(entityToUpdate: Entity) {
+    fun clampPassengerRotation(entityToUpdate: Entity) {
          if (entityToUpdate !is LivingEntity) return
         ifRidingAvailable { behaviour, settings, state ->
             behaviour.clampPassengerRotation(settings, state, this, entityToUpdate)

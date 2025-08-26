@@ -25,7 +25,16 @@
     "standing": {
       "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
       "isBattle": false,
+      "condition": "!q.in_air",
       "animations": ["q.look('head')", "q.bedrock('golurk', 'ground_idle')"]
+    },
+    "in-air": {
+      "poseTypes": ["STAND", "WALK", "NONE"],
+      "isBattle": false,
+      "condition": "q.in_air && q.is_ridden",
+      "animations": ["q.look('head')", "q.bedrock('golurk', 'ride_jump')"],
+      "transformTicks": 2,
+      "transformToTicks": 2
     },
     "walk": {
       "poseName": "walk",
