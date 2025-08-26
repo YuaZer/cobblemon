@@ -7612,5 +7612,11 @@
     "cobblemon.species.orbeetle-gmax.desc": "脳を 中心に 巨大化。 圧倒的 知能と 膨大な サイコエネルギーを もっている。",
     "cobblemon.species.sandaconda-gmax.desc": "砂袋も 超巨大に。 体の まわりに 渦巻く 砂は 100万トンを 超える。",
     "cobblemon.species.centiskorch-gmax.desc": "キョダイマックスの パワーによって 体温は 摂氏1000度を 超え 熱波で 相手を 焼き焦がす。",
-    "cobblemon.species.urshifu-gmax.desc": "怒りの化身 と 呼ばれている。 凄まじい 形相と 雄叫びで 世界の 邪気を 払うという。"
+    "cobblemon.species.urshifu-gmax.desc": "怒りの化身 と 呼ばれている。 凄まじい 形相と 雄叫びで 世界の 邪気を 払うという。",
+    "cobblemon.cosmetic_item.give": "%1$sに%2$sを身に付けさせた！",
+    "cobblemon.cosmetic_item.take": "%2$sから %1$sを 受け取った！",
+    "cobblemon.cosmetic_item.already_wearing": "%1$sはもう %2$sを 身に付けている！",
+    "cobblemon.cosmetic_item": "衣装アイテム",
+    "cobblemon.held_item.forbidden": "%1$sを%2$sに持たせることはできない！",
+    "cobblemon.cosmetic_item.replace": "%1$sを %2$sから 預かって %3$sを持たせた！"
 }
