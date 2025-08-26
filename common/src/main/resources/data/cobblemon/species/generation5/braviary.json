@@ -51,10 +51,15 @@
   "hitbox": {
     "width": 1.2,
     "height": 2.25,
+    "standingEyeHeight": 0.5,
     "fixed": false
   },
   "behaviour": {
     "moving": {
+      "walk": {
+        "canWalk": true,
+        "walkSpeed": 0.2
+      },
       "fly": {
         "canFly": true
       }

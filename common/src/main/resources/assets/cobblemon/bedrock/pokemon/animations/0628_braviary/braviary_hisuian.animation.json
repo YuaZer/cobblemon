@@ -2291,6 +2291,10 @@
 				"1.3333": {
 					"effect": "animation.plumage_wing_flap_medium_2"
 				}
+			},
+			"timeline": {
+				"0.0417": "q.has_entity ? { q.sound('animation.plumage.wing_flap.medium'); };",
+				"1.3333": "q.has_entity ? { q.sound('animation.plumage.wing_flap.medium'); };"
 			}
 		},
 		"animation.braviary_hisuian.air_fly": {
@@ -2553,6 +2557,12 @@
 				"3.6667": {
 					"effect": "animation.plumage_wing_flap_medium_8"
 				}
+			},
+			"timeline": {
+				"0.7083": "q.has_entity ? { q.sound('animation.plumage.wing_flap.medium'); };",
+				"1.6667": "q.has_entity ? { q.sound('animation.plumage.wing_flap.medium'); };",
+				"2.7083": "q.has_entity ? { q.sound('animation.plumage.wing_flap.medium'); };",
+				"3.6667": "q.has_entity ? { q.sound('animation.plumage.wing_flap.medium'); };"
 			}
 		},
 		"animation.braviary_hisuian.air_glide": {

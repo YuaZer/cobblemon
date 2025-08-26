@@ -1,117 +1,61 @@
 {
-  "portraitScale": 2.28,
-  "portraitTranslation": [-1.16, 2.78, 0],
+  "portraitScale": 1.95,
+  "portraitTranslation": [-1.06, 1.78, 0],
   "profileScale": 0.52,
-  "profileTranslation": [0.01, 0.98, 0],
+  "profileTranslation": [0.05, 1.05, 0],
   "rootBone": "braviary",
   "animations": {
-    "cry": "q.bedrock_stateful('braviary', 'cry')"
+    "cry": "q.bedrock_stateful('braviary_hisuian', 'cry')",
+    "recoil": "q.bedrock_stateful('braviary_hisuian', 'recoil')"
   },
   "poses": {
     "standing": {
       "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
-      "isBattle": true,
-      "animations": ["q.look('head')", "q.bedrock('braviary_hisuian', 'ground_idle')"],
-      "quirks": ["q.bedrock_quirk('braviary_hisuian', 'blink')"],
-      "transformedParts": [
-        {
-          "part": "wing_open_right",
-          "isVisible": false
-        },
-        {
-          "part": "wing_open_left",
-          "isVisible": false
-        },
-        {
-          "part": "wing_closed_right",
-          "isVisible": true
-        },
-        {
-          "part": "wing_closed_left",
-          "isVisible": true
-        }
-      ]
+      "isBattle": false,
+      "animations": ["q.look('head_ai')", "q.bedrock('braviary_hisuian', 'ground_idle')"],
+      "transformTicks": 10,
+      "quirks": ["q.bedrock_quirk('braviary_hisuian', 'blink')"]
     },
     "walking": {
       "poseTypes": ["WALK", "SWIM"],
       "animations": [
-        "q.look('head')",
-        "q.bedrock('braviary_hisuian', 'ground_idle')",
-        "q.biped_walk(1, 1, 'thigh_left', 'thigh_right')"
+        "q.look('head_ai')",
+        "q.bedrock('braviary_hisuian', 'ground_walk')"
       ],
-      "quirks": ["q.bedrock_quirk('braviary_hisuian', 'blink')"],
-      "transformedParts": [
-        {
-          "part": "wing_open_right",
-          "isVisible": false
-        },
-        {
-          "part": "wing_open_left",
-          "isVisible": false
-        },
-        {
-          "part": "wing_closed_right",
-          "isVisible": true
-        },
-        {
-          "part": "wing_closed_left",
-          "isVisible": true
-        }
-      ]
+      "transformTicks": 10,
+      "quirks": ["q.bedrock_quirk('braviary_hisuian', 'blink')"]
     },
     "hover": {
       "poseTypes": ["HOVER"],
       "animations": [
-        "q.sine_wing_flap(0.9, 0.9, 25, 'z', 'wing_open_left', 'wing_open_right')",
-        "q.look('head')",
+        "q.pitch_tilt('body', 1)",
+        "q.look('head_ai')",
         "q.bedrock('braviary_hisuian', 'air_idle')"
       ],
-      "quirks": ["q.bedrock_quirk('braviary_hisuian', 'blink')"],
-      "transformedParts": [
-        {
-          "part": "wing_open_right",
-          "isVisible": true
-        },
-        {
-          "part": "wing_open_left",
-          "isVisible": true
-        },
-        {
-          "part": "wing_closed_right",
-          "isVisible": false
-        },
-        {
-          "part": "wing_closed_left",
-          "isVisible": false
-        }
-      ]
+      "transformTicks": 10,
+      "quirks": ["q.bedrock_quirk('braviary_hisuian', 'blink')"]
     },
     "fly": {
       "poseTypes": ["FLY"],
+      "condition": "!q.is_gliding",
       "animations": [
-        "q.sine_wing_flap(0.9, 0.9, 25, 'z', 'wing_open_left', 'wing_open_right')",
-        "q.look('head')",
+        "q.pitch_tilt('body', 1)",
+        "q.look('head_ai')",
         "q.bedrock('braviary_hisuian', 'air_fly')"
       ],
-      "quirks": ["q.bedrock_quirk('braviary_hisuian', 'blink')"],
-      "transformedParts": [
-        {
-          "part": "wing_open_right",
-          "isVisible": true
-        },
-        {
-          "part": "wing_open_left",
-          "isVisible": true
-        },
-        {
-          "part": "wing_closed_right",
-          "isVisible": false
-        },
-        {
-          "part": "wing_closed_left",
-          "isVisible": false
-        }
-      ]
+      "transformTicks": 10,
+      "quirks": ["q.bedrock_quirk('braviary_hisuian', 'blink')"]
+    },
+    "glide": {
+      "poseTypes": ["FLY"],
+      "condition": "q.is_gliding",
+      "animations": [
+        "q.pitch_tilt('body', 1)",
+        "q.look('head_ai')",
+        "q.bedrock('braviary_hisuian', 'air_glide')"
+      ],
+      "transformTicks": 10,
+      "quirks": ["q.bedrock_quirk('braviary_hisuian', 'blink')"]
     }
   }
 }

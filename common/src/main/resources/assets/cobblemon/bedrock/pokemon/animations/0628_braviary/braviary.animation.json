@@ -32,7 +32,7 @@
 					"rotation": ["-7.5-math.sin(q.anim_time*90*2-60)*4", 0, 0]
 				},
 				"head": {
-					"rotation": [25, 0, 0]
+					"rotation": [15, 0, 0]
 				},
 				"hair2": {
 					"rotation": ["-2.5+math.sin(q.anim_time*90*2-180)*3", 0, 0]
@@ -1974,6 +1974,10 @@
 				"1.375": {
 					"effect": "animation.plumage_wing_flap_medium_2"
 				}
+			},
+			"timeline": {
+				"0.0417": "q.has_entity ? { q.sound('animation.plumage.wing_flap.medium'); };",
+				"1.375": "q.has_entity ? { q.sound('animation.plumage.wing_flap.medium'); };"
 			}
 		},
 		"animation.braviary.air_fly": {
@@ -2237,6 +2241,12 @@
 				"3.6667": {
 					"effect": "animation.plumage_wing_flap_medium_8"
 				}
+			},
+			"timeline": {
+				"0.7083": "q.has_entity ? { q.sound('animation.plumage.wing_flap.medium'); };",
+				"1.6667": "q.has_entity ? { q.sound('animation.plumage.wing_flap.medium'); };",
+				"2.7083": "q.has_entity ? { q.sound('animation.plumage.wing_flap.medium'); };",
+				"3.6667": "q.has_entity ? { q.sound('animation.plumage.wing_flap.medium'); };"
 			}
 		},
 		"animation.braviary.air_glide": {
