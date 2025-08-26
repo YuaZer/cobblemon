@@ -123,6 +123,7 @@
 - Sewaddle
 - Swadloon
 - Leavanny
+- Druddigon
 
 #### Gen 6
 - Skiddo
@@ -158,6 +159,11 @@
 - Polteageist
 - Galarian Corsola
 - Cursola
+- Mr. Rime
+- Galarian Mr. Mime
+- Clobbopus
+- Grapploct
+- Galarian Weezing
 
 #### Gen 9
 - Smoliv
@@ -176,6 +182,10 @@
 - Bellibolt
 - Toedscool
 - Toedscruel
+- Rellor
+- Rabsca
+- Bramblin
+- Brambleghast
 
 ### Animation updates for the following Pokémon
 - Garchomp
