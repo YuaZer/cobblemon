@@ -76,8 +76,7 @@
 - Glalie
 - Latias
 - Latios
-- Swablu
-- Altaria
+
 
 #### Gen 4
 - Bronzor
@@ -216,6 +215,7 @@
 - Porygon-Z
 - Wattrel
 - Kilowattrel
+- Golurk
 
 ### Model updates for the following Pokémon
 - Gyarados
