@@ -62,6 +62,19 @@
       "fly": {
         "canFly": true
       }
+    },
+    "herd": {
+      "maxSize": "7",
+      "toleratedLeaders": [
+        {
+          "pokemon": "togetic",
+          "tier": 1
+        },
+        {
+          "pokemon": "togekiss",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
