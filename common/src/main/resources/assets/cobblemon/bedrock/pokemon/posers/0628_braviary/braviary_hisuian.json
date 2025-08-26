@@ -56,6 +56,11 @@
       ],
       "transformTicks": 10,
       "quirks": ["q.bedrock_quirk('braviary_hisuian', 'blink')"]
+    },
+    "sleep": {
+      "poseTypes": ["SLEEP"],
+      "animations": ["q.bedrock('braviary_hisuian', 'sleep')"],
+      "transformTicks": 10
     }
   }
 }
