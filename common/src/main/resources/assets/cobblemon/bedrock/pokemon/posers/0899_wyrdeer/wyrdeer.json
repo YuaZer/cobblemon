@@ -4,23 +4,26 @@
     "profileScale": 0.7,
     "profileTranslation": [0.0, 0.7, 0.0],
     "rootBone": "wyrdeer",
-    "animations": {},
+  "firstPersonCameraOffset": {
+    "seat_1": [0, 0.25, 0]
+  },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 1, 5],
+    "seat_1_reverse": [0, 1, 5]
+  },
+    "animations": {
+      "cry": "q.bedrock_stateful('wyrdeer', 'cry')"
+    },
     "poses": {
-      "in_air": {
-        "poseName": "in_air",
-        "poseTypes": ["WALK","STAND", "FLOAT", "NONE", "PORTRAIT"],
-        "isBattle": false,
-        "condition": "q.in_air",
+      "battle-standing": {
+        "poseTypes": ["STAND"],
+        "isBattle": true,
         "animations": [
           "q.look('head')",
-          "q.bedrock('wyrdeer', 'ride_jump')"
+          "q.bedrock('wyrdeer', 'battle_idle')"
         ],
-        "quirks": [
-          "q.bedrock_quirk('wyrdeer', 'blink')"
-        ],
-        "transformTicks": 2,
-        "transformToTicks": 2
-      },
+        "quirks": ["q.bedrock_quirk('wyrdeer', 'blink')"]
+        },
       "standing": {
         "poseName": "standing",
         "poseTypes": ["STAND", "FLOAT", "NONE", "PORTRAIT", "PROFILE"],
@@ -31,15 +34,26 @@
           "q.bedrock('wyrdeer', 'ground_idle')"
         ],
         "quirks": [
-          "q.bedrock_quirk('wyrdeer', 'blink')"
+          "q.bedrock_quirk('wyrdeer', 'blink')","q.bedrock_quirk('wyrdeer', 'quirk_idle', 30, 60, 1)"
         ],
         "transformTicks": 10
+      },
+      "in-air": {
+        "poseTypes": ["STAND", "WALK", "NONE"],
+        "isBattle": false,
+        "condition": "q.in_air && q.is_ridden",
+        "animations": ["q.look('head')", "q.bedrock('wyrdeer', 'ride_jump')"],
+        "transformTicks": 2,
+        "transformToTicks": 2
       },
       "sleep": {
         "poseTypes": ["SLEEP"],
         "animations": [
           "q.bedrock('wyrdeer', 'sleep')"
-        ]
+        ],
+        "namedAnimations": {
+          "cry": "q.bedrock_stateful('dummy', 'cry')"
+        }
       },
       "walk": {
         "poseName": "walk",
@@ -57,7 +71,7 @@
       },
       "run": {
         "poseName": "run",
-        "poseTypes": ["WALK"],
+        "poseTypes": ["STAND","WALK"],
         "isBattle": false,
         "condition": "!q.in_air && q.is_sprinting",
         "animations": [
