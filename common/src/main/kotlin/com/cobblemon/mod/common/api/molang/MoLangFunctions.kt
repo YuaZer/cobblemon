@@ -1045,6 +1045,11 @@ object MoLangFunctions {
                     packet.sendToPlayer(player)
                 }
             }
+            map.put("make_intangible") { params ->
+                val intangible = params.getBooleanOrNull(0) ?: true
+                entity.noPhysics = intangible
+                return@put DoubleValue.ONE
+            }
             return@mutableListOf map
         }
     )
@@ -2614,3 +2619,4 @@ object MoLangFunctions {
 }
 
 fun Either<ResourceLocation, ExpressionLike>.runScript(runtime: MoLangRuntime) = map({ CobblemonScripts.run(it, runtime) }, { it.resolve(runtime) })
+

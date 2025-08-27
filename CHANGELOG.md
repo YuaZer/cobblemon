@@ -530,6 +530,7 @@
 - Added `q.entity.add_tag(<tag>)` Adds the given tag to the entity.
 - Added `q.entity.remove_tag(<tag>)` Removes the given tag from the entity.
 - Added `q.entity.has_tag(<tag>)` Returns whether the entity has the given tag.
+- Added `q.entity.make_intangible(<true/false>)` Makes the entity intangible.
 - Added `q.pokemon.force_evolve(<index>)` Forces the Pokémon at the given index.
 - Added `q.pokemon.can_evolve` Returns whether the Pokémon at the given index can evolve.
 
