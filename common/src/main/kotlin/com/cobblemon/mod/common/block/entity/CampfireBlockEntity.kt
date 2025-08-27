@@ -85,7 +85,8 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
         const val COOKING_PROGRESS_TOTAL_TIME_INDEX = 1
         const val IS_LID_OPEN_INDEX = 2
 
-        const val BASE_BROTH_COLOR = 0xFFFFFFFF.toInt()
+        const val BASE_BROTH_COLOR = 0xFDFACF
+        const val BASE_BROTH_BUBBLE_COLOR = 0xFEFDE4
 
         fun clientTick(level: Level, pos: BlockPos, state: BlockState, campfireBlockEntity: CampfireBlockEntity) {
             if (!level.isClientSide) return
@@ -114,7 +115,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
 
             campfireBlockEntity.bubbleColor =
                 getColourMixFromSeasonings(campfireBlockEntity.getSeasonings(), true)
-                    ?: BASE_BROTH_COLOR
+                    ?: BASE_BROTH_BUBBLE_COLOR
 
             if (campfireBlockEntity.particleCooldown > 0) {
                 campfireBlockEntity.particleCooldown--
@@ -125,12 +126,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
                     campfireBlockEntity.particleEntityHandler(
                         position = position,
                         level = level,
-                        particle = ResourceLocation(
-                            "cobblemon",
-                            if (campfireBlockEntity.getSeasonings()
-                                    .isEmpty()
-                            ) "broth_bubbles_basic" else "broth_bubbles"
-                        )
+                        particle = ResourceLocation("cobblemon", "broth_bubbles")
                     )
                 }
 
@@ -221,7 +217,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
     private var potComponent: PotComponent? = null
     private var particleCooldown: Int = 0
     var brothColor: Int = BASE_BROTH_COLOR
-    var bubbleColor: Int = 0xFFFFFF
+    var bubbleColor: Int = BASE_BROTH_BUBBLE_COLOR
 
     var dataAccess: ContainerData = object : ContainerData {
         override fun get(index: Int): Int {

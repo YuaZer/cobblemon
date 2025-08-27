@@ -406,6 +406,9 @@
 - Fixed a vulnerability that could cause party and PC rollbacks under specific circumstances.
 - Fixed a rare edge case where sorting your PC could be rolled back later.
 - Fixed BotanyPots built-in integration
+- Fixed shading of berries on berry trees.
+- Fixed Cobblemon brewing recipes placing result into all slots, and not just slots with correct ingredients inside the brewing stand.
+- Fixed an issue where hoppers and brewing stands were not recognizing Cobblemon brewing recipes.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -534,6 +537,7 @@
 - Added `q.pokemon.force_evolve(<index>)` Forces the Pokémon at the given index.
 - Added `q.pokemon.can_evolve` Returns whether the Pokémon at the given index can evolve.
 - Added `q.pokemon.is_busy` Returns whether the Pokémon is busy.
+- Fixed `background` field and added `textColor` field for dialogues.
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)
 
