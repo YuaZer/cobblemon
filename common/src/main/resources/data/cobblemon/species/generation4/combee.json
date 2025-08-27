@@ -71,7 +71,8 @@
     {
       "type": "apply_behaviours",
       "behaviours": [
-        "cobblemon:pokemon_bee"
+        "cobblemon:pokemon_bee",
+        "cobblemon:fights_melee"
       ]
     },
     {

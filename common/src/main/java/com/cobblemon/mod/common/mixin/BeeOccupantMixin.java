@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -30,7 +31,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BeehiveBlockEntity.Occupant.class)
 public abstract class BeeOccupantMixin {
-
 
     @Inject(method = "createEntity", at = @At("RETURN"), cancellable = true)
     private void cobblemon$createEntity(Level level, BlockPos pos, CallbackInfoReturnable<Entity> cir) {
@@ -43,15 +43,31 @@ public abstract class BeeOccupantMixin {
             Entity entity = EntityType.loadEntityRecursive(compoundTag, level, (entityx) -> entityx);
             if (entity instanceof PokemonEntity pokemonEntity) {
                 var state = level.getBlockState(pos);
-                var facing = state.getValue(HorizontalDirectionalBlock.FACING);
-                var newPos = pos.relative(facing);
-                entity.setPos(newPos.getCenter());
-                entity.yRotO = facing.toYRot();
+                var newPos = Vec3.ZERO;
+                var newYaw = 0f;
+                if (state.is(BlockTags.BEEHIVES)) {
+                    // position in front of the entrance, face away from the block
+                    var facing = state.getValue(HorizontalDirectionalBlock.FACING);
+                    newPos = pos.relative(facing).getCenter();
+                    newYaw = facing.toYRot();
+                } else {
+                    // Block has likely been destroyed
+                    var center = pos.getCenter();
+                    newPos = new Vec3(
+                            center.x + level.random.nextFloat() * 0.6 - 0.3,
+                            center.y + level.random.nextFloat() * 0.6 - 0.3,
+                            center.z + level.random.nextFloat() * 0.6 - 0.3
+                    );
+                    newYaw = level.random.nextFloat() * 360F;
+                }
+                entity.yRotO = newYaw;
+                entity.setPos(newPos);
                 // Do honey logic
                 var brain = pokemonEntity.getBrain();
+                System.out.println("Nectar Memory: " + brain.getMemory(CobblemonMemories.INSTANCE.getHAS_NECTAR()));
                 // When we became part of the beehive's data we lost all Brain memories.
                 // Restoring the pollinated flag from the compound tag
-                var hasNectar = compoundTag.getBoolean("HasNectar");
+                var hasNectar = brain.getMemory(CobblemonMemories.INSTANCE.getHAS_NECTAR()).orElse(false);
                 brain.setMemory(CobblemonMemories.INSTANCE.getHIVE_LOCATION(), pos);
                 if (hasNectar) {
                     // Remove nectar and reset got to hive cooldown
@@ -67,7 +83,6 @@ public abstract class BeeOccupantMixin {
                             }
                             level.setBlockAndUpdate(pos, (BlockState) state.setValue(BeehiveBlock.HONEY_LEVEL, i + j));
                         }
-
                     }
                 }
                 cir.setReturnValue(entity);
@@ -80,16 +95,8 @@ public abstract class BeeOccupantMixin {
         if (entity instanceof PokemonEntity pokemonEntity) {
             CompoundTag compoundTag = new CompoundTag();
             entity.save(compoundTag);
-//            List var10000 = BeehiveBlockEntity.IGNORED_BEE_TAGS;
-//            Objects.requireNonNull(compoundTag);
-//            var10000.forEach(compoundTag::remove);
-
-
             Boolean hasNectar = pokemonEntity.getBrain().getMemory(CobblemonMemories.INSTANCE.getHAS_NECTAR()).orElse(false);
-            // All brain memories are lost when we become a part of beehive
-            // Need to store anything we want to read later as a tag
-            // for when the entity gets rehydrated
-            compoundTag.putBoolean("HasNectar", hasNectar);
+            compoundTag.putBoolean("isCobblemonPokemon", true);
             cir.setReturnValue(new BeehiveBlockEntity.Occupant(CustomData.of(compoundTag), 0, hasNectar ? 2400 : 600));
             cir.cancel();
         }
