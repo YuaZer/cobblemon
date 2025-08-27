@@ -57,6 +57,7 @@ import com.cobblemon.mod.common.api.pokemon.evolution.Evolution
 import com.cobblemon.mod.common.api.pokemon.experience.SidemodExperienceSource
 import com.cobblemon.mod.common.api.pokemon.moves.LearnsetQuery
 import com.cobblemon.mod.common.api.pokemon.stats.Stats
+import com.cobblemon.mod.common.api.riding.Rideable
 import com.cobblemon.mod.common.api.scheduling.ClientTaskTracker
 import com.cobblemon.mod.common.api.scheduling.Schedulable
 import com.cobblemon.mod.common.api.scheduling.ServerTaskTracker
@@ -135,6 +136,7 @@ import net.minecraft.world.entity.LightningBolt
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.PathfinderMob
+import net.minecraft.world.entity.PlayerRideable
 import net.minecraft.world.entity.TamableAnimal
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
@@ -592,6 +594,14 @@ object MoLangFunctions {
                 environment
             }
             map.put("is_player") { DoubleValue.ONE }
+            map.put("riding_pokemon") {
+                val vehicle = player.vehicle
+                if (vehicle is PokemonEntity) {
+                    return@put vehicle.struct
+                } else {
+                    return@put DoubleValue.ZERO
+                }
+            }
             if (player is ServerPlayer) {
                 map.put("seen_credits") { _ ->
                     DoubleValue( DoubleValue(player.seenCredits) )
@@ -1230,7 +1240,6 @@ object MoLangFunctions {
                     DoubleValue(entity.brain.getMemory(MemoryModuleType.WALK_TARGET).isPresent || entity.isPathFinding)
                 }
             }
-
             map
         }
     )
@@ -1579,7 +1588,7 @@ object MoLangFunctions {
                 DoubleValue(pokemon.species.nationalPokedexNumber.toDouble())
             }
             map.put("types") {
-               pokemon.form.types.map { it.toString() }.asArrayValue(::StringValue)
+                pokemon.form.types.map { it.toString() }.asArrayValue(::StringValue)
             }
             map.put("gender_ratio") {
                 DoubleValue(pokemon.form.maleRatio.toDouble())
@@ -1681,6 +1690,8 @@ object MoLangFunctions {
                 val prevolution = pokemon.species.preEvolution ?: return@put DoubleValue.ZERO
                 return@put prevolution
             }
+            TODO("Make is_rideable actually work")
+            map.put("is_rideable") { DoubleValue(pokemon is PlayerRideable) }
             map.put("nature") { StringValue(pokemon.nature.toString()) }
             map.put("is_wild") { DoubleValue(pokemon.entity?.let { it.ownerUUID == null } == true) }
             map.put("is_shiny") { DoubleValue(pokemon.shiny) }

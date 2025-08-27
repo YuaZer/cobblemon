@@ -515,6 +515,7 @@
 - Added `q.player.set_battle_theme(<sound resource>)` Sets the player's battle theme to the given theme.
 - Added `q.player.battle_music(<sound_resource>, <volume>, <pitch>)` Plays the given battle music for the player.
 - Added `q.player.stop_battle_music()` Stops any currently playing battle music for the player. (With a fade out).
+- Added `q.player.riding_pokemon` Returns the Pokémon the player is currently riding.
 - Added `q.entity.is_player` Returns whether the entity is a player.
 - Added `q.entity.is_pokemon` Returns whether the entity is a Pokémon.
 - Added `q.entity.is_npc` Returns whether the entity is an NPC.
@@ -537,6 +538,7 @@
 - Added `q.pokemon.force_evolve(<index>)` Forces the Pokémon at the given index.
 - Added `q.pokemon.can_evolve` Returns whether the Pokémon at the given index can evolve.
 - Added `q.pokemon.is_busy` Returns whether the Pokémon is busy.
+- Added `q.pokemon.is_rideable` Returns whether the Pokémon is rideable.
 - Fixed `background` field and added `textColor` field for dialogues.
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)
