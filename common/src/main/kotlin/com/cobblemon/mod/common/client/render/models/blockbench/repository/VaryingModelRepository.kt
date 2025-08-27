@@ -454,8 +454,6 @@ object VaryingModelRepository {
         inbuilt("clamperl", ::ClamperlModel)
         inbuilt("huntail", ::HuntailModel)
         inbuilt("gorebyss", ::GorebyssModel)
-        inbuilt("spinarak", ::SpinarakModel)
-        inbuilt("ariados", ::AriadosModel)
         inbuilt("shuckle", ::ShuckleModel)
         inbuilt("mudbray", ::MudbrayModel)
         inbuilt("comfey", ::ComfeyModel)

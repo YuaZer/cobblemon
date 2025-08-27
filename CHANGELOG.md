@@ -216,6 +216,9 @@
 - Wattrel
 - Kilowattrel
 - Golurk
+- Spinarak
+- Ariados
+- Wyrdeer
 
 ### Model updates for the following Pokémon
 - Gyarados
@@ -278,6 +281,8 @@
 - Klink
 - Klank
 - Klinklang
+- Spinarak
+- Ariados
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
