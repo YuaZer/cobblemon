@@ -533,6 +533,7 @@
 - Added `q.entity.make_intangible(<true/false>)` Makes the entity intangible.
 - Added `q.pokemon.force_evolve(<index>)` Forces the Pokémon at the given index.
 - Added `q.pokemon.can_evolve` Returns whether the Pokémon at the given index can evolve.
+- Added `q.pokemon.is_busy` Returns whether the Pokémon is busy.
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)
 

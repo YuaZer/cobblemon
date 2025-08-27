@@ -1853,6 +1853,7 @@ object MoLangFunctions {
     val pokemonEntityFunctions = mutableListOf<(PokemonEntity) -> HashMap<String, java.util.function.Function<MoParams, Any>>>(
         { pokemonEntity ->
             val map = hashMapOf<String, java.util.function.Function<MoParams, Any>>()
+            map.put("is_busy") { DoubleValue(pokemonEntity.isBusy) }
             map.put("in_battle") { DoubleValue(pokemonEntity.isBattling) }
             map.put("is_moving") { DoubleValue((pokemonEntity.moveControl as? PokemonMoveControl)?.hasWanted() == true) }
             map.put("is_flying") { DoubleValue(pokemonEntity.getBehaviourFlag(PokemonBehaviourFlag.FLYING)) }
