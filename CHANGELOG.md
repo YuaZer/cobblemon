@@ -406,6 +406,7 @@
 - Fixed a vulnerability that could cause party and PC rollbacks under specific circumstances.
 - Fixed a rare edge case where sorting your PC could be rolled back later.
 - Fixed BotanyPots built-in integration
+- Fixed shading of berries on berry trees.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -500,6 +501,7 @@
 - Added `is_included`, `to_lower`, `to_upper`, and `string_length` as available Molang functions.
 - Fixed a crash that would occur during battles if the opponent wild Pokémon species comes from a namespace other than cobblemon
 - Fixed `clientActions` inside Dialogue pages being executed twice
+- Fixed `background` field and added `textColor` field for dialogues.
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)
 
