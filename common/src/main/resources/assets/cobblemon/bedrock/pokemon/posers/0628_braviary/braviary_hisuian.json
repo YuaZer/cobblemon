@@ -41,11 +41,7 @@
       "animations": [
         "q.pitch_tilt('body', 1)",
         "q.look('head_ai')",
-        "q.bedrock('braviary_hisuian', 'air_fly')",
-        {
-          "condition": "q.is_ridden",
-          "animation": "q.bedrock('braviary_hisuian', 'ride_air_fly')"
-        }
+        "q.bedrock('braviary_hisuian', 'air_fly')"
       ],
       "transformTicks": 10,
       "quirks": ["q.bedrock_quirk('braviary_hisuian', 'blink')"]
@@ -56,14 +52,7 @@
       "animations": [
         "q.pitch_tilt('body', 1)",
         "q.look('head_ai')",
-        "q.bedrock('braviary_hisuian', 'air_glide')",
-        {
-          "condition": "q.is_ridden",
-          "animations": [
-            "q.bedrock('braviary', 'ride_air_fly')",
-            "q.bedrock('braviary', 'ride_air_dive')"
-          ]
-        }
+        "q.bedrock('braviary_hisuian', 'air_glide')"
       ],
       "transformTicks": 10,
       "quirks": ["q.bedrock_quirk('braviary_hisuian', 'blink')"]

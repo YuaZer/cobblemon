@@ -42,7 +42,7 @@
   "catchRate": 225,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 0.75,
+  "baseScale": 0.9,
   "hitbox": {
     "width": 0.8,
     "height": 1,
@@ -50,14 +50,10 @@
   },
   "behaviour": {
     "moving": {
-      "walk": {
-        "walkSpeed": 0.17
-      },
       "swim": {
         "swimSpeed": 0.3,
         "canBreatheUnderwater": true,
         "canSwimInWater": true,
-        "canWalkOnWater": true,
         "canSwimInLava": false
       }
     },
@@ -203,6 +199,7 @@
         "ranges": "50-90"
       }
     },
-    "seats": []
+    "seats": [],
+    "behaviour": null
   }
 }

@@ -1,6 +1,6 @@
 {
   "portraitScale": 1.95,
-  "portraitTranslation": [-0.77, 2.18, 0],
+  "portraitTranslation": [-1.08, 1.3, 0],
   "profileScale": 0.52,
   "profileTranslation": [0.05, 1.05, 0],
   "rootBone": "braviary",
@@ -20,11 +20,7 @@
       "poseTypes": ["WALK", "SWIM"],
       "animations": [
         "q.look('head_ai')",
-        "q.bedrock('braviary', 'ground_walk')",
-        {
-          "condition": "q.is_ridden",
-          "animation": "q.bedrock('braviary', 'ride_ground_walk')"
-        }
+        "q.bedrock('braviary', 'ground_walk')"
       ],
       "transformTicks": 10,
       "quirks": ["q.bedrock_quirk('braviary', 'blink')"]
@@ -45,11 +41,7 @@
       "animations": [
         "q.pitch_tilt('body', 1)",
         "q.look('head_ai')",
-        "q.bedrock('braviary', 'air_fly')",
-        {
-          "condition": "q.is_ridden",
-          "animation": "q.bedrock('braviary', 'ride_air_fly')"
-        }
+        "q.bedrock('braviary', 'air_fly')"
       ],
       "transformTicks": 10,
       "quirks": ["q.bedrock_quirk('braviary', 'blink')"]
@@ -60,14 +52,7 @@
       "animations": [
         "q.pitch_tilt('body', 1)",
         "q.look('head_ai')",
-        "q.bedrock('braviary', 'air_glide')",
-        {
-          "condition": "q.is_ridden",
-          "animations": [
-            "q.bedrock('braviary', 'ride_air_fly')",
-            "q.bedrock('braviary', 'ride_air_dive')"
-          ]
-        }
+        "q.bedrock('braviary', 'air_glide')"
       ],
       "transformTicks": 10,
       "quirks": ["q.bedrock_quirk('braviary', 'blink')"]

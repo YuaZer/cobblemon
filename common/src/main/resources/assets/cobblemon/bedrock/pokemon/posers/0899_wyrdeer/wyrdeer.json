@@ -39,7 +39,7 @@
         "transformTicks": 10
       },
       "in-air": {
-        "poseTypes": ["STAND", "WALK"],
+        "poseTypes": ["STAND", "WALK", "NONE"],
         "isBattle": false,
         "condition": "q.in_air && q.is_ridden",
         "animations": ["q.look('head')", "q.bedrock('wyrdeer', 'ride_jump')"],
