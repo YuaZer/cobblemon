@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.client.gui.cookingpot
 
+import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.CobblemonNetwork.sendToServer
 import com.cobblemon.mod.common.api.gui.blitk
 import com.cobblemon.mod.common.block.campfirepot.CookingPotMenu
@@ -216,7 +217,8 @@ class CookingPotScreen(
     override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
         val progressX = leftPos + 96
         val progressY = topPos + 39
-        if (mouseX >= progressX && mouseX < progressX + COOK_PROGRESS_WIDTH &&
+        if (Cobblemon.implementation.isModInstalled("jei") &&
+            mouseX >= progressX && mouseX < progressX + COOK_PROGRESS_WIDTH &&
             mouseY >= progressY && mouseY < progressY + COOK_PROGRESS_HEIGHT
         ) {
             CobblemonJeiPlugin.jeiRuntime?.recipesGui?.showTypes(
@@ -252,7 +254,8 @@ class CookingPotScreen(
     ) {
         val progressX = leftPos + 96
         val progressY = topPos + 39
-        if (mouseX >= progressX && mouseX < progressX + COOK_PROGRESS_WIDTH &&
+        if (Cobblemon.implementation.isModInstalled("jei") &&
+            mouseX >= progressX && mouseX < progressX + COOK_PROGRESS_WIDTH &&
             mouseY >= progressY && mouseY < progressY + COOK_PROGRESS_HEIGHT
         ) {
             guiGraphics.renderTooltip(
