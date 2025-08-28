@@ -46,6 +46,7 @@
 - Berries can now be smelted into their respective dyes.
 - Added Syrupy Apples.
 - Added `/runmolang <molang> [<npc>|<player>|<pokemon>]` command that executes a MoLang expression with the provided options as environment variables, as well as the entity (as `q.entity`) that executed the command.
+- Added a new gamerule, 'healerHealsPC', when set to true a successful use of a healer will also heal all of the Pokemon in that player's PC.
 
 ### Pokémon Added
 
@@ -76,8 +77,7 @@
 - Glalie
 - Latias
 - Latios
-- Swablu
-- Altaria
+
 
 #### Gen 4
 - Bronzor
@@ -214,6 +214,13 @@
 - Porygon
 - Porygon2
 - Porygon-Z
+- Wattrel
+- Kilowattrel
+- Golurk
+- Spinarak
+- Ariados
+- Wyrdeer
+- Tyrantrum
 
 ### Model updates for the following Pokémon
 - Gyarados
@@ -276,6 +283,8 @@
 - Klink
 - Klank
 - Klinklang
+- Spinarak
+- Ariados
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
