@@ -46,6 +46,7 @@
 - Berries can now be smelted into their respective dyes.
 - Added Syrupy Apples.
 - Added `/runmolang <molang> [<npc>|<player>|<pokemon>]` command that executes a MoLang expression with the provided options as environment variables, as well as the entity (as `q.entity`) that executed the command.
+- Added a new gamerule, 'healerHealsPC', when set to true a successful use of a healer will also heal all of the Pokemon in that player's PC.
 
 ### Pokémon Added
 
@@ -420,6 +421,9 @@
 - Fixed a vulnerability that could cause party and PC rollbacks under specific circumstances.
 - Fixed a rare edge case where sorting your PC could be rolled back later.
 - Fixed BotanyPots built-in integration
+- Fixed shading of berries on berry trees.
+- Fixed Cobblemon brewing recipes placing result into all slots, and not just slots with correct ingredients inside the brewing stand.
+- Fixed an issue where hoppers and brewing stands were not recognizing Cobblemon brewing recipes.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -514,6 +518,7 @@
 - Added `is_included`, `to_lower`, `to_upper`, and `string_length` as available Molang functions.
 - Fixed a crash that would occur during battles if the opponent wild Pokémon species comes from a namespace other than cobblemon
 - Fixed `clientActions` inside Dialogue pages being executed twice
+- Fixed `background` field and added `textColor` field for dialogues.
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)
 
