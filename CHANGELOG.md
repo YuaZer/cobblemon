@@ -220,6 +220,9 @@
 - Ariados
 - Wyrdeer
 - Tyrantrum
+- Pidove
+- Tranquill
+- Unfezant
 
 ### Model updates for the following Pokémon
 - Gyarados

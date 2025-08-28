@@ -76,11 +76,7 @@
       "condition": "q.is_sprinting",
       "animations": [
         "q.look('head_ai')",
-        "q.bedrock('unfezant_female', 'ground_run')",
-        {
-          "condition": "q.is_ridden",
-          "animation": "q.bedrock('unfezant_female', 'ride_ground_run')"
-        }
+        "q.bedrock('unfezant_female', 'ground_run')"
       ],
       "quirks": ["q.bedrock_quirk('unfezant_female', 'blink')"],
       "transformedParts": [
@@ -130,49 +126,11 @@
     },
     "fly": {
       "poseTypes": ["FLY"],
-      "condition": "!q.is_gliding",
       "animations": [
         "q.look('head_ai')",
-        "q.bedrock('unfezant_female', 'air_fly')",
-        {
-          "condition": "q.is_ridden",
-          "animation": "q.bedrock('unfezant_female', 'ride_air_fly')"
-        }
+        "q.bedrock('unfezant_female', 'air_fly')"
       ],
       "quirks": ["q.bedrock_quirk('unfezant_female', 'blink')"],
-      "transformedParts": [
-        {
-          "part": "wing_open_right",
-          "isVisible": true
-        },
-        {
-          "part": "wing_open_left",
-          "isVisible": true
-        },
-        {
-          "part": "wing_closed_right",
-          "isVisible": false
-        },
-        {
-          "part": "wing_closed_left",
-          "isVisible": false
-        }
-      ]
-    },
-    "glide": {
-      "poseTypes": ["FLY"],
-      "condition": "q.is_gliding",
-      "animations": [
-        "q.look('head_ai')",
-        "q.bedrock('unfezant_female', 'air_glide')",
-        "q.bedrock('unfezant_female', 'ride_dive')",
-        {
-          "condition": "q.is_ridden",
-          "animation": "q.bedrock('unfezant_female', 'ride_air_glide')"
-        }
-      ],
-      "quirks": ["q.bedrock_quirk('unfezant_female', 'blink')"
-      ],
       "transformedParts": [
         {
           "part": "wing_open_right",

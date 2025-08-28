@@ -76,6 +76,7 @@
        "animations": [
         "q.look('head')", 
         "q.bedrock('tropius', 'air_glide')",
+         "q.bedrock('tropius', 'ride_dive')",
         {
           "condition": "q.is_ridden",
           "animation": "q.bedrock('tropius', 'ride_air_glide')"
