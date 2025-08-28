@@ -2076,7 +2076,7 @@
         }
       },
       "timeline": {
-        "0.5833": "q.has_entity ? { q.sound('animation.leather.wing_flap.medium'); };"
+        "0.4233": "q.has_entity ? { q.sound('animation.leather.wing_flap.medium'); };"
       }
     },
     "animation.noivern.air_fly": {
@@ -2266,7 +2266,7 @@
         }
       },
       "timeline": {
-        "0.5833": "q.has_entity ? { q.sound('animation.leather.wing_flap.medium'); };"
+        "0.4233": "q.has_entity ? { q.sound('animation.leather.wing_flap.medium'); };"
       }
     },
     "animation.noivern.air_glide": {
