@@ -50,7 +50,9 @@
       ],
       "quirks": [
         "q.bedrock_quirk('zebstrika', 'blink')"
-      ]
+      ],
+      "transformTicks": 2,
+      "transformToTicks": 2
     },
     "walking": {
       "poseTypes": ["WALK", "SWIM"],
