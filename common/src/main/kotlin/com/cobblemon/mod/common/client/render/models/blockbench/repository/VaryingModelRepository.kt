@@ -626,7 +626,6 @@ object VaryingModelRepository {
         inbuilt("rampardos", ::RampardosModel)
         inbuilt("basculegion", ::BasculegionModel)
         inbuilt("tyrunt", ::TyruntModel)
-        inbuilt("tyrantrum", ::TyrantrumModel)
         inbuilt("anorith", ::AnorithModel)
         inbuilt("armaldo", ::ArmaldoModel)
         inbuilt("archen", ::ArchenModel)

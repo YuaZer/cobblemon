@@ -219,6 +219,7 @@
 - Spinarak
 - Ariados
 - Wyrdeer
+- Tyrantrum
 
 ### Model updates for the following Pokémon
 - Gyarados
