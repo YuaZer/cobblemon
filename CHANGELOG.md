@@ -62,6 +62,8 @@
 - Unown
 - Houndour
 - Houndoom
+- Ho-Oh
+- Lugia
 
 #### Gen 3
 - Azurill
@@ -77,7 +79,6 @@
 - Glalie
 - Latias
 - Latios
-
 
 #### Gen 4
 - Bronzor
@@ -224,6 +225,9 @@
 - Pidove
 - Tranquill
 - Unfezant
+- Beldum
+- Metang
+- Metagross
 
 ### Model updates for the following Pokémon
 - Gyarados
