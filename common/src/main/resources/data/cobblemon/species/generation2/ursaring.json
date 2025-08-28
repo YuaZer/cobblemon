@@ -48,6 +48,17 @@
     "height": 2.14,
     "fixed": false
   },
+  "behaviour": {
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
+    },
+    "moving": {
+      "walk": {
+        "walkSpeed": 0.3
+      }
+    }
+  },
   "drops": {
     "amount": 7,
     "entries": [
@@ -256,10 +267,5 @@
       ],
       "requiredContext": "cobblemon:peat_block"
     }
-  ],
-  "behaviour": {
-    "herd": {
-      "maxSize": "3"
-    }
-  }
+  ]
 }
