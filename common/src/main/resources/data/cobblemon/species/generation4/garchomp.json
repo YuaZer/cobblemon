@@ -55,7 +55,7 @@
       "AIR": {
         "speed": "Math.clamp(q.entity.velocity.horizontal_magnitude + 0.33, 0, 1)",
         "key": "cobblemon:air/jet",
-        "ridingSounds": [],
+        "rideSounds": [],
         "gravity": "q.gravity * (0.1 + (q.passenger_count - 1) * 0.1)",
         "jumpVector": [
           0,
@@ -73,7 +73,7 @@
       "LAND": {
         "speed": "Math.clamp(q.entity.velocity.horizontal_magnitude + 0.33, 0, 1)",
         "key": "cobblemon:land/horse",
-        "ridingSounds": [],
+        "rideSounds": [],
         "gravity": "q.gravity * (0.1 + (q.passenger_count - 1) * 0.1)",
         "jumpVector": [
           0,
@@ -90,7 +90,7 @@
       },
       "LIQUID": {
         "key": "cobblemon:liquid/boat",
-        "ridingSounds": [],
+        "rideSounds": [],
         "stats": {
           "ACCELERATION": "0-20",
           "JUMP": "41-60",

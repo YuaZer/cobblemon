@@ -299,7 +299,7 @@
   [map species-data behaviour sounds]
   (let [behaviour-sounds (get-in sounds [(name behaviour) [(:species species-data) (or (:form species-data) "Normal")]])
         behaviour-data (get species-data behaviour)
-        behaviour-json (behaviour->json behaviour-data {:ridingSounds behaviour-sounds})]
+        behaviour-json (behaviour->json behaviour-data {:rideSounds behaviour-sounds})]
     (if (and behaviour-data behaviour-json)
       (assoc map (keyword (upper-case (name behaviour))) behaviour-json)
       map)))
@@ -418,8 +418,8 @@
           (fn [b-behaviours]
             (reduce-kv
               (fn [acc k b-entry]
-                (let [a-sounds (get-in a [:behaviours k :ridingSounds])
-                      b-sounds (:ridingSounds b-entry)]
+                (let [a-sounds (get-in a [:behaviours k :rideSounds])
+                      b-sounds (:rideSounds b-entry)]
                   (if (seq b-sounds)
                     (let [a-by-loc (into {} (map (juxt :soundLocation identity) a-sounds))
                           b-by-loc (into {} (map (juxt :soundLocation identity) b-sounds))
@@ -427,7 +427,7 @@
                           merged   (concat
                                      (vals (select-keys a-by-loc (keys b-by-loc))) ; from A
                                      (vals (apply dissoc b-by-loc (keys a-by-loc))))] ; only B
-                      (assoc-in acc [k :ridingSounds] (vec merged)))
+                      (assoc-in acc [k :rideSounds] (vec merged)))
                     ;; if B has no sounds, just skip
                     (assoc acc k b-entry))))
               {}
@@ -451,7 +451,7 @@
   [:implemented :nationalPokedexNumber :name :primaryType :secondaryType :maleRatio :height :weight
    :pokedex :labels :aspects :abilities :eggGroups :baseStats :evYield :baseExperienceYield :experienceGroup :catchRate
    :eggCycles :baseFriendship :baseScale :hitbox :riding :behaviour :drops :moves :preEvolution :evolutions
-   :forms :hp :attack :defence :special_attack :special_defence :speed :key :ridingSounds])
+   :forms :hp :attack :defence :special_attack :special_defence :speed :key :rideSounds])
 
 (defn key-comparator
   "Create a comparator for map keys using a preferred order.

@@ -53,7 +53,7 @@
     "behaviours": {
       "LIQUID": {
         "key": "cobblemon:liquid/boat",
-        "ridingSounds": [],
+        "rideSounds": [],
         "stats": {
           "ACCELERATION": "21-40",
           "JUMP": "41-60",

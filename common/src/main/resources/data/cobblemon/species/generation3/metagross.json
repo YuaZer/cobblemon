@@ -53,7 +53,7 @@
     "behaviours": {
       "AIR": {
         "key": "cobblemon:air/hover",
-        "ridingSounds": [],
+        "rideSounds": [],
         "stats": {
           "ACCELERATION": "41-60",
           "JUMP": "41-60",
@@ -64,7 +64,7 @@
       },
       "LAND": {
         "key": "cobblemon:land/horse",
-        "ridingSounds": [],
+        "rideSounds": [],
         "stats": {
           "ACCELERATION": "21-40",
           "JUMP": "41-60",
