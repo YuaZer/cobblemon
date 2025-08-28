@@ -6,7 +6,6 @@
   "animations": {
     "cry": "q.bedrock_stateful('blitzle', 'cry')",
     "recoil": "q.bedrock_stateful('blitzle', 'recoil')"
-
   },
   "poses": {
     "battle-standing": {
@@ -48,6 +47,12 @@
         "q.bedrock('blitzle', 'ground_walk')"
       ],
       "quirks": ["q.bedrock_quirk('blitzle', 'blink')"]
+    },
+    "sleeping": {
+      "poseTypes": ["SLEEP"],
+      "animations": [
+        "q.bedrock('blitzle', 'sleep')"
+      ]
     }
   }
 }

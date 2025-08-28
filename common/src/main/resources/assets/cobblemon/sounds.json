@@ -6419,6 +6419,9 @@
   "pokemon.braviary.cry": {
     "sounds": [ { "name": "cobblemon:pokemon/braviary/braviary_cry", "volume": 0.8 } ]
   },
+  "pokemon.braviary_hisuian.cry": {
+    "sounds": [ { "name": "cobblemon:pokemon/braviary/braviary_hisuian_cry", "volume": 0.8 } ]
+  },
   "pokemon.vullaby.cry": {
     "sounds": [ { "name": "cobblemon:pokemon/vullaby/vullaby_cry", "volume": 0.8 } ]
   },
