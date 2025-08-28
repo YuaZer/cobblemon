@@ -80,15 +80,15 @@ fun ServerLevel.isBoxLoaded(box: AABB): Boolean {
 }
 
 fun AABB.getRanges(): Triple<IntRange, IntRange, IntRange> {
-        val minX = floor(this.minX)
-        val minY = floor(this.minY)
-        val minZ = floor(this.minZ)
+    val minX = floor(this.minX)
+    val minY = floor(this.minY)
+    val minZ = floor(this.minZ)
 
-        // +1 then floor, because max is exclusive in double space
-        val maxX = floor(this.maxX + 1.0) - 1
-        val maxY = floor(this.maxY + 1.0) - 1
-        val maxZ = floor(this.maxZ + 1.0) - 1
-        return Triple(minX..maxX, minY..maxY, minZ..maxZ)
+    val maxX = floor(this.maxX)
+    val maxY = floor(this.maxY)
+    val maxZ = floor(this.maxZ)
+
+    return Triple(minX..maxX, minY..maxY, minZ..maxZ)
 }
 
 fun BlockGetter.doForAllBlocksIn(box: AABB, action: (BlockState, BlockPos) -> Unit) {
