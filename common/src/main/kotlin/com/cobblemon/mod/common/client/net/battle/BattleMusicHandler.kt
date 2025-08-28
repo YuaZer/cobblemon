@@ -34,9 +34,7 @@ object BattleMusicHandler : ClientNetworkPacketHandler<BattleMusicPacket> {
 
         if (newMusic?.location == currMusic.location && soundManager.isActive(currMusic) && !currMusic.isFading()) {
             return
-        }
-
-        when {
+        } else when {
             newMusic == null -> BattleMusicController.endMusic()
             !soundManager.isActive(currMusic) || currMusic.isFading() -> BattleMusicController.initializeMusic(newMusic)
             else -> BattleMusicController.switchMusic(newMusic)

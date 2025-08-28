@@ -31,7 +31,7 @@ class BattleMusicPacket(var music: ResourceLocation? = null, var volume: Float =
     companion object {
         val ID = cobblemonResource("battle_music")
         fun decode(buffer: RegistryFriendlyByteBuf) = BattleMusicPacket(
-            music = if (buffer.readBoolean()) buffer.readIdentifier() else null,
+            music = buffer.readNullable { it.readIdentifier() },
             volume = buffer.readFloat(),
             pitch = buffer.readFloat()
         )
@@ -40,11 +40,7 @@ class BattleMusicPacket(var music: ResourceLocation? = null, var volume: Float =
     override val id = ID
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
-        val hasMusic = music != null
-        buffer.writeBoolean(hasMusic)
-        if (hasMusic) {
-            buffer.writeIdentifier(music!!)
-        }
+        buffer.writeNullable(music) { buf, value -> buf.writeIdentifier(value) }
         buffer.writeFloat(volume)
         buffer.writeFloat(pitch)
     }

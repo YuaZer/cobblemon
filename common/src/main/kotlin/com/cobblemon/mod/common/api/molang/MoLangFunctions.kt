@@ -1690,8 +1690,6 @@ object MoLangFunctions {
                 val prevolution = pokemon.species.preEvolution ?: return@put DoubleValue.ZERO
                 return@put prevolution
             }
-            TODO("Make is_rideable actually work")
-            map.put("is_rideable") { DoubleValue(pokemon is PlayerRideable) }
             map.put("nature") { StringValue(pokemon.nature.toString()) }
             map.put("is_wild") { DoubleValue(pokemon.entity?.let { it.ownerUUID == null } == true) }
             map.put("is_shiny") { DoubleValue(pokemon.shiny) }
