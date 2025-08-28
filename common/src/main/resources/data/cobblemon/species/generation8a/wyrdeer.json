@@ -45,18 +45,107 @@
   "baseFriendship": 50,
   "baseScale": 1.4,
   "hitbox": {
-    "width": 1.2,
     "height": 1.8,
-    "fixed": false
+    "fixed": false,
+    "width": 1.2
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "41-60",
+          "JUMP": "41-60",
+          "SKILL": "41-60",
+          "SPEED": "21-40",
+          "STAMINA": "61-80"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.0543863,
+              "z": 0.007932731
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.0543863,
+              "z": 0.007932731
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.0543863,
+              "z": 0.007932731
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.0543863,
+              "z": 0.007932731
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.0543863,
+              "z": 0.007932731
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.0543863,
+              "z": 0.007932731
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.0543863,
+              "z": 0.007932731
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
-    "walking":{
-      "walkSpeed": 0.24
-    },
-    "resting": {
-      "canSleep": true,
-      "light": "0-4"
-    },
     "herd": {
       "maxSize": "9",
       "toleratedLeaders": [
@@ -65,30 +154,14 @@
           "tier": 1
         }
       ]
-    }
-  },
-    "riding": {
-    "behaviours": {
-      "LAND": {
-        "key": "cobblemon:land/horse",
-        "stats": {
-          "SPEED": "20-70",
-          "ACCELERATION": "90-100",
-          "SKILL": "40-60",
-          "JUMP": "10-30",
-          "STAMINA": "50-70"
-        }
-      }
     },
-    "seats": [
-      {
-        "offset": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        }
-      }
-    ]
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
+    },
+    "walking": {
+      "walkSpeed": 0.24
+    }
   },
   "drops": {
     "amount": 3,
