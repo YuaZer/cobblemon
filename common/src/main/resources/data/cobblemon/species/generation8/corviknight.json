@@ -45,20 +45,118 @@
   "baseFriendship": 50,
   "baseScale": 1.1,
   "hitbox": {
-    "width": 2,
     "height": 4.4,
-    "fixed": false
+    "fixed": false,
+    "width": 2
   },
-  "behaviour": {
-    "moving": {
-      "fly": {
-        "canFly": true
+  "riding": {
+    "behaviours": {
+      "AIR": {
+        "key": "cobblemon:air/bird",
+        "ridingSounds": [],
+        "stats": {
+          "ACCELERATION": "41-60",
+          "JUMP": "21-40",
+          "SKILL": "0-20",
+          "SPEED": "21-40",
+          "STAMINA": "21-40"
+        }
+      },
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "ridingSounds": [],
+        "stats": {
+          "ACCELERATION": "21-40",
+          "JUMP": "21-40",
+          "SKILL": "0-20",
+          "SPEED": "21-40",
+          "STAMINA": "41-60"
+        }
       }
     },
-    "resting": {
-      "canSleep": true,
-      "light": "0-4"
-    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -3.1571226,
+              "z": 0.38510963
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -3.1571226,
+              "z": 0.38510963
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -3.1571226,
+              "z": 0.38510963
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -3.1571226,
+              "z": 0.38510963
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -3.1571226,
+              "z": 0.38510963
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -3.1571226,
+              "z": 0.38510963
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -3.1571226,
+              "z": 0.38510963
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "behaviour": {
     "herd": {
       "maxSize": "9",
       "toleratedLeaders": [
@@ -67,6 +165,15 @@
           "tier": 1
         }
       ]
+    },
+    "moving": {
+      "fly": {
+        "canFly": true
+      }
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
     }
   },
   "drops": {
@@ -215,47 +322,9 @@
       "aspects": [
         "gmax"
       ],
-      "dynamaxBlocked": true,
       "evolutions": [],
-      "battleOnly": true
+      "battleOnly": true,
+      "dynamaxBlocked": true
     }
-  ],
-  "riding": {
-    "stats": {
-      "SPEED": {
-        "ranges": {
-          "LAND": "5-15",
-          "AIR": "35-65"
-        }
-      },
-      "ACCELERATION": {
-        "ranges": {
-          "LAND": "10-100",
-          "AIR": "20-50"
-        }
-      },
-      "SKILL": {
-        "ranges": {
-          "LAND": "40-85",
-          "AIR": "25-50"
-        }
-      },
-      "JUMP": {
-        "ranges": {
-          "LAND": "20-55",
-          "AIR": "30-60"
-        }
-      },
-      "STAMINA": {
-        "ranges": {
-          "LAND": "55-85",
-          "AIR": "55-85"
-        }
-      }
-    },
-    "seats": [],
-    "behaviour": {
-      "key": "cobblemon:land/horse"
-    }
-  }
+  ]
 }
