@@ -212,7 +212,7 @@
     },
     "moving": {
       "canWalk": true,
-      "walkSpeed": 0.7
+      "walkSpeed": 0.9
     },
     "herd": {
       "maxSize": "9",

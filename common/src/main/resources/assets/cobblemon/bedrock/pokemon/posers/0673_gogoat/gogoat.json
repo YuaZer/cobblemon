@@ -4,6 +4,9 @@
   "profileScale": 0.55,
   "profileTranslation": [ 0, 0.96, 0],
   "rootBone": "gogoat",
+  "firstPersonCameraOffset": {
+    "seat_1": [0, 0.35, 0]
+  },
   "animations": {
     "cry": "q.bedrock_stateful('gogoat', 'cry')"
   },
