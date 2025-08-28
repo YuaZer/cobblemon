@@ -12,7 +12,11 @@
     "standing": {
       "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
       "isBattle": false,
-      "animations": ["q.look('head_ai')", "q.bedrock('braviary', 'ground_idle')"],
+      "animations": [
+        "q.look('neck1', 1, 1, 50, -10, 20, -20)",
+        "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
+        "q.bedrock('braviary', 'ground_idle')"
+      ],
       "transformTicks": 10,
       "quirks": ["q.bedrock_quirk('braviary', 'blink')"]
     },
@@ -65,12 +69,10 @@
         "q.look('neck1', 1, 1, 50, -10, 20, -20)",
         "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
         "q.bedrock('braviary', 'air_glide')",
+        "q.bedrock('braviary', 'ride_air_dive')",
         {
           "condition": "q.is_ridden && q.has_entity",
-          "animations": [
-            "q.bedrock('braviary', 'ride_air_glide')",
-            "q.bedrock('braviary', 'ride_air_dive')"
-          ]
+          "animation": "q.bedrock('braviary', 'ride_air_glide')"
         }
       ],
       "transformTicks": 10,
