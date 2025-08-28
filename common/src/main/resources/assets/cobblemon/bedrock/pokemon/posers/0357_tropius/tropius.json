@@ -59,7 +59,11 @@
        "poseTypes": ["FLY"],
        "condition": "!q.is_gliding",
        "animations": [
-         "q.bedrock('tropius', 'air_fly')"
+         "q.bedrock('tropius', 'air_fly')",
+        {
+          "condition": "q.is_ridden",
+          "animation": "q.bedrock('tropius', 'ride_air_fly')"
+        }
        ],
        "quirks": [
          "q.bedrock_quirk('tropius', 'blink', 8, 20, 1)",
@@ -71,7 +75,11 @@
        "condition": "q.is_gliding",
        "animations": [
         "q.look('head')", 
-        "q.bedrock('tropius', 'air_glide')"
+        "q.bedrock('tropius', 'air_glide')",
+        {
+          "condition": "q.is_ridden",
+          "animation": "q.bedrock('tropius', 'ride_air_glide')"
+        }
       ],
        "quirks": [
          "q.bedrock_quirk('charizard', 'blink')"
@@ -90,6 +98,16 @@
      },
      "walking": {
        "poseTypes": ["WALK", "SWIM"],
+       "condition": "!q.is_sprinting",
+       "animations": [
+         "q.look('head')",
+         "q.bedrock('tropius', 'ground_walk')"
+       ],
+       "quirks": ["q.bedrock_quirk('tropius', 'blink', 8, 20, 1)"]
+     },
+     "running": {
+       "poseTypes": ["WALK"],
+       "condition": "q.is_sprinting",
        "animations": [
          "q.look('head')",
          "q.bedrock('tropius', 'ground_walk')"

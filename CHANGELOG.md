@@ -77,8 +77,7 @@
 - Glalie
 - Latias
 - Latios
-- Swablu
-- Altaria
+
 
 #### Gen 4
 - Bronzor
@@ -215,6 +214,13 @@
 - Porygon
 - Porygon2
 - Porygon-Z
+- Wattrel
+- Kilowattrel
+- Golurk
+- Spinarak
+- Ariados
+- Wyrdeer
+- Tyrantrum
 
 ### Model updates for the following Pokémon
 - Gyarados
@@ -277,6 +283,8 @@
 - Klink
 - Klank
 - Klinklang
+- Spinarak
+- Ariados
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked

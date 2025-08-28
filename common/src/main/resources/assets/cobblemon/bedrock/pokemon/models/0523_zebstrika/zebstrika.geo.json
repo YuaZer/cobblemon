@@ -67,6 +67,14 @@
 					]
 				},
 				{
+					"name": "locator_seat_1",
+					"parent": "torso",
+					"pivot": [0, 25, 2],
+					"locators": {
+						"seat_1": [0, 25, 2]
+					}
+				},
+				{
 					"name": "tail",
 					"parent": "torso",
 					"pivot": [0, 21.5, 9.5],
@@ -522,7 +530,7 @@
 				},
 				{
 					"name": "leg_front_right3",
-					"parent": "leg_front_right",
+					"parent": "leg_front_right2",
 					"pivot": [-3.5, 10, -10],
 					"cubes": [
 						{"origin": [-4.5, 2, -9.5], "size": [2, 8, 2], "inflate": -0.01, "uv": [44, 54]}
