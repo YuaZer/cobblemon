@@ -13,8 +13,9 @@
       "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
       "isBattle": false,
       "animations": [
-        "q.look('neck', 1, 1, 50, -10, 20, -20)",
-        "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
+        "q.look('neck', 1, 1, 3, -20, 10, -10)",
+        "q.look('neck2', 1, 1, 1, -35, 15, -15)",
+        "q.look('head_ai', 1, 1, 50, 0, 25, -25)",
         "q.bedrock('braviary_hisuian', 'ground_idle')"
       ],
       "transformTicks": 10,
@@ -23,7 +24,8 @@
     "walking": {
       "poseTypes": ["WALK", "SWIM"],
       "animations": [
-        "q.look('neck', 1, 1, 50, -10, 20, -20)",
+        "q.look('neck', 1, 1, 3, -20, 10, -10)",
+        "q.look('neck2', 1, 1, 1, -35, 15, -15)",
         "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
         "q.bedrock('braviary_hisuian', 'ground_walk')",
         {
@@ -38,7 +40,8 @@
       "poseTypes": ["HOVER"],
       "animations": [
         "q.pitch_tilt('body', 1)",
-        "q.look('neck', 1, 1, 50, -10, 20, -20)",
+        "q.look('neck', 1, 1, 3, -20, 10, -10)",
+        "q.look('neck2', 1, 1, 1, -35, 15, -15)",
         "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
         "q.bedrock('braviary_hisuian', 'air_idle')"
       ],
@@ -50,7 +53,8 @@
       "condition": "!q.is_gliding",
       "animations": [
         "q.pitch_tilt('body', 1)",
-        "q.look('neck', 1, 1, 50, -10, 20, -20)",
+        "q.look('neck', 1, 1, 3, -20, 10, -10)",
+        "q.look('neck2', 1, 1, 1, -35, 15, -15)",
         "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
         "q.bedrock('braviary_hisuian', 'air_fly')",
         {
@@ -66,7 +70,8 @@
       "condition": "q.is_gliding",
       "animations": [
         "q.pitch_tilt('body', 1)",
-        "q.look('neck', 1, 1, 50, -10, 20, -20)",
+        "q.look('neck', 1, 1, 3, -20, 10, -10)",
+        "q.look('neck2', 1, 1, 1, -35, 15, -15)",
         "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
         "q.bedrock('braviary_hisuian', 'air_glide')",
         "q.bedrock('braviary', 'ride_air_dive')",

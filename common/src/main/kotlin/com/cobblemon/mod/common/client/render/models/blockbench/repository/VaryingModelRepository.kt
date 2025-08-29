@@ -608,7 +608,6 @@ object VaryingModelRepository {
         inbuilt("gimmighoulchest", ::GimmighoulChestModel)
         inbuilt("gholdengo", ::GholdengoModel)
         inbuilt("drifloon", ::DrifloonModel)
-        inbuilt("drifblim", ::DrifblimModel)
         inbuilt("lileep", ::LileepModel)
         inbuilt("cradily", ::CradilyModel)
         inbuilt("tirtouga", ::TirtougaModel)

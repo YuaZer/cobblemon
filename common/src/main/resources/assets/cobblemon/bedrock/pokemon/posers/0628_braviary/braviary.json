@@ -13,8 +13,9 @@
       "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
       "isBattle": false,
       "animations": [
-        "q.look('neck1', 1, 1, 50, -10, 20, -20)",
-        "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
+        "q.look('neck1', 1, 1, 5, -5, 10, -10)",
+        "q.look('neck2', 1, 1, 35, -10, 15, -15)",
+        "q.look('head_ai', 1, 1, 50, -30, 25, -25)",
         "q.bedrock('braviary', 'ground_idle')"
       ],
       "transformTicks": 10,
@@ -23,8 +24,9 @@
     "walking": {
       "poseTypes": ["WALK", "SWIM"],
       "animations": [
-        "q.look('neck1', 1, 1, 50, -10, 20, -20)",
-        "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
+        "q.look('neck1', 1, 1, 5, -5, 10, -10)",
+        "q.look('neck2', 1, 1, 35, -10, 15, -15)",
+        "q.look('head_ai', 1, 1, 50, -30, 25, -25)",
         "q.bedrock('braviary', 'ground_walk')",
         {
           "condition": "q.is_ridden && q.has_entity",
@@ -38,8 +40,9 @@
       "poseTypes": ["HOVER"],
       "animations": [
         "q.pitch_tilt('body', 1)",
-        "q.look('neck1', 1, 1, 50, -10, 20, -20)",
-        "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
+        "q.look('neck1', 1, 1, 5, -5, 10, -10)",
+        "q.look('neck2', 1, 1, 35, -10, 15, -15)",
+        "q.look('head_ai', 1, 1, 50, -30, 25, -25)",
         "q.bedrock('braviary', 'air_idle')"
       ],
       "transformTicks": 10,
@@ -50,8 +53,9 @@
       "condition": "!q.is_gliding",
       "animations": [
         "q.pitch_tilt('body', 1)",
-        "q.look('neck1', 1, 1, 50, -10, 20, -20)",
-        "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
+        "q.look('neck1', 1, 1, 5, -5, 10, -10)",
+        "q.look('neck2', 1, 1, 35, -10, 15, -15)",
+        "q.look('head_ai', 1, 1, 50, -30, 25, -25)",
         "q.bedrock('braviary', 'air_fly')",
         {
           "condition": "q.is_ridden && q.has_entity",
@@ -66,8 +70,9 @@
       "condition": "q.is_gliding",
       "animations": [
         "q.pitch_tilt('body', 1)",
-        "q.look('neck1', 1, 1, 50, -10, 20, -20)",
-        "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
+        "q.look('neck1', 1, 1, 5, -5, 10, -10)",
+        "q.look('neck2', 1, 1, 35, -10, 15, -15)",
+        "q.look('head_ai', 1, 1, 50, -30, 25, -25)",
         "q.bedrock('braviary', 'air_glide')",
         "q.bedrock('braviary', 'ride_air_dive')",
         {
