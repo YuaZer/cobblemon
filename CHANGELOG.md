@@ -229,6 +229,8 @@
 - Metagross
 - Plusle
 - Minun
+- Murkrow
+- Honchkrow
 
 ### Model updates for the following Pokémon
 - Gyarados
@@ -301,6 +303,7 @@
 - Inteleon
 - Plusle
 - Minun
+- Murkrow
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
