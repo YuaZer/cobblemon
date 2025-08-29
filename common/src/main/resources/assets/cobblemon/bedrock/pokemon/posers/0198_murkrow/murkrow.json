@@ -13,14 +13,6 @@
       "poseTypes": [
         "SLEEP"
       ],
-      "transformedParts": [
-        {
-          "part": "wings_open",
-          "position": [0, 0, 0],
-          "rotation": [0, 0, 0],
-          "isVisible": false
-        }
-      ],
       "animations": [
         "q.bedrock('murkrow', 'sleep')",
         {
@@ -32,14 +24,6 @@
     "standing": {
       "poseName": "standing",
       "poseTypes": [ "STAND", "PORTRAIT", "PROFILE", "NONE" ],
-      "transformedParts": [
-        {
-          "part": "wings_open",
-          "position": [0, 0, 0],
-          "rotation": [0, 0, 0],
-          "isVisible": false
-        }
-      ],
       "animations": [
         "q.look('head_ai')",
         "q.bedrock('murkrow', 'ground_idle')",
@@ -57,14 +41,6 @@
       "poseTypes": [
         "WALK"
       ],
-      "transformedParts": [
-        {
-          "part": "wings_open",
-          "position": [0, 0, 0],
-          "rotation": [0, 0, 0],
-          "isVisible": false
-        }
-      ],
       "animations": [
         "q.look('head_ai')",
         "q.bedrock('murkrow', 'ground_walk')",
@@ -81,14 +57,6 @@
       "poseName": "hover",
       "poseTypes": [
         "HOVER"
-      ],
-      "transformedParts": [
-        {
-          "part": "wings_closed",
-          "position": [0, 0, 0],
-          "rotation": [0, 0, 0],
-          "isVisible": false
-        }
       ],
       "animations": [
         "q.look('head_ai')",
@@ -108,14 +76,6 @@
       "poseTypes": [
         "FLY"
       ],
-      "transformedParts": [
-        {
-          "part": "wings_closed",
-          "position": [0, 0, 0],
-          "rotation": [0, 0, 0],
-          "isVisible": false
-        }
-      ],
       "animations": [
         "q.look('head_ai')",
         "q.bedrock('murkrow', 'air_fly')",
@@ -134,14 +94,6 @@
       "poseTypes": [
         "SHOULDER_LEFT"
       ],
-      "transformedParts": [
-        {
-          "part": "wings_open",
-          "position": [0, 0, 0],
-          "rotation": [0, 0, 0],
-          "isVisible": false
-        }
-      ],
       "animations": [
         "q.look('head_ai')",
         "q.bedrock('murkrow', 'ground_idle')",
@@ -158,14 +110,6 @@
       "poseName": "shoulder_right",
       "poseTypes": [
         "SHOULDER_RIGHT"
-      ],
-      "transformedParts": [
-        {
-          "part": "wings_open",
-          "position": [0, 0, 0],
-          "rotation": [0, 0, 0],
-          "isVisible": false
-        }
       ],
       "animations": [
         "q.look('head_ai')",
