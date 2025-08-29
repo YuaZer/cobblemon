@@ -231,6 +231,8 @@
 - Minun
 - Murkrow
 - Honchkrow
+- Larvesta
+- Volcarona
 
 ### Model updates for the following Pokémon
 - Gyarados
