@@ -2,8 +2,11 @@
   "portraitScale": 0.9,
   "portraitTranslation": [-0.35, 1.8, 0],
   "profileScale": 0.4,
-  "profileTranslation": [0, 1.1, 0],
+  "profileTranslation": [0, 1.2, 0],
   "rootBone": "drifblim",
+  "firstPersonCameraOffset": {
+    "seat_1": [0, 0.25, 0]
+  },
   "animations": {
     "faint": "q.bedrock_primary('drifblim', 'faint', q.curve('one'))",
     "cry": "q.bedrock_stateful('drifblim', 'cry')"
@@ -11,16 +14,17 @@
   "poses": {
     "portrait": {
       "poseTypes": ["PORTRAIT", "PROFILE"],
+      "condition": "!q.is_ridden",
       "isBattle": false,
-      "animations": ["q.look('head')", "q.bedrock('drifblim', 'ground_idle')"],
+      "animations": ["q.look('waist_rotation', O.5, 0.5)", "q.bedrock('drifblim', 'ground_idle')"],
       "quirks": ["q.bedrock_quirk('drifblim', 'blink')"]
     },
     "hover": {
-      "poseTypes": ["HOVER", "STAND", "FLOAT", "NONE", "PORTRAIT", "PROFILE"],
+      "poseTypes": ["HOVER", "STAND", "FLOAT", "NONE"],
       "transformTicks": 10,
       "condition": "!q.is_ridden",
       "animations": [
-        "q.look('waist_rotation', 0.5, 0.25)",
+        "q.look('waist_rotation', 0.5, 0.5)",
         "q.bedrock('drifblim', 'air_idle')"
       ],
       "quirks": ["q.bedrock_quirk('drifblim', 'blink')"]
@@ -30,20 +34,18 @@
       "transformTicks": 10,
       "condition": "!q.is_ridden",
       "animations": [
-        "q.look('waist_rotation', 0.5, 0.25)",
+        "q.look('waist_rotation', 0.5, 0.5)",
         "q.bedrock('drifblim', 'air_fly')"
       ],
       "quirks": ["q.bedrock_quirk('drifblim', 'blink')"]
     },
     "ride-fly": {
       "poseTypes": ["HOVER", "STAND", "FLOAT", "NONE", "FLY", "SWIM", "WALK"],
+      "condition": "q.is_ridden && q.has_entity",
       "transformTicks": 10,
       "animations": [
         "q.bedrock('drifblim', 'air_idle')",
-        {
-          "condition": "q.is_ridden && q.is_entity",
-          "animation": "q.bedrock('drifblim', 'ride_air_fly')"
-        }
+        "q.bedrock('drifblim', 'ride_air_fly')"
       ],
       "quirks": ["q.bedrock_quirk('drifblim', 'blink')"]
     },

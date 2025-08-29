@@ -21,14 +21,6 @@
 					"pivot": [0, 14, 0]
 				},
 				{
-					"name": "locator_seat_1",
-					"parent": "body",
-					"pivot": [0, 36, 0],
-					"locators": {
-						"seat_1": [0, 35.75, 8.5]
-					}
-				},
-				{
 					"name": "body_rotation",
 					"parent": "body",
 					"pivot": [0, 14, 0]
@@ -37,6 +29,14 @@
 					"name": "waist_rotation",
 					"parent": "body_rotation",
 					"pivot": [0, 8.5, 0]
+				},
+				{
+					"name": "locator_seat_1",
+					"parent": "waist_rotation",
+					"pivot": [0, 36, 0],
+					"locators": {
+						"seat_1": [0, 35.75, 8.5]
+					}
 				},
 				{
 					"name": "waist_scale",
