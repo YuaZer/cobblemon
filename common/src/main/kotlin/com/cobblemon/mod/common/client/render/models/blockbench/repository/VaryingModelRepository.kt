@@ -369,7 +369,6 @@ object VaryingModelRepository {
         inbuilt("natu", ::NatuModel)
         inbuilt("xatu", ::XatuModel)
         inbuilt("wailord", ::WailordModel)
-        inbuilt("murkrow", ::MurkrowModel)
         inbuilt("nacli", :: NacliModel)
         inbuilt("naclstack", :: NaclstackModel)
         inbuilt("garganacl", ::GarganaclModel)

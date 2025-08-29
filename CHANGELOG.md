@@ -228,6 +228,8 @@
 - Beldum
 - Metang
 - Metagross
+- Murkrow
+- Honchkrow
 
 ### Model updates for the following Pokémon
 - Gyarados
@@ -295,6 +297,7 @@
 - Pidove
 - Tranquill
 - Unfezant
+- Murkrow
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
