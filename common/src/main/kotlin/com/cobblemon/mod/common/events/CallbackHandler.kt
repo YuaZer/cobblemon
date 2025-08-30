@@ -77,7 +77,8 @@ object CallbackHandler {
         CobblemonEvents.POKEROD_REEL.subscribe { CobblemonCallbacks.run(cobblemonResource("pokerod_reel"), it.context, it.functions) }
         CobblemonEvents.BOBBER_SPAWN_POKEMON_PRE.subscribe { CobblemonCallbacks.run(cobblemonResource("bobber_spawn_pokemon_pre"), it.context, it.functions) }
         CobblemonEvents.BOBBER_SPAWN_POKEMON_POST.subscribe { CobblemonCallbacks.run(cobblemonResource("bobber_spawn_pokemon_post"), it.context) }
-        CobblemonEvents.TRADE_COMPLETED.subscribe { CobblemonCallbacks.run(cobblemonResource("trade_completed"), it.context) }
+        CobblemonEvents.TRADE_EVENT_PRE.subscribe { CobblemonCallbacks.run(cobblemonResource("trade_event_pre"), it.context, it.functions) }
+        CobblemonEvents.TRADE_EVENT_POST.subscribe { CobblemonCallbacks.run(cobblemonResource("trade_event_post"), it.context) }
         CobblemonEvents.WALLPAPER_UNLOCKED_EVENT.subscribe { CobblemonCallbacks.run(cobblemonResource("wallpaper_unlocked"), it.context, it.functions) }
         CobblemonEvents.CHANGE_PC_BOX_WALLPAPER_EVENT_PRE.subscribe { CobblemonCallbacks.run(cobblemonResource("change_pc_box_wallpaper_pre"), it.context, it.functions) }
         CobblemonEvents.CHANGE_PC_BOX_WALLPAPER_EVENT_POST.subscribe { CobblemonCallbacks.run(cobblemonResource("change_pc_box_wallpaper"), it.context) }
@@ -85,6 +86,8 @@ object CallbackHandler {
         CobblemonEvents.HATCH_EGG_PRE.subscribe { CobblemonCallbacks.run(cobblemonResource("hatch_egg_pre"), it.context, it.functions) }
         CobblemonEvents.HATCH_EGG_POST.subscribe { CobblemonCallbacks.run(cobblemonResource("hatch_egg_post"), it.context) }
         CobblemonEvents.SHOULDER_MOUNT.subscribe { CobblemonCallbacks.run(cobblemonResource("shoulder_mount"), it.context, it.functions) }
+        CobblemonEvents.POKEMON_RECALL_PRE.subscribe { CobblemonCallbacks.run(cobblemonResource("pokemon_recall_pre"), it.context, it.functions) }
+        CobblemonEvents.POKEMON_RECALL_POST.subscribe { CobblemonCallbacks.run(cobblemonResource("pokemon_recall_post"), it.context) }
 
         PlatformEvents.SERVER_PLAYER_LOGIN.subscribe(priority = Priority.LOW) { CobblemonCallbacks.run(cobblemonResource("player_logged_in"), it.context) }
         PlatformEvents.SERVER_PLAYER_LOGOUT.subscribe(priority = Priority.HIGH) { CobblemonCallbacks.run(cobblemonResource("player_logged_out"), it.context) }
