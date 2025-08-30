@@ -429,7 +429,7 @@
 - Fixed an issue where hoppers and brewing stands were not recognizing Cobblemon brewing recipes.
 - Fixed global species features... not working. Since they were created. Oops.
 - Fixed Pokémon with alternate forms being created with an incorrect 'forced' tag on their ability.
-- Fixed busted abilities in Pokémon data due to removed datapacks etc. causing storage corruption. It now just rerolls their ability.
+- Fixed busted abilities and moves in Pokémon data due to removed datapacks etc. causing storage corruption. It now just rerolls their ability / uses Tackle.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
