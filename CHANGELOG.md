@@ -338,7 +338,6 @@
 - Updated Pokémon state icons shown in party interfaces
 - MoLang `face` function can now be run on any `PosableEntity` (Like Pokémon!) instead of just NPCs.
 - MoLang `run_action_effect` now works on Pokémon.
-- Changed MoLang entity function `is_standing_on` to allow for block tags in the list.
 - Changed MoLang entity function `is_standing_on` to allow for block tags in the list. 
 - Added entity (as `q.entity`) that executed the command to the `executemolangscript` command.
 
@@ -432,7 +431,6 @@
 - Reworked observable handling in `Pokemon.kt` to cut down on RAM usage and clarify the file.
   - Note: This will break mods that used our observable functionality there or in MoveSet, IVs, EVs, or BenchedMoves.
   - Using `Pokemon#onChange()` is now the way to mark a Pokémon as needing a save.
-  - Using `[Pokemon].changeObservable` is now the way to get an `Observable` for any save-worthy changes.
 - Updated NPCEntity beam positioning to properly account for the baseScale property.
 - Updated NPCEntity pokeball throw positioning to properly account for the baseScale property.
 - Fixed `[Pokemon].copyFrom` error causing forms, IVs, and EVs to not be applied properly when using `[Pokemon].loadFromJSON` or `[Pokemon].loadFromNBT`
