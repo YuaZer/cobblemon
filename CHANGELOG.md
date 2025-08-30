@@ -46,6 +46,9 @@
 - Berries can now be smelted into their respective dyes.
 - Added Syrupy Apples.
 - Added `/runmolang <molang> [<npc>|<player>|<pokemon>]` command that executes a MoLang expression with the provided options as environment variables, as well as the entity (as `q.entity`) that executed the command.
+- Added `.Pre` and `.Post` to the following events:
+    - `PokemonRecallEvent`
+    - `TradeEvent`
 - Added a new gamerule, 'healerHealsPC', when set to true a successful use of a healer will also heal all of the Pokemon in that player's PC.
 
 ### Pokémon Added
@@ -340,6 +343,13 @@
 - MoLang `run_action_effect` now works on Pokémon.
 - Changed MoLang entity function `is_standing_on` to allow for block tags in the list. 
 - Added entity (as `q.entity`) that executed the command to the `executemolangscript` command.
+- Refactored the following events to `.Pre` and `.Post` for consistency:
+- `PokemonSentEvent`
+- `ExperienceGainedEvent`
+- `BattleStartedEvent`
+- Updated `PokemonSentEvent` parameters to include the Position and Level of the Pokémon being sent out.
+- Updated `EvolutionCompleteEvent` parameters to include the Source Pokemon that evolved.
+- Updated `HatchEggEvent.Post` to include the Pokemon that hatched.
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
