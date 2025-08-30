@@ -7,6 +7,10 @@
   "firstPersonCameraOffset": {
     "seat_1": [0, 0.35, 0]
   },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 0.75, 4],
+    "seat_1_reverse": [0, 0.75, 4]
+  },
   "animations": {
     "faint": "q.bedrock_primary('skiddo', 'faint', q.curve('one'))",
     "cry": "q.bedrock_stateful('skiddo', 'cry')",
@@ -51,7 +55,8 @@
       "condition": "q.in_air && q.is_ridden",
       "animations": [
         "q.look('head')",
-        "q.bedrock('skiddo', 'ride_jump')"
+        "q.bedrock('skiddo', 'ride_jump')",
+        "q.bedrock('skiddo', 'ride_ground_run')"
       ],
       "transformTicks": 2,
       "transformToTicks": 2

@@ -7,6 +7,10 @@
   "firstPersonCameraOffset": {
     "seat_1": [0, 0.25, 0]
   },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 1, 5],
+    "seat_1_reverse": [0, 1, 5]
+  },
   "animations": {
     "cry": "q.bedrock_stateful('girafarig', 'cry')",
     "recoil": "q.bedrock_stateful('girafarig', 'recoil')"
@@ -54,7 +58,8 @@
         "q.look('neck', 1, 1, 25, -10, 35, -35)",
         "q.look('neck2', 1, 0, 15, -15, 0, 0)",
         "q.look('head', 1, 1, 35, -15, 15, -15)",
-        "q.bedrock('girafarig', 'ride_jump')"
+        "q.bedrock('girafarig', 'ride_jump')",
+        "q.bedrock('girafarig', 'ride_ground_run')"
       ],
       "transformTicks": 2,
       "transformToTicks": 2
