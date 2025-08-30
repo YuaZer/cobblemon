@@ -238,6 +238,7 @@
 - Volcarona
 - Dwebble
 - Crustle
+- Mr. Mime
 
 ### Model updates for the following Pokémon
 - Gyarados
@@ -313,6 +314,8 @@
 - Murkrow
 - Zorua
 - Zoroark
+- Mime.Jr
+- Mr. Mime
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
