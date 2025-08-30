@@ -65,6 +65,8 @@
 - Unown
 - Houndour
 - Houndoom
+- Ho-Oh
+- Lugia
 
 #### Gen 3
 - Azurill
@@ -80,7 +82,6 @@
 - Glalie
 - Latias
 - Latios
-
 
 #### Gen 4
 - Bronzor
@@ -193,7 +194,6 @@
 ### Animation updates for the following Pokémon
 - Garchomp
 - Tropius
-- Torpius
 - Nosepass
 - Probopass
 - Sneasler
@@ -224,6 +224,20 @@
 - Ariados
 - Wyrdeer
 - Tyrantrum
+- Pidove
+- Tranquill
+- Unfezant
+- Beldum
+- Metang
+- Metagross
+- Plusle
+- Minun
+- Murkrow
+- Honchkrow
+- Larvesta
+- Volcarona
+- Dwebble
+- Crustle
 
 ### Model updates for the following Pokémon
 - Gyarados
@@ -288,6 +302,17 @@
 - Klinklang
 - Spinarak
 - Ariados
+- Pidove
+- Tranquill
+- Unfezant
+- Sobble
+- Drizzile
+- Inteleon
+- Plusle
+- Minun
+- Murkrow
+- Zorua
+- Zoroark
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked

@@ -244,6 +244,7 @@
         "gluttony",
         "h:powerofalchemy"
       ],
+      "baseScale": 0.7,
       "moves": [
         "1:pound",
         "1:poisongas",
