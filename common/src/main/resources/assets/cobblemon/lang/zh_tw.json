@@ -9644,5 +9644,16 @@
     "cobblemon.battle.sidestart.ally.toxicspikes": "我方腳下散落著毒菱！",
     "cobblemon.battle.sideend.opponent.safeguard": "對手不再受神秘守護的保護！",
     "cobblemon.battle.sidestart.opponent.mist": "對手被白霧包圍了！",
-    "cobblemon.battle.sidestart.opponent.safeguard": "對手被神秘之幕包圍了！"
+    "cobblemon.battle.sidestart.opponent.safeguard": "對手被神秘之幕包圍了！",
+    "tag.item.cobblemon.mochis": "年糕",
+    "tag.item.cobblemon.poke_food": "寶可食物",
+    "tag.item.cobblemon.full_heal_bottles": "萬靈藥藥瓶",
+    "cobblemon.entity.variable.challenge_cooldown.name": "挑戰冷卻時間",
+    "cobblemon.entity.variable.challenge_cooldown.desc": "此 NPC 在玩家挑戰後，不可再次接受挑戰的冷卻時間。",
+    "cobblemon.entity.variable.home_y.desc": "實體初始位置的 Y 座標。",
+    "cobblemon.entity.variable.home_z.name": "初始座標 Z",
+    "cobblemon.entity.variable.home_z.desc": "實體初始位置的 Z 座標。",
+    "cobblemon.entity.variable.home_x.name": "初始座標 X",
+    "cobblemon.entity.variable.home_x.desc": "實體初始位置的 X 座標。",
+    "cobblemon.entity.variable.home_y.name": "初始座標 Y"
 }
