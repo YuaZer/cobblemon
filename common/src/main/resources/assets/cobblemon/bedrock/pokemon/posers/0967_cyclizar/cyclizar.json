@@ -12,6 +12,7 @@
     "seat_1_reverse": [0, 2.5, 5]
   },
   "animations": {
+    "cry": "q.bedrock_stateful('cyclizar', 'cry')"
   },
   "poses": {
     "portrait": {
