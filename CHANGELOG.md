@@ -233,6 +233,8 @@
 - Honchkrow
 - Larvesta
 - Volcarona
+- Dwebble
+- Crustle
 
 ### Model updates for the following Pokémon
 - Gyarados
