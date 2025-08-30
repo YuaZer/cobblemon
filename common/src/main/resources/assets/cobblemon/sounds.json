@@ -1326,12 +1326,23 @@
       { "name": "cobblemon:animation/wings/steel_wing_flap_medium_8", "volume": 0.25 }
     ]
   },
+  "ride.loop.wind": {
+    "sounds": [
+      {
+        "name": "cobblemon:ride/loop/wind_loop",
+        "stream": true,
+        "attenuation_distance": 48.0,
+        "volume": 0.1
+      }
+    ]
+  },
   "ride.loop.leather": {
     "sounds": [
       {
         "name": "cobblemon:ride/loop/leather_flight_loop",
         "stream": true,
-        "attenuation_distance": 48.0
+        "attenuation_distance": 48.0,
+        "volume": 0.2
       }
     ]
   },
@@ -1341,7 +1352,7 @@
         "name": "cobblemon:ride/loop/plumage_flight_loop",
         "stream": true,
         "attenuation_distance": 48.0,
-        "volume": 0.25
+        "volume": 0.2
       }
     ]
   },
@@ -1349,7 +1360,9 @@
     "sounds": [
       {
         "name": "cobblemon:ride/loop/saucer_flight_loop",
-        "attenuation_distance": 64.0
+        "stream": true,
+        "attenuation_distance": 48.0,
+        "volume": 0.2
       }
     ]
   },
@@ -1357,7 +1370,9 @@
     "sounds": [
       {
         "name": "cobblemon:ride/loop/rocket_flight_loop",
-        "attenuation_distance": 48.0
+        "stream": true,
+        "attenuation_distance": 48.0,
+        "volume": 0.4
       }
     ]
   },
