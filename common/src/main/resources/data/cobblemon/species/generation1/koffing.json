@@ -281,7 +281,7 @@
         {
           "id": "koffing_weezinggalar",
           "variant": "level_up",
-          "result": "weezing",
+          "result": "weezing galarian",
           "consumeHeldItem": false,
           "learnableMoves": [
             "doublehit"
