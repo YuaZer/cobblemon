@@ -49,6 +49,10 @@
     "fixed": false
   },
   "behaviour": {
+    "walk": {
+      "canWalk": true,
+      "walkSpeed": 0.19
+    },
     "resting": {
       "canSleep": true,
       "light": "0-4"
@@ -56,6 +60,29 @@
     "herd": {
       "maxSize": "5"
     }
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "stats": {
+          "SPEED": "10-20",
+          "ACCELERATION": "90-100",
+          "SKILL": "15-30",
+          "JUMP": "10-20",
+          "STAMINA": "15-30"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    ]
   },
   "drops": {
     "amount": 1,
