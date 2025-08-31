@@ -235,6 +235,7 @@
 - Volcarona
 - Dwebble
 - Crustle
+- Flygon
 
 ### Model updates for the following Pokémon
 - Gyarados
