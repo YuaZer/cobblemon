@@ -1,11 +1,11 @@
 {
   "species": "cobblemon:pikachu",
-  "order": 0,
+  "order": 1,
   "variations": [
     {
-      "aspects": [],
-      "poser": "cobblemon:pikachu",
-      "model": "cobblemon:pikachu_male.geo",
+      "aspects": ["region-bias-alola"],
+      "poser": "cobblemon:pikachu_alolan",
+      "model": "cobblemon:pikachu_alola_bias_male.geo",
       "texture": "cobblemon:textures/pokemon/0025_pikachu/pikachu.png",
       "layers": [
         {
@@ -17,7 +17,7 @@
       ]
     },
     {
-      "aspects": ["shiny"],
+      "aspects": ["region-bias-alola","shiny"],
       "texture": "cobblemon:textures/pokemon/0025_pikachu/pikachu_shiny.png",
       "layers": [
         {
@@ -29,9 +29,9 @@
       ]
     },
     {
-      "aspects": ["female"],
-      "poser": "cobblemon:pikachu",
-      "model": "cobblemon:pikachu_female.geo",
+      "aspects": ["region-bias-alola","female"],
+      "poser": "cobblemon:pikachu_alolan",
+      "model": "cobblemon:pikachu_alola_bias_female.geo",
       "texture": "cobblemon:textures/pokemon/0025_pikachu/pikachu.png",
       "layers": [
         {
@@ -43,7 +43,7 @@
       ]
     },
     {
-      "aspects": ["female","shiny"],
+      "aspects": ["region-bias-alola","female","shiny"],
       "texture": "cobblemon:textures/pokemon/0025_pikachu/pikachu_shiny.png",
       "layers": [
         {

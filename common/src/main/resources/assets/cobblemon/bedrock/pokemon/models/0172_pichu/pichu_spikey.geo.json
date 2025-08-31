@@ -3,12 +3,12 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.pichu",
+				"identifier": "geometry.pichu_spikey",
 				"texture_width": 128,
 				"texture_height": 64,
 				"visible_bounds_width": 3,
-				"visible_bounds_height": 2.5,
-				"visible_bounds_offset": [0, 0.75, 0]
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
 			},
 			"bones": [
 				{
@@ -400,6 +400,15 @@
 					"pivot": [3.25, 16.5, 0.25],
 					"cubes": [
 						{"origin": [-1.25, 16.5, 0.25], "size": [9, 6, 0], "uv": [20, 52]}
+					]
+				},
+				{
+					"name": "spike",
+					"parent": "ear_left2",
+					"pivot": [1.75, 8.5, 0],
+					"cubes": [
+						{"origin": [2.75, 22.5, 0.25], "size": [1, 1, 0], "uv": [36, 38]},
+						{"origin": [0.25, 20.5, 0.25], "size": [6, 2, 0], "inflate": 0.01, "uv": [23, 37]}
 					]
 				},
 				{
