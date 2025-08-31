@@ -4,6 +4,13 @@
   "profileScale": 0.52,
   "profileTranslation": [0.05, 1.05, 0],
   "rootBone": "braviary",
+  "firstPersonCameraOffset": {
+    "seat_1": [0, 0.1, 0]
+  },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 1, 5],
+    "seat_1_reverse": [0, 1, 5]
+  },
   "animations": {
     "cry": "q.bedrock_stateful('braviary', 'cry')",
     "recoil": "q.bedrock_stateful('braviary', 'recoil')"
@@ -12,15 +19,21 @@
     "standing": {
       "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
       "isBattle": false,
-      "animations": ["q.look('head_ai')", "q.bedrock('braviary', 'ground_idle')"],
+      "animations": [
+        "q.look('neck1', 1, 1, 5, -5, 10, -10)",
+        "q.look('neck2', 1, 1, 35, -10, 15, -15)",
+        "q.look('head_ai', 1, 1, 50, -30, 25, -25)",
+        "q.bedrock('braviary', 'ground_idle')"
+      ],
       "transformTicks": 10,
       "quirks": ["q.bedrock_quirk('braviary', 'blink')"]
     },
     "walking": {
       "poseTypes": ["WALK", "SWIM"],
       "animations": [
-        "q.look('neck1', 1, 1, 50, -10, 20, -20)",
-        "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
+        "q.look('neck1', 1, 1, 5, -5, 10, -10)",
+        "q.look('neck2', 1, 1, 35, -10, 15, -15)",
+        "q.look('head_ai', 1, 1, 50, -30, 25, -25)",
         "q.bedrock('braviary', 'ground_walk')",
         {
           "condition": "q.is_ridden && q.has_entity",
@@ -34,8 +47,9 @@
       "poseTypes": ["HOVER"],
       "animations": [
         "q.pitch_tilt('body', 1)",
-        "q.look('neck1', 1, 1, 50, -10, 20, -20)",
-        "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
+        "q.look('neck1', 1, 1, 5, -5, 10, -10)",
+        "q.look('neck2', 1, 1, 35, -10, 15, -15)",
+        "q.look('head_ai', 1, 1, 50, -30, 25, -25)",
         "q.bedrock('braviary', 'air_idle')"
       ],
       "transformTicks": 10,
@@ -46,8 +60,9 @@
       "condition": "!q.is_gliding",
       "animations": [
         "q.pitch_tilt('body', 1)",
-        "q.look('neck1', 1, 1, 50, -10, 20, -20)",
-        "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
+        "q.look('neck1', 1, 1, 5, -5, 10, -10)",
+        "q.look('neck2', 1, 1, 35, -10, 15, -15)",
+        "q.look('head_ai', 1, 1, 50, -30, 25, -25)",
         "q.bedrock('braviary', 'air_fly')",
         {
           "condition": "q.is_ridden && q.has_entity",
@@ -62,15 +77,14 @@
       "condition": "q.is_gliding",
       "animations": [
         "q.pitch_tilt('body', 1)",
-        "q.look('neck1', 1, 1, 50, -10, 20, -20)",
-        "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
+        "q.look('neck1', 1, 1, 5, -5, 10, -10)",
+        "q.look('neck2', 1, 1, 35, -10, 15, -15)",
+        "q.look('head_ai', 1, 1, 50, -30, 25, -25)",
         "q.bedrock('braviary', 'air_glide')",
+        "q.bedrock('braviary', 'ride_air_dive')",
         {
           "condition": "q.is_ridden && q.has_entity",
-          "animations": [
-            "q.bedrock('braviary', 'ride_air_glide')",
-            "q.bedrock('braviary', 'ride_air_dive')"
-          ]
+          "animation": "q.bedrock('braviary', 'ride_air_glide')"
         }
       ],
       "transformTicks": 10,

@@ -52,11 +52,12 @@
   "behaviour": {
     "moving": {
       "walk": {
-        "walkSpeed": 0.15
+        "walkSpeed": 0.28
       }
     },
-    "herd": {
-      "maxSize": "4"
+      "resting": {
+      "canSleep": true,
+      "light": "0-4"
     }
   },
   "drops": {
@@ -77,6 +78,29 @@
       {
         "item": "cobblemon:oran_berry",
         "percentage": 10.0
+      }
+    ]
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "stats": {
+        "SPEED": "20-70",
+        "ACCELERATION": "90-100",
+        "SKILL": "40-60",
+        "JUMP": "10-30",
+        "STAMINA": "50-70"
+      }
+    }
+  },
+  "seats": [
+      {
+        "offset": {
+          "x": 0,
+          "y": 0.4,
+          "z": 0
+        }
       }
     ]
   },
@@ -389,12 +413,7 @@
         "tutor:vacuumwave"
       ],
       "evolutions": [],
-      "battleOnly": false,
-      "behaviour": {
-        "herd": {
-          "maxSize": "5"
-        }
-      }
+      "battleOnly": false
     }
   ]
 }
