@@ -7,7 +7,7 @@
   "firstPersonCameraOffset": {
     "seat_1": [0, 0.25, 0]
   },
-  "thirdPersonCameraOffset": {
+  "thirdPersonCameraOffsetNoViewBobbing": {
     "seat_1": [0, 1, 5],
     "seat_1_reverse": [0, 1, 5]
   },
