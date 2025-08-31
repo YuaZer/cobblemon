@@ -30,7 +30,7 @@
       },
       "animations": ["q.look('head')", "q.bedrock('dwebble', 'battle_idle')"],
       "quirks": ["q.bedrock_quirk('dwebble', 'blink')",
-        "q.bedrock_quirk('dwebble', 'battle_quirks')"
+        "q.bedrock_quirk('dwebble', 'battle_quirk')"
       ]
     },
     "walking": {
