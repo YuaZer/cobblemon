@@ -238,6 +238,9 @@
 - Flygon
 
 ### Model updates for the following Pokémon
+- Cleffa
+- Clefairy
+- Clefable
 - Gyarados
 - Dragonite
 - Eevee
