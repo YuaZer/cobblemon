@@ -89,6 +89,13 @@
                     "properties": {
                       "lit": "true"
                     }
+                  },
+                  {
+                    "condition": "minecraft:block_state_property",
+                    "block": "cobblemon:soul_campfire",
+                    "properties": {
+                      "lit": "true"
+                    }
                   }
                 ]
               }

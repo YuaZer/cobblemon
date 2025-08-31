@@ -67,14 +67,7 @@ class PoseAdapter(
 
         if (json.has("conditions")) {
             val conditionSet = json.get("conditions").asJsonArray.map { it.asString.asExpressionLike() }
-            conditionsList.add { state ->
-                val entity = state.getEntity()
-                if (entity is PosableEntity) {
-                    conditionSet.any { it.resolveBoolean(state.runtime) }
-                } else {
-                    false
-                }
-            }
+            conditionsList.add { state -> conditionSet.any { it.resolveBoolean(state.runtime) } }
         }
 
         val poseCondition: (PosableState) -> Boolean = if (conditionsList.isEmpty()) { { true } } else conditionsList.reduce { acc, function -> { acc(it) && function(it) } }
