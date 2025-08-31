@@ -64,6 +64,7 @@
 - Houndoom
 - Ho-Oh
 - Lugia
+- Alola Bias Pichu (built-in resourcepack)
 
 #### Gen 3
 - Azurill
@@ -236,6 +237,10 @@
 - Dwebble
 - Crustle
 - Flygon
+- Pichu
+- Pikachu
+- Raichu
+- Alolan Raichu
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -314,6 +319,10 @@
 - Murkrow
 - Zorua
 - Zoroark
+- Pichu
+- Pikachu
+- Raichu
+- Alolan Raichu
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
