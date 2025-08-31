@@ -276,7 +276,6 @@ object VaryingModelRepository {
         inbuilt("jynx", ::JynxModel)
         inbuilt("kabuto", ::KabutoModel)
         inbuilt("kabutops", ::KabutopsModel)
-        inbuilt("kadabra", ::KadabraModel)
         inbuilt("koffing", ::KoffingModel)
         inbuilt("krabby", ::KrabbyModel)
         inbuilt("lickitung", ::LickitungModel)

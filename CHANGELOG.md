@@ -236,6 +236,9 @@
 - Dwebble
 - Crustle
 - Flygon
+- Abra
+- Kadabra
+- Alakazam
 
 ### Model updates for the following Pokémon
 - Cleffa
