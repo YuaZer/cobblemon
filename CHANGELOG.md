@@ -235,8 +235,16 @@
 - Volcarona
 - Dwebble
 - Crustle
+- Flygon
+- Espathra
+- Abra
+- Kadabra
+- Alakazam
 
 ### Model updates for the following Pokémon
+- Cleffa
+- Clefairy
+- Clefable
 - Gyarados
 - Dragonite
 - Eevee
