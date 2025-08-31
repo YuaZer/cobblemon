@@ -83,7 +83,7 @@ class CampfireBlockEntityRenderer(ctx: BlockEntityRendererProvider.Context) : Bl
         light: Int,
         overlay: Int
     ) {
-        val isLidOpen = blockEntity.dataAccess.get(IS_LID_OPEN_INDEX) == 1
+        val isLidOpen = !blockEntity.blockState.getValue(CampfireBlock.LID)
 
         val yRot = (blockEntity.blockState.getValue(CampfireBlock.ITEM_DIRECTION).opposite.toYRot() + blockEntity.blockState.getValue(FACING).toYRot()) % 360
 

@@ -42,7 +42,7 @@ class CookingPotMenu : RecipeBookMenu<CraftingInput, CookingPotRecipeBase>, Cont
     private val player: Player
     private val level: Level
     private val playerInventory: Inventory
-    private val container: CraftingContainer
+    val container: CraftingContainer
     private val resultContainer: ResultContainer
     val containerData: ContainerData
     private val recipeType: RecipeType<CookingPotRecipe> = CobblemonRecipeTypes.COOKING_POT_COOKING

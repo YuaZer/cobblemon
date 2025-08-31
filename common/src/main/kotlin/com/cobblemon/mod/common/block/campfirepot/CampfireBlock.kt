@@ -65,8 +65,9 @@ class CampfireBlock(settings: Properties, val isSoul: Boolean) : BaseEntityBlock
             ).apply(it, ::CampfireBlock)
         }
         val ITEM_DIRECTION = DirectionProperty.create("item_facing")
-        val LIT = BlockStateProperties.LIT
         val POWERED = BlockStateProperties.POWERED
+        val COOKING = BooleanProperty.create("cooking")
+        val LID = BooleanProperty.create("lid")
 
         private val campfireAABB = Shapes.box(0.0, 0.0, 0.0, 1.0, 0.4375, 1.0)
         private val AABB = Shapes.or(
@@ -82,9 +83,10 @@ class CampfireBlock(settings: Properties, val isSoul: Boolean) : BaseEntityBlock
     init {
         registerDefaultState(stateDefinition.any()
             .setValue(FACING, Direction.NORTH)
-            .setValue(LIT, true)
             .setValue(ITEM_DIRECTION, Direction.NORTH)
-            .setValue(POWERED, false))
+            .setValue(POWERED, false)
+            .setValue(COOKING, false)
+            .setValue(LID, false))
     }
 
     override fun getStateForPlacement(ctx: BlockPlaceContext): BlockState? {
@@ -203,7 +205,7 @@ class CampfireBlock(settings: Properties, val isSoul: Boolean) : BaseEntityBlock
     }
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
-        builder.add(FACING, ITEM_DIRECTION, LIT, POWERED)
+        builder.add(FACING, ITEM_DIRECTION, POWERED, COOKING, LID)
     }
 
     override fun updateShape(
@@ -290,7 +292,7 @@ class CampfireBlock(settings: Properties, val isSoul: Boolean) : BaseEntityBlock
 
         if (isPowered != state.getValue(POWERED)) {
             level.setBlock(pos, state.setValue(POWERED, isPowered), UPDATE_ALL)
-            blockEntity.toggleLid(!isPowered, pos)
+            blockEntity.toggleLid(!isPowered)
         }
     }
 

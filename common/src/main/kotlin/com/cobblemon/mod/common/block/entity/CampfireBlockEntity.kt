@@ -91,13 +91,13 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
         fun clientTick(level: Level, pos: BlockPos, state: BlockState, campfireBlockEntity: CampfireBlockEntity) {
             if (!level.isClientSide) return
 
-            val isLit = campfireBlockEntity.dataAccess.get(COOKING_PROGRESS_INDEX) > 0
+            val isCooking = state.getValue(CampfireBlock.COOKING)
             val isRunningSoundActive = BlockEntitySoundTracker.isActive(pos, campfireBlockEntity.runningSound.location)
             val isAmbientSoundActive = BlockEntitySoundTracker.isActive(pos, campfireBlockEntity.ambientSound.location)
             val containsItems = campfireBlockEntity.getSeasonings().isNotEmpty() || campfireBlockEntity.getIngredients().isNotEmpty()
 
             if (containsItems) {
-                if (isLit) {
+                if (isCooking) {
                     BlockEntitySoundTracker.stop(pos, campfireBlockEntity.ambientSound.location)
                     if (!isRunningSoundActive) BlockEntitySoundTracker.play(pos, CancellableSoundInstance(campfireBlockEntity.runningSound, pos, true, 1.0f, 1.0f))
                 } else {
@@ -120,7 +120,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
             if (campfireBlockEntity.particleCooldown > 0) {
                 campfireBlockEntity.particleCooldown--
             } else {
-                if (isLit) {
+                if (isCooking) {
                     val position = Vec3(pos.x + 0.5, pos.y + 0.5375, pos.z + 0.5)
 
                     campfireBlockEntity.particleEntityHandler(
@@ -136,6 +136,8 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
 
         fun serverTick(level: Level, pos: BlockPos, state: BlockState, campfireBlockEntity: CampfireBlockEntity) {
             if (level.isClientSide) return
+
+            var hasChanged = false
 
             val craftingInput = CraftingInput.of(3, 3, campfireBlockEntity.items.subList(1, 10))
 
@@ -163,45 +165,56 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
 
             recipe.applySeasoning(cookedItem, campfireBlockEntity.getSeasonings())
 
+            val isCookingBefore = campfireBlockEntity.cookingProgress > 0
+
             if (campfireBlockEntity.isLidOpen) {
                 campfireBlockEntity.cookingProgress = 0
-                return
             }
-
-            if (!resultSlotItem.isEmpty) {
-                if (!ItemStack.isSameItemSameComponents(
-                        resultSlotItem,
-                        cookedItem
-                    ) || resultSlotItem.count + cookedItem.count > resultSlotItem.maxStackSize
-                ) {
-                    campfireBlockEntity.cookingProgress = 0
-                    return
-                }
-            }
-
-            campfireBlockEntity.cookingProgress += COOKING_PROGRESS_PER_TICK
-            if (campfireBlockEntity.cookingProgress == campfireBlockEntity.cookingTotalTime) {
-                campfireBlockEntity.cookingProgress = 0
-
-                if (!cookedItem.isEmpty) {
-                    (campfireBlockEntity as RecipeCraftingHolder).recipeUsed = cookingPotRecipe
-
-                    if (resultSlotItem.isEmpty) {
-                        campfireBlockEntity.setItem(0, cookedItem)
-                    } else {
-                        resultSlotItem.grow(cookedItem.count)
+            else {
+                if (!resultSlotItem.isEmpty) {
+                    if (!ItemStack.isSameItemSameComponents(
+                            resultSlotItem,
+                            cookedItem
+                        ) || resultSlotItem.count + cookedItem.count > resultSlotItem.maxStackSize
+                    ) {
+                        campfireBlockEntity.cookingProgress = 0
+                        return
                     }
+                }
 
-                    campfireBlockEntity.consumeCraftingIngredients(recipe, level, pos, state, campfireBlockEntity)
+                campfireBlockEntity.cookingProgress += COOKING_PROGRESS_PER_TICK
+                if (campfireBlockEntity.cookingProgress == campfireBlockEntity.cookingTotalTime) {
+                    campfireBlockEntity.cookingProgress = 0
 
-                    level.playSoundServer(
-                        position = pos.bottomCenter,
-                        sound = CobblemonSounds.CAMPFIRE_POT_COOK,
-                    )
+                    if (!cookedItem.isEmpty) {
+                        (campfireBlockEntity as RecipeCraftingHolder).recipeUsed = cookingPotRecipe
 
-                    setChanged(level, pos, state);
+                        if (resultSlotItem.isEmpty) {
+                            campfireBlockEntity.setItem(0, cookedItem)
+                        } else {
+                            resultSlotItem.grow(cookedItem.count)
+                        }
+
+                        campfireBlockEntity.consumeCraftingIngredients(recipe, level, pos, state, campfireBlockEntity)
+
+                        level.playSoundServer(
+                            position = pos.bottomCenter,
+                            sound = CobblemonSounds.CAMPFIRE_POT_COOK,
+                        )
+
+                        hasChanged = true
+                    }
                 }
             }
+
+            val isCookingNow = campfireBlockEntity.cookingProgress > 0
+
+            if (isCookingBefore != isCookingNow) {
+                hasChanged = true
+                level.setBlock(pos, state.setValue(CampfireBlock.COOKING, isCookingNow), 3)
+            }
+
+            if (hasChanged) setChanged(level, pos, state)
         }
     }
 
@@ -438,10 +451,9 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
         }
     }
 
-    fun toggleLid(isOpen: Boolean, blockPos: BlockPos) {
+    fun toggleLid(isOpen: Boolean) {
         this.isLidOpen = isOpen
         level?.let { lvl ->
-            lvl.activateNearbyObservers(blockPos)
             lvl.playSoundServer(
                 position = blockPos.center,
                 sound = if (isOpen) CobblemonSounds.CAMPFIRE_POT_OPEN else CobblemonSounds.CAMPFIRE_POT_CLOSE
@@ -451,6 +463,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
                 if (isOpen) GameEvent.BLOCK_OPEN else GameEvent.BLOCK_CLOSE,
                 blockPos
             )
+            lvl.setBlock(this.blockPos, this.blockState.setValue(CampfireBlock.LID, !isOpen), 3)
         }
         setChanged()
     }
