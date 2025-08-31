@@ -236,6 +236,7 @@
 - Dwebble
 - Crustle
 - Flygon
+- Espathra
 
 ### Model updates for the following Pokémon
 - Cleffa
