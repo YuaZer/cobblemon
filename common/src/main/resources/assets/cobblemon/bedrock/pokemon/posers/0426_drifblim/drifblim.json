@@ -7,6 +7,10 @@
   "firstPersonCameraOffset": {
     "seat_1": [0, 0.25, 0]
   },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 2.25, 5],
+    "seat_1_reverse": [0, 2.25, 5]
+  },
   "animations": {
     "faint": "q.bedrock_primary('drifblim', 'faint', q.curve('one'))",
     "cry": "q.bedrock_stateful('drifblim', 'cry')"

@@ -7,6 +7,10 @@
   "firstPersonCameraOffset": {
     "seat_1": [0, 0.25, 0]
   },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 2, 5],
+    "seat_1_reverse": [0, 2, 5]
+  },
   "animations": {
     "cry": "q.bedrock_stateful('farigiraf', 'cry')",
     "recoil": "q.bedrock_stateful('farigiraf', 'recoil')"
@@ -19,10 +23,10 @@
       "animations": [
         "q.look('neck', 0.25, 0.5, 35, -10, 25, -25)",
         "q.look('neck2', 0.25, 0, 10, -5, 0, 0)",
-        "q.look('neck3', 0.35, 0, 10, -5, 0, 0)",
-        "q.look('neck4', 0.5, 0, 10, -5, 0, 0)",
-        "q.look('neck5', 0.75, 0, 50, -10, 0, -0)",
-        "q.look('head', 1, 1, 50, -20, 25, -25)",
+        "q.look('neck3', 0.35, 0, 15, -5, 0, 0)",
+        "q.look('neck4', 0.5, 0, 20, -5, 0, 0)",
+        "q.look('neck5', 0.75, 0, 25, -10, 0, -0)",
+        "q.look('head', 1, 1, 25, -20, 25, -25)",
         "q.bedrock('farigiraf', 'ground_idle')"
       ],
       "quirks": [
@@ -37,10 +41,10 @@
       "animations": [
         "q.look('neck', 0.25, 0.5, 35, -10, 25, -25)",
         "q.look('neck2', 0.25, 0, 10, -5, 0, 0)",
-        "q.look('neck3', 0.35, 0, 10, -5, 0, 0)",
-        "q.look('neck4', 0.5, 0, 10, -5, 0, 0)",
-        "q.look('neck5', 0.75, 0, 50, -10, 0, -0)",
-        "q.look('head', 1, 1, 50, -20, 25, -25)",
+        "q.look('neck3', 0.35, 0, 15, -5, 0, 0)",
+        "q.look('neck4', 0.5, 0, 20, -5, 0, 0)",
+        "q.look('neck5', 0.75, 0, 25, -10, 0, -0)",
+        "q.look('head', 1, 1, 25, -20, 25, -25)",
         "q.bedrock('farigiraf', 'battle_idle')"
       ],
       "quirks": [
@@ -55,11 +59,12 @@
       "animations": [
         "q.look('neck', 0.25, 0.5, 35, -10, 25, -25)",
         "q.look('neck2', 0.25, 0, 10, -5, 0, 0)",
-        "q.look('neck3', 0.35, 0, 10, -5, 0, 0)",
-        "q.look('neck4', 0.5, 0, 10, -5, 0, 0)",
-        "q.look('neck5', 0.75, 0, 50, -10, 0, -0)",
-        "q.look('head', 1, 1, 50, -20, 25, -25)",
-        "q.bedrock('farigiraf', 'ride_jump')"
+        "q.look('neck3', 0.35, 0, 15, -5, 0, 0)",
+        "q.look('neck4', 0.5, 0, 20, -5, 0, 0)",
+        "q.look('neck5', 0.75, 0, 25, -10, 0, -0)",
+        "q.look('head', 1, 1, 25, -20, 25, -25)",
+        "q.bedrock('farigiraf', 'ride_jump')",
+        "q.bedrock('farigiraf', 'ride_ground_run')"
       ],
       "transformTicks": 5,
       "transformToTicks": 5
@@ -77,10 +82,10 @@
       "animations": [
         "q.look('neck', 0.25, 0.5, 35, -10, 25, -25)",
         "q.look('neck2', 0.25, 0, 10, -5, 0, 0)",
-        "q.look('neck3', 0.35, 0, 10, -5, 0, 0)",
-        "q.look('neck4', 0.5, 0, 10, -5, 0, 0)",
-        "q.look('neck5', 0.75, 0, 50, -10, 0, -0)",
-        "q.look('head', 1, 1, 50, -20, 25, -25)",
+        "q.look('neck3', 0.35, 0, 15, -5, 0, 0)",
+        "q.look('neck4', 0.5, 0, 20, -5, 0, 0)",
+        "q.look('neck5', 0.75, 0, 25, -10, 0, -0)",
+        "q.look('head', 1, 1, 25, -20, 25, -25)",
         "q.bedrock('farigiraf', 'ground_walk')",
         {
           "condition": "q.is_ridden && q.has_entity",
@@ -98,10 +103,10 @@
       "animations": [
         "q.look('neck', 0.25, 0.5, 35, -10, 25, -25)",
         "q.look('neck2', 0.25, 0, 10, -5, 0, 0)",
-        "q.look('neck3', 0.35, 0, 10, -5, 0, 0)",
-        "q.look('neck4', 0.5, 0, 10, -5, 0, 0)",
-        "q.look('neck5', 0.75, 0, 50, -10, 0, -0)",
-        "q.look('head', 1, 1, 50, -20, 25, -25)",
+        "q.look('neck3', 0.35, 0, 15, -5, 0, 0)",
+        "q.look('neck4', 0.5, 0, 20, -5, 0, 0)",
+        "q.look('neck5', 0.75, 0, 25, -10, 0, -0)",
+        "q.look('head', 1, 1, 25, -20, 25, -25)",
         "q.bedrock('farigiraf', 'ground_run')",
         {
           "condition": "q.is_ridden && q.has_entity",

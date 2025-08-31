@@ -4,6 +4,13 @@
   "profileScale": 0.52,
   "profileTranslation": [0.05, 1.05, 0],
   "rootBone": "braviary",
+  "firstPersonCameraOffset": {
+    "seat_1": [0, 0.1, 0]
+  },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 1, 5],
+    "seat_1_reverse": [0, 1, 5]
+  },
   "animations": {
     "cry": "q.bedrock_stateful('braviary', 'cry')",
     "recoil": "q.bedrock_stateful('braviary', 'recoil')"

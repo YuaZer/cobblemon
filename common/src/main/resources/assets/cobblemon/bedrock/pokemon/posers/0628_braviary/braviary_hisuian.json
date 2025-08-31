@@ -4,6 +4,13 @@
   "profileScale": 0.52,
   "profileTranslation": [0.05, 1.05, 0],
   "rootBone": "braviary",
+  "firstPersonCameraOffset": {
+    "seat_1": [0, 0.1, 0]
+  },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 1, 5],
+    "seat_1_reverse": [0, 1, 5]
+  },
   "animations": {
     "cry": "q.bedrock_stateful('braviary_hisuian', 'cry')",
     "recoil": "q.bedrock_stateful('braviary_hisuian', 'recoil')"
@@ -74,7 +81,7 @@
         "q.look('neck2', 1, 1, 1, -35, 15, -15)",
         "q.look('head_ai', 1, 1, 50, -10, 25, -25)",
         "q.bedrock('braviary_hisuian', 'air_glide')",
-        "q.bedrock('braviary', 'ride_air_dive')",
+        "q.bedrock('braviary_hisuian', 'ride_air_dive')",
         {
           "condition": "q.is_ridden && q.has_entity",
           "animation": "q.bedrock('braviary', 'ride_air_glide')"

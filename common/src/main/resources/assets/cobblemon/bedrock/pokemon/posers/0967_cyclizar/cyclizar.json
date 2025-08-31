@@ -8,10 +8,11 @@
     "seat_1": [0, 0.25, 0]
   },
   "thirdPersonCameraOffset": {
-    "seat_1": [0, 2.5, 5],
-    "seat_1_reverse": [0, 2.5, 5]
+    "seat_1": [0, 1, 5],
+    "seat_1_reverse": [0, 1, 5]
   },
   "animations": {
+    "cry": "q.bedrock_stateful('cyclizar', 'cry')"
   },
   "poses": {
     "portrait": {
@@ -25,7 +26,11 @@
       "poseTypes": ["WALK","STAND", "FLOAT", "NONE"],
       "isBattle": false,
       "condition": "q.in_air && q.is_ridden && q.has_entity",
-      "animations": ["q.look('head')", "q.bedrock('cyclizar', 'ride_jump')"],
+      "animations": [
+        "q.look('head')",
+        "q.bedrock('cyclizar','ride_jump')",
+        "q.bedrock('cyclizar', 'ride_ground_run')"
+      ],
       "quirks": ["q.bedrock_quirk('cyclizar', 'blink')"],
       "transformTicks": 5,
       "transformToTicks": 5
