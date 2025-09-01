@@ -249,6 +249,9 @@
 - Zweilous
 - Hydreigon
 - Slaking
+- Klink
+- Klang
+- Klinklang
 
 ### Model updates for the following Pokémon
 - Cleffa
