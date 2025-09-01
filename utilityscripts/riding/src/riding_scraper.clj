@@ -59,7 +59,7 @@
 
 (def headers
   [:generation :dex-no :species :land-behaviour :liquid-behaviour :air-behaviour :land-ready-to-scrape?
-   :liquid-ready-to-scrape? :air-ready-to-scrape? :land-speed :land-acceleration :land-skill :land-jump
+   :liquid-ready-to-scrape? :air-ready-to-scrape? :missing? :animations-approved? :land-speed :land-acceleration :land-skill :land-jump
    :land-stamina :liquid-speed :liquid-acceleration :liquid-skill :liquid-jump :liquid-stamina :air-speed
    :air-acceleration :air-skill :air-jump :air-stamina])
 
@@ -79,11 +79,11 @@
    "Boat"      "cobblemon:liquid/boat"})
 
 (def grade-ranges
-  {"D" "0-20"
-   "C" "21-40"
-   "B" "41-60"
-   "A" "61-80"
-   "S" "81-100"})
+  {"D" "0-10"
+   "C" "10-40"
+   "B" "30-65"
+   "A" "55-85"
+   "S" "80-100"})
 
 (defn csv->map
   "Takes a series of CSV rows and returns a map of the columns with the header as the key"
@@ -544,6 +544,7 @@
   [csv files sounds]
   (let [file-updates (->> csv
                           (#(csv->map % headers 3))
+                          (#(do (def csv-result %) %))
                           (map sanitize-riding-data)
                           (filter #(or (:air %) (:land %) (:liquid %)))
                           (map #(assoc % :seat-data (generate-seat-data %)))
