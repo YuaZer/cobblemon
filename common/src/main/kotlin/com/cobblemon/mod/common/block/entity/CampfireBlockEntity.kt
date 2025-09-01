@@ -59,6 +59,7 @@ import net.minecraft.world.level.gameevent.GameEvent
 import net.minecraft.world.phys.Vec3
 import org.joml.Vector4f
 import java.util.*
+import kotlin.math.sign
 
 class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlockEntity(
     CobblemonBlockEntities.CAMPFIRE,
@@ -86,7 +87,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
         const val IS_LID_OPEN_INDEX = 2
 
         const val BASE_BROTH_COLOR = 0xFDFACF
-        const val BASE_BROTH_BUBBLE_COLOR = 0xFEFDE4
+        const val BASE_BROTH_BUBBLE_COLOR = 0xFFFEFDE4.toInt()
 
         fun clientTick(level: Level, pos: BlockPos, state: BlockState, campfireBlockEntity: CampfireBlockEntity) {
             if (!level.isClientSide) return
@@ -149,60 +150,65 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
                 return optional.map { it as RecipeHolder<CookingPotRecipeBase> }
             }
 
+            val isCookingBefore = campfireBlockEntity.cookingProgress > 0
+
             // Check for all Cooking Pot Recipe Types recipes
             val optionalRecipe = fetchRecipe(CobblemonRecipeTypes.COOKING_POT_COOKING)
                 .orElseGet { fetchRecipe(CobblemonRecipeTypes.COOKING_POT_SHAPELESS).orElse(null) }
 
             if (optionalRecipe == null) {
                 campfireBlockEntity.cookingProgress = 0
-                return
-            }
-
-            val cookingPotRecipe = optionalRecipe
-            val recipe = cookingPotRecipe.value()
-            val cookedItem = recipe.assemble(craftingInput, level.registryAccess())
-            val resultSlotItem = campfireBlockEntity.getItem(0)
-
-            recipe.applySeasoning(cookedItem, campfireBlockEntity.getSeasonings())
-
-            val isCookingBefore = campfireBlockEntity.cookingProgress > 0
-
-            if (campfireBlockEntity.isLidOpen) {
-                campfireBlockEntity.cookingProgress = 0
             }
             else {
-                if (!resultSlotItem.isEmpty) {
-                    if (!ItemStack.isSameItemSameComponents(
-                            resultSlotItem,
-                            cookedItem
-                        ) || resultSlotItem.count + cookedItem.count > resultSlotItem.maxStackSize
-                    ) {
-                        campfireBlockEntity.cookingProgress = 0
-                        return
-                    }
-                }
+                val cookingPotRecipe = optionalRecipe
+                val recipe = cookingPotRecipe.value()
+                val cookedItem = recipe.assemble(craftingInput, level.registryAccess())
+                val resultSlotItem = campfireBlockEntity.getItem(0)
 
-                campfireBlockEntity.cookingProgress += COOKING_PROGRESS_PER_TICK
-                if (campfireBlockEntity.cookingProgress == campfireBlockEntity.cookingTotalTime) {
+                recipe.applySeasoning(cookedItem, campfireBlockEntity.getSeasonings())
+
+                if (campfireBlockEntity.isLidOpen) {
                     campfireBlockEntity.cookingProgress = 0
-
-                    if (!cookedItem.isEmpty) {
-                        (campfireBlockEntity as RecipeCraftingHolder).recipeUsed = cookingPotRecipe
-
-                        if (resultSlotItem.isEmpty) {
-                            campfireBlockEntity.setItem(0, cookedItem)
-                        } else {
-                            resultSlotItem.grow(cookedItem.count)
+                } else {
+                    if (!resultSlotItem.isEmpty) {
+                        if (!ItemStack.isSameItemSameComponents(
+                                resultSlotItem,
+                                cookedItem
+                            ) || resultSlotItem.count + cookedItem.count > resultSlotItem.maxStackSize
+                        ) {
+                            campfireBlockEntity.cookingProgress = 0
+                            return
                         }
+                    }
 
-                        campfireBlockEntity.consumeCraftingIngredients(recipe, level, pos, state, campfireBlockEntity)
+                    campfireBlockEntity.cookingProgress += COOKING_PROGRESS_PER_TICK
+                    if (campfireBlockEntity.cookingProgress == campfireBlockEntity.cookingTotalTime) {
+                        campfireBlockEntity.cookingProgress = 0
 
-                        level.playSoundServer(
-                            position = pos.bottomCenter,
-                            sound = CobblemonSounds.CAMPFIRE_POT_COOK,
-                        )
+                        if (!cookedItem.isEmpty) {
+                            (campfireBlockEntity as RecipeCraftingHolder).recipeUsed = cookingPotRecipe
 
-                        hasChanged = true
+                            if (resultSlotItem.isEmpty) {
+                                campfireBlockEntity.setItem(0, cookedItem)
+                            } else {
+                                resultSlotItem.grow(cookedItem.count)
+                            }
+
+                            campfireBlockEntity.consumeCraftingIngredients(
+                                recipe,
+                                level,
+                                pos,
+                                state,
+                                campfireBlockEntity
+                            )
+
+                            level.playSoundServer(
+                                position = pos.bottomCenter,
+                                sound = CobblemonSounds.CAMPFIRE_POT_COOK,
+                            )
+
+                            hasChanged = true
+                        }
                     }
                 }
             }
@@ -268,8 +274,8 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
             wrapper,
             wrapper,
             level as ClientLevel,
-            sourceAlive = { cookingProgress > 0 },
-            sourceVisible = { cookingProgress > 0 },
+            sourceAlive = { blockState.getValue(CampfireBlock.COOKING) },
+            sourceVisible = { blockState.getValue(CampfireBlock.COOKING) },
             getParticleColor = {
                 val red = FastColor.ARGB32.red(bubbleColor) / 255F
                 val green = FastColor.ARGB32.green(bubbleColor) / 255F
