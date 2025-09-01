@@ -43,7 +43,7 @@
   "catchRate": 45,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 1.5,
+  "baseScale": 1,
   "hitbox": {
     "width": 1.4,
     "height": 4.23,
@@ -63,6 +63,29 @@
       {
         "item": "cobblemon:persim_berry",
         "percentage": 5.0
+      }
+    ]
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "stats": {
+          "SPEED": "20-70",
+          "ACCELERATION": "90-100",
+          "SKILL": "40-60",
+          "JUMP": "10-30",
+          "STAMINA": "50-70"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
       }
     ]
   },
@@ -214,6 +237,14 @@
   "preEvolution": "girafarig",
   "evolutions": [],
   "behaviour": {
+    "moving": {
+      "canWalk": true,
+      "walkSpeed": "0.35"
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
+    },
     "herd": {
       "maxSize": "9",
       "toleratedLeaders": [

@@ -84,6 +84,30 @@
       }
     ]
   },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "61-80",
+          "JUMP": "41-60",
+          "SKILL": "61-80",
+          "SPEED": "21-40",
+          "STAMINA": "41-60"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    ]
+  },
   "moves": [
     "1:luminacrash",
     "1:growl",

@@ -50,6 +50,50 @@
     "height": 1,
     "fixed": false
   },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "stats": {
+          "SPEED": "5-10",
+          "ACCELERATION": "10-20",
+          "SKILL": "90-100",
+          "JUMP": "5-10",
+          "STAMINA": "50-70"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0,
+          "y": 0.4,
+          "z": 0
+        }
+      },
+      {
+        "offset": {
+          "x": 0,
+          "y": 0.4,
+          "z": 0
+        }
+      },
+      {
+        "offset": {
+          "x": 0,
+          "y": 0.4,
+          "z": 0
+        }
+      },
+      {
+        "offset": {
+          "x": 0,
+          "y": 0.4,
+          "z": 0
+        }
+      }
+    ]
+  },
   "drops": {
     "amount": 3,
     "entries": [
@@ -168,5 +212,15 @@
   ],
   "preEvolution": "dwebble",
   "evolutions": [],
-  "behaviour": {}
+  "behaviour": {
+    "moving": {
+      "walk": {
+        "walkSpeed": 0.15
+      }
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
+    }
+  }
 }

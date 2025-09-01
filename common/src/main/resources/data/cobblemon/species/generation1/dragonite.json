@@ -92,29 +92,25 @@
     "behaviours": {
       "AIR": {
         "key": "cobblemon:air/bird",
-        "gravity": "q.gravity * (0.1 + (q.passenger_count - 1) * 0.1)",
-        "speed": "Math.clamp(q.entity.velocity.horizontal_magnitude + 0.33, 0, 1)",
-        "jumpVector": [
-          0,
-          "0.3*q.jump_strength/50",
-          0
+        "rideSounds": [
+          {
+            "soundLocation": "cobblemon:ride.loop.leather",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)",
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "muffleEnabled": true
+          }
         ],
         "stats": {
-          "SPEED": "30-60",
-          "ACCELERATION": "30-65",
-          "SKILL": "30-60",
-          "JUMP": "30-60",
-          "STAMINA": "35-75"
+          "SPEED": "25-50",
+          "ACCELERATION": "20-100",
+          "SKILL": "50-100",
+          "JUMP": "25-50",
+          "STAMINA": "30-70"
         }
       },
       "LAND": {
         "key": "cobblemon:land/horse",
-        "speed": "Math.clamp(q.entity.velocity.horizontal_magnitude + 0.33, 0, 1)",
-        "jumpVector": [
-          0,
-          "0.3*q.jump_strength/50",
-          "-1 * 0.5*q.jump_strength/50"
-        ],
         "stats": {
           "SPEED": "10-20",
           "ACCELERATION": "90-100",
@@ -128,60 +124,9 @@
       {
         "offset": {
           "x": 0,
-          "y": 1.5,
-          "z": -0.5
-        },
-        "poseOffsets": [
-          {
-            "poseTypes": [
-              "HOVER"
-            ],
-            "offset": {
-              "x": 0,
-              "y": 0.7,
-              "z": -1
-            }
-          },
-          {
-            "poseTypes": [
-              "FLY"
-            ],
-            "offset": {
-              "x": 0,
-              "y": 0.2,
-              "z": -1
-            }
-          }
-        ]
-      },
-      {
-        "offset": {
-          "x": 0,
-          "y": 1.5,
-          "z": -1.5
-        },
-        "poseOffsets": [
-          {
-            "poseTypes": [
-              "HOVER"
-            ],
-            "offset": {
-              "x": 0,
-              "y": 0.4,
-              "z": -1
-            }
-          },
-          {
-            "poseTypes": [
-              "FLY"
-            ],
-            "offset": {
-              "x": 0,
-              "y": 0.2,
-              "z": -0.2
-            }
-          }
-        ]
+          "y": 0,
+          "z": 0
+        }
       }
     ]
   },
