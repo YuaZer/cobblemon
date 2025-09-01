@@ -241,6 +241,14 @@
 - Pikachu
 - Raichu
 - Alolan Raichu
+- Espathra
+- Abra
+- Kadabra
+- Alakazam
+- Deino
+- Zweilous
+- Hydreigon
+- Slaking
 
 ### Model updates for the following Pokémon
 - Cleffa
