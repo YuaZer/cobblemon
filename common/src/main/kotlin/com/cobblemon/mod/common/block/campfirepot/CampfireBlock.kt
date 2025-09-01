@@ -71,7 +71,7 @@ class CampfireBlock(settings: Properties, val isSoul: Boolean) : BaseEntityBlock
 
         private val campfireAABB = Shapes.box(0.0, 0.0, 0.0, 1.0, 0.4375, 1.0)
         private val AABB = Shapes.or(
-            Shapes.box(0.0, 0.0, 0.0, 1.0, 0.4375, 1.0),
+            campfireAABB,
             Shapes.box(0.1875, 0.5, 0.125, 0.875, 0.8125, 0.1875),
             Shapes.box(0.125, 0.4375, 0.125, 0.875, 0.5, 0.875),
             Shapes.box(0.8125, 0.5, 0.1875, 0.875, 0.8125, 0.875),
@@ -107,7 +107,7 @@ class CampfireBlock(settings: Properties, val isSoul: Boolean) : BaseEntityBlock
         return null
     }
 
-    override fun getShape(blockState: BlockState, blockGetter: BlockGetter, blockPos: BlockPos, collisionContext: CollisionContext): VoxelShape = campfireAABB
+    override fun getShape(blockState: BlockState, blockGetter: BlockGetter, blockPos: BlockPos, collisionContext: CollisionContext): VoxelShape = AABB
 
     override fun getCollisionShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape = AABB
 
