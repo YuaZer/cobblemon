@@ -52,6 +52,7 @@
   "riding": {
     "behaviours": {
       "AIR": {
+        "key": "cobblemon:air/bird",
         "rideSounds": [
           {
             "muffleEnabled": true,
@@ -67,16 +68,23 @@
             "soundLocation": "cobblemon:ride.loop.plumage",
             "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
           }
-        ]
+        ],
+        "stats": {
+          "ACCELERATION": "55-85",
+          "JUMP": "30-65",
+          "SKILL": "30-65",
+          "SPEED": "30-65",
+          "STAMINA": "10-40"
+        }
       },
       "LAND": {
         "key": "cobblemon:land/horse",
         "rideSounds": [],
         "stats": {
-          "ACCELERATION": null,
-          "JUMP": "30-65",
-          "SKILL": "30-65",
-          "SPEED": "10-40",
+          "ACCELERATION": "30-65",
+          "JUMP": "55-85",
+          "SKILL": "10-40",
+          "SPEED": "30-65",
           "STAMINA": "10-40"
         }
       }

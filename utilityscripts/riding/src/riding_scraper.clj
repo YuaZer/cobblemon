@@ -427,7 +427,9 @@
                           merged   (concat
                                      (vals (select-keys a-by-loc (keys b-by-loc))) ; from A
                                      (vals (apply dissoc b-by-loc (keys a-by-loc))))] ; only B
-                      (assoc-in acc [k :rideSounds] (vec merged)))
+                      (-> acc
+                          (assoc k (get-in b [:behaviours k]))
+                          (assoc-in [k :rideSounds] (vec merged))))
                     ;; if B has no sounds, just skip
                     (assoc acc k b-entry))))
               {}
@@ -441,6 +443,12 @@
    Returns the updated species JSON map."
   [json-data riding-data form]
   (let [sanitized-json-data (sanitize-old-riding-json json-data)]
+    (if (= (:name json-data) "Crobat")
+      (do
+        (def crobat-json-data json-data)
+        (def crobat-riding-data riding-data)
+        (def crobat-form form)
+        (def crobat-sanitized-json-data sanitized-json-data)))
     (if form
       (assoc sanitized-json-data :forms (map #(if (= (:name %) form) (apply-riding-data % riding-data nil) %) (:forms sanitized-json-data)))
       (let [old-riding-json-data (:riding sanitized-json-data)
@@ -546,12 +554,16 @@
                           (#(csv->map % headers 3))
                           (#(do (def csv-result %) %))
                           (map sanitize-riding-data)
+                          (#(do (def sanitized-result %) %))
                           (filter #(or (:air %) (:land %) (:liquid %)))
                           (map #(assoc % :seat-data (generate-seat-data %)))
+                          (#(do (def seat-data-result %) %))
                           (filter #(:seat-data %))
                           (map #(assoc % :json (behaviours->json % sounds)))
+                          (#(do (def behaviour-json-result %) %))
                           (filter #(:json %))
                           (map #(riding-data->cobblemon-json % files))
+                          (#(do (def cobblemon-json-result %) %))
                           (group-by :file))]
     (update-vals file-updates collapse-json)))
 
