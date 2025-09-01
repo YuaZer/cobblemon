@@ -9,19 +9,12 @@
 package com.cobblemon.mod.common.client.net.cooking
 
 import com.cobblemon.mod.common.Cobblemon
-import com.cobblemon.mod.common.CobblemonSounds
 import com.cobblemon.mod.common.api.net.ServerNetworkPacketHandler
-import com.cobblemon.mod.common.block.campfirepot.CampfireBlock
 import com.cobblemon.mod.common.block.campfirepot.CookingPotMenu
 import com.cobblemon.mod.common.block.entity.CampfireBlockEntity
-import com.cobblemon.mod.common.block.entity.CampfireBlockEntity.Companion.IS_LID_OPEN_INDEX
 import com.cobblemon.mod.common.net.messages.client.cooking.ToggleCookingPotLidPacket
-import com.cobblemon.mod.common.util.activateNearbyObservers
-import com.cobblemon.mod.common.util.playSoundServer
-import com.cobblemon.mod.common.util.raycast
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.world.level.ClipContext
 
 object ToggleCookingPotLidHandler : ServerNetworkPacketHandler<ToggleCookingPotLidPacket> {
     override fun handle(

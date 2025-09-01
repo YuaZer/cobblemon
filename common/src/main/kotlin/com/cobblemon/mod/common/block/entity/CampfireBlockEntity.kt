@@ -21,7 +21,6 @@ import com.cobblemon.mod.common.client.render.MatrixWrapper
 import com.cobblemon.mod.common.client.sound.BlockEntitySoundTracker
 import com.cobblemon.mod.common.client.sound.instances.CancellableSoundInstance
 import com.cobblemon.mod.common.item.crafting.CookingPotRecipeBase
-import com.cobblemon.mod.common.util.activateNearbyObservers
 import com.cobblemon.mod.common.util.playSoundServer
 import com.mojang.blaze3d.vertex.PoseStack
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap
@@ -167,7 +166,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
 
                 recipe.applySeasoning(cookedItem, campfireBlockEntity.getSeasonings())
 
-                if (campfireBlockEntity.isLidOpen) {
+                if (campfireBlockEntity.blockState.getValue(CampfireBlock.LID)) {
                     campfireBlockEntity.cookingProgress = 0
                 } else {
                     if (!resultSlotItem.isEmpty) {
@@ -228,7 +227,6 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
     private val ambientSound = CobblemonSounds.CAMPFIRE_POT_AMBIENT
     private var cookingProgress: Int = 0
     private var cookingTotalTime: Int = COOKING_TOTAL_TIME
-    private var isLidOpen: Boolean = true
     private var items: NonNullList<ItemStack> = NonNullList.withSize(ITEMS_SIZE, ItemStack.EMPTY)
     private val recipesUsed: Object2IntOpenHashMap<ResourceLocation> = Object2IntOpenHashMap()
     private val quickCheck: RecipeManager.CachedCheck<CraftingInput, *> =
@@ -243,7 +241,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
             return when (index) {
                 COOKING_PROGRESS_INDEX -> this@CampfireBlockEntity.cookingProgress
                 COOKING_PROGRESS_TOTAL_TIME_INDEX -> this@CampfireBlockEntity.cookingTotalTime
-                IS_LID_OPEN_INDEX -> if (this@CampfireBlockEntity.isLidOpen) 1 else 0
+                IS_LID_OPEN_INDEX -> if (this@CampfireBlockEntity.blockState.getValue(CampfireBlock.LID)) 0 else 1
                 else -> 0
             }
         }
@@ -252,7 +250,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
             when (index) {
                 COOKING_PROGRESS_INDEX -> this@CampfireBlockEntity.cookingProgress = value
                 COOKING_PROGRESS_TOTAL_TIME_INDEX -> this@CampfireBlockEntity.cookingTotalTime = value
-                IS_LID_OPEN_INDEX -> this@CampfireBlockEntity.isLidOpen = value == 1
+                IS_LID_OPEN_INDEX -> this@CampfireBlockEntity.toggleLid(value == 1)
             }
         }
 
@@ -401,7 +399,6 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
         super.saveAdditional(tag, registries)
 
         tag.putInt("CookingProgress", this.cookingProgress)
-        tag.putBoolean("IsLidOpen", this.isLidOpen)
 
         ContainerHelper.saveAllItems(tag, this.items, registries)
         potComponent?.let { component ->
@@ -415,7 +412,6 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
         super.loadAdditional(tag, registries)
 
         this.cookingProgress = tag.getInt("CookingProgress")
-        this.isLidOpen = tag.getBoolean("IsLidOpen")
 
         // Minecraft doesn't save empty item stacks to the items tag, so we have to manually clear them
         // otherwise they would never clear and seasonings would always render wrongly
@@ -458,7 +454,6 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
     }
 
     fun toggleLid(isOpen: Boolean) {
-        this.isLidOpen = isOpen
         level?.let { lvl ->
             lvl.playSoundServer(
                 position = blockPos.center,
