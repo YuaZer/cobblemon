@@ -18,7 +18,7 @@
       "isBattle": true,
       "isTouchingWater": false,
       "animations": [
-        "q.look('head_ai', 1, 1, 10, -30, 22.5, -22.5)",
+        "q.look('head_ai', 1, 1, 10, -30, 17.5, -17.5)",
         "q.bedrock('raichu_alolan', 'battle_idle')"
       ],
       "quirks": ["q.bedrock_quirk('raichu_alolan', 'blink')","q.bedrock_quirk('raichu_alolan','battle_quirk', 20, 40, 1)"]
@@ -28,7 +28,7 @@
       "isBattle": false,
       "isTouchingWater": false,
       "animations": [
-        "q.look('head_ai', 1, 1, 10, -30, 22.5, -22.5)",
+        "q.look('head_ai', 1, 1, 10, -30, 17.5, -17.5)",
         "q.bedrock('raichu_alolan', 'ground_idle')"
       ],
       "quirks": [
@@ -46,7 +46,7 @@
       "poseTypes": ["WALK","FLY"],
       "isTouchingWater": false,
       "animations": [
-        "q.look('head_ai', 1, 1, 10, -30, 22.5, -22.5)",
+        "q.look('head_ai', 1, 1, 10, -30, 17.5, -17.5)",
         "q.bedrock('raichu_alolan', 'ground_walk')"
       ],
       "quirks": [
@@ -82,7 +82,7 @@
       "isBattle": true,
       "isTouchingWater": true,
       "animations": [
-        "q.look('head_ai', 1, 1, 10, -30, 22.5, -22.5)",
+        "q.look('head_ai', 1, 1, 10, -30, 17.5, -17.5)",
         "q.bedrock('raichu_alolan', 'battle_idle')"
       ],
       "quirks": ["q.bedrock_quirk('raichu_alolan', 'blink')","q.bedrock_quirk('raichu_alolan','battle_quirk', 30, 60, 1)"],
@@ -98,7 +98,7 @@
       "isBattle": false,
       "isTouchingWater": true,
       "animations": [
-        "q.look('head_ai', 1, 1, 10, -30, 22.5, -22.5)",
+        "q.look('head_ai', 1, 1, 10, -30, 17.5, -17.5)",
         "q.bedrock('raichu_alolan', 'ground_idle')"
       ],
       "quirks": ["q.bedrock_quirk('raichu_alolan', 'blink')"],
@@ -113,7 +113,7 @@
       "poseTypes": ["WALK"],
       "isTouchingWater": true,
       "animations": [
-        "q.look('head_ai', 1, 1, 10, -30, 22.5, -22.5)",
+        "q.look('head_ai', 1, 1, 10, -30, 17.5, -17.5)",
         "q.bedrock('raichu_alolan', 'ground_walk')"
       ],
       "quirks": ["q.bedrock_quirk('raichu_alolan', 'blink')"],
