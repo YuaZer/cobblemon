@@ -537,6 +537,10 @@ open class PokemonEntity(
             occupiedSeats[passengerIndex] = null
         }
         super.removePassenger(passenger)
+        if (passengers.isEmpty()) {
+            ridingController?.context?.state?.reset()
+            ridingAnimationData.clear()
+        }
     }
 
     override fun thunderHit(level: ServerLevel, lightning: LightningBolt) {
