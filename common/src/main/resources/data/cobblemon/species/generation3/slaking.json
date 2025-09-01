@@ -51,7 +51,7 @@
     "moving": {
       "wanderChance": "750",
       "walk": {
-        "walkSpeed": 0.3
+        "walkSpeed": 0.15
       },
       "swim": {
         "avoidsWater": true
@@ -65,6 +65,29 @@
     "herd": {
       "maxSize": "8"
     }
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "stats": {
+          "SPEED": "20-70",
+          "ACCELERATION": "90-100",
+          "SKILL": "40-60",
+          "JUMP": "10-30",
+          "STAMINA": "50-70"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    ]
   },
   "drops": {
     "amount": 1,

@@ -644,8 +644,6 @@ object VaryingModelRepository {
         inbuilt("jellicent", ::JellicentModel)
         inbuilt("cubchoo", ::CubchooModel)
         inbuilt("beartic", ::BearticModel)
-        inbuilt("deino", ::DeinoModel)
-        inbuilt("zweilous", ::ZweilousModel)
         inbuilt("dreepy", ::DreepyModel)
         inbuilt("drakloak", ::DrakloakModel)
         inbuilt("dragapult", ::DragapultModel)
