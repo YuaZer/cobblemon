@@ -634,10 +634,11 @@ object MoLangFunctions {
                     val soundId = params.getString(0).asResource()
                     val volume = params.getDoubleOrNull(1)?.toFloat() ?: 1.0f
                     val pitch = params.getDoubleOrNull(2)?.toFloat() ?: 1.0f
+                    val restart = params.getBooleanOrNull(3) ?: true
 
                     val music = soundId
                     if (music != null) {
-                        val packet = BattleMusicPacket(music, volume, pitch)
+                        val packet = BattleMusicPacket(music, volume, pitch, restart)
                         packet.sendToPlayer(player)
                         return@put DoubleValue.ONE
                     } else {
@@ -645,7 +646,7 @@ object MoLangFunctions {
                     }
                 }
                 map.put("stop_battle_music") { _ ->
-                    val packet = BattleMusicPacket(null, 0.0f, 0.0f)
+                    val packet = BattleMusicPacket(null)
                     packet.sendToPlayer(player)
                     return@put DoubleValue.ONE
                 }

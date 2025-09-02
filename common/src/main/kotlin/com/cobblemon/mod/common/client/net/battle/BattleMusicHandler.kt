@@ -25,19 +25,19 @@ object BattleMusicHandler : ClientNetworkPacketHandler<BattleMusicPacket> {
 
     override fun handle(packet: BattleMusicPacket, client: Minecraft) {
         val soundManager = client.soundManager
-        val loc = packet.music
-        val newMusic = loc?.let {
-            val event = SoundEvent.createVariableRangeEvent(loc)
+        val currMusic = BattleMusicController.music
+        val newMusic = packet.music?.let {
+            val event = SoundEvent.createVariableRangeEvent(it)
             BattleMusicInstance(event, packet.volume, packet.pitch)
         }
-        val currMusic = BattleMusicController.music
 
-        if (newMusic?.location == currMusic.location && soundManager.isActive(currMusic) && !currMusic.isFading()) {
+        if (newMusic == null)
+            BattleMusicController.endMusic()
+        else if (!soundManager.isActive(currMusic))
+            BattleMusicController.initializeMusic(newMusic)
+        else if (currMusic.location == newMusic.location && !packet.restartExisting)
             return
-        } else when {
-            newMusic == null -> BattleMusicController.endMusic()
-            !soundManager.isActive(currMusic) || currMusic.isFading() -> BattleMusicController.initializeMusic(newMusic)
-            else -> BattleMusicController.switchMusic(newMusic)
-        }
+        else
+            BattleMusicController.switchMusic(newMusic)
     }
 }
