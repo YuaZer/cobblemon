@@ -202,7 +202,7 @@
     {
       "id": "bergmite_avalugghisui",
       "variant": "level_up",
-      "result": "avalugg",
+      "result": "avalugg hisuian",
       "consumeHeldItem": false,
       "learnableMoves": [
         "rockslide"
@@ -269,7 +269,7 @@
         {
           "id": "bergmite_avalugghisui",
           "variant": "level_up",
-          "result": "avalugg",
+          "result": "avalugg hisuian",
           "consumeHeldItem": false,
           "learnableMoves": [
             "rockslide"
