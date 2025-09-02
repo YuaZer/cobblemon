@@ -25,8 +25,6 @@ import net.minecraft.world.entity.ai.memory.WalkTarget
 
 
 object MoveToItemTask {
-    val runtime = MoLangRuntime().setup()
-
     fun create(condition: Expression, maxDistance: Expression, speedMultiplier: Expression): OneShot<PokemonEntity> = BehaviorBuilder.create {
         it.group(
             it.absent(MemoryModuleType.WALK_TARGET),
@@ -37,16 +35,16 @@ object MoveToItemTask {
             Trigger { _, entity, _ ->
 
                 val itemEntity = it.get(wantedItemEntity)
-                if (itemEntity == null || !itemEntity.isAlive || itemEntity.distanceTo(entity) > runtime.resolveFloat(maxDistance)) {
+                if (itemEntity == null || !itemEntity.isAlive || itemEntity.distanceTo(entity) > mainThreadRuntime.resolveFloat(maxDistance)) {
                     return@Trigger false
                 }
-                runtime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
+                mainThreadRuntime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
 
-                val _condition = runtime.resolveBoolean(condition)
+                val _condition = mainThreadRuntime.resolveBoolean(condition)
                 if (!_condition || !entity.pokemon.canDropHeldItem) {
                     return@Trigger false // condition failed or Pokemon has been given an item to keep safe
                 }
-                val _speedMultiplier = runtime.resolveFloat(speedMultiplier)
+                val _speedMultiplier = mainThreadRuntime.resolveFloat(speedMultiplier)
 
                 if (entity.brain.checkMemory(CobblemonMemories.TIME_TRYING_TO_REACH_WANTED_ITEM, MemoryStatus.VALUE_ABSENT)) {
                     entity.brain.setMemory(CobblemonMemories.TIME_TRYING_TO_REACH_WANTED_ITEM, 0)

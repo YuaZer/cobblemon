@@ -60,6 +60,29 @@
       }
     ]
   },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "stats": {
+          "SPEED": "20-70",
+          "ACCELERATION": "90-100",
+          "SKILL": "40-60",
+          "JUMP": "10-30",
+          "STAMINA": "50-70"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    ]
+  },
   "moves": [
     "1:aerialace",
     "1:tackle",
@@ -181,5 +204,24 @@
     "legacy:toxic"
   ],
   "preEvolution": "skiddo",
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
+    },
+    "moving": {
+      "canWalk": true,
+      "walkSpeed": 0.7
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "gogoat",
+          "tier": 1
+        }
+      ]
+    }
+  }
 }

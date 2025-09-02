@@ -220,6 +220,16 @@ class OmniPathNavigation(val world: Level, val entity: Mob) : GroundPathNavigati
         this.moveTo(x, y, z, speed)
     }
 
+    override fun isStableDestination(pos: BlockPos): Boolean {
+        if (pather.canSwimInWater() && mob.isInWater) {
+            val blockGetter: BlockGetter = level
+            if (blockGetter.getFluidState(pos).`is`(FluidTags.WATER)) {
+                return true
+            }
+        }
+        return super.isStableDestination(pos)
+    }
+
     override fun getGroundY(vec: Vec3): Double {
         val blockGetter: BlockGetter = level
         val blockPos = BlockPos.containing(vec)

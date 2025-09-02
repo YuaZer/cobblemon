@@ -161,8 +161,9 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
     }
 
     private fun applyGravity(velocity: Vec3, vehicle: PokemonEntity, settings: BoatSettings, state: BoatState): Vec3 {
-        if (state.jumpBuffer.get() == -1 && vehicle.isInWater || vehicle.isUnderWater) {
-            return Vec3(velocity.x, -0.05, velocity.z)
+        if (state.jumpBuffer.get() == -1 && (vehicle.isInWater || vehicle.isUnderWater)) {
+            val verticalVelocity = if (vehicle.isUnderWater) 0.5 else 0.0
+            return Vec3(velocity.x, verticalVelocity, velocity.z)
         }
         val terminalVelocity = vehicle.runtime.resolveDouble(settings.terminalVelocity)
         val gravity = (9.8 / ( 20.0)) * 0.2
@@ -239,9 +240,7 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
         if (driver !is OrientationControllable) return Vec3.ZERO
 
         //Might need to add the smoothing here for default.
-        val invertRoll = if (Cobblemon.config.invertRoll) -1 else 1
-        val invertPitch = if (Cobblemon.config.invertPitch) -1 else 1
-        return Vec3(0.0, mouseY * invertPitch, mouseX * invertRoll)
+        return Vec3(0.0, mouseY, mouseX)
     }
 
     override fun canJump(

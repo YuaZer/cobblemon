@@ -46,6 +46,10 @@
 - Berries can now be smelted into their respective dyes.
 - Added Syrupy Apples.
 - Added `/runmolang <molang> [<npc>|<player>|<pokemon>]` command that executes a MoLang expression with the provided options as environment variables, as well as the entity (as `q.entity`) that executed the command.
+- Added `.Pre` and `.Post` to the following events:
+    - `PokemonRecallEvent`
+    - `TradeEvent`
+- Added a new gamerule, 'healerHealsPC', when set to true a successful use of a healer will also heal all of the Pokemon in that player's PC.
 
 ### Pokémon Added
 
@@ -58,6 +62,7 @@
 - Dunsparce
 - Togepi
 - Togetic
+- Unown
 - Houndour
 - Houndoom
 
@@ -75,8 +80,7 @@
 - Glalie
 - Latias
 - Latios
-- Swablu
-- Altaria
+
 
 #### Gen 4
 - Bronzor
@@ -114,11 +118,15 @@
 - Tynamo
 - Eelektrik
 - Eelektross
+- Axew
+- Fraxure
+- Haxorus
 - Mienfoo
 - Mienshao
 - Sewaddle
 - Swadloon
 - Leavanny
+- Druddigon
 
 #### Gen 6
 - Skiddo
@@ -143,6 +151,8 @@
 #### Gen 8
 - Skwovet
 - Greedent
+- Chewtle
+- Drednaw
 - Toxel
 - Toxtricity
 - Morpeko
@@ -152,6 +162,11 @@
 - Polteageist
 - Galarian Corsola
 - Cursola
+- Mr. Rime
+- Galarian Mr. Mime
+- Clobbopus
+- Grapploct
+- Galarian Weezing
 
 #### Gen 9
 - Smoliv
@@ -170,6 +185,10 @@
 - Bellibolt
 - Toedscool
 - Toedscruel
+- Rellor
+- Rabsca
+- Bramblin
+- Brambleghast
 
 ### Animation updates for the following Pokémon
 - Garchomp
@@ -198,6 +217,13 @@
 - Porygon
 - Porygon2
 - Porygon-Z
+- Wattrel
+- Kilowattrel
+- Golurk
+- Spinarak
+- Ariados
+- Wyrdeer
+- Tyrantrum
 
 ### Model updates for the following Pokémon
 - Gyarados
@@ -260,6 +286,8 @@
 - Klink
 - Klank
 - Klinklang
+- Spinarak
+- Ariados
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
@@ -313,9 +341,15 @@
 - Updated Pokémon state icons shown in party interfaces
 - MoLang `face` function can now be run on any `PosableEntity` (Like Pokémon!) instead of just NPCs.
 - MoLang `run_action_effect` now works on Pokémon.
-- Changed MoLang entity function `is_standing_on` to allow for block tags in the list.
 - Changed MoLang entity function `is_standing_on` to allow for block tags in the list. 
 - Added entity (as `q.entity`) that executed the command to the `executemolangscript` command.
+- Refactored the following events to `.Pre` and `.Post` for consistency:
+- `PokemonSentEvent`
+- `ExperienceGainedEvent`
+- `BattleStartedEvent`
+- Updated `PokemonSentEvent` parameters to include the Position and Level of the Pokémon being sent out.
+- Updated `EvolutionCompleteEvent` parameters to include the Source Pokemon that evolved.
+- Updated `HatchEggEvent.Post` to include the Pokemon that hatched.
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
@@ -389,6 +423,13 @@
 - Fixed mod incompatibility with the `Raised` mod
 - Fixed a vulnerability that could cause party and PC rollbacks under specific circumstances.
 - Fixed a rare edge case where sorting your PC could be rolled back later.
+- Fixed BotanyPots built-in integration
+- Fixed shading of berries on berry trees.
+- Fixed Cobblemon brewing recipes placing result into all slots, and not just slots with correct ingredients inside the brewing stand.
+- Fixed an issue where hoppers and brewing stands were not recognizing Cobblemon brewing recipes.
+- Fixed global species features... not working. Since they were created. Oops.
+- Fixed Pokémon with alternate forms being created with an incorrect 'forced' tag on their ability.
+- Fixed busted abilities and moves in Pokémon data due to removed datapacks etc. causing storage corruption. It now just rerolls their ability / uses Tackle.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -402,7 +443,6 @@
 - Reworked observable handling in `Pokemon.kt` to cut down on RAM usage and clarify the file.
   - Note: This will break mods that used our observable functionality there or in MoveSet, IVs, EVs, or BenchedMoves.
   - Using `Pokemon#onChange()` is now the way to mark a Pokémon as needing a save.
-  - Using `[Pokemon].changeObservable` is now the way to get an `Observable` for any save-worthy changes.
 - Updated NPCEntity beam positioning to properly account for the baseScale property.
 - Updated NPCEntity pokeball throw positioning to properly account for the baseScale property.
 - Fixed `[Pokemon].copyFrom` error causing forms, IVs, and EVs to not be applied properly when using `[Pokemon].loadFromJSON` or `[Pokemon].loadFromNBT`
@@ -483,6 +523,7 @@
 - Added `is_included`, `to_lower`, `to_upper`, and `string_length` as available Molang functions.
 - Fixed a crash that would occur during battles if the opponent wild Pokémon species comes from a namespace other than cobblemon
 - Fixed `clientActions` inside Dialogue pages being executed twice
+- Fixed `background` field and added `textColor` field for dialogues.
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)
 

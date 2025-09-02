@@ -48,13 +48,34 @@
   "hitbox": {
     "width": 0.8,
     "height": 1.2,
+    "standingEyeHeight": 0.7,
     "fixed": false
   },
   "behaviour": {
     "moving": {
+      "walk": {
+        "walkSpeed": 0.17
+      },
       "fly": {
         "canFly": true
       }
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "rufflet",
+          "tier": 1
+        },
+        {
+          "pokemon": "braviary",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {

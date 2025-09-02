@@ -64,6 +64,19 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "altaria mega=false",
+          "tier": 1
+        },
+        {
+          "pokemon": "altaria mega",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -267,7 +280,18 @@
       "baseExperienceYield": 207,
       "dynamaxBlocked": true,
       "evolutions": [],
-      "battleOnly": true
+      "battleOnly": true,
+      "behaviour": {
+        "herd": {
+          "maxSize": "9",
+          "toleratedLeaders": [
+            {
+              "pokemon": "altaria mega",
+              "tier": 1
+            }
+          ]
+        }
+      }
     }
   ]
 }

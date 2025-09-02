@@ -71,6 +71,15 @@
           "fullnessValue": 10
         }
       ]
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "ninetales",
+          "tier": 1
+        }
+      ]
     }
   },
   "ai": [
@@ -403,7 +412,18 @@
           "requiredContext": "cobblemon:ice_stone"
         }
       ],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "herd": {
+          "maxSize": "2",
+          "toleratedLeaders": [
+            {
+              "pokemon": "ninetales",
+              "tier": 1
+            }
+          ]
+        }
+      }
     }
   ]
 }

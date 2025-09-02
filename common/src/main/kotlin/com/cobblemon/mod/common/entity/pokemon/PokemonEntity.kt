@@ -537,6 +537,10 @@ open class PokemonEntity(
             occupiedSeats[passengerIndex] = null
         }
         super.removePassenger(passenger)
+        if (passengers.isEmpty()) {
+            ridingController?.context?.state?.reset()
+            ridingAnimationData.clear()
+        }
     }
 
     override fun thunderHit(level: ServerLevel, lightning: LightningBolt) {
@@ -1046,7 +1050,9 @@ open class PokemonEntity(
 
     override fun wantsToPickUp(stack: ItemStack): Boolean {
         val pickupItems = config.getObjectList<ObtainableItem>(PokemonItemSensor.PICKUP_ITEMS)
-        return this.canHoldItem(stack) && (pickupItems.findMatchingEntry(stack)?.pickupPriority ?: 0) > 0
+        return this.canHoldItem(stack) &&
+                (pickupItems.findMatchingEntry(registryAccess(), stack)?.pickupPriority
+                    ?: 0) > (pickupItems.findMatchingEntry(registryAccess(), this.pokemon.heldItem)?.pickupPriority ?: 0)
     }
 
     override fun mobInteract(player: Player, hand: InteractionHand): InteractionResult {
@@ -2154,7 +2160,7 @@ open class PokemonEntity(
         return this.level().getBlockState(blockBelow).isSolid
     }
 
-    override fun onPassengerTurned(entityToUpdate: Entity) {
+    fun clampPassengerRotation(entityToUpdate: Entity) {
          if (entityToUpdate !is LivingEntity) return
         ifRidingAvailable { behaviour, settings, state ->
             behaviour.clampPassengerRotation(settings, state, this, entityToUpdate)

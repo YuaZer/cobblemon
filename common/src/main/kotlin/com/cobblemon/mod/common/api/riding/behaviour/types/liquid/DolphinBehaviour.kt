@@ -14,6 +14,8 @@ import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.OrientationControllable
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
+import com.cobblemon.mod.common.api.riding.behaviour.types.air.JetSettings
+import com.cobblemon.mod.common.api.riding.behaviour.types.air.JetState
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
 import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
@@ -165,6 +167,47 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         sensitivity: Double,
         deltaTime: Double
     ): Vec3 {
+
+        return when {
+            Cobblemon.config.disableRoll -> noRollRotation(
+                settings,
+                state,
+                vehicle,
+                driver,
+                mouseY,
+                mouseX,
+                mouseYSmoother,
+                mouseXSmoother,
+                sensitivity,
+                deltaTime
+            )
+            else -> rollRotation(
+                settings,
+                state,
+                vehicle,
+                driver,
+                mouseY,
+                mouseX,
+                mouseYSmoother,
+                mouseXSmoother,
+                sensitivity,
+                deltaTime
+            )
+        }
+    }
+
+    fun noRollRotation(
+        settings: DolphinSettings,
+        state: DolphinState,
+        vehicle: PokemonEntity,
+        driver: Player,
+        mouseY: Double,
+        mouseX: Double,
+        mouseYSmoother: SmoothDouble,
+        mouseXSmoother: SmoothDouble,
+        sensitivity: Double,
+        deltaTime: Double
+    ): Vec3 {
         if (driver !is OrientationControllable) return Vec3.ZERO
         val controller = (driver as OrientationControllable).orientationController
 
@@ -174,12 +217,10 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
 
         //Interpret mouse input
         val smoothingSpeed = 4.0
-        val invertRoll = if (Cobblemon.config.invertRoll) -1 else 1
-        val invertPitch = if (Cobblemon.config.invertPitch) -1 else 1
         val mouseXc = (mouseX).coerceIn(-60.0, 60.0)
         val mouseYc = (mouseY).coerceIn(-60.0, 60.0)
-        val xInput = mouseXSmoother.getNewDeltaValue(mouseXc * 0.1 * invertRoll, deltaTime * smoothingSpeed);
-        val yInput = mouseYSmoother.getNewDeltaValue(mouseYc * 0.1 * invertPitch, deltaTime * smoothingSpeed);
+        val xInput = mouseXSmoother.getNewDeltaValue(mouseXc * 0.1, deltaTime * smoothingSpeed);
+        val yInput = mouseYSmoother.getNewDeltaValue(mouseYc * 0.1, deltaTime * smoothingSpeed);
         val rollRot = xInput
         val pitchRot = yInput
 
@@ -196,6 +237,66 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         // TODO:move all magic numbers to handling expression
         val yawSpeed = handling * deltaTime * 0.25
         val yawForce =  sin(controller.roll.toRadians()) * yawSpeed * ( 1.0 - min(sqrt(RidingBehaviour.scaleToRange(state.rideVelocity.get().length(), 0.0, topSpeed)), 0.5))
+        //Apply yaw globally as we don't want roll or pitch changes due to local yaw when looking up or down.
+        controller.applyGlobalYaw(yawForce.toFloat())
+
+        // Pitch
+        if (abs(controller.pitch + pitchRot) >= 89.5 ) {
+            mouseYSmoother.reset()
+        } else {
+            //controller.applyGlobalPitch(pitchRot.toFloat()  * -1.0f)
+            controller.rotatePitch(pitchRot.toFloat())
+        }
+
+        //yaw, pitch, roll
+        return Vec3.ZERO
+    }
+
+    fun rollRotation(
+        settings: DolphinSettings,
+        state: DolphinState,
+        vehicle: PokemonEntity,
+        driver: Player,
+        mouseY: Double,
+        mouseX: Double,
+        mouseYSmoother: SmoothDouble,
+        mouseXSmoother: SmoothDouble,
+        sensitivity: Double,
+        deltaTime: Double
+    ): Vec3 {
+        if (driver !is OrientationControllable) return Vec3.ZERO
+        val controller = (driver as OrientationControllable).orientationController
+
+        //TODO:hook up handling
+        val handling = vehicle.runtime.resolveDouble(settings.handlingExpr)
+        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
+
+        //Interpret mouse input
+        val smoothingSpeed = 4.0
+        val mouseXc = (mouseX).coerceIn(-60.0, 60.0)
+        val mouseYc = (mouseY).coerceIn(-60.0, 60.0)
+        val xInput = mouseXSmoother.getNewDeltaValue(mouseXc * 0.1, deltaTime * smoothingSpeed);
+        val yInput = mouseYSmoother.getNewDeltaValue(mouseYc * 0.1, deltaTime * smoothingSpeed);
+        val rollRot = xInput
+        val pitchRot = yInput
+
+        // Roll
+//        if (abs(controller.pitch + rollRot) >= 89.5 ) {
+//            mouseXSmoother.reset()
+//        } else {
+//
+//        }
+
+        controller.rotateRoll(rollRot.toFloat())
+
+        // Yaw
+        // TODO:move all magic numbers to handling expression
+        val yawSpeed = handling * deltaTime * 0.25
+        val yawForce =  sin(controller.roll.toRadians()) * yawSpeed * ( 1.0 - min(sqrt(RidingBehaviour.scaleToRange(state.rideVelocity.get().length(), 0.0, topSpeed)), 0.5)).run {
+            if (!this.isFinite())
+                return@run 0.5
+            this
+        }
         //Apply yaw globally as we don't want roll or pitch changes due to local yaw when looking up or down.
         controller.applyGlobalYaw(yawForce.toFloat())
 

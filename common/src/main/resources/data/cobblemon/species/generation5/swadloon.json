@@ -1,4 +1,5 @@
-{ "implemented": true,
+{
+  "implemented": true,
   "nationalPokedexNumber": 541,
   "name": "Swadloon",
   "primaryType": "bug",
@@ -181,5 +182,10 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "5"
+    }
+  }
 }

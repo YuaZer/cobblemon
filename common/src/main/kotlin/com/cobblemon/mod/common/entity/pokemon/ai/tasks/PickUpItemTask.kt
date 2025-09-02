@@ -9,12 +9,13 @@
 package com.cobblemon.mod.common.entity.pokemon.ai.tasks
 
 import com.bedrockk.molang.Expression
-import com.bedrockk.molang.runtime.MoLangRuntime
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMostSpecificMoLangValue
-import com.cobblemon.mod.common.api.molang.MoLangFunctions.setup
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
-import com.cobblemon.mod.common.util.*
+import com.cobblemon.mod.common.util.mainThreadRuntime
+import com.cobblemon.mod.common.util.resolveBoolean
+import com.cobblemon.mod.common.util.resolveDouble
+import com.cobblemon.mod.common.util.withQueryValue
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.ai.behavior.OneShot
@@ -25,8 +26,6 @@ import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.item.ItemStack
 
 object PickUpItemTask {
-    val runtime = MoLangRuntime().setup()
-
     fun create(condition: Expression, maxReach: Expression): OneShot<PokemonEntity> = BehaviorBuilder.create {
         it.group(
             it.absent(MemoryModuleType.WALK_TARGET),
@@ -41,13 +40,13 @@ object PickUpItemTask {
                     return@Trigger false
                 }
 
-                runtime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
-                val condition = runtime.resolveBoolean(condition)
+                mainThreadRuntime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
+                val condition = mainThreadRuntime.resolveBoolean(condition)
                 if (!condition) {
                     return@Trigger false
                 }
 
-                val maxReach = runtime.resolveDouble(maxReach)
+                val maxReach = mainThreadRuntime.resolveDouble(maxReach)
 
                 if (itemEntity.distanceTo(entity) > maxReach) {
                     return@Trigger false

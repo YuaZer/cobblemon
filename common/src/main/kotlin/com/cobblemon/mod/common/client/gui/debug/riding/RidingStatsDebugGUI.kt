@@ -135,7 +135,7 @@ class RidingStatsDebugGUI(val vehicle: PokemonEntity) : Screen(lang("ui.debug.ri
 
     fun saveStatRanges() {
         val minSpeed = minSpeedInput.value.toIntOrNull() ?: getRidingStatRange(RidingStat.SPEED).first
-        val maxSpeed = maxSpeedInput.value.toIntOrNull() ?: getRidingStatRange(RidingStat.SPEED).first
+        val maxSpeed = maxSpeedInput.value.toIntOrNull() ?: getRidingStatRange(RidingStat.SPEED).last
         val minAcceleration = minAccelerationInput.value.toIntOrNull() ?: getRidingStatRange(RidingStat.ACCELERATION).first
         val maxAcceleration = maxAccelerationInput.value.toIntOrNull() ?: getRidingStatRange(RidingStat.ACCELERATION).last
         val minSkill = minSkillInput.value.toIntOrNull() ?: getRidingStatRange(RidingStat.SKILL).first
@@ -149,16 +149,16 @@ class RidingStatsDebugGUI(val vehicle: PokemonEntity) : Screen(lang("ui.debug.ri
             vehicle.rideProp.behaviours?.get(ridingStyle)?.stats?.put(RidingStat.SPEED, minSpeed..maxSpeed)
         }
         if (minAcceleration < maxAcceleration) {
-            vehicle.rideProp.behaviours?.get(ridingStyle)?.stats?.put(RidingStat.ACCELERATION, minSpeed..maxSpeed)
+            vehicle.rideProp.behaviours?.get(ridingStyle)?.stats?.put(RidingStat.ACCELERATION, minAcceleration..maxAcceleration)
         }
         if (minSkill < maxSkill) {
-            vehicle.rideProp.behaviours?.get(ridingStyle)?.stats?.put(RidingStat.SKILL, minSpeed..maxSpeed)
+            vehicle.rideProp.behaviours?.get(ridingStyle)?.stats?.put(RidingStat.SKILL, minSkill..maxSkill)
         }
         if (minJump < maxJump) {
-            vehicle.rideProp.behaviours?.get(ridingStyle)?.stats?.put(RidingStat.JUMP, minSpeed..maxSpeed)
+            vehicle.rideProp.behaviours?.get(ridingStyle)?.stats?.put(RidingStat.JUMP, minJump..maxJump)
         }
         if (minStamina < maxStamina) {
-            vehicle.rideProp.behaviours?.get(ridingStyle)?.stats?.put(RidingStat.STAMINA, minSpeed..maxSpeed)
+            vehicle.rideProp.behaviours?.get(ridingStyle)?.stats?.put(RidingStat.STAMINA, minStamina..maxStamina)
         }
 
         CobblemonNetwork.sendToServer(
@@ -198,9 +198,7 @@ class RidingStatsDebugGUI(val vehicle: PokemonEntity) : Screen(lang("ui.debug.ri
     }
 
     fun getRidingStatRange(ridingStat: RidingStat): IntRange {
-        // TODO
-        return 0..0
-//        return vehicle.rideProp.stats[ridingStat]?.ranges?.get(ridingStyle) ?: 0..0
+        return vehicle.rideProp.behaviours?.get(ridingStyle)?.stats?.get(ridingStat) ?: 0..0
     }
 
     fun getScaledWidth() = Minecraft.getInstance().window.guiScaledWidth
