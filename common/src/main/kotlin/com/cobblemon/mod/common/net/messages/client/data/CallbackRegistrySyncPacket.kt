@@ -8,7 +8,7 @@
 
 package com.cobblemon.mod.common.net.messages.client.data
 
-import com.cobblemon.mod.common.CobblemonFlows
+import com.cobblemon.mod.common.CobblemonCallbacks
 import com.cobblemon.mod.common.api.molang.ExpressionLike
 import com.cobblemon.mod.common.util.asExpressionLike
 import com.cobblemon.mod.common.util.cobblemonResource
@@ -20,15 +20,15 @@ import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
 
 /**
- * A packet that synchronizes the flow registry with the client.
+ * A packet that synchronizes the callback registry with the client.
  *
  * @author Hiroku
  * @since February 24th, 2024
  */
-class FlowRegistrySyncPacket(entries: Collection<Map.Entry<ResourceLocation, List<ExpressionLike>>>) : DataRegistrySyncPacket<Map.Entry<ResourceLocation, List<ExpressionLike>>, FlowRegistrySyncPacket>(entries){
+class CallbackRegistrySyncPacket(entries: Collection<Map.Entry<ResourceLocation, List<ExpressionLike>>>) : DataRegistrySyncPacket<Map.Entry<ResourceLocation, List<ExpressionLike>>, CallbackRegistrySyncPacket>(entries){
     companion object {
-        val ID = cobblemonResource("flow_registry_sync")
-        fun decode(buffer: RegistryFriendlyByteBuf): FlowRegistrySyncPacket = FlowRegistrySyncPacket(emptyList()).apply { decodeBuffer(buffer) }
+        val ID = cobblemonResource("callback_registry_sync")
+        fun decode(buffer: RegistryFriendlyByteBuf): CallbackRegistrySyncPacket = CallbackRegistrySyncPacket(emptyList()).apply { decodeBuffer(buffer) }
     }
 
     override val id = ID
@@ -48,9 +48,9 @@ class FlowRegistrySyncPacket(entries: Collection<Map.Entry<ResourceLocation, Lis
     }
 
     override fun synchronizeDecoded(entries: Collection<Map.Entry<ResourceLocation, List<ExpressionLike>>>) {
-        entries.map { (identifier, flows) ->
-            val existing = CobblemonFlows.clientFlows.getOrPut(identifier) { mutableListOf() }
-            existing += flows
+        entries.map { (identifier, callbacks) ->
+            val existing = CobblemonCallbacks.clientCallbacks.getOrPut(identifier) { mutableListOf() }
+            existing += callbacks
         }
     }
 }
