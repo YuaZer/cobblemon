@@ -255,6 +255,8 @@
 - Klink
 - Klang
 - Klinklang
+- Baltoy
+- Claydol
 
 ### Model updates for the following Pokémon
 - Cleffa
