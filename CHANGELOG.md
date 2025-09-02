@@ -11,11 +11,10 @@
 - Pokémon's held items can now be rendered, with a visibility toggle in the Summary screen.
 - Added cosmetic item functionality for Pokémon. Certain cosmetic items can be given to applicable Pokémon via the interact menu.
   - Added the various log blocks as cosmetic items for Timburr and Komala.
+  - Added cosmetics for Spoink, Gurdurr, Conkeldurr, Squirtle Line, Sneasler, Sandile line, Treecko line, Braixen, Delphox, and Dragonite.
 - Added `visibility/hidden`, `visibility/hat` and `visibility/face` tags to control where and how certain items are rendered.
 - Added Pokémon markings, toggleable within the summary.
 - Added `/boxcount` command to change PC boxes amount
-- Added cosmetics for Gurdurr, Conkeldurr, Squirtle Line, Sneasler, Sandile line, Treecko line, Braixen, Delphox, and Dragonite.
-- Added cosmetics for Gurdurr, Conkeldurr, Squirtle Line, Sneasler, Sandle line, Treecko line, Braixen, Delphox, and Dragonite.
 - Added `/transformmodelpart (position|rotation|scale) <modelPart> <transform: x y z>` command that can add transformations to a pokemon's model part.
   - The player executing the command must be facing the target pokemon entity. Transformations are not persistent and will revert when resources are reloaded.
 - Added `legacy` and `special` sourced moves to Pokémon.
@@ -23,7 +22,7 @@
 - Added `translucent_cull` boolean option into resolver's layer to allow for translucent textures with culling
 - Added [LambDynamicLights](https://modrinth.com/mod/lambdynamiclights) support for items held by Pokémon, evolution stone blocks, evolution stone items, Pokédex, Luminous Moss, Flame Orb, and Magmarizer.
 - Added the Clear Amulet, Grip Claw, Lagging Tail, Luminous Moss, Metal Alloy, Scroll of Darkness, Scroll of Waters
-- Added Recipes for Masterpiece Cup, Eject Pack
+- Added Recipes for Masterpiece Cup, Eject Pack.
 - Added modification to Minecraft Creative Inventory search to account for item names that contain `poké` when input contains `poke`.
 - Added Campfire Pot as well as loads of new food items (Poke Puffs, Ponigiri, Sinister Tea, etc)
 - Added Hearty Grains, a new crop used in the new cooking mechanic
@@ -46,6 +45,7 @@
 - Berries can now be smelted into their respective dyes.
 - Added Syrupy Apples.
 - Added `/runmolang <molang> [<npc>|<player>|<pokemon>]` command that executes a MoLang expression with the provided options as environment variables, as well as the entity (as `q.entity`) that executed the command.
+- Added bubble quirk to Kingler; like Krabby, Kingler will blows bubbles during dusk.
 - Added `.Pre` and `.Post` to the following events:
     - `PokemonRecallEvent`
     - `TradeEvent`
@@ -480,6 +480,7 @@
 - Fixed a rare edge case where sorting your PC could be rolled back later.
 - Fixed BotanyPots built-in integration
 - Fixed shading of berries on berry trees.
+- Fixed static text cursor for nickname input in summary.
 - Fixed Cobblemon brewing recipes placing result into all slots, and not just slots with correct ingredients inside the brewing stand.
 - Fixed an issue where hoppers and brewing stands were not recognizing Cobblemon brewing recipes.
 - Fixed global species features... not working. Since they were created. Oops.
