@@ -67,6 +67,7 @@
 - Houndoom
 - Ho-Oh
 - Lugia
+- Alola Bias Pichu (built-in resourcepack)
 
 #### Gen 3
 - Azurill
@@ -239,8 +240,27 @@
 - Dwebble
 - Crustle
 - Mr. Mime
+- Flygon
+- Pichu
+- Pikachu
+- Raichu
+- Alolan Raichu
+- Espathra
+- Abra
+- Kadabra
+- Alakazam
+- Deino
+- Zweilous
+- Hydreigon
+- Slaking
+- Klink
+- Klang
+- Klinklang
 
 ### Model updates for the following Pokémon
+- Cleffa
+- Clefairy
+- Clefable
 - Gyarados
 - Dragonite
 - Eevee
@@ -316,6 +336,13 @@
 - Zoroark
 - Mime.Jr
 - Mr. Mime
+- Pichu
+- Pikachu
+- Raichu
+- Alolan Raichu
+- Deino
+- Zweilous
+- Hydreigon
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
