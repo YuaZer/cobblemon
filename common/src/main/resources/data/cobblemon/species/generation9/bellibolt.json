@@ -46,7 +46,8 @@
   "hitbox": {
     "width": 1.3,
     "height": 1.5,
-    "fixed": false,
+    "fixed": false
+  },
   "behaviour": {
     "moving": {
       "swim": {
