@@ -166,7 +166,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
 
                 recipe.applySeasoning(cookedItem, campfireBlockEntity.getSeasonings())
 
-                if (campfireBlockEntity.blockState.getValue(CampfireBlock.LID)) {
+                if (!campfireBlockEntity.blockState.getValue(CampfireBlock.LID)) {
                     campfireBlockEntity.cookingProgress = 0
                 } else {
                     if (!resultSlotItem.isEmpty) {
