@@ -45,11 +45,13 @@ public abstract class BeeOccupantMixin {
                 var state = level.getBlockState(pos);
                 var newPos = Vec3.ZERO;
                 var newYaw = 0f;
+                var brain = pokemonEntity.getBrain();
                 if (state.is(BlockTags.BEEHIVES)) {
                     // position in front of the entrance, face away from the block
                     var facing = state.getValue(HorizontalDirectionalBlock.FACING);
                     newPos = pos.relative(facing).getCenter();
                     newYaw = facing.toYRot();
+                    brain.setMemory(CobblemonMemories.INSTANCE.getHIVE_LOCATION(), pos); // This needs to be set in the case that the hive was picked up and moved.
                 } else {
                     // Block has likely been destroyed
                     var center = pos.getCenter();
@@ -59,16 +61,14 @@ public abstract class BeeOccupantMixin {
                             center.z + level.random.nextFloat() * 0.6 - 0.3
                     );
                     newYaw = level.random.nextFloat() * 360F;
+                    brain.eraseMemory(CobblemonMemories.INSTANCE.getHIVE_LOCATION());
                 }
                 entity.yRotO = newYaw;
                 entity.setPos(newPos);
                 // Do honey logic
-                var brain = pokemonEntity.getBrain();
-                System.out.println("Nectar Memory: " + brain.getMemory(CobblemonMemories.INSTANCE.getHAS_NECTAR()));
                 // When we became part of the beehive's data we lost all Brain memories.
                 // Restoring the pollinated flag from the compound tag
                 var hasNectar = brain.getMemory(CobblemonMemories.INSTANCE.getHAS_NECTAR()).orElse(false);
-                brain.setMemory(CobblemonMemories.INSTANCE.getHIVE_LOCATION(), pos);
                 if (hasNectar) {
                     // Remove nectar and reset got to hive cooldown
                     brain.eraseMemory(CobblemonMemories.INSTANCE.getHAS_NECTAR());
