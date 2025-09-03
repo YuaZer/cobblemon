@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipes": "cobblemon:campfire_pot/quick_candy"
+        "recipe": "cobblemon:campfire_pot/quick_candy"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
