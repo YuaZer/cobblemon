@@ -76,14 +76,22 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
             state.jumpBuffer.set(state.jumpBuffer.get() + 1)
         }
 
-        if (driver.zza == 0f && (vehicle.isInWater || vehicle.isUnderWater)) {
+        // Only start sprinting on vehicle if the state has changed and the pokemon has atleast 1/3 stamina
+        if (driver.isSprinting && !state.isVehicleSprinting.get()) {
+            state.isVehicleSprinting.set(state.stamina.get() > 0.33f)
+        }
+        else if (!driver.isSprinting) {
+            state.isVehicleSprinting.set(false)
+        }
+
+        if (!state.isVehicleSprinting.get()) {
             if (state.staminaBuffer.get() >= 20) {
                 val staminaIncrease = vehicle.getRideStat(RidingStat.STAMINA, RidingStyle.LIQUID, 1.0, 2.0)
                 state.stamina.set(min(1.0f, state.stamina.get() + 0.01f * staminaIncrease.toFloat()))
             }
         }
-        else if (abs(state.rideVelocity.get().z) > 0.1) {
-            consumeStamina(vehicle, state, 0.01f)
+        else if (abs(state.rideVelocity.get().z) > 0.1 && state.isVehicleSprinting.get()) {
+            consumeStamina(vehicle, driver, state, 0.01f)
         }
         state.staminaBuffer.set(state.staminaBuffer.get() + 1)
         super.tick(settings, state, vehicle, driver, input)
@@ -132,31 +140,30 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
             return velocity
         }
 
+        val sprintModifier = if (state.isVehicleSprinting.get() && hasStamina(state)) 2.0 else 1.0
         val forwardInput = driver.zza.toDouble()
         val delta = when {
-            !hasStamina(state) || forwardInput == 0.0 -> -velocity.z * 0.04
+            forwardInput == 0.0 -> -velocity.z * 0.04
             forwardInput < 0.0 -> when {
                 velocity.z < 0.0 -> forwardInput * acceleration * 0.5
                 else -> min(forwardInput * acceleration * 0.5, -velocity.z * 0.04) // We never want it to be slower to reverse than no input
             }
-            else -> forwardInput * acceleration
+            else -> forwardInput * acceleration * sprintModifier
         }
 
         return Vec3(
             velocity.x,
             velocity.y,
-            Mth.clamp(velocity.z + delta, -speed * 0.25, speed)
+            Mth.clamp(velocity.z + delta, -speed * 0.25, speed * sprintModifier)
         )
     }
 
     private fun applyJump(velocity: Vec3, vehicle: PokemonEntity, driver: Player, state: BoatState): Vec3 {
         if (!driver.jumping) return velocity // Not jumping
         if (state.jumpBuffer.get() != -1) return velocity // Already jumped very recently
-        if (!hasStamina(state)) return velocity // Has no stamina
 
         val jumpStrength = vehicle.getRideStat(RidingStat.JUMP, RidingStyle.LIQUID, 1.0, 2.5)
         state.jumpBuffer.set(0)
-        consumeStamina(vehicle, state, 0.05f)
         return Vec3(velocity.x, velocity.y + jumpStrength, velocity.z)
     }
 
@@ -183,9 +190,13 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
         return state.stamina.get() != 0f
     }
 
-    private fun consumeStamina(vehicle: PokemonEntity, state: BoatState, drain: Float) {
+    private fun consumeStamina(vehicle: PokemonEntity, driver: Player, state: BoatState, drain: Float) {
         val stamina = vehicle.getRideStat(RidingStat.STAMINA, RidingStyle.LIQUID, 1.0, 5.0)
         state.stamina.set(max(0f, state.stamina.get() - drain / stamina.toFloat()))
+        if (state.stamina.get() == 0f) {
+            state.isVehicleSprinting.set(false)
+            driver.isSprinting = false
+        }
         state.staminaBuffer.set(0)
     }
 
@@ -380,6 +391,7 @@ class BoatState : RidingBehaviourState() {
     val deltaRotation = ridingState(0.0, Side.CLIENT)
     val jumpBuffer = ridingState(-1, Side.CLIENT)
     val staminaBuffer = ridingState(0, Side.CLIENT)
+    val isVehicleSprinting = ridingState(false, Side.CLIENT)
 
     override fun copy() = BoatState().also {
         it.deltaRotation.set(deltaRotation.get(), true)
@@ -387,6 +399,7 @@ class BoatState : RidingBehaviourState() {
         it.stamina.set(stamina.get(), true)
         it.jumpBuffer.set(jumpBuffer.get(), true)
         it.staminaBuffer.set(staminaBuffer.get(), true)
+        it.isVehicleSprinting.set(isVehicleSprinting.get(), true)
     }
 
     override fun shouldSync(previous: RidingBehaviourState): Boolean {
