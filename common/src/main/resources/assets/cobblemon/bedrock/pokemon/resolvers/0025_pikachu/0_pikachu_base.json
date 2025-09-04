@@ -7,11 +7,52 @@
       "poser": "cobblemon:pikachu",
       "model": "cobblemon:pikachu_male.geo",
       "texture": "cobblemon:textures/pokemon/0025_pikachu/pikachu.png",
-      "layers": []
+      "layers": [
+        {
+          "name": "emissive",
+          "texture": "cobblemon:textures/pokemon/0025_pikachu/pikachu_emissive.png",
+          "emissive": true,
+          "translucent": false
+        }
+      ]
     },
     {
       "aspects": ["shiny"],
-      "texture": "cobblemon:textures/pokemon/0025_pikachu/pikachu_shiny.png"
+      "texture": "cobblemon:textures/pokemon/0025_pikachu/pikachu_shiny.png",
+      "layers": [
+        {
+          "name": "emissive",
+          "texture": "cobblemon:textures/pokemon/0025_pikachu/pikachu_emissive_shiny.png",
+          "emissive": true,
+          "translucent": false
+        }
+      ]
+    },
+    {
+      "aspects": ["female"],
+      "poser": "cobblemon:pikachu",
+      "model": "cobblemon:pikachu_female.geo",
+      "texture": "cobblemon:textures/pokemon/0025_pikachu/pikachu.png",
+      "layers": [
+        {
+          "name": "emissive",
+          "texture": "cobblemon:textures/pokemon/0025_pikachu/pikachu_emissive.png",
+          "emissive": true,
+          "translucent": false
+        }
+      ]
+    },
+    {
+      "aspects": ["female","shiny"],
+      "texture": "cobblemon:textures/pokemon/0025_pikachu/pikachu_shiny.png",
+      "layers": [
+        {
+          "name": "emissive",
+          "texture": "cobblemon:textures/pokemon/0025_pikachu/pikachu_emissive_shiny.png",
+          "emissive": true,
+          "translucent": false
+        }
+      ]
     }
   ]
 }
