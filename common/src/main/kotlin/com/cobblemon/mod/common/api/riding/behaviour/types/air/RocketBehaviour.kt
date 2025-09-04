@@ -513,7 +513,6 @@ class RocketSettings : RidingBehaviourSettings {
     var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'AIR', 7.5, 2.5)".asExpression()
         private set
 
-    //Between a one block jump and a ten block jump
     var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'AIR', 2.0, 1.0)".asExpression()
         private set
 
