@@ -4,6 +4,13 @@
   "profileScale": 0.36,
   "profileTranslation": [0,1.22,0],
   "rootBone": "lugia",
+  "firstPersonCameraOffset": {
+    "seat_1": [0, 0, 0]
+  },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 2, 0],
+    "seat_2": [0, 2, 0]
+  },
   "animations": {
   },
   "poses": {
