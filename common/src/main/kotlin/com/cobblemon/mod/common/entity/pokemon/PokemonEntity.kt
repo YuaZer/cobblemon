@@ -146,6 +146,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerEntity
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.tags.FluidTags
@@ -318,7 +319,7 @@ open class PokemonEntity(
             .withQueryValue("entity", struct)
             .also {
                 it.environment.query.addFunction("passenger_count") { DoubleValue(passengers.size.toDouble()) }
-                it.environment.query.addFunction("ride_velocity") { DoubleValue(getRideVelocity().length()) }
+                it.environment.query.addFunction("ride_velocity") { DoubleValue(deltaMovement.length()) }
                 it.environment.query.addFunction("driver_input") { DoubleValue(min(ridingAnimationData.driverInputSpring.value.length(),1.0)) }
                 it.environment.query.addFunction("get_ride_stats") { params ->
                     val rideStat = RidingStat.valueOf(params.getString(0).uppercase())
@@ -537,6 +538,10 @@ open class PokemonEntity(
             occupiedSeats[passengerIndex] = null
         }
         super.removePassenger(passenger)
+        if (passengers.isEmpty()) {
+            ridingController?.context?.state?.reset()
+            ridingAnimationData.clear()
+        }
     }
 
     override fun thunderHit(level: ServerLevel, lightning: LightningBolt) {
@@ -2031,7 +2036,7 @@ open class PokemonEntity(
     }
 
     /** Retrieves the battle theme associated with this Pokemon's Species/Form, or the default PVW theme if not found. */
-    fun getBattleTheme() = BuiltInRegistries.SOUND_EVENT.get(this.form.battleTheme) ?: CobblemonSounds.PVW_BATTLE
+    fun getBattleTheme() = this.form.battleTheme ?: CobblemonSounds.PVW_BATTLE.location
 
     /**
      * A utility method to instance a [Pokemon] aware if the [world] is client sided or not.

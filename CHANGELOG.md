@@ -11,11 +11,10 @@
 - Pokémon's held items can now be rendered, with a visibility toggle in the Summary screen.
 - Added cosmetic item functionality for Pokémon. Certain cosmetic items can be given to applicable Pokémon via the interact menu.
   - Added the various log blocks as cosmetic items for Timburr and Komala.
+  - Added cosmetics for Spoink, Gurdurr, Conkeldurr, Squirtle Line, Sneasler, Sandile line, Treecko line, Braixen, Delphox, and Dragonite.
 - Added `visibility/hidden`, `visibility/hat` and `visibility/face` tags to control where and how certain items are rendered.
 - Added Pokémon markings, toggleable within the summary.
 - Added `/boxcount` command to change PC boxes amount
-- Added cosmetics for Gurdurr, Conkeldurr, Squirtle Line, Sneasler, Sandile line, Treecko line, Braixen, Delphox, and Dragonite.
-- Added cosmetics for Gurdurr, Conkeldurr, Squirtle Line, Sneasler, Sandle line, Treecko line, Braixen, Delphox, and Dragonite.
 - Added `/transformmodelpart (position|rotation|scale) <modelPart> <transform: x y z>` command that can add transformations to a pokemon's model part.
   - The player executing the command must be facing the target pokemon entity. Transformations are not persistent and will revert when resources are reloaded.
 - Added `legacy` and `special` sourced moves to Pokémon.
@@ -23,7 +22,7 @@
 - Added `translucent_cull` boolean option into resolver's layer to allow for translucent textures with culling
 - Added [LambDynamicLights](https://modrinth.com/mod/lambdynamiclights) support for items held by Pokémon, evolution stone blocks, evolution stone items, Pokédex, Luminous Moss, Flame Orb, and Magmarizer.
 - Added the Clear Amulet, Grip Claw, Lagging Tail, Luminous Moss, Metal Alloy, Scroll of Darkness, Scroll of Waters
-- Added Recipes for Masterpiece Cup, Eject Pack
+- Added Recipes for Masterpiece Cup, Eject Pack.
 - Added modification to Minecraft Creative Inventory search to account for item names that contain `poké` when input contains `poke`.
 - Added Campfire Pot as well as loads of new food items (Poke Puffs, Ponigiri, Sinister Tea, etc)
 - Added Hearty Grains, a new crop used in the new cooking mechanic
@@ -46,6 +45,7 @@
 - Berries can now be smelted into their respective dyes.
 - Added Syrupy Apples.
 - Added `/runmolang <molang> [<npc>|<player>|<pokemon>]` command that executes a MoLang expression with the provided options as environment variables, as well as the entity (as `q.entity`) that executed the command.
+- Added bubble quirk to Kingler; like Krabby, Kingler will blows bubbles during dusk.
 - Added `.Pre` and `.Post` to the following events:
     - `PokemonRecallEvent`
     - `TradeEvent`
@@ -65,6 +65,9 @@
 - Unown
 - Houndour
 - Houndoom
+- Ho-Oh
+- Lugia
+- Alola Bias Pichu (built-in resourcepack)
 
 #### Gen 3
 - Azurill
@@ -80,7 +83,6 @@
 - Glalie
 - Latias
 - Latios
-
 
 #### Gen 4
 - Bronzor
@@ -193,7 +195,6 @@
 ### Animation updates for the following Pokémon
 - Garchomp
 - Tropius
-- Torpius
 - Nosepass
 - Probopass
 - Sneasler
@@ -224,8 +225,43 @@
 - Ariados
 - Wyrdeer
 - Tyrantrum
+- Pidove
+- Tranquill
+- Unfezant
+- Beldum
+- Metang
+- Metagross
+- Plusle
+- Minun
+- Murkrow
+- Honchkrow
+- Larvesta
+- Volcarona
+- Dwebble
+- Crustle
+- Flygon
+- Pichu
+- Pikachu
+- Raichu
+- Alolan Raichu
+- Espathra
+- Abra
+- Kadabra
+- Alakazam
+- Deino
+- Zweilous
+- Hydreigon
+- Slaking
+- Klink
+- Klang
+- Klinklang
+- Baltoy
+- Claydol
 
 ### Model updates for the following Pokémon
+- Cleffa
+- Clefairy
+- Clefable
 - Gyarados
 - Dragonite
 - Eevee
@@ -288,6 +324,24 @@
 - Klinklang
 - Spinarak
 - Ariados
+- Pidove
+- Tranquill
+- Unfezant
+- Sobble
+- Drizzile
+- Inteleon
+- Plusle
+- Minun
+- Murkrow
+- Zorua
+- Zoroark
+- Pichu
+- Pikachu
+- Raichu
+- Alolan Raichu
+- Deino
+- Zweilous
+- Hydreigon
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
@@ -425,6 +479,7 @@
 - Fixed a rare edge case where sorting your PC could be rolled back later.
 - Fixed BotanyPots built-in integration
 - Fixed shading of berries on berry trees.
+- Fixed static text cursor for nickname input in summary.
 - Fixed Cobblemon brewing recipes placing result into all slots, and not just slots with correct ingredients inside the brewing stand.
 - Fixed an issue where hoppers and brewing stands were not recognizing Cobblemon brewing recipes.
 - Fixed global species features... not working. Since they were created. Oops.
@@ -523,6 +578,42 @@
 - Added `is_included`, `to_lower`, `to_upper`, and `string_length` as available Molang functions.
 - Fixed a crash that would occur during battles if the opponent wild Pokémon species comes from a namespace other than cobblemon
 - Fixed `clientActions` inside Dialogue pages being executed twice
+- Added `q.split_string(<text>, <delimiter/comma>)` Outputs an array with the divided text.
+- Added `q.spawn_npc(<x>, <y>, <z>, <npc>)` Spawns an NPC at the given coordinates and returns the NPC.
+- Added `q.player.seen_credits` Returns whether the player has seen the end credits.
+- Added `q.player.is_in_dialogue` Returns whether the player is currently in a dialogue.
+- Added `q.player.active_dialogue` Returns the active dialogue of the player, or null if none.
+- Added `q.player.is_spectator` Returns whether the player is in spectator mode.
+- Added `q.player.is_adventure` Returns whether the player is in adventure mode.
+- Added `q.player.is_creative` Returns whether the player is in creative mode.
+- Added `q.player.is_survival` Returns whether the player is in survival mode.
+- Added `q.player.set_battle_theme(<sound resource>)` Sets the player's battle theme to the given theme.
+- Added `q.player.battle_music(<sound_resource>, <volume>, <pitch>)` Plays the given battle music for the player.
+- Added `q.player.stop_battle_music()` Stops any currently playing battle music for the player. (With a fade out).
+- Added `q.player.riding_pokemon` Returns the Pokémon the player is currently riding.
+- Added `q.entity.is_player` Returns whether the entity is a player.
+- Added `q.entity.is_pokemon` Returns whether the entity is a Pokémon.
+- Added `q.entity.is_npc` Returns whether the entity is an NPC.
+- Added `q.entity.is_mob` Returns whether the entity is a vanilla mob.
+- Added `q.entity.is_animal` Returns whether the entity is an animal.
+- Added `q.entity.is_hostile` Returns whether the entity is a hostile mob.
+- Added `q.entity.is_baby` Returns whether the entity is a baby.
+- Added `q.entity.is_adult` Returns whether the entity is an adult.
+- Added `q.entity.is_tamable` Returns whether the entity is tamable.
+- Added `q.entity.is_tamed` Returns whether the entity is tamed.
+- Added `q.entity.add_effect(<effect>, <duration>, <amplifier>, <ambient> <show_particles>)` Adds a status effect to the entity.
+- Added `q.entity.remove_effect(<effect>)` Removes a status effect from the entity.
+- Added `q.entity.has_effect(<effect>)` Returns whether the entity has the given status effect.
+- Added `q.entity.is_looking_at(<entity>)` Returns whether the entity is looking at the given entity.
+- Added `q.entity.tags` Returns an array of the entity's tags.
+- Added `q.entity.add_tag(<tag>)` Adds the given tag to the entity.
+- Added `q.entity.remove_tag(<tag>)` Removes the given tag from the entity.
+- Added `q.entity.has_tag(<tag>)` Returns whether the entity has the given tag.
+- Added `q.entity.make_intangible(<true/false>)` Makes the entity intangible.
+- Added `q.pokemon.force_evolve(<index>)` Forces the Pokémon at the given index.
+- Added `q.pokemon.can_evolve` Returns whether the Pokémon at the given index can evolve.
+- Added `q.pokemon.is_busy` Returns whether the Pokémon is busy.
+- Added `q.pokemon.is_rideable` Returns whether the Pokémon is rideable.
 - Fixed `background` field and added `textColor` field for dialogues.
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)
