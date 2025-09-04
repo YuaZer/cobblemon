@@ -63,7 +63,9 @@
         }
       },
       "LAND": {
-        "key": "cobblemon:land/basic",
+        "key": "cobblemon:land/horse",
+        "canJump": "false",
+        "canSprint": "false",
         "stats": {
           "ACCELERATION": "90-100",
           "JUMP": "10-20",
