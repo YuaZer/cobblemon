@@ -40,7 +40,6 @@
   ],
   "rewards": {
     "recipes": [
-      "cobblemon:campfire_pot/health_candy",
       "cobblemon:campfire_pot/health_candy_l",
       "cobblemon:campfire_pot/health_candy_xl"
     ]
