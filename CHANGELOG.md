@@ -342,6 +342,9 @@
 - Deino
 - Zweilous
 - Hydreigon
+- Dreepy
+- Drakloak
+- Dragapult
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
