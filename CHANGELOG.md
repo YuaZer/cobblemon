@@ -65,6 +65,9 @@
 - Unown
 - Houndour
 - Houndoom
+- Ho-Oh
+- Lugia
+- Alola Bias Pichu (built-in resourcepack)
 
 #### Gen 3
 - Azurill
@@ -80,7 +83,6 @@
 - Glalie
 - Latias
 - Latios
-
 
 #### Gen 4
 - Bronzor
@@ -193,7 +195,6 @@
 ### Animation updates for the following Pokémon
 - Garchomp
 - Tropius
-- Torpius
 - Nosepass
 - Probopass
 - Sneasler
@@ -224,8 +225,43 @@
 - Ariados
 - Wyrdeer
 - Tyrantrum
+- Pidove
+- Tranquill
+- Unfezant
+- Beldum
+- Metang
+- Metagross
+- Plusle
+- Minun
+- Murkrow
+- Honchkrow
+- Larvesta
+- Volcarona
+- Dwebble
+- Crustle
+- Flygon
+- Pichu
+- Pikachu
+- Raichu
+- Alolan Raichu
+- Espathra
+- Abra
+- Kadabra
+- Alakazam
+- Deino
+- Zweilous
+- Hydreigon
+- Slaking
+- Klink
+- Klang
+- Klinklang
+- Baltoy
+- Claydol
 
 ### Model updates for the following Pokémon
+- Cleffa
+- Clefairy
+- Clefable
 - Gyarados
 - Dragonite
 - Eevee
@@ -288,6 +324,24 @@
 - Klinklang
 - Spinarak
 - Ariados
+- Pidove
+- Tranquill
+- Unfezant
+- Sobble
+- Drizzile
+- Inteleon
+- Plusle
+- Minun
+- Murkrow
+- Zorua
+- Zoroark
+- Pichu
+- Pikachu
+- Raichu
+- Alolan Raichu
+- Deino
+- Zweilous
+- Hydreigon
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked

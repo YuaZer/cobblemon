@@ -1834,7 +1834,11 @@ object MoLangFunctions {
                 val moveTemplate = Moves.getByName(moveName) ?: return@put DoubleValue.ZERO
                 val includeLegacy = params.getBooleanOrNull(1) ?: true
 
-                val canLearn = LearnsetQuery.ANY.canLearn(moveTemplate, pokemon.form.moves)
+                val canLearn = if (includeLegacy) {
+                    LearnsetQuery.ANY.canLearn(moveTemplate, pokemon.form.moves)
+                } else {
+                    LearnsetQuery.LEGAL.canLearn(moveTemplate, pokemon.form.moves)
+                }
                 return@put DoubleValue(if (canLearn) 1.0 else 0.0)
             }
             map.put("unlearn_move") { params ->
