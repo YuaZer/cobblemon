@@ -17,7 +17,8 @@
     "note_block",
     "jukebox",
     "enderpearl",
-    "stick"
+    "stick",
+    "leaves"
   ],
   "isAspect": true,
   "aspectFormat": "cosmetic_item-{{choice}}"

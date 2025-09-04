@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.hawlucha",
+				"identifier": "geometry.hawlucha_leafmask",
 				"texture_width": 128,
 				"texture_height": 64,
 				"visible_bounds_width": 5,
@@ -800,6 +800,40 @@
 					"pivot": [0, 30.49, 4.11],
 					"cubes": [
 						{"origin": [-2.5, 30.49, 4.11], "size": [5, 0, 4], "uv": [49, 25]}
+					]
+				},
+				{
+					"name": "mask_feather_right",
+					"parent": "head_feathers",
+					"pivot": [-3, 30.5, 3.1],
+					"rotation": [52.5, -20, -25],
+					"cubes": [
+						{"origin": [-4, 30.5, 2.6], "size": [1, 0, 2], "uv": [118, 57]}
+					]
+				},
+				{
+					"name": "mask_feather_right2",
+					"parent": "mask_feather_right",
+					"pivot": [-3.5, 30.5, 4.6],
+					"cubes": [
+						{"origin": [-4.5, 30.5, 4.6], "size": [2, 0, 3], "uv": [115, 60]}
+					]
+				},
+				{
+					"name": "mask_feather_left",
+					"parent": "head_feathers",
+					"pivot": [3, 30.5, 3.1],
+					"rotation": [52.5, 20, 25],
+					"cubes": [
+						{"origin": [3, 30.5, 2.6], "size": [1, 0, 2], "uv": [123, 57], "mirror": true}
+					]
+				},
+				{
+					"name": "mask_feather_left2",
+					"parent": "mask_feather_left",
+					"pivot": [3.5, 30.5, 4.6],
+					"cubes": [
+						{"origin": [2.5, 30.5, 4.6], "size": [2, 0, 3], "uv": [120, 60], "mirror": true}
 					]
 				},
 				{
