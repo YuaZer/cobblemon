@@ -192,10 +192,6 @@
         {
           "variant": "level",
           "minLevel": 37
-        },
-        {
-          "variant": "biome",
-          "biomeAnticondition": "#cobblemon:evolution/regional/bergmite_hisuibiome"
         }
       ]
     },
@@ -215,10 +211,6 @@
         {
           "variant": "biome",
           "biomeCondition": "#cobblemon:evolution/regional/bergmite_hisuibiome"
-        },
-        {
-          "variant": "biome",
-          "biomeAnticondition": "#cobblemon:evolution/regional/bergmite_kalosbiome"
         }
       ]
     }
@@ -258,10 +250,6 @@
             },
             {
               "variant": "biome",
-              "biomeAnticondition": "#cobblemon:evolution/regional/bergmite_hisuibiome"
-            },
-            {
-              "variant": "biome",
               "biomeCondition": "#cobblemon:evolution/regional/bergmite_kalosbiome"
             }
           ]
@@ -278,10 +266,6 @@
             {
               "variant": "level",
               "minLevel": 37
-            },
-            {
-              "variant": "biome",
-              "biomeAnticondition": "#cobblemon:evolution/regional/bergmite_kalosbiome"
             }
           ]
         }

@@ -210,17 +210,13 @@
         {
           "variant": "has_move",
           "move": "mimic"
-        },
-        {
-          "variant": "biome",
-          "biomeAnticondition": "#cobblemon:evolution/regional/mimejr_galarbiome"
         }
       ]
     },
     {
       "id": "mimejr_mrmimegalar",
       "variant": "level_up",
-      "result": "mrmime",
+      "result": "mrmime galarian",
       "consumeHeldItem": false,
       "learnableMoves": [],
       "requirements": [
@@ -231,10 +227,6 @@
         {
           "variant": "biome",
           "biomeCondition": "#cobblemon:evolution/regional/mimejr_galarbiome"
-        },
-        {
-          "variant": "biome",
-          "biomeAnticondition": "#cobblemon:evolution/regional/mimejr_sinnohbiome"
         }
       ]
     }
@@ -274,10 +266,6 @@
             },
             {
               "variant": "biome",
-              "biomeAnticondition": "#cobblemon:evolution/regional/mimejr_galarbiome"
-            },
-            {
-              "variant": "biome",
               "biomeCondition": "#cobblemon:evolution/regional/mimejr_sinnohbiome"
             }
           ]
@@ -292,10 +280,6 @@
             {
               "variant": "has_move",
               "move": "mimic"
-            },
-            {
-              "variant": "biome",
-              "biomeAnticondition": "#cobblemon:evolution/regional/mimejr_sinnohbiome"
             }
           ]
         }
