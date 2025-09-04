@@ -46,21 +46,127 @@
   "baseFriendship": 35,
   "baseScale": 0.9,
   "hitbox": {
-    "width": 1.5,
     "height": 3.2,
-    "fixed": false
+    "fixed": false,
+    "width": 1.5
+  },
+  "riding": {
+    "behaviours": {
+      "AIR": {
+        "key": "cobblemon:air/bird",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "10-40",
+          "JUMP": "10-40",
+          "SKILL": "30-65",
+          "SPEED": "30-65",
+          "STAMINA": "55-85"
+        }
+      },
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "stats": {
+          "ACCELERATION": "90-100",
+          "JUMP": "10-20",
+          "SKILL": "15-30",
+          "SPEED": "10-20",
+          "STAMINA": "15-30"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.016187346,
+              "y": -2.223192,
+              "z": 0.46354508
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.2963798,
+              "z": 0.19485721
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.7680438,
+              "z": -0.11625822
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.5792334,
+              "z": -1.163635
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.7024188,
+              "z": -0.3176217
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.071092345,
+              "y": -2.2315233,
+              "z": -1.0420935
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.8078672,
+              "z": 0.2597415
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
     "moving": {
-      "swim": {
-        "canWalkOnWater": true,
-        "canBreatheUnderwater": true,
-        "canSwimInWater": true,
-        "canSwimInLava": false,
-        "swimSpeed": "0.2"
-      },
       "fly": {
         "canFly": true
+      },
+      "swim": {
+        "canBreatheUnderwater": true,
+        "canSwimInLava": false,
+        "canSwimInWater": true,
+        "canWalkOnWater": true,
+        "swimSpeed": "0.2"
       },
       "walk": {
         "walkSpeed": 0.2
@@ -85,48 +191,6 @@
       {
         "item": "cobblemon:yache_berry",
         "percentage": 10.0
-      }
-    ]
-  },
-  "riding": {
-    "behaviours": {
-      "AIR": {
-        "key": "cobblemon:air/bird",
-        "rideSounds": [
-          {
-            "soundLocation": "cobblemon:ride.loop.leather",
-            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)",
-            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
-            "playForNonPassengers": true,
-            "muffleEnabled": true
-          }
-        ],
-        "stats": {
-          "SPEED": "25-50",
-          "ACCELERATION": "20-100",
-          "SKILL": "50-100",
-          "JUMP": "25-50",
-          "STAMINA": "30-70"
-        }
-      },
-      "LAND": {
-        "key": "cobblemon:land/horse",
-        "stats": {
-          "SPEED": "10-20",
-          "ACCELERATION": "90-100",
-          "SKILL": "15-30",
-          "JUMP": "10-20",
-          "STAMINA": "15-30"
-        }
-      }
-    },
-    "seats": [
-      {
-        "offset": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        }
       }
     ]
   },

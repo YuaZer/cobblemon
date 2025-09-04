@@ -59,7 +59,7 @@
 
 (def headers
   [:generation :dex-no :species :land-behaviour :liquid-behaviour :air-behaviour :land-ready-to-scrape?
-   :liquid-ready-to-scrape? :air-ready-to-scrape? :land-speed :land-acceleration :land-skill :land-jump
+   :liquid-ready-to-scrape? :air-ready-to-scrape? :missing? :animations-approved? :land-speed :land-acceleration :land-skill :land-jump
    :land-stamina :liquid-speed :liquid-acceleration :liquid-skill :liquid-jump :liquid-stamina :air-speed
    :air-acceleration :air-skill :air-jump :air-stamina])
 
@@ -79,11 +79,11 @@
    "Boat"      "cobblemon:liquid/boat"})
 
 (def grade-ranges
-  {"D" "0-20"
-   "C" "21-40"
-   "B" "41-60"
-   "A" "61-80"
-   "S" "81-100"})
+  {"D" "0-10"
+   "C" "10-40"
+   "B" "30-65"
+   "A" "55-85"
+   "S" "80-100"})
 
 (defn csv->map
   "Takes a series of CSV rows and returns a map of the columns with the header as the key"
@@ -427,7 +427,9 @@
                           merged   (concat
                                      (vals (select-keys a-by-loc (keys b-by-loc))) ; from A
                                      (vals (apply dissoc b-by-loc (keys a-by-loc))))] ; only B
-                      (assoc-in acc [k :rideSounds] (vec merged)))
+                      (-> acc
+                          (assoc k (get-in b [:behaviours k]))
+                          (assoc-in [k :rideSounds] (vec merged))))
                     ;; if B has no sounds, just skip
                     (assoc acc k b-entry))))
               {}
