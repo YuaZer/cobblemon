@@ -1,11 +1,11 @@
 {
   "parent": "cobblemon:recipes/root",
   "criteria": {
-    "has_allium": {
+    "has_egg": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:allium"
+            "items": "minecraft:egg"
           }
         ]
       },
@@ -13,7 +13,13 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "cobblemon:campfire_pot/suspicious_stew_from_allium_in_campfire_pot"
+        "recipe": "cobblemon:cake_with_moomoo_milk"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_original_recipe": {
+      "conditions": {
+        "recipe": "minecraft:cake"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +27,13 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_allium"
+      "has_egg",
+	  "has_original_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "cobblemon:campfire_pot/suspicious_stew_from_allium_in_campfire_pot"
+      "cobblemon:cake_with_moomoo_milk"
     ]
   }
 }
