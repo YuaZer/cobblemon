@@ -25,7 +25,7 @@ class BaitSetEvent(val rod: ItemStack, val bait: ItemStack) : Cancelable() {
             "rod" to rod.asMoLangValue(server.registryAccess()),
             "bait" to bait.asMoLangValue(server.registryAccess())
         )
-    }
+    } ?: emptyMap()
     val functions = moLangFunctionMap(
         cancelFunc
     )
