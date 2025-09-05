@@ -485,6 +485,7 @@
 - Fixed global species features... not working. Since they were created. Oops.
 - Fixed Pokémon with alternate forms being created with an incorrect 'forced' tag on their ability.
 - Fixed busted abilities and moves in Pokémon data due to removed datapacks etc. causing storage corruption. It now just rerolls their ability / uses Tackle.
+- Fixed singular Pokémon corruption causing entire storage corruption. Storages will now skip corrupted Pokémon and print an error to console.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
