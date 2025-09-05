@@ -4,7 +4,7 @@
   "profileScale": 0.6,
   "profileTranslation": [-0.06, 0.85, 0.0],
   "rootBone": "fearow",
-  "animations": {},
+  "animations": {"cry": "q.bedrock_stateful('fearow', 'cry')"},
   "poses": {
     "standing": {
       "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
