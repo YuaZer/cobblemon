@@ -760,6 +760,7 @@ open class PokemonEntity(
                 owner.level().playSoundServer(position(), CobblemonSounds.POKE_BALL_RECALL, volume = 0.6F)
                 entityData.set(PHASING_TARGET_ID, owner.id)
                 entityData.set(BEAM_MODE, 3)
+                ejectPassengers()
                 val state = pokemon.state
 
                 // Let the Pokémon be intangible during recall
