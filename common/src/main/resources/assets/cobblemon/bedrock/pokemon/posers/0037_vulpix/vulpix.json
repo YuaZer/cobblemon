@@ -4,7 +4,7 @@
   "profileScale": 0.71,
   "profileTranslation": [0.01, 0.65, 0],
   "rootBone": "vulpix",
-  "animations": {},
+  "animations": {"cry": "q.bedrock_stateful('vulpix', 'cry')"},
   "poses": {
     "standing": {
       "poseTypes": [
