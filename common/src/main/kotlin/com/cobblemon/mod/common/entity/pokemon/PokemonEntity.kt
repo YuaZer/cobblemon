@@ -1195,7 +1195,7 @@ open class PokemonEntity(
                 (!pokemon.cosmeticItem.isEmpty && itemStack.isEmpty) || cosmeticItemDefinition != null, canRide
             ).sendToPlayer(player)
         }
-        else {
+        else if (!pokemon.isWild()) {
             InteractPokemonUIPacket(
                 this.getUUID(),
                 false,
