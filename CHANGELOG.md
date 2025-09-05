@@ -257,6 +257,7 @@
 - Klinklang
 - Baltoy
 - Claydol
+- Mamoswine
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -345,6 +346,7 @@
 - Dreepy
 - Drakloak
 - Dragapult
+- Mamoswine
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked

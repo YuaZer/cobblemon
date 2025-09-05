@@ -50,6 +50,11 @@
     "fixed": false
   },
   "behaviour": {
+    "moving": {
+      "walk": {
+        "walkSpeed": 0.15
+      }
+    },
     "resting": {
       "canSleep": true,
       "light": "0-4"
@@ -86,6 +91,30 @@
       {
         "item": "cobblemon:aspear_berry",
         "percentage": 5.0
+      }
+    ]
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "0-10",
+          "JUMP": "10-40",
+          "SKILL": "30-65",
+          "SPEED": "10-40",
+          "STAMINA": "30-65"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
       }
     ]
   },
