@@ -404,6 +404,7 @@
 - Updated `PokemonSentEvent` parameters to include the Position and Level of the Pokémon being sent out.
 - Updated `EvolutionCompleteEvent` parameters to include the Source Pokemon that evolved.
 - Updated `HatchEggEvent.Post` to include the Pokemon that hatched.
+- Roseli Berry Trees now naturally generate in their preferred biomes.
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
