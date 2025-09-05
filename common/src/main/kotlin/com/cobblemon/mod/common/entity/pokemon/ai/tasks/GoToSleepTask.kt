@@ -32,6 +32,8 @@ object GoToSleepTask {
                         if (!hasSleepStatus) {
                             entity.pokemon.status = PersistentStatusContainer(Statuses.SLEEP)
                         }
+                        entity.brain.eraseMemory(MemoryModuleType.WALK_TARGET)
+                        entity.navigation.stop()
                         entity.brain.setActiveActivityToFirstValid(listOf(CobblemonActivities.POKEMON_SLEEPING_ACTIVITY))
                         entity.brain.setMemory(CobblemonMemories.POKEMON_SLEEPING, true)
                         return@Trigger true
