@@ -1193,17 +1193,13 @@ open class PokemonEntity(
                 this.getUUID(),
                 canSitOnShoulder() && pokemon in player.party(),
                 !(pokemon.heldItemNoCopy().isEmpty && itemStack.isEmpty),
-                (!pokemon.cosmeticItem.isEmpty && itemStack.isEmpty) || cosmeticItemDefinition != null, canRide
-            ).sendToPlayer(player)
-        }
-        else if (!pokemon.isWild()) {
-            InteractPokemonUIPacket(
-                this.getUUID(),
-                false,
-                false,
-                false,
+                (!pokemon.cosmeticItem.isEmpty && itemStack.isEmpty) || cosmeticItemDefinition != null,
                 canRide
             ).sendToPlayer(player)
+        }
+        else if (!pokemon.isWild() && canRide) {
+            player.isShiftKeyDown = false
+            player.startRiding(this)
         }
     }
 
