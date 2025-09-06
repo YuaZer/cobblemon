@@ -292,7 +292,11 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         // Yaw
         // TODO:move all magic numbers to handling expression
         val yawSpeed = handling * deltaTime * 0.25
-        val yawForce =  sin(controller.roll.toRadians()) * yawSpeed * ( 1.0 - min(sqrt(RidingBehaviour.scaleToRange(state.rideVelocity.get().length(), 0.0, topSpeed)), 0.5))
+        val yawForce =  sin(controller.roll.toRadians()) * yawSpeed * ( 1.0 - min(sqrt(RidingBehaviour.scaleToRange(state.rideVelocity.get().length(), 0.0, topSpeed)), 0.5)).run {
+            if (!this.isFinite())
+                return@run 0.5
+            this
+        }
         //Apply yaw globally as we don't want roll or pitch changes due to local yaw when looking up or down.
         controller.applyGlobalYaw(yawForce.toFloat())
 
