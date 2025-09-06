@@ -27,6 +27,7 @@ import com.cobblemon.mod.common.api.events.entity.PokemonEntityLoadEvent
 import com.cobblemon.mod.common.api.events.entity.PokemonEntitySaveEvent
 import com.cobblemon.mod.common.api.events.entity.PokemonEntitySaveToWorldEvent
 import com.cobblemon.mod.common.api.events.pokemon.ShoulderMountEvent
+import com.cobblemon.mod.common.api.events.pokemon.RidePokemonEvent
 import com.cobblemon.mod.common.api.interaction.PokemonEntityInteraction
 import com.cobblemon.mod.common.api.interaction.PokemonInteractions
 import com.cobblemon.mod.common.api.mark.Marks
@@ -1199,7 +1200,7 @@ open class PokemonEntity(
         }
         else if (!pokemon.isWild() && canRide) {
             player.isShiftKeyDown = false
-            player.startRiding(this)
+            tryRidingPokemon(player, this)
         }
     }
 
@@ -1451,6 +1452,19 @@ open class PokemonEntity(
     fun isWhitelisted(stack: ItemStack): Boolean =
         BuiltInRegistries.ITEM.getTagOrEmpty(CobblemonItemTags.WHITELISTED_ITEMS_TO_HOLD).none()
                 || stack.`is`(CobblemonItemTags.WHITELISTED_ITEMS_TO_HOLD)
+
+    fun tryRidingPokemon(player: ServerPlayer, pokemon: PokemonEntity): Boolean {
+        val event = RidePokemonEvent.Pre(player, pokemon)
+        CobblemonEvents.RIDE_EVENT_PRE.post(event)
+        if(!event.isCanceled) {
+            if (pokemon.canRide(player) && !pokemon.isVehicle && !player.isPassenger && !player.isShiftKeyDown) {
+                player.startRiding(pokemon)
+                CobblemonEvents.RIDE_EVENT_POST.post(RidePokemonEvent.Post(player, pokemon))
+                return true
+            }
+        }
+        return false
+    }
 
     fun tryMountingShoulder(player: ServerPlayer): Boolean {
         if (this.pokemon.belongsTo(player) && this.hasRoomToMount(player)) {
