@@ -610,7 +610,7 @@ open class Pokemon : ShowdownIdentifiable {
 
     val preEvolution: PreEvolution? get() = this.form.preEvolution
 
-    private val rideBoosts: MutableMap<RidingStat, Float> = mutableMapOf()
+    val rideBoosts: MutableMap<RidingStat, Float> = mutableMapOf()
 
     /**
      * Provides the sided [EvolutionController]s, these operations can be done safely with a simple side check.

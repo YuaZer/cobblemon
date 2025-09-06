@@ -58,6 +58,7 @@ import com.cobblemon.mod.common.api.pokemon.experience.SidemodExperienceSource
 import com.cobblemon.mod.common.api.pokemon.moves.LearnsetQuery
 import com.cobblemon.mod.common.api.pokemon.stats.Stats
 import com.cobblemon.mod.common.api.riding.Rideable
+import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.api.scheduling.ClientTaskTracker
 import com.cobblemon.mod.common.api.scheduling.Schedulable
 import com.cobblemon.mod.common.api.scheduling.ServerTaskTracker
@@ -1582,6 +1583,13 @@ object MoLangFunctions {
                 }
                 struct
             }
+            map.put("ride_boosts") {
+                val struct = QueryStruct(hashMapOf())
+                for (stat in RidingStat.entries) {
+                    struct.addFunction(stat.name.lowercase()) { DoubleValue(pokemon.rideBoosts[stat] ?: 0.0) }
+                }
+                struct
+            }
             map.put("natdex_number") {
                 DoubleValue(pokemon.species.nationalPokedexNumber.toDouble())
             }
@@ -1786,6 +1794,21 @@ object MoLangFunctions {
                 } else {
                     return@put DoubleValue.ZERO
                 }
+            }
+            map.put("set_ride_boost") { params ->
+                val statName = params.getString(0).uppercase()
+                val stat = RidingStat.entries.find { it.name == statName } ?: return@put DoubleValue.ZERO
+                val value = params.getDoubleOrNull(1)?.toFloat() ?: return@put DoubleValue.ZERO
+
+                pokemon.setRideBoost(stat, value)
+                return@put DoubleValue.ONE
+            }
+            map.put("add_ride_boost") { params ->
+                val statName = params.getString(0).uppercase()
+                val stat = RidingStat.entries.find { it.name == statName } ?: return@put DoubleValue.ZERO
+                val value = params.getDoubleOrNull(1)?.toFloat() ?: return@put DoubleValue.ZERO
+
+                return@put DoubleValue(if (pokemon.addRideBoost(stat, value)) 1.0 else 0.0)
             }
             map.put("initialize_moveset") { params ->
                 val preferLatest = params.getBooleanOrNull(0) ?: true
