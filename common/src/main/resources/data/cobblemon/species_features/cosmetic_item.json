@@ -16,9 +16,19 @@
     "bundle",
     "note_block",
     "jukebox",
-    "enderpearl",
+    "ender_pearl",
     "stick",
-    "leaves"
+    "leaves",
+    "rage_candy_bar",
+    "lava_cookie",
+    "old_gateau",
+    "casteliacone",
+    "lumiose_galette",
+    "big_malasada",
+    "smoked_tail_curry",
+    "sinister_tea",
+    "compass",
+    "shears"
   ],
   "isAspect": true,
   "aspectFormat": "cosmetic_item-{{choice}}"

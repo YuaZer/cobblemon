@@ -32,6 +32,22 @@
     {
       "consumedItem": "minecraft:azalea_leaves",
       "aspects": ["cosmetic_item-leaves"]
+    },
+    {
+      "consumedItem": "minecraft:flowering_azalea_leaves",
+      "aspects": ["cosmetic_item-leaves"]
+    },
+    {
+      "consumedItem": "minecraft:cherry_leaves",
+      "aspects": ["cosmetic_item-leaves"]
+    },
+    {
+      "consumedItem": "minecraft:apricorn_leaves",
+      "aspects": ["cosmetic_item-leaves"]
+    },
+    {
+      "consumedItem": "minecraft:saccharine_leaves",
+      "aspects": ["cosmetic_item-leaves"]
     }
   ]
 }
