@@ -12,6 +12,7 @@
 - Added cosmetic item functionality for Pokémon. Certain cosmetic items can be given to applicable Pokémon via the interact menu.
   - Added the various log blocks as cosmetic items for Timburr and Komala.
   - Added cosmetics for Spoink, Gurdurr, Conkeldurr, Squirtle Line, Sneasler, Sandile line, Treecko line, Braixen, Delphox, and Dragonite.
+  - Added Gilded Chest cosmetics for Chest Gimmighoul and Gholdengo
 - Added `visibility/hidden`, `visibility/hat` and `visibility/face` tags to control where and how certain items are rendered.
 - Added Pokémon markings, toggleable within the summary.
 - Added `/boxcount` command to change PC boxes amount
@@ -198,6 +199,8 @@
 - Tropius
 - Nosepass
 - Probopass
+- Sneasel
+- Weavile
 - Sneasler
 - Braixen
 - Delphox
@@ -258,6 +261,21 @@
 - Klinklang
 - Baltoy
 - Claydol
+- Mamoswine
+- Rufflet
+- Braviary
+- Girafarig
+- Farigiraf
+- Rookidee
+- Corvisquire
+- Corviknight
+- Venipede
+- Whirlipede
+- Scolipede
+- Venusaur
+- Parasect
+- Bastiodon
+- Amaura
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -340,9 +358,25 @@
 - Pikachu
 - Raichu
 - Alolan Raichu
+- Dusknoir
 - Deino
 - Zweilous
 - Hydreigon
+- Dreepy
+- Drakloak
+- Dragapult
+- Mamoswine
+- Rookidee
+- Corvisquire
+- Corviknight
+- Venipede
+- Whirlipede
+- Scolipede
+- Farigiraf
+- Staryu
+- Starmie
+- Gimmighoul
+- Gholdengo
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked

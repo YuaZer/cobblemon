@@ -4,7 +4,7 @@
   "profileScale": 0.57,
   "profileTranslation": [-0.04, 0.9, 0],
   "rootBone": "ninetales",
-  "animations": {},
+  "animations": {"cry": "q.bedrock_stateful('ninetales', 'cry')"},
   "poses": {
     "standing": {
       "poseTypes": [
