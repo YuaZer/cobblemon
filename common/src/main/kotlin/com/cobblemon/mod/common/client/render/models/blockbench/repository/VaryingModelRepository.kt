@@ -576,7 +576,6 @@ object VaryingModelRepository {
         inbuilt("lampent", ::LampentModel)
         inbuilt("chandelure", ::ChandelureModel)
         inbuilt("gimmighoulchest", ::GimmighoulChestModel)
-        inbuilt("gholdengo", ::GholdengoModel)
         inbuilt("drifloon", ::DrifloonModel)
         inbuilt("lileep", ::LileepModel)
         inbuilt("cradily", ::CradilyModel)
