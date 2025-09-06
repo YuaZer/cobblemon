@@ -8603,5 +8603,12 @@
     "cobblemon.config.ui.spawning_zone_diameter": "Diámetro de la zona de aparición",
     "cobblemon.config.ui.despawner_min_age_ticks": "Edad mínima (Ticks)",
     "cobblemon.config.ui.despawner_max_age_ticks": "Edad máxima (Ticks)",
-    "cobblemon.config.ui.spawning_zone_diameter.tooltip": "El diámetro de las zonas de aparición  en las que puede ocurrir una acción de aparicecer. Cuando este valor es grande, hay desove más frecuente y confiable, a costa del rendimiento."
+    "cobblemon.config.ui.spawning_zone_diameter.tooltip": "El diámetro de las zonas de aparición  en las que puede ocurrir una acción de aparicecer. Cuando este valor es grande, hay desove más frecuente y confiable, a costa del rendimiento.",
+    "cobblemon.config.ui.spawning_zone_height": "Altura de la zona de aparición",
+    "cobblemon.config.ui.maximum_spawning_zone_distance_from_player.tooltip": "Cantidad máxima de bloques desde el jugador en los que los Pokémon pueden aparecer.",
+    "cobblemon.config.ui.minimum_spawning_zone_distance_from_player.tooltip": "Cantidad mínima de bloques desde el jugador en los que los Pokémon pueden aparecer.",
+    "cobblemon.config.ui.maximum_spawning_zone_distance_from_player": "Distancia máxima de la zona de aparición con respecto al jugador",
+    "cobblemon.config.ui.minimum_spawning_zone_distance_from_player": "Distancia mínima de la zona de aparición con respecto al jugador",
+    "cobblemon.config.ui.maximum_spawns_per_pass": "Apariciones máximas por ciclo",
+    "cobblemon.config.ui.maximum_spawns_per_pass.tooltip": "El número máximo de apariciones que pueden ocurrir en un solo ciclo del sistema de aparición. Si las dimensiones de la zona de aparición son pequeñas, esta opción tiene poco efecto."
 }
