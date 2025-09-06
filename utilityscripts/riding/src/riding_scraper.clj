@@ -275,7 +275,12 @@
   (when-let [key (get behaviour-keys type)]
     {:key       key
      :canJump   false
-     :canSprint false}))
+     :canSprint false
+     :stats {:ACCELERATION (get grade-ranges "C")
+             :JUMP (get grade-ranges "C")
+             :SKILL (get grade-ranges "S")
+             :SPEED (get grade-ranges "C")
+             :STAMINA (get grade-ranges "C")}}))
 
 (defn behaviour->json
   "Convert a single behaviour map into a JSON-ready structure.
@@ -288,7 +293,7 @@
         stats (:stats behaviour-data)
         stats-json (stats->json stats)]
     (when (and behaviour-json stats-json)
-      (merge behaviour-json stats-json behaviour-sounds))))
+      (merge stats-json behaviour-json behaviour-sounds))))
 
 (defn assoc-behaviour
   "Conditionally assoc a behaviour block into the accumulator `map`.
@@ -547,7 +552,6 @@
   (let [file-updates (->> csv
                           (#(csv->map % headers 3))
                           (map sanitize-riding-data)
-                          (filter #(or (:air %) (:land %) (:liquid %)))
                           (map #(assoc % :seat-data (generate-seat-data %)))
                           (filter #(:seat-data %))
                           (map #(assoc % :json (behaviours->json % sounds)))
