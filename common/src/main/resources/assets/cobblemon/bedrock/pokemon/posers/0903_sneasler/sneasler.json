@@ -4,6 +4,17 @@
   "profileScale": 0.52,
   "profileTranslation": [0, 0.94, 0],
   "rootBone": "sneasler",
+  "firstPersonCameraOffset": {
+    "seat_1": [0, -0.35, -1]
+  },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 0, 0],
+    "seat_1_reverse": [0, 0, 0]
+  },
+  "thirdPersonCameraOffsetNoViewBobbing": {
+    "seat_1": [0, 0, 4],
+    "seat_1_reverse": [0, 0, 4]
+  },
   "animations": {
     "cry": "q.bedrock_stateful('sneasler', 'cry')",
     "recoil": "q.bedrock_stateful('sneasler', 'recoil')"

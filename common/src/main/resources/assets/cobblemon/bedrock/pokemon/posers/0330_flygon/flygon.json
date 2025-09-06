@@ -1,11 +1,19 @@
 {
-  "portraitScale": 1.27,
-  "portraitTranslation": [-0.42, 2.49, 0],
+  "portraitScale": 1.4,
+  "portraitTranslation": [-0.93, 2.1, 0],
   "profileScale": 0.32,
   "profileTranslation": [0.07, 1.21, -6.0],
   "rootBone": "flygon",
   "firstPersonCameraOffset": {
     "seat_1": [0, 0.25, 0]
+  },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 1, 2],
+    "seat_1_reverse": [0, 1, 2]
+  },
+  "thirdPersonCameraOffsetNoViewBobbing": {
+    "seat_1": [0, 0.5, 6],
+    "seat_1_reverse": [0, 0.5, 6]
   },
   "animations": {
     "cry": "q.bedrock_stateful('flygon', 'cry')"
