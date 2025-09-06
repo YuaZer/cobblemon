@@ -312,7 +312,14 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
         vehicle: PokemonEntity,
         driver: Player
     ): ResourceLocation {
-        return cobblemonResource("no_pose")
+        val isInWater = Shapes.create(vehicle.boundingBox).blockPositionsAsListRounded().any {
+            if (vehicle.isInWater || vehicle.isUnderWater) {
+                return@any true
+            }
+            val blockState = vehicle.level().getBlockState(it)
+            return@any !blockState.fluidState.isEmpty
+        }
+        return if (!isInWater) cobblemonResource("in_air") else cobblemonResource("no_pose")
     }
 
     override fun inertia(settings: BoatSettings, state: BoatState, vehicle: PokemonEntity): Double {

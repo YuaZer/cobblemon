@@ -243,6 +243,7 @@
 - Volcarona
 - Dwebble
 - Crustle
+- Mr. Mime
 - Flygon
 - Pichu
 - Pikachu
@@ -354,6 +355,8 @@
 - Murkrow
 - Zorua
 - Zoroark
+- Mime.Jr
+- Mr. Mime
 - Pichu
 - Pikachu
 - Raichu
@@ -377,6 +380,9 @@
 - Starmie
 - Gimmighoul
 - Gholdengo
+- Starly
+- Staravia
+- Staraptor
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
