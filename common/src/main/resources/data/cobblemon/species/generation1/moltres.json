@@ -59,6 +59,15 @@
       "fly": {
         "canFly": true
       }
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "moltres galarian=false",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -170,7 +179,31 @@
     "tutor:sleeptalk",
     "tutor:swift",
     "tutor:tailwind",
-    "tutor:twister"
+    "tutor:twister",
+    "legacy:bide",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:detect",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:headbutt",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:peck",
+    "legacy:rage",
+    "legacy:razorwind",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:whirlwind",
+    "special:extrasensory",
+    "special:morningsun"
   ],
   "evolutions": [],
   "forms": [
@@ -312,10 +345,23 @@
         "tutor:spite",
         "tutor:suckerpunch",
         "tutor:swift",
-        "tutor:tailwind"
+        "tutor:tailwind",
+        "legacy:round",
+        "legacy:snore"
       ],
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "herd": {
+          "maxSize": "2",
+          "toleratedLeaders": [
+            {
+              "pokemon": "moltres galarian",
+              "tier": 1
+            }
+          ]
+        }
+      }
     }
   ],
   "riding": {

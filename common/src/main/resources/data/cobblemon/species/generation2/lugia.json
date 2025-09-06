@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 249,
   "name": "Lugia",
   "primaryType": "psychic",
@@ -45,9 +46,34 @@
   "baseFriendship": 0,
   "baseScale": 1,
   "hitbox": {
-    "width": 1,
-    "height": 1,
+    "width": 2,
+    "height": 4.5,
     "fixed": false
+  },
+  "behaviour": {
+    "moving": {
+      "fly": {
+        "canFly": true
+      },
+      "swim": {
+        "canBreatheUnderwater": true,
+        "canWalkOnWater": true,
+        "canSwimInWater": true
+      }
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "lugia",
+          "tier": 1
+        }
+      ]
+    }
   },
   "drops": {
     "amount": 4,
@@ -208,7 +234,28 @@
     "tutor:twister",
     "tutor:waterpulse",
     "tutor:wonderroom",
-    "tutor:zenheadbutt"
+    "tutor:zenheadbutt",
+    "legacy:bulldoze",
+    "legacy:confide",
+    "legacy:detect",
+    "legacy:doubleteam",
+    "legacy:dragonbreath",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:mudslap",
+    "legacy:nightmare",
+    "legacy:return",
+    "legacy:roar",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:thunderwave",
+    "legacy:toxic",
+    "legacy:zapcannon",
+    "special:featherdance",
+    "special:psychoboost"
   ],
   "evolutions": []
 }

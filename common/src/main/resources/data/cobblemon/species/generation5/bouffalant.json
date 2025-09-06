@@ -166,7 +166,33 @@
     "tutor:throatchop",
     "tutor:uproar",
     "tutor:wildcharge",
-    "tutor:zenheadbutt"
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "tauros",
+          "tier": 1
+        },
+        {
+          "pokemon": "bouffalant",
+          "tier": 2
+        }
+      ]
+    }
+  }
 }

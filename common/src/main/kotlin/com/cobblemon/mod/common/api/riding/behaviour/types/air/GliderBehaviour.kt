@@ -17,6 +17,7 @@ import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviour
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
+import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
@@ -74,8 +75,7 @@ class GliderBehaviour : RidingBehaviour<GliderSettings, RidingBehaviourState> {
         val xVector = if (vehicle.runtime.resolveBoolean(settings.canStrafe)) driver.xxa.toDouble() else 0.0
         val yVector = -vehicle.runtime.resolveDouble(settings.glideSpeed)
         val zVector = driver.zza.toDouble()
-        val statSpeed = vehicle.rideProp.calculate(RidingStat.SPEED, RidingStyle.AIR, 0 )
-
+        val speedStat = settings.calculate(RidingStat.SPEED, 0)
         return Vec3(xVector, yVector, zVector)
     }
 
@@ -104,9 +104,7 @@ class GliderBehaviour : RidingBehaviour<GliderSettings, RidingBehaviourState> {
         if (driver !is OrientationControllable) return Vec3.ZERO
 
         //Might need to add the smoothing here for default.
-        val invertRoll = if (Cobblemon.config.invertRoll) -1 else 1
-        val invertPitch = if (Cobblemon.config.invertPitch) -1 else 1
-        return Vec3(0.0, mouseY * invertPitch, mouseX * invertRoll)
+        return Vec3(0.0, mouseY, mouseX)
     }
 
     override fun canJump(settings: GliderSettings, state: RidingBehaviourState, vehicle: PokemonEntity, driver: Player): Boolean {
@@ -183,8 +181,12 @@ class GliderBehaviour : RidingBehaviour<GliderSettings, RidingBehaviourState> {
         return false
     }
 
-    override fun shouldRotatePlayerHead(settings: GliderSettings, state: RidingBehaviourState, vehicle: PokemonEntity): Boolean {
+    override fun shouldRotateRiderHead(settings: GliderSettings, state: RidingBehaviourState, vehicle: PokemonEntity): Boolean {
         return false
+    }
+
+    override fun getRideSounds(settings: GliderSettings, state: RidingBehaviourState, vehicle: PokemonEntity): RideSoundSettingsList {
+        return settings.rideSounds
     }
 
     override fun createDefaultState(settings: GliderSettings) = RidingBehaviourState()
@@ -192,6 +194,7 @@ class GliderBehaviour : RidingBehaviour<GliderSettings, RidingBehaviourState> {
 
 class GliderSettings : RidingBehaviourSettings {
     override val key = GliderBehaviour.KEY
+    override val stats = mutableMapOf<RidingStat, IntRange>()
 
     var glideSpeed: Expression = "0.1".asExpression()
         private set
@@ -202,14 +205,20 @@ class GliderSettings : RidingBehaviourSettings {
     var canStrafe: Expression = "false".asExpression()
         private set
 
+    var rideSounds: RideSoundSettingsList = RideSoundSettingsList()
+
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeResourceLocation(key)
+        buffer.writeRidingStats(stats)
+        rideSounds.encode(buffer)
         buffer.writeExpression(glideSpeed)
         buffer.writeExpression(speed)
         buffer.writeExpression(canStrafe)
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
+        stats.putAll(buffer.readRidingStats())
+        rideSounds = RideSoundSettingsList.decode(buffer)
         glideSpeed = buffer.readExpression()
         speed = buffer.readExpression()
         canStrafe = buffer.readExpression()

@@ -61,6 +61,15 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "3",
+      "toleratedLeaders": [
+        {
+          "pokemon": "parasect",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -152,7 +161,6 @@
     "tutor:aerialace",
     "tutor:afteryou",
     "tutor:bugbite",
-    "tutor:energyball",
     "tutor:falseswipe",
     "tutor:furycutter",
     "tutor:gigadrain",
@@ -171,7 +179,32 @@
     "tutor:synthesis",
     "tutor:throatchop",
     "tutor:worryseed",
-    "tutor:xscissor"
+    "tutor:xscissor",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:furyswipes",
+    "legacy:headbutt",
+    "legacy:hiddenpower",
+    "legacy:megadrain",
+    "legacy:mimic",
+    "legacy:rage",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:skullbash",
+    "legacy:sleeppowder",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:takedown",
+    "legacy:toxic",
+    "special:refresh"
   ],
   "preEvolution": "paras",
   "evolutions": []

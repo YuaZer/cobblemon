@@ -60,6 +60,15 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "7",
+      "toleratedLeaders": [
+        {
+          "pokemon": "venusaur mega",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -190,7 +199,32 @@
     "tutor:stringshot",
     "tutor:synthesis",
     "tutor:terrainpulse",
-    "tutor:worryseed"
+    "tutor:worryseed",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:defensecurl",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:lightscreen",
+    "legacy:megadrain",
+    "legacy:mimic",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:outrage",
+    "legacy:rage",
+    "legacy:razorwind",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "special:block",
+    "special:celebrate",
+    "special:frenzyplant"
   ],
   "preEvolution": "ivysaur",
   "evolutions": [],
@@ -249,6 +283,11 @@
         "seats": [],
         "behaviour": {
           "key": "cobblemon:land/horse"
+        }
+      },
+      "behaviour": {
+        "herd": {
+          "maxSize": "8"
         }
       }
     },

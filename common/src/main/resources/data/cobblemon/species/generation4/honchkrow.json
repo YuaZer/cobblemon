@@ -43,21 +43,33 @@
   "catchRate": 30,
   "eggCycles": 20,
   "baseFriendship": 35,
-  "baseScale": 1.3,
+  "baseScale": 1,
   "hitbox": {
-    "width": 1,
-    "height": 1.2,
+    "width": 1.1,
+    "height": 1.55,
     "fixed": false
   },
   "behaviour": {
     "moving": {
       "fly": {
         "canFly": true
+      },
+      "walk": {
+        "walkSpeed": 0.17
       }
     },
     "resting": {
       "canSleep": true,
       "times": "day"
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "honchkrow",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -206,8 +218,68 @@
     "tutor:superpower",
     "tutor:tailwind",
     "tutor:twister",
-    "tutor:uproar"
+    "tutor:uproar",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:detect",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:nightmare",
+    "legacy:quickattack",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swift",
+    "legacy:toxic"
   ],
   "preEvolution": "murkrow",
-  "evolutions": []
+  "evolutions": [],
+  "riding": {
+    "behaviours": {
+      "AIR": {
+        "key": "cobblemon:air/bird",
+        "rideSounds": [
+          {
+            "soundLocation": "cobblemon:ride.loop.plumage",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)",
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "muffleEnabled": true
+          }
+        ],
+        "stats": {
+          "SPEED": "25-50",
+          "ACCELERATION": "20-100",
+          "SKILL": "50-100",
+          "JUMP": "25-50",
+          "STAMINA": "30-70"
+        }
+      },
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "stats": {
+          "SPEED": "10-20",
+          "ACCELERATION": "90-100",
+          "SKILL": "15-30",
+          "JUMP": "10-20",
+          "STAMINA": "15-30"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    ]
+  }
 }

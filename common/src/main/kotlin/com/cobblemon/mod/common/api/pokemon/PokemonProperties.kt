@@ -340,6 +340,7 @@ open class PokemonProperties {
     var originalTrainer: String? = null // Original Trainer by Username or UUID
     var moves: List<String>? = null
     var heldItem: String? = null
+    var cosmeticItem: String? = null
 
     var ivs: IVs? = null
     var evs: EVs? = null
@@ -398,9 +399,9 @@ open class PokemonProperties {
         }
         pokeball?.let { PokeBalls.getPokeBall(it.asIdentifierDefaultingNamespace())?.let { pokeball -> pokemon.caughtBall = pokeball } }
         nature?.let  { Natures.getNature(it.asIdentifierDefaultingNamespace())?.let { nature -> pokemon.nature = nature } }
+        customProperties.forEach { it.apply(pokemon) }
         ability?.let { this.createAbility(it, pokemon.form)?.let(pokemon::updateAbility) }
         status?.let { Statuses.getStatus(it)?.let { status -> if (status is PersistentStatus) pokemon.applyStatus(status) } }
-        customProperties.forEach { it.apply(pokemon) }
         ivs?.let { ivs ->
             ivs.forEach { stat ->
                 pokemon.setIV(stat.key, stat.value)
@@ -463,7 +464,7 @@ open class PokemonProperties {
             val stack = ItemStack(result.item)
             stack.applyComponents(result.components)
             if (stack.isEmpty) return@let
-            pokemon.swapHeldItem(stack)
+            pokemon.swapHeldItem(stack, decrement = true, aiCanDrop = false)
         }
         pokemon.updateAspects()
     }

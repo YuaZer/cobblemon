@@ -58,6 +58,31 @@
       "walk": {
         "walkSpeed": 0.12
       }
+    },
+    "herd": {
+      "maxSize": "6",
+      "toleratedLeaders": [
+        {
+          "pokemon": "amaura",
+          "tier": 1
+        },
+        {
+          "pokemon": "bayleef",
+          "tier": 2
+        },
+        {
+          "pokemon": "meganium",
+          "tier": 3
+        },
+        {
+          "pokemon": "tropius",
+          "tier": 4
+        },
+        {
+          "pokemon": "aurorus",
+          "tier": 5
+        }
+      ]
     }
   },
   "drops": {
@@ -180,7 +205,17 @@
     "tutor:stoneedge",
     "tutor:thunderbolt",
     "tutor:waterpulse",
-    "tutor:zenheadbutt"
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

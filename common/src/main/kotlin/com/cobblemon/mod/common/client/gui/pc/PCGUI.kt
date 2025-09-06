@@ -14,6 +14,7 @@ import com.cobblemon.mod.common.api.pokemon.PokemonSortMode
 import com.cobblemon.mod.common.api.pokemon.stats.Stats
 import com.cobblemon.mod.common.api.storage.pc.search.Search
 import com.cobblemon.mod.common.api.text.bold
+import com.cobblemon.mod.common.api.text.italicise
 import com.cobblemon.mod.common.api.text.text
 import com.cobblemon.mod.common.client.CobblemonClient
 import com.cobblemon.mod.common.client.CobblemonResources
@@ -602,9 +603,11 @@ class PCGUI(
                             scale = SCALE
                         )
 
+                        val iv = pokemon.ivs.get(stats[i])
+                        val effectiveIv = pokemon.ivs.getEffectiveBattleIV(stats[i])
                         drawScaledText(
                             context = context,
-                            text = pokemon.ivs.get(stats[i]).toString().text(),
+                            text = if (iv != effectiveIv) effectiveIv.toString().text().italicise() else iv.toString().text(),
                             x = x + 65,
                             y = y + 139 + (10 * i),
                             centered = true,
@@ -716,6 +719,17 @@ class PCGUI(
             if (pasture.pastureScrollList.isHovered) pasture.pastureScrollList.mouseScrolled(mouseX, mouseY, amount, verticalAmount)
         }
         if (storageWidget.isHovered && mouseX < (storageWidget.x + StorageWidget.SCREEN_WIDTH)) this.storageWidget.box -= verticalAmount.toInt()
+        if (wallpaperWidget.isHovered) wallpaperWidget.mouseScrolled(mouseX, mouseY, amount, verticalAmount)
+
+        val infoBoxX = ((width - BASE_WIDTH) / 2) + 9
+        val infoBoxY = ((height - BASE_HEIGHT) / 2) + 128
+
+        if (mouseX in infoBoxX.toDouble()..(infoBoxX + INFO_BOX_WIDTH).toDouble()
+            && mouseY in infoBoxY.toDouble()..(infoBoxY + INFO_BOX_HEIGHT).toDouble()
+        ) {
+            currentStatIndex = (currentStatIndex + verticalAmount.toInt() + 3) % 3
+        }
+
         return super.mouseScrolled(mouseX, mouseY, amount, verticalAmount)
     }
 

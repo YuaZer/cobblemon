@@ -43,17 +43,163 @@
   "catchRate": 45,
   "eggCycles": 15,
   "baseFriendship": 50,
-  "baseScale": 0.75,
+  "baseScale": 0.65,
   "hitbox": {
-    "width": 0.8,
     "height": 2.15,
-    "fixed": false
+    "fixed": false,
+    "width": 0.8
+  },
+  "riding": {
+    "behaviours": {
+      "AIR": {
+        "key": "cobblemon:air/bird",
+        "rideSounds": [
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "soundLocation": "cobblemon:ride.loop.wind",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          },
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "soundLocation": "cobblemon:ride.loop.plumage",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          }
+        ],
+        "stats": {
+          "ACCELERATION": "55-85",
+          "JUMP": "30-65",
+          "SKILL": "30-65",
+          "SPEED": "30-65",
+          "STAMINA": "10-40"
+        }
+      },
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "30-65",
+          "JUMP": "55-85",
+          "SKILL": "10-40",
+          "SPEED": "30-65",
+          "STAMINA": "10-40"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.2001954,
+              "z": 0.2007541
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.013577992,
+              "y": -1.1645598,
+              "z": 0.20979941
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.0134885,
+              "z": 0.30101067
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.1204174,
+              "z": 0.17295231
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.2001954,
+              "z": 0.2007541
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.013577992,
+              "y": -1.1645598,
+              "z": 0.20979941
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.2001954,
+              "z": 0.2007541
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "pidgeot mega=false",
+          "tier": 1
+        },
+        {
+          "pokemon": "pidgeot mega",
+          "tier": 2
+        },
+        {
+          "pokemon": "unfezant",
+          "tier": 3
+        }
+      ]
+    },
     "moving": {
       "fly": {
         "canFly": true
+      },
+      "walk": {
+        "walkSpeed": 0.145
       }
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
     }
   },
   "drops": {
@@ -148,8 +294,19 @@
     "tutor:sleeptalk",
     "tutor:swift",
     "tutor:tailwind",
-    "tutor:uproar"
+    "tutor:uproar",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:toxic"
   ],
   "preEvolution": "tranquill",
-  "evolutions": []
+  "evolutions": [],
+  "forms": []
 }

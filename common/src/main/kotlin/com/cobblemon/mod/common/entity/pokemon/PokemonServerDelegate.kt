@@ -50,6 +50,8 @@ import net.minecraft.world.level.pathfinder.PathType
 import org.joml.Matrix3f
 import org.joml.Vector3f
 import java.util.*
+import kotlin.math.ceil
+import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.pow
 import kotlin.math.round
@@ -155,11 +157,16 @@ class PokemonServerDelegate : PokemonSideDelegate {
     fun updateHealth(pokemon: Pokemon) {
         if (acknowledgedHPValue != pokemon.currentHealth) {
             acknowledgedHPValue = pokemon.currentHealth
-            val currentHPRatio: Float = pokemon.currentHealth / pokemon.maxHealth.toFloat()
 
-            if (currentHPRatio.isFinite()) {
-                // Entity Health is stored as float but only ever in-/decreased by whole numbers.
-                entity.health = round(entity.maxHealth * currentHPRatio)
+            if (pokemon.currentHealth <= 0) {
+                entity.health = 0.0f
+            } else {
+                val currentHPRatio: Float = pokemon.currentHealth / pokemon.maxHealth.toFloat()
+
+                if (currentHPRatio.isFinite()) {
+                    // Entity Health is stored as float but only ever in-/decreased by whole numbers.
+                    entity.health = ceil(entity.maxHealth * currentHPRatio)
+                }
             }
         }
     }
@@ -334,7 +341,11 @@ class PokemonServerDelegate : PokemonSideDelegate {
             return
         }
 
-        val isSleeping = (entity.brain.getMemorySafely(CobblemonMemories.POKEMON_SLEEPING).orElse(false) || entity.pokemon.status?.status == Statuses.SLEEP) && entity.behaviour.resting.canSleep
+        val isSleeping = if (entity.battle != null) {
+            entity.pokemon.status?.status == Statuses.SLEEP
+        } else {
+            (entity.brain.getMemorySafely(CobblemonMemories.POKEMON_SLEEPING).orElse(false) || entity.pokemon.status?.status == Statuses.SLEEP) && entity.behaviour.resting.canSleep
+        }
         val isMoving = entity.entityData.get(PokemonEntity.MOVING)
         val isPassenger = entity.isPassenger
         val isUnderwater = entity.getIsSubmerged()

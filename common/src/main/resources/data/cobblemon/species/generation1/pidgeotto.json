@@ -62,6 +62,35 @@
     "combat": {
       "fightsMelee": true,
       "willDefendSelf": true
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "tranquill",
+          "tier": 1
+        },
+        {
+          "pokemon": "staravia",
+          "tier": 1
+        },
+        {
+          "pokemon": "pidgeotto",
+          "tier": 2
+        },
+        {
+          "pokemon": "unfezant",
+          "tier": 3
+        },
+        {
+          "pokemon": "pidgeot mega=false",
+          "tier": 4
+        },
+        {
+          "pokemon": "pidgeot mega",
+          "tier": 5
+        }
+      ]
     }
   },
   "ai": [
@@ -152,7 +181,6 @@
     "tutor:aircutter",
     "tutor:defog",
     "tutor:dualwingbeat",
-    "tutor:heatwave",
     "tutor:mudslap",
     "tutor:ominouswind",
     "tutor:rest",
@@ -161,7 +189,32 @@
     "tutor:sleeptalk",
     "tutor:tailwind",
     "tutor:twister",
-    "tutor:uproar"
+    "tutor:uproar",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:detect",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:headbutt",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:rage",
+    "legacy:razorwind",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:swift",
+    "legacy:takedown",
+    "legacy:toxic",
+    "special:refresh"
   ],
   "preEvolution": "pidgey",
   "evolutions": [
