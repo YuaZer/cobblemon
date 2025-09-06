@@ -8615,7 +8615,7 @@
     "cobblemon.config.ui.despawner_far_distance": "Distancia lejana",
     "cobblemon.config.ui.despawner_far_distance.tooltip": "La distancia máxima desde un jugador en la que los Pokémon pueden desaparecer si tienen más edad que la mínima establecida.",
     "cobblemon.config.ui.despawner_min_age_ticks.tooltip": "Edad mínima (en ticks del juego) que un Pokémon debe alcanzar para que pueda desaparecer a gran distancia.",
-    "cobblemon.entity.variable.challenge_cooldown.name": "Cooldown de Enfriamiento.",
+    "cobblemon.entity.variable.challenge_cooldown.name": "Tiempo entre enfrentamientos",
     "cobblemon.config.ui.despawner_near_distance.tooltip": "La distancia mínima desde un jugador dentro de la cual los Pokémon no desaparecen, sin importar su edad.",
     "cobblemon.config.ui.despawner_max_age_ticks.tooltip": "La edad (en ticks del juego) que un Pokémon debe alcanzar para que pueda desaparecer en el límite de distancia cercana.",
     "cobblemon.config.ui.despawner_near_distance": "Distancia cercana"
