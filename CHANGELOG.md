@@ -270,6 +270,10 @@
 - Venipede
 - Whirlipede
 - Scolipede
+- Venusaur
+- Parasect
+- Bastiodon
+- Amaura
 
 ### Model updates for the following Pokémon
 - Cleffa
