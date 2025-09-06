@@ -4,6 +4,9 @@
   "profileScale": 0.52,
   "profileTranslation": [-0.03, 0.99, 0],
   "rootBone": "ursaring",
+  "firstPersonCameraOffset": {
+    "seat_1": [0, 0.5, 0]
+  },
   "animations": {
     "cry": "q.bedrock_stateful('ursaring', 'cry')",
     "recoil": "q.bedrock_stateful('ursaring', 'recoil')"
@@ -35,7 +38,8 @@
     },
     "walking": {
       "poseName": "walking",
-      "poseTypes": ["WALK","SWIM"],
+      "poseTypes": ["WALK", "FLOAT","SWIM"],
+      "condition": "!q.is_sprinting",
       "animations": [
         "q.look('head')",
         "q.bedrock('ursaring', 'ground_walk')"
@@ -43,6 +47,15 @@
       "quirks": [
         "q.bedrock_quirk('ursaring', 'blink')"
       ]
+    },
+    "running": {
+      "poseTypes": ["WALK", "FLOAT", "SWIM"],
+      "condition": "q.is_sprinting",
+      "animations": [
+        "q.look('head')",
+        "q.bedrock('ursaring', 'ground_run')"
+      ],
+      "quirks": ["q.bedrock_quirk('ursaring', 'blink')"]
     },
     "sleep": {
       "poseName": "sleep",
