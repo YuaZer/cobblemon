@@ -45,32 +45,9 @@
   "baseFriendship": 50,
   "baseScale": 1,
   "hitbox": {
-    "width": 1.75,
     "height": 1.95,
-    "fixed": false
-  },
-  "behaviour": {
-    "moving": {
-      "walk": {
-        "walkSpeed": 0.12
-      },
-      "swim": {
-        "canSwimInLava": true
-      }
-    },
-    "resting": {
-      "canSleep": true,
-      "light": "0-4"
-    },
-    "herd": {
-      "maxSize": "9",
-      "toleratedLeaders": [
-        {
-          "pokemon": "bastiodon",
-          "tier": 1
-        }
-      ]
-    }
+    "fixed": false,
+    "width": 1.75
   },
   "riding": {
     "behaviours": {
@@ -78,11 +55,11 @@
         "key": "cobblemon:land/horse",
         "rideSounds": [],
         "stats": {
-          "ACCELERATION": "10-40",
-          "JUMP": "10-40",
-          "SKILL": "0-10",
+          "ACCELERATION": "0-10",
+          "JUMP": "0-10",
+          "SKILL": "30-65",
           "SPEED": "10-40",
-          "STAMINA": "30-65"
+          "STAMINA": "55-85"
         }
       }
     },
@@ -96,9 +73,9 @@
         "poseOffsets": [
           {
             "offset": {
-              "x": 0.031073919,
-              "y": -1.7777503,
-              "z": 0.18550363
+              "x": 0.0,
+              "y": -1.3025863,
+              "z": -0.1542604
             },
             "poseTypes": [
               "STAND"
@@ -106,9 +83,9 @@
           },
           {
             "offset": {
-              "x": 0.13405332,
-              "y": -1.6520588,
-              "z": -0.12340391
+              "x": -0.03984697,
+              "y": -1.3177792,
+              "z": -0.18566585
             },
             "poseTypes": [
               "WALK"
@@ -116,9 +93,9 @@
           },
           {
             "offset": {
-              "x": 0.4867662,
-              "y": -1.1163056,
-              "z": -0.022205783
+              "x": -0.03984697,
+              "y": -1.3177792,
+              "z": -0.18566585
             },
             "poseTypes": [
               "HOVER"
@@ -126,9 +103,9 @@
           },
           {
             "offset": {
-              "x": 0.4867662,
-              "y": -1.1163056,
-              "z": -0.022205783
+              "x": -0.03984697,
+              "y": -1.3177792,
+              "z": -0.18566585
             },
             "poseTypes": [
               "FLY"
@@ -136,9 +113,9 @@
           },
           {
             "offset": {
-              "x": 0.13405332,
-              "y": -1.6520588,
-              "z": -0.12340391
+              "x": -0.03984697,
+              "y": -1.3177792,
+              "z": -0.18566585
             },
             "poseTypes": [
               "FLOAT"
@@ -146,9 +123,9 @@
           },
           {
             "offset": {
-              "x": 0.13405332,
-              "y": -1.6520588,
-              "z": -0.12340391
+              "x": -0.03984697,
+              "y": -1.3177792,
+              "z": -0.18566585
             },
             "poseTypes": [
               "SWIM"
@@ -156,9 +133,88 @@
           },
           {
             "offset": {
-              "x": 0.4867662,
-              "y": -1.1163056,
-              "z": -0.022205783
+              "x": -0.03984697,
+              "y": -1.3177792,
+              "z": -0.18566585
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      },
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.2831491,
+              "z": 0.36128467
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.013196847,
+              "y": -1.3370697,
+              "z": 0.32919547
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.013196847,
+              "y": -1.3370697,
+              "z": 0.32919547
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.013196847,
+              "y": -1.3370697,
+              "z": 0.32919547
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.013196847,
+              "y": -1.3370697,
+              "z": 0.32919547
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.013196847,
+              "y": -1.3370697,
+              "z": 0.32919547
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.013196847,
+              "y": -1.3370697,
+              "z": 0.32919547
             },
             "poseTypes": [
               "GLIDE"
@@ -167,6 +223,29 @@
         ]
       }
     ]
+  },
+  "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "bastiodon",
+          "tier": 1
+        }
+      ]
+    },
+    "moving": {
+      "swim": {
+        "canSwimInLava": true
+      },
+      "walk": {
+        "walkSpeed": 0.12
+      }
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
+    }
   },
   "drops": {
     "amount": 2,
