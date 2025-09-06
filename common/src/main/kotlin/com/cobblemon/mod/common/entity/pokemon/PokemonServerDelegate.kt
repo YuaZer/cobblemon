@@ -341,7 +341,11 @@ class PokemonServerDelegate : PokemonSideDelegate {
             return
         }
 
-        val isSleeping = (entity.brain.getMemorySafely(CobblemonMemories.POKEMON_SLEEPING).orElse(false) || entity.pokemon.status?.status == Statuses.SLEEP) && entity.behaviour.resting.canSleep
+        val isSleeping = if (entity.battle != null) {
+            entity.pokemon.status?.status == Statuses.SLEEP
+        } else {
+            (entity.brain.getMemorySafely(CobblemonMemories.POKEMON_SLEEPING).orElse(false) || entity.pokemon.status?.status == Statuses.SLEEP) && entity.behaviour.resting.canSleep
+        }
         val isMoving = entity.entityData.get(PokemonEntity.MOVING)
         val isPassenger = entity.isPassenger
         val isUnderwater = entity.getIsSubmerged()

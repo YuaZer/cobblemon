@@ -527,9 +527,9 @@
 				{
 					"name": "locator_seat_1",
 					"parent": "chest",
-					"pivot": [0, 39, 5.75],
+					"pivot": [0, 37, 6.75],
 					"locators": {
-						"seat_1": [0, 39, 5.75]
+						"seat_1": [0, 37, 6.75]
 					}
 				},
 				{

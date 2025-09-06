@@ -92,11 +92,14 @@ open class PosableModel(@Transient override val rootPart: Bone) : ModelFrame {
 
     open var profileScale = 1F
 
-    /** Used for third person riding camera */
-    open var thirdPersonCameraOffset = mutableMapOf<String, Vec3>()
+    /** Used for third person riding camera with no view bobbing */
+    open var thirdPersonCameraOffsetNoViewBobbing = mutableMapOf<String, Vec3>()
 
-    /** Used for third person riding camera */
+    /** Used for third person riding camera with no view bobbing */
     open var thirdPersonPivotOffset = mutableMapOf<String, Vec3>()
+
+    /** Used for third person riding camera with view bobbing */
+    open var thirdPersonCameraOffset = mutableMapOf<String, Vec3>()
 
     /** Used for first person riding camera */
     open var firstPersonCameraOffset = mutableMapOf<String, Vec3>()

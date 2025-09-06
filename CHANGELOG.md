@@ -12,6 +12,7 @@
 - Added cosmetic item functionality for Pokémon. Certain cosmetic items can be given to applicable Pokémon via the interact menu.
   - Added the various log blocks as cosmetic items for Timburr and Komala.
   - Added cosmetics for Spoink, Gurdurr, Conkeldurr, Squirtle Line, Sneasler, Sandile line, Treecko line, Braixen, Delphox, and Dragonite.
+  - Added Gilded Chest cosmetics for Chest Gimmighoul and Gholdengo
 - Added `visibility/hidden`, `visibility/hat` and `visibility/face` tags to control where and how certain items are rendered.
 - Added Pokémon markings, toggleable within the summary.
 - Added `/boxcount` command to change PC boxes amount
@@ -38,6 +39,7 @@
   - Pokémon with the ability Volt Absorb are immune to lightning damage and receive Regeneration II for a short duration
   - Ground type Pokémon are immune to lightning damage
 - Added functionality to Everstone when held by a Pokémon; suppresses evolution notification and hides evolve button in summary interface.
+- Added optional `filePath` parameter to MoLang functions to allow for global stores (ex. `../global/`). Path must end in a forward slash.
 - Added new optional property `attachment_options` for most EmitterShapes to be attached to the locator/entities scale, rotation, and/or position. Position is true by default.
 - Galarica Nut bushes now generate on beaches.
 - Some Pokémon now pitch their bodies in the direction they're moving.
@@ -197,6 +199,8 @@
 - Tropius
 - Nosepass
 - Probopass
+- Sneasel
+- Weavile
 - Sneasler
 - Braixen
 - Delphox
@@ -256,6 +260,23 @@
 - Klink
 - Klang
 - Klinklang
+- Baltoy
+- Claydol
+- Mamoswine
+- Rufflet
+- Braviary
+- Girafarig
+- Farigiraf
+- Rookidee
+- Corvisquire
+- Corviknight
+- Venipede
+- Whirlipede
+- Scolipede
+- Venusaur
+- Parasect
+- Bastiodon
+- Amaura
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -340,9 +361,25 @@
 - Pikachu
 - Raichu
 - Alolan Raichu
+- Dusknoir
 - Deino
 - Zweilous
 - Hydreigon
+- Dreepy
+- Drakloak
+- Dragapult
+- Mamoswine
+- Rookidee
+- Corvisquire
+- Corviknight
+- Venipede
+- Whirlipede
+- Scolipede
+- Farigiraf
+- Staryu
+- Starmie
+- Gimmighoul
+- Gholdengo
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
@@ -405,6 +442,7 @@
 - Updated `PokemonSentEvent` parameters to include the Position and Level of the Pokémon being sent out.
 - Updated `EvolutionCompleteEvent` parameters to include the Source Pokemon that evolved.
 - Updated `HatchEggEvent.Post` to include the Pokemon that hatched.
+- Roseli Berry Trees now naturally generate in their preferred biomes.
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
@@ -486,6 +524,7 @@
 - Fixed global species features... not working. Since they were created. Oops.
 - Fixed Pokémon with alternate forms being created with an incorrect 'forced' tag on their ability.
 - Fixed busted abilities and moves in Pokémon data due to removed datapacks etc. causing storage corruption. It now just rerolls their ability / uses Tackle.
+- Fixed singular Pokémon corruption causing entire storage corruption. Storages will now skip corrupted Pokémon and print an error to console.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -579,6 +618,42 @@
 - Added `is_included`, `to_lower`, `to_upper`, and `string_length` as available Molang functions.
 - Fixed a crash that would occur during battles if the opponent wild Pokémon species comes from a namespace other than cobblemon
 - Fixed `clientActions` inside Dialogue pages being executed twice
+- Added `q.split_string(<text>, <delimiter/comma>)` Outputs an array with the divided text.
+- Added `q.spawn_npc(<x>, <y>, <z>, <npc>)` Spawns an NPC at the given coordinates and returns the NPC.
+- Added `q.player.seen_credits` Returns whether the player has seen the end credits.
+- Added `q.player.is_in_dialogue` Returns whether the player is currently in a dialogue.
+- Added `q.player.active_dialogue` Returns the active dialogue of the player, or null if none.
+- Added `q.player.is_spectator` Returns whether the player is in spectator mode.
+- Added `q.player.is_adventure` Returns whether the player is in adventure mode.
+- Added `q.player.is_creative` Returns whether the player is in creative mode.
+- Added `q.player.is_survival` Returns whether the player is in survival mode.
+- Added `q.player.set_battle_theme(<sound resource>)` Sets the player's battle theme to the given theme.
+- Added `q.player.battle_music(<sound_resource>, <volume>, <pitch>)` Plays the given battle music for the player.
+- Added `q.player.stop_battle_music()` Stops any currently playing battle music for the player. (With a fade out).
+- Added `q.player.riding_pokemon` Returns the Pokémon the player is currently riding.
+- Added `q.entity.is_player` Returns whether the entity is a player.
+- Added `q.entity.is_pokemon` Returns whether the entity is a Pokémon.
+- Added `q.entity.is_npc` Returns whether the entity is an NPC.
+- Added `q.entity.is_mob` Returns whether the entity is a vanilla mob.
+- Added `q.entity.is_animal` Returns whether the entity is an animal.
+- Added `q.entity.is_hostile` Returns whether the entity is a hostile mob.
+- Added `q.entity.is_baby` Returns whether the entity is a baby.
+- Added `q.entity.is_adult` Returns whether the entity is an adult.
+- Added `q.entity.is_tamable` Returns whether the entity is tamable.
+- Added `q.entity.is_tamed` Returns whether the entity is tamed.
+- Added `q.entity.add_effect(<effect>, <duration>, <amplifier>, <ambient> <show_particles>)` Adds a status effect to the entity.
+- Added `q.entity.remove_effect(<effect>)` Removes a status effect from the entity.
+- Added `q.entity.has_effect(<effect>)` Returns whether the entity has the given status effect.
+- Added `q.entity.is_looking_at(<entity>)` Returns whether the entity is looking at the given entity.
+- Added `q.entity.tags` Returns an array of the entity's tags.
+- Added `q.entity.add_tag(<tag>)` Adds the given tag to the entity.
+- Added `q.entity.remove_tag(<tag>)` Removes the given tag from the entity.
+- Added `q.entity.has_tag(<tag>)` Returns whether the entity has the given tag.
+- Added `q.entity.make_intangible(<true/false>)` Makes the entity intangible.
+- Added `q.pokemon.force_evolve(<index>)` Forces the Pokémon at the given index.
+- Added `q.pokemon.can_evolve` Returns whether the Pokémon at the given index can evolve.
+- Added `q.pokemon.is_busy` Returns whether the Pokémon is busy.
+- Added `q.pokemon.is_rideable` Returns whether the Pokémon is rideable.
 - Fixed `background` field and added `textColor` field for dialogues.
 
 ## [1.6.1 (January 26th, 2025)](#1-6-1)
