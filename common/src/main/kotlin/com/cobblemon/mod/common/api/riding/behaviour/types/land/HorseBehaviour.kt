@@ -518,6 +518,8 @@ class HorseSettings : RidingBehaviourSettings {
         buffer.writeExpression(staminaExpr)
         buffer.writeExpression(jumpExpr)
         buffer.writeExpression(handlingExpr)
+        buffer.writeExpression(canJump)
+        buffer.writeExpression(canSprint)
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
@@ -528,6 +530,8 @@ class HorseSettings : RidingBehaviourSettings {
         staminaExpr = buffer.readExpression()
         jumpExpr = buffer.readExpression()
         handlingExpr = buffer.readExpression()
+        canJump = buffer.readExpression()
+        canSprint = buffer.readExpression()
     }
 }
 
