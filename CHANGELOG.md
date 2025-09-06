@@ -197,6 +197,8 @@
 - Tropius
 - Nosepass
 - Probopass
+- Sneasel
+- Weavile
 - Sneasler
 - Braixen
 - Delphox
@@ -258,6 +260,16 @@
 - Baltoy
 - Claydol
 - Mamoswine
+- Rufflet
+- Braviary
+- Girafarig
+- Farigiraf
+- Rookidee
+- Corvisquire
+- Corviknight
+- Venipede
+- Whirlipede
+- Scolipede
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -347,6 +359,15 @@
 - Drakloak
 - Dragapult
 - Mamoswine
+- Rookidee
+- Corvisquire
+- Corviknight
+- Venipede
+- Whirlipede
+- Scolipede
+- Farigiraf
+- Staryu
+- Starmie
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
