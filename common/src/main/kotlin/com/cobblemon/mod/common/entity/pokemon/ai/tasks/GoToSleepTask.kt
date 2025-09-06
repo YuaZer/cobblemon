@@ -26,7 +26,7 @@ object GoToSleepTask {
                 it.absent(MemoryModuleType.WALK_TARGET),
                 it.registered(CobblemonMemories.POKEMON_DROWSY)
             ).apply(it) { _, pokemonDrowsy ->
-                Trigger { world, entity, _ ->
+                Trigger { _, entity, _ ->
                     val hasSleepStatus = entity.pokemon.status?.status === Statuses.SLEEP
                     if (entity.behaviour.resting.canSleep && ((it.tryGet(pokemonDrowsy).orElse(false) && entity.canSleepAt(entity.blockPosition().below())) || hasSleepStatus) && entity.pokemon.storeCoordinates.get()?.store !is PartyStore) {
                         if (!hasSleepStatus) {
