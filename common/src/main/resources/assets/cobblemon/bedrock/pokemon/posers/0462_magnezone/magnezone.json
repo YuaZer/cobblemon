@@ -1,8 +1,8 @@
 {
-  "portraitScale": 1.01,
-  "portraitTranslation": [0.14, 0.42, 0],
+  "portraitScale": 1.4,
+  "portraitTranslation": [-0.44, 0.25, 0],
   "profileScale": 0.5,
-  "profileTranslation": [-0.05, 0.86, 0],
+  "profileTranslation": [-0.1, 0.86, 0],
   "rootBone": "magnezone",
   "firstPersonCameraOffset": {
     "seat_1": [0, 0.35, 0]
