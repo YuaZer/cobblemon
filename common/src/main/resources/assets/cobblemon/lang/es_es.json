@@ -8599,5 +8599,9 @@
     "cobblemon.ui.pokedex.info.form.flabebe-orange": "Flor Naranja",
     "cobblemon.species.flabebe-yellow.desc": "Cabalga una flor amarilla. Hasta que encuentra una flor y se nutre de su poder, se halla sin defensas y en peligro.",
     "cobblemon.ui.pokedex.info.form.flabebe-yellow": "Flor Amarilla",
-    "cobblemon.ui.pokedex.info.form.flabebe": "Flor Roja"
+    "cobblemon.ui.pokedex.info.form.flabebe": "Flor Roja",
+    "cobblemon.config.ui.spawning_zone_diameter": "Diámetro de la zona de aparición",
+    "cobblemon.config.ui.despawner_min_age_ticks": "Edad mínima (Ticks)",
+    "cobblemon.config.ui.despawner_max_age_ticks": "Edad máxima (Ticks)",
+    "cobblemon.config.ui.spawning_zone_diameter.tooltip": "El diámetro de las zonas de aparición  en las que puede ocurrir una acción de aparicecer. Cuando este valor es grande, hay desove más frecuente y confiable, a costa del rendimiento."
 }
