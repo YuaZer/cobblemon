@@ -12,6 +12,7 @@
 - Added cosmetic item functionality for Pokémon. Certain cosmetic items can be given to applicable Pokémon via the interact menu.
   - Added the various log blocks as cosmetic items for Timburr and Komala.
   - Added cosmetics for Spoink, Gurdurr, Conkeldurr, Squirtle Line, Sneasler, Sandile line, Treecko line, Braixen, Delphox, and Dragonite.
+  - Added Gilded Chest cosmetics for Chest Gimmighoul and Gholdengo
 - Added `visibility/hidden`, `visibility/hat` and `visibility/face` tags to control where and how certain items are rendered.
 - Added Pokémon markings, toggleable within the summary.
 - Added `/boxcount` command to change PC boxes amount
@@ -38,6 +39,7 @@
   - Pokémon with the ability Volt Absorb are immune to lightning damage and receive Regeneration II for a short duration
   - Ground type Pokémon are immune to lightning damage
 - Added functionality to Everstone when held by a Pokémon; suppresses evolution notification and hides evolve button in summary interface.
+- Added optional `filePath` parameter to MoLang functions to allow for global stores (ex. `../global/`). Path must end in a forward slash.
 - Added new optional property `attachment_options` for most EmitterShapes to be attached to the locator/entities scale, rotation, and/or position. Position is true by default.
 - Galarica Nut bushes now generate on beaches.
 - Some Pokémon now pitch their bodies in the direction they're moving.
@@ -241,6 +243,7 @@
 - Volcarona
 - Dwebble
 - Crustle
+- Mr. Mime
 - Flygon
 - Pichu
 - Pikachu
@@ -270,6 +273,10 @@
 - Venipede
 - Whirlipede
 - Scolipede
+- Venusaur
+- Parasect
+- Bastiodon
+- Amaura
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -348,6 +355,8 @@
 - Murkrow
 - Zorua
 - Zoroark
+- Mime.Jr
+- Mr. Mime
 - Pichu
 - Pikachu
 - Raichu
@@ -369,6 +378,11 @@
 - Farigiraf
 - Staryu
 - Starmie
+- Gimmighoul
+- Gholdengo
+- Starly
+- Staravia
+- Staraptor
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
@@ -431,6 +445,7 @@
 - Updated `PokemonSentEvent` parameters to include the Position and Level of the Pokémon being sent out.
 - Updated `EvolutionCompleteEvent` parameters to include the Source Pokemon that evolved.
 - Updated `HatchEggEvent.Post` to include the Pokemon that hatched.
+- Roseli Berry Trees now naturally generate in their preferred biomes.
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
@@ -512,6 +527,7 @@
 - Fixed global species features... not working. Since they were created. Oops.
 - Fixed Pokémon with alternate forms being created with an incorrect 'forced' tag on their ability.
 - Fixed busted abilities and moves in Pokémon data due to removed datapacks etc. causing storage corruption. It now just rerolls their ability / uses Tackle.
+- Fixed singular Pokémon corruption causing entire storage corruption. Storages will now skip corrupted Pokémon and print an error to console.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.

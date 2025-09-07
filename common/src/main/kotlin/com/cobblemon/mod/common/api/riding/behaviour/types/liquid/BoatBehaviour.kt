@@ -8,7 +8,6 @@
 
 package com.cobblemon.mod.common.api.riding.behaviour.types.liquid
 
-import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.OrientationControllable
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
@@ -43,8 +42,10 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
         return RidingStyle.LIQUID
     }
 
-    val poseProvider = PoseProvider<BoatSettings, BoatState>(PoseType.FLOAT)
-        .with(PoseOption(PoseType.SWIM) { _, _, entity -> entity.isSwimming && entity.entityData.get(PokemonEntity.MOVING) })
+    val poseProvider = PoseProvider<BoatSettings, BoatState>(PoseType.STAND)
+        .with(PoseOption(PoseType.WALK) { _, state, _ ->
+            abs(state.rideVelocity.get().horizontalDistance()) > 0.2
+        })
 
     override fun isActive(settings: BoatSettings, state: BoatState, vehicle: PokemonEntity): Boolean {
         if (state.jumpBuffer.get() != -1) {
@@ -297,11 +298,8 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
         vehicle: PokemonEntity,
         driver: Player
     ): Float {
-        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr)
-        if (state.rideVelocity.get().z > topSpeed * 0.8) {
-            return Mth.lerp((state.rideVelocity.get().z - (topSpeed * 0.8)) / (topSpeed * 0.2), 1.0, 1.2).toFloat()
-        }
-        return 1.0f
+        val sprintFov = vehicle.runtime.resolveFloat(settings.sprintFovModifier)
+        return if (state.isVehicleSprinting.get()) sprintFov else 1.0f
     }
 
     override fun useAngVelSmoothing(settings: BoatSettings, state: BoatState, vehicle: PokemonEntity): Boolean {
@@ -314,7 +312,14 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
         vehicle: PokemonEntity,
         driver: Player
     ): ResourceLocation {
-        return cobblemonResource("no_pose")
+        val isInWater = Shapes.create(vehicle.boundingBox).blockPositionsAsListRounded().any {
+            if (vehicle.isInWater || vehicle.isUnderWater) {
+                return@any true
+            }
+            val blockState = vehicle.level().getBlockState(it)
+            return@any !blockState.fluidState.isEmpty
+        }
+        return if (!isInWater) cobblemonResource("in_air") else cobblemonResource("no_pose")
     }
 
     override fun inertia(settings: BoatSettings, state: BoatState, vehicle: PokemonEntity): Double {
@@ -394,6 +399,8 @@ class BoatSettings : RidingBehaviourSettings {
 
     var sprintSpeedModifier = "1.5".asExpression()
         private set
+
+    var sprintFovModifier = "1.2".asExpression()
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeResourceLocation(key)

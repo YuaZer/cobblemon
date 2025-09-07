@@ -58,6 +58,7 @@ import com.cobblemon.mod.common.api.pokemon.experience.SidemodExperienceSource
 import com.cobblemon.mod.common.api.pokemon.moves.LearnsetQuery
 import com.cobblemon.mod.common.api.pokemon.stats.Stats
 import com.cobblemon.mod.common.api.riding.Rideable
+import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.api.scheduling.ClientTaskTracker
 import com.cobblemon.mod.common.api.scheduling.Schedulable
 import com.cobblemon.mod.common.api.scheduling.ServerTaskTracker
@@ -488,27 +489,20 @@ object MoLangFunctions {
                 }
             }
             map.put("spawn_npc") { params ->
-                val x = params.getInt(0)
-                val y = params.getInt(1)
-                val z = params.getInt(2)
-                val npcClass = params.getString(3)
-
-                val pos = BlockPos(x, y, z)
-
-                if (!Level.isInSpawnableBounds(pos)) {
-                    return@put DoubleValue.ZERO
-                }
-
-                val npc = NPCEntity(world) ?: return@put DoubleValue.ZERO
-                npc.moveTo(pos, npc.yRot, npc.xRot)
-                npc.npc = NPCClasses.getByIdentifier(npcClass.asIdentifierDefaultingNamespace()) ?: return@put DoubleValue.ZERO
-                npc.initialize(1)
-
+                val x = params.getDouble(0)
+                val y = params.getDouble(1)
+                val z = params.getDouble(2)
+                val npcClass = params.getStringOrNull(3)?.let { NPCClasses.getByIdentifier(it.asIdentifierDefaultingNamespace()) }
+                val level = params.getInt(4)
+                if(npcClass == null) return@put DoubleValue.ZERO
+                val npc = NPCEntity(world)
+                npc.moveTo(x, y, z, npc.yRot, npc.xRot)
+                npc.npc = npcClass
+                npc.initialize(level)
                 if (world.addFreshEntity(npc)) {
-                    return@put npc.struct
-                } else {
-                    return@put DoubleValue.ZERO
+                    return@put npc.asMoLangValue()
                 }
+                return@put DoubleValue.ZERO
             }
             map.put("play_sound_on_server") { params ->
                 val sound = params.getString(0).asResource()
@@ -682,13 +676,13 @@ object MoLangFunctions {
                 map.put("party") { player.party().struct }
                 map.put("pc") { player.pc().struct }
                 map.put("has_permission") { params -> DoubleValue(Cobblemon.permissionValidator.hasPermission(player, params.getString(0), params.getIntOrNull(1) ?: 4)) }
-                map.put("data") { _ -> Cobblemon.molangData.load(player.uuid) }
-                map.put("save_data") { _ -> Cobblemon.molangData.save(player.uuid) }
+                map.put("data") { params -> Cobblemon.molangData.load(player.uuid, params.getStringOrNull(0)) }
+                map.put("save_data") { params -> Cobblemon.molangData.save(player.uuid, params.getStringOrNull(0)) }
                 map.put("in_battle") { DoubleValue(player.isInBattle()) }
                 map.put("battle") { player.getBattleState()?.first?.struct ?: DoubleValue.ZERO }
                 map.put("get_npc_data") { params ->
-                    val npcId = (params.get<MoValue>(0) as? ObjectValue<NPCEntity>)?.obj?.stringUUID ?: params.getString(0)
-                    val data = Cobblemon.molangData.load(player.uuid)
+                    val npcId = ((params.get<MoValue>(0) as? ObjectValue<*>)?.obj as? NPCEntity)?.stringUUID ?: params.getString(0)
+                    val data = Cobblemon.molangData.load(player.uuid, params.getStringOrNull(1))
                     if (data.map.containsKey(npcId)) {
                         return@put data.map[npcId]!!
                     } else {
@@ -698,9 +692,9 @@ object MoLangFunctions {
                     }
                 }
                 map.put("get_npc_variable") { params ->
-                    val npcId = (params.get<MoValue>(0) as? ObjectValue<NPCEntity>)?.obj?.stringUUID ?: params.getString(0)
+                    val npcId = ((params.get<MoValue>(0) as? ObjectValue<*>)?.obj as? NPCEntity)?.stringUUID ?: params.getString(0)
                     val variable = params.getString(1)
-                    val data = Cobblemon.molangData.load(player.uuid)
+                    val data = Cobblemon.molangData.load(player.uuid, params.getStringOrNull(2))
                     if (data.map.containsKey(npcId)) {
                         return@put (data.map[npcId] as VariableStruct).map[variable] ?: DoubleValue.ZERO
                     } else {
@@ -708,15 +702,16 @@ object MoLangFunctions {
                     }
                 }
                 map.put("set_npc_variable") { params ->
-                    val npcId = (params.get<MoValue>(0) as? ObjectValue<NPCEntity>)?.obj?.stringUUID ?: params.getString(0)
+                    val npcId = ((params.get<MoValue>(0) as? ObjectValue<*>)?.obj as? NPCEntity)?.stringUUID ?: params.getString(0)
                     val variable = params.getString(1)
                     val value = params.get<MoValue>(2)
                     val saveAfterwards = params.getBooleanOrNull(3) != false
-                    val data = Cobblemon.molangData.load(player.uuid)
+                    val path = params.getStringOrNull(4)
+                    val data = Cobblemon.molangData.load(player.uuid, path)
                     val npcData = data.map.getOrPut(npcId) { VariableStruct() } as VariableStruct
                     npcData.map[variable] = value
                     if (saveAfterwards) {
-                        Cobblemon.molangData.save(player.uuid)
+                        Cobblemon.molangData.save(player.uuid, path)
                     }
                     return@put DoubleValue.ONE
                 }
@@ -998,6 +993,9 @@ object MoLangFunctions {
                 }
 
                 return@put if (entity.isStandingOn(blockStrings, depth)) DoubleValue.ONE else DoubleValue.ZERO
+            }
+            map.put("discard") {
+                entity.discard()
             }
             if (entity is PosableEntity) {
                 map.put("play_animation") { params ->
@@ -1585,6 +1583,13 @@ object MoLangFunctions {
                 }
                 struct
             }
+            map.put("ride_boosts") {
+                val struct = QueryStruct(hashMapOf())
+                for (stat in RidingStat.entries) {
+                    struct.addFunction(stat.name.lowercase()) { DoubleValue(pokemon.getRideBoost(stat) ?: 0.0) }
+                }
+                struct
+            }
             map.put("natdex_number") {
                 DoubleValue(pokemon.species.nationalPokedexNumber.toDouble())
             }
@@ -1789,6 +1794,21 @@ object MoLangFunctions {
                 } else {
                     return@put DoubleValue.ZERO
                 }
+            }
+            map.put("set_ride_boost") { params ->
+                val statName = params.getString(0).uppercase()
+                val stat = RidingStat.entries.find { it.name.equals(statName, ignoreCase = true) } ?: return@put DoubleValue.ZERO
+                val value = params.getDoubleOrNull(1)?.toFloat() ?: return@put DoubleValue.ZERO
+
+                pokemon.setRideBoost(stat, value)
+                return@put DoubleValue.ONE
+            }
+            map.put("add_ride_boost") { params ->
+                val statName = params.getString(0).uppercase()
+                val stat = RidingStat.entries.find { it.name.equals(statName, ignoreCase = true) } ?: return@put DoubleValue.ZERO
+                val value = params.getDoubleOrNull(1)?.toFloat() ?: return@put DoubleValue.ZERO
+
+                return@put DoubleValue(if (pokemon.addRideBoost(stat, value)) 1.0 else 0.0)
             }
             map.put("initialize_moveset") { params ->
                 val preferLatest = params.getBooleanOrNull(0) ?: true
@@ -2124,12 +2144,17 @@ object MoLangFunctions {
             }
 
             map.put("data") { params ->
-                val data = Cobblemon.molangData.load(UUID(0L, 0L))
-                return@put data
+                Cobblemon.molangData.load(
+                    UUID(0L, 0L),
+                    params.getStringOrNull(0)
+                )
             }
 
-            map.put("save_data") {
-                Cobblemon.molangData.save(UUID(0L, 0L))
+            map.put("save_data") { params ->
+                Cobblemon.molangData.save(
+                    UUID(0L, 0L),
+                    params.getStringOrNull(index = 0)
+                )
                 return@put DoubleValue.ONE
             }
 

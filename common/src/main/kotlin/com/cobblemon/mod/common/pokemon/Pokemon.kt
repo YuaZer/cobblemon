@@ -644,7 +644,7 @@ open class Pokemon : ShowdownIdentifiable {
         }
 
     /**
-     * Whether this Pokémon's held item was given by its owner.
+     * Whether this Pokémon's held item can be dropped by its AI.
      */
     internal var canDropHeldItem: Boolean = false
         get() = field || heldItem.isEmpty
