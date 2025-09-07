@@ -87,30 +87,17 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         vehicle: PokemonEntity,
         driver: Player
     ): Float {
-        checkTooHigh(settings, state, vehicle)
-        tickStamina(settings, state, vehicle)
         return state.speed.get().toFloat()
     }
 
-    fun checkTooHigh(
+    override fun tick(
         settings: HoverSettings,
         state: HoverState,
         vehicle: PokemonEntity,
+        driver: Player,
+        input: Vec3
     ) {
-        val heightLimit = vehicle.runtime.resolveDouble(settings.jumpExpr)
-        val pos = vehicle.position()
-        val level = Minecraft.getInstance().player?.level() ?: return
-        val hit = level.clip(
-            ClipContext(
-                pos,
-                pos.subtract(0.0, heightLimit, 0.0),
-                ClipContext.Block.COLLIDER,
-                ClipContext.Fluid.NONE,
-                vehicle
-            )
-        )
-
-        state.tooHigh.set(hit.type == HitResult.Type.MISS)
+        tickStamina(settings, state, vehicle)
     }
 
     fun tickStamina(
@@ -121,8 +108,7 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         val stam = state.stamina.get()
         val stamDrainRate = (1.0f / vehicle.runtime.resolveDouble(settings.staminaExpr)).toFloat() / 20.0f
 
-        val newStam = if (state.tooHigh.get()) max(0.0f,stam - stamDrainRate)
-            else min(1.0f,stam + stamDrainRate * 2)
+        val newStam = min(1.0f,stam + stamDrainRate)
 
         state.stamina.set(newStam)
     }
@@ -142,11 +128,7 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         vehicle: PokemonEntity,
         driver: LivingEntity
     ) {
-        val f = Mth.wrapDegrees(driver.yRot - vehicle.yRot)
-        val lookYawLimit = 90.0f
-        val g = Mth.clamp(f, -lookYawLimit, lookYawLimit)
-        driver.yRotO += g - f
-        driver.yRot = driver.yRot + g - f
+        return
     }
 
 
@@ -157,9 +139,7 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         driver: LivingEntity
     ): Vec2 {
         val turnAmount =  calcRotAmount(settings, state, vehicle, driver)
-
         return Vec2(driver.xRot, vehicle.yRot + turnAmount )
-
     }
 
     /*
@@ -174,26 +154,19 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         vehicle: PokemonEntity,
         driver: LivingEntity
     ): Float {
-        //In degrees per second
-        val handling = 220.0
+        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) / 20.0
+        val handling = vehicle.runtime.resolveDouble(settings.handlingExpr) / 20.0
         val maxYawDiff = 90.0f
 
-        //Normalize the current rotation diff
-        val rotDiff = Mth.wrapDegrees(driver.yRot - vehicle.yRot)
-        val rotDiffNorm = rotDiff / maxYawDiff
+        // Normalize the current rotation diff
+        val rotDiff = Mth.wrapDegrees(driver.yRot - vehicle.yRot).coerceIn(-maxYawDiff,maxYawDiff)
+        val rotDiffInfl = sqrt(abs(rotDiff / maxYawDiff)) * rotDiff.sign
 
-        //Take the square root so that the ride levels out quicker when at lower differences between entity
-        //y and driver y
-        //This influences the speed of the turn based on how far in one direction you're looking
-        val rotDiffMod = (sqrt(abs(rotDiffNorm)) * rotDiffNorm.sign)
+        var turnRate = (handling.toFloat()) * rotDiffInfl
+        turnRate -= (turnRate * 0.5f) * (RidingBehaviour.scaleToRange(vehicle.deltaMovement.length(), 0.0, topSpeed).coerceIn(0.0, 1.0)).pow(2).toFloat()
 
-        //Take the inverse so that you turn less at higher speeds
-        val normSpeed = 1.0f // = 1.0f - 0.5f*RidingBehaviour.scaleToRange(state.rideVelocityocity.length(), 0.0, topSpeed).toFloat()
-
-        val turnRate = (handling.toFloat() / 20.0f)
-
-        //Ensure you only ever rotate as much difference as there is between the angles.
-        val turnSpeed = turnRate  * rotDiffMod * normSpeed
+        // Ensure you only ever rotate as much difference as there is between the angles.
+        val turnSpeed = turnRate
         val rotAmount = turnSpeed.coerceIn(-abs(rotDiff), abs(rotDiff))
 
         return rotAmount
@@ -218,9 +191,9 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
     ): Vec3 {
         // Convert these to their tick values
         val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) / 20.0
-        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) / 400.0
+        val accel = topSpeed / (vehicle.runtime.resolveDouble(settings.accelerationExpr) * 20.0)
 
-        var newVelocity = vehicle.deltaMovement
+        var newVelocity = state.rideVelocity.get()
 
         // Check for collisions and if found, update the speed to reflect it
         if (vehicle.verticalCollision || vehicle.horizontalCollision) {
@@ -230,58 +203,74 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         // align the velocity vector to be in local vehicle space
         val yawAligned = Matrix3f().rotateY(vehicle.yRot.toRadians())
         newVelocity = (newVelocity.toVector3f().mul(yawAligned)).toVec3d()
-        if (newVelocity.length() < 0.001) {
-            // Zero out the vector to ignore lingering small values that influence
-            // direction of movement when scaled by stored speed value.
-            newVelocity = Vec3.ZERO
-        }
-        newVelocity = newVelocity.normalize().scale(state.speed.get())
 
         // Vertical movement based on driver input.
         val vertInput = when {
-            driver.jumping && state.stamina.get() != 0.0f -> 1.0
+            driver.jumping -> 1.0
             driver.isShiftKeyDown -> -1.0
             else -> 0.0
         }
 
         // Normalize and scale to accel so that diagonal movement
         // doesn't speed up the ride more than input in one direction
-        val inputVel = Vec3(
+        var inputVel = Vec3(
             driver.xxa.sign.toDouble(),
             vertInput,
             driver.zza.sign.toDouble()
-        ).normalize().scale(accel)
+        ).normalize()
 
-        // Scale down input force that opposes our current movement. How much it is scaled
-        // down depends on our handling/skill
-//        val handlingMod = if(newVelocity.length() > 0.001) 1 - handling*sqrt(newVelocity.length() / topSpeed)*( 0.5 * (1 + newVelocity.normalize().dot(inputVel.normalize()) * -1.0))
-//            else 1.0
+        /******************************************************
+         * Boosting Logic
+         *****************************************************/
+        if (driver.level().isClientSide) {
+            if(Minecraft.getInstance().options.keySprint.isDown() && state.stamina.get() == 1.0f && !state.isBoosting.get()) {
+                state.isBoosting.set(true)
+                val localBoostVel = if (inputVel.horizontalDistance() == 0.0) Vec3(0.0, 0.0, 1.0) else Vec3(inputVel.x, 0.0, inputVel.z)
+                state.boostVec.set(localBoostVel)
+                state.boostTicks.set(0)
+                state.stamina.set(0.0f)
+            }
+        }
+        val maxBoostTicks = 20
+        val boostPower = (topSpeed * 20) * 0.1 * vehicle.runtime.resolveDouble(settings.jumpExpr)
+        if (state.isBoosting.get() && state.boostTicks.get() < maxBoostTicks) {
+            newVelocity = newVelocity.add(state.boostVec.get().scale(boostPower / maxBoostTicks))
+            state.boostTicks.set(state.boostTicks.get() + 1)
+        } else if (state.isBoosting.get()) {
+            state.isBoosting.set(false)
+        }
 
-        newVelocity = newVelocity.add(inputVel)
 
         // Air Friction/Resistance
         // When the dot between friction and input is -1 we want to apply none of it.
         // In short we want to avoid applying friction that opposes our input force.
         // otherwise we would not be able to reach our top speed when acceleration is
         // low.
-        val frictionConst = vehicle.runtime.resolveDouble(settings.handlingExpr)
+        val frictionConst = 0.02
         var frictionForce = newVelocity.scale(-1.0).scale(frictionConst)
-        val frictionApplied = if(inputVel.lengthSqr() != 0.0) 1 - 0.5 * (1 + -1.0 * frictionForce.normalize().dot(inputVel.normalize()))
+        val frictionApplied = if(inputVel.lengthSqr() != 0.0) 1 - (0.5*(1 + -1.0 * (inputVel.normalize().dot(frictionForce.normalize()))))
             else 1.0
-        frictionForce = frictionForce.scale((frictionApplied).pow(4))
+        frictionForce = frictionForce.scale((frictionApplied))
         newVelocity = newVelocity.add(frictionForce)
 
-        // Apply height limit forces
-        if (state.tooHigh.get()) {
-            newVelocity = newVelocity.scale(0.96)
-            if (state.stamina.get() == 0.0f) {
-                newVelocity = newVelocity.subtract(0.0, 0.01, 0.0)
-            }
-        }
+        // Ensure that if you're not applying force where the ride is facing then you apply a portion of debuff
+        val strafeDebuff = 0.5
+        val vehicleForwardVec = Vec3(0.0, 0.0, 1.0)
+        val playerForwardVec = inputVel //.yRot(vehicle.yRot)
+        val inputStrength = accel - (accel * strafeDebuff*(1 - vehicleForwardVec.dot(playerForwardVec).coerceIn(0.0, 1.0)))
+        inputVel = inputVel.scale(inputStrength)
+
+        newVelocity = newVelocity.add(inputVel)
 
         // Set speed to new magnitude to avoid the horrible things minecraft friction
         // does to our vectors :(
         state.speed.set(min(topSpeed, newVelocity.length()))
+
+        // Check to see if this new velocity will exceed top speed and if it will then cap it
+        newVelocity = if (newVelocity.length() > topSpeed) newVelocity.normalize().scale(topSpeed) else newVelocity
+
+        val revertYawAligned = Matrix3f().rotateY(-vehicle.yRot.toRadians())
+        state.rideVelocity.set((newVelocity.toVector3f().mul(revertYawAligned)).toVec3d())
 
         return newVelocity
     }
@@ -355,7 +344,7 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         vehicle: PokemonEntity,
         driver: Player
     ): Float {
-        return if (state.tooHigh.get()) 0.9f else 1.0f
+        return if (state.isBoosting.get()) 1.1f else 1.0f
     }
 
     override fun useAngVelSmoothing(
@@ -445,21 +434,21 @@ class HoverSettings : RidingBehaviourSettings {
     var speedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', 13.0, 6.0)".asExpression()
         private set
 
-    // Acceleration in blocks per second per second
+    // Acceleration in number of seconds to top speed
     var accelerationExpr: Expression =
-        "q.get_ride_stats('ACCELERATION', 'AIR', 7.0, 3.0)".asExpression()
+        "q.get_ride_stats('ACCELERATION', 'AIR', 2.0, 5.0)".asExpression()
         private set
 
-    // Amount of seconds before stamina depletion
-    var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'AIR', 7, 3)".asExpression()
+    // Amount of seconds between boosts
+    var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'AIR', 1, 4)".asExpression()
         private set
 
-    // Height in blocks above the ground before stamina loss
-    var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'AIR', 10.0, 5.0)".asExpression()
+    // Power of boost as a fraction of top speed
+    var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'AIR', 1.2, 0.2)".asExpression()
         private set
 
-    // Amount of air friction applied. 0.2 means 20 percent of the velocity is opposed per tick
-    var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 0.1, 0.02)".asExpression()
+    // Turn rate in degrees per second when stationary
+    var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 360.0, 90)".asExpression()
         private set
 
     var rideSounds: RideSoundSettingsList = RideSoundSettingsList()
@@ -489,28 +478,41 @@ class HoverSettings : RidingBehaviourSettings {
 
 class HoverState : RidingBehaviourState() {
     var speed = ridingState(0.0, Side.CLIENT)
-    var tooHigh = ridingState(false, Side.CLIENT)
+    var isBoosting = ridingState(false, Side.BOTH)
+    var boostVec = ridingState(Vec3.ZERO, Side.CLIENT)
+    var boostTicks = ridingState(0, Side.CLIENT)
 
     override fun encode(buffer: FriendlyByteBuf) {
         super.encode(buffer)
         buffer.writeDouble(speed.get())
-        buffer.writeBoolean(tooHigh.get())
+        buffer.writeBoolean(isBoosting.get())
     }
 
     override fun decode(buffer: FriendlyByteBuf) {
         super.decode(buffer)
         speed.set(buffer.readDouble(), forced = true)
-        tooHigh.set(buffer.readBoolean(), forced = true)
+        isBoosting.set(buffer.readBoolean(), forced = true)
+    }
+
+    override fun reset() {
+        super.reset()
+        speed.set(0.0, forced = true)
+        isBoosting.set(false, forced = true)
+        boostVec.set(Vec3.ZERO, forced = true)
+        boostTicks.set(0, forced = true)
     }
 
     override fun copy() = HoverState().also {
         it.rideVelocity.set(this.rideVelocity.get(), forced = true)
         it.stamina.set(this.stamina.get(), forced = true)
-        it.tooHigh.set(this.tooHigh.get(), forced = true)
+        it.isBoosting.set(this.isBoosting.get(), forced = true)
+        it.boostVec.set(this.boostVec.get(), forced = true)
+        it.boostTicks.set(this.boostTicks.get(), forced = true)
     }
 
     override fun shouldSync(previous: RidingBehaviourState): Boolean {
         if (previous !is HoverState) return false
+        if (previous.isBoosting.get() != isBoosting.get()) return true
         return super.shouldSync(previous)
     }
 }

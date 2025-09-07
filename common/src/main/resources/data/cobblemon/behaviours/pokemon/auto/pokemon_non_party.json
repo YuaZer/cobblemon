@@ -31,7 +31,7 @@
     },
     {
       "type": "apply_behaviours",
-      "condition": "!q.entity.is_in_party && q.entity.behaviour.combat.will_flee",
+      "condition": "!q.entity.is_in_party && (q.entity.behaviour.combat.will_flee && !q.entity.behaviour.combat.will_defend_self)",
       "behaviours": [
         "cobblemon:panics"
       ]
