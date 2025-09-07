@@ -1200,7 +1200,7 @@ open class PokemonEntity(
         }
         else if (!pokemon.isWild() && canRide) {
             player.isShiftKeyDown = false
-            tryRidingPokemon(player, this)
+            tryRidingPokemon(player)
         }
     }
 
@@ -1453,12 +1453,12 @@ open class PokemonEntity(
         BuiltInRegistries.ITEM.getTagOrEmpty(CobblemonItemTags.WHITELISTED_ITEMS_TO_HOLD).none()
                 || stack.`is`(CobblemonItemTags.WHITELISTED_ITEMS_TO_HOLD)
 
-    fun tryRidingPokemon(player: ServerPlayer, pokemon: PokemonEntity): Boolean {
-        val event = RidePokemonEvent.Pre(player, pokemon)
+    fun tryRidingPokemon(player: ServerPlayer): Boolean {
+        val event = RidePokemonEvent.Pre(player, this)
         CobblemonEvents.RIDE_EVENT_PRE.post(event)
         if(!event.isCanceled) {
-            player.startRiding(pokemon)
-            CobblemonEvents.RIDE_EVENT_POST.post(RidePokemonEvent.Post(player, pokemon))
+            player.startRiding(this)
+            CobblemonEvents.RIDE_EVENT_POST.post(RidePokemonEvent.Post(player, this))
             return true
         }
         return false
