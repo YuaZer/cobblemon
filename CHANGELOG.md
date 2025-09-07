@@ -659,6 +659,115 @@
 - Added `q.pokemon.is_rideable` Returns whether the Pokémon is rideable.
 - Fixed `background` field and added `textColor` field for dialogues.
 
+### Particles
+Added new/updated particles for the following moves:
+- Absorb
+- Acid
+- Acid Spray
+- Aerial Ace
+- Amnesia
+- Aurora Beam
+- Bite
+- Body Slam
+- Bubble
+- Bubble Beam
+- Bulldoze
+- Bullet Punch
+- Close Combat
+- Confusion
+- Crunch
+- Cotton Guard
+- Double Team
+- Dragon Claw
+- Egg Bomb
+- Ember
+- Eruption
+- Explosion
+- Fire Blast
+- Fire Punch
+- Fire Spin
+- Flame Burst
+- Flame Charge
+- Flamethrower
+- Flame Wheel
+- Frost Breath
+- Frustration
+- Giga Drain
+- Growl
+- Haze
+- Hidden Power
+- Horn Attack
+- Hyper Fang
+- Hypnosis
+- Ice Beam
+- Ice Punch
+- Ice Shard
+- Icy Wind
+- Infestation
+- Kinesis
+- Lava Plume
+- Leech Life
+- Leech Seed
+- Leer
+- Lick
+- Magical Leaf
+- Mega Drain
+- Minimize
+- Mist
+- Mud Bomb
+- MudSport
+- Mystical Fire
+- Nasty Plot
+- Poison Fang
+- Poison Gas
+- Poison Powder
+- Population Bomb
+- Pound
+- Powder
+- Powder Snow
+- Present
+- Protect
+- Psybeam
+- Psychic
+- Pursuit
+- Quick Attack
+- Rage Powder
+- Razor Leaf
+- Return
+- Rock Throw
+- Sand Attack
+- Scary Face
+- Scratch
+- Seed Bomb
+- Seismic Toss
+- Self Destruct
+- Shadow Ball
+- Shadow Claw
+- Sing
+- Sleep Powder
+- Sludge Bomb
+- Smokescreen
+- Spike
+- Spore
+- Stomp
+- String Shot
+- Stun Spore
+- Super Fang
+- Swords Dance
+- Tackle
+- Tail Whip
+- Thunder
+- Thunder Punch
+- Thunderbolt
+- Thunder Shock
+- Thunder Wave
+- Toxic
+- Water Gun
+- Water Pulse
+- Water Sport
+- Will-O-Wisp
+- Withdraw
+
 ## [1.6.1 (January 26th, 2025)](#1-6-1)
 
 ### Additions
