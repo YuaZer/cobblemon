@@ -1586,7 +1586,7 @@ object MoLangFunctions {
             map.put("ride_boosts") {
                 val struct = QueryStruct(hashMapOf())
                 for (stat in RidingStat.entries) {
-                    struct.addFunction(stat.name.lowercase()) { DoubleValue(pokemon.getRideBoost[stat] ?: 0.0) }
+                    struct.addFunction(stat.name.lowercase()) { DoubleValue(pokemon.getRideBoost(stat) ?: 0.0) }
                 }
                 struct
             }
