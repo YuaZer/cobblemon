@@ -62,10 +62,19 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         vehicle: PokemonEntity,
         driver: Player
     ): Float {
+        return state.rideVelocity.get().length().toFloat()
+    }
+
+    override fun tick(
+        settings: BirdSettings,
+        state: BirdState,
+        vehicle: PokemonEntity,
+        driver: Player,
+        input: Vec3
+    ) {
         if(vehicle.level().isClientSide) {
             tickStamina(settings, state, vehicle, driver)
         }
-        return state.rideVelocity.get().length().toFloat()
     }
 
     fun tickStamina(
@@ -448,8 +457,9 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         val hoverSpeed = 0.1
 
         // Yaw locally when at or below hoverSpeed
+        val yawDampen = abs(cos(controller.pitch.toRadians())).pow(2) * abs(cos(controller.roll.toRadians())).pow(2)
         val localYaw = if (currSpeed < hoverSpeed) xInput * (1 - sqrt(RidingBehaviour.scaleToRange(currSpeed, hoverSpeed, topSpeed))).coerceIn(0.0, 1.0)
-            else xInput * 0.4 * cos(controller.roll.toRadians()).coerceIn(0.0f, 1.0f)
+            else xInput * 0.4 * cos(controller.roll.toRadians()).coerceIn(0.0f, 1.0f) * yawDampen
 
         // Pitch locally up or down depending upon a number of factors:
         // - Reduce pitch substantially when rolled and in a steep yaw. This prevents the player from ignoring a slow handling stat
@@ -463,8 +473,8 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         // Roll less when slow and not at all when at hoverSpeed or lower.
         // Apply a roll righting force when trying to pitch hard while rolled sideways. This nudges the player towards
         // pitching globally
-        val pitchInfluencedRollCorrection = 0.4*(abs(yInput - localPitch) * controller.roll.sign * -1.0)
-        val rollForce = if (currSpeed > hoverSpeed) xInput * sqrt((RidingBehaviour.scaleToRange(currSpeed, hoverSpeed, topSpeed))) + pitchInfluencedRollCorrection
+        val pitchInfluencedRollCorrection = 0.0 // if ( currSpeed > hoverSpeed * 2) 0.4*(abs(yInput - localPitch) * controller.roll.sign * -1.0) else 0.0
+        val rollForce = if (currSpeed > hoverSpeed) xInput * sqrt(abs(RidingBehaviour.scaleToRange(currSpeed, hoverSpeed, topSpeed)).coerceIn(0.0,1.0)) + pitchInfluencedRollCorrection
             else 0.0
 
         //yaw, pitch, roll
