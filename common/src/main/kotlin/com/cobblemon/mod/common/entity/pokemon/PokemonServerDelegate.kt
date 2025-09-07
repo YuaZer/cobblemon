@@ -21,7 +21,6 @@ import com.cobblemon.mod.common.api.molang.MoLangFunctions.addPokemonEntityFunct
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.addPokemonFunctions
 import com.cobblemon.mod.common.api.molang.ObjectValue
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties
-import com.cobblemon.mod.common.api.pokemon.stats.Stats
 import com.cobblemon.mod.common.api.pokemon.status.Statuses
 import com.cobblemon.mod.common.api.tags.CobblemonItemTags
 import com.cobblemon.mod.common.battles.BattleRegistry
@@ -41,8 +40,6 @@ import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.damagesource.DamageSource
-import net.minecraft.world.effect.MobEffectInstance
-import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.item.ItemStack
@@ -51,7 +48,6 @@ import org.joml.Matrix3f
 import org.joml.Vector3f
 import java.util.*
 import kotlin.math.ceil
-import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.pow
 import kotlin.math.round
@@ -239,7 +235,7 @@ class PokemonServerDelegate : PokemonSideDelegate {
         entity.entityData.set(PokemonEntity.CAUGHT_BALL, trackedBall)
 
         val currentRideBoosts = entity.entityData.get(PokemonEntity.RIDE_BOOSTS)
-        val newRideBoosts = entity.pokemon.getAllRideBoosts()
+        val newRideBoosts = entity.pokemon.getRideBoosts()
         if (currentRideBoosts.size != newRideBoosts.size || currentRideBoosts.any { (key, value) -> newRideBoosts[key] != value }) {
             entity.entityData.set(PokemonEntity.RIDE_BOOSTS, newRideBoosts)
         }

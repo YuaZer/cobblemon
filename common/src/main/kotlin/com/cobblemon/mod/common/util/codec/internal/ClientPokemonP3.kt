@@ -89,7 +89,7 @@ internal data class ClientPokemonP3(
             pokemon.marks.map { it.identifier }.toSet(),
             pokemon.potentialMarks.map { it.identifier }.toSet(),
             pokemon.markings,
-            pokemon.getAllRideBoosts().mapKeys { it.key.name },
+            pokemon.getRideBoosts().mapKeys { it.key.name },
             pokemon.currentFullness,
             pokemon.interactionCooldowns
         )
