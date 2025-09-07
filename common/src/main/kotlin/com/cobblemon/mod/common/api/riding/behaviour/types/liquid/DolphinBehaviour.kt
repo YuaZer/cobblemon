@@ -16,12 +16,6 @@ import com.cobblemon.mod.common.OrientationControllable
 import com.cobblemon.mod.common.api.orientation.OrientationController
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
-import com.cobblemon.mod.common.api.riding.behaviour.types.air.BirdSettings
-import com.cobblemon.mod.common.api.riding.behaviour.types.air.BirdState
-import com.cobblemon.mod.common.api.riding.behaviour.types.air.JetSettings
-import com.cobblemon.mod.common.api.riding.behaviour.types.air.JetState
-import com.cobblemon.mod.common.api.riding.behaviour.types.air.RocketSettings
-import com.cobblemon.mod.common.api.riding.behaviour.types.air.RocketState
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
 import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
@@ -29,11 +23,13 @@ import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
+import com.cobblemon.mod.common.util.math.geometry.toDegrees
 import com.cobblemon.mod.common.util.math.geometry.toRadians
 import net.minecraft.client.Minecraft
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.util.Mth
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
@@ -42,6 +38,7 @@ import net.minecraft.world.phys.Vec3
 import net.minecraft.world.phys.shapes.Shapes
 import org.joml.Vector3f
 import kotlin.math.abs
+import kotlin.math.asin
 import kotlin.math.cos
 import kotlin.math.hypot
 import kotlin.math.max
@@ -74,18 +71,28 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
     }
 
     override fun speed(settings: DolphinSettings, state: DolphinState, vehicle: PokemonEntity, driver: Player): Float {
+        return state.speed.get().toFloat()
+    }
+
+    override fun tick(
+        settings: DolphinSettings,
+        state: DolphinState,
+        vehicle: PokemonEntity,
+        driver: Player,
+        input: Vec3
+    ) {
         if(vehicle.level().isClientSide) {
-            handleBoosting(state)
+            handleBoosting(state, vehicle)
             tickStamina(settings, state, vehicle)
         }
-        return state.speed.get().toFloat()
     }
 
     fun handleBoosting(
         state: DolphinState,
+        vehicle: PokemonEntity
     ) {
         //If the forward key is not held then it cannot be boosting
-        if(Minecraft.getInstance().options.keyUp.isDown() && state.stamina.get() != 0.0f) {
+        if(Minecraft.getInstance().options.keyUp.isDown() && state.stamina.get() != 0.0f && (vehicle.isInWater || vehicle.isUnderWater)) {
             val boostKeyPressed = Minecraft.getInstance().options.keySprint.isDown()
             if (state.stamina.get() >= 0.25f) {
                 //If on the previous tick the boost key was held then don't change if the ride is boosting
@@ -145,18 +152,42 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         val boostMod = if (state.boosting.get()) runtime.resolveDouble(settings.jumpExpr) else 1.0
         val topSpeed = (vehicle.runtime.resolveDouble(settings.speedExpr) / 20.0) * boostMod
         val accel = (topSpeed / (vehicle.runtime.resolveDouble(settings.accelerationExpr) * 20.0)) * boostMod
-        state.lastVelocity.set(vehicle.deltaMovement.yRot(vehicle.yRot.toRadians()))
+
+        /*********************************************
+         * Breaching logic
+         *********************************************/
         if (!vehicle.isInWater && !vehicle.isUnderWater)
         {
-            val gravity = (9.8 / ( 20.0)) * 0.2 * 0.6
-            val terminalVel = 2.0
             val currVel = state.lastVelocity.get()
-            state.lastVelocity.set(Vec3(currVel.x, max(-terminalVel, currVel.y - gravity), currVel.z))
+            val breachBoost = 1.5
+            if (!state.hasBreached.get()) {
+                // Apply an upwards breaching force if boosting. This will enhance jumping out of water to feel more
+                // fun
+                if (state.boosting.get()) {
+                    state.lastVelocity.set(Vec3(currVel.x, currVel.y + breachBoost*sin(-controller.pitch.toRadians()).coerceIn(0.0f,0.5f), currVel.z))
+                }
+                state.hasBreached.set(true)
+            } else {
+                val gravity = (9.8 / ( 20.0)) * 0.2 * 0.4
+                val terminalVel = 2.0
+                state.lastVelocity.set(Vec3(currVel.x, max(-terminalVel, currVel.y - gravity), currVel.z)) //.yRot(vehicle.yRot.toRadians()))
+            }
             return state.lastVelocity.get()
+        } else {
+            state.lastVelocity.set(vehicle.deltaMovement.yRot(vehicle.yRot.toRadians()))
+            state.hasBreached.set(false)
         }
+
+        /*********************************************
+         * Handle collisions
+         *********************************************/
         if (vehicle.horizontalCollision || vehicle.verticalCollision) {
-            state.speed.set(vehicle.deltaMovement.length())
+            // not actually friction
+            val frictionLimit = 0.1
+            val postColSpeed = min(max(vehicle.deltaMovement.length(), frictionLimit), state.speed.get())
+            state.speed.set(postColSpeed)
         }
+
         val currSpeed = state.speed.get()
         val strafeFactor = runtime.resolveDouble(settings.strafeFactor)
         val reverseDriveFactor = runtime.resolveDouble(settings.reverseDriveFactor)
@@ -178,9 +209,7 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         newVelocity = controller.orientation?.transform(newVelocity.toVector3f())?.toVec3d() ?: Vec3.ZERO
         newVelocity = newVelocity.yRot(vehicle.yRot.toRadians())
         val desiredVec = newVelocity.subtract(vehicle.deltaMovement)
-        //val inpVel = if (desiredVec.lengthSqr() > 0.001) desiredVec.normalize().scale(0.1) else Vec3.ZERO
         return vehicle.deltaMovement.add(desiredVec)
-        //return newVelocity
     }
 
     override fun angRollVel(
@@ -207,7 +236,7 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         controller.applyGlobalYaw(trueYawDelt.toFloat() * yawDampen)
 
         // Correct orientation when at low speeds
-        correctOrientation(settings, state, vehicle, controller, deltaTime)
+        correctOrientation(settings, state, vehicle, controller, driver, deltaTime)
 
         //yaw, pitch, roll
         return Vec3(0.0, state.currPitchCorrectionForce.get(), state.currRollCorrectionForce.get())
@@ -218,16 +247,19 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         state: DolphinState,
         vehicle: PokemonEntity,
         controller: OrientationController,
+        driver: Player,
         deltaTime: Double
     ) {
         // Calculate correcting roll force.
         // Mult by cos(pitch) to ensure that it doesn't roll correct at when diving or climbing
         val currSpeed = vehicle.deltaMovement.length()
         val rollCorrectionTimer = vehicle.runtime.resolveDouble(settings.timeToRollCorrect)
-        val maxRollCorrectionRate = 10.0f * (cos(controller.pitch.toRadians())).pow(2) * ((state.noInputTime.get() - rollCorrectionTimer) * 2).coerceIn(0.0, 1.0).toFloat()
+        val maxRollCorrectionRate = if (!(vehicle.isInWater || vehicle.isUnderWater)) 15.0f
+            else 10.0f * (cos(controller.pitch.toRadians())).pow(2) * ((state.noInputTime.get() - rollCorrectionTimer) * 2).coerceIn(0.0, 1.0).toFloat()
         val maxRollForce = maxRollCorrectionRate / 40.0
         val rollArrivalDeg = 90.0
-        if(state.noInputTime.get() > rollCorrectionTimer) {
+
+        if((state.speed.get() < 0.1 && driver.zza.toDouble() == 0.0) || state.noInputTime.get() > rollCorrectionTimer || !(vehicle.isInWater || vehicle.isUnderWater)) {
             val arrivalInfluence = (min(rollArrivalDeg,abs(controller.roll).toDouble()) / rollArrivalDeg)
             val desiredRollForce = (0 - controller.roll).sign * maxRollCorrectionRate * arrivalInfluence
             var steeredRollForce = desiredRollForce - state.currRollCorrectionForce.get()
@@ -249,12 +281,14 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         }
 
         //Calculate correcting pitch force.
-        val maxPitchCorrectionRate = 10.0f * ((state.noInputTime.get() - rollCorrectionTimer) * 2).coerceIn(0.0, 1.0).toFloat()
+        val maxPitchCorrectionRate = if (!(vehicle.isInWater || vehicle.isUnderWater)) 15.0 else 5.0f * ((state.noInputTime.get() - rollCorrectionTimer) * 2).coerceIn(0.0, 1.0).toFloat() * (1 - (currSpeed * 0.5).coerceIn(0.0, 1.0))
         val maxPitchForce = maxPitchCorrectionRate / 40.0
-        val pitchArrivalDeg = 90.0
-        if(state.noInputTime.get() > rollCorrectionTimer) {
-            val arrivalInfluence = (min(pitchArrivalDeg,abs(controller.pitch).toDouble()) / pitchArrivalDeg)
-            val desiredPitchForce = (0 - controller.pitch).sign * maxPitchCorrectionRate * arrivalInfluence
+        val pitchArrivalDeg = 45.0
+        val targetPitch = if ((vehicle.isInWater || vehicle.isUnderWater)) 0.0f else (-asin(vehicle.deltaMovement.y / vehicle.deltaMovement.length()).toDegrees()).coerceIn(-45.0f, 45.0f)
+
+        if((state.noInputTime.get() > rollCorrectionTimer && driver.zza.toDouble() == 0.0) || !(vehicle.isInWater || vehicle.isUnderWater)) {
+            val arrivalInfluence = min(rollArrivalDeg, abs(Mth.wrapDegrees(targetPitch - controller.pitch.toDouble()))) / pitchArrivalDeg
+            val desiredPitchForce = (targetPitch - controller.pitch).sign * maxPitchCorrectionRate * arrivalInfluence
             var steeredPitchForce = desiredPitchForce - state.currPitchCorrectionForce.get()
 
             // Ensure the 'steering' correction force doesn't exceed our maxForce
@@ -288,7 +322,7 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
     ): Vec3 {
         // Begin the roll correction time counter if not enough mouse input
         // is detected
-        if (abs(mouseX) < 1 && abs(mouseY) < 1 && (!vehicle.isInWater && !vehicle.isUnderWater)) {
+        if (abs(mouseX) < 1 && abs(mouseY) < 1 && (vehicle.isInWater || vehicle.isUnderWater)) {
             state.noInputTime.set(state.noInputTime.get() + deltaTime)
         } else {
             state.noInputTime.set(0.0)
@@ -339,7 +373,8 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         // Set roll to zero if transitioning to noroll config
         controller.rotateRoll(controller.roll * -1.0f)
 
-        val handling = vehicle.runtime.resolveDouble(settings.handlingExpr)
+        val boostingHandleDebuff = if (state.boosting.get()) 0.2 else 1.0
+        val handling = vehicle.runtime.resolveDouble(settings.handlingExpr) * boostingHandleDebuff
         val mouseInputMult = vehicle.runtime.resolveDouble(settings.mouseInputMult)
 
         //Smooth out mouse input.
@@ -384,7 +419,8 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         if (driver !is OrientationControllable) return Vec3.ZERO
         val controller = (driver as OrientationControllable).orientationController
         val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) / 20.0
-        val mouseInputMult = vehicle.runtime.resolveDouble(settings.mouseInputMult)
+        val boostingHandleDebuff = if (state.boosting.get()) 0.2 else 1.0
+        val mouseInputMult = vehicle.runtime.resolveDouble(settings.mouseInputMult) * boostingHandleDebuff
 
         //Smooth out mouse input.
         val smoothingSpeed = 4.0
@@ -393,11 +429,11 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         val xInput = mouseXSmoother.getNewDeltaValue(mouseXc * 0.1, deltaTime * smoothingSpeed);
         val yInput = mouseYSmoother.getNewDeltaValue(mouseYc * 0.1, deltaTime * smoothingSpeed);
         val currSpeed = vehicle.deltaMovement.length()
-        val hoverSpeed = topSpeed * 0.5
 
-        // Yaw locally when at or below hoverSpeed
-        val localYaw = xInput * (1 - (RidingBehaviour.scaleToRange(currSpeed, 0.0, topSpeed))).coerceIn(0.2, 1.0)
-        //else xInput * 0.4 * cos(controller.roll.toRadians()).coerceIn(0.0f, 1.0f)
+        // Yaw locally
+        // Dampen yaw when rolled or pitched substantially
+        val yawDampen = abs(cos(controller.pitch.toRadians())).pow(2) * abs(cos(controller.roll.toRadians())).pow(2)
+        val localYaw = xInput * (1 - (RidingBehaviour.scaleToRange(currSpeed, 0.0, topSpeed))).coerceIn(0.4, 1.0) * yawDampen
 
         // Pitch locally up or down depending upon a number of factors:
         // - Reduce pitch substantially when rolled and in a steep yaw. This prevents the player from ignoring a slow handling stat
@@ -411,7 +447,6 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         // Roll less when slow and not at all when at hoverSpeed or lower.
         // Apply a roll righting force when trying to pitch hard while rolled sideways. This nudges the player towards
         // pitching globally
-        val pitchInfluencedRollCorrection = 0.4*(abs(yInput - localPitch) * controller.roll.sign * -1.0)
         val rollForce =  xInput * ((RidingBehaviour.scaleToRange(currSpeed, 0.0, topSpeed))).coerceIn(0.2, 1.0) //+ pitchInfluencedRollCorrection
 
         //yaw, pitch, roll
@@ -452,7 +487,7 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         vehicle: PokemonEntity,
         regularGravity: Double
     ): Double {
-        return if (!vehicle.isInWater && !vehicle.isUnderWater) 1.0 else 0.0
+        return 0.0 //if (!vehicle.isInWater && !vehicle.isUnderWater) 1.0 else 0.0
     }
 
     override fun rideFovMultiplier(
@@ -461,14 +496,7 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         vehicle: PokemonEntity,
         driver: Player
     ): Float {
-        if (state.boosting.get()) {
-            val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) / 20.0
-            val boostMod = vehicle.runtime.resolveDouble(settings.jumpExpr)
-            val normalizedBoostSpeed = RidingBehaviour.scaleToRange(state.speed.get(), topSpeed, topSpeed * boostMod)
-            return 1.0f + normalizedBoostSpeed.pow(2).toFloat() * 0.2f
-        } else {
-            return 1.0f
-        }
+        return if (state.boosting.get()) 1.2f else 1.0f
     }
 
     override fun useAngVelSmoothing(settings: DolphinSettings, state: DolphinState, vehicle: PokemonEntity): Boolean {
@@ -548,7 +576,7 @@ class DolphinSettings : RidingBehaviourSettings {
     var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'LIQUID', 2.2, 1.2)".asExpression()
     // Yaw rate in degrees per second
     var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'LIQUID', 100.0, 45.0)".asExpression()
-    var horizontalPitchExpr: Expression = "q.get_ride_stats('SKILL', 'LIQUID', 0.4, 0.2)".asExpression()
+    var horizontalPitchExpr: Expression = "q.get_ride_stats('SKILL', 'LIQUID', 0.3, 0.2)".asExpression()
     var mouseInputMult: Expression = "q.get_ride_stats('SKILL', 'LIQUID', 1.2, 0.8)".asExpression()
     // Top speed in Bl/s
     var speedExpr: Expression = "q.get_ride_stats('SPEED', 'LIQUID', 15.0, 5.0)".asExpression()
@@ -599,6 +627,7 @@ class DolphinState : RidingBehaviourState() {
     var boosting = ridingState(false, Side.BOTH)
     var boostIsToggleable = ridingState(false, Side.CLIENT)
     var speed = ridingState(0.0, Side.CLIENT)
+    var hasBreached = ridingState(false, Side.CLIENT)
 
     override fun encode(buffer: FriendlyByteBuf) {
         super.encode(buffer)
@@ -619,6 +648,7 @@ class DolphinState : RidingBehaviourState() {
         boosting.set(false, forced = true)
         boostIsToggleable.set(true, forced = true)
         speed.set(0.0, forced = true)
+        hasBreached.set(false, forced = true)
     }
 
     override fun toString(): String {
@@ -635,6 +665,7 @@ class DolphinState : RidingBehaviourState() {
         it.boosting.set(this.boosting.get(), forced = true)
         it.boostIsToggleable.set(this.boosting.get(), forced = true)
         it.speed.set(this.speed.get(), forced = true)
+        it.hasBreached.set(this.hasBreached.get(), forced = true)
     }
 
     override fun shouldSync(previous: RidingBehaviourState): Boolean {

@@ -70,11 +70,14 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
     }
 
     override fun speed(settings: JetSettings, state: JetState, vehicle: PokemonEntity, driver: Player): Float {
+        return state.rideVelocity.get().length().toFloat()
+    }
+
+    override fun tick(settings: JetSettings, state: JetState, vehicle: PokemonEntity, driver: Player, input: Vec3) {
         if(vehicle.level().isClientSide) {
             handleBoosting(state)
             tickStamina(settings, state, vehicle)
         }
-        return state.rideVelocity.get().length().toFloat()
     }
 
     fun handleBoosting(
