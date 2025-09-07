@@ -1457,11 +1457,9 @@ open class PokemonEntity(
         val event = RidePokemonEvent.Pre(player, pokemon)
         CobblemonEvents.RIDE_EVENT_PRE.post(event)
         if(!event.isCanceled) {
-            if (pokemon.canRide(player) && !pokemon.isVehicle && !player.isPassenger && !player.isShiftKeyDown) {
-                player.startRiding(pokemon)
-                CobblemonEvents.RIDE_EVENT_POST.post(RidePokemonEvent.Post(player, pokemon))
-                return true
-            }
+            player.startRiding(pokemon)
+            CobblemonEvents.RIDE_EVENT_POST.post(RidePokemonEvent.Post(player, pokemon))
+            return true
         }
         return false
     }
