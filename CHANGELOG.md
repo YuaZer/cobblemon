@@ -277,6 +277,8 @@
 - Parasect
 - Bastiodon
 - Amaura
+- Varoom
+- Revavroom
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -383,6 +385,8 @@
 - Starly
 - Staravia
 - Staraptor
+- Varoom
+- Revavroom
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
