@@ -1797,7 +1797,7 @@ object MoLangFunctions {
             }
             map.put("set_ride_boost") { params ->
                 val statName = params.getString(0).uppercase()
-                val stat = RidingStat.entries.find { it.name == statName } ?: return@put DoubleValue.ZERO
+                val stat = RidingStat.entries.find { it.name.equals(statName, ignoreCase = true) } ?: return@put DoubleValue.ZERO
                 val value = params.getDoubleOrNull(1)?.toFloat() ?: return@put DoubleValue.ZERO
 
                 pokemon.setRideBoost(stat, value)
@@ -1805,7 +1805,7 @@ object MoLangFunctions {
             }
             map.put("add_ride_boost") { params ->
                 val statName = params.getString(0).uppercase()
-                val stat = RidingStat.entries.find { it.name == statName } ?: return@put DoubleValue.ZERO
+                val stat = RidingStat.entries.find { it.name.equals(statName, ignoreCase = true) } ?: return@put DoubleValue.ZERO
                 val value = params.getDoubleOrNull(1)?.toFloat() ?: return@put DoubleValue.ZERO
 
                 return@put DoubleValue(if (pokemon.addRideBoost(stat, value)) 1.0 else 0.0)
