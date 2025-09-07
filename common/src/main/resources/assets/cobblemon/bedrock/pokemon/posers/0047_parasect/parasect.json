@@ -25,9 +25,6 @@
       "condition": "!q.is_ridden",
       "animations": [
         "q.bedrock('parasect', 'ground_idle')"
-      ],
-      "quirks": [
-        "q.bedrock_quirk('parasect', 'blink')"
       ]
     },
     "walking": {
@@ -35,9 +32,6 @@
       "condition": "!q.is_ridden",
       "animations": [
         "q.bedrock('parasect', 'ground_walk')"
-      ],
-      "quirks": [
-        "q.bedrock_quirk('parasect', 'blink')"
       ]
     },
     "mount_standing": {
@@ -46,8 +40,7 @@
       "condition": "q.is_ridden && !q.in_air",
       "animations": [
         "q.bedrock('parasect', 'ground_idle')"
-      ],
-      "quirks": ["q.bedrock_quirk('parasect', 'blink')"]
+      ]
     },
     "mount_walking": {
       "poseTypes": ["WALK"],
@@ -57,7 +50,6 @@
         "q.bedrock('parasect', 'ground_walk')",
         "q.bedrock('parasect', 'ride_ground_run')"
       ],
-      "quirks": ["q.bedrock_quirk('parasect', 'blink')"],
       "transformTicks": 5,
       "transformToTicks": 5
     },
@@ -68,8 +60,7 @@
       "animations": [
         "q.bedrock('parasect', 'ground_run')",
         "q.bedrock('parasect', 'ride_ground_run')"
-      ],
-      "quirks": ["q.bedrock_quirk('parasect', 'blink')"]
+      ]
     },
     "ride_jump": {
       "poseTypes": ["WALK","STAND", "FLOAT", "NONE"],
@@ -79,7 +70,6 @@
         "q.bedrock('parasect','ride_jump')",
         "q.bedrock('parasect', 'ride_ground_run')"
       ],
-      "quirks": ["q.bedrock_quirk('parasect', 'blink')"],
       "transformTicks": 5,
       "transformToTicks": 5
     },
