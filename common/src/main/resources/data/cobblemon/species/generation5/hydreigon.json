@@ -182,7 +182,7 @@
         "canFly": true
       },
       "walk": {
-        "canWalk": true
+        "canWalk": false
       }
     },
     "resting": {
