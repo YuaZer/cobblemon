@@ -78,7 +78,7 @@
         "q.bedrock('volcarona', 'air_idle')"
       ],
       "quirks": [
-        "q.bedrock_quirk('kilowattrel', 'quirk')"
+        "q.bedrock_quirk('volcarona', 'quirk')"
       ]
     },
     "fly": {
