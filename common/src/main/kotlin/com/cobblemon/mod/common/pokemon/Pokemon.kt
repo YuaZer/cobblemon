@@ -1829,7 +1829,7 @@ open class Pokemon : ShowdownIdentifiable {
         return rideBoosts[stat] ?: 0F
     }
 
-    fun getRideBoosts(): Map<RidingStat, Float> {
+    fun getAllRideBoosts(): Map<RidingStat, Float> {
         return rideBoosts.toMap()
     }
 
