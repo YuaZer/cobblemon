@@ -5,7 +5,15 @@
   "profileTranslation": [-0.06, 0.99, 0],
   "rootBone": "kingler",
   "firstPersonCameraOffset": {
-    "seat_1": [0, 0.4, 0]
+    "seat_1": [0, 0.35, 0]
+  },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 0, 1],
+    "seat_1_reverse": [0, 0, 1]
+  },
+  "thirdPersonCameraOffsetNoViewBobbing": {
+    "seat_1": [0, 0.75, 4],
+    "seat_1_reverse": [0, 0.75, 4]
   },
   "animations": {
     "cry": "q.bedrock_stateful('kingler', 'cry')",

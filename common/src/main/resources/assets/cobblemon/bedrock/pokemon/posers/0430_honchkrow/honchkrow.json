@@ -7,6 +7,14 @@
   "firstPersonCameraOffset": {
     "seat_1": [0, 0.3, 0]
   },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 1, 2],
+    "seat_1_reverse": [0, 1, 2]
+  },
+  "thirdPersonCameraOffsetNoViewBobbing": {
+    "seat_1": [0, 0.5, 4.5],
+    "seat_1_reverse": [0, 0.5, 4.5]
+  },
   "animations": {},
   "poses": {
     "standing": {

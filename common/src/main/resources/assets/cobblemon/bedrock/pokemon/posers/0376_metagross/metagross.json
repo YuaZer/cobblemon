@@ -4,6 +4,17 @@
   "profileScale": 0.4,
   "profileTranslation": [0, 1, 0],
   "rootBone": "metagross",
+  "firstPersonCameraOffset": {
+    "seat_1": [0, 0.25, 0]
+  },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 1, 2],
+    "seat_1_reverse": [0, 1, 2]
+  },
+  "thirdPersonCameraOffsetNoViewBobbing": {
+    "seat_1": [0, 1, 6],
+    "seat_1_reverse": [0, 1, 6]
+  },
   "animations": {
     "cry": "q.bedrock_stateful('metagross', 'cry')",
     "recoil": "q.bedrock_stateful('metagross', 'recoil')",

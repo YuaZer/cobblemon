@@ -4,6 +4,17 @@
   "profileScale": 0.38,
   "profileTranslation": [-0.15, 1.18, -10],
   "rootBone": "gyarados",
+  "firstPersonCameraOffset": {
+    "seat_1": [0, 0.35, 0]
+  },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 0.5, 1],
+    "seat_1_reverse": [0, 0.5, 1]
+  },
+  "thirdPersonCameraOffsetNoViewBobbing": {
+    "seat_1": [0, 1.25, 4],
+    "seat_1_reverse": [0, 1.25, 4]
+  },
   "animations": {
     "cry": "q.bedrock_stateful('gyarados', 'cry')"
   },
