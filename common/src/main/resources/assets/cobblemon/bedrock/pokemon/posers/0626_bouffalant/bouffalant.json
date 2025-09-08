@@ -30,7 +30,7 @@
         "q.bedrock('bouffalant', 'battle_idle')"
       ],
       "quirks": [
-        "q.bedrock_quirk('bastiodon', 'blink')"
+        "q.bedrock_quirk('bouffalant', 'blink')"
       ]
     },
     "standing": {
