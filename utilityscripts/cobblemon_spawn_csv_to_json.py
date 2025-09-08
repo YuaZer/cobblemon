@@ -19,7 +19,7 @@ def init_filters():
     global pokemon_numbers, included_groups, known_contexts, bucket_mapping, included_generations
     # Define what kind of pokémon should be included, if nothing is specified (empty array), all will be included.
     # filter by number ranges (dex range)
-    pokemon_numbers = range(1, 1100)
+    pokemon_numbers = range(669, 672)
     # filter by group ['basic', 'boss', 'fossil']
     included_groups = ['basic', 'boss', 'fossil']
     # filter by context ['grounded', 'submerged', 'seafloor', 'surface', 'fishing']
@@ -46,6 +46,7 @@ def ui_init_filters(pokemon_nrs_min, pokemon_nrs_max, included_grps, known_cntxt
 excluded_forms = []
 # Biome mapping, used to convert the Biome column to the format used in the spawn json
 biome_mapping = {
+    'aether': '#aether:is_aether',
     'arid': '#cobblemon:is_arid',
     'badlands': '#cobblemon:is_badlands',
     'bamboo': '#cobblemon:is_bamboo',
@@ -69,7 +70,7 @@ biome_mapping = {
     'freezing': '#cobblemon:is_freezing',
     'freshwater':'#cobblemon:is_freshwater',
     'frozen ocean': '#cobblemon:is_frozen_ocean',
-    'frozen river': '#minecraft:frozen_river',
+    'frozen river': 'minecraft:frozen_river',
     'glacial': '#cobblemon:is_glacial',
     'grassland': '#cobblemon:is_grassland',
     'gravel': '#cobblemon:has_block/gravel',
@@ -116,6 +117,10 @@ biome_mapping = {
     'skylands spring': 'terralith:skylands_spring',
     'skylands summer': 'terralith:skylands_summer',
     'skylands winter': 'terralith:skylands_winter',
+    'skyroot forest': 'aether:skyroot_forest',
+    'skyroot grove': 'aether:skyroot_grove',
+    'skyroot meadow': 'aether:skyroot_meadow',
+    'skyroot woodland': 'aether:skyroot_woodland',
     'snowy': '#cobblemon:is_snowy',
     'snowy beach': 'minecraft:snowy_beach',
     'snowy forest': '#cobblemon:is_snowy_forest',
@@ -402,6 +407,10 @@ def transform_pokemon_to_json(pokemon_rows, invalid_biome_tags, drops_df):
                             multiplier_condition["timeRange"] = "dawn"
                         case "Beehive":
                             multiplier_condition["neededNearbyBlocks"] = ["#minecraft:beehives"]
+                        case "Lava":
+                            multiplier_condition["neededNearbyBlocks"] = ["#minecraft:lava"]
+                        case "Water":
+                            multiplier_condition["neededNearbyBlocks"] = ["#minecraft:water"]
                         case "Full Moon":
                             multiplier_condition["moonPhase"] = "0"
                         case "New Moon":
@@ -684,6 +693,9 @@ def special_condtions_anticonditions(condition, column_name, currentID, invalid_
                 condition['maxSkyLight'] = int(string.split('=')[1].strip())
             elif "minSkyLight" in string:
                 condition['minSkyLight'] = int(string.split('=')[1].strip())
+            # if the string is "timeRange  = dusk" then add it to the condition dictionary
+            elif "timeRange  = dusk" in string:
+                condition['timeRange'] = "dusk"
             # if the string is "Slime Chunk" then add isSlimeChunk = true to the condition dictionary
             elif "Slime Chunk" in string:
                 condition['isSlimeChunk'] = True
@@ -694,13 +706,13 @@ def special_condtions_anticonditions(condition, column_name, currentID, invalid_
             elif "maxLureLevel" in string:
                 condition['maxLureLevel'] = int(string.split('=')[1].strip())
             # if the string contains "bobber = master ball" then add it to the condition dictionary
-            elif "bobber = master ball" in string:
+            elif "bobber = master_ball" in string:
                 condition['bobber'] = "cobblemon:master_ball"
             # if the string contains "bobber = love ball" then add it to the condition dictionary
-            elif "bobber = love ball" in string:
+            elif "bobber = love_ball" in string:
                 condition['bobber'] = "cobblemon:love_ball"
             # if the string contains "bait = love sweet" then add it to the condition dictionary
-            elif "bait = love sweet" in string:
+            elif "bait = love_sweet" in string:
                 condition['bait'] = "cobblemon:love_sweet"
             # if the string is a digit, pass (was already hanlded by other conditions)
             elif string.strip().isdigit():

@@ -72,6 +72,48 @@
                     "#cobblemon:is_overworld"
                 ]
             }
+        },
+        {
+            "id": "mr-galarian-1",
+            "pokemon": "mr galarian",
+            "presets": [
+                "natural",
+                "urban"
+            ],
+            "type": "pokemon",
+            "context": "grounded",
+            "bucket": "uncommon",
+            "level": "26-46",
+            "weight": 0.288,
+            "condition": {
+                "minSkyLight": 8,
+                "maxSkyLight": 15,
+                "biomes": [
+                    "#cobblemon:is_freezing"
+                ]
+            }
+        },
+        {
+            "id": "mr-galarian-2",
+            "pokemon": "mr galarian",
+            "presets": [
+                "natural"
+            ],
+            "type": "pokemon",
+            "context": "grounded",
+            "bucket": "uncommon",
+            "level": "26-46",
+            "weight": 0.288,
+            "condition": {
+                "minSkyLight": 8,
+                "maxSkyLight": 15,
+                "biomes": [
+                    "#cobblemon:is_freezing"
+                ],
+                "structures": [
+                    "#minecraft:village"
+                ]
+            }
         }
     ]
 }

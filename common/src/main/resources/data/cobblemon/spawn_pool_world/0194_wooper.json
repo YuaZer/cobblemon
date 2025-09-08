@@ -193,6 +193,7 @@
                 "minSkyLight": 0,
                 "maxSkyLight": 7,
                 "biomes": [
+                    "#aether:is_aether",
                     "#cobblemon:is_overworld"
                 ]
             }
@@ -330,8 +331,49 @@
             }
         },
         {
-            "id": "wooper-heart-13",
-            "pokemon": "wooper wooper_pattern=heart",
+            "id": "wooper-13",
+            "pokemon": "wooper",
+            "presets": [
+                "natural"
+            ],
+            "type": "pokemon",
+            "context": "grounded",
+            "bucket": "uncommon",
+            "level": "1-21",
+            "weight": 8.4,
+            "condition": {
+                "minSkyLight": 0,
+                "maxSkyLight": 7,
+                "biomes": [
+                    "#aether:is_aether"
+                ],
+                "neededNearbyBlocks": [
+                    "#minecraft:water"
+                ]
+            }
+        },
+        {
+            "id": "wooper-14",
+            "pokemon": "wooper",
+            "presets": [
+                "water"
+            ],
+            "type": "pokemon",
+            "context": "submerged",
+            "bucket": "uncommon",
+            "level": "1-21",
+            "weight": 8.4,
+            "condition": {
+                "minSkyLight": 0,
+                "maxSkyLight": 7,
+                "biomes": [
+                    "#aether:is_aether"
+                ]
+            }
+        },
+        {
+            "id": "wooper-heart-15",
+            "pokemon": "wooper wooper_heart=true",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "uncommon",
@@ -341,14 +383,15 @@
                 "minSkyLight": 0,
                 "maxSkyLight": 7,
                 "biomes": [
+                    "#aether:is_aether",
                     "#cobblemon:is_overworld"
                 ],
                 "bobber": "cobblemon:love_ball"
             }
         },
         {
-            "id": "wooper-heart-14",
-            "pokemon": "wooper wooper_pattern=heart",
+            "id": "wooper-heart-16",
+            "pokemon": "wooper wooper_heart=true",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "uncommon",
@@ -375,61 +418,7 @@
                     "#cobblemon:is_mushroom",
                     "#cobblemon:is_swamp"
                 ],
-                    "bobber": "cobblemon:love_ball"
-            },
-            "anticondition": {
-                "biomes": [
-                    "#cobblemon:has_block/mud"
-                ]
-            }
-        },
-        {
-            "id": "wooper-heart-15",
-            "pokemon": "wooper wooper_pattern=heart",
-            "type": "pokemon",
-            "context": "fishing",
-            "bucket": "common",
-            "level": "1-21",
-            "weight": 20.0,
-            "condition": {
-                "minSkyLight": 0,
-                "maxSkyLight": 7,
-                "biomes": [
-                    "#cobblemon:is_overworld"
-                ],
-                "bait": "cobblemon:love_sweet"
-            }
-        },
-        {
-            "id": "wooper-heart-16",
-            "pokemon": "wooper wooper_pattern=heart",
-            "type": "pokemon",
-            "context": "fishing",
-            "bucket": "common",
-            "level": "1-21",
-            "weight": 20.0,
-            "weightMultipliers": [
-                {
-                    "multiplier": 3.0,
-                    "condition": {
-                        "minLureLevel": "2",
-                        "maxLureLevel": "2"
-                    }
-                },
-                {
-                    "multiplier": 5.0,
-                    "condition": {
-                        "minLureLevel": "3"
-                    }
-                }
-            ],
-            "condition": {
-                "canSeeSky": true,
-                "biomes": [
-                    "#cobblemon:is_mushroom",
-                    "#cobblemon:is_swamp"
-                ],
-                "bait": "cobblemon:love_sweet"
+                "bobber": "cobblemon:love_ball"
             },
             "anticondition": {
                 "biomes": [
@@ -439,7 +428,62 @@
         },
         {
             "id": "wooper-heart-17",
-            "pokemon": "wooper wooper_pattern=heart",
+            "pokemon": "wooper wooper_heart=true",
+            "type": "pokemon",
+            "context": "fishing",
+            "bucket": "common",
+            "level": "1-21",
+            "weight": 20.0,
+            "condition": {
+                "minSkyLight": 0,
+                "maxSkyLight": 7,
+                "biomes": [
+                    "#aether:is_aether",
+                    "#cobblemon:is_overworld"
+                ],
+                "bait": "cobblemon:love_sweet"
+            }
+        },
+        {
+            "id": "wooper-heart-18",
+            "pokemon": "wooper wooper_heart=true",
+            "type": "pokemon",
+            "context": "fishing",
+            "bucket": "common",
+            "level": "1-21",
+            "weight": 20.0,
+            "weightMultipliers": [
+                {
+                    "multiplier": 3.0,
+                    "condition": {
+                        "minLureLevel": "2",
+                        "maxLureLevel": "2"
+                    }
+                },
+                {
+                    "multiplier": 5.0,
+                    "condition": {
+                        "minLureLevel": "3"
+                    }
+                }
+            ],
+            "condition": {
+                "canSeeSky": true,
+                "biomes": [
+                    "#cobblemon:is_mushroom",
+                    "#cobblemon:is_swamp"
+                ],
+                "bait": "cobblemon:love_sweet"
+            },
+            "anticondition": {
+                "biomes": [
+                    "#cobblemon:has_block/mud"
+                ]
+            }
+        },
+        {
+            "id": "wooper-heart-19",
+            "pokemon": "wooper wooper_heart=true",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "uncommon",
@@ -477,8 +521,8 @@
             }
         },
         {
-            "id": "wooper-heart-18",
-            "pokemon": "wooper wooper_pattern=heart",
+            "id": "wooper-heart-20",
+            "pokemon": "wooper wooper_heart=true",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "common",
@@ -516,7 +560,7 @@
             }
         },
         {
-            "id": "wooper-paldean-19",
+            "id": "wooper-paldean-21",
             "pokemon": "wooper paldean",
             "presets": [
                 "natural"
@@ -535,7 +579,7 @@
             }
         },
         {
-            "id": "wooper-paldean-20",
+            "id": "wooper-paldean-22",
             "pokemon": "wooper paldean",
             "presets": [
                 "water"
@@ -553,7 +597,7 @@
             }
         },
         {
-            "id": "wooper-paldean-21",
+            "id": "wooper-paldean-23",
             "pokemon": "wooper paldean",
             "presets": [
                 "natural"
@@ -575,7 +619,7 @@
             }
         },
         {
-            "id": "wooper-paldean-22",
+            "id": "wooper-paldean-24",
             "pokemon": "wooper paldean",
             "presets": [
                 "water"
@@ -593,7 +637,7 @@
             }
         },
         {
-            "id": "wooper-paldean-23",
+            "id": "wooper-paldean-25",
             "pokemon": "wooper paldean",
             "type": "pokemon",
             "context": "fishing",
@@ -608,7 +652,7 @@
             }
         },
         {
-            "id": "wooper-paldean-24",
+            "id": "wooper-paldean-26",
             "pokemon": "wooper paldean",
             "type": "pokemon",
             "context": "fishing",
@@ -626,7 +670,7 @@
             }
         },
         {
-            "id": "wooper-paldean-25",
+            "id": "wooper-paldean-27",
             "pokemon": "wooper paldean",
             "type": "pokemon",
             "context": "fishing",
@@ -649,7 +693,7 @@
             }
         },
         {
-            "id": "wooper-paldean-26",
+            "id": "wooper-paldean-28",
             "pokemon": "wooper paldean",
             "presets": [
                 "water"
@@ -669,7 +713,7 @@
             }
         },
         {
-            "id": "wooper-paldean-27",
+            "id": "wooper-paldean-29",
             "pokemon": "wooper paldean",
             "presets": [
                 "water"
@@ -689,7 +733,7 @@
             }
         },
         {
-            "id": "wooper-paldean-28",
+            "id": "wooper-paldean-30",
             "pokemon": "wooper paldean",
             "type": "pokemon",
             "context": "fishing",
@@ -706,7 +750,7 @@
             }
         },
         {
-            "id": "wooper-paldean-29",
+            "id": "wooper-paldean-31",
             "pokemon": "wooper paldean",
             "type": "pokemon",
             "context": "fishing",
@@ -726,7 +770,7 @@
             }
         },
         {
-            "id": "wooper-paldean-30",
+            "id": "wooper-paldean-32",
             "pokemon": "wooper paldean",
             "type": "pokemon",
             "context": "fishing",
