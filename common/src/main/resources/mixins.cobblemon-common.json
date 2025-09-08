@@ -60,7 +60,6 @@
     "EntityVillagerMixin",
     "ExplosionMixin",
     "ItemStackComponentizationFixMixin",
-    "LeavesBlockMixin",
     "LecternBlockMixin",
     "LightningBoltMixin",
     "LivingEntityMixin",

@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.pokemon.ai
 
+import com.cobblemon.mod.common.CobblemonBlocks
 import com.cobblemon.mod.common.entity.OmniPathingEntity
 import com.cobblemon.mod.common.util.canFit
 import com.google.common.collect.Maps
@@ -517,7 +518,7 @@ class OmniPathNodeMaker : NodeEvaluator() {
 //            PathType.WALKABLE
 //        } else if (blockState.canPathfindThrough(world, pos, NavigationType.AIR) && !blockStateBelow.isSideSolid(world, below, Direction.UP, SideShapeType.FULL)) {
 //            PathType.OPEN
-        } else if (blockState.`is`(BlockTags.LEAVES) && canPathThroughLeaves()) {
+        } else if (blockState.`is`(BlockTags.LEAVES) && blockState.block == CobblemonBlocks.SACCHARINE_LEAVES && canPathThroughLeaves()) {
             return PathType.OPEN
         } else PathType.BLOCKED
 
@@ -656,8 +657,12 @@ class OmniPathNodeMaker : NodeEvaluator() {
             PathType.BLOCKED
         } else if (type == PathType.RAIL && block !is BaseRailBlock && pfContext.getBlockState(pos.below()).block !is BaseRailBlock) {
             PathType.UNPASSABLE_RAIL
-        } else if (type == PathType.LEAVES && canPathThroughLeaves()) {
-            PathType.OPEN
+        } else if (type == PathType.LEAVES) {
+            if (blockState.block === CobblemonBlocks.SACCHARINE_LEAVES && canPathThroughLeaves()) {
+                PathType.OPEN
+            } else {
+                PathType.BLOCKED
+            }
         } else type
     }
 

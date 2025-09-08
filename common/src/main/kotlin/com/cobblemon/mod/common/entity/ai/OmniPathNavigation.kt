@@ -8,6 +8,8 @@
 
 package com.cobblemon.mod.common.entity.ai
 
+import com.cobblemon.mod.common.CobblemonBlocks
+import com.cobblemon.mod.common.block.SaccharineLeafBlock
 import com.cobblemon.mod.common.entity.OmniPathingEntity
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.pokemon.ai.OmniPathNodeMaker
@@ -180,7 +182,7 @@ class OmniPathNavigation(val world: Level, val entity: Mob) : GroundPathNavigati
 
         val blockState = this.world.getBlockState(target)
         val path = if (!blockState.isSolid
-            || (blockState.`is`(BlockTags.LEAVES)) && (this.entity as PokemonEntity).canPathThroughLeaves()) {
+            || (blockState.`is`(BlockTags.LEAVES) && blockState.block == CobblemonBlocks.SACCHARINE_LEAVES && (this.entity as PokemonEntity).canPathThroughLeaves())) {
             findPath(target, distance)
         } else {
             blockPos = target.above()
@@ -237,7 +239,7 @@ class OmniPathNavigation(val world: Level, val entity: Mob) : GroundPathNavigati
             // If we can fly and we're airborne, return the current Y position
             return vec.y
         }
-        if (world.getBlockState(blockPos).`is`(BlockTags.LEAVES) && (this.entity as PokemonEntity).canPathThroughLeaves()) {
+        if (world.getBlockState(blockPos).block == CobblemonBlocks.SACCHARINE_LEAVES && (this.entity as PokemonEntity).canPathThroughLeaves()) {
             return vec.y + 0.5
         }
 
