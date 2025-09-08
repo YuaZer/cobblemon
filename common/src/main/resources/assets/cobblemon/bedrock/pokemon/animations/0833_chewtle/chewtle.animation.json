@@ -43,6 +43,14 @@
           }
         }
       }
+    },
+    "animation.chewtle.cry": {
+      "animation_length": 2,
+      "sound_effects": {
+        "0.25": {
+          "effect": "pokemon.chewtle.cry"
+        }
+      }
     }
   }
 }

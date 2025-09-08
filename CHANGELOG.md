@@ -279,6 +279,7 @@
 - Amaura
 - Varoom
 - Revavroom
+- Bouffalant
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -387,6 +388,8 @@
 - Staraptor
 - Varoom
 - Revavroom
+- Nickit
+- Thievul
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
