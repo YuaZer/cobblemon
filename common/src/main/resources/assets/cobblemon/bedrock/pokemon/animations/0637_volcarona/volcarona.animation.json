@@ -383,10 +383,6 @@
 				"tail3": {
 					"rotation": ["0+math.sin((q.anim_time-0.35)*90*2.5)*5", 0, 0]
 				}
-			},
-			"timeline": {
-				"0.0": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };",
-				"1.5833": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };"
 			}
 		},
 		"animation.volcarona.ground_walk": {
@@ -478,10 +474,6 @@
 				"tail3": {
 					"rotation": ["0+math.sin((q.anim_time-0.35)*90*2.5)*3", 0, 0]
 				}
-			},
-			"timeline": {
-				"0.0": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };",
-				"1.5833": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };"
 			}
 		},
 		"animation.volcarona.ground_run": {
@@ -574,10 +566,6 @@
 				"tail3": {
 					"rotation": ["math.sin(q.anim_time*90*3-90)*3", 0, "math.sin(q.anim_time*90*3-180)*-3"]
 				}
-			},
-			"timeline": {
-				"0.0": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };",
-				"1.3333": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };"
 			}
 		},
 		"animation.volcarona.air_idle": {
@@ -669,10 +657,6 @@
 				"tail3": {
 					"rotation": ["0+math.sin((q.anim_time-0.35)*90*2.5)*5", 0, 0]
 				}
-			},
-			"timeline": {
-				"0.0": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };",
-				"1.5833": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };"
 			}
 		},
 		"animation.volcarona.air_fly": {
@@ -765,10 +749,6 @@
 				"tail3": {
 					"rotation": ["math.sin(q.anim_time*90*3-90)*3", 0, "math.sin(q.anim_time*90*3-180)*-3"]
 				}
-			},
-			"timeline": {
-				"0.0": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };",
-				"1.3333": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };"
 			}
 		},
 		"animation.volcarona.air_glide": {
@@ -970,7 +950,7 @@
 						"1.7917": [-2.35153, 364.20581, 2.22708],
 						"1.8333": [-2.35153, 364.20581, 2.22708],
 						"1.875": {"pre": [-2.35153, 364.20581, 2.22708], "post": [-2.35153, 4.20581, 2.22708]},
-						"1.9167": [-2.35153, 4.20581, 2.22708],
+						"1.9167": {"pre": [-2.35153, 4.20581, 2.22708], "post": [-2.35153, 4.20581, 2.22708]},
 						"2.2083": [16.16222, 3.73761, 1.59352],
 						"2.5417": {
 							"pre": [10, 0, 0],
@@ -2107,7 +2087,7 @@
 						"1.7917": [-2.35153, 364.20581, 2.22708],
 						"1.8333": [-2.35153, 364.20581, 2.22708],
 						"1.875": {"pre": [-2.35153, 364.20581, 2.22708], "post": [-2.35153, 4.20581, 2.22708]},
-						"1.9167": [-2.35153, 4.20581, 2.22708],
+						"1.9167": {"pre": [-2.35153, 4.20581, 2.22708], "post": [-2.35153, 4.20581, 2.22708]},
 						"2.2083": [16.16222, 3.73761, 1.59352],
 						"2.5417": {
 							"pre": [10, 0, 0],
@@ -3214,11 +3194,6 @@
 						"2.75": [0, 0, 0]
 					}
 				}
-			},
-			"timeline": {
-				"0.0417": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };",
-				"0.8333": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };",
-				"2.0417": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };"
 			}
 		},
 		"animation.volcarona.special": {
@@ -4510,10 +4485,6 @@
 						}
 					}
 				}
-			},
-			"timeline": {
-				"0.0417": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };",
-				"2.3333": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };"
 			}
 		},
 		"animation.volcarona.physical": {
@@ -5573,12 +5544,6 @@
 						}
 					}
 				}
-			},
-			"timeline": {
-				"0.0417": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };",
-				"1.0": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };",
-				"1.5": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };",
-				"2.2083": "q.has_entity ? { q.sound('animation.chitin.wing_flap.large'); };"
 			}
 		},
 		"animation.volcarona.faint": {
