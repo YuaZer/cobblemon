@@ -1874,6 +1874,7 @@
 		},
 		"animation.noivern.air_idle": {
 			"loop": true,
+			"animation_length": 1,
 			"bones": {
 				"body": {
 					"rotation": ["25+Math.cos((query.anim_time)*90*4-90)*-2", 0, 0],
@@ -2056,10 +2057,14 @@
 				"wing_tip_right": {
 					"rotation": [0, "-20+Math.cos((query.anim_time)*90*4-160)*-30", "5+Math.cos((query.anim_time)*90*4-60)*-5"]
 				}
+			},
+			"timeline": {
+				"0.4167": "q.has_entity ? { q.sound('animation.leather.wing_flap.medium'); };"
 			}
 		},
 		"animation.noivern.air_fly": {
 			"loop": true,
+			"animation_length": 1,
 			"bones": {
 				"body": {
 					"rotation": ["47.5+Math.cos((query.anim_time)*90*4-90)*-2", 0, 0],
@@ -2242,6 +2247,9 @@
 				"wing_tip_right": {
 					"rotation": [0, "-20+Math.cos((query.anim_time)*90*4-160)*-30", "5+Math.cos((query.anim_time)*90*4-60)*-5"]
 				}
+			},
+			"timeline": {
+				"0.4167": "q.has_entity ? { q.sound('animation.leather.wing_flap.medium'); };"
 			}
 		},
 		"animation.noivern.air_glide": {
@@ -3191,13 +3199,19 @@
 				"pupil_left": {
 					"rotation": {
 						"0.0": [0, 0, -90],
-						"0.1667": {"pre": [0, 0, -90], "post": [0, 0, 0]}
+						"0.1667": {
+							"pre": [0, 0, -90],
+							"post": [0, 0, 0]
+						}
 					}
 				},
 				"pupil_right": {
 					"rotation": {
 						"0.0": [0, 0, 90],
-						"0.1667": {"pre": [0, 0, 90], "post": [0, 0, 0]}
+						"0.1667": {
+							"pre": [0, 0, 90],
+							"post": [0, 0, 0]
+						}
 					}
 				}
 			}
