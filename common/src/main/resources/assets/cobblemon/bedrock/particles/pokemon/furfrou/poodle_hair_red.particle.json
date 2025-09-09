@@ -4,25 +4,32 @@
 		"description": {
 			"identifier": "cobblemon:poodle_hair_red",
 			"basic_render_parameters": {
-				"material": "particles_alpha",
+				"material": "particles_blend",
 				"texture": "textures/particles/generic/cotton"
 			}
 		},
 		"events": {
 			"event_sound": {
-				"expression": "q.sound('minecraft:entity.sheep.shear', math.random(0.8,1.2))"
+				"expression": "q.sound('minecraft:entity.sheep.shear', 1, math.random(0.9,1.1))",
+				"particle_effect": {
+					"effect": "cobblemon:poodle_hair_particles",
+					"type": "particle"
+				}
 			}
 		},
 		"components": {
 			"minecraft:emitter_rate_steady": {
 				"spawn_rate": 64,
-				"max_particles": 32
+				"max_particles": 64
 			},
 			"minecraft:emitter_lifetime_once": {
 				"active_time": 0.8
 			},
 			"minecraft:emitter_lifetime_events": {
-				"creation_event": "event_sound"
+				"timeline": {
+					"0.10": "event_sound",
+					"0.30": "event_sound"
+				}
 			},
 			"minecraft:emitter_shape_point": {
 				"offset": [0, "math.random(-0.3,0.8)", 0],
