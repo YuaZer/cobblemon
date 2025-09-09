@@ -26,8 +26,11 @@
     "big_malasada",
     "smoked_tail_curry",
     "sinister_tea",
+    "leather_helmet",
+    "cocoa_beans",
     "compass",
-    "shears"
+    "shears",
+    "gold_armor"
   ],
   "isAspect": true,
   "aspectFormat": "cosmetic_item-{{choice}}"

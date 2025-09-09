@@ -280,6 +280,7 @@
 - Varoom
 - Revavroom
 - Bouffalant
+- Lickilicky
 
 ### Model updates for the following Pokémon
 - Cleffa

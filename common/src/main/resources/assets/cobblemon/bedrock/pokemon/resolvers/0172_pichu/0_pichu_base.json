@@ -157,7 +157,7 @@
       "model": "cobblemon:pichu_ukulele.geo",
       "layers": [
         {
-          "name": "detective",
+          "name": "ukulele",
           "texture": "cobblemon:textures/pokemon/0172_pichu/pichu_ukulele.png"
         }
       ]

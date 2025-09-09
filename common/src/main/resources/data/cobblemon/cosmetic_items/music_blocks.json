@@ -1,5 +1,5 @@
 {
-  "pokemon": ["pichu"],
+  "pokemon": ["pichu", "tinkatink", "tinkatuff", "tinkaton"],
   "cosmeticItems": [
     {
       "consumedItem": "minecraft:jukebox",
