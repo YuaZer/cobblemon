@@ -72,6 +72,7 @@ import com.cobblemon.mod.common.api.types.ElementalTypes
 import com.cobblemon.mod.common.battles.BagItems
 import com.cobblemon.mod.common.battles.BattleBuilder
 import com.cobblemon.mod.common.battles.BattleRegistry
+import com.cobblemon.mod.common.battles.BattleRules
 import com.cobblemon.mod.common.battles.SuccessfulBattleStart
 import com.cobblemon.mod.common.block.entity.PokemonPastureBlockEntity
 import com.cobblemon.mod.common.client.entity.PokemonClientDelegate
@@ -1327,7 +1328,9 @@ open class PokemonEntity(
                 return true
             }
 
-            return bagItemLike.handleInteraction(player, battlePokemon, stack)
+            if (!battle.format.ruleSet.contains(BattleRules.BAG_CLAUSE)) {
+                return bagItemLike.handleInteraction(player, battlePokemon, stack)
+            }
         }
 
         if (player !is ServerPlayer || this.isBusy) {
