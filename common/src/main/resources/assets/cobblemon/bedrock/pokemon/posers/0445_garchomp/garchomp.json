@@ -85,7 +85,6 @@
       "isTouchingWater": false,
       "condition": "!q.is_ridden && q.is_standing_on_blocks(2, 'minecraft:sand', 'minecraft:red_sand')",
       "animations": [
-        "q.look('head')",
         "q.bedrock('garchomp', 'sand_idle')",
         {
           "condition": "q.is_ridden",
@@ -101,7 +100,6 @@
       "isTouchingWater": false,
       "condition": "!q.is_ridden && q.is_standing_on_blocks(2, 'minecraft:sand', 'minecraft:red_sand')",
       "animations": [
-        "q.look('head')",
         "q.bedrock('garchomp', 'sand_swim')"
       ],
       "quirks": ["q.bedrock_quirk('garchomp', 'blink')"]

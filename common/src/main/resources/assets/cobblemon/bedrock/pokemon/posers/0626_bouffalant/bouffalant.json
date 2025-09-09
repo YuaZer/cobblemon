@@ -31,7 +31,10 @@
       ],
       "quirks": [
         "q.bedrock_quirk('bouffalant', 'blink')"
-      ]
+      ],
+      "namedAnimations": {
+        "cry": "q.bedrock_primary('bouffalant', 'battle_cry', q.curve('symmetrical_wide'))"
+      }
     },
     "standing": {
       "poseName": "standing",
@@ -49,10 +52,7 @@
     "walking": {
       "poseName": "walk",
       "condition": "!q.is_sprinting",
-      "poseTypes": [
-        "WALK",
-        "SWIM"
-      ],
+      "poseTypes": ["WALK", "SWIM"],
       "animations": [
         "q.look('head_ai', 0.2, 0.25)",
         "q.bedrock('bouffalant', 'ground_walk')"
