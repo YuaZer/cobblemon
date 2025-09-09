@@ -10,9 +10,7 @@
 		},
 		"events": {
 			"event_sound": {
-				"sound_effect": {
-					"event_name": "minecraft:entity.sheep.shear"
-				}
+				"expression": "q.sound('minecraft:entity.sheep.shear', math.random(0.8,1.2))"
 			}
 		},
 		"components": {
