@@ -1,5 +1,5 @@
 {
-  "pokemon": ["electrode"],
+  "pokemon": ["electrode","furfrou"],
   "cosmeticItems": [
     {
       "consumedItem": "minecraft:white_dye",
