@@ -17,13 +17,7 @@
   },
   "poses": {
     "standing": {
-      "poseTypes": [
-        "STAND",
-        "FLOAT",
-        "NONE",
-        "PORTRAIT",
-        "PROFILE"
-      ],
+      "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
       "animations": [
         "q.look('neck', 1, 1, 2.5, -2, 2, -2)",
         "q.look('neck2', 1, 1, 5, -5, 2, -2)",
@@ -37,7 +31,7 @@
       ]
     },
     "walking": {
-      "poseTypes": ["WALK", "SWIM"],
+      "poseTypes": ["WALK"],
       "animations": [
         "q.look('neck', 1, 1, 2.5, -2, 2, -2)",
         "q.look('neck2', 1, 1, 5, -5, 2, -2)",
@@ -46,6 +40,36 @@
         "q.look('head_ai', 1, 1, 70, -45, 30, -30)",
         "q.biped_walk(0.66, 1.4, 'leg_left', 'leg_right')",
         "q.bedrock('lugia', 'ground_idle')"
+      ],
+      "quirks": [
+        "q.bedrock_quirk('lugia', 'blink')"
+      ]
+    },
+    "floating": {
+      "poseTypes": ["FLOAT"],
+      "animations": [
+        "q.look('neck', 1, 1, 2.5, -2, 2, -2)",
+        "q.look('neck2', 1, 1, 5, -5, 2, -2)",
+        "q.look('neck3', 1, 1, 2.5, -24.5, 2, -2)",
+        "q.look('neck4', 1, 1, 5, -5, 2, -2)",
+        "q.look('head_ai', 1, 1, 70, -45, 30, -30)",
+        "q.biped_walk(0.66, 1.4, 'leg_left', 'leg_right')",
+        "q.bedrock('lugia', 'ground_idle')"
+      ],
+      "quirks": [
+        "q.bedrock_quirk('lugia', 'blink')"
+      ]
+    },
+    "swimming": {
+      "poseTypes": ["SWIM"],
+      "animations": [
+        "q.look('neck', 1, 1, 2.5, -2, 2, -2)",
+        "q.look('neck2', 1, 1, 5, -5, 2, -2)",
+        "q.look('neck3', 1, 1, 2.5, -24.5, 2, -2)",
+        "q.look('neck4', 1, 1, 5, -5, 2, -2)",
+        "q.look('head_ai', 1, 1, 70, -45, 30, -30)",
+        "q.biped_walk(0.66, 1.4, 'leg_left', 'leg_right')",
+        "q.bedrock('lugia', 'air_fly')"
       ],
       "quirks": [
         "q.bedrock_quirk('lugia', 'blink')"
