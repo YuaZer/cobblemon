@@ -143,6 +143,8 @@
 - Dedenne
 - Noibat
 - Noivern
+- Furfrou
+  - You can change Furfrou's form by using shears on it while it holds a certain dye in its cosmetic slot.
 
 #### Gen 7
 - Yungoos
