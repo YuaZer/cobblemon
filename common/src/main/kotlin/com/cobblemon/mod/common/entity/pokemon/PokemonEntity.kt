@@ -27,6 +27,7 @@ import com.cobblemon.mod.common.api.events.entity.PokemonEntityLoadEvent
 import com.cobblemon.mod.common.api.events.entity.PokemonEntitySaveEvent
 import com.cobblemon.mod.common.api.events.entity.PokemonEntitySaveToWorldEvent
 import com.cobblemon.mod.common.api.events.pokemon.ShoulderMountEvent
+import com.cobblemon.mod.common.api.events.pokemon.RidePokemonEvent
 import com.cobblemon.mod.common.api.interaction.PokemonEntityInteraction
 import com.cobblemon.mod.common.api.interaction.PokemonInteractions
 import com.cobblemon.mod.common.api.mark.Marks
@@ -146,6 +147,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerEntity
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.tags.FluidTags
@@ -318,7 +320,7 @@ open class PokemonEntity(
             .withQueryValue("entity", struct)
             .also {
                 it.environment.query.addFunction("passenger_count") { DoubleValue(passengers.size.toDouble()) }
-                it.environment.query.addFunction("ride_velocity") { DoubleValue(getRideVelocity().length()) }
+                it.environment.query.addFunction("ride_velocity") { DoubleValue(deltaMovement.length()) }
                 it.environment.query.addFunction("driver_input") { DoubleValue(min(ridingAnimationData.driverInputSpring.value.length(),1.0)) }
                 it.environment.query.addFunction("get_ride_stats") { params ->
                     val rideStat = RidingStat.valueOf(params.getString(0).uppercase())
@@ -537,6 +539,10 @@ open class PokemonEntity(
             occupiedSeats[passengerIndex] = null
         }
         super.removePassenger(passenger)
+        if (passengers.isEmpty()) {
+            ridingController?.context?.state?.reset()
+            ridingAnimationData.clear()
+        }
     }
 
     override fun thunderHit(level: ServerLevel, lightning: LightningBolt) {
@@ -755,6 +761,7 @@ open class PokemonEntity(
                 owner.level().playSoundServer(position(), CobblemonSounds.POKE_BALL_RECALL, volume = 0.6F)
                 entityData.set(PHASING_TARGET_ID, owner.id)
                 entityData.set(BEAM_MODE, 3)
+                ejectPassengers()
                 val state = pokemon.state
 
                 // Let the Pokémon be intangible during recall
@@ -1171,6 +1178,7 @@ open class PokemonEntity(
     private fun showInteractionWheel(player: ServerPlayer, itemStack: ItemStack) {
         val canRide = ifRidingAvailableSupply(false) { behaviour, settings, state ->
             if (!this.canRide(player)) return@ifRidingAvailableSupply false
+            if (tethering != null) return@ifRidingAvailableSupply false
             if (seats.isEmpty()) return@ifRidingAvailableSupply false
             if (this.owner != player && this.passengers.isEmpty()) return@ifRidingAvailableSupply false
             return@ifRidingAvailableSupply behaviour.isActive(settings, state, this)
@@ -1186,17 +1194,13 @@ open class PokemonEntity(
                 this.getUUID(),
                 canSitOnShoulder() && pokemon in player.party(),
                 !(pokemon.heldItemNoCopy().isEmpty && itemStack.isEmpty),
-                (!pokemon.cosmeticItem.isEmpty && itemStack.isEmpty) || cosmeticItemDefinition != null, canRide
-            ).sendToPlayer(player)
-        }
-        else {
-            InteractPokemonUIPacket(
-                this.getUUID(),
-                false,
-                false,
-                false,
+                (!pokemon.cosmeticItem.isEmpty && itemStack.isEmpty) || cosmeticItemDefinition != null,
                 canRide
             ).sendToPlayer(player)
+        }
+        else if (!pokemon.isWild() && canRide) {
+            player.isShiftKeyDown = false
+            tryRidingPokemon(player)
         }
     }
 
@@ -1234,7 +1238,7 @@ open class PokemonEntity(
     }
 
     override fun checkDespawn() {
-        if (pokemon.getOwnerUUID() == null && !isPersistenceRequired && !this.pokemon.canDropHeldItem && despawner.shouldDespawn(this) ) {
+        if (pokemon.getOwnerUUID() == null && !isPersistenceRequired && (!this.pokemon.canDropHeldItem || this.pokemon.heldItem.isEmpty) && despawner.shouldDespawn(this) ) {
             discard()
         }
     }
@@ -1448,6 +1452,17 @@ open class PokemonEntity(
     fun isWhitelisted(stack: ItemStack): Boolean =
         BuiltInRegistries.ITEM.getTagOrEmpty(CobblemonItemTags.WHITELISTED_ITEMS_TO_HOLD).none()
                 || stack.`is`(CobblemonItemTags.WHITELISTED_ITEMS_TO_HOLD)
+
+    fun tryRidingPokemon(player: ServerPlayer): Boolean {
+        val event = RidePokemonEvent.Pre(player, this)
+        CobblemonEvents.RIDE_EVENT_PRE.post(event)
+        if(!event.isCanceled) {
+            player.startRiding(this)
+            CobblemonEvents.RIDE_EVENT_POST.post(RidePokemonEvent.Post(player, this))
+            return true
+        }
+        return false
+    }
 
     fun tryMountingShoulder(player: ServerPlayer): Boolean {
         if (this.pokemon.belongsTo(player) && this.hasRoomToMount(player)) {
@@ -2031,7 +2046,7 @@ open class PokemonEntity(
     }
 
     /** Retrieves the battle theme associated with this Pokemon's Species/Form, or the default PVW theme if not found. */
-    fun getBattleTheme() = BuiltInRegistries.SOUND_EVENT.get(this.form.battleTheme) ?: CobblemonSounds.PVW_BATTLE
+    fun getBattleTheme() = this.form.battleTheme ?: CobblemonSounds.PVW_BATTLE.location
 
     /**
      * A utility method to instance a [Pokemon] aware if the [world] is client sided or not.

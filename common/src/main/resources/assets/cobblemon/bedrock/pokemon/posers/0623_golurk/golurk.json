@@ -8,6 +8,10 @@
     "seat_1": [0, 0.25, 0]
   },
   "thirdPersonCameraOffset": {
+    "seat_1": [0, 0, 1],
+    "seat_1_reverse": [0, 0, 1]
+  },
+  "thirdPersonCameraOffsetNoViewBobbing": {
     "seat_1": [0, 5, 8],
     "seat_1_reverse": [0, 3, 8]
   },
@@ -37,19 +41,19 @@
       "isBattle": true,
       "animations": ["q.look('head', 1, 1, 0, 0, 45, -45)", "q.bedrock('golurk', 'battle_idle')"],
       "namedAnimations": {
-      "cry": "q.bedrock_primary('golurk', 'battle_cry', q.curve('symmetrical_wide'))"
-    }
-  },
+        "cry": "q.bedrock_primary('golurk', 'battle_cry', q.curve('symmetrical_wide'))"
+      }
+    },
     "standing": {
       "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
       "isBattle": false,
-      "condition": "!q.in_air",
+      "condition": "q.has_entity ? !q.in_air : 1.0",
       "animations": ["q.look('head', 1, 1, 0, 0, 45, -45)", "q.bedrock('golurk', 'ground_idle')"]
     },
     "in-air": {
       "poseTypes": ["STAND", "WALK", "NONE"],
       "isBattle": false,
-      "condition": "q.in_air && q.is_ridden",
+      "condition": "q.has_entity ? q.in_air && q.is_ridden : 0.0",
       "animations": ["q.look('head', 1, 1, 0, 0, 45, -45)", "q.bedrock('golurk', 'ride_jump')"],
       "transformTicks": 2,
       "transformToTicks": 2
@@ -58,7 +62,7 @@
       "poseName": "walk",
       "poseTypes": ["WALK"],
       "isBattle": false,
-      "condition": "!q.in_air && !q.is_sprinting",
+      "condition": "q.has_entity ? !q.in_air && !q.is_sprinting : 1.0",
       "animations": [
         "q.look('head', 1, 1, 0, 0, 45, -45)",
         "q.bedrock('golurk', 'ground_walk')",
@@ -74,7 +78,7 @@
       "poseName": "run",
       "poseTypes": ["WALK"],
       "isBattle": false,
-      "condition": "!q.in_air && q.is_sprinting",
+      "condition": "q.has_entity ? !q.in_air && q.is_sprinting : 0.0",
       "animations": [
         "q.look('head', 1, 1, 0, 0, 45, -45)",
         "q.bedrock('golurk', 'ground_run')",

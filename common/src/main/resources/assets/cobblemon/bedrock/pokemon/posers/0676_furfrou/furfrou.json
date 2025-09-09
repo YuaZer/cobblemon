@@ -1,0 +1,28 @@
+{
+  "portraitScale": 1.7,
+  "portraitTranslation": [-0.35, -0.42, 0],
+  "profileScale": 0.86,
+  "profileTranslation": [-0.02, 0.43, 0],
+  "rootBone": "furfrou",
+  "poses": {
+    "standing": {
+      "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
+      "animations": [
+        "q.look('neck_base', 1, 1, 18, -9, 45, -45)",
+        "q.look('head', 1, 1, 9, -10, 45, -45)",
+        "q.bedrock('furfrou', 'ground_idle')"
+      ],
+      "quirks": ["q.bedrock_quirk('furfrou', 'blink')"]
+    },
+    "walking": {
+      "poseTypes": ["WALK", "SWIM"],
+      "animations": [
+        "q.look('neck_base', 1, 1, 18, -9, 45, -45)",
+        "q.look('head', 1, 1, 9, -10, 45, -45)",
+        "q.bedrock('furfrou', 'ground_idle')",
+        "q.quadruped_walk(1, 1.5, 'leg_front_left', 'leg_front_right', 'leg_back_left', 'leg_back_right')"
+      ],
+      "quirks": ["q.bedrock_quirk('furfrou', 'blink')"]
+    }
+  }
+}
