@@ -12,6 +12,7 @@ import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
@@ -47,7 +48,7 @@ public abstract class EntityMixin {
             Level level = entity.level();
             var blockStateBelow = level.getBlockState(below);
             boolean isAirOrLiquid = blockStateBelow.isAir() || !blockStateBelow.getFluidState().isEmpty();
-            boolean canSupportEntity = blockStateBelow.isFaceSturdy(level, below, net.minecraft.core.Direction.UP);
+            boolean canSupportEntity = blockStateBelow.isFaceSturdy(level, below, Direction.UP);
             boolean standingOnSolid = canSupportEntity && !isAirOrLiquid;
             if (standingOnSolid) {
                 return true;
