@@ -3255,7 +3255,7 @@
     "cobblemon.move.zingzap": "びりびりちくちく",
     "cobblemon.move.zingzap.desc": "相手に ぶつかって 強力な 電気を浴びせ びりびりちくちく させる。 相手を ひるませる ことが ある。",
     "cobblemon.move.zippyzap": "ばちばちアクセル",
-    "cobblemon.move.zippyzap.desc": "猛スピードの 電撃 アタック。 必ず 先制攻撃 できて 急所に あたる。",
+    "cobblemon.move.zippyzap.desc": "猛スピードの 電撃 アタック。 必ず 先制攻撃 できて 回避率も 上がる。",
     "cobblemon.entity.pokemon": "ポケモン",
     "cobblemon.species.bulbasaur.name": "フシギダネ",
     "cobblemon.species.bulbasaur.desc": "生まれて しばらくの あいだ 背中の タネに つまった 栄養を とって 育つ。",
