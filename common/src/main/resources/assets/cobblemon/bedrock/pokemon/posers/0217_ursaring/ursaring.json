@@ -67,7 +67,7 @@
       "isBattle": false,
       "condition": "!q.in_air && q.is_sprinting",
       "animations": [
-        "q.look('head')"
+        "q.look('head')",
         "q.bedrock('ursaring', 'ground_run')",
         {
           "condition": "q.is_ridden",
