@@ -25,8 +25,7 @@ public class TargetingConditionsMixin {
     @Inject(method = "test", at = @At("HEAD"), cancellable = true)
     public void test(@Nullable LivingEntity baseEntity, LivingEntity targetEntity, CallbackInfoReturnable<Boolean> ci) {
         if (targetEntity instanceof ServerPlayer player) {
-            boolean canTargetInBattle = player.level().getGameRules().getBoolean(CobblemonGameRules.MOB_TARGET_IN_BATTLE);
-            if (canTargetInBattle) return;
+            if (player.level().getGameRules().getBoolean(CobblemonGameRules.MOB_TARGET_IN_BATTLE)) return;
             boolean targetInBattle = Cobblemon.INSTANCE.getBattleRegistry().getBattleByParticipatingPlayer(player) != null;
             if (targetInBattle) ci.setReturnValue(false);
         }
