@@ -26,6 +26,7 @@ import com.mojang.blaze3d.vertex.PoseStack
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.core.BlockPos
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.NonNullList
@@ -57,6 +58,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.gameevent.GameEvent
 import net.minecraft.world.phys.Vec3
 import org.joml.Vector4f
+import com.cobblemon.mod.common.block.campfirepot.CookingPotColor
 import java.util.*
 import kotlin.math.sign
 
@@ -84,6 +86,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
         const val COOKING_PROGRESS_INDEX = 0
         const val COOKING_PROGRESS_TOTAL_TIME_INDEX = 1
         const val IS_LID_OPEN_INDEX = 2
+        const val COOKING_POT_COLOR_INDEX = 3
 
         const val BASE_BROTH_COLOR = 0xFDFACF
         const val BASE_BROTH_BUBBLE_COLOR = 0xFFFEFDE4.toInt()
@@ -242,6 +245,18 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
                 COOKING_PROGRESS_INDEX -> this@CampfireBlockEntity.cookingProgress
                 COOKING_PROGRESS_TOTAL_TIME_INDEX -> this@CampfireBlockEntity.cookingTotalTime
                 IS_LID_OPEN_INDEX -> if (this@CampfireBlockEntity.blockState.getValue(CampfireBlock.LID)) 0 else 1
+                COOKING_POT_COLOR_INDEX -> {
+                    val pot = this@CampfireBlockEntity.getPotItem()
+                    if (pot == null || pot.isEmpty) 0 else {
+                        val idPath = BuiltInRegistries.ITEM.getKey(pot.item).path
+                        if (idPath.startsWith("campfire_pot_")) {
+                            val suffix = idPath.removePrefix("campfire_pot_")
+                            (CookingPotColor.entries.firstOrNull { it.suffix == suffix } ?: CookingPotColor.RED).ordinal
+                        } else {
+                            CookingPotColor.RED.ordinal
+                        }
+                    }
+                }
                 else -> 0
             }
         }
@@ -251,11 +266,12 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
                 COOKING_PROGRESS_INDEX -> this@CampfireBlockEntity.cookingProgress = value
                 COOKING_PROGRESS_TOTAL_TIME_INDEX -> this@CampfireBlockEntity.cookingTotalTime = value
                 IS_LID_OPEN_INDEX -> this@CampfireBlockEntity.toggleLid(value == 1)
+                COOKING_POT_COLOR_INDEX -> {}
             }
         }
 
         override fun getCount(): Int {
-            return 3
+            return 4
         }
     }
 
