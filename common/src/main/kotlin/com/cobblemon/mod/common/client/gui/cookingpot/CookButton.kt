@@ -11,7 +11,7 @@ package com.cobblemon.mod.common.client.gui.cookingpot
 import com.cobblemon.mod.common.api.gui.blitk
 import com.cobblemon.mod.common.util.cobblemonResource
 import com.cobblemon.mod.common.client.util.exists
-import com.cobblemon.mod.common.block.campfirepot.CookingPotColor
+import com.cobblemon.mod.common.block.campfirepot.CampfirePotColor
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
@@ -23,7 +23,7 @@ import net.minecraft.sounds.SoundEvents
 class CookButton(
     pX: Int, pY: Int,
     var selected: Boolean = false,
-    var color: CookingPotColor,
+    var color: CampfirePotColor,
     onPress: OnPress
 ): Button(pX, pY, SIZE.toInt(), SIZE.toInt(), Component.literal("Cook"), onPress, DEFAULT_NARRATION) {
 

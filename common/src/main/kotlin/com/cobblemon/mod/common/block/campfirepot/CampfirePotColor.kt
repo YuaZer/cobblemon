@@ -8,7 +8,7 @@
 
 package com.cobblemon.mod.common.block.campfirepot
 
-enum class CookingPotColor(val suffix: String) {
+enum class CampfirePotColor(val suffix: String) {
     RED("red"),
     BLUE("blue"),
     GREEN("green"),

@@ -57,10 +57,8 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.gameevent.GameEvent
 import net.minecraft.world.phys.Vec3
 import org.joml.Vector4f
-import com.cobblemon.mod.common.block.campfirepot.CookingPotColor
 import com.cobblemon.mod.common.item.CampfirePotItem
 import java.util.*
-import kotlin.math.sign
 
 class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlockEntity(
     CobblemonBlockEntities.CAMPFIRE,
