@@ -312,7 +312,7 @@
     "item.cobblemon.ancient_heavy_ball.tooltip": "捕獲率 ×1, 重い",
     "item.cobblemon.ancient_leaden_ball.tooltip": "捕獲率 ×1.5, すごく重い",
     "item.cobblemon.ancient_gigaton_ball.tooltip": "捕獲率 ×2, ものすごく重い",
-    "item.cobblemon.ancient_origin_ball.tooltip": "捕獲率 ×1",
+    "item.cobblemon.ancient_origin_ball.tooltip": "必ず捕まえられる",
     "item.cobblemon.mulch_base": "こやし",
     "item.cobblemon.coarse_mulch": "ざらざらこやし",
     "item.cobblemon.growth_mulch": "すくすくこやし",
