@@ -26,8 +26,8 @@ import com.cobblemon.mod.common.api.events.CobblemonEvents
 import com.cobblemon.mod.common.api.events.entity.PokemonEntityLoadEvent
 import com.cobblemon.mod.common.api.events.entity.PokemonEntitySaveEvent
 import com.cobblemon.mod.common.api.events.entity.PokemonEntitySaveToWorldEvent
-import com.cobblemon.mod.common.api.events.pokemon.ShoulderMountEvent
 import com.cobblemon.mod.common.api.events.pokemon.RidePokemonEvent
+import com.cobblemon.mod.common.api.events.pokemon.ShoulderMountEvent
 import com.cobblemon.mod.common.api.interaction.PokemonEntityInteraction
 import com.cobblemon.mod.common.api.interaction.PokemonInteractions
 import com.cobblemon.mod.common.api.mark.Marks
@@ -56,7 +56,6 @@ import com.cobblemon.mod.common.api.riding.Seat
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviour
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourState
-import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviours
 import com.cobblemon.mod.common.api.riding.behaviour.RidingController
 import com.cobblemon.mod.common.api.riding.events.SelectDriverEvent
 import com.cobblemon.mod.common.api.riding.sound.RideSoundManager
@@ -147,7 +146,6 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerEntity
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.tags.FluidTags
@@ -2421,6 +2419,17 @@ open class PokemonEntity(
         } else {
             herdLeader.brain.getMemorySafely(CobblemonMemories.HERD_SIZE).orElse(0)
         }
+    }
+
+    internal fun adjustHerdSize(difference: Int): Int {
+        val currentSize = brain.getMemorySafely(CobblemonMemories.HERD_SIZE).orElse(0)
+        val newSize = (currentSize + difference).coerceAtLeast(0)
+        if (newSize == 0) {
+            brain.eraseMemory(CobblemonMemories.HERD_SIZE)
+        } else {
+            brain.setMemory(CobblemonMemories.HERD_SIZE, newSize)
+        }
+        return newSize
     }
 
     /**
