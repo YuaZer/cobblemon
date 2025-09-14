@@ -26,7 +26,6 @@ import com.mojang.blaze3d.vertex.PoseStack
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.core.BlockPos
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.NonNullList
@@ -59,6 +58,7 @@ import net.minecraft.world.level.gameevent.GameEvent
 import net.minecraft.world.phys.Vec3
 import org.joml.Vector4f
 import com.cobblemon.mod.common.block.campfirepot.CookingPotColor
+import com.cobblemon.mod.common.item.CampfirePotItem
 import java.util.*
 import kotlin.math.sign
 
@@ -245,18 +245,7 @@ class CampfireBlockEntity(pos: BlockPos, state: BlockState) : BaseContainerBlock
                 COOKING_PROGRESS_INDEX -> this@CampfireBlockEntity.cookingProgress
                 COOKING_PROGRESS_TOTAL_TIME_INDEX -> this@CampfireBlockEntity.cookingTotalTime
                 IS_LID_OPEN_INDEX -> if (this@CampfireBlockEntity.blockState.getValue(CampfireBlock.LID)) 0 else 1
-                COOKING_POT_COLOR_INDEX -> {
-                    val pot = this@CampfireBlockEntity.getPotItem()
-                    if (pot == null || pot.isEmpty) 0 else {
-                        val idPath = BuiltInRegistries.ITEM.getKey(pot.item).path
-                        if (idPath.startsWith("campfire_pot_")) {
-                            val suffix = idPath.removePrefix("campfire_pot_")
-                            (CookingPotColor.entries.firstOrNull { it.suffix == suffix } ?: CookingPotColor.RED).ordinal
-                        } else {
-                            CookingPotColor.RED.ordinal
-                        }
-                    }
-                }
+                COOKING_POT_COLOR_INDEX -> (this@CampfireBlockEntity.getPotItem()?.item as? CampfirePotItem)?.color?.ordinal ?: 0
                 else -> 0
             }
         }
