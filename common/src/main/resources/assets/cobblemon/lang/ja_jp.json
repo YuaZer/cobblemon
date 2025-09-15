@@ -7652,5 +7652,12 @@
     "cobblemon.battle.sidestart.opponent.stealthrock": "相手の 周りに とがった岩が ただよい始めた！",
     "item.cobblemon.pomeg_berry.tooltip_1": "HPの 基礎ポイントは 10 下がるが なかよし度が 上がる",
     "item.cobblemon.pomeg_berry.tooltip_2": "ポケモンが自動で食べない",
-    "item.cobblemon.qualot_berry.tooltip_1": "防御の 基礎ポイントは 10 下がるが なかよし度が 上がる"
+    "item.cobblemon.qualot_berry.tooltip_1": "防御の 基礎ポイントは 10 下がるが なかよし度が 上がる",
+    "cobblemon.subtitle.pokemon.owned_shiny_ambient": "周囲の色違いのポケモンが光る",
+    "cobblemon.subtitle.pokemon.shiny_ambient": "野生の色違いのポケモンが光った！",
+    "cobblemon.subtitle.pokemon.shiny_shine": "捕まえられている色違いのポケモンが光る",
+    "cobblemon.config.ui.starters": "パートナーポケモン",
+    "cobblemon.subtitle.pokemon.wild_shiny_shine": "野生の色違いのポケモンが光る！",
+    "advancements.cobblemon.resurrect_galar_fossil": "がっちゃんこ！",
+    "advancements.cobblemon.resurrect_galar_fossil.description": "カセキのトリ又はカセキのサカナと、カセキのリュウ又はカセキのクビナガを組み合わせてポケモンを復元する"
 }
