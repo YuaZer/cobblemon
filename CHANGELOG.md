@@ -143,6 +143,8 @@
 - Dedenne
 - Noibat
 - Noivern
+- Furfrou
+  - You can change Furfrou's form by using shears on it while it holds a certain dye in its cosmetic slot.
 
 #### Gen 7
 - Yungoos
@@ -277,6 +279,10 @@
 - Parasect
 - Bastiodon
 - Amaura
+- Varoom
+- Revavroom
+- Bouffalant
+- Lickilicky
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -383,6 +389,10 @@
 - Starly
 - Staravia
 - Staraptor
+- Varoom
+- Revavroom
+- Nickit
+- Thievul
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
