@@ -21,6 +21,7 @@ import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
+import com.cobblemon.mod.common.pokemon.Pokemon
 import com.cobblemon.mod.common.util.*
 import com.cobblemon.mod.common.util.math.geometry.toRadians
 import net.minecraft.client.Minecraft
@@ -74,6 +75,21 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
     ) {
         if(vehicle.level().isClientSide) {
             tickStamina(settings, state, vehicle, driver)
+            checkUpsideDown(state, vehicle, driver)
+        }
+    }
+
+    private fun checkUpsideDown(
+        state: BirdState,
+        vehicle: PokemonEntity,
+        driver: Player,
+    ) {
+        val controller = (driver as OrientationControllable).orientationController
+        if (cos(controller.roll.toRadians()) < 0.0) {
+            val upsideDownRate = 1.0 / (2.0 * 20.0) // 2 seconds to max out upsideDown force
+            state.currUpsideDownForce.set( min(1.0, state.currUpsideDownForce.get() + upsideDownRate * abs(cos(controller.roll.toRadians()))))
+        } else { // Its right side up so reset it
+            state.currUpsideDownForce.set(0.0)
         }
     }
 
@@ -92,7 +108,8 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         val stamDrainRate = (1.0f / totalStam).toFloat()
 
         val newStam = if (driver.zza > 0.0) max(0.0f,stam - stamDrainRate)
-            else min(1.0f,stam + stamDrainRate)
+            else if (!state.gliding.get()) max(0.0f,stam - stamDrainRate * 0.5f) // if hovering half the stam drain
+            else min(1.0f,stam + stamDrainRate * 0.2f)
 
         state.stamina.set(newStam)
     }
@@ -113,8 +130,6 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         driver: Player,
         input: Vec3
     ): Vec3 {
-        var yVel = 0.0
-        var leftForce = 0.0
         var upForce = 0.0
         var forwardForce = 0.0
 
@@ -133,7 +148,11 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
             forwardForce += sin(Math.toRadians(controller.pitch.toDouble())) * state.rideVelocity.get().y
         }
 
-        val velocity = Vec3(state.rideVelocity.get().x , upForce, forwardForce)
+        // The downward force used to encourage players to stop flying upside down.
+        val extraDownwardForce = if(state.stamina.get() == 0.0f) -0.3
+            else state.currUpsideDownForce.get().pow(2) * -0.3 // 6 blocks a second downward
+
+        val velocity = Vec3(state.rideVelocity.get().x , upForce + extraDownwardForce, forwardForce)
         return velocity
     }
 
@@ -228,7 +247,7 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
 
         //Check if the ride should be gliding
         if (driver.isLocalPlayer) {
-            if (activeInput && state.stamina.get() > 0.0) {
+            if ((activeInput && state.stamina.get() > 0.0) || state.rideVelocity.get().z < 0.2) {
                 state.gliding.set(false)
             } else {
                 state.gliding.set(true)
@@ -454,11 +473,12 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         val xInput = mouseXSmoother.getNewDeltaValue(mouseXc * 0.1, deltaTime * smoothingSpeed);
         val yInput = mouseYSmoother.getNewDeltaValue(mouseYc * 0.1, deltaTime * smoothingSpeed);
         val currSpeed = state.rideVelocity.get().length()
+        val currHorzSpeed = state.rideVelocity.get().horizontalDistance()
         val hoverSpeed = 0.1
 
         // Yaw locally when at or below hoverSpeed
         val yawDampen = abs(cos(controller.pitch.toRadians())).pow(2) * abs(cos(controller.roll.toRadians())).pow(2)
-        val localYaw = if (currSpeed < hoverSpeed) xInput * (1 - sqrt(RidingBehaviour.scaleToRange(currSpeed, hoverSpeed, topSpeed))).coerceIn(0.0, 1.0)
+        val localYaw = if (currHorzSpeed < hoverSpeed) xInput * (1 - sqrt(RidingBehaviour.scaleToRange(currHorzSpeed, hoverSpeed, topSpeed))).coerceIn(0.0, 1.0)
             else xInput * 0.4 * cos(controller.roll.toRadians()).coerceIn(0.0f, 1.0f) * yawDampen
 
         // Pitch locally up or down depending upon a number of factors:
@@ -467,14 +487,14 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         // - pitch faster at higher speeds
         val p = 1.0 - vehicle.runtime.resolveDouble(settings.horizontalPitchExpr)
         var localPitch = yInput * (1 - abs(sin(controller.roll.toRadians())).pow(2) * p * hypot(controller.forwardVector.x.toDouble(), controller.forwardVector.z.toDouble()).toFloat())
-        localPitch *= if (currSpeed > hoverSpeed) RidingBehaviour.scaleToRange(currSpeed, hoverSpeed, topSpeed)
+        localPitch *= if (currHorzSpeed > hoverSpeed) RidingBehaviour.scaleToRange(currHorzSpeed, hoverSpeed, topSpeed)
             else 0.0
 
         // Roll less when slow and not at all when at hoverSpeed or lower.
         // Apply a roll righting force when trying to pitch hard while rolled sideways. This nudges the player towards
         // pitching globally
-        val pitchInfluencedRollCorrection = 0.0 // if ( currSpeed > hoverSpeed * 2) 0.4*(abs(yInput - localPitch) * controller.roll.sign * -1.0) else 0.0
-        val rollForce = if (currSpeed > hoverSpeed) xInput * sqrt(abs(RidingBehaviour.scaleToRange(currSpeed, hoverSpeed, topSpeed)).coerceIn(0.0,1.0)) + pitchInfluencedRollCorrection
+        val pitchInfluencedRollCorrection = 0.0
+        val rollForce = if (currHorzSpeed > hoverSpeed) xInput * sqrt(abs(RidingBehaviour.scaleToRange(currHorzSpeed, hoverSpeed, topSpeed)).coerceIn(0.0,1.0)) + pitchInfluencedRollCorrection
             else 0.0
 
         //yaw, pitch, roll
@@ -588,6 +608,17 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         return false
     }
 
+    override fun damageOnCollision(
+        settings: BirdSettings,
+        state: BirdState,
+        vehicle: PokemonEntity,
+        impactVec: Vec3
+    ): Boolean {
+        if (!state.gliding.get()) return false
+        val impactSpeed = impactVec.horizontalDistance().toFloat() * 10f
+        return vehicle.causeFallDamage(impactSpeed, 1f, vehicle.damageSources().flyIntoWall())
+    }
+
     override fun getRideSounds(
         settings: BirdSettings,
         state: BirdState,
@@ -663,10 +694,10 @@ class BirdState : RidingBehaviourState() {
     var currRollCorrectionForce = ridingState(0.0, Side.CLIENT)
     var currPitchCorrectionForce = ridingState(0.0, Side.CLIENT)
     var noInputTime = ridingState(0.0, Side.CLIENT)
+    var currUpsideDownForce = ridingState(0.0, Side.CLIENT)
 
     override fun encode(buffer: FriendlyByteBuf) {
         super.encode(buffer)
-        buffer.writeFloat(stamina.get())
         buffer.writeBoolean(gliding.get())
     }
 
