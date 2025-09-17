@@ -497,9 +497,10 @@ open class PokemonEntity(
     }
 
     override fun canStandOnFluid(state: FluidState): Boolean {
-//        val node = navigation.currentPath?.currentNode
-//        val targetPos = node?.blockPos
-//        if (targetPos == null || world.getBlockState(targetPos.up()).isAir) {
+        // If the pokemon is currently ridden then return false to prevent mounts that can transition
+        // from the air to the water from getting stuck on the water surface.
+        if (this.passengers.filterIsInstance<LivingEntity>().isNotEmpty() && this.controllingPassenger != null) return false
+
         return if (state.`is`(FluidTags.WATER) && !isEyeInFluid(FluidTags.WATER)) {
             exposedForm.behaviour.moving.swim.canWalkOnWater || platform != PlatformType.NONE
         } else if (state.`is`(FluidTags.LAVA) && !isEyeInFluid(FluidTags.LAVA)) {
@@ -507,9 +508,6 @@ open class PokemonEntity(
         } else {
             super.canStandOnFluid(state)
         }
-//        }
-//
-//        return super.canWalkOnFluid(state)
     }
 
     override fun canSprint() = true
