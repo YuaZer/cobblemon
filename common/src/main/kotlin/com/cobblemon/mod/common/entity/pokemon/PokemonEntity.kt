@@ -562,18 +562,55 @@ open class PokemonEntity(
             "lightningrod" -> {
                 this.addEffect(MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, 1))
             }
+
             "motordrive" -> {
                 this.addEffect(MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1200, 0))
             }
+
             "voltabsorb" -> {
                 this.addEffect(MobEffectInstance(MobEffects.HEAL, 1, 1))
             }
-            // Ground types shouldn't take lightning damage
-            else -> if (this.pokemon.types.none { it == ElementalTypes.GROUND }) super.thunderHit(level, lightning)
+        }
+        val special = if (pokemon.form.behaviour.lightningHit.isSpecial()) run {
+            if (this.lastLightningBoltUUID != lightning.uuid) {
+                // Find all aspects in effect that need rotation. This should be one or zero, but for safety we make
+                // sure to remove all if there are more.
+                val rotatingAspects = aspects.intersect(pokemon.form.behaviour.lightningHit.rotateAspects)
+
+                // We only take the first one we find into consideration for the rotation. If there's nothing to rotate
+                // we exit out early and do normal thunder handling. This can happen if this species has rotating
+                // aspects but this specific Pokémon doesn't have an aspect in the rotation chain.
+                val firstAspect = rotatingAspects.firstOrNull() ?: return@run false
+                val newAspectIndexOver = pokemon.form.behaviour.lightningHit.rotateAspects.indexOf(firstAspect).inc()
+                val newAspectIndex = if (newAspectIndexOver < pokemon.form.behaviour.lightningHit.rotateAspects.size) {
+                    newAspectIndexOver
+                } else {
+                    0
+                }
+
+                val newAspect = pokemon.form.behaviour.lightningHit.rotateAspects[newAspectIndex]
+
+                pokemon.forcedAspects = pokemon.forcedAspects
+                    .minus(rotatingAspects)
+                    .plus(newAspect)
+
+                this.playSound(SoundEvents.MOOSHROOM_CONVERT, 2.0F, 1.0F)
+
+                this.lastLightningBoltUUID = lightning.uuid
+            }
+            // Returning here makes sure a Pokémon rotating an aspect doesn't take lightning damage
+            true
+        } else {
+            false
+        }
+        // Ground types shouldn't take lightning damage
+        if (!special && this.pokemon.types.none { it == ElementalTypes.GROUND }) {
+            super.thunderHit(level, lightning)
         }
     }
 
-    override fun tick() {
+
+        override fun tick() {
         /* Addresses watchdog hanging that is completely bloody inexplicable. */
         yBodyRot = Mth.wrapDegrees(yBodyRot)
         yBodyRotO = Mth.wrapDegrees(yBodyRotO)
@@ -2447,45 +2484,6 @@ open class PokemonEntity(
                 )
             }
         )
-    }
-
-    override fun thunderHit(level: ServerLevel, lightning: LightningBolt) {
-        val special = if (pokemon.form.behaviour.lightningHit.isSpecial()) run {
-            if (this.lastLightningBoltUUID != lightning.uuid) {
-                // Find all aspects in effect that need rotation. This should be one or zero, but for safety we make
-                // sure to remove all if there are more.
-                val rotatingAspects = aspects.intersect(pokemon.form.behaviour.lightningHit.rotateAspects)
-
-                // We only take the first one we find into consideration for the rotation. If there's nothing to rotate
-                // we exit out early and do normal thunder handling. This can happen if this species has rotating
-                // aspects but this specific Pokémon doesn't have an aspect in the rotation chain.
-                val firstAspect = rotatingAspects.firstOrNull() ?: return@run false
-                val newAspectIndexOver = pokemon.form.behaviour.lightningHit.rotateAspects.indexOf(firstAspect).inc()
-                val newAspectIndex = if (newAspectIndexOver < pokemon.form.behaviour.lightningHit.rotateAspects.size) {
-                    newAspectIndexOver
-                } else {
-                    0
-                }
-
-                val newAspect = pokemon.form.behaviour.lightningHit.rotateAspects[newAspectIndex]
-
-                pokemon.forcedAspects = pokemon.forcedAspects
-                    .minus(rotatingAspects)
-                    .plus(newAspect)
-
-                this.playSound(SoundEvents.MOOSHROOM_CONVERT, 2.0F, 1.0F)
-
-                this.lastLightningBoltUUID = lightning.uuid
-            }
-            // Returning here makes sure a Pokémon rotating an aspect doesn't take lightning damage
-            true
-        } else {
-            false
-        }
-
-        if (!special) {
-            super.thunderHit(level, lightning)
-        }
     }
 
     override fun resolveEntityScan(): LivingEntity {
