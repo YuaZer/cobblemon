@@ -54,7 +54,12 @@
       "light": "0-4"
     },
     "lightningHit": {
-      "rotateAspects": ["mooshtank-brown", "mooshtank-red"]
+      "rotateFeatures": [
+        {
+          "key": "mooshtank",
+          "chain": ["red", "brown"]
+        }
+      ]
     },
     "herd": {
       "maxSize": "9",

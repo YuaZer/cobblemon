@@ -11,13 +11,18 @@ package com.cobblemon.mod.common.pokemon.ai
 import com.cobblemon.mod.common.api.molang.ObjectValue
 
 class ThunderstruckBehaviour {
-    val rotateAspects = mutableListOf<String>()
+    val rotateFeatures = mutableListOf<RotateFeature>()
 
     // shorthand of ‘should run special code in thunderHit’
-    fun isSpecial(): Boolean = rotateAspects.isNotEmpty()
+    fun isSpecial(): Boolean = rotateFeatures.isNotEmpty()
 
     @Transient
     val struct = ObjectValue(this).also {
-        it.addFunction("has_rotating_aspect") { this.rotateAspects.isNotEmpty() }
+        it.addFunction("has_rotating_features") { this.rotateFeatures.isNotEmpty() }
+    }
+
+    data class RotateFeature(val key: String, val chain: List<String>) {
+        @Transient
+        val struct = ObjectValue(this)
     }
 }

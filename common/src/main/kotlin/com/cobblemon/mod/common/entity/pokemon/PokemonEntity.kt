@@ -557,54 +557,54 @@ open class PokemonEntity(
     }
 
     override fun thunderHit(level: ServerLevel, lightning: LightningBolt) {
+        // Ground types shouldn't take lightning damage
+        val type_immune = this.pokemon.types.any { it == ElementalTypes.GROUND }
+
         // Deals with special cases in which Pokemon should either be immune or buffed by lightning strikes.
-        when (pokemon.ability.name) {
+        val ability_immune = when (pokemon.ability.name) {
             "lightningrod" -> {
                 this.addEffect(MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, 1))
+                true
             }
 
             "motordrive" -> {
                 this.addEffect(MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1200, 0))
+                true
             }
 
             "voltabsorb" -> {
                 this.addEffect(MobEffectInstance(MobEffects.HEAL, 1, 1))
+                true
             }
+
+            else -> false
         }
-        val special = if (pokemon.form.behaviour.lightningHit.isSpecial()) run {
-            if (this.lastLightningBoltUUID != lightning.uuid) {
-                // Find all aspects in effect that need rotation. This should be one or zero, but for safety we make
-                // sure to remove all if there are more.
-                val rotatingAspects = aspects.intersect(pokemon.form.behaviour.lightningHit.rotateAspects)
 
-                // We only take the first one we find into consideration for the rotation. If there's nothing to rotate
-                // we exit out early and do normal thunder handling. This can happen if this species has rotating
-                // aspects but this specific Pokémon doesn't have an aspect in the rotation chain.
-                val firstAspect = rotatingAspects.firstOrNull() ?: return@run false
-                val newAspectIndexOver = pokemon.form.behaviour.lightningHit.rotateAspects.indexOf(firstAspect).inc()
-                val newAspectIndex = if (newAspectIndexOver < pokemon.form.behaviour.lightningHit.rotateAspects.size) {
-                    newAspectIndexOver
-                } else {
-                    0
-                }
+        // Lightning hits entities multiple times, if this Pokémon changed a feature because of this lighting strike it should be immune to all remaining hits of this specific lightning strike as well.
+        var rotated = this.lastLightningBoltUUID == lightning.uuid
+        if (!rotated && pokemon.form.behaviour.lightningHit.isSpecial()) {
+            for (rotateFeature in pokemon.form.behaviour.lightningHit.rotateFeatures) {
+                val feature: StringSpeciesFeature = pokemon.getFeature(rotateFeature.key) ?: continue
+                val index = rotateFeature.chain.indexOf(feature.value)
+                // index is -1 if the element wasn't found, i.e. here if the feature's value is not part of the chain
+                if (index < 0) continue
 
-                val newAspect = pokemon.form.behaviour.lightningHit.rotateAspects[newAspectIndex]
+                val next = index.inc()
+                val nextIndex = if (next < rotateFeature.chain.size) next else 0
+                feature.value = rotateFeature.chain[nextIndex]
+                pokemon.markFeatureDirty(feature)
+                rotated = true
+            }
 
-                pokemon.forcedAspects = pokemon.forcedAspects
-                    .minus(rotatingAspects)
-                    .plus(newAspect)
-
-                this.playSound(SoundEvents.MOOSHROOM_CONVERT, 2.0F, 1.0F)
-
+            if (rotated) {
                 this.lastLightningBoltUUID = lightning.uuid
+                this.playSound(SoundEvents.MOOSHROOM_CONVERT, 2.0F, 1.0F)
+                pokemon.updateAspects()
             }
-            // Returning here makes sure a Pokémon rotating an aspect doesn't take lightning damage
-            true
-        } else {
-            false
         }
-        // Ground types shouldn't take lightning damage
-        if (!special && this.pokemon.types.none { it == ElementalTypes.GROUND }) {
+
+        // Sorted most to least likely for that sweet logical-AND micro-optimisation
+        if (!type_immune && !ability_immune && !rotated) {
             super.thunderHit(level, lightning)
         }
     }
