@@ -490,7 +490,6 @@ object VaryingModelRepository {
         inbuilt("shroodle", ::ShroodleModel)
         inbuilt("grafaiai", ::GrafaiaiModel)
         inbuilt("squawkabilly", ::SquawkabillyModel)
-        inbuilt("annihilape", ::AnnihilapeModel)
         inbuilt("ponyta_galarian", ::PonytaGalarianModel)
         inbuilt("rapidash_galarian", ::RapidashGalarianModel)
         inbuilt("volbeat", ::VolbeatModel)
