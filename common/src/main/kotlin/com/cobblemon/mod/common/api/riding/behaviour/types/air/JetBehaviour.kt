@@ -537,21 +537,21 @@ class JetSettings : RidingBehaviourSettings {
         private set
 
     // Boost power. Mult for top speed and accel while boosting
-    var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'AIR', 1.7, 1.2)".asExpression()
+    var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'AIR', 2.0, 1.0)".asExpression()
         private set
 
     // Turn rate in degrees per second
-    var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 120.0, 60.0)".asExpression()
+    var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 60.0, 20.0)".asExpression()
         private set
     // Top Speed in blocks per second
-    var speedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', 36.0, 20.0)".asExpression()
+    var speedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', 24.0, 4.0)".asExpression()
         private set
     // Acceleration in blocks per s^2
     var accelerationExpr: Expression =
-        "q.get_ride_stats('ACCELERATION', 'AIR', 5.0, 2.5)".asExpression()
+        "q.get_ride_stats('ACCELERATION', 'AIR', 4.0, 1.0)".asExpression()
         private set
     // Time in seconds to drain full bar of stamina flying
-    var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'AIR', 90.0, 30.0)".asExpression()
+    var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'AIR', 60.0, 4.0)".asExpression()
         private set
 
     var rideSounds: RideSoundSettingsList = RideSoundSettingsList()

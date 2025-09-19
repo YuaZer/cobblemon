@@ -434,24 +434,24 @@ class HoverSettings : RidingBehaviourSettings {
         private set
 
     // Speed in block per second
-    var speedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', 9.0, 3.5)".asExpression()
+    var speedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', 7.0, 1.0)".asExpression()
         private set
 
     // Acceleration in number of seconds to top speed
     var accelerationExpr: Expression =
-        "q.get_ride_stats('ACCELERATION', 'AIR', 1.0, 3.0)".asExpression()
+        "q.get_ride_stats('ACCELERATION', 'AIR', 2.0, 8.0)".asExpression()
         private set
 
     // Amount of seconds between boosts
-    var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'AIR', 30.0, 10.0)".asExpression()
+    var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'AIR', 30.0, 2.0)".asExpression()
         private set
 
     // Blocks before stamina drain
-    var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'AIR', 30.0, 10.0)".asExpression()
+    var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'AIR', 16.0, 2.0)".asExpression()
         private set
 
     // Turn rate in degrees per second when stationary
-    var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 360.0, 90)".asExpression()
+    var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 270.0, 45.0)".asExpression()
         private set
 
     var rideSounds: RideSoundSettingsList = RideSoundSettingsList()

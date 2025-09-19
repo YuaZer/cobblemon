@@ -643,15 +643,15 @@ class BirdSettings : RidingBehaviourSettings {
     var timeToRollCorrect: Expression = "0.5".asExpression()
         private set
 
-    var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 90.0, 45.0)".asExpression()
+    var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 45.0, 10.0)".asExpression()
     var horizontalPitchExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 0.2, 0.1)".asExpression()
     var mouseInputMult: Expression = "q.get_ride_stats('SKILL', 'AIR', 1.2, 0.8)".asExpression()
-    var speedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', 14.0, 8.0)".asExpression()
+    var speedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', 20.0, 4.0)".asExpression()
     // Seconds from stationary to top speed
-    var accelerationExpr: Expression = "q.get_ride_stats('ACCELERATION', 'AIR', 2.0, 5.0)".asExpression()
-    var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'AIR', 22.0, 12.0)".asExpression()
+    var accelerationExpr: Expression = "q.get_ride_stats('ACCELERATION', 'AIR', 2.0, 8.0)".asExpression()
+    var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'AIR', 15.0, 2.0)".asExpression()
 
-    var glidespeedExpr: Expression =  "q.get_ride_stats('JUMP', 'AIR', 2.2, 1.5)".asExpression()
+    var glidespeedExpr: Expression =  "q.get_ride_stats('JUMP', 'AIR', 2.0, 1.0)".asExpression()
         private set
 
     var rideSounds: RideSoundSettingsList = RideSoundSettingsList()
