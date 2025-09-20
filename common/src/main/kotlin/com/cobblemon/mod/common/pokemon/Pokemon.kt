@@ -1833,14 +1833,14 @@ open class Pokemon : ShowdownIdentifiable {
         return rideBoosts.toMap()
     }
 
-    fun canAddRideBoost(stat: RidingStat, boost: Float): Boolean {
+    fun canAddRideBoost(stat: RidingStat): Boolean {
         val max = getMaxRideBoost(stat)
         val current = rideBoosts[stat] ?: 0F
-        return current + boost <= max
+        return current < max
     }
 
     fun addRideBoost(stat: RidingStat, boost: Float): Boolean {
-        if (!canAddRideBoost(stat, boost)) {
+        if (!canAddRideBoost(stat)) {
             return false
         }
         val max = getMaxRideBoost(stat)
