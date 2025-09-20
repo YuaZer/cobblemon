@@ -32,7 +32,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType
  */
 class FindAirTaskConfig : SingleTaskConfig {
     val walkSpeed = numberVariable(SharedEntityVariables.MOVEMENT_CATEGORY, SharedEntityVariables.WALK_SPEED, 0.35).asExpressible()
-    override fun getVariables(entity: LivingEntity): List<MoLangConfigVariable> {
+    override fun getVariables(entity: LivingEntity, behaviourConfigurationContext: BehaviourConfigurationContext): List<MoLangConfigVariable> {
         return listOf(walkSpeed).asVariables()
     }
 
@@ -43,6 +43,10 @@ class FindAirTaskConfig : SingleTaskConfig {
         if (entity !is PathfinderMob) {
             return null
         }
+        behaviourConfigurationContext.addMemories(
+            MemoryModuleType.WALK_TARGET,
+            CobblemonMemories.PATH_COOLDOWN
+        )
         return BehaviorBuilder.create {
             it.group(
                 it.absent(MemoryModuleType.WALK_TARGET),

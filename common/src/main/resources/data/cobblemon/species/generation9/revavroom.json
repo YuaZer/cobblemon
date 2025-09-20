@@ -42,17 +42,55 @@
   "catchRate": 75,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "behaviour": {
-    "resting": {
-      "canSleep": true,
-      "willSleepOnBed": true,
-      "light": "0-4"
+  "baseScale": 0.9,
+  "hitbox": {
+    "width": 0.7,
+    "height": 1.55,
+    "fixed": false
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "stats": {
+          "ACCELERATION": "41-60",
+          "JUMP": "0-20",
+          "SKILL": "21-40",
+          "SPEED": "61-80",
+          "STAMINA": "21-40"
+        }
+      }
     },
+    "seats": [
+        {
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    ]
+  },
+  "behaviour": {
     "moving": {
       "swim": {
         "avoidsWater": true,
         "canSwimInWater": false
       }
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4",
+      "willSleepOnBed": true
+    },
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "revavroom",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -161,7 +199,6 @@
     "tutor:rest",
     "tutor:sleeptalk",
     "tutor:sludgebomb",
-    "tutor:spikes",
     "tutor:steelbeam",
     "tutor:uproar",
     "tutor:zenheadbutt"

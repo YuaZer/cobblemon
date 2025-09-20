@@ -55,7 +55,8 @@ class CobblemonConfig {
 
     @CobblemonConfigField(Category.Storage, lang = "default_box_count")
     @IntConstraint(min = 1, max = 1000)
-    var defaultBoxCount = 30
+    @LastChangedVersion("1.7.0")
+    var defaultBoxCount = 40
     @CobblemonConfigField(Category.Storage, lang = "pokemon_save_interval_seconds")
     @IntConstraint(min = 1, max = 120)
     var pokemonSaveIntervalSeconds = 30
@@ -270,7 +271,7 @@ class CobblemonConfig {
     var partyPortraitAnimations = PortraitStyle.NEVER_ANIMATE
 
     @CobblemonConfigField(Category.Riding, lang = "third_person_view_bobbing")
-    var thirdPersonViewBobbing = false
+    var thirdPersonViewBobbing = true
 
     @CobblemonConfigField(Category.Riding, lang = "invert_roll")
     var invertRoll = false
@@ -281,14 +282,26 @@ class CobblemonConfig {
     @CobblemonConfigField(Category.Riding, lang = "invert_yaw")
     var invertYaw = false
 
+    @CobblemonConfigField(Category.Riding, lang = "x_axis_sensitivity")
+    var xAxisSensitivity = 1.0
+
+    @CobblemonConfigField(Category.Riding, lang = "y_axis_sensitivity")
+    var yAxisSensitivity = 1.0
+
+    @CobblemonConfigField(Category.Riding, lang = "swap_x_and_y_axes")
+    var swapXAndYAxes = false
+
     @CobblemonConfigField(Category.Riding, lang = "automatic_righting_delay")
     var rightingDelay = -1.0
 
     @CobblemonConfigField(Category.Riding, lang = "disable_roll")
     var disableRoll = false
 
+    @CobblemonConfigField(Category.Riding, lang = "display_controls_duration_seconds")
+    var displayControlSeconds = 3
+
     @CobblemonConfigField(Category.Debug, lang = "enable_debug_keys")
-    var enableDebugKeys = false
+    var enableDebugKeys = true
 
     @CobblemonConfigField(Category.Spawning, lang = "despawner_near_distance")
     var despawnerNearDistance = 32f

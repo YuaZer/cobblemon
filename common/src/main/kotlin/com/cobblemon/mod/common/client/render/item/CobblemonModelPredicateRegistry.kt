@@ -10,9 +10,11 @@ package com.cobblemon.mod.common.client.render.item
 
 import com.cobblemon.mod.common.CobblemonItemComponents
 import com.cobblemon.mod.common.CobblemonItems
+import com.cobblemon.mod.common.api.cooking.Seasonings
 import com.cobblemon.mod.common.client.pot.CookingQuality
 import com.cobblemon.mod.common.entity.fishing.PokeRodFishingBobberEntity
 import com.cobblemon.mod.common.item.interactive.PokerodItem
+import com.cobblemon.mod.common.util.cobblemonResource
 import com.cobblemon.mod.common.util.cobblemonResource
 import net.minecraft.ChatFormatting
 import net.minecraft.client.renderer.item.ItemProperties
@@ -94,6 +96,41 @@ object CobblemonModelPredicateRegistry {
             }
         }
 
+        ItemProperties.register(
+                CobblemonItems.PONIGIRI,
+                cobblemonResource("ponigiri_overlay")
+        ) { stack, world, entity, seed ->
+            val component = stack.get(CobblemonItemComponents.INGREDIENT)
+            val id = component?.ingredientIds?.firstOrNull()?.toString() ?: return@register 0.0f
+
+            return@register when (id) {
+                "minecraft:potato" -> 0.01f
+                "minecraft:beetroot" -> 0.02f
+                "minecraft:carrot" -> 0.03f
+                "minecraft:dried_kelp" -> 0.04f
+                "cobblemon:medicinal_leek" -> 0.05f
+                "minecraft:red_mushroom" -> 0.06f
+                "minecraft:brown_mushroom" -> 0.07f
+                "minecraft:pumpkin" -> 0.08f
+                "cobblemon:rice" -> 0.09f
+                "minecraft:chicken" -> 0.10f
+                "minecraft:cod" -> 0.11f
+                "minecraft:mutton" -> 0.12f
+                "minecraft:porkchop" -> 0.13f
+                "minecraft:rabbit" -> 0.14f
+                "minecraft:salmon" -> 0.15f
+                "minecraft:beef" -> 0.16f
+                "minecraft:egg" -> 0.17f
+                "minecraft:poisonous_potato" -> 0.18f
+                "minecraft:rotten_flesh" -> 0.19f
+                "minecraft:golden_carrot" -> 0.20f
+                "cobblemon:vivichoke" -> 0.21f
+                "cobblemon:tasty_tail" -> 0.22f
+                "minecraft:sweet_berries" -> 0.23f
+                else -> 0.0f
+            }
+        }
+
         val aprijuice = listOf(
             CobblemonItems.APRIJUICE_BLACK,
             CobblemonItems.APRIJUICE_GREEN,
@@ -117,6 +154,34 @@ object CobblemonModelPredicateRegistry {
             }
         }
 
+        ItemProperties.register(CobblemonItems.POKE_PUFF, cobblemonResource("poke_puff_combined")) { stack, _, _, _ ->
+            val dominantFlavours = stack.get(CobblemonItemComponents.FLAVOUR)?.getDominantFlavours()
+            val flavour = when {
+                dominantFlavours == null || dominantFlavours.isEmpty() -> "plain"
+                dominantFlavours.size > 1 -> "mild"
+                else -> dominantFlavours.first().name.lowercase()
+            }
 
+            val ingredients =
+                stack.get(CobblemonItemComponents.INGREDIENT)?.ingredientIds?.map { it.toString() } ?: emptyList()
+
+            val hasSugar = "minecraft:sugar" in ingredients
+
+            // todo CRAB NOTE: we may want a map or item tag instead
+            val sweet = ingredients.firstOrNull {
+                it.startsWith("cobblemon:") && it.endsWith("_sweet")
+            }?.removePrefix("cobblemon:")?.removeSuffix("_sweet")
+
+            val key = when {
+                hasSugar && sweet != null -> "overlay_${flavour}_${sweet}"
+                sweet != null && flavour != null -> "overlay_${sweet}_${flavour}"
+                sweet != null -> "overlay_${sweet}"
+                hasSugar && flavour != null -> "overlay_${flavour}"
+                flavour != null -> "overlay_${flavour}_only"
+                else -> "overlay_plain_only"
+            }
+
+            return@register PokePuffItemModelRegistry.getModelId(key)
+        }
     }
 }

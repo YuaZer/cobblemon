@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.mixin.client;
 
+import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.OrientationControllable;
 import com.cobblemon.mod.common.client.CobblemonClient;
 import com.cobblemon.mod.common.client.keybind.keybinds.PartySendBinding;
@@ -30,7 +31,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(MouseHandler.class)
 public abstract class MouseHandlerMixin {
@@ -121,12 +121,18 @@ public abstract class MouseHandlerMixin {
         if (usageContext.getScanningGuiOpen()) {
             this.smoothTurnY.reset();
             this.smoothTurnX.reset();
-            var defaultSensitivity = this.minecraft.options.sensitivity().get() * 0.6000000238418579 + 0.20000000298023224;
+            var defaultSensitivity = this.minecraft.options.sensitivity().get() * 0.6 + 0.2;
             var spyglassSensitivity = Math.pow(defaultSensitivity, 3);
             var lookSensitivity = spyglassSensitivity * 8.0;
             var sensitivity = Mth.lerp(usageContext.getFovMultiplier(), spyglassSensitivity, lookSensitivity);
-            player.turn(this.accumulatedDX * sensitivity, (this.accumulatedDY * sensitivity));
+            var yRotationFlip = this.minecraft.options.invertYMouse().get() ? -1 : 1;
+            player.turn(this.accumulatedDX * sensitivity, (this.accumulatedDY * sensitivity * yRotationFlip));
             return false;
+        }
+
+        // Clamp player rotation if riding and the vehicle demands it
+        if (player.isPassenger() && player.getVehicle() instanceof PokemonEntity vehicle) {
+            vehicle.clampPassengerRotation(player);
         }
 
         if (!(player instanceof OrientationControllable controllable)) return true;
@@ -210,6 +216,18 @@ public abstract class MouseHandlerMixin {
         if (vehicle == null) return Vec3.ZERO;
         if (!(vehicle instanceof PokemonEntity pokemonEntity)) return Vec3.ZERO;
 
+        var invertYaw = Cobblemon.config.getInvertYaw();
+        var invertPitch = Cobblemon.config.getInvertPitch();
+
+        var xValue = mouseX * Cobblemon.config.getXAxisSensitivity();
+        var yValue = mouseY * Cobblemon.config.getYAxisSensitivity();
+
+        var swapXAndY = Cobblemon.config.getSwapXAndYAxes();
+
+        var yaw = (swapXAndY ? yValue : xValue) * (invertYaw? -1.0f : 1.0f);
+
+        var pitch = (swapXAndY ? xValue : yValue) * (invertPitch? -1.0f : 1.0f);
+
         var sensitivity = cobblemon$getRidingSensitivity();
         return pokemonEntity.ifRidingAvailableSupply(Vec3.ZERO, (behaviour, settings, state) -> {
             return behaviour.rotationOnMouseXY(
@@ -217,8 +235,8 @@ public abstract class MouseHandlerMixin {
                     state,
                     pokemonEntity,
                     player,
-                    mouseY,
-                    mouseX,
+                    pitch,
+                    yaw,
                     yMouseSmoother,
                     xMouseSmoother,
                     sensitivity,
