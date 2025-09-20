@@ -12,8 +12,11 @@ import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.client.entity.PokemonClientDelegate
 import com.cobblemon.mod.common.client.render.models.blockbench.bedrock.animation.BedrockAnimationRepository
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
+import com.mojang.blaze3d.vertex.PoseStack
+import com.mojang.math.Axis
 import net.minecraft.client.model.geom.ModelPart
 import net.minecraft.client.player.AbstractClientPlayer
+import net.minecraft.world.phys.Vec3
 
 /**
  * @author landonjw
@@ -81,7 +84,7 @@ object MountedPlayerRenderer {
 
     fun animateRoot(stack: PoseStack) {
         val root = relevantPartsByName["body"] ?: return
-        val rootOffset = Vec3(root.x.toDouble() / 24F, root.y.toDouble() / 24F, root.z.toDouble() / 24F)
+        val rootOffset = Vec3(root.x.toDouble() / 16F, root.y.toDouble() / 16F, root.z.toDouble() / 16F)
         val rotation = Vec3(root.xRot.toDouble(), root.yRot.toDouble(), root.zRot.toDouble())
         stack.mulPose(Axis.ZP.rotation(rotation.z.toFloat()))
         stack.mulPose(Axis.YP.rotation(rotation.y.toFloat()))
