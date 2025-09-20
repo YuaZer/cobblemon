@@ -92,16 +92,6 @@
           "y": 0.0,
           "z": 0.0
         },
-        "poseAnimations": [
-          {
-            "animations": [
-              {
-                "fileName": "ride_test",
-                "animationName": "animation.ride_test.sitting"
-              }
-            ]
-          }
-        ],
         "poseOffsets": [
           {
             "offset": {

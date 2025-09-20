@@ -80,7 +80,7 @@ public class HumanoidModelMixin {
             if (!(entity instanceof AbstractClientPlayer player)) return;
 
             MountedPlayerRenderer.shouldApplyRootAnimation = true;
-            MountedPlayerRenderer.INSTANCE.animate(pokemonEntity, player, netHeadYaw, headPitch, ageInTicks, limbSwing, limbSwingAmount);
+            MountedPlayerRenderer.INSTANCE.animate((HumanoidModel<AbstractClientPlayer>)(Object)this, pokemonEntity, player, netHeadYaw, headPitch, ageInTicks, limbSwing, limbSwingAmount);
         }
     }
 }
