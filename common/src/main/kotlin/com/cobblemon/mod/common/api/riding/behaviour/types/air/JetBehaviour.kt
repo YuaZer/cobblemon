@@ -87,7 +87,7 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         val boostKeyPressed = Minecraft.getInstance().options.keySprint.isDown()
 
         if(state.stamina.get() != 0.0f && boostKeyPressed) {
-            if (state.stamina.get() >= 0.25f) {
+            if (state.stamina.get() >= 0.0f) {
                 //If on the previous tick the boost key was held then don't change if the ride is boosting
                 if(state.boostIsToggleable.get()) {
                     //flip the boosting state if boost key is pressed
@@ -172,8 +172,9 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         driver: Player
     ) {
         val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) / 20.0
-        val accel = vehicle.runtime.resolveDouble(settings.accelerationExpr) / 400.0
-        val minSpeed = vehicle.runtime.resolveDouble(settings.minSpeed) / 20.0
+        val accel = topSpeed / (vehicle.runtime.resolveDouble(settings.accelerationExpr) * 20.0)
+        val deccel = vehicle.runtime.resolveDouble(settings.deccelRate)//0.005
+        val minSpeed = topSpeed * vehicle.runtime.resolveDouble(settings.minSpeedFactor)
         val speed = state.rideVelocity.get().length()
         val boostMult = vehicle.runtime.resolveDouble(settings.jumpExpr)
 
@@ -187,7 +188,7 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
                 Vec3(
                     state.rideVelocity.get().x,
                     state.rideVelocity.get().y,
-                    max(state.rideVelocity.get().z - ((accel) / 2), minSpeed * 0.5)
+                    max(state.rideVelocity.get().z - (deccel), minSpeed * 0.5)
                 )
             )
         }
@@ -215,7 +216,7 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
                 Vec3(
                     state.rideVelocity.get().x,
                     state.rideVelocity.get().y,
-                    max(state.rideVelocity.get().z - ((accel) / 2), minSpeed)
+                    max(state.rideVelocity.get().z - (deccel), minSpeed)
                 )
             )
         } else if (speed > topSpeed) {
@@ -526,7 +527,11 @@ class JetSettings : RidingBehaviourSettings {
     var gravity: Expression = "0".asExpression()
         private set
 
-    var minSpeed: Expression = "12.0".asExpression()
+    var deccelRate: Expression = "0.005".asExpression()
+        private set
+
+    // Mult to top speed in order to derive minSpeed
+    var minSpeedFactor: Expression = "0.25".asExpression()
         private set
 
     var handlingYawExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 50.0, 25.0)".asExpression()
@@ -546,9 +551,9 @@ class JetSettings : RidingBehaviourSettings {
     // Top Speed in blocks per second
     var speedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', 24.0, 4.0)".asExpression()
         private set
-    // Acceleration in blocks per s^2
+    // Seconds to get to top speed
     var accelerationExpr: Expression =
-        "q.get_ride_stats('ACCELERATION', 'AIR', 4.0, 1.0)".asExpression()
+        "q.get_ride_stats('ACCELERATION', 'AIR', 3.0, 8.0)".asExpression()
         private set
     // Time in seconds to drain full bar of stamina flying
     var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'AIR', 60.0, 4.0)".asExpression()
@@ -561,7 +566,8 @@ class JetSettings : RidingBehaviourSettings {
         buffer.writeRidingStats(stats)
         rideSounds.encode(buffer)
         buffer.writeExpression(gravity)
-        buffer.writeExpression(minSpeed)
+        buffer.writeExpression(deccelRate)
+        buffer.writeExpression(minSpeedFactor)
         buffer.writeExpression(handlingYawExpr)
         buffer.writeExpression(infiniteStamina)
         buffer.writeExpression(jumpExpr)
@@ -575,7 +581,8 @@ class JetSettings : RidingBehaviourSettings {
         stats.putAll(buffer.readRidingStats())
         rideSounds = RideSoundSettingsList.decode(buffer)
         gravity = buffer.readExpression()
-        minSpeed = buffer.readExpression()
+        deccelRate = buffer.readExpression()
+        minSpeedFactor = buffer.readExpression()
         handlingYawExpr = buffer.readExpression()
         infiniteStamina = buffer.readExpression()
         jumpExpr = buffer.readExpression()

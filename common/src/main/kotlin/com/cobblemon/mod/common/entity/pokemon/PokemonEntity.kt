@@ -96,6 +96,7 @@ import com.cobblemon.mod.common.net.messages.client.sound.UnvalidatedPlaySoundS2
 import com.cobblemon.mod.common.net.messages.client.spawn.SpawnPokemonPacket
 import com.cobblemon.mod.common.net.messages.client.ui.InteractPokemonUIPacket
 import com.cobblemon.mod.common.net.messages.server.behaviour.DamageOnCollisionPacket
+import com.cobblemon.mod.common.net.messages.server.riding.DismountPokemonPacket
 import com.cobblemon.mod.common.net.serverhandling.storage.SendOutPokemonHandler.SEND_OUT_DURATION
 import com.cobblemon.mod.common.pokeball.PokeBall
 import com.cobblemon.mod.common.pokedex.scanner.PokedexEntityData
@@ -180,6 +181,7 @@ import net.minecraft.world.level.material.FluidState
 import net.minecraft.world.level.pathfinder.PathType
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
+import kotlin.math.max
 
 @Suppress("unused")
 open class PokemonEntity(
@@ -1795,7 +1797,7 @@ open class PokemonEntity(
                             for (passenger in this.passengers) {
                                 passenger.deltaMovement = this.deltaMovement
                             }
-                            this.ejectPassengers()
+                            DismountPokemonPacket().sendToServer()
 
                             // Reset ride velocity
                             state.rideVelocity.set(state.rideVelocity.get().multiply(0.0, 1.0, 0.0))
@@ -2068,7 +2070,9 @@ open class PokemonEntity(
         }
         val stat = this.rideProp.behaviours?.get(style)?.calculate(stat, 0) ?: return 0.0
         val statVal = (((baseMax - baseMin) / 100) * stat) + baseMin
-        return statVal
+        // Cap the minimum value at a very small value to prevent control inversions and other unexpected behaviour in
+        // the ride controllers when using negative values
+        return max(statVal, 1e-6)
     }
 
     fun getRawRideStat(stat: RidingStat, style: RidingStyle): Double {
