@@ -8255,6 +8255,10 @@
 				},
 				"right_small_toes": {
 					"rotation": ["27.5+math.clamp((q.r.velocity_y(0)*30),-27.5,0)", 0, 0]
+				},
+				"locator_seat_1": {
+					"rotation": [-40, 0, 0],
+					"position": [0, -5, 0]
 				}
 			}
 		}
