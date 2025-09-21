@@ -283,6 +283,15 @@
 - Revavroom
 - Bouffalant
 - Lickilicky
+- Blaziken
+- Rhyhorn
+- Rhydon
+- Rhyperior
+- Tauros
+- Tauros - Paldea Aqua
+- Tauros - Paldea Blaze
+- Tauros - Paldea Combat
+- Dewgong
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -393,14 +402,6 @@
 - Revavroom
 - Nickit
 - Thievul
-- Blaziken
-- Rhyhorn
-- Rhydon
-- Rhyperior
-- Tauros
-- Tauros - Paldea Aqua
-- Tauros - Paldea Blaze
-- Tauros - Paldea Combat
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
