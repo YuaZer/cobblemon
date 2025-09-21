@@ -7659,5 +7659,11 @@
     "cobblemon.config.ui.starters": "パートナーポケモン",
     "cobblemon.subtitle.pokemon.wild_shiny_shine": "野生の色違いのポケモンが光る！",
     "advancements.cobblemon.resurrect_galar_fossil": "がっちゃんこ！",
-    "advancements.cobblemon.resurrect_galar_fossil.description": "カセキのトリ又はカセキのサカナと、カセキのリュウ又はカセキのクビナガを組み合わせてポケモンを復元する"
+    "advancements.cobblemon.resurrect_galar_fossil.description": "カセキのトリ又はカセキのサカナと、カセキのリュウ又はカセキのクビナガを組み合わせてポケモンを復元する",
+    "cobblemon.move.supersonicskystrike": "ファイナルダイブクラッシュ",
+    "cobblemon.move.breakneckblitz": "ウルトラダッシュアタック",
+    "cobblemon.move.breakneckblitz.desc": "Zパワーで 勢いを つけて 全力で 相手に ぶつかる。 元になった 技で 威力が 変わる。",
+    "cobblemon.move.supersonicskystrike.desc": "Zパワーで 勢いよく 飛びあがり 相手に 向かって 全力で 落下。 元になった 技で 威力が 変わる。",
+    "cobblemon.move.alloutpummeling": "全力無双激烈拳",
+    "cobblemon.move.alloutpummeling.desc": "Zパワーで 作った エネルギーの 弾を 全力で 相手に ぶつける。 元になった 技で 威力が 変わる。"
 }
