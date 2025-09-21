@@ -393,6 +393,7 @@
 - Revavroom
 - Nickit
 - Thievul
+- Blaziken
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
