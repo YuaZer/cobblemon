@@ -204,8 +204,6 @@ open class PosableModel(@Transient override val rootPart: Bone) : ModelFrame {
 
     /**
      * Animation group : animation name [: primary]
-     * e.g. "particle_dummy:animation.particle_dummy.dragon_claw_target:primary"
-     * e.g. "particle_dummy:animation.particle.dummy.stat_up
      */
     fun extractAnimation(string: String): ActiveAnimation? {
         val group = string.substringBefore(":")

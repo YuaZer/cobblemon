@@ -157,6 +157,10 @@
           "tier": 2
         }
       ]
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
     }
   },
   "drops": {
