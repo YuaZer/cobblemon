@@ -124,6 +124,7 @@ import java.util.UUID
 import java.util.concurrent.CompletableFuture
 import kotlin.math.PI
 import kotlin.math.ceil
+import kotlin.math.max
 import kotlin.math.min
 import net.minecraft.core.BlockPos
 import net.minecraft.core.component.DataComponents
@@ -175,13 +176,13 @@ import net.minecraft.world.item.Items
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LightLayer
 import net.minecraft.world.level.block.SuspiciousEffectHolder
+import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.gameevent.GameEvent
 import net.minecraft.world.level.material.EmptyFluid
 import net.minecraft.world.level.material.FluidState
 import net.minecraft.world.level.pathfinder.PathType
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
-import kotlin.math.max
 
 @Suppress("unused")
 open class PokemonEntity(
@@ -1863,6 +1864,13 @@ open class PokemonEntity(
 
     fun isFalling() =
         this.fallDistance > 0 && this.level().getBlockState(this.blockPosition().below()).isAir && !this.isFlying()
+
+    override fun checkFallDamage(y: Double, onGround: Boolean, state: BlockState, pos: BlockPos) {
+        super.checkFallDamage(y, onGround, state, pos)
+        if (isFlying() && this.passengers.isEmpty() && y < 0.0 && !onGround) {
+            fallDistance = 0F // Prevent fall damage after flying without a rider
+        }
+    }
 
     override fun getCurrentPoseType(): PoseType = this.entityData.get(POSE_TYPE)
 
