@@ -11,8 +11,6 @@ package com.cobblemon.mod.common.api.riding.behaviour.types.air
 import com.bedrockk.molang.Expression
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
-import com.cobblemon.mod.common.api.riding.behaviour.types.land.HorseSettings
-import com.cobblemon.mod.common.api.riding.behaviour.types.land.HorseState
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
 import com.cobblemon.mod.common.api.riding.posing.PoseProvider
 import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
@@ -27,7 +25,6 @@ import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import net.minecraft.util.SmoothDouble
-import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.ClipContext
@@ -131,8 +128,8 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
     ) {
         val stam = state.stamina.get()
         val stamDrainRate = (1.0f / vehicle.runtime.resolveDouble(settings.staminaExpr)).toFloat() / 20.0f
-
-        val newStam = if (state.tooHigh.get()) max(0.0f, stam - stamDrainRate) else min(1.0f,stam + stamDrainRate)
+        val stamReplenishRate = (1.0f / vehicle.runtime.resolveDouble(settings.stamReplenishTimeSeconds) ).toFloat() / 20.0f // 2 seconds to replenish a full bar of stamina
+        val newStam = if (state.tooHigh.get()) max(0.0f, stam - stamDrainRate) else min(1.0f,stam + stamReplenishRate)
 
         state.stamina.set(newStam)
     }
@@ -431,6 +428,9 @@ class HoverSettings : RidingBehaviourSettings {
     override val stats = mutableMapOf<RidingStat, IntRange>()
 
     var canJump = "true".asExpression()
+        private set
+
+    var stamReplenishTimeSeconds = "2.0".asExpression()
         private set
 
     // Speed in block per second
