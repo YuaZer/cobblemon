@@ -2071,12 +2071,11 @@ open class PokemonEntity(
 
     // Takes in a requested stat type with a base minimum and base maximum and returns the interpolated
     // stat based on the boost of that pokemons stat
-    fun getRideStat(stat: RidingStat, style: RidingStyle, baseMin: Double, baseMax: Double): Double {
-        //TODO: Change from static zero boost once aprijuice is implemented.
-        if (rideStatOverrides[style] != null && rideStatOverrides[style]!![stat] != null) {
-            return (((baseMax - baseMin) / 100) * rideStatOverrides[style]!![stat]!!) + baseMin
+    fun getRideStat(rideStat: RidingStat, style: RidingStyle, baseMin: Double, baseMax: Double): Double {
+        if (rideStatOverrides[style] != null && rideStatOverrides[style]!![rideStat] != null) {
+            return (((baseMax - baseMin) / 100) * rideStatOverrides[style]!![rideStat]!!) + baseMin
         }
-        val stat = this.rideProp.behaviours?.get(style)?.calculate(stat, 0) ?: return 0.0
+        val stat = this.rideProp.behaviours?.get(style)?.calculate(rideStat, entityData.get(RIDE_BOOSTS)[rideStat] ?: 0F) ?: return 0.0
         val statVal = (((baseMax - baseMin) / 100) * stat) + baseMin
         // Cap the minimum value at a very small value to prevent control inversions and other unexpected behaviour in
         // the ride controllers when using negative values
@@ -2087,7 +2086,7 @@ open class PokemonEntity(
         if (rideStatOverrides[style] != null && rideStatOverrides[style]!![stat] != null) {
             return rideStatOverrides[style]!![stat]!!
         }
-        return this.rideProp.behaviours?.get(style)?.calculate(stat, 0)?.toDouble() ?: 0.0
+        return this.rideProp.behaviours?.get(style)?.calculate(stat, 0F)?.toDouble() ?: 0.0
     }
 
     internal fun overrideRideStat(style: RidingStyle, stat: RidingStat, value: Double) {
