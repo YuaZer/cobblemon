@@ -283,6 +283,15 @@
 - Revavroom
 - Bouffalant
 - Lickilicky
+- Blaziken
+- Rhyhorn
+- Rhydon
+- Rhyperior
+- Tauros
+- Tauros - Paldea Aqua
+- Tauros - Paldea Blaze
+- Tauros - Paldea Combat
+- Dewgong
 
 ### Model updates for the following Pokémon
 - Cleffa
