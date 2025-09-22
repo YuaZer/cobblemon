@@ -42,15 +42,16 @@ class RideLoopSound(val ride: PokemonEntity, val soundSettings: RideSoundSetting
     var fade: Float = 0.0f
     var shouldMuffle: Boolean = soundSettings.muffleEnabled
     var rideAttenuation: RideAttenuationModel = soundSettings.attenuationModel
-    var muffleAmount: Float = 1.0f // Currently slightly misleading. 1.0 is on muffle and 0.0 is full hFgain muting
-    // TODO: revisit below flag once multi passenger support is enabled
-    var isPassenger: Boolean = Minecraft.getInstance().player?.id == ride.controllingPassenger?.id
+    var muffleAmount: Float = 1.0f // Currently slightly misleading. 1.0 is no muffle and 0.0 is full hFgain muting
+    var isPassenger: Boolean = ride.passengers.any { passenger ->
+        Minecraft.getInstance().player?.id == passenger.id
+    }
 
     init {
         this.looping = true
         this.delay = 0
         this.volume = 0.1f
-        this.attenuation = SoundInstance.Attenuation.NONE // This class performs its own attenuation
+        this.attenuation = SoundInstance.Attenuation.LINEAR // This class performs its own attenuation
         if (this.isPassenger) this.relative = true
     }
 

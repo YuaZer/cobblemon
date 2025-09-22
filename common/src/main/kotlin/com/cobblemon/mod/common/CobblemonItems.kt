@@ -22,6 +22,7 @@ import com.cobblemon.mod.common.block.BerryBlock
 import com.cobblemon.mod.common.block.MintBlock
 import com.cobblemon.mod.common.block.MintBlock.MintType
 import com.cobblemon.mod.common.client.pokedex.PokedexType
+import com.cobblemon.mod.common.block.campfirepot.CampfirePotColor
 import com.cobblemon.mod.common.entity.boat.CobblemonBoatType
 import com.cobblemon.mod.common.item.*
 import com.cobblemon.mod.common.item.armor.CobblemonArmorTrims
@@ -192,19 +193,19 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
 
     val campfire_pots = mutableListOf<CampfirePotItem>()
     @JvmField
-    val CAMPFIRE_POT_RED = campfirePotItem(CobblemonBlocks.RED_CAMPFIRE_POT, "red")
+    val CAMPFIRE_POT_RED = campfirePotItem(CobblemonBlocks.RED_CAMPFIRE_POT, CampfirePotColor.RED)
     @JvmField
-    val CAMPFIRE_POT_YELLOW = campfirePotItem(CobblemonBlocks.YELLOW_CAMPFIRE_POT, "yellow")
+    val CAMPFIRE_POT_YELLOW = campfirePotItem(CobblemonBlocks.YELLOW_CAMPFIRE_POT, CampfirePotColor.YELLOW)
     @JvmField
-    val CAMPFIRE_POT_GREEN = campfirePotItem(CobblemonBlocks.GREEN_CAMPFIRE_POT, "green")
+    val CAMPFIRE_POT_GREEN = campfirePotItem(CobblemonBlocks.GREEN_CAMPFIRE_POT, CampfirePotColor.GREEN)
     @JvmField
-    val CAMPFIRE_POT_BLUE = campfirePotItem(CobblemonBlocks.BLUE_CAMPFIRE_POT, "blue")
+    val CAMPFIRE_POT_BLUE = campfirePotItem(CobblemonBlocks.BLUE_CAMPFIRE_POT, CampfirePotColor.BLUE)
     @JvmField
-    val CAMPFIRE_POT_PINK = campfirePotItem(CobblemonBlocks.PINK_CAMPFIRE_POT, "pink")
+    val CAMPFIRE_POT_PINK = campfirePotItem(CobblemonBlocks.PINK_CAMPFIRE_POT, CampfirePotColor.PINK)
     @JvmField
-    val CAMPFIRE_POT_BLACK = campfirePotItem(CobblemonBlocks.BLACK_CAMPFIRE_POT, "black")
+    val CAMPFIRE_POT_BLACK = campfirePotItem(CobblemonBlocks.BLACK_CAMPFIRE_POT, CampfirePotColor.BLACK)
     @JvmField
-    val CAMPFIRE_POT_WHITE = campfirePotItem(CobblemonBlocks.WHITE_CAMPFIRE_POT, "white")
+    val CAMPFIRE_POT_WHITE = campfirePotItem(CobblemonBlocks.WHITE_CAMPFIRE_POT, CampfirePotColor.WHITE)
 
     @JvmField
     val HEARTY_GRAINS = compostableItem("hearty_grains", ItemNameBlockItem(CobblemonBlocks.HEARTY_GRAINS, Properties().rarity(Rarity.COMMON)))
@@ -349,15 +350,15 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
     @JvmField
     val SACCHARINE_SAPLING = compostableBlockItem("saccharine_sapling", CobblemonBlocks.SACCHARINE_SAPLING, 0.30f)
 
-    @JvmField
-    val BUGWORT = compostableBlockItem("bugwort", CobblemonBlocks.BUGWORT)
+//    @JvmField
+//    val BUGWORT = compostableBlockItem("bugwort", CobblemonBlocks.BUGWORT) // TODO after 1.7
     @JvmField
     val POKE_BAIT = noSettingsItem("poke_bait")
 
     @JvmField
-    val LURE_CAKE = blockItem("lure_cake", CobblemonBlocks.LURE_CAKE)
+    val POKE_CAKE = this.create("poke_cake", BlockItem(CobblemonBlocks.POKE_CAKE, Item.Properties().stacksTo(1)))
     @JvmField
-    val POKE_CAKE = blockItem("poke_cake", CobblemonBlocks.POKE_CAKE)
+    val POKE_SNACK = this.create("poke_snack", BlockItem(CobblemonBlocks.POKE_SNACK, Item.Properties().stacksTo(16)))
 
     val aprijuices = mutableListOf<AprijuiceItem>()
     @JvmField
@@ -386,31 +387,31 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
 
     // FOODS
     @JvmField
-    val SWEET_HEART = noSettingsItem("sweet_heart") // todo make a SweetHeartItem class for breeding purposes
+    val SWEET_HEART = noSettingsItem("sweet_heart") // TODO make a SweetHeartItem class for breeding purposes
 
     @JvmField
     val TASTY_TAIL = create("tasty_tail", foodItem(3, 0.3f))
 
     @JvmField
-    val PEWTER_CRUNCHIES = regionalFoodItem("pewter_crunchies", 16, 7, 0.343f, false)
+    val PEWTER_CRUNCHIES = regionalFoodItem("pewter_crunchies", 64, 7, 0.343f, false)
     @JvmField
-    val RAGE_CANDY_BAR = regionalFoodItem("rage_candy_bar", 16, 8, 0.2f, false)
+    val RAGE_CANDY_BAR = regionalFoodItem("rage_candy_bar", 64, 8, 0.2f, false)
     @JvmField
-    val LAVA_COOKIE = regionalFoodItem("lava_cookie", 16, 7, 0.343f, false)
+    val LAVA_COOKIE = regionalFoodItem("lava_cookie", 64, 2, 0.3f, false)
     @JvmField
-    val OLD_GATEAU = regionalFoodItem("old_gateau", 16, 9, 0.1335f, false)
+    val OLD_GATEAU = regionalFoodItem("old_gateau", 64, 9, 0.1335f, false)
     @JvmField
-    val CASTELIACONE = regionalFoodItem("casteliacone", 16, 5, .28f, false)
+    val CASTELIACONE = regionalFoodItem("casteliacone", 64, 5, 0.28f, false)
     @JvmField
-    val LUMIOSE_GALETTE = regionalFoodItem("lumiose_galette", 16, 8, 0.2f, false)
+    val LUMIOSE_GALETTE = regionalFoodItem("lumiose_galette", 64, 4, 0.4f, false)
     @JvmField
-    val BIG_MALASADA = regionalFoodItem("big_malasada", 16, 7, 0.343f, false)
+    val BIG_MALASADA = regionalFoodItem("big_malasada", 64, 7, 0.343f, false)
     @JvmField
-    val SMOKED_TAIL_CURRY = regionalFoodItem("smoked_tail_curry", 16, 10, 0.6f, false, ItemStack(Items.BOWL, 1))
+    val SMOKED_TAIL_CURRY = regionalFoodItem("smoked_tail_curry", 64, 10, 0.6f, false, ItemStack(Items.BOWL, 1))
     @JvmField
-    val JUBILIFE_MUFFIN = regionalFoodItem("jubilife_muffin", 16, 8, 0.2f, false)
+    val JUBILIFE_MUFFIN = regionalFoodItem("jubilife_muffin", 64, 8, 0.2f, false)
     @JvmField
-    val OPEN_FACED_SANDWICH = regionalFoodItem("open_faced_sandwich", 16, 13, 0.5f, false)
+    val OPEN_FACED_SANDWICH = regionalFoodItem("open_faced_sandwich", 64, 13, 0.5f, false)
 
     // todo we might need to wait on these for later? These impact battles and may be harder to do
     /*@JvmField
@@ -421,20 +422,20 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
     val TWICE_SPICED_BEETROOT = noSettingsItem("twice_spiced_beetroot") // todo make a TwiceSpiceBeetrootItem class for battle purposes
 */
     @JvmField
-    val POTATO_MOCHI = create("potato_mochi", CobblemonItem(Properties().stacksTo(16)
+    val POTATO_MOCHI = create("potato_mochi", CobblemonItem(Properties().stacksTo(64)
         .food(FoodProperties.Builder()
-            .nutrition(8)
-            .saturationModifier(0.2375F)
+            .nutrition(4)
+            .saturationModifier(0.4F)
             .build())))
     @JvmField
-    val CANDIED_APPLE = create("candied_apple",  CobblemonItem(Properties().stacksTo(16)
+    val CANDIED_APPLE = create("candied_apple",  CobblemonItem(Properties().stacksTo(64)
         .food(FoodProperties.Builder()
             .nutrition(6)
             .saturationModifier(0.2335F)
             .usingConvertsTo(Items.STICK)
             .build())))
     @JvmField
-    val CANDIED_BERRY = create("candied_berry",  CobblemonItem(Properties().stacksTo(16)
+    val CANDIED_BERRY = create("candied_berry",  CobblemonItem(Properties().stacksTo(64)
         .food(FoodProperties.Builder()
             .nutrition(5)
             .saturationModifier(0.22F)
@@ -460,8 +461,8 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
     val PASTURE = blockItem("pasture", CobblemonBlocks.PASTURE)
     @JvmField
     val DISPLAY_CASE = blockItem("display_case", CobblemonBlocks.DISPLAY_CASE)
-    @JvmField
-    val INCENSE_SWEET = blockItem("incense_sweet", CobblemonBlocks.INCENSE_SWEET)
+//    @JvmField
+//    val INCENSE_SWEET = blockItem("incense_sweet", CobblemonBlocks.INCENSE_SWEET) // TODO after 1.7
 
 
     // Evolution items
@@ -695,7 +696,7 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
     @JvmField
     val SUPERB_REMEDY = compostableItem("superb_remedy", RemedyItem(RemedyItem.SUPERB), 0.85f)
     @JvmField
-    val MOOMOO_MILK = noSettingsItem("moomoo_milk")
+    val MOOMOO_MILK = create("moomoo_milk", CobblemonItem(Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo((16))))
 
     @JvmField
     val POTION = create("potion", PotionItem(PotionType.POTION))
@@ -1500,8 +1501,8 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
         }
     )
 
-    private fun campfirePotItem(block: Block, type: String): CampfirePotItem {
-        val item = create("campfire_pot_${type}", CampfirePotItem(block))
+    private fun campfirePotItem(block: Block, color: CampfirePotColor): CampfirePotItem {
+        val item = create("campfire_pot_${color.suffix}", CampfirePotItem(block, color))
         campfire_pots.add(item)
         return item
     }

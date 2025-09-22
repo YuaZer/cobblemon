@@ -9,7 +9,11 @@
 package com.cobblemon.mod.common.item.group
 
 import com.cobblemon.mod.common.Cobblemon
+import com.cobblemon.mod.common.CobblemonItemComponents
 import com.cobblemon.mod.common.CobblemonItems
+import com.cobblemon.mod.common.api.cooking.Flavour
+import com.cobblemon.mod.common.item.AprijuiceItem
+import com.cobblemon.mod.common.item.components.FlavourComponent
 import com.cobblemon.mod.common.util.cobblemonResource
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.level.ItemLike
@@ -110,7 +114,7 @@ object CobblemonItemGroups {
         entries.accept(CobblemonItems.GALARICA_NUTS)
         entries.accept(CobblemonItems.HEARTY_GRAINS)
         entries.accept(CobblemonItems.TASTY_TAIL)
-        entries.accept(CobblemonItems.BUGWORT)
+//        entries.accept(CobblemonItems.BUGWORT) // TODO after 1.7
 
         entries.accept(CobblemonItems.RED_APRICORN)
         entries.accept(CobblemonItems.YELLOW_APRICORN)
@@ -256,7 +260,7 @@ object CobblemonItemGroups {
         entries.accept(CobblemonItems.RELIC_COIN_POUCH)
         entries.accept(CobblemonItems.RELIC_COIN_SACK)
 
-        entries.accept(CobblemonItems.INCENSE_SWEET)
+//        entries.accept(CobblemonItems.INCENSE_SWEET) // TODO after 1.7
         entries.accept(CobblemonItems.DISPLAY_CASE)
         entries.accept(CobblemonItems.APRICORN_LOG)
         entries.accept(CobblemonItems.APRICORN_WOOD)
@@ -523,18 +527,31 @@ object CobblemonItemGroups {
         entries.accept(CobblemonItems.ABILITY_PATCH)
 
         entries.accept(CobblemonItems.POKE_BAIT)
-        entries.accept(CobblemonItems.LURE_CAKE)
+        entries.accept(CobblemonItems.POKE_SNACK)
         entries.accept(CobblemonItems.POKE_CAKE)
         entries.accept(CobblemonItems.POKE_PUFF)
 
-        entries.accept(CobblemonItems.APRIJUICE_RED)
-        entries.accept(CobblemonItems.APRIJUICE_YELLOW)
-        entries.accept(CobblemonItems.APRIJUICE_GREEN)
-        entries.accept(CobblemonItems.APRIJUICE_BLUE)
-        entries.accept(CobblemonItems.APRIJUICE_PINK)
-        entries.accept(CobblemonItems.APRIJUICE_BLACK)
-        entries.accept(CobblemonItems.APRIJUICE_WHITE)
+        entries.accept(defaultAprijuice(CobblemonItems.APRIJUICE_RED))
+        entries.accept(defaultAprijuice(CobblemonItems.APRIJUICE_YELLOW))
+        entries.accept(defaultAprijuice(CobblemonItems.APRIJUICE_GREEN))
+        entries.accept(defaultAprijuice(CobblemonItems.APRIJUICE_BLUE))
+        entries.accept(defaultAprijuice(CobblemonItems.APRIJUICE_PINK))
+        entries.accept(defaultAprijuice(CobblemonItems.APRIJUICE_BLACK))
+        entries.accept(defaultAprijuice(CobblemonItems.APRIJUICE_WHITE))
+    }
 
+    private fun defaultAprijuice(item: AprijuiceItem): ItemStack {
+        return ItemStack(item).apply {
+            this.set(CobblemonItemComponents.FLAVOUR, FlavourComponent(
+                mapOf(
+                    Flavour.SPICY to 10,
+                    Flavour.DRY to 10,
+                    Flavour.SWEET to 10,
+                    Flavour.BITTER to 10,
+                    Flavour.SOUR to 10,
+                )
+            ))
+        }
     }
 
     private fun evolutionItemEntries(displayContext: ItemDisplayParameters, entries: Output) {
@@ -784,7 +801,11 @@ object CobblemonItemGroups {
         injector.putAfter(CobblemonItems.LEEK_AND_POTATO_STEW, Items.RABBIT_STEW)
         injector.putAfter(CobblemonItems.VIVICHOKE_DIP, CobblemonItems.LEEK_AND_POTATO_STEW)
 
+        injector.putAfter(CobblemonItems.POKE_CAKE, Items.CAKE)
+
         injector.putAfter(CobblemonItems.SINISTER_TEA, Items.MILK_BUCKET)
+
+
     }
 
     private fun toolsAndUtilitiesInjections(injector: Injector) {
