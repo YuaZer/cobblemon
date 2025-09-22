@@ -43,7 +43,6 @@ import com.cobblemon.mod.common.api.riding.stats.RidingStatDefinition
 import com.cobblemon.mod.common.api.spawning.TimeRange
 import com.cobblemon.mod.common.api.types.ElementalType
 import com.cobblemon.mod.common.api.types.adapters.ElementalTypeAdapter
-import com.cobblemon.mod.common.battles.runner.ShowdownService
 import com.cobblemon.mod.common.net.messages.client.data.SpeciesRegistrySyncPacket
 import com.cobblemon.mod.common.pokemon.FormData
 import com.cobblemon.mod.common.pokemon.Species
@@ -54,7 +53,6 @@ import com.cobblemon.mod.common.pokemon.ai.ObtainableItemConditionAdapter
 import com.cobblemon.mod.common.pokemon.evolution.adapters.CobblemonEvolutionAdapter
 import com.cobblemon.mod.common.pokemon.evolution.adapters.CobblemonPreEvolutionAdapter
 import com.cobblemon.mod.common.pokemon.evolution.adapters.LegacyItemConditionWrapperAdapter
-import com.cobblemon.mod.common.pokemon.helditem.CobblemonHeldItemManager
 import com.cobblemon.mod.common.util.adapters.*
 import com.cobblemon.mod.common.util.cobblemonResource
 import com.cobblemon.mod.common.util.ifClient
@@ -65,13 +63,11 @@ import com.google.gson.reflect.TypeToken
 import com.mojang.datafixers.util.Either
 import net.minecraft.advancements.critereon.ItemPredicate
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.packs.PackType
-import net.minecraft.tags.TagKey
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.entity.EntityDimensions
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
@@ -167,8 +163,6 @@ object PokemonSpecies : JsonDataRegistry<Species> {
                 it.resetRegistryData("species")
                 it.sendRegistryData(allShowdownSpecies(), "species")
                 it.indicateSpeciesInitialized()
-                // Reload this with the mod
-                CobblemonHeldItemManager.load()
                 Cobblemon.LOGGER.info("Loaded {} Pokémon species", this.speciesByIdentifier.size)
                 this.observable.emit(this)
             }
