@@ -75,7 +75,6 @@ class GliderBehaviour : RidingBehaviour<GliderSettings, RidingBehaviourState> {
         val xVector = if (vehicle.runtime.resolveBoolean(settings.canStrafe)) driver.xxa.toDouble() else 0.0
         val yVector = -vehicle.runtime.resolveDouble(settings.glideSpeed)
         val zVector = driver.zza.toDouble()
-        val speedStat = settings.calculate(RidingStat.SPEED, 0)
         return Vec3(xVector, yVector, zVector)
     }
 

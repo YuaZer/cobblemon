@@ -81,7 +81,7 @@ class AprijuiceItem(val type: Apricorn): CobblemonItem(Properties().stacksTo(16)
 
     override fun canUseOnPokemon(stack: ItemStack, pokemon: Pokemon): Boolean {
         val boosts = getBoosts(stack, pokemon)
-        return boosts.isNotEmpty() && boosts.any { pokemon.canAddRideBoost(it.key, it.value) } && super.canUseOnPokemon(stack, pokemon)
+        return boosts.isNotEmpty() && boosts.any { pokemon.canAddRideBoost(it.key) } && super.canUseOnPokemon(stack, pokemon)
     }
 
     fun getBoosts(stack: ItemStack, pokemon: Pokemon): Map<RidingStat, Float> {
@@ -90,7 +90,8 @@ class AprijuiceItem(val type: Apricorn): CobblemonItem(Properties().stacksTo(16)
             val flavour = ridingStat.flavour
             val flavourValue = flavours[flavour]?.takeUnless { it == 0 } ?: return@associate (ridingStat to 0F)
             val adjustedValue = calculateRidingBoostForFlavour(flavour, type, flavourValue, pokemon.nature)
-            ridingStat to adjustedValue
+            val percentValue = adjustedValue / 100
+            ridingStat to percentValue
         }.filter { it.value > 0 }
     }
 

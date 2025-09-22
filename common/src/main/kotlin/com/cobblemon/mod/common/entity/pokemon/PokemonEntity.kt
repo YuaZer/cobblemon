@@ -2066,7 +2066,7 @@ open class PokemonEntity(
         if (rideStatOverrides[style] != null && rideStatOverrides[style]!![stat] != null) {
             return (((baseMax - baseMin) / 100) * rideStatOverrides[style]!![stat]!!) + baseMin
         }
-        val stat = this.rideProp.behaviours?.get(style)?.calculate(stat, 0) ?: return 0.0
+        val stat = this.rideProp.behaviours?.get(style)?.calculate(stat, 0F) ?: return 0.0
         val statVal = (((baseMax - baseMin) / 100) * stat) + baseMin
         return statVal
     }
@@ -2075,7 +2075,7 @@ open class PokemonEntity(
         if (rideStatOverrides[style] != null && rideStatOverrides[style]!![stat] != null) {
             return rideStatOverrides[style]!![stat]!!
         }
-        return this.rideProp.behaviours?.get(style)?.calculate(stat, 0)?.toDouble() ?: 0.0
+        return this.rideProp.behaviours?.get(style)?.calculate(stat, pokemon.getRideBoost(stat))?.toDouble() ?: 0.0
     }
 
     internal fun overrideRideStat(style: RidingStyle, stat: RidingStat, value: Double) {

@@ -27,10 +27,9 @@ interface RidingBehaviourSettings: Encodable, Decodable {
     val key: ResourceLocation
     val stats: MutableMap<RidingStat, IntRange>
 
-    fun calculate(stat: RidingStat, boosts: Int): Float {
+    fun calculate(stat: RidingStat, boost: Float): Float {
         val range = stats[stat] ?: return 0F
-        val boostQuotient = boosts / 255F
-        return range.first + (range.last - range.first) * boostQuotient
+        return range.first + (range.last - range.first) * boost
     }
 
     fun hasStat(stat: RidingStat) = stats.containsKey(stat)

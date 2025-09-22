@@ -58,6 +58,7 @@ import com.cobblemon.mod.common.api.pokemon.stats.Stats
 import com.cobblemon.mod.common.api.properties.CustomPokemonProperty
 import com.cobblemon.mod.common.api.reactive.SettableObservable
 import com.cobblemon.mod.common.api.riding.RidingProperties
+import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.api.scheduling.afterOnServer
 import com.cobblemon.mod.common.api.storage.StoreCoordinates
@@ -1821,10 +1822,6 @@ open class Pokemon : ShowdownIdentifiable {
         moveSet.update()
     }
 
-    fun getMaxRideBoost(stat: RidingStat): Int {
-        return form.riding.behaviours?.maxOf { it.value.stats[stat]?.endInclusive ?: 0 } ?: 0
-    }
-
     fun getRideBoost(stat: RidingStat): Float {
         return rideBoosts[stat] ?: 0F
     }
@@ -1833,31 +1830,35 @@ open class Pokemon : ShowdownIdentifiable {
         return rideBoosts.toMap()
     }
 
-    fun canAddRideBoost(stat: RidingStat, boost: Float): Boolean {
-        val max = getMaxRideBoost(stat)
+    fun getRideStat(style: RidingStyle, stat: RidingStat): Float {
+        form.riding.behaviours?.let {
+            return it[style]?.calculate(stat, getRideBoost(stat)) ?: 0F
+        }
+        return 0F
+    }
+
+    fun canAddRideBoost(stat: RidingStat): Boolean {
         val current = rideBoosts[stat] ?: 0F
-        return current + boost <= max
+        return form.riding.behaviours != null && current < 1F
     }
 
     fun addRideBoost(stat: RidingStat, boost: Float): Boolean {
-        if (!canAddRideBoost(stat, boost)) {
+        if (!canAddRideBoost(stat)) {
             return false
         }
-        val max = getMaxRideBoost(stat)
-        rideBoosts[stat] = (getRideBoost(stat) + boost).coerceIn(0F, max.toFloat())
+        rideBoosts[stat] = (getRideBoost(stat) + boost).coerceIn(0F, 1F)
         onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
         return true
     }
 
     fun setRideBoost(stat: RidingStat, boost: Float) {
-        val max = getMaxRideBoost(stat)
-        rideBoosts[stat] = boost.coerceIn(0F, max.toFloat())
+        rideBoosts[stat] = boost.coerceIn(0F, 1F)
         onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
     }
 
     fun setRideBoosts(boosts: Map<RidingStat, Float>) {
         rideBoosts.clear()
-        rideBoosts.putAll(boosts.mapValues { it.value.coerceIn(0F, getMaxRideBoost(it.key).toFloat()) })
+        rideBoosts.putAll(boosts.mapValues { it.value.coerceIn(0F, 1F) })
         onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
     }
 
