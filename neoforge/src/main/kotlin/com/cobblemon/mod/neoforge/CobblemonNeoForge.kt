@@ -222,8 +222,10 @@ class CobblemonNeoForge : CobblemonImplementation {
         }
 
         event.register(Registries.STAT_TYPE) { registry ->
-            Cobblemon.statistics.stats.forEach { key, value ->
-                registry.register(value, StatType(BuiltInRegistries.STAT_TYPE, Component.translatable(key)))
+            Cobblemon.LOGGER.info("Attempting to register stats!")
+            Cobblemon.statistics.stats.forEach { (key, value) ->
+                Cobblemon.LOGGER.debug("Registering stat $key")
+                registry.register(value, StatType(BuiltInRegistries.STAT_TYPE, Component.translatable("cobblemon.stats.$key")))
             }
         }
     }

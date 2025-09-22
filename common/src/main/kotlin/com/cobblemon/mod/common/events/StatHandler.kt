@@ -21,9 +21,9 @@ import com.cobblemon.mod.common.api.events.CobblemonEvents.LEVEL_UP_EVENT
 import com.cobblemon.mod.common.api.events.CobblemonEvents.POKEMON_CAPTURED
 import com.cobblemon.mod.common.api.events.CobblemonEvents.POKEMON_GAINED
 import com.cobblemon.mod.common.api.events.CobblemonEvents.POKEMON_RELEASED_EVENT_POST
-import com.cobblemon.mod.common.api.events.CobblemonEvents.TRADE_COMPLETED
+import com.cobblemon.mod.common.api.events.CobblemonEvents.TRADE_EVENT_POST
 import com.cobblemon.mod.common.api.events.battles.BattleFledEvent
-import com.cobblemon.mod.common.api.events.battles.BattleStartedPostEvent
+import com.cobblemon.mod.common.api.events.battles.BattleStartedEvent
 import com.cobblemon.mod.common.api.events.battles.BattleVictoryEvent
 import com.cobblemon.mod.common.api.events.pokemon.CollectEggEvent
 import com.cobblemon.mod.common.api.events.pokemon.FossilRevivedEvent
@@ -31,11 +31,10 @@ import com.cobblemon.mod.common.api.events.pokemon.HatchEggEvent
 import com.cobblemon.mod.common.api.events.pokemon.LevelUpEvent
 import com.cobblemon.mod.common.api.events.pokemon.PokemonCapturedEvent
 import com.cobblemon.mod.common.api.events.pokemon.PokemonGainedEvent
-import com.cobblemon.mod.common.api.events.pokemon.TradeCompletedEvent
+import com.cobblemon.mod.common.api.events.pokemon.TradeEvent
 import com.cobblemon.mod.common.api.events.pokemon.evolution.EvolutionCompleteEvent
 import com.cobblemon.mod.common.api.events.storage.ReleasePokemonEvent
 import com.cobblemon.mod.common.util.getPlayer
-import com.cobblemon.mod.common.util.server
 import java.util.UUID
 
 object StatHandler : EventHandler {
@@ -50,7 +49,7 @@ object StatHandler : EventHandler {
         POKEMON_GAINED.subscribe(Priority.NORMAL, ::onDexEntryGain)
         COLLECT_EGG.subscribe(Priority.NORMAL, ::onCollectEgg)
         HATCH_EGG_POST.subscribe(Priority.NORMAL, ::onHatchEgg)
-        TRADE_COMPLETED.subscribe(Priority.NORMAL, ::onTradeCompleted)
+        TRADE_EVENT_POST.subscribe(Priority.NORMAL, ::onTradeCompleted)
         FOSSIL_REVIVED.subscribe(Priority.NORMAL, ::onFossilRevived)
     }
 
@@ -87,12 +86,12 @@ object StatHandler : EventHandler {
         event.player.entity?.awardStat(Cobblemon.statistics.BATTLES_FLED)
     }
 
-    fun onBattleStart(event : BattleStartedPostEvent) {
+    fun onBattleStart(event : BattleStartedEvent) {
         event.battle.players.forEach { player -> player.awardStat(Cobblemon.statistics.BATTLES_TOTAL) }
     }
 
     fun onDexEntryGain(event : PokemonGainedEvent) {
-        server()?.playerList?.getPlayer(event.playerId)?.awardStat(Cobblemon.statistics.DEX_ENTRIES)
+        event.pokemon.getOwnerPlayer()?.awardStat(Cobblemon.statistics.DEX_ENTRIES)
     }
 
     fun onCollectEgg(event : CollectEggEvent) {
@@ -103,7 +102,7 @@ object StatHandler : EventHandler {
         event.player.awardStat(Cobblemon.statistics.EGGS_HATCHED)
     }
 
-    fun onTradeCompleted(event : TradeCompletedEvent) {
+    fun onTradeCompleted(event : TradeEvent.Post) {
         event.tradeParticipant1Pokemon.getOwnerPlayer()?.awardStat(Cobblemon.statistics.TRADED)
         event.tradeParticipant2Pokemon.getOwnerPlayer()?.awardStat(Cobblemon.statistics.TRADED)
     }
