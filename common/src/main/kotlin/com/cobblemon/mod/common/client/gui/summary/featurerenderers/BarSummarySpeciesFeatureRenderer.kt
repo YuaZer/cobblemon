@@ -36,11 +36,14 @@ open class BarSummarySpeciesFeatureRenderer(
     val pokemon: Pokemon,
     val min: Int,
     val max: Int,
-    val value: Int? = null,
+    val value: Int = 0,
     val colour: Vec3? = null
 ) : SummarySpeciesFeatureRenderer<IntSpeciesFeature> {
-    override fun render(guiGraphics: GuiGraphics, x: Float, y: Float, pokemon: Pokemon, feature: IntSpeciesFeature?) {
-        val barValue = if (value != null) value else feature?.value ?: 0
+    override fun render(guiGraphics: GuiGraphics, x: Float, y: Float, pokemon: Pokemon, feature: IntSpeciesFeature) {
+        renderElement(guiGraphics, x, y, pokemon, feature.value)
+    }
+
+    open fun renderElement(guiGraphics: GuiGraphics, x: Float, y: Float, pokemon: Pokemon, barValue: Int = value) {
         val barRatio = (barValue - min) / (max - min).toFloat()
         val barWidth = Mth.ceil(barRatio * 110)
 

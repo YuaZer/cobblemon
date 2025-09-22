@@ -269,16 +269,12 @@ class StatWidget(
 
             for (feature in pageFeatures) {
                 if (feature is BarSummarySpeciesFeatureRenderer) {
-                    feature.render(context, barPosX, drawY, pokemon, null)
-                    drawY += barOffsetY
-                } else if (feature is SummarySpeciesFeatureRenderer<out SynchronizedSpeciesFeature>) {
                     val rendered = feature.render(
-                        GuiGraphics = context,
+                        guiGraphics = context,
                         x = barPosX,
                         y = drawY,
                         pokemon = pokemon
                     )
-
                     if (rendered) drawY += barOffsetY
                 }
             }

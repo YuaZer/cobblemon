@@ -28,6 +28,11 @@ class FriendshipFeatureRenderer(
     255,
     selectedPokemon.friendship
 ) {
+    override fun render(guiGraphics: GuiGraphics, x: Float, y: Float, pokemon: Pokemon): Boolean {
+        renderElement(guiGraphics, x, y, pokemon)
+        return true
+    }
+
     override fun renderBar(guiGraphics: GuiGraphics, x: Float, y: Float, barValue: Int, barRatio: Float, barWidth: Int) {
         val red = 1
         val green: Number = if (barValue >= 160) 0.28 else 0.56

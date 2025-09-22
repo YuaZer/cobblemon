@@ -138,6 +138,7 @@ class RideControlsOverlay : Gui(Minecraft.getInstance()) {
                     BoatBehaviour.KEY -> {
                         showVerticalMouse = false
                         showHorizontalMouse = false
+                        showSneakKey = false
                     }
                     BurstBehaviour.KEY -> {}
                     DolphinBehaviour.KEY -> {}

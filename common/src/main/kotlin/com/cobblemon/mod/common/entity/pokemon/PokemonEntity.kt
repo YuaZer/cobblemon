@@ -2070,7 +2070,7 @@ open class PokemonEntity(
     }
 
     // Takes in a requested stat type with a base minimum and base maximum and returns the interpolated
-    // stat based on the boost of that pokemons stat
+    // stat based on the boost of that Pokémon's stat
     fun getRideStat(rideStat: RidingStat, style: RidingStyle, baseMin: Double, baseMax: Double): Double {
         if (rideStatOverrides[style] != null && rideStatOverrides[style]!![rideStat] != null) {
             return (((baseMax - baseMin) / 100) * rideStatOverrides[style]!![rideStat]!!) + baseMin

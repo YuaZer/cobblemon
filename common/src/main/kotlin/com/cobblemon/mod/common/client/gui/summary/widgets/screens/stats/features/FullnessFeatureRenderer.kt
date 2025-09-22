@@ -28,6 +28,11 @@ class FullnessFeatureRenderer(
     selectedPokemon.getMaxFullness(),
     selectedPokemon.currentFullness
 ) {
+    override fun render(guiGraphics: GuiGraphics, x: Float, y: Float, pokemon: Pokemon): Boolean {
+        renderElement(guiGraphics, x, y, pokemon)
+        return true
+    }
+
     override fun renderBar(guiGraphics: GuiGraphics, x: Float, y: Float, barValue: Int, barRatio: Float, barWidth: Int) {
         val (red, green, blue) = when {
             barRatio <= 0.33 -> Triple(120F/255F, 200F/255F, 80F/255F) // Green
