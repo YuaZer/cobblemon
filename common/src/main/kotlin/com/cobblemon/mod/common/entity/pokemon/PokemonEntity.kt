@@ -2044,10 +2044,6 @@ open class PokemonEntity(
     }
 
     override fun canBeLeashed() = true
-//    override fun canBeLeashedBy(player: Player): Boolean {
-//        return this.ownerUuid == null || this.ownerUuid == player.uuid
-//    }
-
     override fun setLeashedTo(entity: Entity, bl: Boolean) {
         super.setLeashedTo(entity, bl)
         if (this.ownerUUID != null && this.ownerUUID != entity.uuid) {
@@ -2055,8 +2051,8 @@ open class PokemonEntity(
         }
     }
 
-    /** Retrieves the battle theme associated with this Pokemon's Species/Form, or the default PVW theme if not found. */
-    fun getBattleTheme() = this.form.battleTheme ?: CobblemonSounds.PVW_BATTLE.location
+    /** Retrieves the battle theme associated with this Pokemon's Species/Form which falls back to the default PVW theme if not found. */
+    fun getBattleTheme() = this.form.battleTheme
 
     /**
      * A utility method to instance a [Pokemon] aware if the [world] is client sided or not.
