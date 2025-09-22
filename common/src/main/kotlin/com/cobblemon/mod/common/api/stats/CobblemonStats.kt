@@ -8,46 +8,43 @@
 
 package com.cobblemon.mod.common.api.stats
 
-import net.minecraft.core.Registry
-import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.stats.StatFormatter
-import net.minecraft.stats.StatType
-import net.minecraft.stats.Stats
 
 object CobblemonStats {
+    val stats = mutableMapOf<String,  ResourceLocation>()
 
-    var CAPTURED = makeCustomStat("captured", StatFormatter.DEFAULT)
-    val SHINIES_CAPTURED = makeCustomStat("shinies_captured", StatFormatter.DEFAULT)
-    val RELEASED = makeCustomStat("released", StatFormatter.DEFAULT)
-    val EVOLVED = makeCustomStat("evolved", StatFormatter.DEFAULT)
-    val LEVEL_UP = makeCustomStat("level_up", StatFormatter.DEFAULT)
-    val BATTLES_WON = makeCustomStat("battles_won", StatFormatter.DEFAULT)
-    val BATTLES_LOST = makeCustomStat("battles_lost", StatFormatter.DEFAULT)
-    val BATTLES_FLED = makeCustomStat("battles_fled", StatFormatter.DEFAULT)
-    val BATTLES_TOTAL = makeCustomStat("battles_total", StatFormatter.DEFAULT)
-    val DEX_ENTRIES = makeCustomStat("dex_entries", StatFormatter.DEFAULT)
-    val EGGS_COLLECTED = makeCustomStat("eggs_collected", StatFormatter.DEFAULT)
-    val EGGS_HATCHED = makeCustomStat("eggs_hatched", StatFormatter.DEFAULT)
-    val TRADED = makeCustomStat("traded", StatFormatter.DEFAULT)
-    val FOSSILS_REVIVED = makeCustomStat("fossils_revived", StatFormatter.DEFAULT)
-    val POKEMON_INTERACTED_WITH = makeCustomStat("pokemon_interacted_with", StatFormatter.DEFAULT)
+    var CAPTURED = ResourceLocation.fromNamespaceAndPath("cobblemon", "captured") //makeCustomStat("captured", StatFormatter.DEFAULT)
+    val SHINIES_CAPTURED = ResourceLocation.fromNamespaceAndPath("cobblemon", "shinies_captured") //makeCustomStat("shinies_captured", StatFormatter.DEFAULT)
+    val RELEASED = ResourceLocation.fromNamespaceAndPath("cobblemon", "released") //makeCustomStat("released", StatFormatter.DEFAULT)
+    val EVOLVED = ResourceLocation.fromNamespaceAndPath("cobblemon", "evolved") //makeCustomStat("evolved", StatFormatter.DEFAULT)
+    val LEVEL_UP = ResourceLocation.fromNamespaceAndPath("cobblemon", "level_up") //makeCustomStat("level_up", StatFormatter.DEFAULT)
+    val BATTLES_WON = ResourceLocation.fromNamespaceAndPath("cobblemon", "battles_won") //makeCustomStat("battles_won", StatFormatter.DEFAULT)
+    val BATTLES_LOST = ResourceLocation.fromNamespaceAndPath("cobblemon", "battles_lost") //makeCustomStat("battles_lost", StatFormatter.DEFAULT)
+    val BATTLES_FLED = ResourceLocation.fromNamespaceAndPath("cobblemon", "battles_fled") //makeCustomStat("battles_fled", StatFormatter.DEFAULT)
+    val BATTLES_TOTAL = ResourceLocation.fromNamespaceAndPath("cobblemon", "battles_total") //makeCustomStat("battles_total", StatFormatter.DEFAULT)
+    val DEX_ENTRIES = ResourceLocation.fromNamespaceAndPath("cobblemon", "dex_entries") //makeCustomStat("dex_entries", StatFormatter.DEFAULT)
+    val EGGS_COLLECTED = ResourceLocation.fromNamespaceAndPath("cobblemon", "eggs_collected") //makeCustomStat("eggs_collected", StatFormatter.DEFAULT)
+    val EGGS_HATCHED = ResourceLocation.fromNamespaceAndPath("cobblemon", "eggs_hatched") //makeCustomStat("eggs_hatched", StatFormatter.DEFAULT)
+    val TRADED = ResourceLocation.fromNamespaceAndPath("cobblemon", "traded") //makeCustomStat("traded", StatFormatter.DEFAULT)
+    val FOSSILS_REVIVED = ResourceLocation.fromNamespaceAndPath("cobblemon", "fossils_revived") //makeCustomStat("fossils_revived", StatFormatter.DEFAULT)
+    val POKEMON_INTERACTED_WITH = ResourceLocation.fromNamespaceAndPath("cobblemon", "pokemon_interacted_with") //makeCustomStat("pokemon_interacted_with", StatFormatter.DEFAULT)
     //TODO block stats (interact, gimmi), riding (styles?)
 
-    private fun makeCustomStat(key: String, formatter: StatFormatter): ResourceLocation {
-        val resourceLocation = ResourceLocation.fromNamespaceAndPath("cobblemon", key)
-        Registry.register<ResourceLocation?>(BuiltInRegistries.CUSTOM_STAT, key, resourceLocation)
-        Stats.CUSTOM.get(resourceLocation, formatter)
-        return resourceLocation
-    }
-
-    private fun <T> makeRegistryStatType(key: String, registry: Registry<T>): StatType<T> {
-        val component: Component = Component.translatable("stat_type.cobblemon.$key")
-        return Registry.register<StatType<T>>(
-            BuiltInRegistries.STAT_TYPE,
-            key,
-            StatType<T>(registry, component)
-        ) as StatType<T>
+    fun registerStats() {
+        stats["captured"] = CAPTURED
+        stats["shinies_captured"] = SHINIES_CAPTURED
+        stats["released"] = RELEASED
+        stats["evolved"] = EVOLVED
+        stats["level_up"] = LEVEL_UP
+        stats["battles_won"] = BATTLES_WON
+        stats["battles_lost"] = BATTLES_LOST
+        stats["battles_fled"] = BATTLES_FLED
+        stats["battles_total"] = BATTLES_TOTAL
+        stats["dex_entries"] = DEX_ENTRIES
+        stats["eggs_collected"] = EGGS_COLLECTED
+        stats["eggs_hatched"] = EGGS_HATCHED
+        stats["traded"] = TRADED
+        stats["fossils_revived"] = FOSSILS_REVIVED
+        stats["pokemon_interacted_with"] = POKEMON_INTERACTED_WITH
     }
 }

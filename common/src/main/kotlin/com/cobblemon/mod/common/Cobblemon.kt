@@ -162,7 +162,7 @@ object Cobblemon {
 
     val serverPlayerStructs = mutableMapOf<UUID, ObjectValue<Player>>()
 
-    val statistics = CobblemonStats
+    val statistics: CobblemonStats = CobblemonStats
 
     @JvmStatic
     val builtinPacks = listOf<CobblemonPack>(

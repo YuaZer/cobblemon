@@ -92,6 +92,13 @@ object CobblemonFabric : CobblemonImplementation {
     fun initialize() {
         Cobblemon.preInitialize(this)
 
+        Cobblemon.statistics.registerStats()
+        Cobblemon.LOGGER.debug("Registering custom stats")
+        Cobblemon.statistics.stats.forEach {
+            Registry.register(BuiltInRegistries.CUSTOM_STAT, it.key, it.value)
+        }
+        Cobblemon.LOGGER.debug("Custom stats registered!")
+
         Cobblemon.initialize()
         networkManager.registerMessages()
         networkManager.registerServerHandlers()

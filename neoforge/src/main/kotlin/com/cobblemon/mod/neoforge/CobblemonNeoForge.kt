@@ -41,7 +41,9 @@ import java.util.Optional
 import java.util.UUID
 import net.minecraft.commands.synchronization.ArgumentTypeInfo
 import net.minecraft.commands.synchronization.ArgumentTypeInfos
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
+import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.MinecraftServer
@@ -56,6 +58,7 @@ import net.minecraft.server.packs.repository.Pack
 import net.minecraft.server.packs.repository.Pack.Position
 import net.minecraft.server.packs.repository.PackSource
 import net.minecraft.server.packs.resources.PreparableReloadListener
+import net.minecraft.stats.StatType
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.item.CreativeModeTab.TabVisibility
@@ -215,6 +218,12 @@ class CobblemonNeoForge : CobblemonImplementation {
         event.register(Registries.MEMORY_MODULE_TYPE) { registry ->
             CobblemonMemories.memories.forEach { (key, memoryModuleType) ->
                 registry.register(cobblemonResource(key), memoryModuleType)
+            }
+        }
+
+        event.register(Registries.STAT_TYPE) { registry ->
+            Cobblemon.statistics.stats.forEach { key, value ->
+                registry.register(value, StatType(BuiltInRegistries.STAT_TYPE, Component.translatable(key)))
             }
         }
     }
