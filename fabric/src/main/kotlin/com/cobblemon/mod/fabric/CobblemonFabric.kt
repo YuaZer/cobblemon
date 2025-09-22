@@ -93,11 +93,9 @@ object CobblemonFabric : CobblemonImplementation {
         Cobblemon.preInitialize(this)
 
         Cobblemon.statistics.registerStats()
-        Cobblemon.LOGGER.debug("Registering custom stats")
         Cobblemon.statistics.stats.forEach {
-            Registry.register(BuiltInRegistries.CUSTOM_STAT, it.key, it.value)
+            Registry.register(BuiltInRegistries.CUSTOM_STAT, it.value, it.value)
         }
-        Cobblemon.LOGGER.debug("Custom stats registered!")
 
         Cobblemon.initialize()
         networkManager.registerMessages()

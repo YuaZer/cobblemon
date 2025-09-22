@@ -35,6 +35,8 @@ import com.cobblemon.mod.common.api.events.pokemon.TradeEvent
 import com.cobblemon.mod.common.api.events.pokemon.evolution.EvolutionCompleteEvent
 import com.cobblemon.mod.common.api.events.storage.ReleasePokemonEvent
 import com.cobblemon.mod.common.util.getPlayer
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.resources.ResourceLocation
 import java.util.UUID
 
 object StatHandler : EventHandler {
@@ -54,22 +56,22 @@ object StatHandler : EventHandler {
     }
 
     fun onCapture(event : PokemonCapturedEvent) {
-        event.player.awardStat(Cobblemon.statistics.CAPTURED)
+        event.player.awardStat(getStat(Cobblemon.statistics.CAPTURED))
         if (event.pokemon.shiny) {
-            event.player.awardStat(Cobblemon.statistics.SHINIES_CAPTURED)
+            event.player.awardStat(getStat(Cobblemon.statistics.SHINIES_CAPTURED))
         }
     }
 
     fun onRelease(event : ReleasePokemonEvent.Post) {
-        event.player.awardStat(Cobblemon.statistics.RELEASED)
+        event.player.awardStat(getStat(Cobblemon.statistics.RELEASED))
     }
 
     fun onEvolve(event : EvolutionCompleteEvent) {
-        event.pokemon.getOwnerPlayer()?.awardStat(Cobblemon.statistics.EVOLVED)
+        event.pokemon.getOwnerPlayer()?.awardStat(getStat(Cobblemon.statistics.EVOLVED))
     }
 
     fun onLevelUp(event : LevelUpEvent) {
-        event.pokemon.getOwnerPlayer()?.awardStat(Cobblemon.statistics.LEVEL_UP)
+        event.pokemon.getOwnerPlayer()?.awardStat(getStat(Cobblemon.statistics.LEVEL_UP))
     }
 
     fun onWinBattle(event : BattleVictoryEvent) {
@@ -77,37 +79,48 @@ object StatHandler : EventHandler {
             if (event.battle.isPvW) {
                 event.winners
                     .flatMap { it.getPlayerUUIDs().mapNotNull(UUID::getPlayer) }
-                    .forEach { player -> player.awardStat(Cobblemon.statistics.BATTLES_WON) }
+                    .forEach { player -> player.awardStat(getStat(Cobblemon.statistics.BATTLES_WON)) }
             }
         }
     }
 
     fun onFleeBattle(event: BattleFledEvent) {
-        event.player.entity?.awardStat(Cobblemon.statistics.BATTLES_FLED)
+        event.player.entity?.awardStat(getStat(Cobblemon.statistics.BATTLES_FLED))
     }
 
     fun onBattleStart(event : BattleStartedEvent) {
-        event.battle.players.forEach { player -> player.awardStat(Cobblemon.statistics.BATTLES_TOTAL) }
+        event.battle.players.forEach { player ->
+            player.awardStat(this.getStat(getStat(Cobblemon.statistics.BATTLES_TOTAL)))
+        }
     }
 
     fun onDexEntryGain(event : PokemonGainedEvent) {
-        event.pokemon.getOwnerPlayer()?.awardStat(Cobblemon.statistics.DEX_ENTRIES)
+        val player = event.pokemon.getOwnerPlayer()
+        player?.awardStat(getStat(getStat(Cobblemon.statistics.DEX_ENTRIES)))
     }
 
     fun onCollectEgg(event : CollectEggEvent) {
-        event.player.awardStat(Cobblemon.statistics.EGGS_COLLECTED)
+        event.player.awardStat(getStat(Cobblemon.statistics.EGGS_COLLECTED))
     }
 
     fun onHatchEgg(event : HatchEggEvent.Post) {
-        event.player.awardStat(Cobblemon.statistics.EGGS_HATCHED)
+        event.player.awardStat(getStat(Cobblemon.statistics.EGGS_HATCHED))
     }
 
     fun onTradeCompleted(event : TradeEvent.Post) {
-        event.tradeParticipant1Pokemon.getOwnerPlayer()?.awardStat(Cobblemon.statistics.TRADED)
-        event.tradeParticipant2Pokemon.getOwnerPlayer()?.awardStat(Cobblemon.statistics.TRADED)
+        event.tradeParticipant1Pokemon.getOwnerPlayer()?.awardStat(getStat(Cobblemon.statistics.TRADED))
+        event.tradeParticipant2Pokemon.getOwnerPlayer()?.awardStat(getStat(Cobblemon.statistics.TRADED))
     }
 
     fun onFossilRevived(event : FossilRevivedEvent) {
-        event.player?.awardStat(Cobblemon.statistics.FOSSILS_REVIVED)
+        event.player?.awardStat(getStat(Cobblemon.statistics.FOSSILS_REVIVED))
+    }
+
+    fun getStat(resourceLocation: ResourceLocation) : ResourceLocation {
+        val stat = BuiltInRegistries.CUSTOM_STAT.get(resourceLocation)
+        if (stat == null) {
+            Cobblemon.LOGGER.debug("Could not find stat with id {}", resourceLocation)
+        }
+        return stat ?: throw NullPointerException("Could not find stat with id $resourceLocation")
     }
 }

@@ -58,7 +58,6 @@ import net.minecraft.server.packs.repository.Pack
 import net.minecraft.server.packs.repository.Pack.Position
 import net.minecraft.server.packs.repository.PackSource
 import net.minecraft.server.packs.resources.PreparableReloadListener
-import net.minecraft.stats.StatType
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.item.CreativeModeTab.TabVisibility
@@ -84,7 +83,6 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent
 import net.neoforged.neoforge.event.LootTableLoadEvent
 import net.neoforged.neoforge.event.OnDatapackSyncEvent
 import net.neoforged.neoforge.event.RegisterCommandsEvent
-import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
 import net.neoforged.neoforge.event.entity.player.PlayerWakeUpEvent
@@ -221,11 +219,10 @@ class CobblemonNeoForge : CobblemonImplementation {
             }
         }
 
-        event.register(Registries.STAT_TYPE) { registry ->
-            Cobblemon.LOGGER.info("Attempting to register stats!")
+        event.register(Registries.CUSTOM_STAT) { registry ->
+            Cobblemon.statistics.registerStats()
             Cobblemon.statistics.stats.forEach { (key, value) ->
-                Cobblemon.LOGGER.debug("Registering stat $key")
-                registry.register(value, StatType(BuiltInRegistries.STAT_TYPE, Component.translatable("cobblemon.stats.$key")))
+                registry.register(value, ResourceLocation.fromNamespaceAndPath("cobblemon", key))
             }
         }
     }
