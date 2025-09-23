@@ -33,7 +33,12 @@ class CobblemonRandomSurfacePos {
                 mob,
                 radius,
                 verticalRange,
-                 { pos: BlockPos? -> mob.getWalkTargetValue(pos).toDouble() })
+                 { pos: BlockPos? ->
+                     if (pos != null) {
+                         mob.getWalkTargetValue(pos).toDouble()
+                     }
+                     0.0
+                 })
         }
 
         fun getPos(mob: PathfinderMob, radius: Int, yRange: Int, toDoubleFunction: ToDoubleFunction<BlockPos?>): Vec3? {
@@ -56,7 +61,7 @@ class CobblemonRandomSurfacePos {
             yRange: Int,
             vectorPosition: Vec3,
             shortCircuit: Boolean
-        ): Vec3 {
+        ): Vec3? {
             return RandomPos.generateRandomPos(mob, Supplier {
                 val blockPos: BlockPos? =
                     RandomPos.generateRandomDirectionWithinRadians(
@@ -84,7 +89,7 @@ class CobblemonRandomSurfacePos {
                     )
                 }
 
-            })!!
+            })
         }
 
         fun generateRandomPosTowardDirection(
@@ -107,7 +112,7 @@ class CobblemonRandomSurfacePos {
             pos = RandomPos.moveUpOutOfSolid(
                 pos,
                 mob.level().maxBuildHeight,
-                 { blockPos: BlockPos? ->
+                 { blockPos: BlockPos ->
                     if (GoalUtils.isSolid(mob, blockPos)) true
                     val fluidState = mob.level().getFluidState(blockPos)
                     !fluidState.isEmpty

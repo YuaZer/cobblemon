@@ -182,6 +182,8 @@ class WanderTaskConfig : SingleTaskConfig {
                             )
                         } ?: continue
 
+                        if (targetVec == null) continue
+
                         pos = applyHeightConstraints(
                             pos = BlockPos.containing(targetVec),
                             minimumHeight = minimumHeight,
