@@ -79,7 +79,7 @@ class PokemonServerDelegate : PokemonSideDelegate {
         entity.setPathfindingMalus(PathType.WATER_BORDER, if (moving.swim.canSwimInWater || moving.walk.avoidsLand || moving.swim.canBreatheUnderwater) 6F else -1F)
         if (moving.swim.canBreatheUnderwater) {
             // Must have a malus of zero to be a valid wander target
-            entity.setPathfindingMalus(PathType.WATER, if (moving.walk.avoidsLand) 0F else 0F)
+            entity.setPathfindingMalus(PathType.WATER, 0F)
         }
         if (moving.swim.canBreatheUnderlava) {
             // Must have a malus of zero to be a valid wander target
