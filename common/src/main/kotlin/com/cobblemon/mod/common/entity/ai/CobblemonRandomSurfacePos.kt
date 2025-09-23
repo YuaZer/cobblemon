@@ -8,7 +8,9 @@
 
 package com.cobblemon.mod.common.entity.ai
 
+import com.cobblemon.mod.common.entity.OmniPathingEntity
 import net.minecraft.core.BlockPos
+import net.minecraft.tags.FluidTags
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.entity.ai.util.GoalUtils
 import net.minecraft.world.entity.ai.util.RandomPos
@@ -111,12 +113,12 @@ class CobblemonRandomSurfacePos {
             var pos = pos
             pos = RandomPos.moveUpOutOfSolid(
                 pos,
-                mob.level().maxBuildHeight,
-                 { blockPos: BlockPos ->
-                    if (GoalUtils.isSolid(mob, blockPos)) true
-                    val fluidState = mob.level().getFluidState(blockPos)
-                    !fluidState.isEmpty
-                })
+                mob.level().maxBuildHeight
+            ) { blockPos: BlockPos ->
+                if (GoalUtils.isSolid(mob, blockPos)) true
+                val fluidState = mob.level().getFluidState(blockPos)
+                !fluidState.isEmpty && (mob !is OmniPathingEntity || ((mob.canWalkOnWater() && fluidState.type == FluidTags.WATER) || (mob.canWalkOnLava() && fluidState.type == FluidTags.LAVA)))
+            }
             return if (!GoalUtils.hasMalus(mob, pos)) pos else null
         }
     }
