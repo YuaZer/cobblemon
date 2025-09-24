@@ -2688,6 +2688,12 @@
   "advancements.cobblemon.place_campfire_pot.description": "Place down a Campfire Pot on a lit Campfire",
   "advancements.cobblemon.use_iv_candy": "Souped Up Stats",
   "advancements.cobblemon.use_iv_candy.description": "Use any candy that alters the potential of Individual Values on a Pokémon",
+  "advancements.cobblemon.cook_all_regional_delicacies": "Culinary World Tour",
+  "advancements.cobblemon.cook_all_regional_delicacies.description": "Cook the 10 Regional Delicacies",
+  "advancements.cobblemon.cook_all_ev_mochi": "Mochi Mochi!",
+  "advancements.cobblemon.cook_all_ev_mochi.description": "Cook every flavor of mochi, a tasty snack that can manipulate a Pokémon's Effort Values",
+  "advancements.cobblemon.cook_snack": "Placeholder Poke Snack Advancement Name",
+  "advancements.cobblemon.cook_snack.description": "Bake a Poké Snack, a delicious cake that can lure certain Pokémon based on the berries used",
 
   "cobblemon.battle.crash": "A battle error has occurred. If playing single-player, report this to the mod team. Otherwise, report this to the servers administrator.",
   "cobblemon.battle.damage_dealt": "%1$s took %2$s damage!",
