@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.api.ai.config.task
 
+import com.cobblemon.mod.common.CobblemonActivities
 import com.cobblemon.mod.common.CobblemonBlocks
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
@@ -70,7 +71,8 @@ class PlaceHoneyInSaccLeavesTaskConfig : SingleTaskConfig {
             }
 
             override fun canStillUse(level: ServerLevel, entity: LivingEntity, gameTime: Long): Boolean {
-                return checkExtraStartConditions(level, entity)
+                return checkExtraStartConditions(level, entity) && entity.brain.activeActivities.indexOf(
+                    CobblemonActivities.POKEMON_POLLINATION) != -1
             }
 
             override fun start(level: ServerLevel, entity: LivingEntity, gameTime: Long) {

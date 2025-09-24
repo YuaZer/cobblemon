@@ -46,7 +46,7 @@ class PathToSaccLeavesTaskConfig : SingleTaskConfig {
 //            CobblemonMemories.HIVE_LOCATION,
             CobblemonMemories.HAS_NECTAR
         )
-        behaviourConfigurationContext.addSensors(CobblemonSensors.NEARBY_SAC_LEAVES, CobblemonSensors.NEARBY_FLOWER)
+        behaviourConfigurationContext.addSensors(CobblemonSensors.NEARBY_SACC_LEAVES, CobblemonSensors.NEARBY_FLOWER)
         return PathToSacLeafTask.create()
     }
 }

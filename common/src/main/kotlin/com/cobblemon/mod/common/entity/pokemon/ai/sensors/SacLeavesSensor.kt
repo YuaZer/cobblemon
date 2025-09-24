@@ -11,6 +11,8 @@ package com.cobblemon.mod.common.entity.pokemon.ai.sensors
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.block.SaccharineLeafBlock
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
+import com.cobblemon.mod.common.util.distanceTo
+import com.cobblemon.mod.common.util.getMemorySafely
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Vec3i
 import net.minecraft.server.level.ServerLevel
@@ -27,26 +29,35 @@ class SacLeavesSensor : Sensor<PokemonEntity>(120) {
         val brain = entity.brain
 
         val searchRadius = 7
-        val centerPos = entity.blockPosition()
-        var leavesPos : BlockPos? = null
-        var shortestDist = Double.MAX_VALUE
-        val duration = measureTime {
-            BlockPos.betweenClosedStream(
-                centerPos.offset(-searchRadius, -2, -searchRadius),
-                centerPos.offset(searchRadius, searchRadius, searchRadius)
-            ).forEach { pos ->
-                val state = world.getBlockState(pos)
-                if (isValidLeafBlock(state)) {
-                    val distance = pos.distSqr(Vec3i(centerPos.x, centerPos.y, centerPos.z))
-                    if (distance < shortestDist) {
-                        leavesPos = BlockPos(pos)
-                        shortestDist = distance
-                    }
-                }
+        val tooFarDistance = 30
+        val wayTooFarDistance = 64
+        val currPos: BlockPos? = brain.getMemorySafely(CobblemonMemories.NEARBY_SACC_LEAVES).orElse(null)
+
+        if (currPos != null && isValidLeafBlock(entity.level().getBlockState(currPos))) {
+            val distance = entity.distanceTo(currPos)
+            if (distance <= tooFarDistance) {
+                return
+            } else if (distance > wayTooFarDistance) {
+                brain.eraseMemory(CobblemonMemories.NEARBY_SACC_LEAVES)
             }
         }
 
-//        println("Sacc sensor tick in $duration")
+        val centerPos = entity.blockPosition()
+        var leavesPos: BlockPos? = null
+        var shortestDist = Double.MAX_VALUE
+        BlockPos.betweenClosedStream(
+            centerPos.offset(-searchRadius, -2, -searchRadius),
+            centerPos.offset(searchRadius, searchRadius, searchRadius)
+        ).forEach { pos ->
+            val state = world.getBlockState(pos)
+            if (isValidLeafBlock(state)) {
+                val distance = pos.distSqr(Vec3i(centerPos.x, centerPos.y, centerPos.z))
+                if (distance < shortestDist) {
+                    leavesPos = BlockPos(pos)
+                    shortestDist = distance
+                }
+            }
+        }
 
         if (leavesPos != null) {
             brain.setMemory(CobblemonMemories.NEARBY_SACC_LEAVES, leavesPos)
@@ -65,12 +76,4 @@ class SacLeavesSensor : Sensor<PokemonEntity>(120) {
         }
         return state.getValue(SaccharineLeafBlock.AGE) != SaccharineLeafBlock.MAX_AGE
     }
-
-
-
-//    private fun isPathfindableTo(entity: PokemonEntity, pos: BlockPos): Boolean {
-//        val nav = entity.navigation
-//        val path = nav.createPath(pos, 0)
-//        return path != null && path.canReach()
-//    }
 }
