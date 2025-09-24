@@ -124,6 +124,7 @@ import java.util.UUID
 import java.util.concurrent.CompletableFuture
 import kotlin.math.PI
 import kotlin.math.ceil
+import kotlin.math.max
 import kotlin.math.min
 import net.minecraft.core.BlockPos
 import net.minecraft.core.component.DataComponents
@@ -175,13 +176,13 @@ import net.minecraft.world.item.Items
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LightLayer
 import net.minecraft.world.level.block.SuspiciousEffectHolder
+import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.gameevent.GameEvent
 import net.minecraft.world.level.material.EmptyFluid
 import net.minecraft.world.level.material.FluidState
 import net.minecraft.world.level.pathfinder.PathType
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
-import kotlin.math.max
 
 @Suppress("unused")
 open class PokemonEntity(
@@ -1864,6 +1865,13 @@ open class PokemonEntity(
     fun isFalling() =
         this.fallDistance > 0 && this.level().getBlockState(this.blockPosition().below()).isAir && !this.isFlying()
 
+    override fun checkFallDamage(y: Double, onGround: Boolean, state: BlockState, pos: BlockPos) {
+        super.checkFallDamage(y, onGround, state, pos)
+        if (isFlying() && this.passengers.isEmpty() && y < 0.0 && !onGround) {
+            fallDistance = 0F // Prevent fall damage after flying without a rider
+        }
+    }
+
     override fun getCurrentPoseType(): PoseType = this.entityData.get(POSE_TYPE)
 
     /**
@@ -2036,10 +2044,6 @@ open class PokemonEntity(
     }
 
     override fun canBeLeashed() = true
-//    override fun canBeLeashedBy(player: Player): Boolean {
-//        return this.ownerUuid == null || this.ownerUuid == player.uuid
-//    }
-
     override fun setLeashedTo(entity: Entity, bl: Boolean) {
         super.setLeashedTo(entity, bl)
         if (this.ownerUUID != null && this.ownerUUID != entity.uuid) {
@@ -2047,8 +2051,8 @@ open class PokemonEntity(
         }
     }
 
-    /** Retrieves the battle theme associated with this Pokemon's Species/Form, or the default PVW theme if not found. */
-    fun getBattleTheme() = this.form.battleTheme ?: CobblemonSounds.PVW_BATTLE.location
+    /** Retrieves the battle theme associated with this Pokemon's Species/Form which falls back to the default PVW theme if not found. */
+    fun getBattleTheme() = this.form.battleTheme
 
     /**
      * A utility method to instance a [Pokemon] aware if the [world] is client sided or not.
@@ -2063,12 +2067,11 @@ open class PokemonEntity(
 
     // Takes in a requested stat type with a base minimum and base maximum and returns the interpolated
     // stat based on the boost of that pokemons stat
-    fun getRideStat(stat: RidingStat, style: RidingStyle, baseMin: Double, baseMax: Double): Double {
-        //TODO: Change from static zero boost once aprijuice is implemented.
-        if (rideStatOverrides[style] != null && rideStatOverrides[style]!![stat] != null) {
-            return (((baseMax - baseMin) / 100) * rideStatOverrides[style]!![stat]!!) + baseMin
+    fun getRideStat(rideStat: RidingStat, style: RidingStyle, baseMin: Double, baseMax: Double): Double {
+        if (rideStatOverrides[style] != null && rideStatOverrides[style]!![rideStat] != null) {
+            return (((baseMax - baseMin) / 100) * rideStatOverrides[style]!![rideStat]!!) + baseMin
         }
-        val stat = this.rideProp.behaviours?.get(style)?.calculate(stat, 0) ?: return 0.0
+        val stat = this.rideProp.behaviours?.get(style)?.calculate(rideStat, entityData.get(RIDE_BOOSTS)[rideStat] ?: 0F) ?: return 0.0
         val statVal = (((baseMax - baseMin) / 100) * stat) + baseMin
         // Cap the minimum value at a very small value to prevent control inversions and other unexpected behaviour in
         // the ride controllers when using negative values
@@ -2079,7 +2082,7 @@ open class PokemonEntity(
         if (rideStatOverrides[style] != null && rideStatOverrides[style]!![stat] != null) {
             return rideStatOverrides[style]!![stat]!!
         }
-        return this.rideProp.behaviours?.get(style)?.calculate(stat, 0)?.toDouble() ?: 0.0
+        return this.rideProp.behaviours?.get(style)?.calculate(stat, 0F)?.toDouble() ?: 0.0
     }
 
     internal fun overrideRideStat(style: RidingStyle, stat: RidingStat, value: Double) {
