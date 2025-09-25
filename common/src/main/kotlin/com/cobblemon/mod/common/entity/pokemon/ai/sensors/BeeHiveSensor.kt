@@ -23,7 +23,6 @@ import net.minecraft.world.level.block.entity.BeehiveBlockEntity
 import net.minecraft.world.level.block.entity.BlockEntity
 
 
-// TODO: Clean up, separate hives from honey-able leaves
 class BeeHiveSensor : Sensor<PokemonEntity>(300) {
     override fun requires() = setOf(CobblemonMemories.HIVE_LOCATION)
     override fun doTick(world: ServerLevel, entity: PokemonEntity) {
@@ -40,12 +39,7 @@ class BeeHiveSensor : Sensor<PokemonEntity>(300) {
             }
         }
 
-        // Search for nearest hive/nest
-        val searchRadius = 20  // is this too big for us to use?
-        val centerPos = entity.blockPosition()
-
         var closestHivePos: BlockPos? = null
-        var closestDistance = Double.MAX_VALUE
 
         val list = findNearbyHivesWithSpace(entity)
 
@@ -65,20 +59,6 @@ class BeeHiveSensor : Sensor<PokemonEntity>(300) {
 //            this@Bee.goToHiveGoal.clearBlacklist()
 //            this@Bee.hivePos = list.get(0) as BlockPos?
         }
-//        BlockPos.betweenClosedStream(
-//            centerPos.offset(-searchRadius, -2, -searchRadius),
-//            centerPos.offset(searchRadius, 2, searchRadius)
-//        ).forEach { pos ->
-//            val state = world.getBlockState(pos)
-//
-//            if (isValidHiveOrLeaf(state) && !isAtMaxHoney(state) && hasReachableAdjacentSide(world, entity, pos)) {
-//                val distance = pos.distToCenterSqr(centerPos.x + 0.5, centerPos.y + 0.5, centerPos.z + 0.5)
-//                if (distance < closestDistance) {
-//                    closestDistance = distance
-//                    closestHivePos = pos.immutable()
-//                }
-//            }
-//        }
 
         if (closestHivePos != null) {
             brain.setMemory(CobblemonMemories.HIVE_LOCATION, closestHivePos)

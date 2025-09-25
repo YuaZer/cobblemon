@@ -37,12 +37,18 @@
         ],
         "2": [
           "pollinate_flower",
-          "place_honey_in_hive",
+          {
+            "type": "place_honey_in_hive",
+            "condition": "q.entity.is_wild"
+          },
           "place_honey_in_sacc_leaves"
         ],
         "3": [
           "path_to_flower",
-          "path_to_hive",
+          {
+            "type": "path_to_hive",
+            "condition": "q.entity.is_wild"
+          },
           "path_to_sacc_leaves"
         ]
       }
