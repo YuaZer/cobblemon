@@ -1822,6 +1822,12 @@ open class Pokemon : ShowdownIdentifiable {
         moveSet.update()
     }
 
+    fun getMaxRideBoost(stat: RidingStat): Float {
+        val behaviours = form.riding.behaviours ?: return 0F
+        // Get the widest range for this stat, max - min, since that's how far it can be boosted in theory.
+        return behaviours.values.maxOfOrNull { it.stats[stat]?.let { it.last - it.first }?.toFloat() ?: 0F } ?: 0F
+    }
+
     fun getRideBoost(stat: RidingStat): Float {
         return rideBoosts[stat] ?: 0F
     }
@@ -1839,26 +1845,27 @@ open class Pokemon : ShowdownIdentifiable {
 
     fun canAddRideBoost(stat: RidingStat): Boolean {
         val current = rideBoosts[stat] ?: 0F
-        return form.riding.behaviours != null && current < 1F
+        return current < getMaxRideBoost(stat)
     }
 
-    fun addRideBoost(stat: RidingStat, boost: Float): Boolean {
+    fun addRideBoost(stat: RidingStat, boostAmount: Float): Boolean {
         if (!canAddRideBoost(stat)) {
             return false
         }
-        rideBoosts[stat] = (getRideBoost(stat) + boost).coerceIn(0F, 1F)
+        val max = getMaxRideBoost(stat)
+        rideBoosts[stat] = (getRideBoost(stat) + boostAmount).coerceAtMost(max)
         onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
         return true
     }
 
     fun setRideBoost(stat: RidingStat, boost: Float) {
-        rideBoosts[stat] = boost.coerceIn(0F, 1F)
+        rideBoosts[stat] = boost.coerceIn(0F, getMaxRideBoost(stat))
         onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
     }
 
     fun setRideBoosts(boosts: Map<RidingStat, Float>) {
         rideBoosts.clear()
-        rideBoosts.putAll(boosts.mapValues { it.value.coerceIn(0F, 1F) })
+        rideBoosts.putAll(boosts.mapValues { it.value.coerceIn(0F, getMaxRideBoost(it.key)) })
         onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
     }
 

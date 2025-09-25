@@ -90,8 +90,7 @@ class AprijuiceItem(val type: Apricorn): CobblemonItem(Properties().stacksTo(16)
             val flavour = ridingStat.flavour
             val flavourValue = flavours[flavour]?.takeUnless { it == 0 } ?: return@associate (ridingStat to 0F)
             val adjustedValue = calculateRidingBoostForFlavour(flavour, type, flavourValue, pokemon.nature)
-            val percentValue = adjustedValue / 100
-            ridingStat to percentValue
+            ridingStat to adjustedValue
         }.filter { it.value > 0 }
     }
 

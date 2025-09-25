@@ -355,7 +355,7 @@ class StatWidget(
                         context = context,
                         labels = RidingStat.entries.toList().map { stat ->
                             if (statLabelsHovered(pentagonVerticesOffset, pMouseX, pMouseY))
-                                "${floor(pokemon.getRideBoost(stat) * 100)}%".text()
+                                "${floor(pokemon.getRideBoost(stat) / pokemon.getMaxRideBoost(stat) * 100)}%".text()
                                 else floor(pokemon.getRideStat(selectedBehaviour.key, stat)).toString().text()
                         },
                         verticesOffset = pentagonVerticesOffset,
