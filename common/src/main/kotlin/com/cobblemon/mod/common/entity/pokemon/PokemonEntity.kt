@@ -539,6 +539,7 @@ open class PokemonEntity(
         }
         super.removePassenger(passenger)
         if (passengers.isEmpty()) {
+            ifRidingAvailable { _, _, state -> pokemon.rideStamina = state.stamina.get() }
             ridingController?.context?.state?.reset()
             ridingAnimationData.clear()
         }
@@ -2098,6 +2099,7 @@ open class PokemonEntity(
 
     public override fun addPassenger(passenger: Entity) {
         if (passenger is ServerPlayer) {
+            // Recall all the rest of the player's party pokes
             passenger.party()
                 .mapNotNull { it.entity }
                 .filter { it != this }
@@ -2108,6 +2110,10 @@ open class PokemonEntity(
             occupiedSeats[passengerIndex] = passenger
         }
         super.addPassenger(passenger)
+        if (passengers.size == 1) {
+            // Someone just started riding, fill in the stamina value! Run from both sides.
+            ifRidingAvailable { _, _, state -> state.stamina.set(pokemon.rideStamina) }
+        }
     }
 
     fun getIsJumping() = jumping
