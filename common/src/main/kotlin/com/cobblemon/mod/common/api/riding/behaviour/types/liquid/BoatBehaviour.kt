@@ -134,7 +134,7 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
 
     private fun applyVelocityFromInput(velocity: Vec3, vehicle: PokemonEntity, driver: Player, settings: BoatSettings, state: BoatState): Vec3 {
         val speed = vehicle.runtime.resolveDouble(settings.speedExpr)
-        val acceleration = vehicle.runtime.resolveDouble(settings.accelerationExpr)
+        val acceleration = speed / (vehicle.runtime.resolveDouble(settings.accelerationExpr) * 20)
 
         if (state.jumpBuffer.get() != -1 || !(vehicle.isInWater || vehicle.isUnderWater)) {
             return velocity
@@ -394,10 +394,10 @@ class BoatSettings : RidingBehaviourSettings {
     var speedExpr = "q.get_ride_stats('SPEED', 'LIQUID', 2.0, 0.5)".asExpression()
         private set
 
-    var accelerationExpr = "q.get_ride_stats('ACCELERATION', 'LIQUID', 0.5, 0.05)".asExpression()
+    var accelerationExpr = "q.get_ride_stats('ACCELERATION', 'LIQUID', 0.1, 12.0)".asExpression()
         private set
 
-    var sprintSpeedModifier = "1.5".asExpression()
+    var sprintSpeedModifier = "q.get_ride_stats('JUMP', 'LIQUID', 1.5, 1.25)".asExpression()
         private set
 
     var sprintFovModifier = "1.2".asExpression()
