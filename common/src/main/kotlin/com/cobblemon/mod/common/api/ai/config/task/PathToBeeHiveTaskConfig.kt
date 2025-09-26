@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.api.ai.config.task
 
+import com.cobblemon.mod.common.CobblemonSensors
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
 import com.cobblemon.mod.common.api.ai.asVariables
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
@@ -36,6 +37,7 @@ class PathToBeeHiveTaskConfig : SingleTaskConfig {
         if (!checkCondition(behaviourConfigurationContext.runtime, condition)) {
             return null
         }
+        behaviourConfigurationContext.addSensors(CobblemonSensors.NEARBY_BEE_HIVE)
         return PathToBeeHiveTask.create()
     }
 }

@@ -46,7 +46,7 @@ class PathToFlowerTaskConfig : SingleTaskConfig {
             CobblemonMemories.HIVE_LOCATION,
             CobblemonMemories.HAS_NECTAR
         )
-        behaviourConfigurationContext.addSensors(CobblemonSensors.NEARBY_BEE_HIVE, CobblemonSensors.NEARBY_FLOWER)
+        behaviourConfigurationContext.addSensors(CobblemonSensors.NEARBY_FLOWER)
         return PathToFlowerTask.create()
     }
 }
