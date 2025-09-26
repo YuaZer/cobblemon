@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.DoublePlantBlock
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf
-import kotlin.time.measureTime
 
 class FlowerSensor : Sensor<PokemonEntity>(120) {
 
@@ -31,25 +30,22 @@ class FlowerSensor : Sensor<PokemonEntity>(120) {
 
         val searchRadius = 5
         val centerPos = entity.blockPosition()
-        var flowerPos : BlockPos? = null
+        var flowerPos: BlockPos? = null
         var shortestDist = Double.MAX_VALUE
-        val duration = measureTime {
-            BlockPos.betweenClosedStream(
-                centerPos.offset(-searchRadius, -2, -searchRadius),
-                centerPos.offset(searchRadius, 2, searchRadius)
-            ).forEach { pos ->
-                val state = world.getBlockState(pos)
-                if (isFlower(state)) {
-                    val distance = pos.distSqr(Vec3i(centerPos.x, centerPos.y, centerPos.z))
-                    if (distance < shortestDist) {
-                        flowerPos = BlockPos(pos)
-                        shortestDist = distance
-                    }
+        BlockPos.betweenClosedStream(
+            centerPos.offset(-searchRadius, -2, -searchRadius),
+            centerPos.offset(searchRadius, 2, searchRadius)
+        ).forEach { pos ->
+            val state = world.getBlockState(pos)
+            if (isFlower(state)) {
+                val distance = pos.distSqr(Vec3i(centerPos.x, centerPos.y, centerPos.z))
+                if (distance < shortestDist) {
+                    flowerPos = BlockPos(pos)
+                    shortestDist = distance
                 }
             }
         }
 
-//        println("Flower sensor tick in $duration")
 
         if (flowerPos != null) {
             brain.setMemory(CobblemonMemories.NEARBY_FLOWER, flowerPos)
@@ -75,10 +71,4 @@ class FlowerSensor : Sensor<PokemonEntity>(120) {
             return false
         }
     }
-
-//    private fun isPathfindableTo(entity: PokemonEntity, pos: BlockPos): Boolean {
-//        val nav = entity.navigation
-//        val path = nav.createPath(pos, 0)
-//        return path != null && path.canReach()
-//    }
 }
