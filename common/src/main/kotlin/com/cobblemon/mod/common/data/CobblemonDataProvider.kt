@@ -10,9 +10,9 @@ package com.cobblemon.mod.common.data
 
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.Cobblemon.LOGGER
-import com.cobblemon.mod.common.CobblemonCosmeticItems
-import com.cobblemon.mod.common.CobblemonCallbacks
 import com.cobblemon.mod.common.CobblemonBehaviours
+import com.cobblemon.mod.common.CobblemonCallbacks
+import com.cobblemon.mod.common.CobblemonCosmeticItems
 import com.cobblemon.mod.common.CobblemonMechanics
 import com.cobblemon.mod.common.CobblemonUnlockableWallpapers
 import com.cobblemon.mod.common.api.abilities.Abilities
@@ -20,12 +20,11 @@ import com.cobblemon.mod.common.api.berry.Berries
 import com.cobblemon.mod.common.api.cooking.Seasonings
 import com.cobblemon.mod.common.api.data.DataProvider
 import com.cobblemon.mod.common.api.data.DataRegistry
-import com.cobblemon.mod.common.api.pokedex.Dexes
 import com.cobblemon.mod.common.api.dialogue.Dialogues
 import com.cobblemon.mod.common.api.events.CobblemonEvents
+import com.cobblemon.mod.common.api.fishing.PokeRods
 import com.cobblemon.mod.common.api.fishing.SpawnBait
 import com.cobblemon.mod.common.api.fishing.SpawnBaitEffects
-import com.cobblemon.mod.common.api.fishing.PokeRods
 import com.cobblemon.mod.common.api.fossil.Fossils
 import com.cobblemon.mod.common.api.fossil.NaturalMaterials
 import com.cobblemon.mod.common.api.interaction.PokemonInteractions
@@ -37,6 +36,7 @@ import com.cobblemon.mod.common.api.npc.NPCClasses
 import com.cobblemon.mod.common.api.npc.NPCPresets
 import com.cobblemon.mod.common.api.pokeball.PokeBalls
 import com.cobblemon.mod.common.api.pokedex.DexAdditions
+import com.cobblemon.mod.common.api.pokedex.Dexes
 import com.cobblemon.mod.common.api.pokedex.entry.DexEntries
 import com.cobblemon.mod.common.api.pokedex.entry.DexEntryAdditions
 import com.cobblemon.mod.common.api.pokemon.PokemonSpecies
@@ -48,23 +48,21 @@ import com.cobblemon.mod.common.api.spawning.CobblemonSpawnPools
 import com.cobblemon.mod.common.api.spawning.CobblemonSpawnRules
 import com.cobblemon.mod.common.api.spawning.SpawnDetailPresets
 import com.cobblemon.mod.common.battles.BagItems
-import com.cobblemon.mod.common.net.messages.client.data.UnlockReloadPacket
 import com.cobblemon.mod.common.platform.events.PlatformEvents
 import com.cobblemon.mod.common.pokemon.SpeciesAdditions
 import com.cobblemon.mod.common.pokemon.properties.PropertiesCompletionProvider
 import com.cobblemon.mod.common.util.cobblemonResource
 import com.cobblemon.mod.common.util.ifClient
 import com.cobblemon.mod.common.util.server
+import java.util.UUID
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.packs.PackType
 import net.minecraft.server.packs.resources.ResourceManager
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener
-import java.util.*
 
 object CobblemonDataProvider : DataProvider {
 
-    internal var canReload = true
     // Both Forge n Fabric keep insertion order so if a registry depends on another simply register it after
     private val registries = linkedSetOf<DataRegistry>()
     private val reloadableRegistries = linkedSetOf<DataRegistry>()
@@ -115,7 +113,6 @@ object CobblemonDataProvider : DataProvider {
 
         PlatformEvents.SERVER_PLAYER_LOGOUT.subscribe {
             synchronizedPlayerIds.remove(it.player.uuid)
-            UnlockReloadPacket().sendToPlayer(it.player)
         }
 
         ifClient {
@@ -163,12 +160,9 @@ object CobblemonDataProvider : DataProvider {
     private class SimpleResourceReloader(private val type: PackType) : ResourceManagerReloadListener {
         override fun onResourceManagerReload(manager: ResourceManager) {
             // Check for a server running, this is due to the create a world screen triggering datapack reloads, these are fine to happen as many times as needed as players may be in the process of adding their datapacks.
-            val isInGame = server() != null
-            registries.filter { it.type == this.type && (canReload || it in reloadableRegistries) }
+            val reloadAllowed = server()?.isReady != true
+            registries.filter { it.type == this.type && (reloadAllowed || it in reloadableRegistries) }
                 .forEach { it.reload(manager) }
-            if (isInGame && this.type == PackType.SERVER_DATA) {
-                canReload = false
-            }
         }
     }
 }
