@@ -29,6 +29,7 @@ import com.cobblemon.mod.common.api.fishing.PokeRods
 import com.cobblemon.mod.common.api.fossil.Fossils
 import com.cobblemon.mod.common.api.fossil.NaturalMaterials
 import com.cobblemon.mod.common.api.interaction.PokemonInteractions
+import com.cobblemon.mod.common.api.item.HeldItems
 import com.cobblemon.mod.common.api.mark.Marks
 import com.cobblemon.mod.common.api.moves.Moves
 import com.cobblemon.mod.common.api.moves.animations.ActionEffects
@@ -87,6 +88,7 @@ object CobblemonDataProvider : DataProvider {
         this.register(CobblemonSpawnRules)
         this.register(CobblemonMechanics)
         this.register(BagItems)
+        this.register(HeldItems)
         this.register(Dialogues)
         this.register(NaturalMaterials)
         this.register(Fossils)
