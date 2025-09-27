@@ -104,7 +104,7 @@ object CobblemonClient {
         teamData = ClientPlayerTeamData()
         clientPokedexData = ClientPokedexManager(mutableMapOf())
         storage.onLogin()
-        CobblemonDataProvider.canReload = false
+//        CobblemonDataProvider.canReload = false
     }
 
     fun onLogout() {
@@ -113,7 +113,7 @@ object CobblemonClient {
         battleOverlay.onLogout()
         ClientTaskTracker.clear()
         checkedStarterScreen = false
-        CobblemonDataProvider.canReload = true
+//        CobblemonDataProvider.canReload = true
         DeferredRenderer.clearAll()
         ClientPlayerIcon.clear()
     }
