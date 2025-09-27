@@ -2692,8 +2692,10 @@
   "advancements.cobblemon.cook_all_regional_delicacies.description": "Cook the 10 Regional Delicacies",
   "advancements.cobblemon.cook_all_ev_mochi": "Mochi Mochi!",
   "advancements.cobblemon.cook_all_ev_mochi.description": "Cook every flavor of mochi, a tasty snack that can manipulate a Pokémon's Effort Values",
-  "advancements.cobblemon.cook_snack": "Alluring Aromas",
+  "advancements.cobblemon.cook_snack": "A Luring Aroma",
   "advancements.cobblemon.cook_snack.description": "Bake a Poké Snack, a delicious cake that can lure certain Pokémon based on the berries used",
+  "advancements.cobblemon.use_poke_bait": "Hook, Line, and Sinker",
+  "advancements.cobblemon.use_poke_bait.description": "Reel in a Pokémon using Poké Bait, a customizable form of bait cooked in a Campfire Pot",
 
   "cobblemon.battle.crash": "A battle error has occurred. If playing single-player, report this to the mod team. Otherwise, report this to the servers administrator.",
   "cobblemon.battle.damage_dealt": "%1$s took %2$s damage!",
