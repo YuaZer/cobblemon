@@ -16,6 +16,19 @@ import net.minecraft.server.level.ServerPlayer
 
 object RideSettingsSyncHandler : ServerNetworkPacketHandler<RideSettingsSyncPacket> {
     override fun handle(packet: RideSettingsSyncPacket, server: MinecraftServer, player: ServerPlayer) {
+        CobblemonRideSettings.bird = packet.bird
+        CobblemonRideSettings.glider = packet.glider
+        CobblemonRideSettings.helicopter = packet.helicopter
+        CobblemonRideSettings.hover = packet.hover
         CobblemonRideSettings.jet = packet.jet
+        CobblemonRideSettings.rocket = packet.rocket
+
+        CobblemonRideSettings.horse = packet.horse
+        CobblemonRideSettings.minekart = packet.minekart
+        CobblemonRideSettings.vehicle = packet.vehicle
+
+        CobblemonRideSettings.boat = packet.boat
+        CobblemonRideSettings.burst = packet.burst
+        CobblemonRideSettings.dolphin = packet.dolphin
     }
 }
