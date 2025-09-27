@@ -1,0 +1,32 @@
+{
+  "jet": {
+    "infiniteStamina": false,
+    "gravity": 0,
+    "deccelRate": 0.005,
+    "minSpeedFactor": 0.25,
+    "handlingYaw": {
+      "min": 25,
+      "max": 50
+    },
+    "handling": {
+      "min": 10,
+      "max": 60
+    },
+    "speed": {
+      "min": 4.0,
+      "max": 24.0
+    },
+    "acceleration": {
+      "min": 8,
+      "max": 2
+    },
+    "jump": {
+      "min": 1,
+      "max": 2
+    },
+    "stamina": {
+      "min": 4,
+      "max": 60
+    }
+  }
+}

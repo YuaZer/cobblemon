@@ -15,6 +15,7 @@ import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.CobblemonCosmeticItems
 import com.cobblemon.mod.common.CobblemonEntities
 import com.cobblemon.mod.common.CobblemonItems
+import com.cobblemon.mod.common.CobblemonMechanics
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.CobblemonNetwork.sendPacket
 import com.cobblemon.mod.common.CobblemonSounds
@@ -330,6 +331,7 @@ open class PokemonEntity(
                     val minVal = params.getDouble(3)
                     DoubleValue(getRideStat(rideStat, rideStyle, minVal, maxVal))
                 }
+                it.environment.query.addFunction("ride_conf") { CobblemonMechanics.riding.struct }
             }
     }
 

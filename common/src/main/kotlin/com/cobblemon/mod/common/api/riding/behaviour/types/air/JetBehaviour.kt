@@ -547,39 +547,38 @@ class JetSettings : RidingBehaviourSettings {
     override val key = JetBehaviour.KEY
     override val stats = mutableMapOf<RidingStat, IntRange>()
 
-    var gravity: Expression = "0".asExpression()
+    var gravity: Expression = "q.ride_conf.jet.gravity".asExpression()
         private set
 
-    var deccelRate: Expression = "0.005".asExpression()
+    var deccelRate: Expression = "q.ride_conf.jet.deccel_rate".asExpression()
         private set
 
     // Mult to top speed in order to derive minSpeed
-    var minSpeedFactor: Expression = "0.25".asExpression()
+    var minSpeedFactor: Expression = "q.ride_conf.jet.min_speed_factor".asExpression()
         private set
 
-    var handlingYawExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 50.0, 25.0)".asExpression()
+    var handlingYawExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', q.ride_conf.jet.max_handling_yaw, q.ride_conf.jet.min_handling_yaw)".asExpression()
         private set
 
     // Make configurable by json
-    var infiniteStamina: Expression = "false".asExpression()
+    var infiniteStamina: Expression = "q.ride_conf.jet.infinite_stamina".asExpression()
         private set
 
     // Boost power. Mult for top speed and accel while boosting
-    var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'AIR', 2.0, 1.0)".asExpression()
+    var jumpExpr: Expression = "q.get_ride_stats('JUMP', 'AIR', q.ride_conf.jet.max_jump, q.ride_conf.jet.min_jump)".asExpression()
         private set
 
     // Turn rate in degrees per second
-    var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 60.0, 10.0)".asExpression()
+    var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', q.ride_conf.jet.max_handling, q.ride_conf.jet.min_handling)".asExpression()
         private set
     // Top Speed in blocks per second
-    var speedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', 24.0, 4.0)".asExpression()
+    var speedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', q.ride_conf.jet.max_speed, q.ride_conf.jet.min_speed)".asExpression()
         private set
     // Seconds to get to top speed
-    var accelerationExpr: Expression =
-        "q.get_ride_stats('ACCELERATION', 'AIR', 2.0, 8.0)".asExpression()
+    var accelerationExpr: Expression = "q.get_ride_stats('ACCELERATION', 'AIR', q.ride_conf.jet.max_accel, q.ride_conf.jet.min_accel)".asExpression()
         private set
     // Time in seconds to drain full bar of stamina flying
-    var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'AIR', 60.0, 4.0)".asExpression()
+    var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'AIR', q.ride_conf.jet.max_stamina, q.ride_conf.jet.min_stamina)".asExpression()
         private set
 
     var rideSounds: RideSoundSettingsList = RideSoundSettingsList()
