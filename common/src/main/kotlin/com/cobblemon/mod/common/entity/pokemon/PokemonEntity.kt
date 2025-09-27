@@ -331,7 +331,6 @@ open class PokemonEntity(
                     val minVal = params.getDouble(3)
                     DoubleValue(getRideStat(rideStat, rideStyle, minVal, maxVal))
                 }
-                it.environment.query.addFunction("ride_conf") { CobblemonMechanics.riding.struct }
             }
     }
 

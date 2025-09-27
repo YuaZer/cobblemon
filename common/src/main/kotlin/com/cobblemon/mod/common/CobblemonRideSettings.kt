@@ -9,45 +9,51 @@
 package com.cobblemon.mod.common
 
 import com.bedrockk.molang.Expression
+import com.cobblemon.mod.common.CobblemonNetwork.sendPacket
 import com.cobblemon.mod.common.api.data.DataRegistry
 import com.cobblemon.mod.common.api.molang.ExpressionLike
 import com.cobblemon.mod.common.api.reactive.SimpleObservable
-import com.cobblemon.mod.common.mechanics.BerriesMechanic
-import com.cobblemon.mod.common.mechanics.PotionsMechanic
-import com.cobblemon.mod.common.mechanics.RemediesMechanic
+import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
+import com.cobblemon.mod.common.api.riding.behaviour.types.air.JetSettings
+import com.cobblemon.mod.common.net.messages.client.data.RideSettingsSyncPacket
 import com.cobblemon.mod.common.util.adapters.ExpressionAdapter
 import com.cobblemon.mod.common.util.adapters.ExpressionLikeAdapter
+import com.cobblemon.mod.common.util.adapters.FloatNumberRangeAdapter
 import com.cobblemon.mod.common.util.cobblemonResource
 import com.google.gson.GsonBuilder
+import net.minecraft.advancements.critereon.MinMaxBounds
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.packs.PackType
 import net.minecraft.server.packs.resources.ResourceManager
 
-object CobblemonMechanics : DataRegistry {
-    override val id: ResourceLocation = cobblemonResource("mechanics")
+object CobblemonRideSettings : DataRegistry {
+    override val id: ResourceLocation = cobblemonResource("ride_settings")
     override val type = PackType.SERVER_DATA
-    override val observable = SimpleObservable<CobblemonMechanics>()
+    override val observable = SimpleObservable<CobblemonRideSettings>()
     val gson = GsonBuilder()
         .setPrettyPrinting()
         .registerTypeAdapter(Expression::class.java, ExpressionAdapter)
         .registerTypeAdapter(ExpressionLike::class.java, ExpressionLikeAdapter)
+        .registerTypeAdapter(MinMaxBounds.Doubles::class.java, FloatNumberRangeAdapter)
         .create()
 
-    var remedies = RemediesMechanic()
-    var berries = BerriesMechanic()
-    var potions = PotionsMechanic()
+    var jet = JetSettings()
 
-    override fun sync(player: ServerPlayer) {}
-
-    override fun reload(manager: ResourceManager) {
-        remedies = loadMechanic(manager, "remedies", RemediesMechanic::class.java)
-        berries = loadMechanic(manager, "berries", BerriesMechanic::class.java)
-        potions = loadMechanic(manager, "potions", PotionsMechanic::class.java)
+    override fun sync(player: ServerPlayer) {
+        player.sendPacket(
+            RideSettingsSyncPacket(
+                jet = jet
+            )
+        )
     }
 
-    private fun <T> loadMechanic(manager: ResourceManager, name: String, clazz: Class<T>): T {
-        manager.getResourceOrThrow(cobblemonResource("mechanics/$name.json")).open().use {
+    override fun reload(manager: ResourceManager) {
+        jet = loadStyle(manager, "jet", JetSettings::class.java)
+    }
+
+    private fun <T : RidingBehaviourSettings> loadStyle(manager: ResourceManager, name: String, clazz: Class<T>): T {
+        manager.getResourceOrThrow(cobblemonResource("ride_settings/$name.json")).open().use {
             return gson.fromJson(it.reader(), clazz)
         }
     }
