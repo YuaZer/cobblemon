@@ -1,19 +1,22 @@
 {
   "display": {
-    "icon": {
-      "id": "minecraft:brush"
-    },
+	"icon": {
+			"id": "cobblemon:pokemon_model",
+	"components": {
+        "cobblemon:pokemon_item": {"species":"cobblemon:tangela","aspects":[""]}
+      }
+	},
     "title": {
-      "translate": "advancements.cobblemon.brush_interactable_pokemon"
+      "translate": "advancements.cobblemon.bonemeal_interactable_pokemon"
     },
     "description": {
-      "translate": "advancements.cobblemon.brush_interactable_pokemon.description"
+      "translate": "advancements.cobblemon.bonemeal_interactable_pokemon.description"
     },
 	"hidden": false
   },
   "parent": "cobblemon:use_pasture",
   "criteria": {
-    "brush_interactable_pokemon": {
+    "bonemeal_interactable_pokemon": {
       "conditions": {
         "entity": [
           {
@@ -25,7 +28,7 @@
           }
         ],
         "item": {
-          "items": "minecraft:brush"
+          "items": "minecraft:bone_meal"
         }
       },
       "trigger": "minecraft:player_interacted_with_entity"

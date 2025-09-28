@@ -3,7 +3,7 @@
     "icon": {
       "id": "cobblemon:aprijuice_white",
       "components": {
-        "cobblemon:flavour": { "flavours": { "SPICY":69, "DRY":69, "SWEET":69, "BITTER":69, "SOUR":69} }
+        "cobblemon:flavour": { "flavours": { "SOUR":69} }
       }
     },
     "title": {
@@ -12,7 +12,8 @@
     "description": {
       "translate": "advancements.cobblemon.max_ride_stats.description"
     },
-	"hidden": false
+	"hidden": false,
+	"frame": "challenge"
   },
   "parent": "cobblemon:use_aprijuice",
   "criteria": {
@@ -33,5 +34,8 @@
     }
   },
   "requirements": [[ "max_speed" ], [ "max_accel" ], [ "max_skill" ], [ "max_jump" ], [ "max_stamina" ]],
+  "rewards": {
+    "experience": 100
+  },
   "sends_telemetry_event": false
 }
