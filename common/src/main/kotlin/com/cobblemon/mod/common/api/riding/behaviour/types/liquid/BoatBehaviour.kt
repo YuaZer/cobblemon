@@ -18,6 +18,7 @@ import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
+import net.minecraft.core.BlockPos
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
@@ -134,7 +135,7 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
 
     private fun applyVelocityFromInput(velocity: Vec3, vehicle: PokemonEntity, driver: Player, settings: BoatSettings, state: BoatState): Vec3 {
         val speed = vehicle.runtime.resolveDouble(settings.speedExpr)
-        val acceleration = vehicle.runtime.resolveDouble(settings.accelerationExpr)
+        val acceleration = speed / (vehicle.runtime.resolveDouble(settings.accelerationExpr) * 20)
 
         if (state.jumpBuffer.get() != -1 || !(vehicle.isInWater || vehicle.isUnderWater)) {
             return velocity
@@ -170,12 +171,23 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
 
     private fun applyGravity(velocity: Vec3, vehicle: PokemonEntity, settings: BoatSettings, state: BoatState): Vec3 {
         if (state.jumpBuffer.get() == -1 && (vehicle.isInWater || vehicle.isUnderWater)) {
-            val verticalVelocity = if (vehicle.isUnderWater) 0.5 else 0.0
-            return Vec3(velocity.x, verticalVelocity, velocity.z)
+            if (shouldFloatHigher(vehicle, settings)) {
+                return Vec3(velocity.x, 0.5, velocity.z)
+            }
+            else {
+                return Vec3(velocity.x, 0.0, velocity.z)
+            }
         }
         val terminalVelocity = vehicle.runtime.resolveDouble(settings.terminalVelocity)
         val gravity = (9.8 / ( 20.0)) * 0.2
         return Vec3(velocity.x, max(velocity.y - gravity, terminalVelocity), velocity.z)
+    }
+
+    private fun shouldFloatHigher(vehicle: PokemonEntity, settings: BoatSettings): Boolean {
+        val surfaceOffset = vehicle.runtime.resolveFloat(settings.surfaceLevelOffset)
+        val blockPos = BlockPos.containing(vehicle.x, vehicle.eyeY + surfaceOffset, vehicle.z)
+        val fluidState = vehicle.level().getFluidState(blockPos)
+        return !fluidState.isEmpty
     }
 
     private fun applyStrafeRotation(vehicle: PokemonEntity, driver: Player, settings: BoatSettings, state: BoatState) {
@@ -394,13 +406,15 @@ class BoatSettings : RidingBehaviourSettings {
     var speedExpr = "q.get_ride_stats('SPEED', 'LIQUID', 2.0, 0.5)".asExpression()
         private set
 
-    var accelerationExpr = "q.get_ride_stats('ACCELERATION', 'LIQUID', 0.5, 0.05)".asExpression()
+    var accelerationExpr = "q.get_ride_stats('ACCELERATION', 'LIQUID', 0.1, 12.0)".asExpression()
         private set
 
-    var sprintSpeedModifier = "1.5".asExpression()
+    var sprintSpeedModifier = "q.get_ride_stats('JUMP', 'LIQUID', 1.5, 1.25)".asExpression()
         private set
 
     var sprintFovModifier = "1.2".asExpression()
+
+    var surfaceLevelOffset = "0".asExpression()
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
         buffer.writeResourceLocation(key)
