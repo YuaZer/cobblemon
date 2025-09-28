@@ -2701,7 +2701,7 @@
   "advancements.cobblemon.max_ride_stats": "Star Pokéathlete",
   "advancements.cobblemon.max_ride_stats.description": "Max out all five ride stats by feeding Pokémon Aprijuice flavored with sweet speed, spicy acceleration, dry skill, bitter jump, and sour stamina",
   "advancements.cobblemon.brush_interactable_pokemon": "Refreshing Care",
-  "advancements.cobblemon.brush_interactable_pokemon.description": "Brush your Pokémon to get some loose items off them",
+  "advancements.cobblemon.brush_interactable_pokemon.description": "Brush your Pokémon and collect what falls loose",
 
   "cobblemon.battle.crash": "A battle error has occurred. If playing single-player, report this to the mod team. Otherwise, report this to the servers administrator.",
   "cobblemon.battle.damage_dealt": "%1$s took %2$s damage!",
