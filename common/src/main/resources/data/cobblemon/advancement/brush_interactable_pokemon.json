@@ -13,11 +13,22 @@
   },
   "parent": "cobblemon:first_catch",
   "criteria": {
-    "use_rare_candy": {
-      "trigger": "cobblemon:pokemon_interact",
+    "brush_interactable_pokemon": {
       "conditions": {
-        "item": "minecraft:brush"
-      }
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "cobblemon:pokemon"
+            }
+          }
+        ],
+        "item": {
+          "items": "minecraft:brush"
+        }
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
     }
   },
   "sends_telemetry_event": false

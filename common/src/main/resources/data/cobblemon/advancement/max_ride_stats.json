@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "id": "cobblemon:aprijuice_white",
+      "components": {
+        "cobblemon:flavour": { "flavours": { "SPICY":69, "DRY":69, "SWEET":69, "BITTER":69, "SOUR":69} }
+      }
+    },
+    "title": {
+      "translate": "advancements.cobblemon.max_ride_stats"
+    },
+    "description": {
+      "translate": "advancements.cobblemon.max_ride_stats.description"
+    },
+	"hidden": false
+  },
+  "parent": "cobblemon:use_aprijuice",
+  "criteria": {
+    "max_speed": {
+      "trigger": "minecraft:impossible"
+    },
+	"max_accel": {
+      "trigger": "minecraft:impossible"
+    },
+	"max_skill": {
+      "trigger": "minecraft:impossible"
+    },
+	"max_jump": {
+      "trigger": "minecraft:impossible"
+    },
+	"max_stamina": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [[ "max_speed" ], [ "max_accel" ], [ "max_skill" ], [ "max_jump" ], [ "max_stamina" ]],
+  "sends_telemetry_event": false
+}

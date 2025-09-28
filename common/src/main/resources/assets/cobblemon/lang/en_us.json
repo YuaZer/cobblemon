@@ -2696,6 +2696,12 @@
   "advancements.cobblemon.cook_snack.description": "Bake a Poké Snack, a delicious cake that can lure certain Pokémon based on the berries used",
   "advancements.cobblemon.use_poke_bait": "Hook, Line, and Sinker",
   "advancements.cobblemon.use_poke_bait.description": "Reel in a Pokémon using Poké Bait, a customizable form of bait cooked in a Campfire Pot",
+  "advancements.cobblemon.use_aprijuice": "Juiced Up",
+  "advancements.cobblemon.use_aprijuice.description": "Give your Pokémon a drink of some berry flavored Aprijuice to increase their riding potential",
+  "advancements.cobblemon.max_ride_stats": "Star Pokéathlete",
+  "advancements.cobblemon.max_ride_stats.description": "Max out all five ride stats by feeding Pokémon Aprijuice flavored with sweet speed, spicy acceleration, dry skill, bitter jump, and sour stamina",
+  "advancements.cobblemon.brush_interactable_pokemon": "Refreshing Care",
+  "advancements.cobblemon.brush_interactable_pokemon.description": "Brush your Pokémon to get some loose items off them",
 
   "cobblemon.battle.crash": "A battle error has occurred. If playing single-player, report this to the mod team. Otherwise, report this to the servers administrator.",
   "cobblemon.battle.damage_dealt": "%1$s took %2$s damage!",
