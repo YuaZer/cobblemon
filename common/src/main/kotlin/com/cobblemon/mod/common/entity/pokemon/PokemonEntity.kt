@@ -541,10 +541,7 @@ open class PokemonEntity(
         }
         super.removePassenger(passenger)
         if (passengers.isEmpty()) {
-            ifRidingAvailable { _, _, state ->
-                Cobblemon.LOGGER.info("Setting client:${level().isClientSide} rideStamina on dismount to ${state.stamina.get()}")
-                pokemon.rideStamina = state.stamina.get()
-            }
+            ifRidingAvailable { _, _, state -> pokemon.rideStamina = state.stamina.get() }
             ridingController?.context?.state?.reset()
             ridingAnimationData.clear()
         }
