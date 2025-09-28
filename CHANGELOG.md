@@ -292,6 +292,7 @@
 - Tauros - Paldea Blaze
 - Tauros - Paldea Combat
 - Dewgong
+- Exeggutor - Kanto
 
 ### Model updates for the following Pokémon
 - Cleffa
