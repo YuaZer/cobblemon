@@ -427,8 +427,7 @@ class StatWidget(
                         labelsHovered
                     ),
                     verticesOffset = hexagonVerticesOffset,
-                    offsetY = 5.5,
-                    enableColour = true
+                    offsetY = 5.5
                 )
 
                 // Nature-modified Stat Icons
