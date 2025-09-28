@@ -402,6 +402,9 @@
 - Revavroom
 - Nickit
 - Thievul
+- Litwick
+- Lampent
+- Chandelure
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
