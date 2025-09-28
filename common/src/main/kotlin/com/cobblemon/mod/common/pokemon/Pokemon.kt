@@ -375,8 +375,11 @@ open class Pokemon : ShowdownIdentifiable {
      */
     var rideStamina = 1F
         set(value) {
-            field = value
-            onChange(RideStaminaUpdatePacket({ this }, value))
+            val newValue = value.coerceIn(0F, 1F)
+            if (newValue != field) {
+                field = newValue
+                onChange(RideStaminaUpdatePacket({ this }, newValue))
+            }
         }
 
     var interactionCooldowns: MutableMap<ResourceLocation, Int> = mutableMapOf()

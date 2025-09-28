@@ -31,6 +31,7 @@ import com.cobblemon.mod.common.util.math.geometry.toDegrees
 import com.cobblemon.mod.common.util.math.geometry.toRadians
 import com.cobblemon.mod.common.util.readNullableExpression
 import com.cobblemon.mod.common.util.readRidingStats
+import com.cobblemon.mod.common.util.resolveBoolean
 import com.cobblemon.mod.common.util.resolveDouble
 import com.cobblemon.mod.common.util.toVec3d
 import com.cobblemon.mod.common.util.writeNullableExpression
@@ -117,6 +118,10 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         vehicle: PokemonEntity
     ) {
         val stam = state.stamina.get()
+
+        if (vehicle.runtime.resolveBoolean(settings.infiniteStamina ?: globalDolphin.infiniteStamina!!)) {
+            return
+        }
 
         // Grab the boost time in seconds and convert to ticks. Then calculate the drain rate as inversely
         // proportional to the number of ticks of boost thus making a full boost take x ticks
@@ -561,6 +566,9 @@ class DolphinSettings : RidingBehaviourSettings {
     override val key = DolphinBehaviour.KEY
     override val stats = mutableMapOf<RidingStat, IntRange>()
 
+    var infiniteStamina: Expression? = null
+        private set
+
     var canJump: Expression? = null
         private set
 
@@ -592,6 +600,7 @@ class DolphinSettings : RidingBehaviourSettings {
         buffer.writeResourceLocation(key)
         buffer.writeRidingStats(stats)
         rideSounds.encode(buffer)
+        buffer.writeNullableExpression(infiniteStamina)
         buffer.writeNullableExpression(canJump)
         buffer.writeNullableExpression(reverseDriveFactor)
         buffer.writeNullableExpression(strafeFactor)
@@ -607,6 +616,7 @@ class DolphinSettings : RidingBehaviourSettings {
     override fun decode(buffer: RegistryFriendlyByteBuf) {
         stats.putAll(buffer.readRidingStats())
         rideSounds = RideSoundSettingsList.decode(buffer)
+        infiniteStamina = buffer.readNullableExpression()
         canJump = buffer.readNullableExpression()
         reverseDriveFactor = buffer.readNullableExpression()
         strafeFactor = buffer.readNullableExpression()

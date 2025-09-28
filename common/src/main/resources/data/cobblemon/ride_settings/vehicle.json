@@ -1,4 +1,5 @@
 {
+  "infiniteStamina": "false",
   "canJump": "true",
   "speed": "0.3",
   "driveFactor": "1.0",

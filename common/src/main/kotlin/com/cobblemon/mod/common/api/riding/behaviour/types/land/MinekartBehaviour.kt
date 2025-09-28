@@ -461,6 +461,8 @@ class MinekartSettings : RidingBehaviourSettings {
     override val key = MinekartBehaviour.KEY
     override val stats = mutableMapOf<RidingStat, IntRange>()
 
+    var infiniteStamina: Expression? = null
+        private set
     var canJump: Expression? = null
         private set
 
@@ -490,6 +492,7 @@ class MinekartSettings : RidingBehaviourSettings {
         buffer.writeResourceLocation(key)
         buffer.writeRidingStats(stats)
         rideSounds.encode(buffer)
+        buffer.writeNullableExpression(infiniteStamina)
         buffer.writeNullableExpression(canJump)
         buffer.writeNullableExpression(boostLimit)
         buffer.writeNullableExpression(speedExpr)
@@ -502,6 +505,7 @@ class MinekartSettings : RidingBehaviourSettings {
     override fun decode(buffer: RegistryFriendlyByteBuf) {
         stats.putAll(buffer.readRidingStats())
         rideSounds = RideSoundSettingsList.decode(buffer)
+        infiniteStamina = buffer.readNullableExpression()
         canJump = buffer.readNullableExpression()
         boostLimit = buffer.readNullableExpression()
         speedExpr = buffer.readNullableExpression()

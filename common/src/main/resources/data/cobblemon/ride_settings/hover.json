@@ -1,4 +1,5 @@
 {
+  "infiniteStamina": "false",
   "canJump": "true",
   "stamReplenishTimeSeconds": "2.0",
   "speedExpr": "q.get_ride_stats('SPEED', 'AIR', 7.0, 1.0)",

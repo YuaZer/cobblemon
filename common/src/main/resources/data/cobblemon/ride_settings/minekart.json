@@ -1,4 +1,5 @@
 {
+  "infiniteStamina": "false",
   "canJump": "true",
   "boostLimit": "100.0",
   "speedExpr": "q.get_ride_stats('SPEED', 'LAND', 1.0, 0.3)",

@@ -221,6 +221,9 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
 
     private fun consumeStamina(vehicle: PokemonEntity, driver: Player, settings: BoatSettings, state: BoatState, drain: Float) {
         val staminaModifier = vehicle.runtime.resolveFloat(settings.staminaDecreaseExpr ?: globalBoat.staminaDecreaseExpr!!)
+        if (staminaModifier == 0F) {
+            return
+        }
         state.stamina.set(max(0f, state.stamina.get() - drain / staminaModifier))
         if (state.stamina.get() == 0f) {
             state.isVehicleSprinting.set(false)

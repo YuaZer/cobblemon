@@ -8,7 +8,9 @@
 
 package com.cobblemon.mod.common.net.messages.client.pokemon.update
 
+import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.pokemon.Pokemon
+import net.minecraft.network.RegistryFriendlyByteBuf
 
 /**
  * Packet sent when the tracked stamina on Pokémon is updated. This is not the value that's
@@ -18,18 +20,20 @@ import com.cobblemon.mod.common.pokemon.Pokemon
 class RideStaminaUpdatePacket(pokemon: () -> Pokemon?, value: Float) : SingleUpdatePacket<Float, RideStaminaUpdatePacket>(pokemon, value) {
     companion object {
         val ID = com.cobblemon.mod.common.util.cobblemonResource("ride_stamina_update")
-        fun decode(buffer: net.minecraft.network.RegistryFriendlyByteBuf): RideStaminaUpdatePacket {
+        fun decode(buffer: RegistryFriendlyByteBuf): RideStaminaUpdatePacket {
             val pokemon = decodePokemon(buffer)
             val value = buffer.readFloat()
             return RideStaminaUpdatePacket(pokemon, value)
         }
     }
+
     override fun set(pokemon: Pokemon, value: Float) {
+        Cobblemon.LOGGER.info("Updating client with $value")
         pokemon.rideStamina = value
     }
 
     override val id = ID
-    override fun encodeValue(buffer: net.minecraft.network.RegistryFriendlyByteBuf) {
+    override fun encodeValue(buffer: RegistryFriendlyByteBuf) {
         buffer.writeFloat(this.value)
     }
 }

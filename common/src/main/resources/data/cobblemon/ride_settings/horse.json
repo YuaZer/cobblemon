@@ -1,4 +1,5 @@
 {
+  "infiniteStamina": "false",
   "canJump": "true",
   "canSprint": "true",
   "lookYawLimit": "90.0",

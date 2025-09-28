@@ -427,6 +427,9 @@ class VehicleSettings : RidingBehaviourSettings {
     override val key = VehicleBehaviour.KEY
     override val stats = mutableMapOf<RidingStat, IntRange>()
 
+    var infiniteStamina: Expression? = null
+        private set
+
     var canJump: Expression? = null
         private set
 
@@ -469,6 +472,7 @@ class VehicleSettings : RidingBehaviourSettings {
         buffer.writeResourceLocation(key)
         buffer.writeRidingStats(stats)
         rideSounds.encode(buffer)
+        buffer.writeNullableExpression(infiniteStamina)
         buffer.writeNullableExpression(canJump)
         buffer.writeNullableExpression(speed)
         buffer.writeNullableExpression(driveFactor)
@@ -485,6 +489,7 @@ class VehicleSettings : RidingBehaviourSettings {
     override fun decode(buffer: RegistryFriendlyByteBuf) {
         stats.putAll(buffer.readRidingStats())
         rideSounds = RideSoundSettingsList.decode(buffer)
+        infiniteStamina = buffer.readNullableExpression()
         canJump = buffer.readNullableExpression()
         speed = buffer.readNullableExpression()
         driveFactor = buffer.readNullableExpression()

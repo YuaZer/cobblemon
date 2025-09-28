@@ -152,6 +152,11 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         vehicle: PokemonEntity,
     ) {
         val stam = state.stamina.get()
+
+        if (vehicle.runtime.resolveBoolean(settings.infiniteStamina ?: globalHorse.infiniteStamina!!)) {
+            return
+        }
+
         var newStam = stam
         val stamDrainRate = (1.0f / vehicle.runtime.resolveDouble(settings.staminaExpr ?: globalHorse.staminaExpr!!)).toFloat() / 20.0f
 
@@ -531,6 +536,8 @@ class HorseSettings : RidingBehaviourSettings {
     override val key = HorseBehaviour.KEY
     override val stats = mutableMapOf<RidingStat, IntRange>()
 
+    var infiniteStamina: Expression? = null
+        private set
     var canJump: Expression? = null
         private set
 
@@ -564,6 +571,7 @@ class HorseSettings : RidingBehaviourSettings {
         buffer.writeResourceLocation(key)
         buffer.writeRidingStats(stats)
         rideSounds.encode(buffer)
+        buffer.writeNullableExpression(infiniteStamina)
         buffer.writeNullableExpression(canJump)
         buffer.writeNullableExpression(canSprint)
         buffer.writeNullableExpression(lookYawLimit)
@@ -579,6 +587,7 @@ class HorseSettings : RidingBehaviourSettings {
     override fun decode(buffer: RegistryFriendlyByteBuf) {
         stats.putAll(buffer.readRidingStats())
         rideSounds = RideSoundSettingsList.decode(buffer)
+        infiniteStamina = buffer.readNullableExpression()
         canJump = buffer.readNullableExpression()
         canSprint = buffer.readNullableExpression()
         lookYawLimit = buffer.readNullableExpression()

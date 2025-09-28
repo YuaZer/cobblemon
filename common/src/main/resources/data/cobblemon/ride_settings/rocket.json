@@ -1,4 +1,5 @@
 {
+  "infiniteStamina": "false",
   "boostSpeedMod": "5.0",
   "boostHandlingMod": "0.3",
   "maxTurnRate": "100",

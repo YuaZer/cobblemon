@@ -129,6 +129,9 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         state: HoverState,
         vehicle: PokemonEntity
     ) {
+        if (vehicle.runtime.resolveBoolean(settings.infiniteStamina ?: globalHover.infiniteStamina!!)) {
+            return
+        }
         val stam = state.stamina.get()
         val stamDrainRate = (1.0f / vehicle.runtime.resolveDouble(settings.staminaExpr ?: globalHover.staminaExpr!!)).toFloat() / 20.0f
         val stamReplenishRate = (1.0f / vehicle.runtime.resolveDouble(settings.stamReplenishTimeSeconds ?: globalHover.stamReplenishTimeSeconds!!) ).toFloat() / 20.0f // 2 seconds to replenish a full bar of stamina
@@ -430,6 +433,9 @@ class HoverSettings : RidingBehaviourSettings {
     override val key = HoverBehaviour.KEY
     override val stats = mutableMapOf<RidingStat, IntRange>()
 
+    var infiniteStamina: Expression? = null
+        private set
+
     var canJump: Expression? = null
         private set
 
@@ -462,6 +468,7 @@ class HoverSettings : RidingBehaviourSettings {
         buffer.writeResourceLocation(key)
         buffer.writeRidingStats(stats)
         rideSounds.encode(buffer)
+        buffer.writeNullableExpression(infiniteStamina)
         buffer.writeNullableExpression(canJump)
         buffer.writeNullableExpression(stamReplenishTimeSeconds)
         buffer.writeNullableExpression(speedExpr)
@@ -474,6 +481,7 @@ class HoverSettings : RidingBehaviourSettings {
     override fun decode(buffer: RegistryFriendlyByteBuf) {
         stats.putAll(buffer.readRidingStats())
         rideSounds = RideSoundSettingsList.decode(buffer)
+        infiniteStamina = buffer.readNullableExpression()
         canJump = buffer.readNullableExpression()
         stamReplenishTimeSeconds = buffer.readNullableExpression()
         speedExpr = buffer.readNullableExpression()

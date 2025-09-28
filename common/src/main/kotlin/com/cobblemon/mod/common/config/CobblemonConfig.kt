@@ -300,6 +300,9 @@ class CobblemonConfig {
     @CobblemonConfigField(Category.Riding, lang = "display_controls_duration_seconds")
     var displayControlSeconds = 3
 
+    @CobblemonConfigField(Category.Riding, lang = "infinite_ride_stamina")
+    var infiniteRideStamina = false
+
     @CobblemonConfigField(Category.Debug, lang = "enable_debug_keys")
     var enableDebugKeys = true
 

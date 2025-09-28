@@ -87,7 +87,7 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         driver: Player
     ): Float {
         // Use this as a "tick" function and check to see if the driver is "boosting"
-        if(vehicle.level().isClientSide) {
+        if (vehicle.level().isClientSide) {
             handleBoosting(settings, state, vehicle, driver)
             tickStamina(settings, state, vehicle, driver)
         }
@@ -126,6 +126,10 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         driver: Player
     ) {
         val stam = state.stamina.get()
+
+        if (vehicle.runtime.resolveBoolean(settings.infiniteStamina ?: globalRocket.infiniteStamina!!)) {
+            return
+        }
 
         // Grab the boost time in seconds and convert to ticks. Then calculate the drain rate as inversely
         // proportional to the number of ticks of boost thus making a full boost take x ticks
@@ -502,6 +506,8 @@ class RocketSettings : RidingBehaviourSettings {
     override val key = RocketBehaviour.KEY
     override val stats = mutableMapOf<RidingStat, IntRange>()
 
+    var infiniteStamina: Expression? = null
+        private set
     // Boost multiplier for speed
     var boostSpeedMod: Expression? = null
         private set
@@ -538,6 +544,7 @@ class RocketSettings : RidingBehaviourSettings {
         buffer.writeResourceLocation(key)
         buffer.writeRidingStats(stats)
         rideSounds.encode(buffer)
+        buffer.writeNullableExpression(infiniteStamina)
         buffer.writeNullableExpression(boostSpeedMod)
         buffer.writeNullableExpression(boostHandlingMod)
         buffer.writeNullableExpression(maxTurnRate)
@@ -551,6 +558,7 @@ class RocketSettings : RidingBehaviourSettings {
     override fun decode(buffer: RegistryFriendlyByteBuf) {
         stats.putAll(buffer.readRidingStats())
         rideSounds = RideSoundSettingsList.decode(buffer)
+        infiniteStamina = buffer.readNullableExpression()
         boostSpeedMod = buffer.readNullableExpression()
         boostHandlingMod = buffer.readNullableExpression()
         maxTurnRate = buffer.readNullableExpression()
@@ -560,7 +568,6 @@ class RocketSettings : RidingBehaviourSettings {
         jumpExpr = buffer.readNullableExpression()
         handlingExpr = buffer.readNullableExpression()
     }
-
 }
 
 class RocketState : RidingBehaviourState() {
