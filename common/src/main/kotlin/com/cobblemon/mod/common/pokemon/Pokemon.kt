@@ -358,11 +358,10 @@ open class Pokemon : ShowdownIdentifiable {
 
     var currentFullness = 0
         set(value) {
-            if (value < 0) {
-                field = 0
-                return
-            }
-            FULLNESS_UPDATED.post(FullnessUpdatedEvent(this, value)) {
+            val clamped = value.coerceIn(0, getMaxFullness())
+            if (field == clamped) return
+
+            FULLNESS_UPDATED.post(FullnessUpdatedEvent(this, clamped)) {
                 field = it.newFullness
                 onChange(FullnessUpdatePacket({ this }, it.newFullness))
             }
