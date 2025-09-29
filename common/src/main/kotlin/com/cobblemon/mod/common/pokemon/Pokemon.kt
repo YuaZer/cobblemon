@@ -368,6 +368,20 @@ open class Pokemon : ShowdownIdentifiable {
             }
         }
 
+    /**
+     * Just a persistence version of the ride stamina used to hold onto
+     * it between one ride and another. Only applied at the moment of
+     * mounting the Pokémon.
+     */
+    var rideStamina = 1F
+        set(value) {
+            val newValue = value.coerceIn(0F, 1F)
+            if (newValue != field) {
+                field = newValue
+                onChange(RideStaminaUpdatePacket({ this }, newValue))
+            }
+        }
+
     var interactionCooldowns: MutableMap<ResourceLocation, Int> = mutableMapOf()
 
     var state: PokemonState = InactivePokemonState()
