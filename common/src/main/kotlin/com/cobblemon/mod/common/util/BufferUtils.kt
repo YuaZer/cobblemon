@@ -101,6 +101,11 @@ fun ByteBuf.writeExpression(expression: Expression): ByteBuf {
     return this.writeString(expression.getString())
 }
 
+fun ByteBuf.writeNullableExpression(expression: Expression?): ByteBuf {
+    this.writeNullable(expression) { buf, expr -> buf.writeExpression(expr) }
+    return this
+}
+
 fun ByteBuf.writeRidingStats(stats: Map<RidingStat, IntRange>) {
     return this.writeMap(
         stats,
@@ -118,6 +123,10 @@ fun ByteBuf.readRidingStats(): Map<RidingStat, IntRange> {
 
 fun ByteBuf.readExpression(): Expression {
     return this.readString().asExpression()
+}
+
+fun ByteBuf.readNullableExpression(): Expression? {
+    return this.readNullable { buf -> buf.readExpression() }
 }
 
 fun <T> ByteBuf.readNullable(reader: (ByteBuf) -> T): T? {
