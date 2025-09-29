@@ -2,6 +2,7 @@
 ## [1.7.0 (Month xth, 2025)](#1-7-0)
 
 ### Additions
+- Added `/npcdelete` uuid parameter support and usuable to console
 - Added `/spectateBattle <player>` command to spectate battles without having to manually walk up to the target.
 - Added an in-game configuration screen, allowing all settings from `main.json` to be edited directly in-game.
 - Added `/cobblemonconfig reload` command to reload `main.json` configuration. **Note:** Some settings require a server restart to take effect; use this command cautiously.

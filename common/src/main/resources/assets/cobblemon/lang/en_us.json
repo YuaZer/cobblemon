@@ -2365,6 +2365,9 @@
   "cobblemon.command.pokemonrestart": "Cleared %1$s's party and PC.",
   "cobblemon.command.freezepokemon.non_pokemon": "You are not looking at a Pokémon.",
   "cobblemon.command.npcedit.non_npc": "You are not looking at a NPC.",
+  "cobblemon.command.npcdelete.not_player": "Only players may run this command.",
+  "cobblemon.command.npcdelete.deleted": "%1$s has been deleted.",
+
   "cobblemon.command.cobblemon_config.reload": "Reloading Cobblemon settings.",
   "cobblemon.command.unlockboxwallpaper.success": "%1$s can now use the %2$s wallpaper.",
   "cobblemon.command.unlockboxwallpaper.already": "%1$s already has the %2$s wallpaper.",
