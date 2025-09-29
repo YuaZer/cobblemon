@@ -43,7 +43,7 @@
 - Added new optional property `attachment_options` for most EmitterShapes to be attached to the locator/entities scale, rotation, and/or position. Position is true by default.
 - Galarica Nut bushes now generate on beaches.
 - Some Pokémon now pitch their bodies in the direction they're moving.
-- Added new advancements Didn't Stop To Think, We Need To Cook, and Pokémon Jockey!.
+- Added new advancements Didn't Stop To Think, We Need To Cook, Pokémon Jockey!, Souped-Up Stats, Culinary World Tour, Mochi Mochi!, A Luring Aroma, That's Bait, Star Pokéathlete, Home on the Range, and Just a Smackerel.
 - Berries can now be smelted into their respective dyes.
 - Added Syrupy Apples.
 - Added `/runmolang <molang> [<npc>|<player>|<pokemon>]` command that executes a MoLang expression with the provided options as environment variables, as well as the entity (as `q.entity`) that executed the command.
@@ -466,6 +466,10 @@
 - Updated `HatchEggEvent.Post` to include the Pokemon that hatched.
 - Roseli Berry Trees now naturally generate in their preferred biomes.
 - Refactored dynamic lights compat to be more future proof. The dynamic light support is only tested with LambDynamicLights, on NeoForged use that mod in combination with Sinytra Connector
+- Renamed Masterful Dedication advancement to This will affect the Whiscash Population
+- Changed icon for the following advancements: New Angles for Angling, Researcher Recruit, Doing my Part, Reapriforestation
+- Disabled advancement Mother Nature's Bounty from appearing in chat when obtained, now only appears as a toast and in the advancements menu
+- Removed Oki-Doki Vivichokey advancement
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
