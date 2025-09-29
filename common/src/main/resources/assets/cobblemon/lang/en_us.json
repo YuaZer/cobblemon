@@ -2586,6 +2586,9 @@
   "cobblemon.config.ui.enable_debug_keys": "Enable Debug Keys",
   "cobblemon.config.ui.enable_debug_keys.tooltip": "Enables additional commands and chat logging to assist with implementing Pokémon (see the wiki for a list of commands).",
   "cobblemon.config.ui.infinite_ride_stamina": "Infinite Ride Stamina",
+  "cobblemon.config.ui.infinite_ride_stamina.tooltip": "Whether rideable Pokémon have infinite stamina.",
+  "cobblemon.config.ui.remember_riding_camera": "Remember Riding Camera",
+  "cobblemon.config.ui.remember_riding_camera.tooltip": "Whether the camera mode will automatically switch to the last used camera mode when mounting a rideable Pokémon.",
 
   "cobblemon.config.ui.allow_starter_on_join": "Allow Starter on Join",
   "cobblemon.config.ui.prompt_starter_once_only": "Prompt Starter Once Only",

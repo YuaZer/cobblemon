@@ -73,6 +73,7 @@ import com.cobblemon.mod.common.battles.BattleBuilder
 import com.cobblemon.mod.common.battles.BattleRegistry
 import com.cobblemon.mod.common.battles.SuccessfulBattleStart
 import com.cobblemon.mod.common.block.entity.PokemonPastureBlockEntity
+import com.cobblemon.mod.common.client.MountedCameraTypeHandler
 import com.cobblemon.mod.common.client.entity.PokemonClientDelegate
 import com.cobblemon.mod.common.entity.BehaviourEditingTracker
 import com.cobblemon.mod.common.entity.EntityCallbacks
@@ -538,6 +539,9 @@ open class PokemonEntity(
         val passengerIndex = occupiedSeats.indexOf(passenger)
         if (passengerIndex != -1) {
             occupiedSeats[passengerIndex] = null
+        }
+        if (level().isClientSide) {
+            MountedCameraTypeHandler.handleDismount(passenger, this)
         }
         super.removePassenger(passenger)
         if (passengers.isEmpty()) {
@@ -2118,6 +2122,8 @@ open class PokemonEntity(
                     then = { event -> entityData.set(RIDE_STAMINA, event.rideStamina) }
                 )
             }
+        } else if (level().isClientSide) {
+            MountedCameraTypeHandler.handleMount(passenger, this)
         }
         val passengerIndex = occupiedSeats.indexOfFirst { it == null }
         if (passengerIndex != -1) {
