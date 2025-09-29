@@ -683,6 +683,20 @@
 - Added `q.pokemon.is_busy` Returns whether the Pokémon is busy.
 - Added `q.pokemon.is_rideable` Returns whether the Pokémon is rideable.
 - Fixed `background` field and added `textColor` field for dialogues.
+- Added support to reload some data registries:
+    - MoLang scripts
+    - Callbacks
+    - Spawn Detail Presets
+    - Spawn Pools
+    - Spawn Rules
+    - Cosmetic Items
+    - Dialogues
+    - Fossils
+    - Natural Materials
+    - Action Effects
+    - Mechanics
+    - Unlockable Wallpapers
+    - Starter Data
 
 ### Particles
 Added new/updated particles for the following moves:

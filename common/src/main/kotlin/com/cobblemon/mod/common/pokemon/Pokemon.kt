@@ -58,6 +58,7 @@ import com.cobblemon.mod.common.api.pokemon.stats.Stats
 import com.cobblemon.mod.common.api.properties.CustomPokemonProperty
 import com.cobblemon.mod.common.api.reactive.SettableObservable
 import com.cobblemon.mod.common.api.riding.RidingProperties
+import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.api.scheduling.afterOnServer
 import com.cobblemon.mod.common.api.storage.StoreCoordinates
@@ -364,6 +365,20 @@ open class Pokemon : ShowdownIdentifiable {
             FULLNESS_UPDATED.post(FullnessUpdatedEvent(this, value)) {
                 field = it.newFullness
                 onChange(FullnessUpdatePacket({ this }, it.newFullness))
+            }
+        }
+
+    /**
+     * Just a persistence version of the ride stamina used to hold onto
+     * it between one ride and another. Only applied at the moment of
+     * mounting the Pokémon.
+     */
+    var rideStamina = 1F
+        set(value) {
+            val newValue = value.coerceIn(0F, 1F)
+            if (newValue != field) {
+                field = newValue
+                onChange(RideStaminaUpdatePacket({ this }, newValue))
             }
         }
 
@@ -1821,13 +1836,10 @@ open class Pokemon : ShowdownIdentifiable {
         moveSet.update()
     }
 
-    /**
-     * Gets the largest conceivable boost that can be granted to a stat. This is effectively the widest range
-     * from min to max of this stat for any of the styles. For example, if ACCELERATION is from 10 to 40 in one
-     * style and 20 to 60 in another, the max ride boost is 40.
-     */
-    fun getMaxRideBoost(stat: RidingStat): Int {
-        return form.riding.behaviours?.maxOf { it.value.stats[stat]?.let { it.last - it.first } ?: 0 } ?: 0
+    fun getMaxRideBoost(stat: RidingStat): Float {
+        val behaviours = form.riding.behaviours ?: return 0F
+        // Get the widest range for this stat, max - min, since that's how far it can be boosted in theory.
+        return behaviours.values.maxOfOrNull { it.stats[stat]?.let { it.last - it.first }?.toFloat() ?: 0F } ?: 0F
     }
 
     fun getRideBoost(stat: RidingStat): Float {
@@ -1838,31 +1850,36 @@ open class Pokemon : ShowdownIdentifiable {
         return rideBoosts.toMap()
     }
 
-    fun canAddRideBoost(stat: RidingStat): Boolean {
-        val max = getMaxRideBoost(stat)
-        val current = rideBoosts[stat] ?: 0F
-        return current < max
+    fun getRideStat(style: RidingStyle, stat: RidingStat): Float {
+        form.riding.behaviours?.let {
+            return it[style]?.calculate(stat, getRideBoost(stat)) ?: 0F
+        }
+        return 0F
     }
 
-    fun addRideBoost(stat: RidingStat, boost: Float): Boolean {
+    fun canAddRideBoost(stat: RidingStat): Boolean {
+        val current = rideBoosts[stat] ?: 0F
+        return current < getMaxRideBoost(stat)
+    }
+
+    fun addRideBoost(stat: RidingStat, boostAmount: Float): Boolean {
         if (!canAddRideBoost(stat)) {
             return false
         }
         val max = getMaxRideBoost(stat)
-        rideBoosts[stat] = (getRideBoost(stat) + boost).coerceIn(0F, max.toFloat())
+        rideBoosts[stat] = (getRideBoost(stat) + boostAmount).coerceAtMost(max)
         onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
         return true
     }
 
     fun setRideBoost(stat: RidingStat, boost: Float) {
-        val max = getMaxRideBoost(stat)
-        rideBoosts[stat] = boost.coerceIn(0F, max.toFloat())
+        rideBoosts[stat] = boost.coerceIn(0F, getMaxRideBoost(stat))
         onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
     }
 
     fun setRideBoosts(boosts: Map<RidingStat, Float>) {
         rideBoosts.clear()
-        rideBoosts.putAll(boosts.mapValues { it.value.coerceIn(0F, getMaxRideBoost(it.key).toFloat()) })
+        rideBoosts.putAll(boosts.mapValues { it.value.coerceIn(0F, getMaxRideBoost(it.key)) })
         onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
     }
 
@@ -1882,7 +1899,7 @@ open class Pokemon : ShowdownIdentifiable {
         if (result.experienceAdded <= 0) {
             return result
         }
-        player.sendSystemMessage(lang("experience.gained", getDisplayName(), xp), true)
+        player.sendSystemMessage(lang("experience.gained", getDisplayName(), result.experienceAdded), true)
         if (result.oldLevel != result.newLevel) {
             player.sendSystemMessage(lang("experience.level_up", getDisplayName(), result.newLevel))
             val repeats = result.newLevel - result.oldLevel

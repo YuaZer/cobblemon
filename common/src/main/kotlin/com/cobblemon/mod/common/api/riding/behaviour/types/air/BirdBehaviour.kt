@@ -11,6 +11,7 @@ package com.cobblemon.mod.common.api.riding.behaviour.types.air
 import com.bedrockk.molang.Expression
 import com.bedrockk.molang.runtime.MoLangMath.lerp
 import com.cobblemon.mod.common.Cobblemon
+import com.cobblemon.mod.common.CobblemonRideSettings
 import com.cobblemon.mod.common.OrientationControllable
 import com.cobblemon.mod.common.api.orientation.OrientationController
 import com.cobblemon.mod.common.api.riding.RidingStyle
@@ -48,6 +49,9 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
 
     val poseProvider = PoseProvider<BirdSettings, BirdState>(PoseType.HOVER)
         .with(PoseOption(PoseType.FLY) { _, state, _ -> state.rideVelocity.get().z > 0.2 })
+
+    val globalBird: BirdSettings
+        get() = CobblemonRideSettings.bird
 
     override fun isActive(settings: BirdSettings, state: BirdState, vehicle: PokemonEntity): Boolean {
         return Shapes.create(vehicle.boundingBox).blockPositionsAsListRounded().any {
@@ -118,7 +122,7 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         // Grab the boost time in seconds and convert to ticks. Then calculate the drain rate as inversely
         // proportional to the number of ticks of boost thus making a full boost take x ticks
         // in short: "Stamina drains slower at higher values and also replenishes slower"
-        val totalStam = vehicle.runtime.resolveDouble(settings.staminaExpr) * 20.0f
+        val totalStam = vehicle.runtime.resolveDouble(settings.staminaExpr ?: globalBird.staminaExpr!!) * 20.0f
         val stamDrainRate = (1.0f / totalStam).toFloat()
 
         val newStam = if (driver.zza > 0.0) max(0.0f,stam - stamDrainRate)
@@ -174,9 +178,9 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
     */
     fun calculateRideSpaceVel(settings: BirdSettings, state: BirdState, vehicle: PokemonEntity, driver: Player) {
         // retrieve stats
-        val topSpeed = (vehicle.runtime.resolveDouble(settings.speedExpr) / 20.0)
-        val accel = topSpeed / (vehicle.runtime.resolveDouble(settings.accelerationExpr) * 20.0)
-        val glideTopSpeed = topSpeed * vehicle.runtime.resolveDouble(settings.glidespeedExpr)
+        val topSpeed = (vehicle.runtime.resolveDouble(settings.speedExpr ?: globalBird.speedExpr!!) / 20.0)
+        val accel = topSpeed / (vehicle.runtime.resolveDouble(settings.accelerationExpr ?: globalBird.accelerationExpr!!) * 20.0)
+        val glideTopSpeed = topSpeed * vehicle.runtime.resolveDouble(settings.glideSpeedExpr ?: globalBird.glideSpeedExpr!!)
         var glideSpeedChange = 0.0
         var activeInput = false
 
@@ -285,8 +289,8 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         if (driver !is OrientationControllable) return Vec3.ZERO
         val controller = (driver as OrientationControllable).orientationController
 
-        val handling = vehicle.runtime.resolveDouble(settings.handlingExpr)
-        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) / 20.0
+        val handling = vehicle.runtime.resolveDouble(settings.handlingExpr ?: globalBird.handlingExpr!!)
+        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr ?: globalBird.speedExpr!!) / 20.0
 
         val yawDeltaDeg =  deltaTime * handling * sin(Math.toRadians(controller.roll.toDouble())) //* sin(Math.toRadians(controller.roll.toDouble())).sign
         val trueYawDelt = yawDeltaDeg * abs(cos(Math.toRadians(controller.pitch.toDouble())))// * sqrt(RidingBehaviour.scaleToRange(state.rideVelocity.get().length(), 0.0, topSpeed))
@@ -313,7 +317,7 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
     ) {
         // Calculate correcting roll force.
         // Mult by cos(pitch) to ensure that it doesn't roll correct at when diving or climbing
-        val rollCorrectionTimer = vehicle.runtime.resolveDouble(settings.timeToRollCorrect)
+        val rollCorrectionTimer = vehicle.runtime.resolveDouble(settings.timeToRollCorrect ?: globalBird.timeToRollCorrect!!)
         val maxRollCorrectionRate = if (state.rideVelocity.get().length() < 0.1) 15.0f else 8.0f * (cos(controller.pitch.toRadians())).pow(2) * ((state.noInputTimeRoll.get() - rollCorrectionTimer)).coerceIn(0.0, 1.0).toFloat()
         val maxRollForce = maxRollCorrectionRate / 40.0
         val rollArrivalDeg = 90.0
@@ -446,8 +450,8 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         // Set roll to zero if transitioning to noroll config
         controller.rotateRoll(controller.roll * -1.0f)
 
-        val handling = vehicle.runtime.resolveDouble(settings.handlingExpr)
-        val mouseInputMult = vehicle.runtime.resolveDouble(settings.mouseInputMult)
+        val handling = vehicle.runtime.resolveDouble(settings.handlingExpr ?: globalBird.handlingExpr!!)
+        val mouseInputMult = vehicle.runtime.resolveDouble(settings.mouseInputMult ?: globalBird.mouseInputMult!!)
 
         //Smooth out mouse input.
         val smoothingSpeed = 4.0
@@ -491,8 +495,8 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         if (driver !is OrientationControllable) return Vec3.ZERO
         val controller = (driver as OrientationControllable).orientationController
 
-        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) / 20.0
-        val mouseInputMult = vehicle.runtime.resolveDouble(settings.mouseInputMult)
+        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr ?: globalBird.speedExpr!!) / 20.0
+        val mouseInputMult = vehicle.runtime.resolveDouble(settings.mouseInputMult ?: globalBird.mouseInputMult!!)
 
         //Smooth out mouse input.
         val smoothingSpeed = 2.0
@@ -516,7 +520,7 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         // - Reduce pitch substantially when rolled and in a steep yaw. This prevents the player from ignoring a slow handling stat
         // - Do not pitch at all when at or below hover speed
         // - pitch faster at higher speeds
-        val p = 1.0 - vehicle.runtime.resolveDouble(settings.horizontalPitchExpr)
+        val p = 1.0 - vehicle.runtime.resolveDouble(settings.horizontalPitchExpr ?: globalBird.horizontalPitchExpr!!)
         var localPitch = yInput * (1 - abs(sin(controller.roll.toRadians())).pow(2) * p * hypot(controller.forwardVector.x.toDouble(), controller.forwardVector.z.toDouble()).toFloat())
         localPitch *= if (currSpeed > hoverSpeed || yInput > 0.0) RidingBehaviour.scaleToRange(currSpeed, 0.0, topSpeed).coerceIn(0.2, 1.0)
             else 0.0
@@ -579,8 +583,8 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         vehicle: PokemonEntity,
         driver: Player
     ): Float {
-        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr) / 20.0
-        val glideTopSpeed = topSpeed * vehicle.runtime.resolveDouble(settings.glidespeedExpr)
+        val topSpeed = vehicle.runtime.resolveDouble(settings.speedExpr ?: globalBird.speedExpr!!) / 20.0
+        val glideTopSpeed = topSpeed * vehicle.runtime.resolveDouble(settings.glideSpeedExpr ?: globalBird.glideSpeedExpr!!)
         val currSpeed = state.rideVelocity.get().length()
 
         // Must I ensure that topspeed is greater than minimum?
@@ -668,24 +672,24 @@ class BirdSettings : RidingBehaviourSettings {
     override val key = BirdBehaviour.KEY
     override val stats = mutableMapOf<RidingStat, IntRange>()
 
-    var infiniteAltitude: Expression = "false".asExpression()
+    var infiniteAltitude: Expression? = null
         private set
 
-    var infiniteStamina: Expression = "false".asExpression()
+    var infiniteStamina: Expression? = null
         private set
 
-    var timeToRollCorrect: Expression = "0.5".asExpression()
+    var timeToRollCorrect: Expression? = null
         private set
 
-    var handlingExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 45.0, 10.0)".asExpression()
-    var horizontalPitchExpr: Expression = "q.get_ride_stats('SKILL', 'AIR', 0.2, 0.1)".asExpression()
-    var mouseInputMult: Expression = "q.get_ride_stats('SKILL', 'AIR', 1.2, 0.8)".asExpression()
-    var speedExpr: Expression = "q.get_ride_stats('SPEED', 'AIR', 20.0, 4.0)".asExpression()
+    var handlingExpr: Expression? = null
+    var horizontalPitchExpr: Expression? = null
+    var mouseInputMult: Expression? = null
+    var speedExpr: Expression? = null
     // Seconds from stationary to top speed
-    var accelerationExpr: Expression = "q.get_ride_stats('ACCELERATION', 'AIR', 2.0, 8.0)".asExpression()
-    var staminaExpr: Expression = "q.get_ride_stats('STAMINA', 'AIR', 15.0, 2.0)".asExpression()
+    var accelerationExpr: Expression? = null
+    var staminaExpr: Expression? = null
 
-    var glidespeedExpr: Expression =  "q.get_ride_stats('JUMP', 'AIR', 2.0, 1.0)".asExpression()
+    var glideSpeedExpr: Expression? = null
         private set
 
     var rideSounds: RideSoundSettingsList = RideSoundSettingsList()
@@ -694,31 +698,31 @@ class BirdSettings : RidingBehaviourSettings {
         buffer.writeResourceLocation(key)
         buffer.writeRidingStats(stats)
         rideSounds.encode(buffer)
-        buffer.writeExpression(infiniteAltitude)
-        buffer.writeExpression(infiniteStamina)
-        buffer.writeExpression(glidespeedExpr)
-        buffer.writeExpression(handlingExpr)
-        buffer.writeExpression(horizontalPitchExpr)
-        buffer.writeExpression(mouseInputMult)
-        buffer.writeExpression(speedExpr)
-        buffer.writeExpression(accelerationExpr)
-        buffer.writeExpression(staminaExpr)
-        buffer.writeExpression(timeToRollCorrect)
+        buffer.writeNullableExpression(infiniteAltitude)
+        buffer.writeNullableExpression(infiniteStamina)
+        buffer.writeNullableExpression(glideSpeedExpr)
+        buffer.writeNullableExpression(handlingExpr)
+        buffer.writeNullableExpression(horizontalPitchExpr)
+        buffer.writeNullableExpression(mouseInputMult)
+        buffer.writeNullableExpression(speedExpr)
+        buffer.writeNullableExpression(accelerationExpr)
+        buffer.writeNullableExpression(staminaExpr)
+        buffer.writeNullableExpression(timeToRollCorrect)
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
         stats.putAll(buffer.readRidingStats())
         rideSounds = RideSoundSettingsList.decode(buffer)
-        infiniteAltitude = buffer.readExpression()
-        infiniteStamina = buffer.readExpression()
-        glidespeedExpr = buffer.readExpression()
-        handlingExpr = buffer.readExpression()
-        horizontalPitchExpr = buffer.readExpression()
-        mouseInputMult = buffer.readExpression()
-        speedExpr = buffer.readExpression()
-        accelerationExpr = buffer.readExpression()
-        staminaExpr = buffer.readExpression()
-        timeToRollCorrect = buffer.readExpression()
+        infiniteAltitude = buffer.readNullableExpression()
+        infiniteStamina = buffer.readNullableExpression()
+        glideSpeedExpr = buffer.readNullableExpression()
+        handlingExpr = buffer.readNullableExpression()
+        horizontalPitchExpr = buffer.readNullableExpression()
+        mouseInputMult = buffer.readNullableExpression()
+        speedExpr = buffer.readNullableExpression()
+        accelerationExpr = buffer.readNullableExpression()
+        staminaExpr = buffer.readNullableExpression()
+        timeToRollCorrect = buffer.readNullableExpression()
     }
 }
 
