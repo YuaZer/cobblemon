@@ -10,7 +10,7 @@
       "translate": "advancements.cobblemon.cook_snack.description"
     }
   },
-  "parent": "cobblemon:place_campfire_pot",
+  "parent": "cobblemon:slather_saccharine",
   "criteria": {
     "cook_snack": {
       "trigger": "minecraft:inventory_changed",

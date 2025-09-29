@@ -15,7 +15,7 @@
 	"hidden": false,
 	"frame": "challenge"
   },
-  "parent": "cobblemon:use_aprijuice",
+  "parent": "cobblemon:ride_pokemon",
   "criteria": {
     "max_speed": {
       "trigger": "minecraft:impossible"
