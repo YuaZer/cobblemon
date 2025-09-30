@@ -164,6 +164,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.control.MoveControl
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
+import net.minecraft.world.entity.ai.memory.MemoryStatus
 import net.minecraft.world.entity.ai.sensing.Sensor
 import net.minecraft.world.entity.ai.sensing.SensorType
 import net.minecraft.world.entity.animal.Animal
@@ -1237,9 +1238,17 @@ open class PokemonEntity(
     }
 
     override fun checkDespawn() {
-        if (pokemon.getOwnerUUID() == null && !isPersistenceRequired && (!this.pokemon.canDropHeldItem || this.pokemon.heldItem.isEmpty) && despawner.shouldDespawn(this) ) {
+        if (pokemon.getOwnerUUID() == null && !isPersistenceRequired && despawner.shouldDespawn(this) ) {
             discard()
         }
+    }
+
+    override fun isPersistenceRequired(): Boolean {
+        return super.isPersistenceRequired()
+                || (this.pokemon.canDropHeldItem && !this.pokemon.heldItem.isEmpty)
+                || this.brain.checkMemory(CobblemonMemories.HIVE_LOCATION, MemoryStatus.VALUE_PRESENT)
+                || this.brain.checkMemory(CobblemonMemories.HIVE_COOLDOWN, MemoryStatus.VALUE_PRESENT)
+                || this.brain.checkMemory(CobblemonMemories.NEARBY_SACC_LEAVES, MemoryStatus.VALUE_PRESENT)
     }
 
     fun setBehaviourFlag(flag: PokemonBehaviourFlag, on: Boolean) {
