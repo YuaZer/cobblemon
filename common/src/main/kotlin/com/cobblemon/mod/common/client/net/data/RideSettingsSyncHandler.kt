@@ -9,13 +9,12 @@
 package com.cobblemon.mod.common.client.net.data
 
 import com.cobblemon.mod.common.CobblemonRideSettings
-import com.cobblemon.mod.common.api.net.ServerNetworkPacketHandler
+import com.cobblemon.mod.common.api.net.ClientNetworkPacketHandler
 import com.cobblemon.mod.common.net.messages.client.data.RideSettingsSyncPacket
-import net.minecraft.server.MinecraftServer
-import net.minecraft.server.level.ServerPlayer
+import net.minecraft.client.Minecraft
 
-object RideSettingsSyncHandler : ServerNetworkPacketHandler<RideSettingsSyncPacket> {
-    override fun handle(packet: RideSettingsSyncPacket, server: MinecraftServer, player: ServerPlayer) {
+object RideSettingsSyncHandler : ClientNetworkPacketHandler<RideSettingsSyncPacket> {
+    override fun handle(packet: RideSettingsSyncPacket, client: Minecraft) {
         CobblemonRideSettings.bird = packet.bird
         CobblemonRideSettings.glider = packet.glider
         CobblemonRideSettings.helicopter = packet.helicopter
