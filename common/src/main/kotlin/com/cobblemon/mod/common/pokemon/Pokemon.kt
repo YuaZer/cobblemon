@@ -1867,19 +1867,19 @@ open class Pokemon : ShowdownIdentifiable {
         }
         val max = getMaxRideBoost(stat)
         rideBoosts[stat] = (getRideBoost(stat) + boostAmount).coerceAtMost(max)
-        onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
+        onChange(RideBoostsUpdatePacket({ this }, getRideBoosts())) // rideBoosts -> getRideBoosts()
         return true
     }
 
     fun setRideBoost(stat: RidingStat, boost: Float) {
         rideBoosts[stat] = boost.coerceIn(0F, getMaxRideBoost(stat))
-        onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
+        onChange(RideBoostsUpdatePacket({ this }, getRideBoosts())) // rideBoosts -> getRideBoosts()
     }
 
     fun setRideBoosts(boosts: Map<RidingStat, Float>) {
         rideBoosts.clear()
         rideBoosts.putAll(boosts.mapValues { it.value.coerceIn(0F, getMaxRideBoost(it.key)) })
-        onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
+        onChange(RideBoostsUpdatePacket({ this }, getRideBoosts())) // rideBoosts -> getRideBoosts()
     }
 
     fun getExperienceToNextLevel() = getExperienceToLevel(level + 1)
