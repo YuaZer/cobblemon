@@ -74,7 +74,7 @@ fun <T> ByteBuf.writeCollection(collection: Collection<T> , writer: (ByteBuf, T)
 }
 
 fun <T> ByteBuf.writeNullable(obj: T?, writer: (ByteBuf, T) -> Unit) {
-    this.writeBoolean(obj == null)
+    this.writeBoolean(obj != null)
     obj?.let {
         writer(this, it)
     }
