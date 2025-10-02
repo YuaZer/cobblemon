@@ -436,7 +436,6 @@ class BoatSettings : RidingBehaviourSettings {
     var surfaceLevelOffset: Expression? = null
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
-        buffer.writeResourceLocation(key)
         buffer.writeRidingStats(stats)
         rideSounds.encode(buffer)
         buffer.writeNullableExpression(terminalVelocity)
