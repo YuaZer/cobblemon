@@ -132,7 +132,7 @@ class OmniPathNavigation(val world: Level, val entity: Mob) : GroundPathNavigati
         val f = abs(mob.z - targetVec3d.z)
         val closeEnough = d < maxDistanceToWaypoint.toDouble()
                 && f < this.maxDistanceToWaypoint.toDouble()
-                && e < (if (currentNode.type in verticallyPreciseNodeTypes && (mob.isUnderWater || pather.isFlying())) 1.0 else 1.0).toDouble()
+                && e < (if (currentNode.type in verticallyPreciseNodeTypes && (mob.isUnderWater || pather.isFlying())) maxDistanceToWaypoint else 1.0).toDouble()
 
         // Corner cutting is commented out because it makes pokemon and NPCs 'cut' the corner and fall into water or lava
         if (closeEnough) {// || mob.navigation.canCutCorner(path!!.nextNode.type) && shouldTargetNextNodeInDirection(vec3d)) {
