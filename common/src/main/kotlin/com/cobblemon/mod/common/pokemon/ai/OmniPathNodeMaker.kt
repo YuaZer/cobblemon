@@ -498,8 +498,12 @@ class OmniPathNodeMaker : NodeEvaluator() {
             } else {
                 PathType.FENCE
             }
-        } else if (isWater && !canSwimInWater() && canBreatheUnderFluid && blockState.isPathfindable(PathComputationType.LAND)) {
-            PathType.OPEN
+        } else if (isWater && !canSwimInWater() && canBreatheUnderFluid && blockState.isPathfindable(PathComputationType.LAND) ) {
+            if (pfContext.getPathTypeFromState(pos.x, pos.y - 1, pos.z) == PathType.BLOCKED) {
+                PathType.WALKABLE
+            } else {
+                PathType.OPEN
+            }
         } else if (isLava && canSwimInLava()) {
             PathType.LAVA
         } else if (isWater) {
@@ -524,12 +528,13 @@ class OmniPathNodeMaker : NodeEvaluator() {
 
         if (figuredNode == PathType.OPEN && pos.y >= pfContext.level().getMinBuildHeight() + 1) {
             val var10000: PathType = when (pfContext.getPathTypeFromState(pos.x, pos.y - 1, pos.z)) {
-                PathType.OPEN, PathType.WATER, PathType.LAVA, PathType.WALKABLE -> PathType.OPEN
+                PathType.OPEN, PathType.LAVA, PathType.WALKABLE -> PathType.OPEN
                 PathType.DAMAGE_OTHER -> PathType.DAMAGE_OTHER
                 PathType.STICKY_HONEY -> PathType.STICKY_HONEY
                 PathType.POWDER_SNOW -> PathType.DANGER_POWDER_SNOW
                 PathType.DAMAGE_CAUTIOUS -> PathType.DAMAGE_CAUTIOUS
                 PathType.TRAPDOOR -> PathType.DANGER_TRAPDOOR
+                PathType.WATER -> if (canWalkOnWater()) PathType.WALKABLE else PathType.OPEN
                 PathType.FENCE -> {
                     if (canFly())
                         PathType.BLOCKED
@@ -701,6 +706,14 @@ class OmniPathNodeMaker : NodeEvaluator() {
     fun canPathThroughLeaves() : Boolean {
         return if (this.mob is OmniPathingEntity) {
             (this.mob as OmniPathingEntity).canPathThroughLeaves()
+        } else {
+            false
+        }
+    }
+
+    fun canWalkOnWater(): Boolean {
+        return if (this.mob is OmniPathingEntity) {
+            (this.mob as OmniPathingEntity).canWalkOnWater()
         } else {
             false
         }
