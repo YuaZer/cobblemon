@@ -25,6 +25,8 @@ import com.cobblemon.mod.common.client.gui.summary.widgets.SoundlessWidget
 import com.cobblemon.mod.common.client.gui.summary.widgets.screens.stats.features.FriendshipFeatureRenderer
 import com.cobblemon.mod.common.client.gui.summary.widgets.screens.stats.features.FullnessFeatureRenderer
 import com.cobblemon.mod.common.client.render.drawScaledText
+import com.cobblemon.mod.common.pokemon.EVs
+import com.cobblemon.mod.common.pokemon.IVs
 import com.cobblemon.mod.common.pokemon.Pokemon
 import com.cobblemon.mod.common.util.cobblemonResource
 import com.cobblemon.mod.common.util.lang
@@ -74,6 +76,7 @@ class StatWidget(
         private val statsBaseResource = cobblemonResource("textures/gui/summary/summary_stats_chart_base.png")
         private val statsChartResource = cobblemonResource("textures/gui/summary/summary_stats_chart.png")
         private val statsChartPentagonResource = cobblemonResource("textures/gui/summary/summary_stats_chart_pentagon.png")
+        private val statsChartPentagonHighlightResource = cobblemonResource("textures/gui/summary/summary_stats_chart_pentagon_highlight.png")
         private val statsOtherBaseResource = cobblemonResource("textures/gui/summary/summary_stats_other_base.png")
         private val statsOtherSidebarsResource = cobblemonResource("textures/gui/summary/summary_stats_other_sidebars.png")
         private val statsOtherSidebarArrowLeft = cobblemonResource("textures/gui/summary/summary_stats_other_sidebar_arrow_left.png")
@@ -290,33 +293,34 @@ class StatWidget(
             }
         } else {
             if (renderPentagonStats) {
-                blitk(
-                    matrixStack = matrices,
-                    texture = statsChartPentagonResource,
-                    x= (x + 20.5) / SCALE,
-                    y = (y + 22) / SCALE,
-                    width = 186,
-                    height = 176,
-                    scale = SCALE
-                )
-
                 pokemon.form.riding.behaviours?.let {
                     val behaviours = it.entries.toList()
                     val selectedBehaviour = behaviours[rideBehaviourIndex]
+                    val canSwitchStyle = behaviours.size > 1 && centerHovered(pMouseX, pMouseY)
+
+                    blitk(
+                        matrixStack = matrices,
+                        texture = if (canSwitchStyle) statsChartPentagonHighlightResource else statsChartPentagonResource,
+                        x= (x + 20.5) / SCALE,
+                        y = (y + 22) / SCALE,
+                        width = 186,
+                        height = 176,
+                        scale = SCALE
+                    )
 
                     val pentagonColour = when (selectedBehaviour.key) {
                         RidingStyle.AIR -> {
-                            if (behaviours.size > 1 && centerHovered(pMouseX, pMouseY))
+                            if (canSwitchStyle)
                                 Vector3f(70F/255F, 235F/225F, 195F/255F)
                             else Vector3f(40F/255F, 205F/255F, 165F/255F)
                         }
                         RidingStyle.LIQUID -> {
-                            if (behaviours.size > 1 && centerHovered(pMouseX, pMouseY))
+                            if (canSwitchStyle)
                                 Vector3f(95F/255F, 165F/255F, 1F)
                             else Vector3f(65F/255F, 135F/255F, 1F)
                         }
                         else -> {
-                            if (behaviours.size > 1 && centerHovered(pMouseX, pMouseY))
+                            if (canSwitchStyle)
                                 Vector3f(1F, 195F/255F, 30F/255F)
                             else Vector3f(1F, 165F/255F, 0F)
                         }
@@ -353,8 +357,8 @@ class StatWidget(
                         context = context,
                         labels = RidingStat.entries.toList().map { stat ->
                             if (statLabelsHovered(pentagonVerticesOffset, pMouseX, pMouseY))
-                                "${floor((pokemon.getRideStat(selectedBehaviour.key, stat) / (selectedBehaviour.value.stats[stat]?.endInclusive ?: 1)) * 100)}%".text()
-                                else floor(pokemon.getRideStat(selectedBehaviour.key, stat)).toString().text()
+                                "+${floor(pokemon.getRideBoost(stat) / pokemon.getMaxRideBoost(stat) * 100)}%".text()
+                            else floor(pokemon.getRideStat(selectedBehaviour.key, stat)).toString().text()
                         },
                         verticesOffset = pentagonVerticesOffset,
                         offsetY = 5.5
@@ -389,7 +393,7 @@ class StatWidget(
                         colour = Vector3f(216F/255, 100F/255, 1F)
                     )
                     EV -> drawStatPolygon(
-                        statLabels.values.map { (pokemon.evs[it]?.toFloat() ?: 0F) / 252F },
+                        statLabels.values.map { (pokemon.evs[it]?.toFloat() ?: 0F) / EVs.MAX_STAT_VALUE.toFloat() },
                         colour = Vector3f(1F, 1F, 100F/255F)
                     )
                 }
@@ -403,9 +407,9 @@ class StatWidget(
                                 "${
                                     if (pokemon.ivs.isHyperTrained(stat.value)) "${pokemon.ivs[stat.value]} (${pokemon.ivs.hyperTrainedIVs[stat.value]})"
                                     else pokemon.ivs[stat.value].toString()
-                                }/31".text()
+                                }/${IVs.MAX_VALUE}".text()
                             }
-                            EV -> "${pokemon.evs.getOrDefault(stat.value)}/252".text()
+                            EV -> "${pokemon.evs.getOrDefault(stat.value)}/${EVs.MAX_STAT_VALUE}".text()
                             else -> stat.key
                         }
                     } else { stat.key }
@@ -490,14 +494,14 @@ class StatWidget(
                 STATS -> (if (stat == Stats.HP) "${pokemon.currentHealth} / ${pokemon.maxHealth}" else pokemon.getStat(stat).toString()).text()
                 IV -> {
                     (if (asPercent) {
-                        "${floor((((if (pokemon.ivs.isHyperTrained(stat)) pokemon.ivs.hyperTrainedIVs[stat] else pokemon.ivs[stat]) ?: 0) / 31.0) * 100)}%"
+                        "${floor((((if (pokemon.ivs.isHyperTrained(stat)) pokemon.ivs.hyperTrainedIVs[stat] else pokemon.ivs[stat]) ?: 0) / IVs.MAX_VALUE.toDouble()) * 100)}%"
                     } else {
                         if (pokemon.ivs.isHyperTrained(stat)) "${pokemon.ivs[stat]} (${pokemon.ivs.hyperTrainedIVs[stat]})"
                         else pokemon.ivs[stat].toString()
                     }).text()
                 }
                 EV -> {
-                    (if (asPercent) "${floor((pokemon.evs.getOrDefault(stat) / 252.0) * 100)}%"
+                    (if (asPercent) "${floor((pokemon.evs.getOrDefault(stat) / EVs.MAX_STAT_VALUE.toDouble()) * 100)}%"
                     else pokemon.evs.getOrDefault(stat).toString()).text()
                 }
                 else -> "0".text()
@@ -558,7 +562,9 @@ class StatWidget(
     }
 
     private fun centerHovered(pMouseX: Number, pMouseY: Number): Boolean {
-        return (pMouseX.toInt() in (x + 44)..(x + 90)) && (pMouseY.toInt() in (y + 47)..(y + 93))
+        val centerX = x + (WIDTH / 2)
+        val centerY = y + (HEIGHT / 2)
+        return (pMouseX.toInt() in (centerX - 30)..(centerX + 30)) && (pMouseY.toInt() in (centerY - 30)..(centerY + 30))
     }
 
     private fun statLabelsHovered(labelOffsets: List<Pair<Double, Double>>, mouseX: Int, mouseY: Int): Boolean {

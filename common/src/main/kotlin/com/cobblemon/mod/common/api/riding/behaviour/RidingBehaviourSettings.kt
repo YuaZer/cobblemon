@@ -30,6 +30,6 @@ interface RidingBehaviourSettings: Encodable, Decodable {
 
     fun calculate(stat: RidingStat, boostAmount: Float): Float {
         val range = stats[stat] ?: return 0F
-        return range.first + boostAmount
+        return (range.first + boostAmount).coerceAtMost(range.endInclusive.toFloat())
     }
 }
