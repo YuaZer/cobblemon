@@ -13,7 +13,6 @@ import com.cobblemon.mod.common.CobblemonSensors
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
 import com.cobblemon.mod.common.api.ai.asVariables
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
-import com.cobblemon.mod.common.entity.pokemon.ai.tasks.PathToBeeHiveTask
 import com.cobblemon.mod.common.entity.pokemon.ai.tasks.PlaceHoneyInHiveTask
 import com.cobblemon.mod.common.util.getMemorySafely
 import net.minecraft.core.BlockPos
@@ -68,7 +67,7 @@ class PathToBeeHiveTaskConfig : SingleTaskConfig {
             var traveledTicks = 0
 
             override fun checkExtraStartConditions(level: ServerLevel, owner: LivingEntity): Boolean {
-                return (owner !is PathfinderMob || !owner.isAlive || !(owner is PokemonEntity && PlaceHoneyInHiveTask.wantsToEnterHive(owner))) && owner.brain.checkMemory(
+                return (owner is PathfinderMob && owner.isAlive  && (owner is PokemonEntity && PlaceHoneyInHiveTask.wantsToEnterHive(owner))) && owner.brain.checkMemory(
                     MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT)
             }
 
