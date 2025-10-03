@@ -49,6 +49,7 @@ object CobblemonMemories {
     val IS_CONSUMING_ITEM = register<Boolean>("is_consuming_item")
     val RECENTLY_ATE_GRASS = register<Boolean>("recently_ate_grass")
     val HIVE_LOCATION = register<BlockPos>("hive_location")
+    val HIVE_BLACKLIST = register<List<BlockPos>>("hive_blacklist")
     val HIVE_COOLDOWN = register<Boolean>("hive_cooldown")
     val NEARBY_FLOWER = register<BlockPos>("nearby_flower")
     val PATH_TO_NEARBY_FLOWER_COOLDOWN = register<Boolean>("path_to_nearby_flower_cooldown")

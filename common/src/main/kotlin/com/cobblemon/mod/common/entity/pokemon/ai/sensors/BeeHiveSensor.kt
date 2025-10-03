@@ -24,7 +24,7 @@ import net.minecraft.world.level.block.entity.BlockEntity
 
 
 class BeeHiveSensor : Sensor<PokemonEntity>(300) {
-    override fun requires() = setOf(CobblemonMemories.HIVE_LOCATION)
+    override fun requires() = setOf(CobblemonMemories.HIVE_LOCATION, CobblemonMemories.HIVE_BLACKLIST)
     override fun doTick(world: ServerLevel, entity: PokemonEntity) {
         val brain = entity.brain
         val currentHive = brain.getMemory(CobblemonMemories.HIVE_LOCATION).orElse(null)
@@ -44,20 +44,18 @@ class BeeHiveSensor : Sensor<PokemonEntity>(300) {
         val list = findNearbyHivesWithSpace(entity)
 
         if (!list.isEmpty()) {
+            val blackList = brain.getMemory(CobblemonMemories.HIVE_BLACKLIST).orElse(emptyList())
             for (blockPos in list) {
-//                if (!this@Bee.goToHiveGoal.isTargetBlacklisted(blockPos)) {
-//                    this@Bee.hivePos = blockPos
-//                    return
-//                }
+                if (blackList.contains(blockPos)) continue
                 if (hasReachableAdjacentSide(world, blockPos)) {
                     closestHivePos = blockPos
                     break
                 }
-
             }
-
-//            this@Bee.goToHiveGoal.clearBlacklist()
-//            this@Bee.hivePos = list.get(0) as BlockPos?
+            if (closestHivePos == null) {
+                brain.eraseMemory(CobblemonMemories.HIVE_BLACKLIST)
+                closestHivePos = list.first()
+            }
         }
 
         if (closestHivePos != null) {

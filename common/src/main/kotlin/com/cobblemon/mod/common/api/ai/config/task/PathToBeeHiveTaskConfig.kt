@@ -58,6 +58,7 @@ class PathToBeeHiveTaskConfig : SingleTaskConfig {
                 CobblemonMemories.HAS_NECTAR to MemoryStatus.REGISTERED,
                 CobblemonMemories.HIVE_LOCATION to MemoryStatus.VALUE_PRESENT,
                 CobblemonMemories.HIVE_COOLDOWN to MemoryStatus.VALUE_ABSENT,
+                CobblemonMemories.HIVE_BLACKLIST to MemoryStatus.REGISTERED,
             ),
             400,
             400
@@ -108,9 +109,13 @@ class PathToBeeHiveTaskConfig : SingleTaskConfig {
                 val targetVec = Vec3.atCenterOf(openSide)
 
                 // Set path target toward hive
-                entity.brain.setMemory(MemoryModuleType.WALK_TARGET,WalkTarget(targetVec, 0.35F, 0))
-                entity.brain.setMemory(MemoryModuleType.LOOK_TARGET,BlockPosTracker(targetVec.add(0.0, entity.eyeHeight.toDouble(), 0.0)))
-                traveledTicks = 0
+                if (pathfindDirectlyTowards(targetVec, entity)) {
+                    entity.brain.setMemory(MemoryModuleType.WALK_TARGET,WalkTarget(targetVec, 0.35F, 0))
+                    entity.brain.setMemory(MemoryModuleType.LOOK_TARGET,BlockPosTracker(targetVec.add(0.0, entity.eyeHeight.toDouble(), 0.0)))
+                    traveledTicks = 0
+                } else {
+                    dropAndBlackListHive(entity)
+                }
             }
 
             override fun tick(level: ServerLevel, owner: LivingEntity, gameTime: Long) {
@@ -119,10 +124,29 @@ class PathToBeeHiveTaskConfig : SingleTaskConfig {
 
             override fun stop(level: ServerLevel, entity: LivingEntity, gameTime: Long) {
                 if (maxTicks < traveledTicks) {
-                    // TODO: hive blacklisting
-                    entity.brain.eraseMemory(CobblemonMemories.HIVE_LOCATION)
-                    entity.brain.setMemoryWithExpiry(CobblemonMemories.HIVE_COOLDOWN, true, 400)
+                    dropAndBlackListHive(entity)
+                    entity.brain.setMemoryWithExpiry(CobblemonMemories.HIVE_COOLDOWN, true, 100)
                 }
+            }
+
+            fun dropAndBlackListHive(entity: LivingEntity) {
+                val hivePos = entity.brain.getMemorySafely(CobblemonMemories.HIVE_LOCATION).orElse(null)
+                if (hivePos == null) return
+                val blackList = entity.brain.getMemorySafely(CobblemonMemories.HIVE_BLACKLIST).orElse(emptyList()).toMutableList()
+
+                blackList.add(hivePos)
+                if (blackList.count() > 3) {
+                    blackList.removeFirst()
+                }
+                entity.brain.eraseMemory(CobblemonMemories.HIVE_LOCATION)
+                entity.brain.setMemory(CobblemonMemories.HIVE_BLACKLIST, blackList)
+
+            }
+
+            private fun pathfindDirectlyTowards(pos: Vec3, entity: LivingEntity): Boolean {
+                if (entity !is PathfinderMob) return false
+                entity.navigation.moveTo(pos.x, pos.y, pos.z, 1, 1.0)
+                return entity.navigation.getPath() != null && entity.navigation.getPath()?.canReach() ?: false
             }
         }
     }

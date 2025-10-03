@@ -44,6 +44,7 @@ class PathToFlowerTaskConfig : SingleTaskConfig {
             CobblemonMemories.PATH_TO_NEARBY_FLOWER_COOLDOWN,
             CobblemonMemories.HIVE_COOLDOWN,
             CobblemonMemories.HIVE_LOCATION,
+            CobblemonMemories.HIVE_BLACKLIST,
             CobblemonMemories.HAS_NECTAR
         )
         behaviourConfigurationContext.addSensors(CobblemonSensors.NEARBY_FLOWER)
