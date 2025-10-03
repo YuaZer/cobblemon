@@ -1,11 +1,11 @@
 {
     "type": "minecraft:smelting",
-    "group": "ice_stone",
+    "group": "sun_stone",
     "ingredient": {
-        "item": "cobblemon:ice_stone_ore"
+        "item": "cobblemon:terracotta_sun_stone_ore"
     },
     "result": {
-        "id": "cobblemon:ice_stone"
+        "id": "cobblemon:sun_stone"
     },
     "experience": 0.2,
     "cookingtime": 200

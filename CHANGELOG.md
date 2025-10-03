@@ -555,6 +555,8 @@
 - Fixed singular Pokémon corruption causing entire storage corruption. Storages will now skip corrupted Pokémon and print an error to console.
 - Fixed species additions not being able to properly mark a species as implemented.
 - Fixed Pokémon item models not showing a glint when enchanted.
+- Fixed the missing Terracotta Sun Stone Ore smelting and blasting recipes
+- Improved experience gain from smelting evolution stone ores to better match other ore types
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.

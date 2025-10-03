@@ -1,11 +1,11 @@
 {
     "type": "minecraft:blasting",
-    "group": "thunder_stone",
+    "group": "sun_stone",
     "ingredient": {
-        "item": "cobblemon:deepslate_thunder_stone_ore"
+        "item": "cobblemon:terracotta_sun_stone_ore"
     },
     "result": {
-        "id": "cobblemon:thunder_stone"
+        "id": "cobblemon:sun_stone"
     },
     "experience": 0.2,
     "cookingtime": 100
