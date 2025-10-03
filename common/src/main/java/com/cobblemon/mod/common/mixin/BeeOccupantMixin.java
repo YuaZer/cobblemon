@@ -10,8 +10,8 @@ package com.cobblemon.mod.common.mixin;
 
 
 import com.cobblemon.mod.common.CobblemonMemories;
+import com.cobblemon.mod.common.api.ai.config.task.PathToBeeHiveTaskConfig;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
-import com.cobblemon.mod.common.entity.pokemon.ai.tasks.PathToBeeHiveTask;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.BlockTags;
@@ -72,7 +72,7 @@ public abstract class BeeOccupantMixin {
                 if (hasNectar) {
                     // Remove nectar and reset got to hive cooldown
                     brain.eraseMemory(CobblemonMemories.INSTANCE.getHAS_NECTAR());
-                    brain.setMemoryWithExpiry(CobblemonMemories.INSTANCE.getHIVE_COOLDOWN(), true, PathToBeeHiveTask.INSTANCE.getSTAY_OUT_OF_HIVE_COOLDOWN());
+                    brain.setMemoryWithExpiry(CobblemonMemories.INSTANCE.getHIVE_COOLDOWN(), true, PathToBeeHiveTaskConfig.STAY_OUT_OF_HIVE_COOLDOWN);
                     // Increment honey level of the hive
                     if (state.is(BlockTags.BEEHIVES, (blockStateBase) -> blockStateBase.hasProperty(BeehiveBlock.HONEY_LEVEL))) {
                         int i = state.getValue(BeehiveBlock.HONEY_LEVEL);

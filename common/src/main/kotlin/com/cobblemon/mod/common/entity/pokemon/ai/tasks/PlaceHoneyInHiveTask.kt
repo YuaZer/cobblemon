@@ -23,9 +23,6 @@ import net.minecraft.world.phys.Vec3
 
 object PlaceHoneyInHiveTask {
 
-//    val TICKS_WITHOUT_NECTAR_BEFORE_GOING_HOME = 3600
-//    val STAY_OUT_OF_HIVE_COOLDOWN = 400
-
     fun create(): OneShot<PokemonEntity> {
         return BehaviorBuilder.create {
             it.group(
@@ -67,8 +64,6 @@ object PlaceHoneyInHiveTask {
     }
 
     fun wantsToEnterHive( entity: PokemonEntity) : Boolean {
-        // TODO Check if hive is near fire
-        // TODO Check if currently pollinating
         val result = !entity.brain.checkMemory(CobblemonMemories.HIVE_COOLDOWN, MemoryStatus.VALUE_PRESENT)
                 && (entity.level().isRaining || entity.level().isNight || entity.brain.getMemory(CobblemonMemories.HAS_NECTAR).orElse(false))
         if (result) {
