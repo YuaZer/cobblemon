@@ -293,6 +293,7 @@
 - Tauros - Paldea Blaze
 - Tauros - Paldea Combat
 - Dewgong
+- Exeggutor - Kanto
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -403,6 +404,9 @@
 - Revavroom
 - Nickit
 - Thievul
+- Litwick
+- Lampent
+- Chandelure
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
