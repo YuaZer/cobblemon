@@ -708,7 +708,7 @@ class NPCEntity(world: Level) : AgeableMob(CobblemonEntities.NPC, world), Npc, P
         return false
     }
 
-    override fun canPathThroughLeaves(): Boolean {
+    override fun canPathThroughSaccLeaves(): Boolean {
         return false
     }
 

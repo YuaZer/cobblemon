@@ -131,7 +131,7 @@ class SaccharineLeafBlock(settings: Properties) : LeavesBlock(settings) {
             val entity = context.entity
             if (entity != null
                 && entity is MoLangScriptingEntity
-                && entity.config.map.getOrDefault("can_path_through_leaves", DoubleValue.ZERO).asDouble() == 1.0
+                && entity.config.map.getOrDefault("can_path_through_sacc_leaves", DoubleValue.ZERO).asDouble() == 1.0
             ) {
                 return Shapes.empty()
             }

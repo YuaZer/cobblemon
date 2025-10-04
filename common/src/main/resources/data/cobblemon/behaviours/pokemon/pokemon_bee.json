@@ -5,12 +5,12 @@
   "onAdd": [
     "q.entity.data.original_leaves_malus = q.entity.get_pathfinding_malus('LEAVES');",
     "q.entity.set_pathfinding_malus('LEAVES', 4.0);",
-    "q.entity.config.can_path_through_leaves = true;"
+    "q.entity.config.can_path_through_sacc_leaves = true;"
 
   ],
   "onRemove": [
     "q.entity.set_pathfinding_malus('LEAVES', q.entity.data.original_leaves_malus);",
-    "q.entity.config.can_path_through_leaves = false;"
+    "q.entity.config.can_path_through_sacc_leaves = false;"
   ],
   "configurations": [
     {

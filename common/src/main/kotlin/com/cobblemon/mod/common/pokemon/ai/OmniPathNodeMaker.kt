@@ -705,7 +705,7 @@ class OmniPathNodeMaker : NodeEvaluator() {
 
     fun canPathThroughLeaves() : Boolean {
         return if (this.mob is OmniPathingEntity) {
-            (this.mob as OmniPathingEntity).canPathThroughLeaves()
+            (this.mob as OmniPathingEntity).canPathThroughSaccLeaves()
         } else {
             false
         }

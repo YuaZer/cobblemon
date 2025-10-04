@@ -22,7 +22,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -64,8 +63,6 @@ public abstract class BeeOccupantMixin {
                 entity.yRotO = newYaw;
                 entity.setPos(newPos);
                 // Do honey logic
-                // When we became part of the beehive's data we lost all Brain memories.
-                // Restoring the pollinated flag from the compound tag
                 var hasNectar = brain.getMemory(CobblemonMemories.INSTANCE.getHAS_NECTAR()).orElse(false);
                 if (hasNectar) {
                     // Remove nectar and reset got to hive cooldown
@@ -79,7 +76,7 @@ public abstract class BeeOccupantMixin {
                             if (i + j > 5) {
                                 --j;
                             }
-                            level.setBlockAndUpdate(pos, (BlockState) state.setValue(BeehiveBlock.HONEY_LEVEL, i + j));
+                            level.setBlockAndUpdate(pos, state.setValue(BeehiveBlock.HONEY_LEVEL, i + j));
                         }
                     }
                 }
