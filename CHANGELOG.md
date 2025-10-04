@@ -293,6 +293,7 @@
 - Tauros - Paldea Blaze
 - Tauros - Paldea Combat
 - Dewgong
+- Exeggutor - Kanto
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -403,6 +404,9 @@
 - Revavroom
 - Nickit
 - Thievul
+- Litwick
+- Lampent
+- Chandelure
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
@@ -471,6 +475,7 @@
 - Changed icon for the following advancements: New Angles for Angling, Researcher Recruit, Doing my Part, Reapriforestation
 - Disabled advancement Mother Nature's Bounty from appearing in chat when obtained, now only appears as a toast and in the advancements menu
 - Removed Oki-Doki Vivichokey advancement
+- Shulker Boxes and Traveler's Backpacks can no longer be held by Pokémon. Thanks Monocle ;) You could re-enable this with a datapack but you'd be crazy.
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
