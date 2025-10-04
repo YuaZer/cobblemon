@@ -3421,6 +3421,7 @@
   "gamerule.doPokemonLoot": "Drop Pokémon Loot",
   "gamerule.battleInvulnerability": "Battle Invulnerability",
   "gamerule.mobTargetInBattle": "Mobs target during battles",
+  "gamerule.healersHealPC": "Heal Pokémon in PC when using a Healing Machine",
   "cobblemon.command.checkspawns.invalid-bucket": "Invalid Spawn Bucket",
   "cobblemon.command.checkspawns.spawns": "Spawns",
   "cobblemon.command.checkspawns.nothing": "Nothing can spawn here right now.",
