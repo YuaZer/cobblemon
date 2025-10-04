@@ -27,7 +27,7 @@
           {
             "type": "cobblemon:activity_change",
             "activity": "minecraft:idle",
-            "condition": "q.entity.lacks_memory_value('cobblemon:has_nectar', 'cobblemon:nearby_flower') || (q.entity.has_memory_value('cobblemon:has_nectar') && (q.entity.lacks_memory_value('cobblemon:nearby_sacc_leaves', 'cobblemon:hive_location') || q.entity.has_memory_value('cobblemon:hive_cooldown')))"
+            "condition": "q.entity.lacks_memory_value('cobblemon:has_nectar', 'cobblemon:nearby_flower') || (q.entity.has_memory_value('cobblemon:has_nectar') && (q.entity.lacks_memory_value('cobblemon:nearby_sacc_leaves', 'cobblemon:hive_location'))) || q.entity.has_memory_value('cobblemon:hive_cooldown')"
           },
           {
             "type": "cobblemon:activity_change",

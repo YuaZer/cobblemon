@@ -109,7 +109,7 @@ class PathToBeeHiveTaskConfig : SingleTaskConfig {
                 val targetVec = Vec3.atCenterOf(openSide)
 
                 // Set path target toward hive
-                if (pathfindDirectlyTowards(targetVec, entity)) {
+                if (pathfindDirectlyTowards(openSide, entity)) {
                     entity.brain.setMemory(MemoryModuleType.WALK_TARGET,WalkTarget(targetVec, 0.35F, 0))
                     entity.brain.setMemory(MemoryModuleType.LOOK_TARGET,BlockPosTracker(targetVec.add(0.0, entity.eyeHeight.toDouble(), 0.0)))
                     traveledTicks = 0
@@ -143,10 +143,11 @@ class PathToBeeHiveTaskConfig : SingleTaskConfig {
 
             }
 
-            private fun pathfindDirectlyTowards(pos: Vec3, entity: LivingEntity): Boolean {
+            private fun pathfindDirectlyTowards(pos: BlockPos, entity: LivingEntity): Boolean {
                 if (entity !is PathfinderMob) return false
-                entity.navigation.moveTo(pos.x, pos.y, pos.z, 1, 1.0)
-                return entity.navigation.getPath() != null && entity.navigation.getPath()?.canReach() ?: false
+                val nav = entity.navigation
+                val path = nav. createPath(pos, 0)
+                return path != null && path.canReach()
             }
         }
     }

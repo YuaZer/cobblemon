@@ -36,7 +36,6 @@ object PlaceHoneyInHiveTask {
                         return@Trigger false
                     }
 
-                    val hiveCooldown = 1200L
                     val hiveLocation = it.get(hiveMemory)
                     val targetVec = Vec3.atCenterOf(hiveLocation)
 
@@ -69,7 +68,7 @@ object PlaceHoneyInHiveTask {
         if (result) {
             val blockPos = entity.brain.getMemorySafely(CobblemonMemories.HIVE_LOCATION).orElse(null)
             val blockEntity = entity.level().getBlockEntity(blockPos)
-            return !(blockEntity is BeehiveBlockEntity && blockEntity.isFireNearby)
+            return blockEntity is BeehiveBlockEntity && !blockEntity.isFireNearby
         }
         return false
     }
