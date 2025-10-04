@@ -34,9 +34,7 @@ public abstract class BeeOccupantMixin {
 
     @Inject(method = "createEntity", at = @At("RETURN"), cancellable = true)
     private void cobblemon$createEntity(Level level, BlockPos pos, CallbackInfoReturnable<Entity> cir) {
-        // TODO: Find a solution that isn't a mixin, pokemon aren't beehive_inhabitants
         // Needing to replicate all the post op stuff on the hive isn't great
-        // Even then may still need to set the position data
         if (cir.getReturnValue() == null) {
             final BeehiveBlockEntity.Occupant occupant = (BeehiveBlockEntity.Occupant) (Object) this;
             CompoundTag compoundTag = occupant.entityData().copyTag();

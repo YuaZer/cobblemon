@@ -47,8 +47,7 @@ public abstract class BeehiveBlockEntityMixin {
                 return;
             // from this point need to access private members of the block entity
             final BeehiveBlockEntityAccessor blockEntityAccessor = (BeehiveBlockEntityAccessor) this;
-            List<Object> storedList = ((BeehiveBlockEntityAccessor) this).getStored();
-            System.out.println("Started THE MIXIN!!  " + storedList.size());
+            List<Object> storedList = blockEntityAccessor.getStored();
 
             List<Entity> list = Lists.newArrayList();
             storedList.removeIf((beeData) -> {
@@ -89,7 +88,6 @@ public abstract class BeehiveBlockEntityMixin {
     )
     private static boolean cobblemon$captureReleasedEntity(
             Level level, Entity entity,
-            // capture releaseOccupant's parameters so Mixin can bind this redirect correctly
             Level lvl, BlockPos pos, BlockState state,
             BeehiveBlockEntity.Occupant occupant, @Nullable List<Entity> bees,
             BeehiveBlockEntity.BeeReleaseStatus releaseStatus, @Nullable BlockPos flowerPos) {
@@ -97,7 +95,6 @@ public abstract class BeehiveBlockEntityMixin {
         if (bees != null && !bees.contains(entity)) {
             // Avoid duplicates if vanilla also adds bees to the list on your version
             bees.add(entity);
-            System.out.println("caught entity " + bees.size());
         }
         return level.addFreshEntity(entity);
     }
