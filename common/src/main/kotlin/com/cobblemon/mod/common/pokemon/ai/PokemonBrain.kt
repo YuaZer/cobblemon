@@ -15,11 +15,20 @@ import com.cobblemon.mod.common.CobblemonSensors
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
 import com.cobblemon.mod.common.api.ai.config.ApplyBehaviours
 import com.cobblemon.mod.common.api.ai.config.BehaviourConfig
-import com.cobblemon.mod.common.entity.ai.*
+import com.cobblemon.mod.common.entity.ai.AttackAngryAtTask
+import com.cobblemon.mod.common.entity.ai.ChooseLandWanderTargetTask
+import com.cobblemon.mod.common.entity.ai.FleeFromAttackerTask
+import com.cobblemon.mod.common.entity.ai.FollowWalkTargetTask
+import com.cobblemon.mod.common.entity.ai.GetAngryAtAttackerTask
+import com.cobblemon.mod.common.entity.ai.LookAroundTaskWrapper
+import com.cobblemon.mod.common.entity.ai.MoveToAttackTargetTask
+import com.cobblemon.mod.common.entity.ai.StayAfloatTask
+import com.cobblemon.mod.common.entity.ai.SwapActivityTask
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.entity.pokemon.ai.sensors.DrowsySensor
 import com.cobblemon.mod.common.entity.pokemon.ai.tasks.*
 import com.cobblemon.mod.common.pokemon.Pokemon
+import com.cobblemon.mod.common.util.asExpression
 import com.cobblemon.mod.common.util.toDF
 import com.google.common.collect.ImmutableList
 import com.google.common.collect.ImmutableSet
@@ -51,6 +60,11 @@ object PokemonBrain {
     private val ADULT_FOLLOW_RANGE = UniformInt.of(5, 16)
     private val AVOID_MEMORY_DURATION = TimeUtil.rangeOfSeconds(5, 20)
 
+    /**
+     * The things that absolutely should be on all pokemon can be put in here. Things that make no sense
+     * without specific activities/Behaviours should be given as part of those activities. Some of the things
+     * in this list currently violate this rule but it's whatever, I'll get to them later.
+     */
     val SENSORS: Collection<SensorType<out Sensor<in PokemonEntity>>> = listOf(
         SensorType.NEAREST_LIVING_ENTITIES,
         SensorType.HURT_BY,
@@ -60,7 +74,10 @@ object PokemonBrain {
         CobblemonSensors.POKEMON_DROWSY,
         CobblemonSensors.POKEMON_ADULT,
         SensorType.IS_IN_WATER,
-        CobblemonSensors.NEARBY_GROWABLE_CROPS
+        CobblemonSensors.NEARBY_GROWABLE_CROPS,
+        CobblemonSensors.NEARBY_BEE_HIVE,
+        CobblemonSensors.NEARBY_FLOWER,
+        CobblemonSensors.NEARBY_SWEET_BERRY_BUSH
 
 //            CobblemonSensors.BATTLING_POKEMON,
 //            CobblemonSensors.NPC_BATTLING
@@ -176,9 +193,15 @@ object PokemonBrain {
         MemoryModuleType.AVOID_TARGET,
         CobblemonMemories.POKEMON_SLEEPING,
         CobblemonMemories.RECENTLY_ATE_GRASS,
+        CobblemonMemories.HIVE_LOCATION,
+        CobblemonMemories.HIVE_COOLDOWN,
+        CobblemonMemories.NEARBY_FLOWERS,
+        CobblemonMemories.POLLINATED,
+        CobblemonMemories.RECENTLY_ATE_GRASS,
         CobblemonMemories.HERD_LEADER,
         CobblemonMemories.HERD_SIZE,
-        CobblemonMemories.ATTACK_TARGET_DATA
+        CobblemonMemories.ATTACK_TARGET_DATA,
+        CobblemonMemories.NEARBY_SWEET_BERRY_BUSH
     )
 
     private fun coreTasks(pokemon: Pokemon) = buildList<Pair<Int, BehaviorControl<in PokemonEntity>>> {
@@ -189,7 +212,7 @@ object PokemonBrain {
         if (pokemon.form.behaviour.combat.willDefendSelf) {
             add(0 toDF GetAngryAtAttackerTask.create())
         } else {
-            add(0 toDF FleeFromAttackerTask.create())
+            add(0 toDF FleeFromAttackerTask.create("600".asExpression()))
         }
 
         add(0 toDF StopBeingAngryIfTargetDead.create())
@@ -215,15 +238,11 @@ object PokemonBrain {
     private fun idleTasks(pokemon: Pokemon) = buildList<Pair<Int, BehaviorControl<in PokemonEntity>>> {
         add(0 toDF WakeUpTask.create() )
         if (pokemon.form.behaviour.moving.canLook) {
-            if (pokemon.form.behaviour.moving.looksAtEntities) {
-                add(0 toDF LookAtMobTaskWrapper.create(15F))
-            }
-
             add(0 toDF LookAroundTaskWrapper(45, 90))
         }
 
         add(0 toDF ChooseLandWanderTargetTask.create(pokemon.form.behaviour.moving.wanderChance, horizontalRange = 10, verticalRange = 5, walkSpeed = 0.33F, completionRange = 1))
-        add(0 toDF GoToSleepTask.create())
+        add(0 toDF GoToSleepTask.create(onlyFromStatus = false))
         add(0 toDF FindRestingPlaceTask.create(16, 8))
 //        add(0 toDF EatGrassTask())
         add(0 toDF AttackAngryAtTask.create())

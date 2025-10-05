@@ -34,7 +34,7 @@
 				{
 					"name": "body",
 					"parent": "mudsdale",
-					"pivot": [0, 8, 0]
+					"pivot": [0, 24, 0]
 				},
 				{
 					"name": "locator_middle",
@@ -65,7 +65,7 @@
 					"parent": "torso",
 					"pivot": [0, 33, 4],
 					"locators": {
-						"seat_1": [0, 33, 4]
+						"seat_1": [0, 29, 4]
 					}
 				},
 				{

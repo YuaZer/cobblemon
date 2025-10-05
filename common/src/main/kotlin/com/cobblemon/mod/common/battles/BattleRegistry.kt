@@ -8,11 +8,9 @@
 
 package com.cobblemon.mod.common.battles
 
-import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.api.battles.model.PokemonBattle
 import com.cobblemon.mod.common.api.events.CobblemonEvents
-import com.cobblemon.mod.common.api.events.battles.BattleStartedPostEvent
-import com.cobblemon.mod.common.api.events.battles.BattleStartedPreEvent
+import com.cobblemon.mod.common.api.events.battles.BattleStartedEvent
 import com.cobblemon.mod.common.api.moves.HiddenPowerUtil
 import com.cobblemon.mod.common.api.pokemon.helditem.HeldItemProvider
 import com.cobblemon.mod.common.api.pokemon.stats.Stats
@@ -20,9 +18,9 @@ import com.cobblemon.mod.common.api.pokemon.status.Statuses
 import com.cobblemon.mod.common.battles.pokemon.BattlePokemon
 import com.cobblemon.mod.common.battles.runner.ShowdownService
 import com.google.gson.GsonBuilder
-import java.util.UUID
-import java.util.concurrent.ConcurrentHashMap
 import net.minecraft.server.level.ServerPlayer
+import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 
 object BattleRegistry {
 
@@ -49,7 +47,7 @@ object BattleRegistry {
      *
      * @return a string of the packed team
      */
-    fun List<BattlePokemon>.packTeam() : String {
+    fun List<BattlePokemon>.packTeam(): String {
         val team = mutableListOf<String>()
         for (pokemon in this) {
             val pk = pokemon.effectedPokemon
@@ -85,7 +83,8 @@ object BattleRegistry {
             // Additional move info
             packedTeamBuilder.append(
                 "${
-                    pk.moveSet.getMoves().joinToString(",") { move -> move.currentPp.toString() + "/" + move.maxPp.toString() }
+                    pk.moveSet.getMoves()
+                        .joinToString(",") { move -> move.currentPp.toString() + "/" + move.maxPp.toString() }
                 }|"
             )
             // Nature
@@ -113,7 +112,7 @@ object BattleRegistry {
             packedTeamBuilder.append("$pokeball,")
             // Hidden Power Type
             // This is empty if the pokemon is not Hyper Trained, and the provided type corresponds to base IVs and not battle IVs.
-            val hiddenPowerType = if (pk.ivs.hyperTrainedIVs.any()) HiddenPowerUtil.getHiddenPowerType(pk).name.replaceFirstChar { it.uppercase() } else ""
+            val hiddenPowerType = if (pk.ivs.hyperTrainedIVs.any()) HiddenPowerUtil.getHiddenPowerType(pk).name else ""
             packedTeamBuilder.append("$hiddenPowerType,")
             // Gigantamax
             packedTeamBuilder.append("${if (pk.gmaxFactor) "G" else ""},")
@@ -121,7 +120,7 @@ object BattleRegistry {
             // 0 - 9, empty == 10
             packedTeamBuilder.append("${if (pk.dmaxLevel < 10) pk.dmaxLevel else ""},")
             // Teratype
-            packedTeamBuilder.append("${pokemon.effectedPokemon.teraType.showdownId()},")
+            packedTeamBuilder.append("${pokemon.effectedPokemon.teraType.name},")
 
             team.add(packedTeamBuilder.toString())
         }
@@ -208,10 +207,10 @@ object BattleRegistry {
 
         if (!canPreempt) start().also { return SuccessfulBattleStart(battle) }
 
-        val preBattleEvent = BattleStartedPreEvent(battle)
+        val preBattleEvent = BattleStartedEvent.Pre(battle)
         CobblemonEvents.BATTLE_STARTED_PRE.postThen(preBattleEvent) {
             start()
-            CobblemonEvents.BATTLE_STARTED_POST.post(BattleStartedPostEvent(battle))
+            CobblemonEvents.BATTLE_STARTED_POST.post(BattleStartedEvent.Post(battle))
             return SuccessfulBattleStart(battle)
         }
         return ErroredBattleStart(mutableSetOf(BattleStartError.canceledByEvent(preBattleEvent.reason)))
@@ -222,11 +221,11 @@ object BattleRegistry {
         battleMap.remove(battle.battleId)
     }
 
-    fun getBattle(id: UUID) : PokemonBattle? {
+    fun getBattle(id: UUID): PokemonBattle? {
         return battleMap[id]
     }
 
-    fun getBattleByParticipatingPlayer(serverPlayer: ServerPlayer) : PokemonBattle? {
+    fun getBattleByParticipatingPlayer(serverPlayer: ServerPlayer): PokemonBattle? {
         return battleMap.values.find { it.getActor(serverPlayer) != null }
     }
 

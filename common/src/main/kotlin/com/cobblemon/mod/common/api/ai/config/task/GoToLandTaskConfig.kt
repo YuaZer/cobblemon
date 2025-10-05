@@ -11,9 +11,12 @@ package com.cobblemon.mod.common.api.ai.config.task
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
 import com.cobblemon.mod.common.api.ai.asVariables
+import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMostSpecificMoLangValue
 import com.cobblemon.mod.common.api.npc.configuration.MoLangConfigVariable
 import com.cobblemon.mod.common.entity.OmniPathingEntity
 import com.cobblemon.mod.common.util.closestPosition
+import com.cobblemon.mod.common.util.mainThreadRuntime
+import com.cobblemon.mod.common.util.withQueryValue
 import kotlin.math.ceil
 import kotlin.math.floor
 import net.minecraft.core.BlockPos
@@ -33,7 +36,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType
  */
 class GoToLandTaskConfig : SingleTaskConfig {
     val walkSpeed = numberVariable(SharedEntityVariables.MOVEMENT_CATEGORY, SharedEntityVariables.WALK_SPEED, 0.35).asExpressible()
-    override fun getVariables(entity: LivingEntity): List<MoLangConfigVariable> {
+    override fun getVariables(entity: LivingEntity, behaviourConfigurationContext: BehaviourConfigurationContext): List<MoLangConfigVariable> {
         return listOf(walkSpeed).asVariables()
     }
 
@@ -54,13 +57,14 @@ class GoToLandTaskConfig : SingleTaskConfig {
                 it.absent(CobblemonMemories.PATH_COOLDOWN)
             ).apply(it) { walkTarget, pathCooldown ->
                 Trigger { world, entity, time ->
-                    if (!entity.isInLiquid) {
+                    if (!entity.isInWater) {
                         return@Trigger false
                     }
 
                     entity as PathfinderMob
 
-                    val walkSpeedValue = walkSpeed.resolveFloat()
+                    mainThreadRuntime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
+                    val walkSpeedValue = walkSpeed.resolveFloat(mainThreadRuntime)
 
                     val iterable = BlockPos.betweenClosed(
                         Mth.floor(entity.x - 8.0),

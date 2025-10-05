@@ -62,6 +62,9 @@
     "entityInteract": {
       "avoidedByCreeper": true,
       "avoidedByPhantom": true
+    },
+    "herd": {
+      "maxSize": "5"
     }
   },
   "drops": {
@@ -220,7 +223,16 @@
     "tutor:stompingtantrum",
     "tutor:superpower",
     "tutor:throatchop",
-    "tutor:thunderpunch"
+    "tutor:thunderpunch",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:snore",
+    "legacy:toxic"
   ],
   "preEvolution": "torracat",
   "evolutions": []

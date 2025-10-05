@@ -15,9 +15,7 @@ import com.bedrockk.molang.runtime.value.StringValue
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.CobblemonEntities
 import com.cobblemon.mod.common.CobblemonItems
-import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.CobblemonNetwork.sendPacket
-import com.cobblemon.mod.common.CobblemonSensors
 import com.cobblemon.mod.common.CobblemonSounds
 import com.cobblemon.mod.common.api.entity.PokemonSender
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.addFunctions
@@ -40,6 +38,7 @@ import com.cobblemon.mod.common.api.scheduling.SchedulingTracker
 import com.cobblemon.mod.common.api.storage.party.NPCPartyStore
 import com.cobblemon.mod.common.api.text.text
 import com.cobblemon.mod.common.entity.BehaviourEditingTracker
+import com.cobblemon.mod.common.entity.EntityCallbacks
 import com.cobblemon.mod.common.entity.MoLangScriptingEntity
 import com.cobblemon.mod.common.entity.OmniPathingEntity
 import com.cobblemon.mod.common.entity.PosableEntity
@@ -55,7 +54,6 @@ import com.cobblemon.mod.common.util.getBattleState
 import com.cobblemon.mod.common.util.getPlayer
 import com.cobblemon.mod.common.util.makeEmptyBrainDynamic
 import com.cobblemon.mod.common.util.withNPCValue
-import com.google.common.collect.ImmutableList
 import com.mojang.authlib.GameProfile
 import com.mojang.authlib.ProfileLookupCallback
 import com.mojang.serialization.Dynamic
@@ -245,6 +243,7 @@ class NPCEntity(world: Level) : AgeableMob(CobblemonEntities.NPC, world), Npc, P
     override val registeredVariables: MutableList<MoLangConfigVariable> = mutableListOf()
     override var data = VariableStruct()
     override var config = VariableStruct()
+    override var callbacks = EntityCallbacks(this)
 
     val aspects: Set<String>
         get() = entityData.get(ASPECTS)
@@ -386,7 +385,7 @@ class NPCEntity(world: Level) : AgeableMob(CobblemonEntities.NPC, world), Npc, P
     fun getBattleConfiguration() = battle ?: npc.battleConfiguration
 
     /** Retrieves the battle theme associated with this Pokemon's Species/Form, or the default PVW theme if not found. */
-    fun getBattleTheme() = this.npc.battleTheme?.let(BuiltInRegistries.SOUND_EVENT::get) ?: CobblemonSounds.PVN_BATTLE
+    fun getBattleTheme() = this.npc.battleTheme ?: CobblemonSounds.PVN_BATTLE.location
 
     override fun tick() {
         super.tick()
@@ -697,7 +696,15 @@ class NPCEntity(world: Level) : AgeableMob(CobblemonEntities.NPC, world), Npc, P
         return false
     }
 
+    override fun canWalkOnLava(): Boolean {
+        return false
+    }
+
     override fun canSwimUnderFluid(fluidState: FluidState): Boolean {
+        return false
+    }
+
+    override fun canWalkOnWater(): Boolean {
         return false
     }
 
