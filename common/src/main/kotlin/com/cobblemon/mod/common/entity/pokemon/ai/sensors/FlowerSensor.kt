@@ -10,6 +10,8 @@ package com.cobblemon.mod.common.entity.pokemon.ai.sensors
 
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
+import com.cobblemon.mod.common.util.distanceTo
+import com.cobblemon.mod.common.util.getMemorySafely
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Vec3i
 import net.minecraft.server.level.ServerLevel
@@ -27,6 +29,12 @@ class FlowerSensor : Sensor<PokemonEntity>(120) {
 
     override fun doTick(world: ServerLevel, entity: PokemonEntity) {
         val brain = entity.brain
+
+        // Check curr memory
+        val currPos = brain.getMemorySafely(CobblemonMemories.NEARBY_FLOWER).orElse(null)
+        if (currPos != null && isFlower(entity.level().getBlockState(currPos)) && entity.distanceTo(currPos) <= 32) {
+            return
+        }
 
         val searchRadius = 5
         val centerPos = entity.blockPosition()

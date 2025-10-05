@@ -14,6 +14,7 @@ import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
 import com.cobblemon.mod.common.api.ai.asVariables
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.entity.pokemon.ai.tasks.PlaceHoneyInHiveTask
+import com.cobblemon.mod.common.util.distanceTo
 import com.cobblemon.mod.common.util.getMemorySafely
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
@@ -54,7 +55,7 @@ class PathToBeeHiveTaskConfig : SingleTaskConfig {
         return object : Behavior<LivingEntity>(
             mapOf(
                 MemoryModuleType.LOOK_TARGET to MemoryStatus.REGISTERED,
-                MemoryModuleType.WALK_TARGET to MemoryStatus.REGISTERED,
+                MemoryModuleType.WALK_TARGET to MemoryStatus.VALUE_ABSENT,
                 CobblemonMemories.HAS_NECTAR to MemoryStatus.REGISTERED,
                 CobblemonMemories.HIVE_LOCATION to MemoryStatus.VALUE_PRESENT,
                 CobblemonMemories.HIVE_COOLDOWN to MemoryStatus.VALUE_ABSENT,
@@ -73,7 +74,9 @@ class PathToBeeHiveTaskConfig : SingleTaskConfig {
             }
 
             override fun canStillUse(level: ServerLevel, entity: LivingEntity, gameTime: Long): Boolean {
-                return maxTicks >= traveledTicks
+                if (maxTicks >= traveledTicks) return false
+                val pos = entity.brain.getMemory(CobblemonMemories.HIVE_LOCATION)
+                return !pos.isEmpty && entity.distanceTo(pos.get()) > 1.0
             }
 
             override fun start(level: ServerLevel, entity: LivingEntity, gameTime: Long) {

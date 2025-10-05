@@ -91,7 +91,6 @@ public abstract class BeeOccupantMixin {
             CompoundTag compoundTag = new CompoundTag();
             entity.save(compoundTag);
             Boolean hasNectar = pokemonEntity.getBrain().getMemory(CobblemonMemories.INSTANCE.getHAS_NECTAR()).orElse(false);
-            compoundTag.putBoolean("isCobblemonPokemon", true);
             cir.setReturnValue(new BeehiveBlockEntity.Occupant(CustomData.of(compoundTag), 0, hasNectar ? 2400 : 600));
             cir.cancel();
         }
