@@ -393,13 +393,8 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
 
     private fun breakFree() {
         val pokemon = capturingPokemon ?: return
-        val oldPos = pokemon.position()
-        val safelyPositioned = pokemon.setPositionSafely(position())
-
-        if(!safelyPositioned || oldPos.distanceTo(pokemon.position()) > 30) {
-            pokemon.setPos(oldPos)
-        }
-
+        pokemon.setPositionSafely(position())
+        
         pokemon.beamMode = 2
         pokemon.isInvisible = false
         pokemon.isSilent = false
