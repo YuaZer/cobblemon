@@ -8980,5 +8980,6 @@
     "cobblemon.behaviour.moves_to_lava.name": "返回至熔岩",
     "cobblemon.behaviour.moves_to_water.desc": "当水在附近时移动到水里。",
     "cobblemon.behaviour.pokemon_herds.name": "宝可梦群体",
-    "cobblemon.behaviour.pokemon_herds.desc": "宝可梦会认为合适的领导宝可梦，并跟随它。"
+    "cobblemon.behaviour.pokemon_herds.desc": "宝可梦会认为合适的领导宝可梦，并跟随它。",
+    "block.cobblemon.saccharine_log_slathered": "涂抹甜甜蜜的蜜露原木"
 }
