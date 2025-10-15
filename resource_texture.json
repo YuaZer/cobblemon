@@ -1,6 +1,6 @@
 {
-    "name": "Resource Texture",
-    "description": "Resource Texture Configuration",
+    "name": "cobblemon.behaviour.configurable_resource_identifier.name",
+    "description": "cobblemon.behaviour.configurable_resource_identifier.desc",
     "entityType": "cobblemon:npc",
     "undo": [
         "q.entity.unset_resource_identifier();"
@@ -11,8 +11,8 @@
             "variables": [
                 {
                     "variableName": "resource_identifier",
-                    "displayName": "Resource Identifier",
-                    "description": "The name of the variations file i.e. cobblemon:test_variation or the name of a Pokemon i.e cobblemon:mudkip",
+                    "displayName": "cobblemon.behaviour.configurable_resource_identifier.name",
+                    "description": "cobblemon.behaviour.configurable_resource_identifier.desc",
                     "type": "TEXT",
                     "defaultValue": "cobblemon:pikachu"
                 }

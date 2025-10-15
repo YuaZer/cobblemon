@@ -3777,6 +3777,9 @@
 
   "cobblemon.behaviour.pokemon_picks_up_items.name": "Picks Up Items",
   "cobblemon.behaviour.pokemon_picks_up_items.desc": "The Pokémon will pick up items that it cares about.",
+  
+  "cobblemon.behaviour.configurable_resource_identifier.name": "Confiogurable Resource Identifier",
+  "cobblemon.behaviour.configurable_resource_identifier.desc": "Configures the Resource Identifier for the npc. Useful for setting up different models and textures on one base npc class. This should be formatted like cobblemon:test_variation or the name of a pokemon i.e. cobblemon:mudkip",
 
   "npc.sacchi.name": "Professor Sacchi",
 
