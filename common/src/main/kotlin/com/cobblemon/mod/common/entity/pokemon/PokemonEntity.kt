@@ -120,6 +120,7 @@ import com.cobblemon.mod.common.util.math.geometry.toRadians
 import com.cobblemon.mod.common.world.gamerules.CobblemonGameRules
 import com.mojang.serialization.Codec
 import com.mojang.serialization.Dynamic
+import net.minecraft.client.Minecraft
 import java.util.Optional
 import java.util.UUID
 import java.util.concurrent.CompletableFuture
@@ -2398,8 +2399,12 @@ open class PokemonEntity(
 
     fun rideFovMult(): Float {
         val driver = this.controllingPassenger as? Player ?: return 1.0f
+        val fovEffectScale = Minecraft.getInstance().options.fovEffectScale().get().toFloat()
+
         return ifRidingAvailableSupply(fallback = 1.0f) { behaviour, settings, state ->
-            behaviour.rideFovMultiplier(settings, state, this, driver)
+            val rideFov = behaviour.rideFovMultiplier(settings, state, this, driver)
+
+            1f + (rideFov - 1f) * fovEffectScale
         }
     }
 
