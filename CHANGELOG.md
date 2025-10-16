@@ -408,6 +408,7 @@
 - Lampent
 - Chandelure
 - Rayquaza
+- Aerodactyl
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
