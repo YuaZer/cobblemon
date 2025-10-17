@@ -3,11 +3,11 @@
   "order": 2,
   "variations": [
     {
-      "aspects": ["hasNectar"],
+      "aspects": ["has_nectar"],
       "texture": "cobblemon:textures/pokemon/0415_combee/combee.png"
     },
 	{
-      "aspects": ["hasNectar", "shiny"],
+      "aspects": ["has_nectar", "shiny"],
       "texture": "cobblemon:textures/pokemon/0415_combee/combee.png"
     }
   ]

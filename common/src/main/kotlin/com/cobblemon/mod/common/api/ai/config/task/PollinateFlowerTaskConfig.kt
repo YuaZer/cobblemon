@@ -27,7 +27,7 @@ class PollinateFlowerTaskConfig : SingleTaskConfig {
     companion object {
         const val POLLINATE = "pollinate"
         const val PATH_TO_FLOWER_COOLDOWN_TICKS : Long = 200
-        const val HAS_NECTAR_ASPECT = "hasNectar"
+        const val HAS_NECTAR_ASPECT = "has_nectar"
     }
 
     val condition = booleanVariable(POLLINATE, "can_pollinate", true).asExpressible()
