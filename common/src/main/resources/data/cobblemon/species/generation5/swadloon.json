@@ -186,6 +186,9 @@
   "behaviour": {
     "herd": {
       "maxSize": "5"
+    },
+    "walk": {
+      "walkSpeed": "1.13"
     }
   }
 }
