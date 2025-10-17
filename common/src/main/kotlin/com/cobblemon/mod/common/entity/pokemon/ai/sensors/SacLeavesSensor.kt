@@ -9,74 +9,71 @@
 package com.cobblemon.mod.common.entity.pokemon.ai.sensors
 
 import com.cobblemon.mod.common.CobblemonMemories
+import com.cobblemon.mod.common.block.SaccharineLeafBlock
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.distanceTo
 import com.cobblemon.mod.common.util.getMemorySafely
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Vec3i
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.tags.BlockTags
 import net.minecraft.world.entity.ai.sensing.Sensor
-import net.minecraft.world.level.block.Blocks
-import net.minecraft.world.level.block.DoublePlantBlock
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf
+import kotlin.time.measureTime
 
-class FlowerSensor : Sensor<PokemonEntity>(120) {
+class SacLeavesSensor : Sensor<PokemonEntity>(120) {
 
-    override fun requires() = setOf(CobblemonMemories.NEARBY_FLOWER)
+    override fun requires() = setOf(CobblemonMemories.NEARBY_SACC_LEAVES)
 
     override fun doTick(world: ServerLevel, entity: PokemonEntity) {
         val brain = entity.brain
 
-        // Check curr memory
-        val currPos = brain.getMemorySafely(CobblemonMemories.NEARBY_FLOWER).orElse(null)
-        if (currPos != null && isFlower(entity.level().getBlockState(currPos)) && entity.distanceTo(currPos) <= 32) {
-            return
+        val searchRadius = 7
+        val tooFarDistance = 30
+        val wayTooFarDistance = 64
+        val currPos: BlockPos? = brain.getMemorySafely(CobblemonMemories.NEARBY_SACC_LEAVES).orElse(null)
+
+        if (currPos != null && isValidLeafBlock(entity.level().getBlockState(currPos))) {
+            val distance = entity.distanceTo(currPos)
+            if (distance <= tooFarDistance) {
+                return
+            } else if (distance > wayTooFarDistance) {
+                brain.eraseMemory(CobblemonMemories.NEARBY_SACC_LEAVES)
+            }
         }
 
-        val searchRadius = 5
         val centerPos = entity.blockPosition()
-        var flowerPos: BlockPos? = null
+        var leavesPos: BlockPos? = null
         var shortestDist = Double.MAX_VALUE
         BlockPos.betweenClosedStream(
             centerPos.offset(-searchRadius, -2, -searchRadius),
-            centerPos.offset(searchRadius, 2, searchRadius)
+            centerPos.offset(searchRadius, searchRadius, searchRadius)
         ).forEach { pos ->
             val state = world.getBlockState(pos)
-            if (isFlower(state)) {
+            if (isValidLeafBlock(state)) {
                 val distance = pos.distSqr(Vec3i(centerPos.x, centerPos.y, centerPos.z))
                 if (distance < shortestDist) {
-                    flowerPos = BlockPos(pos)
+                    leavesPos = BlockPos(pos)
                     shortestDist = distance
                 }
             }
         }
 
-
-        if (flowerPos != null) {
-            brain.setMemory(CobblemonMemories.NEARBY_FLOWER, flowerPos)
+        if (leavesPos != null) {
+            brain.setMemory(CobblemonMemories.NEARBY_SACC_LEAVES, leavesPos)
         } else {
-            brain.eraseMemory(CobblemonMemories.NEARBY_FLOWER)
+            brain.eraseMemory(CobblemonMemories.NEARBY_SACC_LEAVES)
         }
     }
 
-    private fun isFlower(state: BlockState): Boolean {
-        // Borrowed from Bee.class
+    private fun isValidLeafBlock(state: BlockState): Boolean {
+        if (state.block !is SaccharineLeafBlock) return false
         if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(
                 BlockStateProperties.WATERLOGGED
             ) as Boolean
         ) {
             return false
-        } else if (state.`is`(BlockTags.FLOWERS)) {
-            if (state.`is`(Blocks.SUNFLOWER)) {
-                return state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER
-            } else {
-                return true
-            }
-        } else {
-            return false
         }
+        return state.getValue(SaccharineLeafBlock.AGE) != SaccharineLeafBlock.MAX_AGE
     }
 }

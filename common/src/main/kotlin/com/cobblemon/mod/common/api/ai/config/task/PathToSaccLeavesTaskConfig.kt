@@ -8,20 +8,21 @@
 
 package com.cobblemon.mod.common.api.ai.config.task
 
+import com.cobblemon.mod.common.CobblemonMemories
+import com.cobblemon.mod.common.CobblemonSensors
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
-import com.cobblemon.mod.common.api.ai.WrapperLivingEntityTask
 import com.cobblemon.mod.common.api.ai.asVariables
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
-import com.cobblemon.mod.common.entity.pokemon.ai.tasks.PlaceHoneyInHiveTask
+import com.cobblemon.mod.common.entity.pokemon.ai.tasks.PathToSacLeafTask
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.behavior.BehaviorControl
 
-class PlaceHoneyInHiveTaskConfig : SingleTaskConfig {
+class PathToSaccLeavesTaskConfig : SingleTaskConfig {
     companion object {
-        const val HONEY = "honey"
+        const val POLLINATE = "pollinate"
     }
 
-    val condition = booleanVariable(HONEY, "can_add_honey", true).asExpressible()
+    val condition = booleanVariable(POLLINATE, "can_pollinate", true).asExpressible()
 
     override fun getVariables(entity: LivingEntity, behaviourConfigurationContext: BehaviourConfigurationContext) = listOf(
         condition
@@ -34,12 +35,15 @@ class PlaceHoneyInHiveTaskConfig : SingleTaskConfig {
         if (entity !is PokemonEntity) {
             return null
         }
+
         if (!checkCondition(behaviourConfigurationContext.runtime, condition)) {
             return null
         }
-        return WrapperLivingEntityTask(
-            PlaceHoneyInHiveTask.create(),
-            PokemonEntity::class.java
+        behaviourConfigurationContext.addMemories(
+CobblemonMemories.NEARBY_SACC_LEAVES,
+            CobblemonMemories.HAS_NECTAR
         )
+        behaviourConfigurationContext.addSensors(CobblemonSensors.NEARBY_SACC_LEAVES, CobblemonSensors.NEARBY_FLOWER)
+        return PathToSacLeafTask.create()
     }
 }
