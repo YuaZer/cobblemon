@@ -188,7 +188,8 @@
       "maxSize": "5"
     },
     "walk": {
-      "walkSpeed": "1.13"
+      "walkSpeed": 0.13,
+      "canWalk": true
     }
   }
 }
