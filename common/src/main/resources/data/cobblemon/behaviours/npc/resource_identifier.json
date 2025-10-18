@@ -11,8 +11,8 @@
             "variables": [
                 {
                     "variableName": "resource_identifier",
-                    "displayName": "cobblemon.behaviour.configurable_resource_identifier.name",
-                    "description": "cobblemon.behaviour.configurable_resource_identifier.desc",
+                    "displayName": "cobblemon.entity.variable.resource_identifier.name",
+                    "description": "cobblemon.entity.variable.resource_identifier.desc",
                     "type": "TEXT",
                     "defaultValue": "cobblemon:pikachu"
                 }
