@@ -302,7 +302,7 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
     fun eat(level: Level, pos: BlockPos, state: BlockState, player: Player?) {
         val bites = state.getValue(BITES) as Int
         val newBites = bites + bitesIncrease
-        println(newBites)
+
         if (newBites <= MAX_BITES) {
             level.setBlock(pos, state.setValue(BITES, newBites) as BlockState, UPDATE_ALL)
         } else {
