@@ -4,27 +4,108 @@
       "model": "cobblemon:block/poke_snack"
     },
     "bites=1": {
-      "model": "cobblemon:block/poke_snack_slice1"
+      "model": "cobblemon:block/poke_snack"
     },
     "bites=2": {
-      "model": "cobblemon:block/poke_snack_slice2"
+      "model": "cobblemon:block/poke_snack"
     },
     "bites=3": {
-      "model": "cobblemon:block/poke_snack_slice3"
+      "model": "cobblemon:block/poke_snack"
     },
     "bites=4": {
-      "model": "cobblemon:block/poke_snack_slice4"
+      "model": "cobblemon:block/poke_snack_slice1"
     },
     "bites=5": {
-      "model": "cobblemon:block/poke_snack_slice5"
+      "model": "cobblemon:block/poke_snack_slice1"
     },
     "bites=6": {
-      "model": "cobblemon:block/poke_snack_slice6"
+      "model": "cobblemon:block/poke_snack_slice1"
     },
     "bites=7": {
-      "model": "cobblemon:block/poke_snack_slice7"
+      "model": "cobblemon:block/poke_snack_slice1"
     },
     "bites=8": {
+      "model": "cobblemon:block/poke_snack_slice2"
+    },
+    "bites=9": {
+      "model": "cobblemon:block/poke_snack_slice2"
+    },
+    "bites=10": {
+      "model": "cobblemon:block/poke_snack_slice2"
+    },
+    "bites=11": {
+      "model": "cobblemon:block/poke_snack_slice2"
+    },
+    "bites=12": {
+      "model": "cobblemon:block/poke_snack_slice3"
+    },
+    "bites=13": {
+      "model": "cobblemon:block/poke_snack_slice3"
+    },
+    "bites=14": {
+      "model": "cobblemon:block/poke_snack_slice3"
+    },
+    "bites=15": {
+      "model": "cobblemon:block/poke_snack_slice3"
+    },
+    "bites=16": {
+      "model": "cobblemon:block/poke_snack_slice4"
+    },
+    "bites=17": {
+      "model": "cobblemon:block/poke_snack_slice4"
+    },
+    "bites=18": {
+      "model": "cobblemon:block/poke_snack_slice4"
+    },
+    "bites=19": {
+      "model": "cobblemon:block/poke_snack_slice4"
+    },
+    "bites=20": {
+      "model": "cobblemon:block/poke_snack_slice5"
+    },
+    "bites=21": {
+      "model": "cobblemon:block/poke_snack_slice5"
+    },
+    "bites=22": {
+      "model": "cobblemon:block/poke_snack_slice5"
+    },
+    "bites=23": {
+      "model": "cobblemon:block/poke_snack_slice5"
+    },
+    "bites=24": {
+      "model": "cobblemon:block/poke_snack_slice6"
+    },
+    "bites=25": {
+      "model": "cobblemon:block/poke_snack_slice6"
+    },
+    "bites=26": {
+      "model": "cobblemon:block/poke_snack_slice6"
+    },
+    "bites=27": {
+      "model": "cobblemon:block/poke_snack_slice6"
+    },
+    "bites=28": {
+      "model": "cobblemon:block/poke_snack_slice7"
+    },
+    "bites=29": {
+      "model": "cobblemon:block/poke_snack_slice7"
+    },
+    "bites=30": {
+      "model": "cobblemon:block/poke_snack_slice7"
+    },
+    "bites=31": {
+      "model": "cobblemon:block/poke_snack_slice7"
+    },
+    "bites=32": {
+      "model": "cobblemon:block/poke_snack_slice8"
+    },
+    "bites=33": {
+      "model": "cobblemon:block/poke_snack_slice8"
+    },
+    "bites=34": {
+      "model": "cobblemon:block/poke_snack_slice8"
+    },
+    "bites=35": {
       "model": "cobblemon:block/poke_snack_slice8"
     }
   }

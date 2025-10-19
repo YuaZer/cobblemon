@@ -55,8 +55,10 @@ import kotlin.random.Random
 
 class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock(settings) {
     companion object {
-        val MAX_BITES = 8
-        val CAKE_HEIGHT = 0.4375
+        const val MAX_BITES = 35
+        const val POKE_SNACK_BITES_INCREASE = 1
+        const val POKE_CAKE_BITES_INCREASE = 4
+        const val CAKE_HEIGHT = 0.4375
 
         val CANDLE_PARTICLE_POSITION = Vec3(0.5, CAKE_HEIGHT + 0.5, 0.5)
 
@@ -112,6 +114,8 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
         )
     }
 
+    val bitesIncrease = if (isLure) POKE_SNACK_BITES_INCREASE else POKE_CAKE_BITES_INCREASE
+
     init {
         registerDefaultState(stateDefinition.any()
             .setValue(BITES, 0)
@@ -132,10 +136,13 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
     override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity = PokeSnackBlockEntity(pos, state)
 
     override fun getShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape? {
+        val shapeIndex = state.getValue(BITES) / POKE_CAKE_BITES_INCREASE
+
         if (hasCandle(state)) {
-            return Shapes.or(SHAPES[state.getValue(BITES)], CANDLE_SHAPE)
+            return Shapes.or(SHAPES[shapeIndex], CANDLE_SHAPE)
         }
-        return SHAPES[state.getValue(BITES)]
+
+        return SHAPES[shapeIndex]
     }
 
     override fun getRenderShape(blockState: BlockState?) = RenderShape.MODEL
@@ -294,8 +301,10 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
 
     fun eat(level: Level, pos: BlockPos, state: BlockState, player: Player?) {
         val bites = state.getValue(BITES) as Int
-        if (bites < MAX_BITES) {
-            level.setBlock(pos, state.setValue(BITES, bites + 1) as BlockState, UPDATE_ALL)
+        val newBites = bites + bitesIncrease
+        println(newBites)
+        if (newBites <= MAX_BITES) {
+            level.setBlock(pos, state.setValue(BITES, newBites) as BlockState, UPDATE_ALL)
         } else {
             dropCandle(level, pos, state, player)
             level.removeBlock(pos, false)
