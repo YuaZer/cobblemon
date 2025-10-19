@@ -3778,7 +3778,13 @@
 
   "cobblemon.behaviour.pokemon_picks_up_items.name": "Picks Up Items",
   "cobblemon.behaviour.pokemon_picks_up_items.desc": "The Pokémon will pick up items that it cares about.",
+  
+  "cobblemon.behaviour.configurable_resource_identifier.name": "Configurable Resource Identifier",
+  "cobblemon.behaviour.configurable_resource_identifier.desc": "Allows changing the resource identifier that controls the NPC's appearance.",
 
+  "cobblemon.entity.variable.resource_identifier.name": "Resource Identifier",
+  "cobblemon.entity.variable.resource_identifier.desc": "The resource identifier to be used for controlling the NPC's appearance, such as cobblemon:standard or cobblemon:mudkip.",
+  
   "npc.sacchi.name": "Professor Sacchi",
 
   "cobblemon.move.pound": "Pound",
