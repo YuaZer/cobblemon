@@ -131,7 +131,7 @@ override fun handleStartInstruction(pokemon: BattlePokemon, battle: PokemonBattl
         return
     }
     // Prevent duping
-    if (battle.isPvP && this.takeItemEffect.contains(effectId) || this.giveItemEffect.contains(effectId)) {
+    if (this.takeItemEffect.contains(effectId) || this.giveItemEffect.contains(effectId)) {
         return
     }
     // Block item swapping in PVP until we have a rule
