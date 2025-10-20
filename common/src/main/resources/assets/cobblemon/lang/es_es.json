@@ -8618,5 +8618,8 @@
     "cobblemon.entity.variable.challenge_cooldown.name": "Tiempo entre enfrentamientos",
     "cobblemon.config.ui.despawner_near_distance.tooltip": "La distancia mínima desde un jugador dentro de la cual los Pokémon no desaparecen, sin importar su edad.",
     "cobblemon.config.ui.despawner_max_age_ticks.tooltip": "La edad (en ticks del juego) que un Pokémon debe alcanzar para que pueda desaparecer en el límite de distancia cercana.",
-    "cobblemon.config.ui.despawner_near_distance": "Distancia cercana"
+    "cobblemon.config.ui.despawner_near_distance": "Distancia cercana",
+    "advancements.cobblemon.place_campfire_pot": "Tenemos que cocinar",
+    "block.cobblemon.saccharine_log_slathered": "Leño de sacarino untado de miel",
+    "block.cobblemon.poke_snack": "Poké Snack"
 }
