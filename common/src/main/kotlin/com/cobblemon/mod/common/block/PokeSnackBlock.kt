@@ -51,13 +51,13 @@ import net.minecraft.world.phys.Vec3
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
+import kotlin.math.floor
 import kotlin.random.Random
 
 class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock(settings) {
     companion object {
-        const val MAX_BITES = 35
-        const val POKE_SNACK_BITES_INCREASE = 1
-        const val POKE_CAKE_BITES_INCREASE = 4
+        const val MAX_BITES = 8
+        const val SPAWNS_PER_BITE = 4
         const val CAKE_HEIGHT = 0.4375
 
         val CANDLE_PARTICLE_POSITION = Vec3(0.5, CAKE_HEIGHT + 0.5, 0.5)
@@ -114,8 +114,6 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
         )
     }
 
-    val bitesIncrease = if (isLure) POKE_SNACK_BITES_INCREASE else POKE_CAKE_BITES_INCREASE
-
     init {
         registerDefaultState(stateDefinition.any()
             .setValue(BITES, 0)
@@ -136,13 +134,11 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
     override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity = PokeSnackBlockEntity(pos, state)
 
     override fun getShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape? {
-        val shapeIndex = state.getValue(BITES) / POKE_CAKE_BITES_INCREASE
-
         if (hasCandle(state)) {
-            return Shapes.or(SHAPES[shapeIndex], CANDLE_SHAPE)
+            return Shapes.or(SHAPES[state.getValue(BITES)], CANDLE_SHAPE)
         }
 
-        return SHAPES[shapeIndex]
+        return SHAPES[state.getValue(BITES)]
     }
 
     override fun getRenderShape(blockState: BlockState?) = RenderShape.MODEL
@@ -301,17 +297,27 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
 
     fun eat(level: Level, pos: BlockPos, state: BlockState, player: Player?) {
         val bites = state.getValue(BITES) as Int
-        val newBites = bites + bitesIncrease
+        val newBites =
+            if (isLure) {
+                val pokeSnackBlockEntity = level.getBlockEntity(pos) as PokeSnackBlockEntity? ?: return
+                pokeSnackBlockEntity.currentSpawns += 1
 
-        if (newBites <= MAX_BITES) {
-            level.setBlock(pos, state.setValue(BITES, newBites) as BlockState, UPDATE_ALL)
-        } else {
+                floor(pokeSnackBlockEntity.currentSpawns / SPAWNS_PER_BITE.toDouble()).toInt()
+            } else {
+                bites + 1
+            }
+
+        if (newBites > MAX_BITES) {
             dropCandle(level, pos, state, player)
             level.removeBlock(pos, false)
             level.removeBlockEntity(pos)
+        } else {
+            level.setBlock(pos, state.setValue(BITES, newBites) as BlockState, UPDATE_ALL)
         }
+
         level.playSound(null, player?.blockPosition() ?: pos, SoundEvents.GENERIC_EAT, if (player != null) SoundSource.PLAYERS else SoundSource.NEUTRAL)
         spawnEatParticles(level, pos)
+
         player?.let {
             level.gameEvent(it, GameEvent.BLOCK_DESTROY, pos)
         }
