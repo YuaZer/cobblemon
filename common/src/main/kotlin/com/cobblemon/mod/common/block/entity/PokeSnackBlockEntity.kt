@@ -28,7 +28,11 @@ import kotlin.collections.orEmpty
 
 open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEntity(CobblemonBlockEntities.POKE_SNACK, pos, state) {
 
-    var currentSpawns: Int = 0
+    companion object {
+        const val SPAWNS_PER_BITE = 4
+    }
+
+    var amountSpawned: Int = 0
     var flavourComponent: FlavourComponent? = null
     var baitEffectsComponent: BaitEffectsComponent? = null
     var ingredientComponent: IngredientComponent? = null
@@ -81,7 +85,7 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
     override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
         super.saveAdditional(tag, registries)
 
-        tag.putInt(DataKeys.CURRENT_SPAWNS, currentSpawns)
+        tag.putInt(DataKeys.AMOUNT_SPAWNED, amountSpawned)
 
         flavourComponent?.let { component ->
             CobblemonItemComponents.FLAVOUR.codec()!!
@@ -114,7 +118,7 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
     override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
         super.loadAdditional(tag, registries)
 
-        currentSpawns = tag.getInt(DataKeys.CURRENT_SPAWNS)
+        amountSpawned = tag.getInt(DataKeys.AMOUNT_SPAWNED)
 
         if (tag.contains(DataKeys.FLAVOUR)) {
             CobblemonItemComponents.FLAVOUR.codec()

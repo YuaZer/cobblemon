@@ -57,7 +57,6 @@ import kotlin.random.Random
 class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock(settings) {
     companion object {
         const val MAX_BITES = 8
-        const val SPAWNS_PER_BITE = 4
         const val CAKE_HEIGHT = 0.4375
 
         val CANDLE_PARTICLE_POSITION = Vec3(0.5, CAKE_HEIGHT + 0.5, 0.5)
@@ -300,9 +299,9 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
         val newBites =
             if (isLure) {
                 val pokeSnackBlockEntity = level.getBlockEntity(pos) as PokeSnackBlockEntity? ?: return
-                pokeSnackBlockEntity.currentSpawns += 1
+                pokeSnackBlockEntity.amountSpawned += 1
 
-                floor(pokeSnackBlockEntity.currentSpawns / SPAWNS_PER_BITE.toDouble()).toInt()
+                floor(pokeSnackBlockEntity.amountSpawned / PokeSnackBlockEntity.SPAWNS_PER_BITE.toDouble()).toInt()
             } else {
                 bites + 1
             }

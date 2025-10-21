@@ -151,7 +151,7 @@ object DataKeys {
     const val HEALER_MACHINE_INFINITE = "MachineInfinite"
 
     // Cooking
-    const val CURRENT_SPAWNS = "CurrentSpawns"
+    const val AMOUNT_SPAWNED = "AmountSpawned"
     const val FLAVOUR = "Flavour"
     const val BAIT_EFFECTS = "BaitEffects"
     const val INGREDIENTS = "Ingredients"
