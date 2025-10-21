@@ -632,8 +632,9 @@
   "item.cobblemon.dire_hit": "Dire Hit",
   "item.cobblemon.dire_hit.tooltip": "Temporarily boosts a Pokémon's critical hit ratio when used in battle",
   "item.cobblemon.guard_spec": "Guard Spec",
-  "item.cobblemon.moomoo_milk": "Moomoo Milk",
   "item.cobblemon.guard_spec.tooltip": "Temporarily prevents stat reduction when used in battle",
+  "item.cobblemon.moomoo_milk": "Moomoo Milk",
+  "item.cobblemon.moomoo_milk.tooltip": "Clears all stat changes of the target Pokémon when used in battle.",
 
   "item.cobblemon.full_heal": "Full Heal",
   "item.cobblemon.full_heal.tooltip": "Fully heals any status problems of a Pokémon",
