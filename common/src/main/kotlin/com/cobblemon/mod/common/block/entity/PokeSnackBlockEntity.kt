@@ -29,7 +29,7 @@ import kotlin.collections.orEmpty
 open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEntity(CobblemonBlockEntities.POKE_SNACK, pos, state) {
 
     companion object {
-        const val SPAWNS_PER_BITE = 4
+        const val SPAWNS_PER_BITE = 1
     }
 
     var amountSpawned: Int = 0

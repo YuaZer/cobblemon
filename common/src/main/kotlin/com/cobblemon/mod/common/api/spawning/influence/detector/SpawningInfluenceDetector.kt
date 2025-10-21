@@ -31,7 +31,6 @@ interface SpawningInfluenceDetector {
     companion object {
         @JvmStatic
         val detectors = mutableSetOf<SpawningInfluenceDetector>(
-            LurePokeSnackDetector,
             SaccharineLogSlatheredDetector,
             IncenseSweetDetector
         )

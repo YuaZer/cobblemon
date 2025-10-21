@@ -9,6 +9,8 @@
 package com.cobblemon.mod.common.block
 
 import com.cobblemon.mod.common.CobblemonBlocks
+import com.cobblemon.mod.common.api.spawning.BestSpawner
+import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawnerManager
 import com.cobblemon.mod.common.block.entity.PokeSnackBlockEntity
 import com.cobblemon.mod.common.util.toEquipmentSlot
 import com.mojang.serialization.MapCodec
@@ -146,7 +148,28 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
         super.setPlacedBy(level, pos, state, placer, stack)
 
         val blockEntity = level.getBlockEntity(pos) as? PokeSnackBlockEntity
-        blockEntity?.initializeFromItemStack(stack)
+        blockEntity?.let {
+            it.initializeFromItemStack(stack)
+
+            val spawner = PokeSnackSpawnerManager
+            spawner.registerPokeSnackSpawner(it)
+        }
+    }
+
+    override fun onRemove(
+        state: BlockState,
+        level: Level,
+        pos: BlockPos,
+        newState: BlockState,
+        movedByPiston: Boolean
+    ) {
+        val blockEntity = level.getBlockEntity(pos) as? PokeSnackBlockEntity
+        blockEntity?.let {
+            val spawner = PokeSnackSpawnerManager
+            spawner.unregisterPokeSnackSpawner(it)
+        }
+
+        super.onRemove(state, level, pos, newState, movedByPiston)
     }
 
     override fun getCloneItemStack(level: LevelReader, pos: BlockPos, state: BlockState): ItemStack {

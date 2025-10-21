@@ -47,6 +47,7 @@ import com.cobblemon.mod.common.api.spawning.spawner.AreaSpawner
 import com.cobblemon.mod.common.api.spawning.spawner.FixedAreaSpawner
 import com.cobblemon.mod.common.api.spawning.spawner.PlayerSpawner
 import com.cobblemon.mod.common.api.spawning.spawner.PlayerSpawnerFactory
+import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawnerManager
 import com.cobblemon.mod.common.api.spawning.spawner.Spawner
 import com.cobblemon.mod.common.api.spawning.spawner.TickingSpawner
 import com.cobblemon.mod.common.entity.pokemon.CobblemonAgingDespawner
@@ -87,7 +88,11 @@ import net.minecraft.server.MinecraftServer
  */
 object BestSpawner {
     var config = BestSpawnerConfig()
-    val spawnerManagers = mutableListOf<SpawnerManager>(CobblemonWorldSpawnerManager)
+    val spawnerManagers = mutableListOf<SpawnerManager>(
+        // CobblemonWorldSpawnerManager,
+        PokeSnackSpawnerManager,
+    )
+
     lateinit var defaultPokemonDespawner: Despawner<PokemonEntity>
     lateinit var fishingSpawner: FishingSpawner
 
