@@ -4,8 +4,8 @@
     "neededUninstalledMods": [],
     "spawns": [
         {
-            "id": "drillbur-1",
-            "pokemon": "drillbur",
+            "id": "drilbur-1",
+            "pokemon": "drilbur",
             "presets": [
                 "natural"
             ],

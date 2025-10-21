@@ -74,8 +74,8 @@
             }
         },
         {
-            "id": "mr-galarian-1",
-            "pokemon": "mr galarian",
+            "id": "mrmime-galarian-1",
+            "pokemon": "mrmime galarian",
             "presets": [
                 "natural",
                 "urban"
@@ -94,8 +94,8 @@
             }
         },
         {
-            "id": "mr-galarian-2",
-            "pokemon": "mr galarian",
+            "id": "mrmime-galarian-2",
+            "pokemon": "mrmime galarian",
             "presets": [
                 "natural"
             ],

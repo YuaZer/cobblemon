@@ -4,8 +4,8 @@
     "neededUninstalledMods": [],
     "spawns": [
         {
-            "id": "eelectross-4",
-            "pokemon": "eelectross",
+            "id": "eelektross-4",
+            "pokemon": "eelektross",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "common",
@@ -34,8 +34,8 @@
             }
         },
         {
-            "id": "eelectross-5",
-            "pokemon": "eelectross",
+            "id": "eelektross-5",
+            "pokemon": "eelektross",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "common",
@@ -62,8 +62,8 @@
             }
         },
         {
-            "id": "eelectross-6",
-            "pokemon": "eelectross",
+            "id": "eelektross-6",
+            "pokemon": "eelektross",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "common",
@@ -94,8 +94,8 @@
             }
         },
         {
-            "id": "eelectross-1",
-            "pokemon": "eelectross",
+            "id": "eelektross-1",
+            "pokemon": "eelektross",
             "presets": [
                 "water"
             ],
@@ -112,8 +112,8 @@
             }
         },
         {
-            "id": "eelectross-2",
-            "pokemon": "eelectross",
+            "id": "eelektross-2",
+            "pokemon": "eelektross",
             "presets": [
                 "water"
             ],
@@ -142,8 +142,8 @@
             }
         },
         {
-            "id": "eelectross-3",
-            "pokemon": "eelectross",
+            "id": "eelektross-3",
+            "pokemon": "eelektross",
             "presets": [
                 "water"
             ],

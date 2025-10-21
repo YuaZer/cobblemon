@@ -4,8 +4,8 @@
     "neededUninstalledMods": [],
     "spawns": [
         {
-            "id": "grappleoct-6",
-            "pokemon": "grappleoct",
+            "id": "grapploct-6",
+            "pokemon": "grapploct",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "uncommon",
@@ -27,8 +27,8 @@
             }
         },
         {
-            "id": "grappleoct-7",
-            "pokemon": "grappleoct",
+            "id": "grapploct-7",
+            "pokemon": "grapploct",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "common",
@@ -56,8 +56,8 @@
             }
         },
         {
-            "id": "grappleoct-8",
-            "pokemon": "grappleoct",
+            "id": "grapploct-8",
+            "pokemon": "grapploct",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "uncommon",
@@ -81,8 +81,8 @@
             }
         },
         {
-            "id": "grappleoct-9",
-            "pokemon": "grappleoct",
+            "id": "grapploct-9",
+            "pokemon": "grapploct",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "common",
@@ -112,8 +112,8 @@
             }
         },
         {
-            "id": "grappleoct-1",
-            "pokemon": "grappleoct",
+            "id": "grapploct-1",
+            "pokemon": "grapploct",
             "presets": [
                 "natural",
                 "wild"
@@ -132,8 +132,8 @@
             }
         },
         {
-            "id": "grappleoct-2",
-            "pokemon": "grappleoct",
+            "id": "grapploct-2",
+            "pokemon": "grapploct",
             "presets": [
                 "water"
             ],
@@ -155,8 +155,8 @@
             }
         },
         {
-            "id": "grappleoct-3",
-            "pokemon": "grappleoct",
+            "id": "grapploct-3",
+            "pokemon": "grapploct",
             "presets": [
                 "water"
             ],
@@ -178,8 +178,8 @@
             }
         },
         {
-            "id": "grappleoct-4",
-            "pokemon": "grappleoct",
+            "id": "grapploct-4",
+            "pokemon": "grapploct",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "uncommon",
@@ -201,8 +201,8 @@
             }
         },
         {
-            "id": "grappleoct-5",
-            "pokemon": "grappleoct",
+            "id": "grapploct-5",
+            "pokemon": "grapploct",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "common",
