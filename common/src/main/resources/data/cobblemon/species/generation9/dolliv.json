@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 929,
   "name": "Dolliv",
   "primaryType": "grass",
@@ -41,17 +42,23 @@
   "catchRate": 120,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "behaviour": {},
+  "standingEyeHeight": 0.57,
+  "baseScale": 0.45,
+  "hitbox": {
+    "width": 0.7,
+    "height": 1.73,
+    "fixed": false
+  },
   "drops": {
     "amount": 2,
     "entries": [
       {
         "item": "cobblemon:big_root",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:kebia_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -73,42 +80,43 @@
     "egg:strengthsap",
     "egg:synthesis",
     "egg:weatherball",
-    "tm:absorb",
     "tm:bulletseed",
     "tm:charm",
     "tm:earthpower",
     "tm:endure",
     "tm:energyball",
     "tm:facade",
-    "tm:flail",
     "tm:gigadrain",
     "tm:grassknot",
     "tm:grassyterrain",
-    "tm:growth",
     "tm:helpinghand",
     "tm:leafstorm",
-    "tm:leechseed",
     "tm:magicalleaf",
-    "tm:megadrain",
-    "tm:memento",
     "tm:protect",
-    "tm:razorleaf",
     "tm:rest",
     "tm:seedbomb",
     "tm:sleeptalk",
     "tm:solarbeam",
     "tm:solarblade",
-    "tm:strengthsap",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:sweetscent",
     "tm:swift",
     "tm:synthesis",
-    "tm:tackle",
     "tm:terablast",
     "tm:terrainpulse",
     "tm:trailblaze",
-    "tm:weatherball"
+    "tm:weatherball",
+    "tutor:earthpower",
+    "tutor:energyball",
+    "tutor:gigadrain",
+    "tutor:helpinghand",
+    "tutor:magicalleaf",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:synthesis",
+    "tutor:terrainpulse"
   ],
   "preEvolution": "smoliv",
   "evolutions": [
@@ -125,5 +133,19 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "arboliva",
+          "tier": 1
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

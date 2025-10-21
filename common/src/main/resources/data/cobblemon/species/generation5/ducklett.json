@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 580,
   "name": "Ducklett",
   "primaryType": "water",
@@ -64,6 +65,38 @@
       "fly": {
         "canFly": true
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "ducklett",
+          "tier": 1
+        },
+        {
+          "pokemon": "quaxly",
+          "tier": 1
+        },
+        {
+          "pokemon": "farfetchd galarian=false",
+          "tier": 2
+        },
+        {
+          "pokemon": "quaxwell",
+          "tier": 3
+        },
+        {
+          "pokemon": "quaquaval",
+          "tier": 4
+        },
+        {
+          "pokemon": "swanna",
+          "tier": 5
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -111,11 +144,8 @@
     "tm:aerialace",
     "tm:aircutter",
     "tm:airslash",
-    "tm:aquajet",
-    "tm:aquaring",
     "tm:bravebird",
     "tm:brine",
-    "tm:bubblebeam",
     "tm:chillingwater",
     "tm:defog",
     "tm:disarmingvoice",
@@ -126,17 +156,12 @@
     "tm:facade",
     "tm:featherdance",
     "tm:fly",
-    "tm:gust",
     "tm:hail",
     "tm:helpinghand",
     "tm:hurricane",
     "tm:icebeam",
     "tm:icywind",
     "tm:liquidation",
-    "tm:luckychant",
-    "tm:mefirst",
-    "tm:mirrormove",
-    "tm:mudsport",
     "tm:pluck",
     "tm:protect",
     "tm:raindance",
@@ -150,11 +175,36 @@
     "tm:tailwind",
     "tm:terablast",
     "tm:trailblaze",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:watersport",
     "tm:whirlpool",
-    "tm:wingattack"
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:defog",
+    "tutor:dive",
+    "tutor:endeavor",
+    "tutor:helpinghand",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:liquidation",
+    "tutor:rest",
+    "tutor:roost",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:tailwind",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:scald",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:uproar"
   ],
   "evolutions": [
     {

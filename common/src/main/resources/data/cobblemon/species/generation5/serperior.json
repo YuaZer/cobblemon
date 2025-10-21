@@ -44,14 +44,117 @@
   "baseFriendship": 50,
   "baseScale": 1.15,
   "hitbox": {
-    "width": 1.4,
     "height": 1.85,
-    "fixed": false
+    "fixed": false,
+    "width": 1.4
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "10-40",
+          "JUMP": "0-10",
+          "SKILL": "10-40",
+          "SPEED": "30-65",
+          "STAMINA": "30-65"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.2679115,
+              "y": -0.54321074,
+              "z": 0.2811847
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.16237976,
+              "y": -0.5478424,
+              "z": 0.24229509
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.2679115,
+              "y": -0.54321074,
+              "z": 0.2811847
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.2679115,
+              "y": -0.54321074,
+              "z": 0.2811847
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.16237976,
+              "y": -0.5478424,
+              "z": 0.24229509
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.16237976,
+              "y": -0.5478424,
+              "z": 0.24229509
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.2679115,
+              "y": -0.54321074,
+              "z": 0.2811847
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "5"
+    },
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "walk": {
+      "canWalk": true,
+      "walkSpeed": 0.19
     }
   },
   "drops": {
@@ -59,7 +162,7 @@
     "entries": [
       {
         "item": "cobblemon:miracle_seed",
-        "percentage": 25
+        "percentage": 25.0
       }
     ]
   },
@@ -99,7 +202,6 @@
     "tm:bulletseed",
     "tm:calmmind",
     "tm:captivate",
-    "tm:coil",
     "tm:cut",
     "tm:defog",
     "tm:doubleedge",
@@ -113,32 +215,23 @@
     "tm:gastroacid",
     "tm:gigadrain",
     "tm:gigaimpact",
-    "tm:glare",
     "tm:grassknot",
     "tm:grasspledge",
     "tm:grassyglide",
     "tm:grassyterrain",
-    "tm:growth",
     "tm:helpinghand",
     "tm:hyperbeam",
     "tm:irontail",
     "tm:knockoff",
     "tm:leafblade",
     "tm:leafstorm",
-    "tm:leaftornado",
-    "tm:leechseed",
-    "tm:leer",
     "tm:lightscreen",
     "tm:magicalleaf",
-    "tm:meanlook",
-    "tm:megadrain",
-    "tm:mirrorcoat",
     "tm:naturalgift",
     "tm:naturepower",
     "tm:outrage",
     "tm:petalblizzard",
     "tm:protect",
-    "tm:pursuit",
     "tm:reflect",
     "tm:rest",
     "tm:rocksmash",
@@ -146,29 +239,65 @@
     "tm:scaleshot",
     "tm:scaryface",
     "tm:seedbomb",
-    "tm:slam",
     "tm:sleeptalk",
     "tm:snatch",
     "tm:solarbeam",
     "tm:strength",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:sweetscent",
     "tm:swift",
     "tm:swordsdance",
     "tm:synthesis",
-    "tm:tackle",
     "tm:takedown",
     "tm:taunt",
     "tm:terablast",
     "tm:torment",
     "tm:trailblaze",
     "tm:twister",
-    "tm:vinewhip",
     "tm:workup",
     "tm:worryseed",
-    "tm:wrap",
-    "tm:wringout"
+    "tutor:aerialace",
+    "tutor:aquatail",
+    "tutor:bind",
+    "tutor:calmmind",
+    "tutor:defog",
+    "tutor:dragonpulse",
+    "tutor:energyball",
+    "tutor:frenzyplant",
+    "tutor:gastroacid",
+    "tutor:gigadrain",
+    "tutor:gigaimpact",
+    "tutor:grasspledge",
+    "tutor:grassyglide",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:irontail",
+    "tutor:knockoff",
+    "tutor:magicalleaf",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:scaleshot",
+    "tutor:seedbomb",
+    "tutor:sleeptalk",
+    "tutor:snatch",
+    "tutor:swift",
+    "tutor:synthesis",
+    "tutor:twister",
+    "tutor:worryseed",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "special:aromatherapy",
+    "special:holdback"
   ],
   "preEvolution": "servine",
   "evolutions": []

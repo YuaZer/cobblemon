@@ -67,6 +67,19 @@
       "walk": {
         "walkSpeed": 0.25
       }
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "croconaw",
+          "tier": 1
+        },
+        {
+          "pokemon": "feraligatr",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -74,7 +87,7 @@
     "entries": [
       {
         "item": "cobblemon:mystic_water",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -104,16 +117,12 @@
     "egg:watersport",
     "tm:aerialace",
     "tm:ancientpower",
-    "tm:aquajet",
     "tm:aquatail",
-    "tm:bite",
     "tm:blizzard",
     "tm:block",
     "tm:breakingswipe",
     "tm:brickbreak",
     "tm:chillingwater",
-    "tm:chipaway",
-    "tm:counter",
     "tm:crunch",
     "tm:curse",
     "tm:cut",
@@ -126,8 +135,6 @@
     "tm:endure",
     "tm:facade",
     "tm:faketears",
-    "tm:flail",
-    "tm:flatter",
     "tm:fling",
     "tm:flipturn",
     "tm:focuspunch",
@@ -140,7 +147,6 @@
     "tm:icepunch",
     "tm:icywind",
     "tm:irontail",
-    "tm:leer",
     "tm:liquidation",
     "tm:lowkick",
     "tm:megakick",
@@ -148,19 +154,15 @@
     "tm:metalclaw",
     "tm:muddywater",
     "tm:mudslap",
-    "tm:mudsport",
     "tm:poweruppunch",
     "tm:protect",
-    "tm:rage",
     "tm:raindance",
     "tm:rest",
     "tm:rockslide",
     "tm:rocktomb",
     "tm:scaryface",
-    "tm:scratch",
     "tm:screech",
     "tm:shadowclaw",
-    "tm:slash",
     "tm:sleeptalk",
     "tm:spite",
     "tm:substitute",
@@ -170,16 +172,60 @@
     "tm:takedown",
     "tm:terablast",
     "tm:thief",
-    "tm:thrash",
     "tm:trailblaze",
     "tm:uproar",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpledge",
     "tm:waterpulse",
-    "tm:watersport",
     "tm:whirlpool",
-    "tm:workup"
+    "tm:workup",
+    "tutor:aerialace",
+    "tutor:ancientpower",
+    "tutor:aquatail",
+    "tutor:block",
+    "tutor:dive",
+    "tutor:endeavor",
+    "tutor:flipturn",
+    "tutor:focuspunch",
+    "tutor:hydrocannon",
+    "tutor:icebeam",
+    "tutor:icefang",
+    "tutor:icepunch",
+    "tutor:icywind",
+    "tutor:irontail",
+    "tutor:liquidation",
+    "tutor:lowkick",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:shadowclaw",
+    "tutor:sleeptalk",
+    "tutor:spite",
+    "tutor:superpower",
+    "tutor:uproar",
+    "tutor:waterpledge",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:bodyslam",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:detect",
+    "legacy:doubleteam",
+    "legacy:dynamicpunch",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:razorwind",
+    "legacy:return",
+    "legacy:round",
+    "legacy:scald",
+    "legacy:secretpower",
+    "legacy:seismictoss",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "special:hydrocannon"
   ],
   "evolutions": [
     {

@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 228,
   "name": "Houndour",
   "primaryType": "dark",
@@ -42,13 +43,46 @@
   "catchRate": 120,
   "eggCycles": 20,
   "baseFriendship": 35,
-  "baseScale": 1,
+  "baseScale": 0.7,
   "hitbox": {
     "width": 1,
-    "height": 1,
+    "height": 1.2,
     "fixed": false
   },
-  "behaviour": {},
+  "behaviour": {
+    "entityInteract": {
+      "avoidedBySkeleton": true
+    },
+    "moving": {
+      "swim": {
+        "canSwimInLava": true
+      }
+    },
+    "herd": {
+      "maxSize": "6",
+      "toleratedLeaders": [
+        {
+          "pokemon": "houndour",
+          "tier": 1
+        },
+        {
+          "pokemon": "mightyena",
+          "tier": 2
+        },
+        {
+          "pokemon": "houndoom mega=false",
+          "tier": 3
+        },
+        {
+          "pokemon": "houndoom mega",
+          "tier": 4
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  },
   "drops": {
     "amount": 4,
     "entries": [
@@ -99,22 +133,15 @@
     "egg:suckerpunch",
     "egg:thunderfang",
     "tm:beatup",
-    "tm:bite",
     "tm:bodyslam",
     "tm:burningjealousy",
-    "tm:comeuppance",
-    "tm:counter",
     "tm:crunch",
     "tm:darkpulse",
-    "tm:destinybond",
     "tm:doubleedge",
     "tm:dreameater",
     "tm:embargo",
-    "tm:ember",
     "tm:endure",
     "tm:facade",
-    "tm:feint",
-    "tm:feintattack",
     "tm:fireblast",
     "tm:firefang",
     "tm:firespin",
@@ -125,25 +152,18 @@
     "tm:headbutt",
     "tm:heatwave",
     "tm:helpinghand",
-    "tm:howl",
     "tm:hypervoice",
     "tm:incinerate",
-    "tm:inferno",
     "tm:irontail",
     "tm:lashout",
-    "tm:leer",
     "tm:mudshot",
     "tm:mudslap",
     "tm:nastyplot",
-    "tm:odorsleuth",
     "tm:overheat",
     "tm:painsplit",
     "tm:payback",
     "tm:protect",
     "tm:psychicfangs",
-    "tm:punishment",
-    "tm:pursuit",
-    "tm:rage",
     "tm:raindance",
     "tm:rest",
     "tm:retaliate",
@@ -155,7 +175,6 @@
     "tm:shadowball",
     "tm:sleeptalk",
     "tm:sludgebomb",
-    "tm:smog",
     "tm:snarl",
     "tm:snatch",
     "tm:solarbeam",
@@ -173,7 +192,50 @@
     "tm:torment",
     "tm:toxic",
     "tm:trailblaze",
-    "tm:willowisp"
+    "tm:willowisp",
+    "tutor:burningjealousy",
+    "tutor:darkpulse",
+    "tutor:firefang",
+    "tutor:flamethrower",
+    "tutor:foulplay",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:hypervoice",
+    "tutor:irontail",
+    "tutor:lashout",
+    "tutor:mudslap",
+    "tutor:painsplit",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:roleplay",
+    "tutor:shadowball",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:snarl",
+    "tutor:snatch",
+    "tutor:spite",
+    "tutor:suckerpunch",
+    "tutor:superfang",
+    "tutor:thunderfang",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:detect",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:nightmare",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:swift",
+    "legacy:uproar",
+    "special:charm"
   ],
   "evolutions": [
     {

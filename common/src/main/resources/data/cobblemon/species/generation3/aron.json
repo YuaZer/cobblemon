@@ -54,6 +54,36 @@
       "swim": {
         "canSwimInLava": true
       }
+    },
+    "itemInteract": {
+      "desiredItems": [
+        {
+          "item": "minecraft:iron_ingot",
+          "pickupPriority": 1,
+          "fullnessValue": 1,
+          "onUseEffect": "q.entity.heal(1)"
+        }
+      ]
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "lairon",
+          "tier": 1
+        },
+        {
+          "pokemon": "aggron mega=false",
+          "tier": 2
+        },
+        {
+          "pokemon": "aggron mega",
+          "tier": 3
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -100,7 +130,6 @@
     "egg:stomp",
     "tm:aerialace",
     "tm:ancientpower",
-    "tm:autotomize",
     "tm:bodypress",
     "tm:bodyslam",
     "tm:bulldoze",
@@ -108,23 +137,19 @@
     "tm:cut",
     "tm:dig",
     "tm:doubleedge",
-    "tm:dragonrush",
     "tm:earthpower",
     "tm:earthquake",
     "tm:endeavor",
     "tm:endure",
     "tm:facade",
     "tm:furycutter",
-    "tm:harden",
     "tm:headbutt",
-    "tm:headsmash",
     "tm:heavyslam",
     "tm:honeclaws",
     "tm:irondefense",
     "tm:ironhead",
     "tm:irontail",
     "tm:magnetrise",
-    "tm:metalburst",
     "tm:metalclaw",
     "tm:metalsound",
     "tm:mudslap",
@@ -143,21 +168,58 @@
     "tm:shadowclaw",
     "tm:shockwave",
     "tm:sleeptalk",
-    "tm:smellingsalts",
     "tm:spite",
     "tm:stealthrock",
     "tm:steelbeam",
     "tm:steelroller",
-    "tm:stomp",
     "tm:strength",
     "tm:substitute",
     "tm:sunnyday",
     "tm:superpower",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
     "tm:uproar",
-    "tm:waterpulse"
+    "tm:waterpulse",
+    "tutor:aerialace",
+    "tutor:ancientpower",
+    "tutor:bulldoze",
+    "tutor:earthpower",
+    "tutor:endeavor",
+    "tutor:furycutter",
+    "tutor:irondefense",
+    "tutor:ironhead",
+    "tutor:irontail",
+    "tutor:magnetrise",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:rollout",
+    "tutor:shadowclaw",
+    "tutor:shockwave",
+    "tutor:sleeptalk",
+    "tutor:spite",
+    "tutor:stealthrock",
+    "tutor:steelbeam",
+    "tutor:steelroller",
+    "tutor:superpower",
+    "tutor:uproar",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:defensecurl",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

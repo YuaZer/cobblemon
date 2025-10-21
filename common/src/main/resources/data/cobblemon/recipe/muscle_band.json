@@ -1,13 +1,13 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "WIW",
+        "LIL",
         "D I",
-        "WDW"
+        "LDL"
     ],
     "key": {
-        "W": {
-            "item": "minecraft:yellow_wool"
+        "L": {
+            "tag": "c:leathers"
         },
         "D": {
             "tag": "c:dusts/redstone"

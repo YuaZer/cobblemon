@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.entity.pokeball
 
 import com.bedrockk.molang.runtime.struct.QueryStruct
+import com.bedrockk.molang.runtime.value.DoubleValue
 import com.bedrockk.molang.runtime.value.StringValue
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.CobblemonEntities.EMPTY_POKEBALL
@@ -17,6 +18,7 @@ import com.cobblemon.mod.common.api.events.CobblemonEvents
 import com.cobblemon.mod.common.api.events.pokeball.PokeBallCaptureCalculatedEvent
 import com.cobblemon.mod.common.api.events.pokeball.ThrownPokeballHitEvent
 import com.cobblemon.mod.common.api.events.pokemon.PokemonCapturedEvent
+import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMostSpecificMoLangValue
 import com.cobblemon.mod.common.api.net.serializers.StringSetDataSerializer
 import com.cobblemon.mod.common.api.net.serializers.Vec3DataSerializer
 import com.cobblemon.mod.common.api.pokeball.PokeBalls
@@ -45,8 +47,8 @@ import com.cobblemon.mod.common.net.messages.client.battle.BattleCaptureStartPac
 import com.cobblemon.mod.common.net.messages.client.effect.SpawnSnowstormEntityParticlePacket
 import com.cobblemon.mod.common.net.messages.client.spawn.SpawnPokeballPacket
 import com.cobblemon.mod.common.pokeball.PokeBall
+import com.cobblemon.mod.common.pokemon.ai.PokemonBrain
 import com.cobblemon.mod.common.pokemon.properties.UncatchableProperty
-import com.cobblemon.mod.common.util.asArrayValue
 import com.cobblemon.mod.common.util.*
 import com.mojang.blaze3d.vertex.PoseStack
 import net.minecraft.client.Minecraft
@@ -64,6 +66,7 @@ import net.minecraft.sounds.SoundEvents
 import net.minecraft.util.Mth
 import net.minecraft.util.Mth.PI
 import net.minecraft.world.entity.*
+import net.minecraft.world.entity.decoration.LeashFenceKnotEntity
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.Level
@@ -72,16 +75,15 @@ import net.minecraft.world.phys.EntityHitResult
 import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
 import java.util.concurrent.CompletableFuture
-import kotlin.compareTo
 
 class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragModifier, Schedulable {
     enum class CaptureState {
         NOT,
         HIT,
         FALL,
+        CRITICAL,
         SHAKE,
         CAPTURED,
-        CAPTURED_CRITICAL,
         BROKEN_FREE
     }
 
@@ -104,7 +106,7 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
     var capturingPokemon: PokemonEntity? = null
     val captureFuture = CompletableFuture<Boolean>()
     var captureState: CaptureState
-        get() = CaptureState.values()[entityData.get(CAPTURE_STATE).toInt()]
+        get() = CaptureState.entries[entityData.get(CAPTURE_STATE).toInt()]
         set(value) { entityData.set(CAPTURE_STATE, value.ordinal.toByte()) }
     var aspects: Set<String>
         get() = entityData.get(ASPECTS)
@@ -120,6 +122,7 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
         .addFunction("capture_state") { StringValue(captureState.name) }
         .addFunction("ball_type") { StringValue(pokeBall.name.toString()) }
         .addFunction("aspects") { aspects.asArrayValue { StringValue(it) } }
+        .addFunction("thrower") { owner?.asMostSpecificMoLangValue() ?: DoubleValue.ZERO }
 
     override fun defineSynchedData(builder: SynchedEntityData.Builder) {
         pokeBall = PokeBalls.POKE_BALL
@@ -138,14 +141,13 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
             delegate.onSyncedDataUpdated(data)
         }
         if (data == CAPTURE_STATE) {
-            val newState = entityData.get(CAPTURE_STATE)
+            val newState = entityData[CAPTURE_STATE]
             when (CaptureState.entries[newState.toInt()]) {
-                CaptureState.NOT -> setNoGravity(false)
-                CaptureState.HIT -> {}
-                CaptureState.FALL -> setNoGravity(false)
-                CaptureState.SHAKE -> setNoGravity(true)
-                CaptureState.CAPTURED, CaptureState.CAPTURED_CRITICAL -> {}
-                CaptureState.BROKEN_FREE -> {}
+                CaptureState.NOT, CaptureState.FALL -> isNoGravity = false
+                CaptureState.CRITICAL, CaptureState.SHAKE -> isNoGravity = true
+                CaptureState.HIT, CaptureState.CAPTURED, CaptureState.BROKEN_FREE -> {
+                    // no op
+                }
             }
         }
         dataTrackerEmitter.emit(data)
@@ -339,14 +341,14 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
 
         if (rollsRemaining <= 0) {
             if (captureResult.isSuccessfulCapture) {
-                captureState = if (captureResult.isCriticalCapture) CaptureState.CAPTURED_CRITICAL else CaptureState.CAPTURED
+                captureState = CaptureState.CAPTURED
                 // Do a capture
                 val pokemon = capturingPokemon ?: return
                 val player = this.owner as? ServerPlayer ?: return
                 val captureTime = if (pokeBall.ancient == true) 1.8F else 1F
-
                 after(seconds = captureTime) {
                     // Dupes occurred by double-adding Pokémon, this hopefully prevents it triple-condom style
+                    // wtf did I just read above me
                     if (pokemon.pokemon.isWild() && pokemon.isAlive && !captureFuture.isDone) {
                         pokemon.discard()
                         discard()
@@ -355,6 +357,17 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
                         pokemon.pokemon.caughtBall = pokeBall
                         pokeBall.effects.forEach { effect -> effect.apply(player, pokemon.pokemon) }
                         party.add(pokemon.pokemon)
+                        val leashHolder = pokemon.leashHolder
+
+                        if (leashHolder != null) {
+                            val blockPos = leashHolder.blockPosition()
+                            val blockState = level().getBlockState(blockPos)
+                            val leashKnot = LeashFenceKnotEntity.getOrCreateKnot(level(), blockPos)
+                            leashKnot?.discard()
+                            pokemon.dropLeash(true, true)
+                            level().sendBlockUpdated(blockPos, blockState, blockState, 3)
+                        }
+
                         CobblemonEvents.POKEMON_CAPTURED.post(PokemonCapturedEvent(pokemon.pokemon, player, this))
                     }
                 }
@@ -380,12 +393,15 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
 
     private fun breakFree() {
         val pokemon = capturingPokemon ?: return
-        pokemon.setPos(position())
+        pokemon.setPositionSafely(position())
+        
         pokemon.beamMode = 2
         pokemon.isInvisible = false
+        pokemon.isSilent = false
 
         if (pokemon.battleId == null) {
             pokemon.pokemon.status?.takeIf { it.status == Statuses.SLEEP }?.let { pokemon.pokemon.status = null }
+            owner?.let { PokemonBrain.onCaptureFailed(pokemon, it) }
         }
 
         captureState = CaptureState.BROKEN_FREE
@@ -406,7 +422,7 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
             pokemon.busyLocks.remove(this)
             captureFuture.complete(false)
             val ballType =
-                this.pokeBall.name.path.toString().toLowerCase().replace("_", "")
+                this.pokeBall.name.path.lowercase().replace("_", "")
             val mode = "casual"
             val sendflash =
                 BedrockParticleOptionsRepository.getEffect(cobblemonResource("${ballType}/${mode}/sendflash"))
@@ -433,14 +449,7 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
         level().playSoundServer(position(), CobblemonSounds.POKE_BALL_HIT, volume = 1F)
 
         // Hit Pokémon plays recoil animation
-        val pkt = PlayPosableAnimationPacket(pokemonEntity.id, setOf("recoil"), emptyList())
-        pkt.sendToPlayersAround(
-            x = pokemonEntity.x,
-            y = pokemonEntity.y,
-            z = pokemonEntity.z,
-            worldKey = pokemonEntity.level().dimension(),
-            distance = 50.0
-        )
+        pokemonEntity.playAnimation("recoil")
 
         // Bounce backwards away from the hit Pokémon
         deltaMovement = displace.multiply(-1.0, 0.0, -1.0).normalize().yRot(mul * PI/3).multiply(0.1, 0.0, 0.1).add(0.0, 1.0 / 3, 0.0)
@@ -457,6 +466,7 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
             // Time to begin falling
             pokemonEntity.phasingTargetId = -1
             pokemonEntity.isInvisible = true
+            pokemonEntity.isSilent = true
             captureState = CaptureState.FALL
             after(seconds = 1.5F) {
                 // If it was still falling after a second and a half, just assume it's landed because we can't wait all day.
@@ -473,7 +483,6 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
     override fun onHit(hitResult: HitResult) {
         super.onHit(hitResult)
         if (captureState == CaptureState.FALL && hitResult.type == HitResult.Type.BLOCK) {
-            captureState = CaptureState.SHAKE
             if (level().isServerSide()) {
                 beginCapture()
             }
@@ -482,7 +491,6 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
 
     fun beginCapture() {
         // We have hit the ground, time to stop falling and start shaking! Calculate capture.
-        capturingPokemon?.setPositionSafely(position())
         val thrower = owner as LivingEntity
         val captureResult = Cobblemon.config.captureCalculator.processCapture(thrower, this, capturingPokemon!!).let {
             val event = PokeBallCaptureCalculatedEvent(thrower = thrower, pokemonEntity = capturingPokemon!!, pokeBallEntity = this, captureResult = it)
@@ -494,12 +502,26 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
         if (rollsRemaining == 4) {
             rollsRemaining--
         }
-
+        var animatedCritical = false
+        // Critical capture despite their name actually animate first
+        // They can still fail and don't actually signify a success
+        val iterations: Int = if (captureResult.isCriticalCapture) {
+            captureState = CaptureState.CRITICAL
+            captureResult.numberOfShakes + 2
+        } else {
+            captureState = CaptureState.SHAKE
+            captureResult.numberOfShakes + 1
+        }
         taskBuilder()
-            .iterations(captureResult.numberOfShakes + 1)
+            .iterations(iterations)
             .delay(SECONDS_BEFORE_SHAKE)
             .interval(SECONDS_BETWEEN_SHAKES)
             .execute {
+                if (captureResult.isCriticalCapture && !animatedCritical) {
+                    captureState = CaptureState.SHAKE
+                    animatedCritical = true
+                    return@execute
+                }
                 if (pokeBall.ancient && rollsRemaining > 1) {
                     rollsRemaining = 1
                 }

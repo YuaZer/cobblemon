@@ -70,6 +70,27 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "wattrel",
+          "tier": 1
+        },
+        {
+          "pokemon": "kilowattrel",
+          "tier": 2
+        },
+        {
+          "pokemon": "wingull",
+          "tier": 3
+        },
+        {
+          "pokemon": "pelipper",
+          "tier": 4
+        }
+      ]
     }
   },
   "drops": {
@@ -114,7 +135,6 @@
     "tm:agility",
     "tm:aircutter",
     "tm:airslash",
-    "tm:aquaring",
     "tm:blizzard",
     "tm:bravebird",
     "tm:brine",
@@ -126,8 +146,6 @@
     "tm:facade",
     "tm:featherdance",
     "tm:fly",
-    "tm:growl",
-    "tm:gust",
     "tm:hail",
     "tm:helpinghand",
     "tm:hurricane",
@@ -136,13 +154,10 @@
     "tm:icywind",
     "tm:knockoff",
     "tm:liquidation",
-    "tm:mist",
     "tm:muddywater",
     "tm:ominouswind",
     "tm:pluck",
     "tm:protect",
-    "tm:pursuit",
-    "tm:quickattack",
     "tm:raindance",
     "tm:rest",
     "tm:roost",
@@ -150,10 +165,8 @@
     "tm:skyattack",
     "tm:sleeptalk",
     "tm:snowscape",
-    "tm:soak",
     "tm:steelwing",
     "tm:substitute",
-    "tm:supersonic",
     "tm:surf",
     "tm:swift",
     "tm:tailwind",
@@ -163,12 +176,45 @@
     "tm:twister",
     "tm:uturn",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:watersport",
     "tm:whirlpool",
-    "tm:wideguard",
-    "tm:wingattack"
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:defog",
+    "tutor:dualwingbeat",
+    "tutor:helpinghand",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:knockoff",
+    "tutor:liquidation",
+    "tutor:ominouswind",
+    "tutor:rest",
+    "tutor:roost",
+    "tutor:shockwave",
+    "tutor:skyattack",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:tailwind",
+    "tutor:twister",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:scald",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:uproar"
   ],
   "evolutions": [
     {

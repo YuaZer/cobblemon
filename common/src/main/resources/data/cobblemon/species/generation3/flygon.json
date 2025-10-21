@@ -43,7 +43,7 @@
   "catchRate": 45,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 0.75,
+  "baseScale": 0.9,
   "hitbox": {
     "width": 1.85,
     "height": 3.2,
@@ -51,13 +51,20 @@
   },
   "behaviour": {
     "resting": {
+      "canSleep": true,
       "light": "0-4"
     },
     "moving": {
       "fly": {
         "canFly": true,
         "flySpeedHorizontal": 0.6
+      },
+      "walk": {
+        "walkSpeed": 0.24
       }
+    },
+    "herd": {
+      "maxSize": "9"
     }
   },
   "drops": {
@@ -65,11 +72,53 @@
     "entries": [
       {
         "item": "cobblemon:soft_sand",
-        "percentage": 10
+        "percentage": 10.0
       },
       {
         "item": "cobblemon:yache_berry",
-        "percentage": 10
+        "percentage": 10.0
+      }
+    ]
+  },
+  "riding": {
+    "behaviours": {
+      "AIR": {
+        "key": "cobblemon:air/bird",
+        "rideSounds": [
+          {
+            "soundLocation": "cobblemon:ride.loop.leather",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)",
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "muffleEnabled": true
+          }
+        ],
+        "stats": {
+          "SPEED": "25-50",
+          "ACCELERATION": "20-100",
+          "SKILL": "50-100",
+          "JUMP": "25-50",
+          "STAMINA": "30-70"
+        }
+      },
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "stats": {
+          "SPEED": "10-20",
+          "ACCELERATION": "90-100",
+          "SKILL": "15-30",
+          "JUMP": "10-20",
+          "STAMINA": "15-30"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
       }
     ]
   },
@@ -117,11 +166,7 @@
     "tm:aircutter",
     "tm:airslash",
     "tm:alluringvoice",
-    "tm:astonish",
-    "tm:bide",
-    "tm:bite",
     "tm:bodyslam",
-    "tm:boomburst",
     "tm:breakingswipe",
     "tm:brutalswing",
     "tm:bugbite",
@@ -132,33 +177,25 @@
     "tm:dig",
     "tm:doubleedge",
     "tm:dracometeor",
-    "tm:dragonbreath",
     "tm:dragoncheer",
     "tm:dragonclaw",
     "tm:dragondance",
     "tm:dragonpulse",
-    "tm:dragonrush",
     "tm:dragontail",
     "tm:dualwingbeat",
     "tm:earthpower",
     "tm:earthquake",
     "tm:endure",
     "tm:facade",
-    "tm:feint",
-    "tm:feintattack",
     "tm:fireblast",
     "tm:firepunch",
     "tm:firespin",
-    "tm:firstimpression",
-    "tm:fissure",
-    "tm:flail",
     "tm:flamethrower",
     "tm:fly",
     "tm:focusenergy",
     "tm:furycutter",
     "tm:gigadrain",
     "tm:gigaimpact",
-    "tm:gust",
     "tm:headbutt",
     "tm:heatwave",
     "tm:helpinghand",
@@ -176,13 +213,11 @@
     "tm:poweruppunch",
     "tm:protect",
     "tm:psychicnoise",
-    "tm:quickattack",
     "tm:rest",
     "tm:rockslide",
     "tm:rocksmash",
     "tm:rocktomb",
     "tm:roost",
-    "tm:sandattack",
     "tm:sandstorm",
     "tm:sandtomb",
     "tm:scaleshot",
@@ -192,7 +227,6 @@
     "tm:silverwind",
     "tm:sleeptalk",
     "tm:solarbeam",
-    "tm:sonicboom",
     "tm:stealthrock",
     "tm:steelwing",
     "tm:stoneedge",
@@ -201,7 +235,6 @@
     "tm:substitute",
     "tm:sunnyday",
     "tm:superpower",
-    "tm:supersonic",
     "tm:swift",
     "tm:tailwind",
     "tm:takedown",
@@ -211,7 +244,62 @@
     "tm:twister",
     "tm:uproar",
     "tm:uturn",
-    "tm:vacuumwave"
+    "tm:vacuumwave",
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:bugbite",
+    "tutor:bulldoze",
+    "tutor:defog",
+    "tutor:dracometeor",
+    "tutor:dragonpulse",
+    "tutor:dualwingbeat",
+    "tutor:earthpower",
+    "tutor:firepunch",
+    "tutor:flamethrower",
+    "tutor:focusenergy",
+    "tutor:furycutter",
+    "tutor:gigadrain",
+    "tutor:gigaimpact",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:irontail",
+    "tutor:laserfocus",
+    "tutor:mudslap",
+    "tutor:ominouswind",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:roost",
+    "tutor:scaleshot",
+    "tutor:scorchingsands",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:stealthrock",
+    "tutor:stoneedge",
+    "tutor:superpower",
+    "tutor:swift",
+    "tutor:tailwind",
+    "tutor:throatchop",
+    "tutor:thunderpunch",
+    "tutor:twister",
+    "tutor:uproar",
+    "tutor:vacuumwave",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "vibrava",
   "evolutions": []

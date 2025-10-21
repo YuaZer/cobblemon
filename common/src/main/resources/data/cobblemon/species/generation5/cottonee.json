@@ -55,6 +55,42 @@
       "fly": {
         "canFly": true
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "hoppip",
+          "tier": 1
+        },
+        {
+          "pokemon": "cottonee",
+          "tier": 1
+        },
+        {
+          "pokemon": "gossifleur",
+          "tier": 1
+        },
+        {
+          "pokemon": "skiploom",
+          "tier": 2
+        },
+        {
+          "pokemon": "jumpluff",
+          "tier": 3
+        },
+        {
+          "pokemon": "whimsicott",
+          "tier": 3
+        },
+        {
+          "pokemon": "eldegoss",
+          "tier": 3
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -99,12 +135,9 @@
     "egg:switcheroo",
     "egg:tickle",
     "egg:worryseed",
-    "tm:absorb",
     "tm:beatup",
     "tm:captivate",
     "tm:charm",
-    "tm:cottonguard",
-    "tm:cottonspore",
     "tm:covet",
     "tm:dazzlinggleam",
     "tm:defog",
@@ -114,46 +147,61 @@
     "tm:endure",
     "tm:energyball",
     "tm:facade",
-    "tm:fairywind",
     "tm:faketears",
     "tm:flash",
     "tm:gigadrain",
     "tm:grassknot",
-    "tm:grasswhistle",
     "tm:grassyglide",
     "tm:grassyterrain",
-    "tm:growth",
     "tm:helpinghand",
-    "tm:leechseed",
-    "tm:megadrain",
-    "tm:memento",
     "tm:mistyterrain",
     "tm:naturalgift",
     "tm:naturepower",
-    "tm:poisonpowder",
     "tm:protect",
-    "tm:razorleaf",
     "tm:rest",
     "tm:safeguard",
     "tm:seedbomb",
     "tm:sleeptalk",
     "tm:solarbeam",
-    "tm:stunspore",
     "tm:substitute",
     "tm:sunnyday",
     "tm:swift",
-    "tm:switcheroo",
     "tm:taunt",
     "tm:terablast",
-    "tm:tickle",
-    "tm:worryseed"
+    "tm:worryseed",
+    "tutor:covet",
+    "tutor:dazzlinggleam",
+    "tutor:defog",
+    "tutor:endeavor",
+    "tutor:energyball",
+    "tutor:gigadrain",
+    "tutor:grassyglide",
+    "tutor:helpinghand",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:worryseed",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:knockoff",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:tailwind",
+    "legacy:toxic"
   ],
   "evolutions": [
     {
       "id": "cottonee_whimsicott",
       "variant": "item_interact",
       "result": "whimsicott",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [],
       "requirements": [],
       "requiredContext": "cobblemon:sun_stone"

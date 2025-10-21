@@ -136,6 +136,7 @@ internal object PropertiesCompletionProvider : DataRegistry {
         this.inject(setOf("shiny", "s"), setOf("yes", "no"))
         this.inject(setOf("gender"), Gender.values().map { it.name.lowercase() })
         this.inject(setOf("friendship"), setOf("0", Cobblemon.config.maxPokemonFriendship.toString()))
+        this.inject(setOf("fullness"), setOf("0", "255"))
         this.inject(setOf("pokeball"), PokeBalls.all().map { it.name.simplify() })
         this.inject(setOf("nature"), Natures.all().map { it.name.simplify() })
         this.inject(setOf("ability"), Abilities.all().map { if (it.name.asIdentifierDefaultingNamespace().namespace == Cobblemon.MODID) it.name.asIdentifierDefaultingNamespace().path else it.name })
@@ -147,6 +148,7 @@ internal object PropertiesCompletionProvider : DataRegistry {
         this.inject(setOf("originaltrainer", "ot"), setOf(""))
         this.inject(setOf("originaltrainertype", "ottype"), setOf("None", "Player", "NPC"))
         this.inject(setOf("nickname", "nick"), setOf(""))
+        this.inject(setOf("helditem", "held_item"), setOf("cobblemon:exp_share"))
 
         Stats.PERMANENT.forEach{ stat ->
             val statName = stat.toString().lowercase()

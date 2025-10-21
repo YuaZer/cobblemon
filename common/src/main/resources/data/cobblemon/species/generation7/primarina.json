@@ -64,6 +64,19 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "7",
+      "toleratedLeaders": [
+        {
+          "pokemon": "primarina",
+          "tier": 1
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -71,7 +84,7 @@
     "entries": [
       {
         "item": "cobblemon:mystic_water",
-        "percentage": 25
+        "percentage": 25.0
       }
     ]
   },
@@ -102,15 +115,11 @@
     "tm:acrobatics",
     "tm:alluringvoice",
     "tm:amnesia",
-    "tm:aquajet",
-    "tm:aquaring",
     "tm:aquatail",
-    "tm:aromaticmist",
     "tm:babydolleyes",
     "tm:blizzard",
     "tm:bodyslam",
     "tm:brine",
-    "tm:bubblebeam",
     "tm:calmmind",
     "tm:captivate",
     "tm:charm",
@@ -119,7 +128,6 @@
     "tm:dazzlinggleam",
     "tm:disarmingvoice",
     "tm:dive",
-    "tm:doubleslap",
     "tm:drainingkiss",
     "tm:echoedvoice",
     "tm:encore",
@@ -128,7 +136,6 @@
     "tm:facade",
     "tm:flipturn",
     "tm:gigaimpact",
-    "tm:growl",
     "tm:hail",
     "tm:haze",
     "tm:helpinghand",
@@ -140,16 +147,12 @@
     "tm:icespinner",
     "tm:icywind",
     "tm:irontail",
-    "tm:lifedew",
     "tm:lightscreen",
     "tm:liquidation",
     "tm:magiccoat",
     "tm:mistyexplosion",
     "tm:mistyterrain",
-    "tm:moonblast",
-    "tm:perishsong",
     "tm:playrough",
-    "tm:pound",
     "tm:protect",
     "tm:psychic",
     "tm:psychicnoise",
@@ -158,10 +161,8 @@
     "tm:reflect",
     "tm:rest",
     "tm:shadowball",
-    "tm:sing",
     "tm:sleeptalk",
     "tm:snowscape",
-    "tm:sparklingaria",
     "tm:storedpower",
     "tm:substitute",
     "tm:surf",
@@ -170,13 +171,53 @@
     "tm:tripleaxel",
     "tm:uproar",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpledge",
     "tm:waterpulse",
     "tm:weatherball",
     "tm:whirlpool",
     "tm:wonderroom",
-    "tm:workup"
+    "tm:workup",
+    "tutor:aquatail",
+    "tutor:babydolleyes",
+    "tutor:calmmind",
+    "tutor:covet",
+    "tutor:dazzlinggleam",
+    "tutor:dive",
+    "tutor:energyball",
+    "tutor:flipturn",
+    "tutor:gigaimpact",
+    "tutor:helpinghand",
+    "tutor:hydrocannon",
+    "tutor:hyperbeam",
+    "tutor:hypervoice",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:irontail",
+    "tutor:liquidation",
+    "tutor:magiccoat",
+    "tutor:mistyexplosion",
+    "tutor:playrough",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:shadowball",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:tripleaxel",
+    "tutor:uproar",
+    "tutor:waterpledge",
+    "tutor:waterpulse",
+    "tutor:wonderroom",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:scald",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "brionne",
   "evolutions": []

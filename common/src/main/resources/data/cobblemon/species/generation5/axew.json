@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 610,
   "name": "Axew",
   "primaryType": "dragon",
@@ -42,17 +43,63 @@
   "catchRate": 75,
   "eggCycles": 40,
   "baseFriendship": 35,
-  "baseScale": 1,
+  "standingEyeHeight": 0.65,
+  "swimmingEyeHeight": 0.65,
+  "flyingEyeHeight": 0.65,
+  "baseScale": 0.8,
   "hitbox": {
-    "width": 1,
+    "width": 0.6,
     "height": 1,
     "fixed": false
   },
   "behaviour": {
     "moving": {
+      "walk": {
+        "walkSpeed": 0.12
+      },
       "swim": {
         "canSwimInLava": true
       }
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "larvitar",
+          "tier": 1
+        },
+        {
+          "pokemon": "gible",
+          "tier": 1
+        },
+        {
+          "pokemon": "axew",
+          "tier": 1
+        },
+        {
+          "pokemon": "gabite",
+          "tier": 2
+        },
+        {
+          "pokemon": "fraxure",
+          "tier": 2
+        },
+        {
+          "pokemon": "tyranitar",
+          "tier": 3
+        },
+        {
+          "pokemon": "garchomp",
+          "tier": 3
+        },
+        {
+          "pokemon": "haxorus",
+          "tier": 4
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -99,11 +146,9 @@
     "tm:aerialace",
     "tm:aquatail",
     "tm:assurance",
-    "tm:bite",
     "tm:breakingswipe",
     "tm:brickbreak",
     "tm:bulldoze",
-    "tm:counter",
     "tm:crunch",
     "tm:cut",
     "tm:dig",
@@ -113,32 +158,25 @@
     "tm:dragonclaw",
     "tm:dragondance",
     "tm:dragonpulse",
-    "tm:dragonrage",
     "tm:dragontail",
     "tm:dualchop",
     "tm:endeavor",
     "tm:endure",
     "tm:facade",
     "tm:falseswipe",
-    "tm:firstimpression",
     "tm:fling",
     "tm:focusenergy",
     "tm:gigaimpact",
-    "tm:guillotine",
-    "tm:harden",
     "tm:honeclaws",
     "tm:incinerate",
     "tm:ironhead",
     "tm:irontail",
     "tm:laserfocus",
-    "tm:leer",
-    "tm:nightslash",
     "tm:outrage",
     "tm:payback",
     "tm:poisonjab",
     "tm:protect",
     "tm:raindance",
-    "tm:razorwind",
     "tm:rest",
     "tm:reversal",
     "tm:roar",
@@ -146,10 +184,8 @@
     "tm:rocktomb",
     "tm:scaleshot",
     "tm:scaryface",
-    "tm:scratch",
     "tm:shadowclaw",
     "tm:shockwave",
-    "tm:slash",
     "tm:sleeptalk",
     "tm:snarl",
     "tm:stompingtantrum",
@@ -164,7 +200,44 @@
     "tm:taunt",
     "tm:terablast",
     "tm:trailblaze",
-    "tm:xscissor"
+    "tm:xscissor",
+    "tutor:aerialace",
+    "tutor:aquatail",
+    "tutor:bulldoze",
+    "tutor:dracometeor",
+    "tutor:dragonpulse",
+    "tutor:dualchop",
+    "tutor:endeavor",
+    "tutor:falseswipe",
+    "tutor:focusenergy",
+    "tutor:gigaimpact",
+    "tutor:ironhead",
+    "tutor:irontail",
+    "tutor:laserfocus",
+    "tutor:outrage",
+    "tutor:poisonjab",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:scaleshot",
+    "tutor:shadowclaw",
+    "tutor:shockwave",
+    "tutor:sleeptalk",
+    "tutor:snarl",
+    "tutor:stompingtantrum",
+    "tutor:superpower",
+    "tutor:swift",
+    "tutor:xscissor",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

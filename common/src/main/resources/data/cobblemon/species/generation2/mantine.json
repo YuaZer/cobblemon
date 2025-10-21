@@ -65,6 +65,19 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "mantine",
+          "tier": 1
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -76,7 +89,7 @@
       },
       {
         "item": "cobblemon:wacan_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -116,7 +129,6 @@
     "tm:aircutter",
     "tm:airslash",
     "tm:amnesia",
-    "tm:aquaring",
     "tm:aquatail",
     "tm:assurance",
     "tm:blizzard",
@@ -124,8 +136,6 @@
     "tm:bodyslam",
     "tm:bounce",
     "tm:brine",
-    "tm:bubble",
-    "tm:bubblebeam",
     "tm:bulldoze",
     "tm:bulletseed",
     "tm:confuseray",
@@ -148,9 +158,7 @@
     "tm:icywind",
     "tm:ironhead",
     "tm:liquidation",
-    "tm:mirrorcoat",
     "tm:mudslap",
-    "tm:mudsport",
     "tm:powershift",
     "tm:protect",
     "tm:psybeam",
@@ -163,26 +171,63 @@
     "tm:scald",
     "tm:seedbomb",
     "tm:signalbeam",
-    "tm:slam",
     "tm:sleeptalk",
-    "tm:splash",
     "tm:stringshot",
     "tm:substitute",
-    "tm:supersonic",
     "tm:surf",
     "tm:swift",
-    "tm:tackle",
     "tm:tailwind",
     "tm:takedown",
     "tm:terablast",
     "tm:twister",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:watersport",
     "tm:whirlpool",
-    "tm:wideguard",
-    "tm:wingattack"
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:aquatail",
+    "tutor:bounce",
+    "tutor:bulldoze",
+    "tutor:defog",
+    "tutor:dive",
+    "tutor:dualwingbeat",
+    "tutor:gigaimpact",
+    "tutor:gunkshot",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:ironhead",
+    "tutor:liquidation",
+    "tutor:mudslap",
+    "tutor:powershift",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:roost",
+    "tutor:seedbomb",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:stringshot",
+    "tutor:swift",
+    "tutor:tailwind",
+    "tutor:twister",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "mantyke",
   "evolutions": []

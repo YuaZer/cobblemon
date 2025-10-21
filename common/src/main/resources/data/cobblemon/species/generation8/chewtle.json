@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 833,
   "name": "Chewtle",
   "primaryType": "water",
@@ -42,7 +43,7 @@
   "catchRate": 255,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.45,
   "hitbox": {
     "width": 1,
     "height": 1,
@@ -50,12 +51,39 @@
   },
   "behaviour": {
     "moving": {
+      "walk": {
+        "walkSpeed": 0.35
+      },
       "swim": {
         "canSwimInWater": true,
         "canSwimInLava": false,
         "canBreatheUnderwater": true,
         "swimSpeed": "0.2"
       }
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "wartortle",
+          "tier": 1
+        },
+        {
+          "pokemon": "drednaw",
+          "tier": 2
+        },
+        {
+          "pokemon": "blastoise mega=false",
+          "tier": 3
+        },
+        {
+          "pokemon": "blastoise mega",
+          "tier": 4
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -86,10 +114,8 @@
     "egg:shellsmash",
     "egg:skullbash",
     "tm:assurance",
-    "tm:bite",
     "tm:bodyslam",
     "tm:chillingwater",
-    "tm:counter",
     "tm:crunch",
     "tm:dive",
     "tm:dragontail",
@@ -100,7 +126,6 @@
     "tm:headbutt",
     "tm:hydropump",
     "tm:icefang",
-    "tm:jawlock",
     "tm:liquidation",
     "tm:mudshot",
     "tm:payback",
@@ -110,20 +135,31 @@
     "tm:rest",
     "tm:revenge",
     "tm:scaryface",
-    "tm:shellsmash",
     "tm:skittersmack",
-    "tm:skullbash",
     "tm:sleeptalk",
     "tm:stompingtantrum",
     "tm:substitute",
     "tm:surf",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:whirlpool"
+    "tm:whirlpool",
+    "tutor:dive",
+    "tutor:falseswipe",
+    "tutor:gastroacid",
+    "tutor:icefang",
+    "tutor:liquidation",
+    "tutor:poisonjab",
+    "tutor:rest",
+    "tutor:skittersmack",
+    "tutor:sleeptalk",
+    "tutor:stompingtantrum",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:round",
+    "legacy:scaleshot",
+    "legacy:snore"
   ],
   "evolutions": [
     {

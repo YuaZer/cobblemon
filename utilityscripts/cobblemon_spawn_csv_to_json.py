@@ -83,6 +83,9 @@ biome_mapping = {
     'lush': '#cobblemon:is_lush',
     'magical': '#cobblemon:is_magical',
     'mangrove swamp': 'minecraft:mangrove_swamp',
+    'mars': '#cobblemon:space/is_mars',
+    'mercury': '#cobblemon:space/is_mercury',
+    'moon': '#cobblemon:space/is_moon',
     'mountain': '#cobblemon:is_mountain',
     'muddy': '#cobblemon:has_block/mud',
     'mushroom': '#cobblemon:is_mushroom',
@@ -125,6 +128,9 @@ biome_mapping = {
     'snowy beach': 'minecraft:snowy_beach',
     'snowy forest': '#cobblemon:is_snowy_forest',
     'snowy taiga': '#cobblemon:is_snowy_taiga',
+    'space': '#cobblemon:space/is_space',
+    'space fiery': '#cobblemon:space/is_fiery',
+    'space icy': '#cobblemon:space/is_icy',
     'spooky': '#cobblemon:is_spooky',
     'sunflower plains': 'minecraft:sunflower_plains',
     'swamp': '#cobblemon:is_swamp',
@@ -134,6 +140,7 @@ biome_mapping = {
     'thermal': '#cobblemon:is_thermal',
     'tropical island': '#cobblemon:is_tropical_island',
     'tundra': '#cobblemon:is_tundra',
+    'venus': '#cobblemon:space/is_venus',
     'volcanic': '#cobblemon:is_volcanic',
     'warm ocean': '#cobblemon:is_warm_ocean',
     'warped desert': 'byg:warped_desert'
@@ -368,7 +375,7 @@ def transform_pokemon_to_json(pokemon_rows, invalid_biome_tags, drops_df):
 
             more_spawn_data = {
                 "type": "pokemon",
-                "context": row['Context'],
+                "spawnablePositionType": row['Context'],
                 "bucket": row['Bucket'],
                 "level": f"{int(row['Lv. Min'])}-{int(row['Lv. Max'])}",
                 "weight": row['Weight'],
@@ -412,25 +419,25 @@ def transform_pokemon_to_json(pokemon_rows, invalid_biome_tags, drops_df):
                         case "Water":
                             multiplier_condition["neededNearbyBlocks"] = ["#minecraft:water"]
                         case "Full Moon":
-                            multiplier_condition["moonPhase"] = "0"
+                            multiplier_condition["moonPhase"] = 0
                         case "New Moon":
-                            multiplier_condition["moonPhase"] = "4"
+                            multiplier_condition["moonPhase"] = 4
                         case "Wreck":
                             multiplier_condition["structures"] = ["#minecraft:shipwreck"]
                         case "Lure0":
-                            multiplier_condition["minLureLevel"] = "0"
-                            multiplier_condition["maxLureLevel"] = "0"
+                            multiplier_condition["minLureLevel"] = 0
+                            multiplier_condition["maxLureLevel"] = 0
                         case "Lure0/1":
-                            multiplier_condition["minLureLevel"] = "0"
-                            multiplier_condition["maxLureLevel"] = "1"
+                            multiplier_condition["minLureLevel"] = 0
+                            multiplier_condition["maxLureLevel"] = 1
                         case "Lure1/2":
-                            multiplier_condition["minLureLevel"] = "1"
-                            multiplier_condition["maxLureLevel"] = "2"
+                            multiplier_condition["minLureLevel"] = 1
+                            multiplier_condition["maxLureLevel"] = 2
                         case "Lure2":
-                            multiplier_condition["minLureLevel"] = "2"
-                            multiplier_condition["maxLureLevel"] = "2"
+                            multiplier_condition["minLureLevel"] = 2
+                            multiplier_condition["maxLureLevel"] = 2
                         case "Lure3":
-                            multiplier_condition["minLureLevel"] = "3"
+                            multiplier_condition["minLureLevel"] = 3
                         case "MJ-Skel":
                             multiplier_condition["biomes"] = ["#cobblemon:is_spooky"]
                         case "MJ-Cal1":
@@ -705,13 +712,13 @@ def special_condtions_anticonditions(condition, column_name, currentID, invalid_
             # if the string contains "maxLureLevel = " then split it and add it to the condition dictionary
             elif "maxLureLevel" in string:
                 condition['maxLureLevel'] = int(string.split('=')[1].strip())
-            # if the string contains "bobber = master ball" then add it to the condition dictionary
+            # if the string contains "bobber = master_ball" then add it to the condition dictionary
             elif "bobber = master_ball" in string:
                 condition['bobber'] = "cobblemon:master_ball"
-            # if the string contains "bobber = love ball" then add it to the condition dictionary
+            # if the string contains "bobber = love_ball" then add it to the condition dictionary
             elif "bobber = love_ball" in string:
                 condition['bobber'] = "cobblemon:love_ball"
-            # if the string contains "bait = love sweet" then add it to the condition dictionary
+            # if the string contains "bait = love_sweet" then add it to the condition dictionary
             elif "bait = love_sweet" in string:
                 condition['bait'] = "cobblemon:love_sweet"
             # if the string is a digit, pass (was already hanlded by other conditions)

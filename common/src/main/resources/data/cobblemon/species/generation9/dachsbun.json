@@ -58,6 +58,12 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "entityInteract": {
+      "avoidedBySkeleton": true
+    },
+    "herd": {
+      "maxSize": "3"
     }
   },
   "drops": {
@@ -69,7 +75,7 @@
       },
       {
         "item": "cobblemon:nanab_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -98,11 +104,9 @@
     "tm:alluringvoice",
     "tm:babydolleyes",
     "tm:batonpass",
-    "tm:bite",
     "tm:bodypress",
     "tm:bodyslam",
     "tm:charm",
-    "tm:copycat",
     "tm:covet",
     "tm:crunch",
     "tm:dazzlinggleam",
@@ -114,13 +118,10 @@
     "tm:facade",
     "tm:firefang",
     "tm:gigaimpact",
-    "tm:growl",
     "tm:helpinghand",
-    "tm:howl",
     "tm:hyperbeam",
     "tm:icefang",
     "tm:lastresort",
-    "tm:lick",
     "tm:mistyterrain",
     "tm:mudshot",
     "tm:mudslap",
@@ -137,16 +138,28 @@
     "tm:stompingtantrum",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:sweetscent",
-    "tm:tackle",
-    "tm:tailwhip",
     "tm:takedown",
     "tm:terablast",
     "tm:thunderfang",
     "tm:trailblaze",
-    "tm:wish",
     "tm:workup",
-    "tm:yawn"
+    "tutor:babydolleyes",
+    "tutor:covet",
+    "tutor:dazzlinggleam",
+    "tutor:endeavor",
+    "tutor:firefang",
+    "tutor:gigaimpact",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:icefang",
+    "tutor:lastresort",
+    "tutor:mudslap",
+    "tutor:playrough",
+    "tutor:rest",
+    "tutor:sleeptalk",
+    "tutor:snarl",
+    "tutor:stompingtantrum",
+    "tutor:thunderfang"
   ],
   "preEvolution": "fidough",
   "evolutions": []

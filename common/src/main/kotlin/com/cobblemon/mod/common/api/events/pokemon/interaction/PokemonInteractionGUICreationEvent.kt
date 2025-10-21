@@ -16,6 +16,9 @@ import java.util.UUID
 data class PokemonInteractionGUICreationEvent(
     val pokemonID: UUID,
     val mountShoulder: Boolean,
+    val giveHeld: Boolean,
+    val giveCosmetic: Boolean,
+    val canRide: Boolean,
     val options: Multimap<Orientation, InteractWheelOption>
 ) {
     fun addFillingOption(option: InteractWheelOption) {
@@ -27,8 +30,8 @@ data class PokemonInteractionGUICreationEvent(
     }
 
     private fun getNextFreeOrientation(): Orientation {
-        var largest = Orientation.TOP_LEFT
-        for(orientation in Orientation.values()) {
+        var largest = Orientation.NORTH
+        for (orientation in Orientation.entries) {
             if(!options.containsKey(orientation)) {
                 return orientation
             } else {

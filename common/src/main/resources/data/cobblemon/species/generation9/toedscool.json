@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 948,
   "name": "Toedscool",
   "primaryType": "ground",
@@ -41,7 +42,12 @@
   "catchRate": 190,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "behaviour": {},
+  "baseScale": 0.5,
+  "hitbox": {
+    "width": 1.0,
+    "height": 1.0,
+    "fixed": false
+  },
   "drops": {
     "amount": 2,
     "entries": [
@@ -81,9 +87,7 @@
     "egg:rapidspin",
     "egg:tickle",
     "egg:toxic",
-    "tm:absorb",
     "tm:acidspray",
-    "tm:acupressure",
     "tm:bulletseed",
     "tm:confuseray",
     "tm:dazzlinggleam",
@@ -96,25 +100,18 @@
     "tm:grassknot",
     "tm:grassyglide",
     "tm:grassyterrain",
-    "tm:growth",
     "tm:hex",
     "tm:knockoff",
     "tm:leafstorm",
-    "tm:leechseed",
     "tm:lightscreen",
     "tm:lunge",
     "tm:magicalleaf",
-    "tm:megadrain",
-    "tm:mirrorcoat",
     "tm:mudshot",
     "tm:mudslap",
     "tm:painsplit",
-    "tm:poisonpowder",
     "tm:powerwhip",
     "tm:protect",
-    "tm:ragepowder",
     "tm:raindance",
-    "tm:rapidspin",
     "tm:reflect",
     "tm:rest",
     "tm:scaryface",
@@ -124,21 +121,32 @@
     "tm:sludgebomb",
     "tm:solarbeam",
     "tm:spikes",
-    "tm:spore",
-    "tm:stunspore",
     "tm:substitute",
-    "tm:supersonic",
     "tm:swift",
-    "tm:tackle",
     "tm:taunt",
     "tm:terablast",
-    "tm:tickle",
     "tm:toxic",
     "tm:toxicspikes",
     "tm:trailblaze",
     "tm:trickroom",
     "tm:venoshock",
-    "tm:wrap"
+    "tutor:dazzlinggleam",
+    "tutor:earthpower",
+    "tutor:energyball",
+    "tutor:flashcannon",
+    "tutor:foulplay",
+    "tutor:gigadrain",
+    "tutor:grassyglide",
+    "tutor:knockoff",
+    "tutor:magicalleaf",
+    "tutor:mudslap",
+    "tutor:painsplit",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:spikes",
+    "tutor:swift"
   ],
   "evolutions": [
     {
@@ -154,5 +162,51 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "morelull",
+          "tier": 1
+        },
+        {
+          "pokemon": "foongus",
+          "tier": 2
+        },
+        {
+          "pokemon": "shroomish",
+          "tier": 3
+        },
+        {
+          "pokemon": "toedscool",
+          "tier": 4
+        },
+        {
+          "pokemon": "shiinotic",
+          "tier": 5
+        },
+        {
+          "pokemon": "breloom",
+          "tier": 6
+        },
+        {
+          "pokemon": "amoonguss",
+          "tier": 7
+        },
+        {
+          "pokemon": "brutebonnet",
+          "tier": 8
+        },
+        {
+          "pokemon": "toedscruel",
+          "tier": 9
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

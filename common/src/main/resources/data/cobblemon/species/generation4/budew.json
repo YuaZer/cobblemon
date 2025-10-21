@@ -54,12 +54,30 @@
   "behaviour": {
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
     },
     "moving": {
       "walk": {
         "walkSpeed": 0.12
       }
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "budew",
+          "tier": 1
+        },
+        {
+          "pokemon": "roselia",
+          "tier": 2
+        },
+        {
+          "pokemon": "roserade",
+          "tier": 3
+        }
+      ]
     }
   },
   "drops": {
@@ -95,26 +113,18 @@
     "egg:razorleaf",
     "egg:sleeppowder",
     "egg:synthesis",
-    "tm:absorb",
     "tm:bulletseed",
-    "tm:cottonspore",
     "tm:covet",
     "tm:cut",
     "tm:dazzlinggleam",
     "tm:endure",
     "tm:energyball",
-    "tm:extrasensory",
     "tm:facade",
     "tm:flash",
     "tm:gigadrain",
     "tm:grassknot",
-    "tm:grasswhistle",
     "tm:grassyglide",
-    "tm:growth",
     "tm:leafstorm",
-    "tm:lifedew",
-    "tm:megadrain",
-    "tm:mindreader",
     "tm:mudslap",
     "tm:naturalgift",
     "tm:naturepower",
@@ -122,16 +132,13 @@
     "tm:protect",
     "tm:psychup",
     "tm:raindance",
-    "tm:razorleaf",
     "tm:rest",
     "tm:seedbomb",
     "tm:shadowball",
-    "tm:sleeppowder",
     "tm:sleeptalk",
     "tm:sludgebomb",
     "tm:solarbeam",
     "tm:spikes",
-    "tm:stunspore",
     "tm:substitute",
     "tm:sunnyday",
     "tm:swift",
@@ -140,16 +147,43 @@
     "tm:terablast",
     "tm:uproar",
     "tm:venoshock",
-    "tm:watersport",
     "tm:weatherball",
-    "tm:worryseed"
+    "tm:worryseed",
+    "tutor:covet",
+    "tutor:dazzlinggleam",
+    "tutor:energyball",
+    "tutor:gigadrain",
+    "tutor:grassyglide",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:shadowball",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:spikes",
+    "tutor:swift",
+    "tutor:synthesis",
+    "tutor:uproar",
+    "tutor:worryseed",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {
       "id": "budew_roselia",
       "variant": "level_up",
       "result": "roselia",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [
         "poisonsting"
       ],

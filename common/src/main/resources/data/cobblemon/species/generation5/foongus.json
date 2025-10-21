@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 590,
   "name": "Foongus",
   "primaryType": "grass",
@@ -52,6 +53,47 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "morelull",
+          "tier": 1
+        },
+        {
+          "pokemon": "foongus",
+          "tier": 2
+        },
+        {
+          "pokemon": "shroomish",
+          "tier": 3
+        },
+        {
+          "pokemon": "toedscool",
+          "tier": 4
+        },
+        {
+          "pokemon": "shiinotic",
+          "tier": 5
+        },
+        {
+          "pokemon": "breloom",
+          "tier": 6
+        },
+        {
+          "pokemon": "toedscruel",
+          "tier": 7
+        },
+        {
+          "pokemon": "amoonguss",
+          "tier": 8
+        },
+        {
+          "pokemon": "brutebonnet",
+          "tier": 9
+        }
+      ]
     }
   },
   "drops": {
@@ -88,35 +130,24 @@
     "egg:poisonpowder",
     "egg:rollout",
     "egg:worryseed",
-    "tm:absorb",
     "tm:afteryou",
-    "tm:astonish",
-    "tm:bide",
     "tm:bodyslam",
     "tm:bulletseed",
-    "tm:clearsmog",
-    "tm:defensecurl",
     "tm:endure",
     "tm:energyball",
     "tm:facade",
-    "tm:feintattack",
     "tm:flash",
     "tm:foulplay",
     "tm:gastroacid",
     "tm:gigadrain",
     "tm:grassknot",
     "tm:grassyterrain",
-    "tm:growth",
-    "tm:ingrain",
     "tm:leafstorm",
     "tm:magicalleaf",
-    "tm:megadrain",
     "tm:naturepower",
     "tm:payback",
-    "tm:poisonpowder",
     "tm:pollenpuff",
     "tm:protect",
-    "tm:ragepowder",
     "tm:raindance",
     "tm:rest",
     "tm:rollout",
@@ -124,16 +155,36 @@
     "tm:sleeptalk",
     "tm:sludgebomb",
     "tm:solarbeam",
-    "tm:spore",
-    "tm:stunspore",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:sweetscent",
     "tm:synthesis",
     "tm:terablast",
     "tm:toxic",
     "tm:venoshock",
-    "tm:worryseed"
+    "tm:worryseed",
+    "tutor:afteryou",
+    "tutor:energyball",
+    "tutor:foulplay",
+    "tutor:gastroacid",
+    "tutor:gigadrain",
+    "tutor:magicalleaf",
+    "tutor:rest",
+    "tutor:rollout",
+    "tutor:seedbomb",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:synthesis",
+    "tutor:worryseed",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger"
   ],
   "evolutions": [
     {

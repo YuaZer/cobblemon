@@ -60,6 +60,15 @@
         "avoidsWater": true,
         "canSwimInWater": false
       }
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "stonjourner",
+          "tier": 1
+        }
+      ]
     }
   },
   "moves": [
@@ -111,7 +120,6 @@
     "tm:rockblast",
     "tm:rockpolish",
     "tm:rockslide",
-    "tm:rockthrow",
     "tm:rocktomb",
     "tm:safeguard",
     "tm:sandstorm",
@@ -120,7 +128,6 @@
     "tm:sleeptalk",
     "tm:smackdown",
     "tm:stealthrock",
-    "tm:stomp",
     "tm:stompingtantrum",
     "tm:stoneedge",
     "tm:substitute",
@@ -128,8 +135,39 @@
     "tm:superpower",
     "tm:takedown",
     "tm:terablast",
-    "tm:wideguard",
-    "tm:wonderroom"
+    "tm:wonderroom",
+    "tutor:ancientpower",
+    "tutor:block",
+    "tutor:bulldoze",
+    "tutor:earthpower",
+    "tutor:endeavor",
+    "tutor:gigaimpact",
+    "tutor:gravity",
+    "tutor:highhorsepower",
+    "tutor:hyperbeam",
+    "tutor:irondefense",
+    "tutor:lowkick",
+    "tutor:meteorbeam",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:sleeptalk",
+    "tutor:stealthrock",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:superpower",
+    "tutor:wonderroom",
+    "legacy:attract",
+    "legacy:round",
+    "legacy:snore"
   ],
-  "evolutions": []
+  "evolutions": [],
+  "drops": {
+    "amount": 2,
+    "entries": [
+      {
+        "item": "minecraft:stone",
+        "quantityRange": "2"
+      }
+    ]
+  }
 }

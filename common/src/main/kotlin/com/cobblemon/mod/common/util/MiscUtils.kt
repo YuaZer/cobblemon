@@ -9,27 +9,34 @@
 package com.cobblemon.mod.common.util
 
 import com.cobblemon.mod.common.Cobblemon
-import com.cobblemon.mod.common.api.item.HealingSource
 import com.cobblemon.mod.common.client.render.models.blockbench.PosableState
 import com.cobblemon.mod.common.entity.npc.NPCEntity
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
-import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.screens.Screen
+import com.cobblemon.mod.common.pokemon.ai.ObtainableItem
 import java.util.UUID
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
+import kotlin.math.ceil
+import kotlin.math.floor
 import kotlin.math.min
 import kotlin.random.Random
+import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.screens.Screen
 import net.minecraft.client.resources.model.ModelResourceLocation
 import net.minecraft.core.BlockPos
+import net.minecraft.core.RegistryAccess
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.server.packs.resources.Resource
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.EquipmentSlot
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.level.pathfinder.Node
+import net.minecraft.world.level.pathfinder.Path
 import net.minecraft.world.phys.shapes.VoxelShape
 import org.joml.Vector4f
 
-fun cobblemonResource(path: String) = ResourceLocation.fromNamespaceAndPath(Cobblemon.MODID, path)
+fun cobblemonResource(path: String): ResourceLocation = ResourceLocation.fromNamespaceAndPath(Cobblemon.MODID, path)
 fun cobblemonModel(path: String, variant: String) =
     ModelResourceLocation(cobblemonResource(path), variant)
 
@@ -83,6 +90,21 @@ infix fun <A, B> A.toDF(b: B): com.mojang.datafixers.util.Pair<A, B> = com.mojan
 
 fun isUuid(string: String) : Boolean {
     return Regex("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\$").matches(string)
+}
+
+fun VoxelShape.blockPositionsAsListRounded(): List<BlockPos> {
+    val result = mutableListOf<BlockPos>()
+    forAllBoxes { minX, minY, minZ, maxX, maxY, maxZ ->
+        for (x in floor(minX).toInt() until ceil(maxX).toInt()) {
+            for (y in floor(minY).toInt() until ceil(maxY).toInt()) {
+                for (z in floor(minZ).toInt() until ceil(maxZ).toInt()) {
+                    result.add(BlockPos(x, y, z))
+                }
+            }
+        }
+    }
+
+    return result
 }
 
 fun VoxelShape.blockPositionsAsList(): List<BlockPos> {
@@ -165,5 +187,31 @@ fun Int.toRGBA(): Vector4f {
 inline fun <reified T> Any.ifIsType(block: T.() -> Unit) {
     if (this is T) {
         block(this)
+    }
+}
+
+// Maybe it'd be better to just Access Widen the nodes list.
+fun Path.deleteNode(index: Int) {
+    val nodesAfterwards = mutableListOf<Node>()
+    for (i in index + 1 until this.nodeCount) {
+        nodesAfterwards.add(this.getNode(i))
+    }
+    val nodesBefore = mutableListOf<Node>()
+    for (i in 0 until index) {
+        nodesBefore.add(this.getNode(i))
+    }
+    this.truncateNodes(nodesBefore.size + nodesAfterwards.size)
+    var i = 0
+    val correctNodes = nodesBefore + nodesAfterwards
+    for (node in correctNodes) {
+        this.replaceNode(i++, node)
+    }
+}
+
+fun Collection<ObtainableItem>.findMatchingEntry(registryAccess: RegistryAccess, stack: ItemStack): ObtainableItem? {
+    return if (stack.isEmpty) {
+        null
+    } else {
+        this.find { it.item?.isItemObtainable(registryAccess, stack) != false }
     }
 }

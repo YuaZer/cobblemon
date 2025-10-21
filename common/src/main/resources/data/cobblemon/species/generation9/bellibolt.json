@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 939,
   "name": "Bellibolt",
   "primaryType": "electric",
@@ -41,6 +42,12 @@
   "catchRate": 50,
   "eggCycles": 20,
   "baseFriendship": 50,
+  "baseScale": 0.9,
+  "hitbox": {
+    "width": 1.3,
+    "height": 1.5,
+    "fixed": false
+  },
   "behaviour": {
     "moving": {
       "swim": {
@@ -49,6 +56,9 @@
         "canBreatheUnderwater": true,
         "swimSpeed": "0.2"
       }
+    },
+    "herd": {
+      "maxSize": "7"
     }
   },
   "drops": {
@@ -56,11 +66,11 @@
     "entries": [
       {
         "item": "minecraft:ochre_froglight",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:wepear_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -87,13 +97,11 @@
     "tm:chargebeam",
     "tm:chillingwater",
     "tm:confuseray",
-    "tm:discharge",
     "tm:eerieimpulse",
     "tm:electricterrain",
     "tm:electroball",
     "tm:electroweb",
     "tm:endure",
-    "tm:flail",
     "tm:gigaimpact",
     "tm:hyperbeam",
     "tm:hypervoice",
@@ -101,33 +109,42 @@
     "tm:muddywater",
     "tm:mudshot",
     "tm:mudslap",
-    "tm:paraboliccharge",
     "tm:protect",
     "tm:raindance",
     "tm:reflect",
     "tm:rest",
-    "tm:slackoff",
     "tm:sleeptalk",
-    "tm:soak",
-    "tm:spark",
     "tm:substitute",
     "tm:suckerpunch",
     "tm:supercellslam",
     "tm:swift",
-    "tm:tackle",
     "tm:terablast",
     "tm:thunder",
     "tm:thunderbolt",
-    "tm:thundershock",
     "tm:thunderwave",
     "tm:toxic",
     "tm:voltswitch",
-    "tm:watergun",
     "tm:waterpulse",
     "tm:weatherball",
     "tm:wildcharge",
-    "tm:zapcannon"
+    "tutor:chargebeam",
+    "tutor:electroweb",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:hypervoice",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:sleeptalk",
+    "tutor:suckerpunch",
+    "tutor:swift",
+    "tutor:thunderbolt",
+    "tutor:waterpulse",
+    "tutor:wildcharge"
   ],
   "preEvolution": "tadbulb",
-  "evolutions": []
+  "evolutions": [],
+  "lightingData": {
+    "lightLevel": 6,
+    "liquidGlowMode": "BOTH"
+  }
 }

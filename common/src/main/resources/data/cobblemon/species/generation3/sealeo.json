@@ -58,6 +58,35 @@
         "canSwimInLava": false,
         "swimSpeed": "0.2"
       }
+    },
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "dewgong",
+          "tier": 1
+        },
+        {
+          "pokemon": "brionne",
+          "tier": 1
+        },
+        {
+          "pokemon": "primarina",
+          "tier": 2
+        },
+        {
+          "pokemon": "sealeo",
+          "tier": 3
+        },
+        {
+          "pokemon": "walrein",
+          "tier": 4
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 5
+        }
+      ]
     }
   },
   "drops": {
@@ -69,7 +98,7 @@
       },
       {
         "item": "cobblemon:chesto_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -100,26 +129,20 @@
     "egg:waterpulse",
     "egg:watersport",
     "egg:yawn",
-    "tm:aquaring",
     "tm:aquatail",
-    "tm:aurorabeam",
     "tm:babydolleyes",
-    "tm:bellydrum",
     "tm:blizzard",
     "tm:bodyslam",
     "tm:brine",
     "tm:bulldoze",
     "tm:curse",
-    "tm:defensecurl",
     "tm:dive",
     "tm:earthquake",
     "tm:echoedvoice",
     "tm:encore",
     "tm:endure",
     "tm:facade",
-    "tm:fissure",
     "tm:frostbreath",
-    "tm:growl",
     "tm:hail",
     "tm:headbutt",
     "tm:iceball",
@@ -128,7 +151,6 @@
     "tm:icywind",
     "tm:irontail",
     "tm:mudslap",
-    "tm:powdersnow",
     "tm:protect",
     "tm:raindance",
     "tm:rest",
@@ -137,26 +159,52 @@
     "tm:rocksmash",
     "tm:rocktomb",
     "tm:rollout",
-    "tm:sheercold",
     "tm:signalbeam",
     "tm:sleeptalk",
     "tm:snore",
-    "tm:spitup",
     "tm:steelroller",
-    "tm:stockpile",
     "tm:strength",
     "tm:substitute",
     "tm:superfang",
     "tm:surf",
     "tm:swagger",
-    "tm:swallow",
     "tm:terablast",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:watersport",
     "tm:whirlpool",
-    "tm:yawn"
+    "tutor:aquatail",
+    "tutor:babydolleyes",
+    "tutor:bulldoze",
+    "tutor:dive",
+    "tutor:iceball",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:irontail",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:rollout",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:snore",
+    "tutor:steelroller",
+    "tutor:superfang",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:toxic",
+    "special:charm"
   ],
   "preEvolution": "spheal",
   "evolutions": [

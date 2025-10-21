@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 530,
   "name": "Excadrill",
   "primaryType": "ground",
@@ -42,23 +43,38 @@
   "catchRate": 60,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.75,
   "hitbox": {
     "width": 1,
     "height": 1,
     "fixed": false
   },
-  "behaviour": {},
+  "behaviour": {
+    "moving": {
+      "walk": {
+        "walkSpeed": 0.179
+      }
+    },
+    "resting": {
+      "canSleep": true,
+      "willSleepOnBed": true,
+      "light": "0-4"
+    }
+  },
   "drops": {
-    "amount": 2,
+    "amount": 4,
     "entries": [
       {
+        "item": "minecraft:dirt",
+        "quantityRange": "0-2"
+      },
+      {
         "item": "cobblemon:soft_sand",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:pinap_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -90,7 +106,6 @@
     "tm:brickbreak",
     "tm:brutalswing",
     "tm:bulldoze",
-    "tm:crushclaw",
     "tm:curse",
     "tm:cut",
     "tm:dig",
@@ -100,15 +115,12 @@
     "tm:earthquake",
     "tm:endure",
     "tm:facade",
-    "tm:fissure",
     "tm:fling",
     "tm:focusblast",
-    "tm:furyswipes",
     "tm:gigaimpact",
     "tm:helpinghand",
     "tm:highhorsepower",
     "tm:honeclaws",
-    "tm:horndrill",
     "tm:hyperbeam",
     "tm:irondefense",
     "tm:ironhead",
@@ -117,38 +129,67 @@
     "tm:metalsound",
     "tm:mudshot",
     "tm:mudslap",
-    "tm:mudsport",
     "tm:poisonjab",
     "tm:protect",
-    "tm:rapidspin",
     "tm:rest",
     "tm:rockblast",
     "tm:rockslide",
     "tm:rocksmash",
     "tm:rocktomb",
-    "tm:rototiller",
     "tm:sandstorm",
     "tm:sandtomb",
     "tm:scaryface",
     "tm:scorchingsands",
-    "tm:scratch",
     "tm:shadowclaw",
-    "tm:skullbash",
-    "tm:slash",
     "tm:sleeptalk",
     "tm:smartstrike",
     "tm:stealthrock",
     "tm:steelbeam",
     "tm:stompingtantrum",
     "tm:strength",
-    "tm:submission",
     "tm:substitute",
     "tm:sunnyday",
     "tm:swordsdance",
     "tm:takedown",
     "tm:terablast",
     "tm:throatchop",
-    "tm:xscissor"
+    "tm:xscissor",
+    "tutor:aerialace",
+    "tutor:bulldoze",
+    "tutor:drillrun",
+    "tutor:earthpower",
+    "tutor:gigaimpact",
+    "tutor:helpinghand",
+    "tutor:highhorsepower",
+    "tutor:hyperbeam",
+    "tutor:irondefense",
+    "tutor:ironhead",
+    "tutor:magnetrise",
+    "tutor:mudslap",
+    "tutor:poisonjab",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:scorchingsands",
+    "tutor:shadowclaw",
+    "tutor:sleeptalk",
+    "tutor:stealthrock",
+    "tutor:steelbeam",
+    "tutor:stompingtantrum",
+    "tutor:throatchop",
+    "tutor:xscissor",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:sludgebomb",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "drilbur",
   "evolutions": []

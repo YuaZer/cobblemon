@@ -45,19 +45,140 @@
   "baseFriendship": 50,
   "baseScale": 1.2,
   "hitbox": {
-    "width": 1,
     "height": 2.15,
-    "fixed": false
+    "fixed": false,
+    "width": 1
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "0-10",
+          "JUMP": "0-10",
+          "SKILL": "30-65",
+          "SPEED": "10-40",
+          "STAMINA": "55-85"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.0040024626,
+              "y": -0.7421637,
+              "z": -0.011066719
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0041806144,
+              "y": -0.7396524,
+              "z": -0.005132322
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0040024626,
+              "y": -0.7421637,
+              "z": -0.011066719
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0040024626,
+              "y": -0.7421637,
+              "z": -0.011066719
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0040024626,
+              "y": -0.7421637,
+              "z": -0.011066719
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0041806144,
+              "y": -0.7396524,
+              "z": -0.005132322
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0040024626,
+              "y": -0.7421637,
+              "z": -0.011066719
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
-    "resting": {
-      "canSleep": true,
-      "light": "0-4"
+    "herd": {
+      "maxSize": "6",
+      "toleratedLeaders": [
+        {
+          "pokemon": "amaura",
+          "tier": 1
+        },
+        {
+          "pokemon": "bayleef",
+          "tier": 2
+        },
+        {
+          "pokemon": "meganium",
+          "tier": 3
+        },
+        {
+          "pokemon": "tropius",
+          "tier": 4
+        },
+        {
+          "pokemon": "aurorus",
+          "tier": 5
+        }
+      ]
     },
     "moving": {
       "walk": {
         "walkSpeed": 0.12
       }
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
     }
   },
   "drops": {
@@ -65,7 +186,7 @@
     "entries": [
       {
         "item": "cobblemon:never_melt_ice",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -96,17 +217,14 @@
     "egg:takedown",
     "tm:ancientpower",
     "tm:aquatail",
-    "tm:aurorabeam",
     "tm:auroraveil",
     "tm:avalanche",
-    "tm:barrier",
     "tm:blizzard",
     "tm:bodyslam",
     "tm:bulldoze",
     "tm:calmmind",
     "tm:chargebeam",
     "tm:darkpulse",
-    "tm:discharge",
     "tm:dragontail",
     "tm:dreameater",
     "tm:earthpower",
@@ -116,9 +234,7 @@
     "tm:facade",
     "tm:flash",
     "tm:flashcannon",
-    "tm:freezedry",
     "tm:frostbreath",
-    "tm:growl",
     "tm:hail",
     "tm:haze",
     "tm:hyperbeam",
@@ -131,12 +247,9 @@
     "tm:lightscreen",
     "tm:magnetrise",
     "tm:meteorbeam",
-    "tm:mirrorcoat",
-    "tm:mist",
     "tm:mudshot",
     "tm:naturepower",
     "tm:outrage",
-    "tm:powdersnow",
     "tm:protect",
     "tm:psychup",
     "tm:raindance",
@@ -147,7 +260,6 @@
     "tm:rockpolish",
     "tm:rockslide",
     "tm:rocksmash",
-    "tm:rockthrow",
     "tm:rocktomb",
     "tm:round",
     "tm:safeguard",
@@ -162,27 +274,64 @@
     "tm:thunderwave",
     "tm:waterpulse",
     "tm:weatherball",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:ancientpower",
+    "tutor:aquatail",
+    "tutor:bulldoze",
+    "tutor:calmmind",
+    "tutor:chargebeam",
+    "tutor:darkpulse",
+    "tutor:earthpower",
+    "tutor:flashcannon",
+    "tutor:hyperbeam",
+    "tutor:hypervoice",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:irondefense",
+    "tutor:ironhead",
+    "tutor:irontail",
+    "tutor:magnetrise",
+    "tutor:meteorbeam",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:sleeptalk",
+    "tutor:stealthrock",
+    "tutor:stoneedge",
+    "tutor:thunderbolt",
+    "tutor:waterpulse",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {
-      "id": "amaura_aurorus",
-      "variant": "level_up",
-      "result": "aurorus",
       "consumeHeldItem": false,
+      "id": "amaura_aurorus",
       "learnableMoves": [
         "freezedry"
       ],
       "requirements": [
         {
-          "variant": "level",
-          "minLevel": 39
+          "minLevel": 39,
+          "variant": "level"
         },
         {
-          "variant": "time_range",
-          "range": "night"
+          "range": "night",
+          "variant": "time_range"
         }
-      ]
+      ],
+      "result": "aurorus",
+      "variant": "level_up"
     }
   ]
 }

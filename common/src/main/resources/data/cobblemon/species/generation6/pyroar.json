@@ -48,7 +48,25 @@
     "height": 1,
     "fixed": false
   },
-  "behaviour": {},
+  "behaviour": {
+    "entityInteract": {
+      "avoidedByCreeper": true,
+      "avoidedByPhantom": true
+    },
+    "herd": {
+      "maxSize": "7",
+      "toleratedLeaders": [
+        {
+          "pokemon": "pyroar female",
+          "tier": 1
+        },
+        {
+          "pokemon": "pyroar male",
+          "tier": 2
+        }
+      ]
+    }
+  },
   "drops": {
     "amount": 4,
     "entries": [
@@ -58,11 +76,11 @@
       },
       {
         "item": "minecraft:blaze_powder",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:rawst_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -97,10 +115,8 @@
     "tm:dig",
     "tm:doubleedge",
     "tm:echoedvoice",
-    "tm:ember",
     "tm:endeavor",
     "tm:endure",
-    "tm:entrainment",
     "tm:facade",
     "tm:fireblast",
     "tm:firefang",
@@ -116,9 +132,7 @@
     "tm:hypervoice",
     "tm:incinerate",
     "tm:irontail",
-    "tm:leer",
     "tm:mudslap",
-    "tm:nobleroar",
     "tm:overheat",
     "tm:payback",
     "tm:protect",
@@ -136,7 +150,6 @@
     "tm:substitute",
     "tm:sunnyday",
     "tm:swift",
-    "tm:tackle",
     "tm:takedown",
     "tm:taunt",
     "tm:temperflare",
@@ -147,7 +160,38 @@
     "tm:wildcharge",
     "tm:willowisp",
     "tm:workup",
-    "tm:yawn"
+    "tutor:bounce",
+    "tutor:bulldoze",
+    "tutor:burningjealousy",
+    "tutor:endeavor",
+    "tutor:firefang",
+    "tutor:flamethrower",
+    "tutor:gigaimpact",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:hypervoice",
+    "tutor:irontail",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:sleeptalk",
+    "tutor:snarl",
+    "tutor:snatch",
+    "tutor:swift",
+    "tutor:thunderfang",
+    "tutor:wildcharge",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "litleo",
   "evolutions": []

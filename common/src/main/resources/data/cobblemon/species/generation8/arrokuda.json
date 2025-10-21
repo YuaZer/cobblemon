@@ -62,6 +62,23 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "arrokuda",
+          "tier": 1
+        },
+        {
+          "pokemon": "barraskewda",
+          "tier": 2
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 3
+        }
+      ]
     }
   },
   "drops": {
@@ -72,7 +89,7 @@
       },
       {
         "item": "minecraft:bone_meal",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -91,11 +108,8 @@
     "egg:nightslash",
     "egg:slash",
     "egg:thrash",
-    "tm:acupressure",
     "tm:agility",
-    "tm:aquajet",
     "tm:assurance",
-    "tm:bite",
     "tm:bounce",
     "tm:brickbreak",
     "tm:chillingwater",
@@ -108,30 +122,44 @@
     "tm:facade",
     "tm:flipturn",
     "tm:focusenergy",
-    "tm:furyattack",
     "tm:hydropump",
     "tm:icefang",
     "tm:laserfocus",
     "tm:liquidation",
-    "tm:nightslash",
-    "tm:peck",
     "tm:protect",
     "tm:psychicfangs",
     "tm:raindance",
     "tm:rest",
     "tm:scaleshot",
-    "tm:slash",
     "tm:sleeptalk",
     "tm:substitute",
     "tm:surf",
     "tm:swift",
     "tm:takedown",
     "tm:terablast",
-    "tm:thrash",
     "tm:throatchop",
     "tm:waterfall",
     "tm:waterpulse",
-    "tm:whirlpool"
+    "tm:whirlpool",
+    "tutor:bounce",
+    "tutor:dive",
+    "tutor:drillrun",
+    "tutor:flipturn",
+    "tutor:focusenergy",
+    "tutor:icefang",
+    "tutor:laserfocus",
+    "tutor:liquidation",
+    "tutor:rest",
+    "tutor:scaleshot",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:throatchop",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:poisonjab",
+    "legacy:round",
+    "legacy:scald",
+    "legacy:snore"
   ],
   "evolutions": [
     {

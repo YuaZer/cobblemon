@@ -60,6 +60,19 @@
         "canSwimInWater": true,
         "canSwimInLava": false
       }
+    },
+    "herd": {
+      "maxSize": "6",
+      "toleratedLeaders": [
+        {
+          "pokemon": "dondozo",
+          "tier": 1
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -70,7 +83,7 @@
       },
       {
         "item": "minecraft:bone_meal",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -109,16 +122,12 @@
     "tm:earthquake",
     "tm:endure",
     "tm:facade",
-    "tm:fissure",
-    "tm:flail",
     "tm:gigaimpact",
     "tm:heavyslam",
     "tm:hydropump",
     "tm:hyperbeam",
     "tm:icefang",
     "tm:liquidation",
-    "tm:nobleroar",
-    "tm:orderup",
     "tm:outrage",
     "tm:protect",
     "tm:raindance",
@@ -126,22 +135,28 @@
     "tm:rockslide",
     "tm:scaryface",
     "tm:sleeptalk",
-    "tm:soak",
     "tm:stompingtantrum",
     "tm:substitute",
-    "tm:supersonic",
     "tm:surf",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
-    "tm:thrash",
-    "tm:tickle",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:wavecrash",
-    "tm:yawn",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:aquatail",
+    "tutor:bulldoze",
+    "tutor:dive",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:icefang",
+    "tutor:liquidation",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:sleeptalk",
+    "tutor:stompingtantrum",
+    "tutor:waterpulse",
+    "tutor:zenheadbutt"
   ],
   "evolutions": []
 }

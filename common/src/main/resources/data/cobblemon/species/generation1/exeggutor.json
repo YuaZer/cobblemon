@@ -61,6 +61,19 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "6",
+      "toleratedLeaders": [
+        {
+          "pokemon": "exeggutor alolan=false",
+          "tier": 1
+        },
+        {
+          "pokemon": "exeggutor alolan",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -72,11 +85,11 @@
       },
       {
         "item": "cobblemon:oval_stone",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:tanga_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -113,26 +126,20 @@
     "egg:poisonpowder",
     "egg:sleeppowder",
     "egg:stunspore",
-    "tm:absorb",
     "tm:ancientpower",
-    "tm:barrage",
-    "tm:bestow",
     "tm:block",
     "tm:bodyslam",
     "tm:bulldoze",
     "tm:bulletseed",
     "tm:calmmind",
-    "tm:confusion",
     "tm:curse",
     "tm:doubleedge",
     "tm:dreameater",
     "tm:earthquake",
-    "tm:eggbomb",
     "tm:endure",
     "tm:energyball",
     "tm:expandingforce",
     "tm:explosion",
-    "tm:extrasensory",
     "tm:facade",
     "tm:flash",
     "tm:futuresight",
@@ -142,25 +149,17 @@
     "tm:grassyglide",
     "tm:grassyterrain",
     "tm:gravity",
-    "tm:growth",
     "tm:headbutt",
     "tm:helpinghand",
     "tm:hyperbeam",
-    "tm:hypnosis",
     "tm:imprison",
     "tm:infestation",
-    "tm:ingrain",
     "tm:leafstorm",
-    "tm:leechseed",
     "tm:lightscreen",
     "tm:lowkick",
-    "tm:luckychant",
     "tm:magicalleaf",
-    "tm:megadrain",
-    "tm:moonlight",
     "tm:naturalgift",
     "tm:naturepower",
-    "tm:poisonpowder",
     "tm:powerswap",
     "tm:protect",
     "tm:psybeam",
@@ -176,15 +175,12 @@
     "tm:seedbomb",
     "tm:selfdestruct",
     "tm:skillswap",
-    "tm:sleeppowder",
     "tm:sleeptalk",
     "tm:sludgebomb",
     "tm:solarbeam",
-    "tm:stomp",
     "tm:stompingtantrum",
     "tm:storedpower",
     "tm:strength",
-    "tm:stunspore",
     "tm:substitute",
     "tm:sunnyday",
     "tm:swordsdance",
@@ -197,9 +193,60 @@
     "tm:trick",
     "tm:trickroom",
     "tm:uproar",
-    "tm:woodhammer",
     "tm:worryseed",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:ancientpower",
+    "tutor:block",
+    "tutor:bulldoze",
+    "tutor:calmmind",
+    "tutor:energyball",
+    "tutor:expandingforce",
+    "tutor:gigadrain",
+    "tutor:gigaimpact",
+    "tutor:grassyglide",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:lowkick",
+    "tutor:magicalleaf",
+    "tutor:psychic",
+    "tutor:psychocut",
+    "tutor:rest",
+    "tutor:rollout",
+    "tutor:seedbomb",
+    "tutor:skillswap",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:stompingtantrum",
+    "tutor:synthesis",
+    "tutor:telekinesis",
+    "tutor:terrainpulse",
+    "tutor:trick",
+    "tutor:uproar",
+    "tutor:worryseed",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:eggbomb",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:nightmare",
+    "legacy:powerwhip",
+    "legacy:psywave",
+    "legacy:rage",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:teleport",
+    "legacy:toxic",
+    "special:refresh",
+    "special:sweetscent",
+    "special:wish"
   ],
   "preEvolution": "exeggcute",
   "evolutions": [],
@@ -225,9 +272,6 @@
         "frisk",
         "h:harvest"
       ],
-      "eggGroups": [
-        "grass"
-      ],
       "baseStats": {
         "hp": 95,
         "attack": 105,
@@ -236,27 +280,12 @@
         "special_defence": 75,
         "speed": 45
       },
-      "evYield": {
-        "hp": 0,
-        "attack": 0,
-        "defence": 0,
-        "special_attack": 2,
-        "special_defence": 0,
-        "speed": 0
-      },
-      "baseExperienceYield": 186,
-      "experienceGroup": "slow",
-      "catchRate": 45,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "baseScale": 0.85,
       "hitbox": {
         "width": 1.6,
-        "height": 17.8,
+        "height": 11,
         "fixed": false
       },
       "standingEyeHeight": 0.96,
-      "behaviour": {},
       "moves": [
         "1:dragonhammer",
         "1:seedbomb",
@@ -290,10 +319,7 @@
         "egg:poisonpowder",
         "egg:sleeppowder",
         "egg:stunspore",
-        "tm:absorb",
         "tm:ancientpower",
-        "tm:barrage",
-        "tm:bestow",
         "tm:block",
         "tm:bodyslam",
         "tm:breakingswipe",
@@ -302,21 +328,17 @@
         "tm:bulldoze",
         "tm:bulletseed",
         "tm:calmmind",
-        "tm:confusion",
         "tm:curse",
         "tm:doubleedge",
         "tm:dracometeor",
         "tm:dragoncheer",
-        "tm:dragonhammer",
         "tm:dragonpulse",
         "tm:dragontail",
         "tm:dreameater",
         "tm:earthquake",
-        "tm:eggbomb",
         "tm:endure",
         "tm:energyball",
         "tm:explosion",
-        "tm:extrasensory",
         "tm:facade",
         "tm:flamethrower",
         "tm:gigadrain",
@@ -325,28 +347,20 @@
         "tm:grassyglide",
         "tm:grassyterrain",
         "tm:gravity",
-        "tm:growth",
         "tm:helpinghand",
         "tm:hyperbeam",
-        "tm:hypnosis",
         "tm:imprison",
         "tm:infestation",
-        "tm:ingrain",
         "tm:ironhead",
         "tm:irontail",
         "tm:knockoff",
         "tm:leafstorm",
-        "tm:leechseed",
         "tm:lightscreen",
         "tm:lowkick",
-        "tm:luckychant",
         "tm:magicalleaf",
-        "tm:megadrain",
-        "tm:moonlight",
         "tm:naturalgift",
         "tm:naturepower",
         "tm:outrage",
-        "tm:poisonpowder",
         "tm:powerswap",
         "tm:powerwhip",
         "tm:protect",
@@ -361,13 +375,11 @@
         "tm:seedbomb",
         "tm:selfdestruct",
         "tm:skillswap",
-        "tm:sleeppowder",
         "tm:sleeptalk",
         "tm:sludgebomb",
         "tm:solarbeam",
         "tm:stompingtantrum",
         "tm:storedpower",
-        "tm:stunspore",
         "tm:substitute",
         "tm:sunnyday",
         "tm:superpower",
@@ -382,13 +394,103 @@
         "tm:trick",
         "tm:trickroom",
         "tm:uproar",
-        "tm:woodhammer",
         "tm:worryseed",
-        "tm:zenheadbutt"
+        "tm:zenheadbutt",
+        "tutor:ancientpower",
+        "tutor:block",
+        "tutor:bulldoze",
+        "tutor:calmmind",
+        "tutor:dracometeor",
+        "tutor:dragonpulse",
+        "tutor:energyball",
+        "tutor:flamethrower",
+        "tutor:gigadrain",
+        "tutor:gigaimpact",
+        "tutor:grassyglide",
+        "tutor:helpinghand",
+        "tutor:hyperbeam",
+        "tutor:ironhead",
+        "tutor:irontail",
+        "tutor:knockoff",
+        "tutor:lowkick",
+        "tutor:magicalleaf",
+        "tutor:outrage",
+        "tutor:psychic",
+        "tutor:rest",
+        "tutor:seedbomb",
+        "tutor:skillswap",
+        "tutor:sleeptalk",
+        "tutor:sludgebomb",
+        "tutor:stompingtantrum",
+        "tutor:superpower",
+        "tutor:synthesis",
+        "tutor:telekinesis",
+        "tutor:terrainpulse",
+        "tutor:trick",
+        "tutor:uproar",
+        "tutor:worryseed",
+        "tutor:zenheadbutt",
+        "legacy:attract",
+        "legacy:bide",
+        "legacy:captivate",
+        "legacy:confide",
+        "legacy:doubleteam",
+        "legacy:eggbomb",
+        "legacy:frustration",
+        "legacy:headbutt",
+        "legacy:hiddenpower",
+        "legacy:mimic",
+        "legacy:nightmare",
+        "legacy:psywave",
+        "legacy:rage",
+        "legacy:return",
+        "legacy:round",
+        "legacy:secretpower",
+        "legacy:snore",
+        "legacy:swagger",
+        "legacy:teleport",
+        "legacy:toxic",
+        "special:celebrate",
+        "special:sweetscent",
+        "special:wish"
       ],
       "preEvolution": "exeggcute",
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "herd": {
+          "maxSize": "6",
+          "toleratedLeaders": [
+            {
+              "pokemon": "exeggutor alolan",
+              "tier": 1
+            }
+          ]
+        }
+      }
     }
-  ]
+  ],
+  "riding": {
+    "stats": {
+      "SPEED": {
+        "ranges": "10-15"
+      },
+      "ACCELERATION": {
+        "ranges": "5-100"
+      },
+      "SKILL": {
+        "ranges": "30-65"
+      },
+      "JUMP": {
+        "ranges": "5-10"
+      },
+      "STAMINA": {
+        "ranges": "30-55"
+      }
+    },
+    "seats": [],
+    "behaviour": {
+      "key": "cobblemon:land/horse"
+    }
+  }
 }

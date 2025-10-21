@@ -51,16 +51,46 @@
     "fixed": false
   },
   "behaviour": {
+    "resting": {
+      "canSleep": true,
+      "light": "0-4",
+      "willSleepOnBed": true
+    },
     "moving": {
+      "walk": {
+        "walkSpeed": 0.16
+      },
       "fly": {
         "canFly": true
       },
       "swim": {
+        "canWalkOnWater": true,
         "canSwimInWater": true,
         "canSwimInLava": false,
         "canBreatheUnderwater": true,
         "swimSpeed": "0.2"
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "wingull",
+          "tier": 1
+        },
+        {
+          "pokemon": "pelipper",
+          "tier": 2
+        },
+        {
+          "pokemon": "wattrel",
+          "tier": 3
+        },
+        {
+          "pokemon": "kilowattrel",
+          "tier": 4
+        }
+      ]
     }
   },
   "drops": {
@@ -106,7 +136,6 @@
     "tm:bravebird",
     "tm:charge",
     "tm:chargebeam",
-    "tm:discharge",
     "tm:dualwingbeat",
     "tm:eerieimpulse",
     "tm:electricterrain",
@@ -117,33 +146,39 @@
     "tm:facade",
     "tm:featherdance",
     "tm:fly",
-    "tm:growl",
     "tm:hurricane",
-    "tm:peck",
     "tm:pluck",
     "tm:protect",
-    "tm:quickattack",
     "tm:rest",
     "tm:roost",
     "tm:sleeptalk",
-    "tm:spark",
-    "tm:spitup",
-    "tm:stockpile",
     "tm:substitute",
-    "tm:swallow",
     "tm:swift",
     "tm:tailwind",
     "tm:takedown",
     "tm:terablast",
     "tm:thunder",
     "tm:thunderbolt",
-    "tm:thundershock",
     "tm:thunderwave",
     "tm:uproar",
     "tm:uturn",
     "tm:voltswitch",
     "tm:weatherball",
-    "tm:wildcharge"
+    "tm:wildcharge",
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:chargebeam",
+    "tutor:dualwingbeat",
+    "tutor:electroweb",
+    "tutor:endeavor",
+    "tutor:rest",
+    "tutor:roost",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:tailwind",
+    "tutor:thunderbolt",
+    "tutor:uproar",
+    "tutor:wildcharge"
   ],
   "evolutions": [
     {

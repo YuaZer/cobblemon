@@ -43,17 +43,146 @@
   "catchRate": 45,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "features": [
-    "paldean",
-    "bull_breed"
-  ],
   "baseScale": 1.3,
   "hitbox": {
-    "width": 1.3,
     "height": 1.4,
-    "fixed": false
+    "fixed": false,
+    "width": 1.3
   },
-  "behaviour": {},
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "10-40",
+          "JUMP": "30-65",
+          "SKILL": "10-40",
+          "SPEED": "55-85",
+          "STAMINA": "55-85"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": -0.004955834,
+              "y": -1.5021043,
+              "z": -0.13071083
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.00920631,
+              "y": -1.4530607,
+              "z": -0.125
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.625,
+              "z": -0.125
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.625,
+              "z": -0.125
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.00920631,
+              "y": -1.4530607,
+              "z": -0.125
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.00920631,
+              "y": -1.4530607,
+              "z": -0.125
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.625,
+              "z": -0.125
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "bouffalant",
+          "tier": 1
+        },
+        {
+          "pokemon": "miltank",
+          "tier": 2
+        },
+        {
+          "pokemon": "tauros",
+          "tier": 3
+        },
+        {
+          "pokemon": "tauros bull_breed=combat",
+          "tier": 3
+        },
+        {
+          "pokemon": "tauros bull_breed=aqua",
+          "tier": 4
+        },
+        {
+          "pokemon": "tauros bull_breed=blaze",
+          "tier": 4
+        }
+      ]
+    },
+    "moving": {
+      "swim": {
+        "canSwimInLava": false,
+        "canSwimInWater": true,
+        "swimSpeed": "0.25"
+      }
+    }
+  },
   "drops": {
     "amount": 5,
     "entries": [
@@ -104,7 +233,6 @@
     "tm:headbutt",
     "tm:helpinghand",
     "tm:highhorsepower",
-    "tm:hornattack",
     "tm:hyperbeam",
     "tm:icebeam",
     "tm:icywind",
@@ -116,9 +244,6 @@
     "tm:outrage",
     "tm:payback",
     "tm:protect",
-    "tm:pursuit",
-    "tm:rage",
-    "tm:ragingbull",
     "tm:raindance",
     "tm:rest",
     "tm:retaliate",
@@ -143,19 +268,69 @@
     "tm:sunnyday",
     "tm:surf",
     "tm:swagger",
-    "tm:tackle",
-    "tm:tailwhip",
     "tm:takedown",
     "tm:terablast",
     "tm:thief",
-    "tm:thrash",
     "tm:throatchop",
     "tm:thunder",
     "tm:thunderbolt",
     "tm:trailblaze",
     "tm:wildcharge",
     "tm:workup",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:bulldoze",
+    "tutor:endeavor",
+    "tutor:flamethrower",
+    "tutor:gigaimpact",
+    "tutor:helpinghand",
+    "tutor:highhorsepower",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:ironhead",
+    "tutor:irontail",
+    "tutor:lashout",
+    "tutor:megahorn",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:roleplay",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:sleeptalk",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:throatchop",
+    "tutor:thunderbolt",
+    "tutor:wildcharge",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:fissure",
+    "legacy:focusenergy",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:horndrill",
+    "legacy:leer",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:skullbash",
+    "legacy:snore",
+    "legacy:spite",
+    "legacy:stomp",
+    "legacy:toxic",
+    "legacy:uproar",
+    "legacy:waterpulse",
+    "legacy:whirlpool",
+    "legacy:zapcannon",
+    "special:refresh"
   ],
   "evolutions": [],
   "forms": [
@@ -180,9 +355,6 @@
         "angerpoint",
         "h:cudchew"
       ],
-      "eggGroups": [
-        "field"
-      ],
       "baseStats": {
         "hp": 75,
         "attack": 110,
@@ -199,12 +371,102 @@
         "special_defence": 0,
         "speed": 0
       },
-      "baseExperienceYield": 172,
-      "experienceGroup": "slow",
-      "catchRate": 45,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "behaviour": {},
+      "riding": {
+        "behaviours": {
+          "LAND": {
+            "key": "cobblemon:land/horse",
+            "rideSounds": [],
+            "stats": {
+              "ACCELERATION": "10-40",
+              "JUMP": "30-65",
+              "SKILL": "30-65",
+              "SPEED": "30-65",
+              "STAMINA": "55-85"
+            }
+          }
+        },
+        "seats": [
+          {
+            "offset": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "poseOffsets": [
+              {
+                "offset": {
+                  "x": -0.004955834,
+                  "y": -1.5021043,
+                  "z": -0.13071083
+                },
+                "poseTypes": [
+                  "STAND"
+                ]
+              },
+              {
+                "offset": {
+                  "x": -0.00920631,
+                  "y": -1.4530607,
+                  "z": -0.125
+                },
+                "poseTypes": [
+                  "WALK"
+                ]
+              },
+              {
+                "offset": {
+                  "x": 0.0,
+                  "y": -1.625,
+                  "z": -0.125
+                },
+                "poseTypes": [
+                  "HOVER"
+                ]
+              },
+              {
+                "offset": {
+                  "x": 0.0,
+                  "y": -1.625,
+                  "z": -0.125
+                },
+                "poseTypes": [
+                  "FLY"
+                ]
+              },
+              {
+                "offset": {
+                  "x": -0.00920631,
+                  "y": -1.4530607,
+                  "z": -0.125
+                },
+                "poseTypes": [
+                  "FLOAT"
+                ]
+              },
+              {
+                "offset": {
+                  "x": -0.00920631,
+                  "y": -1.4530607,
+                  "z": -0.125
+                },
+                "poseTypes": [
+                  "SWIM"
+                ]
+              },
+              {
+                "offset": {
+                  "x": 0.0,
+                  "y": -1.625,
+                  "z": -0.125
+                },
+                "poseTypes": [
+                  "GLIDE"
+                ]
+              }
+            ]
+          }
+        ]
+      },
       "moves": [
         "1:tackle",
         "1:tailwhip",
@@ -231,7 +493,6 @@
         "tm:curse",
         "tm:dig",
         "tm:doubleedge",
-        "tm:doublekick",
         "tm:drillrun",
         "tm:earthquake",
         "tm:endeavor",
@@ -245,7 +506,6 @@
         "tm:lashout",
         "tm:outrage",
         "tm:protect",
-        "tm:ragingbull",
         "tm:raindance",
         "tm:rest",
         "tm:reversal",
@@ -261,20 +521,36 @@
         "tm:sunnyday",
         "tm:surf",
         "tm:swagger",
-        "tm:tackle",
-        "tm:tailwhip",
         "tm:takedown",
         "tm:terablast",
         "tm:thief",
-        "tm:thrash",
         "tm:throatchop",
         "tm:trailblaze",
         "tm:wildcharge",
         "tm:workup",
-        "tm:zenheadbutt"
+        "tm:zenheadbutt",
+        "tutor:bulkup",
+        "tutor:bulldoze",
+        "tutor:drillrun",
+        "tutor:endeavor",
+        "tutor:gigaimpact",
+        "tutor:highhorsepower",
+        "tutor:hyperbeam",
+        "tutor:ironhead",
+        "tutor:lashout",
+        "tutor:outrage",
+        "tutor:rest",
+        "tutor:rockslide",
+        "tutor:sleeptalk",
+        "tutor:stompingtantrum",
+        "tutor:stoneedge",
+        "tutor:throatchop",
+        "tutor:wildcharge",
+        "tutor:zenheadbutt"
       ],
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {}
     },
     {
       "name": "Paldea-Blaze",
@@ -299,9 +575,6 @@
         "angerpoint",
         "h:cudchew"
       ],
-      "eggGroups": [
-        "field"
-      ],
       "baseStats": {
         "hp": 75,
         "attack": 110,
@@ -318,12 +591,17 @@
         "special_defence": 0,
         "speed": 0
       },
-      "baseExperienceYield": 172,
-      "experienceGroup": "slow",
-      "catchRate": 45,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "behaviour": {},
+      "behaviour": {
+        "herd": {
+          "maxSize": "9",
+          "toleratedLeaders": [
+            {
+              "pokemon": "tauros bull_breed=blaze",
+              "tier": 1
+            }
+          ]
+        }
+      },
       "moves": [
         "1:tackle",
         "1:tailwhip",
@@ -349,7 +627,6 @@
         "tm:curse",
         "tm:dig",
         "tm:doubleedge",
-        "tm:doublekick",
         "tm:drillrun",
         "tm:earthquake",
         "tm:endeavor",
@@ -369,7 +646,6 @@
         "tm:outrage",
         "tm:overheat",
         "tm:protect",
-        "tm:ragingbull",
         "tm:raindance",
         "tm:rest",
         "tm:reversal",
@@ -384,18 +660,33 @@
         "tm:substitute",
         "tm:sunnyday",
         "tm:swagger",
-        "tm:tackle",
-        "tm:tailwhip",
         "tm:takedown",
         "tm:temperflare",
         "tm:terablast",
         "tm:thief",
-        "tm:thrash",
         "tm:trailblaze",
         "tm:wildcharge",
         "tm:willowisp",
         "tm:workup",
-        "tm:zenheadbutt"
+        "tm:zenheadbutt",
+        "tutor:bulkup",
+        "tutor:bulldoze",
+        "tutor:drillrun",
+        "tutor:endeavor",
+        "tutor:flamethrower",
+        "tutor:gigaimpact",
+        "tutor:highhorsepower",
+        "tutor:hyperbeam",
+        "tutor:ironhead",
+        "tutor:lashout",
+        "tutor:outrage",
+        "tutor:rest",
+        "tutor:rockslide",
+        "tutor:sleeptalk",
+        "tutor:stompingtantrum",
+        "tutor:stoneedge",
+        "tutor:wildcharge",
+        "tutor:zenheadbutt"
       ],
       "evolutions": [],
       "battleOnly": false
@@ -415,16 +706,13 @@
         "paldean_form"
       ],
       "aspects": [
-        "aqua-breed",
-        "paldean"
+        "paldean",
+        "aqua-breed"
       ],
       "abilities": [
         "intimidate",
         "angerpoint",
         "h:cudchew"
-      ],
-      "eggGroups": [
-        "field"
       ],
       "baseStats": {
         "hp": 75,
@@ -442,12 +730,17 @@
         "special_defence": 0,
         "speed": 0
       },
-      "baseExperienceYield": 172,
-      "experienceGroup": "slow",
-      "catchRate": 45,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "behaviour": {},
+      "behaviour": {
+        "herd": {
+          "maxSize": "9",
+          "toleratedLeaders": [
+            {
+              "pokemon": "tauros bull_breed=aqua",
+              "tier": 1
+            }
+          ]
+        }
+      },
       "moves": [
         "1:tackle",
         "1:tailwhip",
@@ -465,7 +758,6 @@
         "60:closecombat",
         "egg:curse",
         "egg:endeavor",
-        "tm:aquajet",
         "tm:bodypress",
         "tm:bodyslam",
         "tm:bulkup",
@@ -475,7 +767,6 @@
         "tm:curse",
         "tm:dig",
         "tm:doubleedge",
-        "tm:doublekick",
         "tm:drillrun",
         "tm:earthquake",
         "tm:endeavor",
@@ -491,7 +782,6 @@
         "tm:liquidation",
         "tm:outrage",
         "tm:protect",
-        "tm:ragingbull",
         "tm:raindance",
         "tm:rest",
         "tm:reversal",
@@ -506,22 +796,41 @@
         "tm:substitute",
         "tm:surf",
         "tm:swagger",
-        "tm:tackle",
-        "tm:tailwhip",
         "tm:takedown",
         "tm:terablast",
         "tm:thief",
-        "tm:thrash",
         "tm:trailblaze",
         "tm:waterpulse",
-        "tm:wavecrash",
         "tm:whirlpool",
         "tm:wildcharge",
         "tm:workup",
-        "tm:zenheadbutt"
+        "tm:zenheadbutt",
+        "tutor:bulkup",
+        "tutor:bulldoze",
+        "tutor:drillrun",
+        "tutor:endeavor",
+        "tutor:gigaimpact",
+        "tutor:highhorsepower",
+        "tutor:hyperbeam",
+        "tutor:ironhead",
+        "tutor:lashout",
+        "tutor:liquidation",
+        "tutor:outrage",
+        "tutor:rest",
+        "tutor:rockslide",
+        "tutor:sleeptalk",
+        "tutor:stompingtantrum",
+        "tutor:stoneedge",
+        "tutor:waterpulse",
+        "tutor:wildcharge",
+        "tutor:zenheadbutt"
       ],
       "evolutions": [],
       "battleOnly": false
     }
+  ],
+  "features": [
+    "paldean",
+    "bull_breed"
   ]
 }

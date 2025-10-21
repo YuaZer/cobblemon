@@ -46,13 +46,17 @@
   "features": [
     "hisuian"
   ],
+  "behaviour": {
+    "entityInteract": {
+      "avoidedBySkeleton": true
+    }
+  },
   "baseScale": 1.1,
   "hitbox": {
     "width": 1.2,
     "height": 1.7,
     "fixed": false
   },
-  "behaviour": {},
   "drops": {
     "amount": 3,
     "entries": [
@@ -62,7 +66,7 @@
       },
       {
         "item": "cobblemon:rawst_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -96,10 +100,8 @@
     "egg:thrash",
     "tm:aerialace",
     "tm:agility",
-    "tm:bite",
     "tm:bodyslam",
     "tm:bulldoze",
-    "tm:burnup",
     "tm:charm",
     "tm:closecombat",
     "tm:covet",
@@ -107,41 +109,31 @@
     "tm:curse",
     "tm:dig",
     "tm:doubleedge",
-    "tm:doublekick",
     "tm:dragonpulse",
-    "tm:ember",
     "tm:endure",
-    "tm:extremespeed",
     "tm:facade",
     "tm:fireblast",
     "tm:firefang",
     "tm:firespin",
-    "tm:flameburst",
     "tm:flamecharge",
     "tm:flamethrower",
-    "tm:flamewheel",
     "tm:flareblitz",
     "tm:gigaimpact",
     "tm:headbutt",
     "tm:heatcrash",
     "tm:heatwave",
     "tm:helpinghand",
-    "tm:howl",
     "tm:hyperbeam",
     "tm:hypervoice",
     "tm:incinerate",
     "tm:ironhead",
     "tm:irontail",
     "tm:laserfocus",
-    "tm:leer",
-    "tm:morningsun",
-    "tm:odorsleuth",
     "tm:outrage",
     "tm:overheat",
     "tm:playrough",
     "tm:protect",
     "tm:psychicfangs",
-    "tm:ragingfury",
     "tm:rest",
     "tm:retaliate",
     "tm:reversal",
@@ -162,10 +154,55 @@
     "tm:temperflare",
     "tm:terablast",
     "tm:thief",
-    "tm:thrash",
     "tm:thunderfang",
     "tm:wildcharge",
-    "tm:willowisp"
+    "tm:willowisp",
+    "tutor:bulldoze",
+    "tutor:covet",
+    "tutor:dragonpulse",
+    "tutor:firefang",
+    "tutor:flamethrower",
+    "tutor:gigaimpact",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:hypervoice",
+    "tutor:ironhead",
+    "tutor:irontail",
+    "tutor:laserfocus",
+    "tutor:outrage",
+    "tutor:playrough",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:scorchingsands",
+    "tutor:sleeptalk",
+    "tutor:snarl",
+    "tutor:swift",
+    "tutor:thunderfang",
+    "tutor:wildcharge",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:dragonbreath",
+    "legacy:dragonrage",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:rage",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:skullbash",
+    "legacy:snore",
+    "legacy:superpower",
+    "legacy:swagger",
+    "legacy:teleport",
+    "legacy:toxic"
   ],
   "preEvolution": "growlithe",
   "evolutions": [],
@@ -185,16 +222,12 @@
         "hisuian_form"
       ],
       "aspects": [
-        "hisuian",
         "hisuian"
       ],
       "abilities": [
         "intimidate",
         "flashfire",
         "h:rockhead"
-      ],
-      "eggGroups": [
-        "field"
       ],
       "baseStats": {
         "hp": 95,
@@ -204,20 +237,6 @@
         "special_defence": 80,
         "speed": 90
       },
-      "evYield": {
-        "hp": 0,
-        "attack": 2,
-        "defence": 0,
-        "special_attack": 0,
-        "special_defence": 0,
-        "speed": 0
-      },
-      "baseExperienceYield": 194,
-      "experienceGroup": "slow",
-      "catchRate": 75,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "behaviour": {},
       "moves": [
         "1:rockslide",
         "1:firefang",
@@ -246,7 +265,6 @@
         "egg:thrash",
         "tm:aerialace",
         "tm:agility",
-        "tm:bite",
         "tm:bodyslam",
         "tm:bulldoze",
         "tm:closecombat",
@@ -254,37 +272,28 @@
         "tm:crunch",
         "tm:dig",
         "tm:doubleedge",
-        "tm:doublekick",
         "tm:dragonpulse",
-        "tm:ember",
         "tm:endure",
-        "tm:extremespeed",
         "tm:facade",
         "tm:fireblast",
         "tm:firefang",
         "tm:firespin",
         "tm:flamecharge",
         "tm:flamethrower",
-        "tm:flamewheel",
         "tm:flareblitz",
         "tm:gigaimpact",
-        "tm:headsmash",
         "tm:heatcrash",
         "tm:heatwave",
         "tm:helpinghand",
-        "tm:howl",
         "tm:hyperbeam",
         "tm:hypervoice",
         "tm:ironhead",
         "tm:irontail",
-        "tm:leer",
-        "tm:morningsun",
         "tm:outrage",
         "tm:overheat",
         "tm:powergem",
         "tm:protect",
         "tm:psychicfangs",
-        "tm:ragingfury",
         "tm:rest",
         "tm:retaliate",
         "tm:reversal",
@@ -292,7 +301,6 @@
         "tm:rockblast",
         "tm:rockslide",
         "tm:rocksmash",
-        "tm:rockthrow",
         "tm:rocktomb",
         "tm:sandstorm",
         "tm:scaryface",
@@ -310,14 +318,84 @@
         "tm:temperflare",
         "tm:terablast",
         "tm:thief",
-        "tm:thrash",
         "tm:thunderfang",
         "tm:wildcharge",
-        "tm:willowisp"
+        "tm:willowisp",
+        "tutor:aerialace",
+        "tutor:bulldoze",
+        "tutor:covet",
+        "tutor:dragonpulse",
+        "tutor:firefang",
+        "tutor:flamethrower",
+        "tutor:gigaimpact",
+        "tutor:heatwave",
+        "tutor:helpinghand",
+        "tutor:hyperbeam",
+        "tutor:hypervoice",
+        "tutor:ironhead",
+        "tutor:irontail",
+        "tutor:outrage",
+        "tutor:rest",
+        "tutor:rockslide",
+        "tutor:rocksmash",
+        "tutor:scorchingsands",
+        "tutor:sleeptalk",
+        "tutor:snarl",
+        "tutor:stealthrock",
+        "tutor:stoneedge",
+        "tutor:thunderfang",
+        "tutor:wildcharge"
       ],
       "preEvolution": "growlithe hisuian",
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "riding": {
+        "stats": {
+          "SPEED": {
+            "ranges": "35-65"
+          },
+          "ACCELERATION": {
+            "ranges": "30-60"
+          },
+          "SKILL": {
+            "ranges": "35-70"
+          },
+          "JUMP": {
+            "ranges": "25-50"
+          },
+          "STAMINA": {
+            "ranges": "40-80"
+          }
+        },
+        "seats": [],
+        "behaviour": {
+          "key": "cobblemon:land/horse"
+        }
+      },
+      "behaviour": {}
     }
-  ]
+  ],
+  "riding": {
+    "stats": {
+      "SPEED": {
+        "ranges": "35-70"
+      },
+      "ACCELERATION": {
+        "ranges": "30-60"
+      },
+      "SKILL": {
+        "ranges": "35-70"
+      },
+      "JUMP": {
+        "ranges": "25-50"
+      },
+      "STAMINA": {
+        "ranges": "40-80"
+      }
+    },
+    "seats": [],
+    "behaviour": {
+      "key": "cobblemon:land/horse"
+    }
+  }
 }

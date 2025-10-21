@@ -6,10 +6,10 @@
 			"bones": {
 				"body": {
 					"rotation": [0, "0 - Math.Sin(((q.anim_time + 0.1) * 180 * 0.5) * 1) * 5", "Math.Sin(((q.anim_time + 0.4) * 180 * 0.5) * 1) * 5"],
-					"position": ["Math.Sin((q.anim_time * 180 * 0.5) * 1) * 1.5", "7+Math.Sin((q.anim_time * 90 * 0.5) * 1) * 1.5", 0]
+					"position": ["Math.Sin((q.anim_time * 180 * 0.5) * 1) * 1.5", "2+Math.Sin((q.anim_time * 90 * 0.5) * 1) * 1.5", 0]
 				},
 				"magnet_back_rotation": {
-					"rotation": [0, 0, "0 - 150 + math.mod(q.anim_time*0.5, 1)*360"],
+					"rotation": [0, 0, "0-150+math.mod(q.anim_time*0.5, 1)*-360 "],
 					"position": [-0.1105, -3.26306, -1.09075]
 				},
 				"magnet_left": {
@@ -22,18 +22,18 @@
 					"rotation": [0, 0, "Math.Cos(((q.anim_time + 0.4) * 180 * 0.5) * 1) * 5"]
 				},
 				"magnet_left_rotation": {
-					"rotation": [0, 0, "150 - math.mod(q.anim_time*0.5, 1)*360"],
+					"rotation": [0, 0, "150+math.mod(q.anim_time*0.5, 1)*-360 "],
 					"position": [0.31051, -2.99661, -0.96119]
 				},
 				"nail_left_rotation": {
-					"rotation": [0, "150 - math.mod(q.anim_time*0.5, 1)*360", 0]
+					"rotation": [0, "150+math.mod(q.anim_time*0.5, 1)*-360", 0]
 				},
 				"magnet_right_rotation": {
-					"rotation": [0, 0, "0 - 150 + math.mod(q.anim_time*0.5, 1)*360"],
+					"rotation": [0, 0, "0-150+math.mod(q.anim_time*0.5, 1)*360 "],
 					"position": [-0.53151, -2.99661, -0.96119]
 				},
 				"nail_right_rotation": {
-					"rotation": [0, "0 - 150 + math.mod(q.anim_time*0.5, 1)*360", 0]
+					"rotation": [0, "0-150+math.mod(q.anim_time*0.5, 1)*360 ", 0]
 				},
 				"magnet_back": {
 					"rotation": [-42.5, 0, 0],
@@ -46,10 +46,10 @@
 			"bones": {
 				"body": {
 					"rotation": [15, "0 - Math.Sin(((q.anim_time + 0.1) * 180 * 0.5) * 1) * 5", "Math.Sin(((q.anim_time + 0.4) * 180 * 0.5) * 1) * 5"],
-					"position": ["Math.Sin((q.anim_time * 180 * 0.5) * 1) * 1.5", "7+Math.Sin((q.anim_time * 90 * 0.5) * 1) * 1.5", 0]
+					"position": ["Math.Sin((q.anim_time * 180 * 0.5) * 1) * 1.5", "2+Math.Sin((q.anim_time * 90 * 0.5) * 1) * 1.5", 0]
 				},
 				"magnet_back_rotation": {
-					"rotation": [0, 0, "0 - 150 + math.mod(q.anim_time*0.75, 1)*360"],
+					"rotation": [0, 0, "0-150+math.mod(q.anim_time*1, 1)*-360"],
 					"position": [-0.1105, -3.26306, -1.09075]
 				},
 				"magnet_left": {
@@ -59,18 +59,18 @@
 					"rotation": [30, 0, 0]
 				},
 				"magnet_left_rotation": {
-					"rotation": [0, 0, "150 - math.mod(q.anim_time*0.75, 1)*360"],
+					"rotation": [0, 0, "150+math.mod(q.anim_time*1, 1)*-360"],
 					"position": [0.31051, -2.99661, -0.96119]
 				},
 				"nail_left_rotation": {
-					"rotation": [0, "150 - math.mod(q.anim_time*0.75, 1)*360", 0]
+					"rotation": [0, "150+math.mod(q.anim_time*1, 1)*-360", 0]
 				},
 				"magnet_right_rotation": {
-					"rotation": [0, 0, "0 - 150 + math.mod(q.anim_time*0.75, 1)*360"],
+					"rotation": [0, 0, "0-150+math.mod(q.anim_time*1, 1)*360"],
 					"position": [-0.53151, -2.99661, -0.96119]
 				},
 				"nail_right_rotation": {
-					"rotation": [0, "0 - 150 + math.mod(q.anim_time*0.75, 1)*360", 0]
+					"rotation": [0, "0-150+math.mod(q.anim_time*1, 1)*360", 0]
 				},
 				"magnet_back": {
 					"rotation": [-42.5, 0, 0],
@@ -397,58 +397,6 @@
 					"position": [0.31051, -2.99661, -0.96119]
 				},
 				"nail_left_rotation": {
-					"rotation": [0, "150 - math.mod(q.anim_time*0.25, 1)*360", 0]
-				},
-				"magnet_right": {
-					"rotation": [30, 0, 0]
-				},
-				"magnet_right_rotation": {
-					"rotation": [0, 0, "0 - math.sin(q.anim_time * 90) * 20"],
-					"position": [-0.53151, -2.99661, -0.96119]
-				},
-				"nail_right_rotation": {
-					"rotation": [0, "0 - 150 + math.mod(q.anim_time*0.25, 1)*360", 0]
-				},
-				"magnet_back": {
-					"rotation": [-42.5, 0, 0],
-					"position": [0, -0.99619, -0.08716]
-				},
-				"magnet_back_rotation": {
-					"rotation": [0, 0, "0 - math.sin(q.anim_time * 90) * 20"]
-				}
-			}
-		},
-		"animation.magnezone.sleep2": {
-			"loop": true,
-			"bones": {
-				"pupil_left": {
-					"position": [0, 0, 0.1]
-				},
-				"pupil_closed_left": {
-					"position": [0, 0, -0.1]
-				},
-				"pupil_right": {
-					"position": [0, 0, 0.1]
-				},
-				"pupil_closed_right": {
-					"position": [0, 0, -0.1]
-				},
-				"body": {
-					"rotation": [
-						"-15+math.sin((q.anim_time - 0.2) * 90) * 3",
-						"math.sin((q.anim_time - 0.5) * 90) * 3",
-						"Math.Sin(((q.anim_time + 0.4) * 90 * 0.5) * 1) * 2"
-					],
-					"position": ["Math.Sin((q.anim_time * 180 * 0.5) * 1) * 0", "1+Math.Sin((q.anim_time * 90 * 0.5) * 1) * 0", 0]
-				},
-				"magnet_left": {
-					"rotation": [30, 0, 0]
-				},
-				"magnet_left_rotation": {
-					"rotation": [0, 0, "math.sin(q.anim_time * 90) * 20"],
-					"position": [0.31051, -2.99661, -0.96119]
-				},
-				"nail_left_rotation": {
 					"rotation": [0, "150 + q.anim_time * - 90", 0]
 				},
 				"magnet_right": {
@@ -470,10 +418,22 @@
 				}
 			}
 		},
+		"animation.magnezone.ride_air_fly": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"rotation": [
+						"math.clamp(q.r.input_forward(10) + q.r.velocity_forward, -1.0, 1.0) * 35",
+						0,
+						"math.clamp(q.r.input_right(10) + q.r.velocity_right, -1.0, 1.0)*-35"
+					]
+				}
+			}
+		},
 		"animation.magnezone.cry": {
 			"animation_length": 1.2,
 			"sound_effects": {
-				"0.04": {
+				"0.0417": {
 					"effect": "pokemon.magnezone.cry"
 				}
 			}

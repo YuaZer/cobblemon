@@ -59,6 +59,35 @@
       "walk": {
         "walkSpeed": 0.2
       }
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "chikorita",
+          "tier": 1
+        },
+        {
+          "pokemon": "amaura",
+          "tier": 2
+        },
+        {
+          "pokemon": "bayleef",
+          "tier": 3
+        },
+        {
+          "pokemon": "meganium",
+          "tier": 4
+        },
+        {
+          "pokemon": "tropius",
+          "tier": 5
+        },
+        {
+          "pokemon": "aurorus",
+          "tier": 6
+        }
+      ]
     }
   },
   "drops": {
@@ -66,7 +95,7 @@
     "entries": [
       {
         "item": "cobblemon:miracle_seed",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -97,11 +126,9 @@
     "egg:vinewhip",
     "egg:wringout",
     "tm:ancientpower",
-    "tm:aromatherapy",
     "tm:bodyslam",
     "tm:bulletseed",
     "tm:charm",
-    "tm:counter",
     "tm:curse",
     "tm:cut",
     "tm:doubleedge",
@@ -111,34 +138,25 @@
     "tm:energyball",
     "tm:facade",
     "tm:faketears",
-    "tm:flail",
     "tm:flash",
     "tm:furycutter",
     "tm:gigadrain",
     "tm:grassknot",
     "tm:grasspledge",
-    "tm:grasswhistle",
     "tm:grassyglide",
     "tm:grassyterrain",
-    "tm:growl",
     "tm:headbutt",
-    "tm:healpulse",
     "tm:helpinghand",
-    "tm:ingrain",
     "tm:irontail",
     "tm:leafstorm",
-    "tm:leechseed",
     "tm:lightscreen",
     "tm:magicalleaf",
     "tm:magiccoat",
     "tm:mudslap",
     "tm:naturalgift",
     "tm:naturepower",
-    "tm:poisonpowder",
     "tm:protect",
-    "tm:razorleaf",
     "tm:reflect",
-    "tm:refresh",
     "tm:rest",
     "tm:safeguard",
     "tm:seedbomb",
@@ -147,17 +165,45 @@
     "tm:solarblade",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:sweetscent",
     "tm:swordsdance",
     "tm:synthesis",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
     "tm:trailblaze",
-    "tm:vinewhip",
     "tm:workup",
     "tm:worryseed",
-    "tm:wringout"
+    "tutor:ancientpower",
+    "tutor:energyball",
+    "tutor:frenzyplant",
+    "tutor:furycutter",
+    "tutor:gigadrain",
+    "tutor:grasspledge",
+    "tutor:grassyglide",
+    "tutor:helpinghand",
+    "tutor:irontail",
+    "tutor:magicalleaf",
+    "tutor:magiccoat",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:sleeptalk",
+    "tutor:synthesis",
+    "tutor:worryseed",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:detect",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "special:frenzyplant"
   ],
   "evolutions": [
     {

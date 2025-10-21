@@ -8,6 +8,8 @@
 
 package com.cobblemon.mod.common.util
 
+import com.bedrockk.molang.Expression
+import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.api.storage.party.PartyPosition
 import com.cobblemon.mod.common.api.storage.pc.PCPosition
 import com.cobblemon.mod.common.net.IntSize
@@ -30,6 +32,8 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.EntityDimensions
 import net.minecraft.world.item.ItemStack
+import org.joml.Matrix3f
+import org.joml.Matrix4f
 import java.io.IOException
 import java.util.*
 
@@ -70,7 +74,7 @@ fun <T> ByteBuf.writeCollection(collection: Collection<T> , writer: (ByteBuf, T)
 }
 
 fun <T> ByteBuf.writeNullable(obj: T?, writer: (ByteBuf, T) -> Unit) {
-    this.writeBoolean(obj == null)
+    this.writeBoolean(obj != null)
     obj?.let {
         writer(this, it)
     }
@@ -91,6 +95,38 @@ fun <T> RegistryFriendlyByteBuf.readList(reader: (FriendlyByteBuf) -> T): List<T
 
 fun ByteBuf.readString(): String {
     return Utf8String.read(this, 32767)
+}
+
+fun ByteBuf.writeExpression(expression: Expression): ByteBuf {
+    return this.writeString(expression.getString())
+}
+
+fun ByteBuf.writeNullableExpression(expression: Expression?): ByteBuf {
+    this.writeNullable(expression) { buf, expr -> buf.writeExpression(expr) }
+    return this
+}
+
+fun ByteBuf.writeRidingStats(stats: Map<RidingStat, IntRange>) {
+    return this.writeMap(
+        stats,
+        { buf, stat -> buf.writeEnumConstant(stat) },
+        { buf, range -> buf.writeInt(range.first).writeInt(range.last) }
+    )
+}
+
+fun ByteBuf.readRidingStats(): Map<RidingStat, IntRange> {
+    return this.readMap(
+        { buf -> buf.readEnumConstant(RidingStat::class.java) },
+        { buf -> IntRange(buf.readInt(), buf.readInt()) }
+    )
+}
+
+fun ByteBuf.readExpression(): Expression {
+    return this.readString().asExpression()
+}
+
+fun ByteBuf.readNullableExpression(): Expression? {
+    return this.readNullable { buf -> buf.readExpression() }
 }
 
 fun <T> ByteBuf.readNullable(reader: (ByteBuf) -> T): T? {
@@ -234,4 +270,54 @@ fun ByteBuf.readBitSet(size: Int): BitSet {
     return BitSet.valueOf(bs)
 }
 
-//fun
+fun ByteBuf.writeMatrix3f(matrix: Matrix3f) {
+    this.writeFloat(matrix.m00)
+    this.writeFloat(matrix.m01)
+    this.writeFloat(matrix.m02)
+    this.writeFloat(matrix.m10)
+    this.writeFloat(matrix.m11)
+    this.writeFloat(matrix.m12)
+    this.writeFloat(matrix.m20)
+    this.writeFloat(matrix.m21)
+    this.writeFloat(matrix.m22)
+}
+
+fun ByteBuf.readMatrix3f(): Matrix3f {
+    return Matrix3f(
+        readFloat(), readFloat(), readFloat(),
+        readFloat(), readFloat(), readFloat(),
+        readFloat(), readFloat(), readFloat(),
+    )
+}
+
+fun ByteBuf.writeMatrix4f(matrix: Matrix4f) {
+    this.writeFloat(matrix.m00())
+    this.writeFloat(matrix.m01())
+    this.writeFloat(matrix.m02())
+    this.writeFloat(matrix.m03())
+
+    this.writeFloat(matrix.m10())
+    this.writeFloat(matrix.m11())
+    this.writeFloat(matrix.m12())
+    this.writeFloat(matrix.m13())
+
+    this.writeFloat(matrix.m20())
+    this.writeFloat(matrix.m21())
+    this.writeFloat(matrix.m22())
+    this.writeFloat(matrix.m23())
+
+    this.writeFloat(matrix.m30())
+    this.writeFloat(matrix.m31())
+    this.writeFloat(matrix.m32())
+    this.writeFloat(matrix.m33())
+}
+
+fun ByteBuf.readMatrix4f(): Matrix4f {
+    return Matrix4f(
+        readFloat(), readFloat(), readFloat(), readFloat(),
+        readFloat(), readFloat(), readFloat(), readFloat(),
+        readFloat(), readFloat(), readFloat(), readFloat(),
+        readFloat(), readFloat(), readFloat(), readFloat(),
+    )
+}
+

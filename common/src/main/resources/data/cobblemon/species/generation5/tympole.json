@@ -55,6 +55,42 @@
         "canBreatheUnderwater": true,
         "swimSpeed": "0.2"
       }
+    },
+    "herd": {
+      "maxSize": "6",
+      "toleratedLeaders": [
+        {
+          "pokemon": "poliwag",
+          "tier": 1
+        },
+        {
+          "pokemon": "tympole",
+          "tier": 2
+        },
+        {
+          "pokemon": "poliwhirl",
+          "tier": 3
+        },
+        {
+          "pokemon": "palpitoad",
+          "tier": 4
+        },
+        {
+          "pokemon": "poliwrath",
+          "tier": 5
+        },
+        {
+          "pokemon": "politoed",
+          "tier": 6
+        },
+        {
+          "pokemon": "seismitoad",
+          "tier": 7
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -94,33 +130,23 @@
     "egg:snore",
     "egg:toxic",
     "egg:waterpulse",
-    "tm:acid",
     "tm:afteryou",
-    "tm:aquaring",
     "tm:bounce",
-    "tm:bubble",
-    "tm:bubblebeam",
     "tm:earthpower",
     "tm:echoedvoice",
     "tm:endeavor",
     "tm:endure",
     "tm:facade",
-    "tm:flail",
-    "tm:growl",
     "tm:hail",
     "tm:hydropump",
     "tm:hypervoice",
     "tm:icywind",
     "tm:infestation",
-    "tm:mist",
-    "tm:mudbomb",
     "tm:muddywater",
     "tm:mudshot",
     "tm:mudslap",
-    "tm:mudsport",
     "tm:protect",
     "tm:raindance",
-    "tm:refresh",
     "tm:rest",
     "tm:round",
     "tm:scald",
@@ -130,14 +156,34 @@
     "tm:sludgewave",
     "tm:snore",
     "tm:substitute",
-    "tm:supersonic",
     "tm:surf",
     "tm:terablast",
     "tm:toxic",
     "tm:uproar",
     "tm:venomdrench",
     "tm:waterpulse",
-    "tm:weatherball"
+    "tm:weatherball",
+    "tutor:afteryou",
+    "tutor:bounce",
+    "tutor:earthpower",
+    "tutor:endeavor",
+    "tutor:hypervoice",
+    "tutor:icywind",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:snore",
+    "tutor:uproar",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:secretpower",
+    "legacy:swagger"
   ],
   "evolutions": [
     {

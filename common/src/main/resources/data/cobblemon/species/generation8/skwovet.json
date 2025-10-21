@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 819,
   "name": "Skwovet",
   "primaryType": "normal",
@@ -40,13 +41,12 @@
   "catchRate": 255,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.5,
   "hitbox": {
-    "width": 1,
-    "height": 1,
+    "width": 1.15,
+    "height": 1.25,
     "fixed": false
   },
-  "behaviour": {},
   "drops": {
     "amount": 1,
     "entries": [
@@ -76,16 +76,11 @@
     "egg:rollout",
     "tm:amnesia",
     "tm:assurance",
-    "tm:belch",
-    "tm:bellydrum",
-    "tm:bite",
     "tm:bodyslam",
     "tm:brutalswing",
     "tm:bulletseed",
-    "tm:counter",
     "tm:crunch",
     "tm:curse",
-    "tm:defensecurl",
     "tm:dig",
     "tm:doubleedge",
     "tm:endeavor",
@@ -104,19 +99,27 @@
     "tm:rollout",
     "tm:seedbomb",
     "tm:sleeptalk",
-    "tm:spitup",
-    "tm:stockpile",
-    "tm:stuffcheeks",
     "tm:substitute",
     "tm:superfang",
-    "tm:swallow",
-    "tm:tackle",
     "tm:tailslap",
-    "tm:tailwhip",
     "tm:takedown",
     "tm:terablast",
     "tm:thief",
-    "tm:trailblaze"
+    "tm:trailblaze",
+    "tutor:endeavor",
+    "tutor:hypervoice",
+    "tutor:irontail",
+    "tutor:lastresort",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:rollout",
+    "tutor:seedbomb",
+    "tutor:sleeptalk",
+    "tutor:superfang",
+    "legacy:attract",
+    "legacy:round",
+    "legacy:snore",
+    "legacy:uproar"
   ],
   "evolutions": [
     {
@@ -134,5 +137,10 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

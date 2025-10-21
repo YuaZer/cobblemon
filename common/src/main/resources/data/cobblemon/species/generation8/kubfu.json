@@ -47,7 +47,6 @@
     "height": 1,
     "fixed": false
   },
-  "behaviour": {},
   "moves": [
     "1:rocksmash",
     "1:leer",
@@ -70,11 +69,8 @@
     "tm:brickbreak",
     "tm:bulkup",
     "tm:closecombat",
-    "tm:counter",
-    "tm:detect",
     "tm:dig",
     "tm:doubleedge",
-    "tm:dynamicpunch",
     "tm:endure",
     "tm:facade",
     "tm:firepunch",
@@ -85,7 +81,6 @@
     "tm:helpinghand",
     "tm:icepunch",
     "tm:ironhead",
-    "tm:leer",
     "tm:lowkick",
     "tm:lowsweep",
     "tm:megakick",
@@ -107,14 +102,33 @@
     "tm:thunderpunch",
     "tm:uturn",
     "tm:workup",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:aerialace",
+    "tutor:bulkup",
+    "tutor:firepunch",
+    "tutor:focusenergy",
+    "tutor:focuspunch",
+    "tutor:helpinghand",
+    "tutor:icepunch",
+    "tutor:ironhead",
+    "tutor:lowkick",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:sleeptalk",
+    "tutor:superpower",
+    "tutor:thunderpunch",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:coaching",
+    "legacy:round",
+    "legacy:snore"
   ],
   "evolutions": [
     {
       "id": "kubfu_urshifu",
       "variant": "item_interact",
       "result": "urshifu wushu_style=single_strike",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [
         "wickedblow"
       ],
@@ -125,12 +139,26 @@
       "id": "kubfu_urshifurapidstrike",
       "variant": "item_interact",
       "result": "urshifu wushu_style=rapid_strike",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [
         "surgingstrikes"
       ],
       "requirements": [],
       "requiredContext": "cobblemon:scroll_of_waters"
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "urshifu",
+          "tier": 1
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

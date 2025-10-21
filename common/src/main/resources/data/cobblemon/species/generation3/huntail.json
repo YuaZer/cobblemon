@@ -62,6 +62,31 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "eelektrik",
+          "tier": 1
+        },
+        {
+          "pokemon": "gorebyss",
+          "tier": 2
+        },
+        {
+          "pokemon": "huntail",
+          "tier": 3
+        },
+        {
+          "pokemon": "eelektross",
+          "tier": 4
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 5
+        }
+      ]
     }
   },
   "drops": {
@@ -69,7 +94,7 @@
     "entries": [
       {
         "item": "cobblemon:deep_sea_tooth",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -98,24 +123,18 @@
     "egg:mudsport",
     "egg:refresh",
     "egg:supersonic",
-    "tm:aquaring",
     "tm:aquatail",
-    "tm:barrier",
     "tm:batonpass",
     "tm:bind",
-    "tm:bite",
     "tm:blizzard",
     "tm:bodyslam",
     "tm:bounce",
     "tm:brine",
-    "tm:clamp",
-    "tm:coil",
     "tm:confuseray",
     "tm:crunch",
     "tm:dive",
     "tm:endure",
     "tm:facade",
-    "tm:feintattack",
     "tm:flipturn",
     "tm:gigaimpact",
     "tm:hail",
@@ -128,30 +147,64 @@
     "tm:irondefense",
     "tm:muddywater",
     "tm:mudslap",
-    "tm:mudsport",
     "tm:protect",
     "tm:raindance",
-    "tm:refresh",
     "tm:rest",
     "tm:rocktomb",
     "tm:scald",
     "tm:scaleshot",
     "tm:scaryface",
     "tm:screech",
-    "tm:shellsmash",
     "tm:sleeptalk",
     "tm:snatch",
     "tm:substitute",
     "tm:suckerpunch",
     "tm:superfang",
-    "tm:supersonic",
     "tm:surf",
     "tm:terablast",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:whirlpool"
+    "tm:whirlpool",
+    "tutor:aquatail",
+    "tutor:bind",
+    "tutor:bounce",
+    "tutor:dive",
+    "tutor:flipturn",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icefang",
+    "tutor:icywind",
+    "tutor:irondefense",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:scaleshot",
+    "tutor:sleeptalk",
+    "tutor:snatch",
+    "tutor:suckerpunch",
+    "tutor:superfang",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:swift",
+    "legacy:toxic"
   ],
   "preEvolution": "clamperl",
-  "evolutions": []
+  "evolutions": [],
+  "lightingData": {
+    "lightLevel": 3,
+    "liquidGlowMode": "BOTH"
+  }
 }

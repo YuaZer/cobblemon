@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 578,
   "name": "Duosion",
   "primaryType": "psychic",
@@ -41,13 +42,43 @@
   "catchRate": 100,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "shoulderMountable": false,
+  "standingEyeHeight": 0.65,
+  "swimmingEyeHeight": 0.65,
+  "flyingEyeHeight": 0.65,
+  "baseScale": 0.65,
   "hitbox": {
-    "width": 1,
-    "height": 1,
+    "width": 1.1,
+    "height": 1.8,
     "fixed": false
   },
-  "behaviour": {},
+  "behaviour": {
+    "moving": {
+      "fly": {
+        "canFly": true
+      },
+      "swim": {
+        "canBreatheUnderwater": true,
+        "canWalkOnWater": true,
+        "canSwimInWater": true,
+        "canSwimInLava": true,
+        "swimSpeed": "0.2"
+      }
+    },
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "duosion",
+          "tier": 1
+        },
+        {
+          "pokemon": "reuniclus",
+          "tier": 2
+        }
+      ]
+    }
+  },
   "drops": {
     "amount": 3,
     "entries": [
@@ -57,7 +88,7 @@
       },
       {
         "item": "cobblemon:persim_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -85,14 +116,11 @@
     "egg:confuseray",
     "egg:healblock",
     "egg:secretpower",
-    "tm:acidarmor",
     "tm:afteryou",
     "tm:allyswitch",
-    "tm:astonish",
     "tm:calmmind",
     "tm:charm",
     "tm:confuseray",
-    "tm:confusion",
     "tm:dreameater",
     "tm:embargo",
     "tm:encore",
@@ -108,7 +136,6 @@
     "tm:gravity",
     "tm:guardswap",
     "tm:gyroball",
-    "tm:healblock",
     "tm:helpinghand",
     "tm:imprison",
     "tm:infestation",
@@ -124,9 +151,7 @@
     "tm:psychicterrain",
     "tm:psychup",
     "tm:psyshock",
-    "tm:psywave",
     "tm:raindance",
-    "tm:recover",
     "tm:reflect",
     "tm:rest",
     "tm:rockslide",
@@ -153,7 +178,46 @@
     "tm:trick",
     "tm:trickroom",
     "tm:wonderroom",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:afteryou",
+    "tutor:allyswitch",
+    "tutor:calmmind",
+    "tutor:endeavor",
+    "tutor:energyball",
+    "tutor:expandingforce",
+    "tutor:flashcannon",
+    "tutor:gravity",
+    "tutor:helpinghand",
+    "tutor:irondefense",
+    "tutor:magiccoat",
+    "tutor:painsplit",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:roleplay",
+    "tutor:rollout",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:skillswap",
+    "tutor:sleeptalk",
+    "tutor:snatch",
+    "tutor:steelroller",
+    "tutor:swift",
+    "tutor:telekinesis",
+    "tutor:trick",
+    "tutor:wonderroom",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "solosis",
   "evolutions": [

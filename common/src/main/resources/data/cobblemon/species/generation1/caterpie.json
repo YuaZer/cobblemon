@@ -54,12 +54,16 @@
   "behaviour": {
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
     },
     "moving": {
       "walk": {
         "walkSpeed": 0.26
       }
+    },
+    "herd": {
+      "maxSize": "9"
     }
   },
   "drops": {
@@ -82,8 +86,11 @@
     "tm:bugbite",
     "tm:electroweb",
     "tm:stringshot",
-    "tm:tackle",
-    "tm:terablast"
+    "tm:terablast",
+    "tutor:bugbite",
+    "tutor:electroweb",
+    "tutor:stringshot",
+    "legacy:snore"
   ],
   "evolutions": [
     {

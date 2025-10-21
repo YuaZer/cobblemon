@@ -47,13 +47,16 @@
     "height": 1,
     "fixed": false
   },
-  "behaviour": {},
   "drops": {
-    "amount": 1,
+    "amount": 2,
     "entries": [
       {
         "item": "cobblemon:wepear_berry",
-        "percentage": 10
+        "percentage": 10.0
+      },
+      {
+        "item": "cobblemon:cell_battery",
+        "percentage": 10.0
       }
     ]
   },
@@ -85,7 +88,6 @@
     "tm:agility",
     "tm:airslash",
     "tm:batonpass",
-    "tm:bite",
     "tm:bugbite",
     "tm:bugbuzz",
     "tm:bulldoze",
@@ -93,7 +95,6 @@
     "tm:chargebeam",
     "tm:crunch",
     "tm:dig",
-    "tm:discharge",
     "tm:eerieimpulse",
     "tm:electricterrain",
     "tm:electroball",
@@ -104,8 +105,6 @@
     "tm:flashcannon",
     "tm:fly",
     "tm:gigaimpact",
-    "tm:guillotine",
-    "tm:harden",
     "tm:hyperbeam",
     "tm:irondefense",
     "tm:laserfocus",
@@ -128,8 +127,6 @@
     "tm:skydrop",
     "tm:sleeptalk",
     "tm:solarbeam",
-    "tm:spark",
-    "tm:stickyweb",
     "tm:stringshot",
     "tm:strugglebug",
     "tm:substitute",
@@ -140,12 +137,47 @@
     "tm:thunder",
     "tm:thunderbolt",
     "tm:thunderwave",
-    "tm:visegrip",
     "tm:voltswitch",
     "tm:wildcharge",
     "tm:xscissor",
-    "tm:zapcannon"
+    "tutor:bugbite",
+    "tutor:bulldoze",
+    "tutor:chargebeam",
+    "tutor:electroweb",
+    "tutor:energyball",
+    "tutor:flashcannon",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:irondefense",
+    "tutor:laserfocus",
+    "tutor:magnetrise",
+    "tutor:mudslap",
+    "tutor:poisonjab",
+    "tutor:rest",
+    "tutor:risingvoltage",
+    "tutor:roost",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:skittersmack",
+    "tutor:sleeptalk",
+    "tutor:stringshot",
+    "tutor:swift",
+    "tutor:thunderbolt",
+    "tutor:wildcharge",
+    "tutor:xscissor",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:dualwingbeat",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "charjabug",
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {}
 }

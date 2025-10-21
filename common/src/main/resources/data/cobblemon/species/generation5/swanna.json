@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 581,
   "name": "Swanna",
   "primaryType": "water",
@@ -64,6 +65,15 @@
       "fly": {
         "canFly": true
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "swanna",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -82,7 +92,7 @@
       },
       {
         "item": "cobblemon:wacan_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -117,11 +127,8 @@
     "tm:aircutter",
     "tm:airslash",
     "tm:alluringvoice",
-    "tm:aquajet",
-    "tm:aquaring",
     "tm:bravebird",
     "tm:brine",
-    "tm:bubblebeam",
     "tm:chillingwater",
     "tm:defog",
     "tm:disarmingvoice",
@@ -134,7 +141,6 @@
     "tm:flipturn",
     "tm:fly",
     "tm:gigaimpact",
-    "tm:gust",
     "tm:hail",
     "tm:helpinghand",
     "tm:hurricane",
@@ -144,10 +150,6 @@
     "tm:icywind",
     "tm:knockoff",
     "tm:liquidation",
-    "tm:luckychant",
-    "tm:mefirst",
-    "tm:mirrormove",
-    "tm:mudsport",
     "tm:pluck",
     "tm:protect",
     "tm:raindance",
@@ -162,12 +164,42 @@
     "tm:tailwind",
     "tm:terablast",
     "tm:trailblaze",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:watersport",
     "tm:weatherball",
     "tm:whirlpool",
-    "tm:wingattack"
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:defog",
+    "tutor:dive",
+    "tutor:endeavor",
+    "tutor:flipturn",
+    "tutor:gigaimpact",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:knockoff",
+    "tutor:liquidation",
+    "tutor:rest",
+    "tutor:roost",
+    "tutor:skyattack",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:tailwind",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:scald",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:uproar"
   ],
   "preEvolution": "ducklett",
   "evolutions": []

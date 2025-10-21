@@ -65,7 +65,25 @@
     },
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "chinchou",
+          "tier": 1
+        },
+        {
+          "pokemon": "lanturn",
+          "tier": 2
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 3
+        }
+      ]
     }
   },
   "drops": {
@@ -108,19 +126,15 @@
     "egg:waterpulse",
     "tm:agility",
     "tm:amnesia",
-    "tm:aquaring",
     "tm:blizzard",
     "tm:bounce",
     "tm:brine",
-    "tm:bubble",
-    "tm:bubblebeam",
     "tm:charge",
     "tm:chargebeam",
     "tm:chillingwater",
     "tm:confuseray",
     "tm:curse",
     "tm:dazzlinggleam",
-    "tm:discharge",
     "tm:dive",
     "tm:doubleedge",
     "tm:eerieimpulse",
@@ -129,7 +143,6 @@
     "tm:electroweb",
     "tm:endure",
     "tm:facade",
-    "tm:flail",
     "tm:flash",
     "tm:flipturn",
     "tm:hail",
@@ -137,9 +150,7 @@
     "tm:hydropump",
     "tm:icebeam",
     "tm:icywind",
-    "tm:iondeluge",
     "tm:liquidation",
-    "tm:mist",
     "tm:muddywater",
     "tm:protect",
     "tm:psybeam",
@@ -151,11 +162,8 @@
     "tm:shockwave",
     "tm:signalbeam",
     "tm:sleeptalk",
-    "tm:soak",
-    "tm:spark",
     "tm:substitute",
     "tm:suckerpunch",
-    "tm:supersonic",
     "tm:surf",
     "tm:takedown",
     "tm:terablast",
@@ -164,10 +172,43 @@
     "tm:thunderwave",
     "tm:voltswitch",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
     "tm:whirlpool",
-    "tm:wildcharge"
+    "tm:wildcharge",
+    "tutor:bounce",
+    "tutor:chargebeam",
+    "tutor:dazzlinggleam",
+    "tutor:dive",
+    "tutor:electroweb",
+    "tutor:flipturn",
+    "tutor:healbell",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:liquidation",
+    "tutor:rest",
+    "tutor:risingvoltage",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:suckerpunch",
+    "tutor:thunderbolt",
+    "tutor:waterpulse",
+    "tutor:wildcharge",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:zapcannon"
   ],
   "evolutions": [
     {
@@ -187,5 +228,9 @@
         }
       ]
     }
-  ]
+  ],
+  "lightingData": {
+    "lightLevel": 8,
+    "liquidGlowMode": "BOTH"
+  }
 }

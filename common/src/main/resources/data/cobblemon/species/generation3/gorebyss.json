@@ -62,6 +62,31 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "eelektrik",
+          "tier": 1
+        },
+        {
+          "pokemon": "huntail",
+          "tier": 2
+        },
+        {
+          "pokemon": "gorebyss",
+          "tier": 3
+        },
+        {
+          "pokemon": "eelektross",
+          "tier": 4
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 5
+        }
+      ]
     }
   },
   "drops": {
@@ -69,7 +94,7 @@
     "entries": [
       {
         "item": "cobblemon:deep_sea_scale",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -100,9 +125,7 @@
     "egg:supersonic",
     "tm:agility",
     "tm:amnesia",
-    "tm:aquaring",
     "tm:aquatail",
-    "tm:barrier",
     "tm:batonpass",
     "tm:bind",
     "tm:blizzard",
@@ -110,10 +133,7 @@
     "tm:bounce",
     "tm:brine",
     "tm:captivate",
-    "tm:clamp",
-    "tm:coil",
     "tm:confuseray",
-    "tm:confusion",
     "tm:dive",
     "tm:drainingkiss",
     "tm:endure",
@@ -129,29 +149,56 @@
     "tm:irondefense",
     "tm:muddywater",
     "tm:mudslap",
-    "tm:mudsport",
     "tm:protect",
     "tm:psychic",
     "tm:psychup",
     "tm:raindance",
-    "tm:refresh",
     "tm:rest",
     "tm:safeguard",
     "tm:scald",
     "tm:scaleshot",
     "tm:shadowball",
-    "tm:shellsmash",
     "tm:signalbeam",
     "tm:sleeptalk",
     "tm:substitute",
-    "tm:supersonic",
     "tm:surf",
     "tm:terablast",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:watersport",
-    "tm:whirlpool"
+    "tm:whirlpool",
+    "tutor:aquatail",
+    "tutor:bind",
+    "tutor:bounce",
+    "tutor:dive",
+    "tutor:flipturn",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:irondefense",
+    "tutor:mudslap",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:scaleshot",
+    "tutor:shadowball",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:swift",
+    "legacy:toxic"
   ],
   "preEvolution": "clamperl",
   "evolutions": []

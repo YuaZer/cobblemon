@@ -43,16 +43,152 @@
   "catchRate": 30,
   "eggCycles": 20,
   "baseFriendship": 35,
-  "baseScale": 1.3,
+  "baseScale": 1,
   "hitbox": {
-    "width": 1,
-    "height": 1.2,
-    "fixed": false
+    "height": 1.55,
+    "fixed": false,
+    "width": 1.1
+  },
+  "riding": {
+    "behaviours": {
+      "AIR": {
+        "key": "cobblemon:air/bird",
+        "rideSounds": [
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "soundLocation": "cobblemon:ride.loop.plumage",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          },
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "soundLocation": "cobblemon:ride.loop.wind",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          }
+        ],
+        "stats": {
+          "ACCELERATION": "10-40",
+          "JUMP": "30-65",
+          "SKILL": "30-65",
+          "SPEED": "10-40",
+          "STAMINA": "55-85"
+        }
+      },
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "canJump": false,
+        "canSprint": false,
+        "stats": {
+          "ACCELERATION": "10-40",
+          "JUMP": "10-40",
+          "SKILL": "80-100",
+          "SPEED": "10-40",
+          "STAMINA": "10-40"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.9785664,
+              "z": 0.30305287
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.95356643,
+              "z": 0.28095582
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.89089984,
+              "z": 0.25173083
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.971342,
+              "z": 0.07743508
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.9785664,
+              "z": 0.30305287
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.9785664,
+              "z": 0.30305287
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.9785664,
+              "z": 0.30305287
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "honchkrow",
+          "tier": 1
+        }
+      ]
+    },
     "moving": {
       "fly": {
         "canFly": true
+      },
+      "walk": {
+        "walkSpeed": 0.17
       }
     },
     "resting": {
@@ -72,7 +208,7 @@
       },
       {
         "item": "cobblemon:bluk_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -110,30 +246,24 @@
     "tm:aircutter",
     "tm:airslash",
     "tm:assurance",
-    "tm:astonish",
     "tm:beatup",
     "tm:bravebird",
     "tm:calmmind",
     "tm:chillingwater",
-    "tm:comeuppance",
     "tm:confuseray",
     "tm:darkpulse",
     "tm:defog",
     "tm:doubleedge",
     "tm:dreameater",
-    "tm:drillpeck",
     "tm:dualwingbeat",
     "tm:embargo",
     "tm:endeavor",
     "tm:endure",
     "tm:facade",
     "tm:featherdance",
-    "tm:feintattack",
-    "tm:flatter",
     "tm:fly",
     "tm:foulplay",
     "tm:gigaimpact",
-    "tm:gust",
     "tm:haze",
     "tm:heatwave",
     "tm:helpinghand",
@@ -143,23 +273,16 @@
     "tm:icywind",
     "tm:incinerate",
     "tm:lashout",
-    "tm:meanlook",
-    "tm:mirrormove",
     "tm:mudslap",
     "tm:nastyplot",
     "tm:nightshade",
-    "tm:nightslash",
     "tm:ominouswind",
     "tm:payback",
-    "tm:peck",
-    "tm:perishsong",
     "tm:pluck",
     "tm:protect",
     "tm:psychic",
     "tm:psychicnoise",
-    "tm:psychoshift",
     "tm:psychup",
-    "tm:pursuit",
     "tm:quash",
     "tm:raindance",
     "tm:rest",
@@ -190,8 +313,54 @@
     "tm:twister",
     "tm:uproar",
     "tm:uturn",
-    "tm:whirlwind",
-    "tm:wingattack"
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:calmmind",
+    "tutor:darkpulse",
+    "tutor:defog",
+    "tutor:dualwingbeat",
+    "tutor:endeavor",
+    "tutor:foulplay",
+    "tutor:gigaimpact",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:icywind",
+    "tutor:lashout",
+    "tutor:mudslap",
+    "tutor:ominouswind",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:roost",
+    "tutor:shadowball",
+    "tutor:skyattack",
+    "tutor:sleeptalk",
+    "tutor:snarl",
+    "tutor:snatch",
+    "tutor:spite",
+    "tutor:suckerpunch",
+    "tutor:superpower",
+    "tutor:tailwind",
+    "tutor:twister",
+    "tutor:uproar",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:detect",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:nightmare",
+    "legacy:quickattack",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swift",
+    "legacy:toxic"
   ],
   "preEvolution": "murkrow",
   "evolutions": []

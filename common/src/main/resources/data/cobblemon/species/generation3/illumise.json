@@ -60,7 +60,21 @@
     },
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "volbeat",
+          "tier": 1
+        },
+        {
+          "pokemon": "illumise",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -68,11 +82,11 @@
     "entries": [
       {
         "item": "cobblemon:bright_powder",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:bluk_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -101,7 +115,6 @@
     "tm:aerialace",
     "tm:aircutter",
     "tm:airslash",
-    "tm:aromatherapy",
     "tm:attract",
     "tm:batonpass",
     "tm:brickbreak",
@@ -122,11 +135,9 @@
     "tm:facade",
     "tm:faketears",
     "tm:flash",
-    "tm:flatter",
     "tm:fling",
     "tm:focuspunch",
     "tm:gigadrain",
-    "tm:growth",
     "tm:helpinghand",
     "tm:icepunch",
     "tm:infestation",
@@ -134,16 +145,13 @@
     "tm:megakick",
     "tm:megapunch",
     "tm:metronome",
-    "tm:moonlight",
     "tm:mudslap",
     "tm:ominouswind",
-    "tm:playnice",
     "tm:playrough",
     "tm:pounce",
     "tm:poweruppunch",
     "tm:protect",
     "tm:psychup",
-    "tm:quickattack",
     "tm:raindance",
     "tm:rest",
     "tm:roost",
@@ -157,9 +165,7 @@
     "tm:strugglebug",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:sweetscent",
     "tm:swift",
-    "tm:tackle",
     "tm:tailwind",
     "tm:takedown",
     "tm:terablast",
@@ -172,8 +178,56 @@
     "tm:trick",
     "tm:uturn",
     "tm:waterpulse",
-    "tm:wish",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:bugbite",
+    "tutor:chargebeam",
+    "tutor:covet",
+    "tutor:dazzlinggleam",
+    "tutor:endeavor",
+    "tutor:focuspunch",
+    "tutor:gigadrain",
+    "tutor:helpinghand",
+    "tutor:icepunch",
+    "tutor:mudslap",
+    "tutor:ominouswind",
+    "tutor:playrough",
+    "tutor:rest",
+    "tutor:roost",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:skittersmack",
+    "tutor:sleeptalk",
+    "tutor:stringshot",
+    "tutor:swift",
+    "tutor:tailwind",
+    "tutor:thunderbolt",
+    "tutor:thunderpunch",
+    "tutor:trick",
+    "tutor:waterpulse",
+    "tutor:zenheadbutt",
+    "legacy:bodyslam",
+    "legacy:confide",
+    "legacy:counter",
+    "legacy:defog",
+    "legacy:doubleteam",
+    "legacy:dynamicpunch",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:seismictoss",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
-  "evolutions": []
+  "evolutions": [],
+  "lightingData": {
+    "lightLevel": 3,
+    "liquidGlowMode": "BOTH"
+  }
 }

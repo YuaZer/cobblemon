@@ -46,14 +46,116 @@
   "baseFriendship": 50,
   "baseScale": 1.1,
   "hitbox": {
-    "width": 1.8,
     "height": 2.5,
-    "fixed": false
+    "fixed": false,
+    "width": 1.8
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "30-65",
+          "JUMP": "10-40",
+          "SKILL": "30-65",
+          "SPEED": "10-40",
+          "STAMINA": "55-85"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.0003560225,
+              "y": -3.1203074,
+              "z": -0.03493467
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.022281736,
+              "y": -2.9774263,
+              "z": 0.14017001
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.022901211,
+              "y": -3.1067982,
+              "z": -0.098829955
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.022901211,
+              "y": -3.1067982,
+              "z": -0.098829955
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.022281736,
+              "y": -2.9774263,
+              "z": 0.14017001
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.022281736,
+              "y": -2.9774263,
+              "z": 0.14017001
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.022901211,
+              "y": -3.1067982,
+              "z": -0.098829955
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "2"
+    },
     "moving": {
       "swim": {
         "canSwimInLava": true
+      },
+      "walk": {
+        "walkSpeed": 0.2
       }
     }
   },
@@ -62,11 +164,11 @@
     "entries": [
       {
         "item": "cobblemon:protector",
-        "percentage": 10
+        "percentage": 10.0
       },
       {
         "item": "cobblemon:passho_berry",
-        "percentage": 10
+        "percentage": 10.0
       }
     ]
   },
@@ -111,16 +213,12 @@
     "tm:brickbreak",
     "tm:brutalswing",
     "tm:bulldoze",
-    "tm:chipaway",
-    "tm:counter",
     "tm:crunch",
-    "tm:crushclaw",
     "tm:curse",
     "tm:cut",
     "tm:dig",
     "tm:doubleedge",
     "tm:dragonpulse",
-    "tm:dragonrush",
     "tm:dragontail",
     "tm:drillrun",
     "tm:earthpower",
@@ -136,18 +234,13 @@
     "tm:fling",
     "tm:focusblast",
     "tm:focuspunch",
-    "tm:furyattack",
     "tm:furycutter",
     "tm:gigaimpact",
-    "tm:guardsplit",
-    "tm:hammerarm",
     "tm:headbutt",
     "tm:heatcrash",
     "tm:heavyslam",
     "tm:helpinghand",
     "tm:highhorsepower",
-    "tm:hornattack",
-    "tm:horndrill",
     "tm:hydropump",
     "tm:hyperbeam",
     "tm:icebeam",
@@ -158,11 +251,9 @@
     "tm:irondefense",
     "tm:ironhead",
     "tm:irontail",
-    "tm:magnitude",
     "tm:megahorn",
     "tm:megakick",
     "tm:megapunch",
-    "tm:metalburst",
     "tm:metalclaw",
     "tm:meteorbeam",
     "tm:mudshot",
@@ -183,20 +274,16 @@
     "tm:rockslide",
     "tm:rocksmash",
     "tm:rocktomb",
-    "tm:rockwrecker",
     "tm:rollout",
-    "tm:rototiller",
     "tm:sandstorm",
     "tm:scaryface",
     "tm:scorchingsands",
     "tm:shadowclaw",
     "tm:shockwave",
-    "tm:skullbash",
     "tm:sleeptalk",
     "tm:smackdown",
     "tm:smartstrike",
     "tm:stealthrock",
-    "tm:stomp",
     "tm:stompingtantrum",
     "tm:stoneedge",
     "tm:strength",
@@ -206,8 +293,6 @@
     "tm:superpower",
     "tm:surf",
     "tm:swordsdance",
-    "tm:tackle",
-    "tm:tailwhip",
     "tm:takedown",
     "tm:temperflare",
     "tm:terablast",
@@ -216,7 +301,83 @@
     "tm:thunderbolt",
     "tm:thunderfang",
     "tm:thunderpunch",
-    "tm:uproar"
+    "tm:uproar",
+    "tutor:ancientpower",
+    "tutor:aquatail",
+    "tutor:block",
+    "tutor:bulldoze",
+    "tutor:dragonpulse",
+    "tutor:drillrun",
+    "tutor:earthpower",
+    "tutor:endeavor",
+    "tutor:firefang",
+    "tutor:firepunch",
+    "tutor:flamethrower",
+    "tutor:flashcannon",
+    "tutor:focuspunch",
+    "tutor:furycutter",
+    "tutor:gigaimpact",
+    "tutor:helpinghand",
+    "tutor:highhorsepower",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icefang",
+    "tutor:icepunch",
+    "tutor:icywind",
+    "tutor:irondefense",
+    "tutor:ironhead",
+    "tutor:irontail",
+    "tutor:megahorn",
+    "tutor:meteorbeam",
+    "tutor:mudslap",
+    "tutor:outrage",
+    "tutor:poisonjab",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:rollout",
+    "tutor:scorchingsands",
+    "tutor:shadowclaw",
+    "tutor:shockwave",
+    "tutor:sleeptalk",
+    "tutor:stealthrock",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:superpower",
+    "tutor:thunderbolt",
+    "tutor:thunderfang",
+    "tutor:thunderpunch",
+    "tutor:uproar",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:bubblebeam",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:dynamicpunch",
+    "legacy:fissure",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:leer",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:pursuit",
+    "legacy:rage",
+    "legacy:return",
+    "legacy:rockthrow",
+    "legacy:round",
+    "legacy:sandattack",
+    "legacy:secretpower",
+    "legacy:seismictoss",
+    "legacy:snore",
+    "legacy:spite",
+    "legacy:submission",
+    "legacy:swagger",
+    "legacy:thrash",
+    "legacy:toxic",
+    "legacy:watergun",
+    "legacy:whirlpool",
+    "legacy:zapcannon"
   ],
   "preEvolution": "rhydon",
   "evolutions": []

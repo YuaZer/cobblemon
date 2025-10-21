@@ -10,7 +10,6 @@ package com.cobblemon.mod.common.api.moves
 
 import com.bedrockk.molang.runtime.struct.QueryStruct
 import com.bedrockk.molang.runtime.value.DoubleValue
-import com.cobblemon.mod.common.api.reactive.SimpleObservable
 import com.cobblemon.mod.common.net.IntSize
 import com.cobblemon.mod.common.util.DataKeys
 import com.cobblemon.mod.common.util.readSizedInt
@@ -24,7 +23,7 @@ import com.mojang.serialization.Codec
 import kotlin.math.min
 
 class MoveSet : Iterable<Move> {
-    val observable = SimpleObservable<MoveSet>()
+    var changeFunction: (MoveSet) -> Unit = {}
     private var emit = true
 
     private val moves = arrayOfNulls<Move>(MOVE_COUNT)
@@ -153,7 +152,7 @@ class MoveSet : Iterable<Move> {
 
     fun update() {
         if (emit) {
-            observable.emit(this)
+            changeFunction(this)
         }
     }
 
@@ -214,7 +213,10 @@ class MoveSet : Iterable<Move> {
             .xmap(
                 { moveList ->
                     val moveSet = MoveSet()
-                    moveList.forEach(moveSet::add)
+                    moveList.filter { it.template !is MoveTemplate.Dummy }.forEach(moveSet::add)
+                    if (moveSet.moves.all { it == null }) {
+                        moveSet.add(Moves.getExceptional().create())
+                    }
                     return@xmap moveSet
                 },
                 { moveSet -> moveSet.toList() }

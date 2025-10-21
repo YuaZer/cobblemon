@@ -44,22 +44,127 @@
   "baseFriendship": 50,
   "baseScale": 0.9,
   "hitbox": {
-    "width": 1.6,
     "height": 2.5,
-    "fixed": false
+    "fixed": false,
+    "width": 1.6
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "10-40",
+          "JUMP": "30-65",
+          "SKILL": "10-40",
+          "SPEED": "30-65",
+          "STAMINA": "55-85"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.0041440567,
+              "y": -1.8778672,
+              "z": -0.31977665
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0037446609,
+              "y": -1.7513449,
+              "z": -0.47775924
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0037446609,
+              "y": -1.7513449,
+              "z": -0.47775924
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0037446609,
+              "y": -1.7513449,
+              "z": -0.47775924
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0037446609,
+              "y": -1.7513449,
+              "z": -0.47775924
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0037446609,
+              "y": -1.7513449,
+              "z": -0.47775924
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0037446609,
+              "y": -1.7513449,
+              "z": -0.47775924
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "7",
+      "toleratedLeaders": [
+        {
+          "pokemon": "rampardos",
+          "tier": 1
+        }
+      ]
+    },
+    "moving": {
+      "swim": {
+        "canSwimInLava": true
+      },
+      "walk": {
+        "walkSpeed": 0.19
+      }
+    },
     "resting": {
       "canSleep": true,
       "light": "0-4"
-    },
-    "moving": {
-      "walk": {
-        "walkSpeed": 0.19
-      },
-      "swim": {
-        "canSwimInLava": true
-      }
     }
   },
   "drops": {
@@ -101,7 +206,6 @@
     "tm:breakingswipe",
     "tm:brickbreak",
     "tm:bulldoze",
-    "tm:chipaway",
     "tm:crunch",
     "tm:curse",
     "tm:cut",
@@ -124,9 +228,7 @@
     "tm:focusenergy",
     "tm:focuspunch",
     "tm:gigaimpact",
-    "tm:hammerarm",
     "tm:headbutt",
-    "tm:headsmash",
     "tm:heavyslam",
     "tm:hyperbeam",
     "tm:icebeam",
@@ -134,14 +236,12 @@
     "tm:ironhead",
     "tm:irontail",
     "tm:laserfocus",
-    "tm:leer",
     "tm:mudslap",
     "tm:outrage",
     "tm:payback",
     "tm:powershift",
     "tm:poweruppunch",
     "tm:protect",
-    "tm:pursuit",
     "tm:raindance",
     "tm:rest",
     "tm:roar",
@@ -155,11 +255,9 @@
     "tm:scaryface",
     "tm:screech",
     "tm:shockwave",
-    "tm:slam",
     "tm:sleeptalk",
     "tm:smackdown",
     "tm:stealthrock",
-    "tm:stomp",
     "tm:stompingtantrum",
     "tm:stoneedge",
     "tm:strength",
@@ -172,14 +270,59 @@
     "tm:takedown",
     "tm:terablast",
     "tm:thief",
-    "tm:thrash",
     "tm:thunder",
     "tm:thunderbolt",
     "tm:thunderpunch",
     "tm:trailblaze",
     "tm:uproar",
-    "tm:whirlwind",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:ancientpower",
+    "tutor:bulldoze",
+    "tutor:dragonpulse",
+    "tutor:earthpower",
+    "tutor:endeavor",
+    "tutor:firepunch",
+    "tutor:flamethrower",
+    "tutor:focusenergy",
+    "tutor:focuspunch",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:ironhead",
+    "tutor:irontail",
+    "tutor:laserfocus",
+    "tutor:mudslap",
+    "tutor:outrage",
+    "tutor:powershift",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:shockwave",
+    "tutor:sleeptalk",
+    "tutor:stealthrock",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:superpower",
+    "tutor:thunderbolt",
+    "tutor:thunderpunch",
+    "tutor:uproar",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:naturalgift",
+    "legacy:painsplit",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:spite",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:whirlpool"
   ],
   "preEvolution": "cranidos",
   "evolutions": []

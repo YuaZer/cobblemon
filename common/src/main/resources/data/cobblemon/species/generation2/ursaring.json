@@ -44,11 +44,117 @@
   "baseFriendship": 50,
   "baseScale": 1.1,
   "hitbox": {
-    "width": 1,
     "height": 2.14,
-    "fixed": false
+    "fixed": false,
+    "width": 1
   },
-  "behaviour": {},
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "30-65",
+          "JUMP": "10-40",
+          "SKILL": "10-40",
+          "SPEED": "30-65",
+          "STAMINA": "30-65"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.03896393,
+              "y": -2.1481323,
+              "z": 0.18140154
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.046585813,
+              "y": -2.0097132,
+              "z": 0.039164737
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.3038323,
+              "z": 0.41690227
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.3038323,
+              "z": 0.41690227
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.3038323,
+              "z": 0.41690227
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.046585813,
+              "y": -2.0097132,
+              "z": 0.039164737
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.3038323,
+              "z": 0.41690227
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "behaviour": {
+    "moving": {
+      "walk": {
+        "walkSpeed": 0.3
+      }
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
+    }
+  },
   "drops": {
     "amount": 7,
     "entries": [
@@ -58,15 +164,15 @@
       },
       {
         "item": "minecraft:honey_bottle",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:peat_block",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:oran_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -106,17 +212,13 @@
     "tm:aerialace",
     "tm:avalanche",
     "tm:babydolleyes",
-    "tm:bellydrum",
     "tm:bodyslam",
     "tm:brickbreak",
     "tm:bulkup",
     "tm:bulldoze",
     "tm:charm",
-    "tm:chipaway",
     "tm:closecombat",
-    "tm:counter",
     "tm:covet",
-    "tm:crosschop",
     "tm:crunch",
     "tm:cut",
     "tm:dig",
@@ -125,16 +227,13 @@
     "tm:endure",
     "tm:facade",
     "tm:faketears",
-    "tm:feintattack",
     "tm:firepunch",
     "tm:fling",
     "tm:focusenergy",
     "tm:focuspunch",
     "tm:furycutter",
-    "tm:furyswipes",
     "tm:gigaimpact",
     "tm:gunkshot",
-    "tm:hammerarm",
     "tm:headbutt",
     "tm:helpinghand",
     "tm:highhorsepower",
@@ -144,16 +243,12 @@
     "tm:icepunch",
     "tm:laserfocus",
     "tm:lastresort",
-    "tm:leer",
-    "tm:lick",
     "tm:lowkick",
     "tm:megakick",
     "tm:megapunch",
     "tm:metalclaw",
     "tm:metronome",
-    "tm:nightslash",
     "tm:payback",
-    "tm:playnice",
     "tm:playrough",
     "tm:poweruppunch",
     "tm:protect",
@@ -166,11 +261,8 @@
     "tm:rocktomb",
     "tm:rollout",
     "tm:scaryface",
-    "tm:scratch",
     "tm:seedbomb",
-    "tm:seismictoss",
     "tm:shadowclaw",
-    "tm:slash",
     "tm:sleeptalk",
     "tm:smackdown",
     "tm:snore",
@@ -180,43 +272,96 @@
     "tm:substitute",
     "tm:sunnyday",
     "tm:superpower",
-    "tm:sweetscent",
     "tm:swift",
     "tm:swordsdance",
     "tm:takedown",
     "tm:taunt",
     "tm:terablast",
     "tm:thief",
-    "tm:thrash",
     "tm:throatchop",
     "tm:thunderpunch",
     "tm:torment",
     "tm:trailblaze",
     "tm:uproar",
     "tm:workup",
-    "tm:yawn"
+    "tutor:aerialace",
+    "tutor:babydolleyes",
+    "tutor:bulkup",
+    "tutor:bulldoze",
+    "tutor:covet",
+    "tutor:firepunch",
+    "tutor:focusenergy",
+    "tutor:focuspunch",
+    "tutor:furycutter",
+    "tutor:gigaimpact",
+    "tutor:gunkshot",
+    "tutor:helpinghand",
+    "tutor:highhorsepower",
+    "tutor:hyperbeam",
+    "tutor:hypervoice",
+    "tutor:icepunch",
+    "tutor:laserfocus",
+    "tutor:lastresort",
+    "tutor:lowkick",
+    "tutor:playrough",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:rollout",
+    "tutor:seedbomb",
+    "tutor:shadowclaw",
+    "tutor:sleeptalk",
+    "tutor:snore",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:superpower",
+    "tutor:swift",
+    "tutor:throatchop",
+    "tutor:thunderpunch",
+    "tutor:uproar",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:defensecurl",
+    "legacy:doubleteam",
+    "legacy:dynamicpunch",
+    "legacy:focusblast",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:roar",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:zapcannon",
+    "special:refresh"
   ],
   "preEvolution": "teddiursa",
   "evolutions": [
     {
-      "id": "ursaring_ursaluna",
-      "variant": "item_interact",
-      "result": "ursaluna",
       "consumeHeldItem": false,
+      "id": "ursaring_ursaluna",
       "learnableMoves": [
         "headlongrush"
       ],
+      "requiredContext": "cobblemon:peat_block",
       "requirements": [
         {
-          "variant": "moon_phase",
-          "moonPhase": "FULL_MOON"
+          "moonPhase": "FULL_MOON",
+          "variant": "moon_phase"
         },
         {
-          "variant": "time_range",
-          "range": "night"
+          "range": "night",
+          "variant": "time_range"
         }
       ],
-      "requiredContext": "cobblemon:peat_block"
+      "result": "ursaluna",
+      "variant": "item_interact"
     }
   ]
 }

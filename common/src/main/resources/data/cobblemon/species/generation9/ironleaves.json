@@ -53,6 +53,9 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "4"
     }
   },
   "moves": [
@@ -101,21 +104,15 @@
     "tm:irondefense",
     "tm:leafblade",
     "tm:leafstorm",
-    "tm:leer",
     "tm:magicalleaf",
     "tm:megahorn",
     "tm:metalsound",
-    "tm:nightslash",
     "tm:protect",
-    "tm:psyblade",
     "tm:psychicterrain",
     "tm:quash",
-    "tm:quickattack",
-    "tm:quickguard",
     "tm:rest",
     "tm:retaliate",
     "tm:reversal",
-    "tm:sacredsword",
     "tm:scaryface",
     "tm:sleeptalk",
     "tm:smartstrike",
@@ -131,7 +128,31 @@
     "tm:trailblaze",
     "tm:wildcharge",
     "tm:workup",
-    "tm:xscissor"
+    "tm:xscissor",
+    "tutor:aerialace",
+    "tutor:allyswitch",
+    "tutor:calmmind",
+    "tutor:coaching",
+    "tutor:energyball",
+    "tutor:falseswipe",
+    "tutor:gigadrain",
+    "tutor:gigaimpact",
+    "tutor:gravity",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:irondefense",
+    "tutor:magicalleaf",
+    "tutor:megahorn",
+    "tutor:rest",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:throatchop",
+    "tutor:wildcharge",
+    "tutor:xscissor"
   ],
-  "evolutions": []
+  "evolutions": [],
+  "lightingData": {
+    "lightLevel": 4,
+    "liquidGlowMode": "BOTH"
+  }
 }

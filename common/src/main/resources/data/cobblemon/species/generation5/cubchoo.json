@@ -51,7 +51,37 @@
   "behaviour": {
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "teddiursa",
+          "tier": 1
+        },
+        {
+          "pokemon": "cubchoo",
+          "tier": 1
+        },
+        {
+          "pokemon": "ursaring",
+          "tier": 2
+        },
+        {
+          "pokemon": "ursaluna bloodmoon=false",
+          "tier": 3
+        },
+        {
+          "pokemon": "ursaluna bloodmoon",
+          "tier": 4
+        },
+        {
+          "pokemon": "beartic",
+          "tier": 5
+        }
+      ]
     }
   },
   "drops": {
@@ -95,7 +125,6 @@
     "tm:aerialace",
     "tm:assurance",
     "tm:avalanche",
-    "tm:bide",
     "tm:blizzard",
     "tm:bodypress",
     "tm:bodyslam",
@@ -112,13 +141,10 @@
     "tm:endeavor",
     "tm:endure",
     "tm:facade",
-    "tm:flail",
     "tm:fling",
     "tm:focuspunch",
     "tm:frostbreath",
-    "tm:furyswipes",
     "tm:grassknot",
-    "tm:growl",
     "tm:hail",
     "tm:heavyslam",
     "tm:honeclaws",
@@ -134,10 +160,7 @@
     "tm:metalclaw",
     "tm:mudshot",
     "tm:mudslap",
-    "tm:nightslash",
-    "tm:playnice",
     "tm:playrough",
-    "tm:powdersnow",
     "tm:poweruppunch",
     "tm:protect",
     "tm:raindance",
@@ -146,8 +169,6 @@
     "tm:rocksmash",
     "tm:rocktomb",
     "tm:shadowclaw",
-    "tm:sheercold",
-    "tm:slash",
     "tm:sleeptalk",
     "tm:snarl",
     "tm:snowscape",
@@ -159,11 +180,42 @@
     "tm:taunt",
     "tm:terablast",
     "tm:thief",
-    "tm:thrash",
     "tm:trailblaze",
     "tm:waterpulse",
     "tm:xscissor",
-    "tm:yawn"
+    "tutor:aerialace",
+    "tutor:bulldoze",
+    "tutor:covet",
+    "tutor:endeavor",
+    "tutor:focuspunch",
+    "tutor:icebeam",
+    "tutor:icefang",
+    "tutor:icepunch",
+    "tutor:icywind",
+    "tutor:liquidation",
+    "tutor:lowkick",
+    "tutor:mudslap",
+    "tutor:playrough",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:shadowclaw",
+    "tutor:sleeptalk",
+    "tutor:snarl",
+    "tutor:superpower",
+    "tutor:waterpulse",
+    "tutor:xscissor",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

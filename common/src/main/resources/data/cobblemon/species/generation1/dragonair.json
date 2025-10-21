@@ -63,6 +63,31 @@
       "walk": {
         "walkSpeed": 0.3
       }
+    },
+    "resting": {
+      "canSleep": true,
+      "times": "night",
+      "light": "0-4",
+      "fluids": [
+        "#minecraft:water"
+      ]
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "dragonair",
+          "tier": 1
+        },
+        {
+          "pokemon": "milotic",
+          "tier": 1
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -74,15 +99,15 @@
       },
       {
         "item": "cobblemon:dragon_fang",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:dragon_scale",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:yache_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -108,7 +133,6 @@
     "egg:supersonic",
     "egg:waterpulse",
     "tm:agility",
-    "tm:aquajet",
     "tm:aquatail",
     "tm:bind",
     "tm:blizzard",
@@ -117,15 +141,11 @@
     "tm:brutalswing",
     "tm:chillingwater",
     "tm:dracometeor",
-    "tm:dragonbreath",
     "tm:dragoncheer",
     "tm:dragondance",
     "tm:dragonpulse",
-    "tm:dragonrage",
-    "tm:dragonrush",
     "tm:dragontail",
     "tm:endure",
-    "tm:extremespeed",
     "tm:facade",
     "tm:fireblast",
     "tm:firespin",
@@ -142,9 +162,7 @@
     "tm:incinerate",
     "tm:ironhead",
     "tm:irontail",
-    "tm:leer",
     "tm:lightscreen",
-    "tm:mist",
     "tm:outrage",
     "tm:protect",
     "tm:raindance",
@@ -152,11 +170,9 @@
     "tm:safeguard",
     "tm:scaleshot",
     "tm:shockwave",
-    "tm:slam",
     "tm:sleeptalk",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:supersonic",
     "tm:surf",
     "tm:swift",
     "tm:takedown",
@@ -168,7 +184,53 @@
     "tm:waterfall",
     "tm:waterpulse",
     "tm:weatherball",
-    "tm:wrap"
+    "tutor:aquatail",
+    "tutor:bind",
+    "tutor:dracometeor",
+    "tutor:dragonpulse",
+    "tutor:flamethrower",
+    "tutor:gigaimpact",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:ironhead",
+    "tutor:irontail",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:scaleshot",
+    "tutor:shockwave",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:thunderbolt",
+    "tutor:twister",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:bubblebeam",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:detect",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:horndrill",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:rage",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:skullbash",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:watergun",
+    "legacy:whirlpool",
+    "legacy:zapcannon"
   ],
   "preEvolution": "dratini",
   "evolutions": [
@@ -188,5 +250,41 @@
         }
       ]
     }
-  ]
+  ],
+  "riding": {
+    "stats": {
+      "SPEED": {
+        "ranges": {
+          "LIQUID": "25-50",
+          "AIR": "25-50"
+        }
+      },
+      "ACCELERATION": {
+        "ranges": {
+          "LIQUID": "30-60",
+          "AIR": "30-60"
+        }
+      },
+      "SKILL": {
+        "ranges": {
+          "LIQUID": "30-60",
+          "AIR": "30-60"
+        }
+      },
+      "JUMP": {
+        "ranges": {
+          "LIQUID": "25-50",
+          "AIR": "25-50"
+        }
+      },
+      "STAMINA": {
+        "ranges": {
+          "LIQUID": "35-70",
+          "AIR": "35-70"
+        }
+      }
+    },
+    "seats": [],
+    "behaviour": null
+  }
 }

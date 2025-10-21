@@ -54,6 +54,19 @@
       "swim": {
         "canSwimInLava": true
       }
+    },
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "garchomp mega=false",
+          "tier": 1
+        },
+        {
+          "pokemon": "garchomp mega",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -61,11 +74,11 @@
     "entries": [
       {
         "item": "cobblemon:dragon_fang",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:haban_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -89,7 +102,6 @@
     "egg:thrash",
     "egg:twister",
     "tm:aerialace",
-    "tm:bite",
     "tm:bodyslam",
     "tm:breakingswipe",
     "tm:bulldoze",
@@ -98,12 +110,9 @@
     "tm:dig",
     "tm:doubleedge",
     "tm:dracometeor",
-    "tm:dragonbreath",
     "tm:dragoncheer",
     "tm:dragonclaw",
     "tm:dragonpulse",
-    "tm:dragonrage",
-    "tm:dragonrush",
     "tm:dragontail",
     "tm:dualchop",
     "tm:earthpower",
@@ -133,14 +142,12 @@
     "tm:rockslide",
     "tm:rocksmash",
     "tm:rocktomb",
-    "tm:sandattack",
     "tm:sandstorm",
     "tm:sandtomb",
     "tm:scaleshot",
     "tm:scaryface",
     "tm:scorchingsands",
     "tm:shadowclaw",
-    "tm:slash",
     "tm:sleeptalk",
     "tm:stealthrock",
     "tm:stoneedge",
@@ -149,12 +156,51 @@
     "tm:sunnyday",
     "tm:swift",
     "tm:swordsdance",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
-    "tm:thrash",
     "tm:thunderfang",
-    "tm:twister"
+    "tm:twister",
+    "tutor:bulldoze",
+    "tutor:dracometeor",
+    "tutor:dragonpulse",
+    "tutor:dualchop",
+    "tutor:earthpower",
+    "tutor:falseswipe",
+    "tutor:firefang",
+    "tutor:flamethrower",
+    "tutor:furycutter",
+    "tutor:helpinghand",
+    "tutor:ironhead",
+    "tutor:irontail",
+    "tutor:laserfocus",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:scaleshot",
+    "tutor:scorchingsands",
+    "tutor:shadowclaw",
+    "tutor:sleeptalk",
+    "tutor:stealthrock",
+    "tutor:stoneedge",
+    "tutor:swift",
+    "tutor:thunderfang",
+    "tutor:twister",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:roar",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "gible",
   "evolutions": [

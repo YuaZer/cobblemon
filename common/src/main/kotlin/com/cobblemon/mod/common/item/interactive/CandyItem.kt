@@ -14,13 +14,13 @@ import com.cobblemon.mod.common.api.events.pokemon.interaction.ExperienceCandyUs
 import com.cobblemon.mod.common.api.item.PokemonSelectingItem
 import com.cobblemon.mod.common.api.pokemon.experience.CandyExperienceSource
 import com.cobblemon.mod.common.item.CobblemonItem
-import com.cobblemon.mod.common.item.interactive.CandyItem.Calculator
 import com.cobblemon.mod.common.pokemon.Pokemon
-import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.ItemStack
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Rarity
 import net.minecraft.world.level.Level
 
 /**
@@ -32,7 +32,13 @@ import net.minecraft.world.level.Level
  * @author Licious
  * @since May 5th, 2022
  */
-class CandyItem(val calculator: Calculator) : CobblemonItem(Properties()), PokemonSelectingItem {
+class CandyItem(
+    val item_rarity: Rarity,
+    val calculator: Calculator
+) : CobblemonItem(Properties().apply {
+    rarity(item_rarity)
+}), PokemonSelectingItem {
+
     override val bagItem = null
 
     override fun use(world: Level, user: Player, hand: InteractionHand): InteractionResultHolder<ItemStack> {
@@ -53,9 +59,7 @@ class CandyItem(val calculator: Calculator) : CobblemonItem(Properties()), Pokem
                     // We do this just so we can post the event once the item has been consumed if needed instead of repeating the even post
                     var returnValue = false
                     if (result.experienceAdded > 0) {
-                        if (!player.isCreative) {
-                            stack.shrink(1)
-                        }
+                        stack.consume(1, player)
                         returnValue = true
                     }
                     pokemon.entity?.playSound(CobblemonSounds.MEDICINE_CANDY_USE, 1F, 1F)
@@ -70,7 +74,7 @@ class CandyItem(val calculator: Calculator) : CobblemonItem(Properties()), Pokem
         return InteractionResultHolder.fail(stack)
     }
 
-    override fun canUseOnPokemon(pokemon: Pokemon): Boolean {
+    override fun canUseOnPokemon(stack: ItemStack, pokemon: Pokemon): Boolean {
         return pokemon.isPlayerOwned()
     }
 

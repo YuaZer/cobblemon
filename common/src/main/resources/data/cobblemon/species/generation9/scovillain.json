@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 952,
   "name": "Scovillain",
   "primaryType": "grass",
@@ -42,7 +43,12 @@
   "catchRate": 75,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "behaviour": {},
+  "baseScale": 0.6,
+  "hitbox": {
+    "width": 1.5,
+    "height": 2,
+    "fixed": false
+  },
   "drops": {
     "amount": 3,
     "entries": [
@@ -52,7 +58,7 @@
       },
       {
         "item": "cobblemon:rawst_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -79,7 +85,6 @@
     "egg:ragepowder",
     "egg:rollout",
     "egg:worryseed",
-    "tm:bite",
     "tm:bulletseed",
     "tm:burningjealousy",
     "tm:crunch",
@@ -95,21 +100,14 @@
     "tm:grassknot",
     "tm:grassyglide",
     "tm:grassyterrain",
-    "tm:growth",
     "tm:headbutt",
     "tm:helpinghand",
     "tm:hyperbeam",
-    "tm:ingrain",
     "tm:lashout",
-    "tm:leafage",
     "tm:leafstorm",
-    "tm:leechseed",
-    "tm:leer",
     "tm:magicalleaf",
     "tm:overheat",
     "tm:protect",
-    "tm:ragepowder",
-    "tm:razorleaf",
     "tm:rest",
     "tm:rollout",
     "tm:sandstorm",
@@ -117,7 +115,6 @@
     "tm:seedbomb",
     "tm:sleeptalk",
     "tm:solarbeam",
-    "tm:spicyextract",
     "tm:stompingtantrum",
     "tm:substitute",
     "tm:sunnyday",
@@ -129,8 +126,48 @@
     "tm:trailblaze",
     "tm:willowisp",
     "tm:worryseed",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:burningjealousy",
+    "tutor:endeavor",
+    "tutor:energyball",
+    "tutor:firefang",
+    "tutor:flamethrower",
+    "tutor:gigadrain",
+    "tutor:gigaimpact",
+    "tutor:grassyglide",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:lashout",
+    "tutor:magicalleaf",
+    "tutor:rest",
+    "tutor:rollout",
+    "tutor:seedbomb",
+    "tutor:sleeptalk",
+    "tutor:stompingtantrum",
+    "tutor:superfang",
+    "tutor:worryseed",
+    "tutor:zenheadbutt"
   ],
   "preEvolution": "capsakid",
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
+    },
+    "moving": {
+      "walk": {
+        "walkSpeed": 0.17
+      }
+    },
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "scovillain",
+          "tier": 1
+        }
+      ]
+    }
+  }
 }

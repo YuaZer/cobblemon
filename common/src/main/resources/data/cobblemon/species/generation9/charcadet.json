@@ -42,6 +42,7 @@
   "eggCycles": 35,
   "baseFriendship": 50,
   "shoulderMountable": true,
+  "standingEyeHeight": 0.67,
   "baseScale": 0.55,
   "hitbox": {
     "width": 0.6,
@@ -58,6 +59,23 @@
       "walk": {
         "walkSpeed": 0.25
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "charcadet",
+          "tier": 1
+        },
+        {
+          "pokemon": "armarouge",
+          "tier": 2
+        },
+        {
+          "pokemon": "ceruledge",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -91,12 +109,7 @@
     "egg:destinybond",
     "egg:disable",
     "egg:spite",
-    "tm:astonish",
-    "tm:clearsmog",
     "tm:confuseray",
-    "tm:destinybond",
-    "tm:disable",
-    "tm:ember",
     "tm:endure",
     "tm:facade",
     "tm:fireblast",
@@ -107,8 +120,6 @@
     "tm:heatwave",
     "tm:helpinghand",
     "tm:incinerate",
-    "tm:lavaplume",
-    "tm:leer",
     "tm:nightshade",
     "tm:overheat",
     "tm:protect",
@@ -119,14 +130,21 @@
     "tm:sunnyday",
     "tm:takedown",
     "tm:terablast",
-    "tm:willowisp"
+    "tm:willowisp",
+    "tutor:flamethrower",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:rest",
+    "tutor:sleeptalk",
+    "tutor:spite",
+    "special:celebrate"
   ],
   "evolutions": [
     {
       "id": "charcadet_armarouge",
       "variant": "item_interact",
       "result": "armarouge",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [
         "psyshock"
       ],
@@ -137,12 +155,16 @@
       "id": "charcadet_ceruledge",
       "variant": "item_interact",
       "result": "ceruledge",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [
         "shadowclaw"
       ],
       "requirements": [],
       "requiredContext": "cobblemon:malicious_armor"
     }
-  ]
+  ],
+  "lightingData": {
+    "lightLevel": 4,
+    "liquidGlowMode": "LAND"
+  }
 }

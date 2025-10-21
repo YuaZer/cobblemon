@@ -54,6 +54,9 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "3"
     }
   },
   "drops": {
@@ -61,15 +64,15 @@
     "entries": [
       {
         "item": "cobblemon:moon_stone",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:air_balloon",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:oran_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -121,16 +124,12 @@
     "tm:captivate",
     "tm:charm",
     "tm:chillingwater",
-    "tm:copycat",
     "tm:covet",
     "tm:darkpulse",
     "tm:dazzlinggleam",
-    "tm:defensecurl",
     "tm:dig",
-    "tm:disable",
     "tm:disarmingvoice",
     "tm:doubleedge",
-    "tm:doubleslap",
     "tm:drainingkiss",
     "tm:drainpunch",
     "tm:dreameater",
@@ -141,7 +140,6 @@
     "tm:energyball",
     "tm:facade",
     "tm:faketears",
-    "tm:feintattack",
     "tm:fireblast",
     "tm:firepunch",
     "tm:flamethrower",
@@ -153,7 +151,6 @@
     "tm:gyroball",
     "tm:headbutt",
     "tm:healbell",
-    "tm:healpulse",
     "tm:helpinghand",
     "tm:hypervoice",
     "tm:icebeam",
@@ -169,23 +166,17 @@
     "tm:megakick",
     "tm:megapunch",
     "tm:metronome",
-    "tm:mimic",
     "tm:mistyexplosion",
     "tm:mistyterrain",
     "tm:nastyplot",
     "tm:painsplit",
-    "tm:perishsong",
-    "tm:playnice",
     "tm:playrough",
-    "tm:pound",
     "tm:poweruppunch",
-    "tm:present",
     "tm:protect",
     "tm:psychic",
     "tm:psychicnoise",
     "tm:psychup",
     "tm:psyshock",
-    "tm:punishment",
     "tm:raindance",
     "tm:recycle",
     "tm:reflect",
@@ -200,21 +191,16 @@
     "tm:selfdestruct",
     "tm:shadowball",
     "tm:shockwave",
-    "tm:sing",
     "tm:skillswap",
     "tm:sleeptalk",
     "tm:snatch",
     "tm:solarbeam",
-    "tm:spitup",
     "tm:stealthrock",
     "tm:steelroller",
-    "tm:stockpile",
     "tm:storedpower",
     "tm:strength",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:swallow",
-    "tm:sweetkiss",
     "tm:swift",
     "tm:takedown",
     "tm:taunt",
@@ -228,12 +214,84 @@
     "tm:trailblaze",
     "tm:triattack",
     "tm:uproar",
-    "tm:wakeupslap",
     "tm:waterpulse",
     "tm:wildcharge",
-    "tm:wish",
     "tm:workup",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:allyswitch",
+    "tutor:bounce",
+    "tutor:calmmind",
+    "tutor:covet",
+    "tutor:darkpulse",
+    "tutor:dazzlinggleam",
+    "tutor:drainpunch",
+    "tutor:endeavor",
+    "tutor:energyball",
+    "tutor:firepunch",
+    "tutor:flamethrower",
+    "tutor:focuspunch",
+    "tutor:gravity",
+    "tutor:healbell",
+    "tutor:helpinghand",
+    "tutor:hypervoice",
+    "tutor:icebeam",
+    "tutor:icepunch",
+    "tutor:icywind",
+    "tutor:knockoff",
+    "tutor:lastresort",
+    "tutor:magicalleaf",
+    "tutor:magiccoat",
+    "tutor:mistyexplosion",
+    "tutor:painsplit",
+    "tutor:playrough",
+    "tutor:psychic",
+    "tutor:recycle",
+    "tutor:rest",
+    "tutor:roleplay",
+    "tutor:rollout",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:skillswap",
+    "tutor:sleeptalk",
+    "tutor:snatch",
+    "tutor:stealthrock",
+    "tutor:steelroller",
+    "tutor:swift",
+    "tutor:telekinesis",
+    "tutor:thunderbolt",
+    "tutor:thunderpunch",
+    "tutor:wildcharge",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:bubblebeam",
+    "legacy:chargebeam",
+    "legacy:confide",
+    "legacy:counter",
+    "legacy:curse",
+    "legacy:detect",
+    "legacy:doubleteam",
+    "legacy:dynamicpunch",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:nightmare",
+    "legacy:psywave",
+    "legacy:rage",
+    "legacy:return",
+    "legacy:secretpower",
+    "legacy:seismictoss",
+    "legacy:skullbash",
+    "legacy:snore",
+    "legacy:submission",
+    "legacy:swagger",
+    "legacy:teleport",
+    "legacy:toxic",
+    "legacy:watergun",
+    "legacy:zapcannon",
+    "special:tickle"
   ],
   "preEvolution": "igglybuff",
   "evolutions": [
@@ -241,10 +299,33 @@
       "id": "jigglypuff_wigglytuff",
       "variant": "item_interact",
       "result": "wigglytuff",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [],
       "requirements": [],
       "requiredContext": "cobblemon:moon_stone"
     }
-  ]
+  ],
+  "riding": {
+    "stats": {
+      "SPEED": {
+        "ranges": "10-20"
+      },
+      "ACCELERATION": {
+        "ranges": "40-80"
+      },
+      "SKILL": {
+        "ranges": "10-50"
+      },
+      "JUMP": {
+        "ranges": "10-20"
+      },
+      "STAMINA": {
+        "ranges": "10-30"
+      }
+    },
+    "seats": [],
+    "behaviour": {
+      "key": "cobblemon:air/glider"
+    }
+  }
 }

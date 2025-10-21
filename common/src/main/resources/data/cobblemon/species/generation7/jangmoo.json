@@ -48,20 +48,15 @@
     "height": 1.2,
     "fixed": false
   },
-  "behaviour": {},
   "drops": {
-    "amount": 4,
+    "amount": 3,
     "entries": [
       {
-        "item": "minecraft:turtle_scute",
+        "item": "cobblemon:dragon_scale",
         "quantityRange": "0-1"
       },
       {
         "item": "cobblemon:razor_claw",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:dragon_scale",
         "percentage": 2.5
       },
       {
@@ -89,15 +84,12 @@
     "egg:dragonbreath",
     "egg:focuspunch",
     "tm:aquatail",
-    "tm:bide",
     "tm:bodyslam",
     "tm:breakingswipe",
     "tm:brickbreak",
     "tm:bulkup",
     "tm:bulldoze",
-    "tm:counter",
     "tm:dracometeor",
-    "tm:dragonbreath",
     "tm:dragoncheer",
     "tm:dragonclaw",
     "tm:dragondance",
@@ -115,9 +107,7 @@
     "tm:irondefense",
     "tm:ironhead",
     "tm:irontail",
-    "tm:leer",
     "tm:lowkick",
-    "tm:nobleroar",
     "tm:outrage",
     "tm:payback",
     "tm:protect",
@@ -135,12 +125,43 @@
     "tm:sleeptalk",
     "tm:substitute",
     "tm:swordsdance",
-    "tm:tackle",
     "tm:takedown",
     "tm:taunt",
     "tm:terablast",
     "tm:workup",
-    "tm:xscissor"
+    "tm:xscissor",
+    "tutor:aquatail",
+    "tutor:bulkup",
+    "tutor:bulldoze",
+    "tutor:dracometeor",
+    "tutor:dragonpulse",
+    "tutor:dualchop",
+    "tutor:falseswipe",
+    "tutor:focuspunch",
+    "tutor:irondefense",
+    "tutor:ironhead",
+    "tutor:irontail",
+    "tutor:lowkick",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:scaleshot",
+    "tutor:shadowclaw",
+    "tutor:sleeptalk",
+    "tutor:xscissor",
+    "legacy:aerialace",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:fling",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:uproar"
   ],
   "evolutions": [
     {
@@ -158,5 +179,27 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "jangmoo",
+          "tier": 1
+        },
+        {
+          "pokemon": "hakamoo",
+          "tier": 2
+        },
+        {
+          "pokemon": "kommoo",
+          "tier": 3
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

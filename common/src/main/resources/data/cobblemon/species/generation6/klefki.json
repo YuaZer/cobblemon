@@ -52,7 +52,8 @@
   "behaviour": {
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
     },
     "moving": {
       "swim": {
@@ -66,7 +67,7 @@
     "entries": [
       {
         "item": "minecraft:name_tag",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -91,33 +92,26 @@
     "egg:lockon",
     "egg:magnetrise",
     "egg:switcheroo",
-    "tm:astonish",
     "tm:calmmind",
     "tm:covet",
-    "tm:craftyshield",
     "tm:cut",
     "tm:dazzlinggleam",
     "tm:defog",
     "tm:drainingkiss",
     "tm:endure",
     "tm:facade",
-    "tm:fairylock",
-    "tm:fairywind",
     "tm:flashcannon",
     "tm:foulplay",
     "tm:gigaimpact",
-    "tm:healblock",
     "tm:hyperbeam",
     "tm:imprison",
     "tm:irondefense",
     "tm:lastresort",
     "tm:lightscreen",
-    "tm:lockon",
     "tm:magiccoat",
     "tm:magicroom",
     "tm:magnetrise",
     "tm:metalsound",
-    "tm:mirrorshot",
     "tm:mistyterrain",
     "tm:playrough",
     "tm:protect",
@@ -138,13 +132,44 @@
     "tm:substitute",
     "tm:sunnyday",
     "tm:swift",
-    "tm:switcheroo",
-    "tm:tackle",
     "tm:terablast",
     "tm:thief",
     "tm:thunderwave",
     "tm:torment",
-    "tm:trickroom"
+    "tm:trickroom",
+    "tutor:calmmind",
+    "tutor:covet",
+    "tutor:dazzlinggleam",
+    "tutor:defog",
+    "tutor:flashcannon",
+    "tutor:foulplay",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:irondefense",
+    "tutor:lastresort",
+    "tutor:magiccoat",
+    "tutor:magicroom",
+    "tutor:magnetrise",
+    "tutor:playrough",
+    "tutor:psychic",
+    "tutor:recycle",
+    "tutor:rest",
+    "tutor:skittersmack",
+    "tutor:sleeptalk",
+    "tutor:spikes",
+    "tutor:steelbeam",
+    "tutor:swift",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": []
 }

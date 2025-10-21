@@ -6,6 +6,10 @@
   "maleRatio": 0.875,
   "height": 6,
   "weight": 85,
+  "lightingData": {
+    "lightLevel": 5,
+    "liquidGlowMode": "LAND"
+  },
   "pokedex": [
     "cobblemon.species.charmander.desc"
   ],
@@ -64,6 +68,27 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "charmeleon",
+          "tier": 1
+        },
+        {
+          "pokemon": "charizard mega=false",
+          "tier": 2
+        },
+        {
+          "pokemon": "charizard megax",
+          "tier": 3
+        },
+        {
+          "pokemon": "charizard megay",
+          "tier": 4
+        }
+      ]
     }
   },
   "drops": {
@@ -75,7 +100,7 @@
       },
       {
         "item": "cobblemon:charcoal_stick",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -104,24 +129,17 @@
     "egg:wingattack",
     "tm:ancientpower",
     "tm:beatup",
-    "tm:bellydrum",
-    "tm:bite",
     "tm:bodyslam",
     "tm:breakingswipe",
     "tm:brickbreak",
-    "tm:counter",
     "tm:crunch",
     "tm:cut",
     "tm:dig",
-    "tm:dragonbreath",
     "tm:dragonclaw",
     "tm:dragondance",
     "tm:dragonpulse",
-    "tm:dragonrage",
-    "tm:dragonrush",
     "tm:dragontail",
     "tm:echoedvoice",
-    "tm:ember",
     "tm:endure",
     "tm:facade",
     "tm:falseswipe",
@@ -130,7 +148,6 @@
     "tm:firepledge",
     "tm:firepunch",
     "tm:firespin",
-    "tm:flameburst",
     "tm:flamecharge",
     "tm:flamethrower",
     "tm:flareblitz",
@@ -138,13 +155,11 @@
     "tm:focusblast",
     "tm:focuspunch",
     "tm:furycutter",
-    "tm:growl",
     "tm:headbutt",
     "tm:heatwave",
     "tm:helpinghand",
     "tm:honeclaws",
     "tm:incinerate",
-    "tm:inferno",
     "tm:irontail",
     "tm:megakick",
     "tm:megapunch",
@@ -159,11 +174,8 @@
     "tm:rocksmash",
     "tm:rocktomb",
     "tm:scaryface",
-    "tm:scratch",
     "tm:shadowclaw",
-    "tm:slash",
     "tm:sleeptalk",
-    "tm:smokescreen",
     "tm:strength",
     "tm:substitute",
     "tm:sunnyday",
@@ -175,8 +187,64 @@
     "tm:thunderpunch",
     "tm:weatherball",
     "tm:willowisp",
-    "tm:wingattack",
-    "tm:workup"
+    "tm:workup",
+    "tutor:ancientpower",
+    "tutor:blastburn",
+    "tutor:block",
+    "tutor:dragonpulse",
+    "tutor:falseswipe",
+    "tutor:firefang",
+    "tutor:firepledge",
+    "tutor:firepunch",
+    "tutor:flamethrower",
+    "tutor:focuspunch",
+    "tutor:furycutter",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:irontail",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:shadowclaw",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:thunderpunch",
+    "legacy:acrobatics",
+    "legacy:aerialace",
+    "legacy:aircutter",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:defensecurl",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:dynamicpunch",
+    "legacy:frustration",
+    "legacy:furyswipes",
+    "legacy:hiddenpower",
+    "legacy:leer",
+    "legacy:mimic",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:rage",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:seismictoss",
+    "legacy:skullbash",
+    "legacy:snore",
+    "legacy:submission",
+    "legacy:swagger",
+    "legacy:toxic",
+    "special:blastburn",
+    "special:block",
+    "special:celebrate",
+    "special:howl",
+    "special:quickattack"
   ],
   "evolutions": [
     {

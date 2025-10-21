@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 603,
   "name": "Eelektrik",
   "primaryType": "electric",
@@ -40,20 +41,38 @@
   "catchRate": 60,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.7,
   "hitbox": {
-    "width": 1,
-    "height": 1,
+    "width": 0.7,
+    "height": 1.5,
     "fixed": false
   },
   "behaviour": {
     "moving": {
       "swim": {
+        "canBreatheUnderwater": true,
         "canSwimInWater": true
       },
       "fly": {
         "canFly": true
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "eelektrik",
+          "tier": 1
+        },
+        {
+          "pokemon": "eelektross",
+          "tier": 2
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 3
+        }
+      ]
     }
   },
   "drops": {
@@ -82,7 +101,6 @@
     "64:gastroacid",
     "69:zapcannon",
     "74:thrash",
-    "tm:acid",
     "tm:acidspray",
     "tm:acrobatics",
     "tm:aquatail",
@@ -91,9 +109,7 @@
     "tm:bounce",
     "tm:charge",
     "tm:chargebeam",
-    "tm:coil",
     "tm:crunch",
-    "tm:discharge",
     "tm:eerieimpulse",
     "tm:electricterrain",
     "tm:electroball",
@@ -118,13 +134,10 @@
     "tm:shockwave",
     "tm:signalbeam",
     "tm:sleeptalk",
-    "tm:spark",
     "tm:substitute",
     "tm:superfang",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
-    "tm:thrash",
     "tm:throatchop",
     "tm:thunder",
     "tm:thunderbolt",
@@ -133,7 +146,38 @@
     "tm:uturn",
     "tm:voltswitch",
     "tm:wildcharge",
-    "tm:zapcannon"
+    "tutor:aquatail",
+    "tutor:bind",
+    "tutor:bounce",
+    "tutor:chargebeam",
+    "tutor:electroweb",
+    "tutor:flashcannon",
+    "tutor:gastroacid",
+    "tutor:gigadrain",
+    "tutor:irontail",
+    "tutor:knockoff",
+    "tutor:magnetrise",
+    "tutor:rest",
+    "tutor:risingvoltage",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:superfang",
+    "tutor:throatchop",
+    "tutor:thunderbolt",
+    "tutor:thunderfang",
+    "tutor:wildcharge",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "tynamo",
   "evolutions": [
@@ -141,7 +185,7 @@
       "id": "eelektrik_eelektross",
       "variant": "item_interact",
       "result": "eelektross",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [],
       "requirements": [],
       "requiredContext": "cobblemon:thunder_stone"

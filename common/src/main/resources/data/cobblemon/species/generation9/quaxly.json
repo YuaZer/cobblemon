@@ -66,6 +66,35 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "ducklett",
+          "tier": 1
+        },
+        {
+          "pokemon": "quaxly",
+          "tier": 1
+        },
+        {
+          "pokemon": "farfetchd galarian=false",
+          "tier": 2
+        },
+        {
+          "pokemon": "swanna",
+          "tier": 3
+        },
+        {
+          "pokemon": "quaxwell",
+          "tier": 4
+        },
+        {
+          "pokemon": "quaquaval",
+          "tier": 5
+        }
+      ]
     }
   },
   "drops": {
@@ -73,7 +102,7 @@
     "entries": [
       {
         "item": "cobblemon:mystic_water",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -98,30 +127,23 @@
     "tm:aerialace",
     "tm:aircutter",
     "tm:airslash",
-    "tm:aquacutter",
-    "tm:aquajet",
     "tm:batonpass",
     "tm:bravebird",
     "tm:chillingwater",
-    "tm:detect",
     "tm:disarmingvoice",
-    "tm:doublehit",
     "tm:encore",
     "tm:endure",
     "tm:facade",
     "tm:focusenergy",
-    "tm:growl",
     "tm:helpinghand",
     "tm:hydropump",
     "tm:lastresort",
     "tm:liquidation",
     "tm:lowkick",
     "tm:mistyterrain",
-    "tm:pound",
     "tm:protect",
     "tm:psychup",
     "tm:raindance",
-    "tm:rapidspin",
     "tm:rest",
     "tm:roost",
     "tm:sleeptalk",
@@ -130,11 +152,21 @@
     "tm:swift",
     "tm:takedown",
     "tm:terablast",
-    "tm:watergun",
     "tm:waterpledge",
     "tm:whirlpool",
-    "tm:wingattack",
-    "tm:workup"
+    "tm:workup",
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:focusenergy",
+    "tutor:helpinghand",
+    "tutor:lastresort",
+    "tutor:liquidation",
+    "tutor:lowkick",
+    "tutor:rest",
+    "tutor:roost",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:waterpledge"
   ],
   "evolutions": [
     {

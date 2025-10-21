@@ -61,6 +61,19 @@
         "canSwimInWater": true,
         "canSwimInLava": false
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "bruxish",
+          "tier": 1
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -71,11 +84,11 @@
       },
       {
         "item": "minecraft:bone_meal",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:razor_fang",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -102,17 +115,12 @@
     "tm:afteryou",
     "tm:agility",
     "tm:allyswitch",
-    "tm:aquajet",
     "tm:aquatail",
-    "tm:astonish",
-    "tm:bite",
     "tm:blizzard",
     "tm:bulkup",
     "tm:calmmind",
     "tm:chillingwater",
-    "tm:confusion",
     "tm:crunch",
-    "tm:disable",
     "tm:dreameater",
     "tm:embargo",
     "tm:endure",
@@ -133,15 +141,12 @@
     "tm:magicroom",
     "tm:painsplit",
     "tm:payback",
-    "tm:poisonfang",
     "tm:protect",
     "tm:psychic",
     "tm:psychicfangs",
     "tm:psychicnoise",
     "tm:psychicterrain",
     "tm:psyshock",
-    "tm:psywave",
-    "tm:rage",
     "tm:raindance",
     "tm:reflect",
     "tm:rest",
@@ -155,7 +160,6 @@
     "tm:superfang",
     "tm:surf",
     "tm:swordsdance",
-    "tm:synchronoise",
     "tm:takedown",
     "tm:taunt",
     "tm:telekinesis",
@@ -164,11 +168,49 @@
     "tm:trickroom",
     "tm:venoshock",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:wavecrash",
     "tm:whirlpool",
-    "tm:wonderroom"
+    "tm:wonderroom",
+    "tutor:afteryou",
+    "tutor:allyswitch",
+    "tutor:aquatail",
+    "tutor:bulkup",
+    "tutor:calmmind",
+    "tutor:expandingforce",
+    "tutor:flipturn",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icefang",
+    "tutor:icywind",
+    "tutor:irontail",
+    "tutor:liquidation",
+    "tutor:magiccoat",
+    "tutor:magicroom",
+    "tutor:painsplit",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:snatch",
+    "tutor:superfang",
+    "tutor:telekinesis",
+    "tutor:waterpulse",
+    "tutor:wonderroom",
+    "legacy:aerialace",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:fling",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:scald",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:uproar"
   ],
   "evolutions": []
 }

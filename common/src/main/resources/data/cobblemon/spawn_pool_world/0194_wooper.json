@@ -210,14 +210,14 @@
                 {
                     "multiplier": 3.0,
                     "condition": {
-                        "minLureLevel": "2",
-                        "maxLureLevel": "2"
+                        "minLureLevel": 2,
+                        "maxLureLevel": 2
                     }
                 },
                 {
                     "multiplier": 5.0,
                     "condition": {
-                        "minLureLevel": "3"
+                        "minLureLevel": 3
                     }
                 }
             ],
@@ -246,14 +246,14 @@
                 {
                     "multiplier": 3.0,
                     "condition": {
-                        "minLureLevel": "2",
-                        "maxLureLevel": "2"
+                        "minLureLevel": 2,
+                        "maxLureLevel": 2
                     }
                 },
                 {
                     "multiplier": 5.0,
                     "condition": {
-                        "minLureLevel": "3"
+                        "minLureLevel": 3
                     }
                 }
             ],
@@ -373,7 +373,7 @@
         },
         {
             "id": "wooper-heart-15",
-            "pokemon": "wooper wooper_heart=true",
+            "pokemon": "wooper wooper_pattern=heart",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "uncommon",
@@ -391,7 +391,7 @@
         },
         {
             "id": "wooper-heart-16",
-            "pokemon": "wooper wooper_heart=true",
+            "pokemon": "wooper wooper_pattern=heart",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "uncommon",
@@ -401,14 +401,14 @@
                 {
                     "multiplier": 3.0,
                     "condition": {
-                        "minLureLevel": "2",
-                        "maxLureLevel": "2"
+                        "minLureLevel": 2,
+                        "maxLureLevel": 2
                     }
                 },
                 {
                     "multiplier": 5.0,
                     "condition": {
-                        "minLureLevel": "3"
+                        "minLureLevel": 3
                     }
                 }
             ],
@@ -428,7 +428,7 @@
         },
         {
             "id": "wooper-heart-17",
-            "pokemon": "wooper wooper_heart=true",
+            "pokemon": "wooper wooper_pattern=heart",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "common",
@@ -446,7 +446,7 @@
         },
         {
             "id": "wooper-heart-18",
-            "pokemon": "wooper wooper_heart=true",
+            "pokemon": "wooper wooper_pattern=heart",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "common",
@@ -456,14 +456,14 @@
                 {
                     "multiplier": 3.0,
                     "condition": {
-                        "minLureLevel": "2",
-                        "maxLureLevel": "2"
+                        "minLureLevel": 2,
+                        "maxLureLevel": 2
                     }
                 },
                 {
                     "multiplier": 5.0,
                     "condition": {
-                        "minLureLevel": "3"
+                        "minLureLevel": 3
                     }
                 }
             ],
@@ -483,7 +483,7 @@
         },
         {
             "id": "wooper-heart-19",
-            "pokemon": "wooper wooper_heart=true",
+            "pokemon": "wooper wooper_pattern=heart",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "uncommon",
@@ -493,14 +493,14 @@
                 {
                     "multiplier": 3.0,
                     "condition": {
-                        "minLureLevel": "2",
-                        "maxLureLevel": "2"
+                        "minLureLevel": 2,
+                        "maxLureLevel": 2
                     }
                 },
                 {
                     "multiplier": 5.0,
                     "condition": {
-                        "minLureLevel": "3"
+                        "minLureLevel": 3
                     }
                 }
             ],
@@ -522,7 +522,7 @@
         },
         {
             "id": "wooper-heart-20",
-            "pokemon": "wooper wooper_heart=true",
+            "pokemon": "wooper wooper_pattern=heart",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "common",
@@ -532,14 +532,14 @@
                 {
                     "multiplier": 3.0,
                     "condition": {
-                        "minLureLevel": "2",
-                        "maxLureLevel": "2"
+                        "minLureLevel": 2,
+                        "maxLureLevel": 2
                     }
                 },
                 {
                     "multiplier": 5.0,
                     "condition": {
-                        "minLureLevel": "3"
+                        "minLureLevel": 3
                     }
                 }
             ],
@@ -680,8 +680,8 @@
             "weightMultiplier": {
                 "multiplier": 0.6,
                 "condition": {
-                    "minLureLevel": "1",
-                    "maxLureLevel": "2"
+                    "minLureLevel": 1,
+                    "maxLureLevel": 2
                 }
             },
             "condition": {
@@ -780,8 +780,8 @@
             "weightMultiplier": {
                 "multiplier": 0.6,
                 "condition": {
-                    "minLureLevel": "1",
-                    "maxLureLevel": "2"
+                    "minLureLevel": 1,
+                    "maxLureLevel": 2
                 }
             },
             "condition": {

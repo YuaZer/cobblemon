@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 541,
   "name": "Swadloon",
   "primaryType": "bug",
@@ -42,13 +43,12 @@
   "catchRate": 120,
   "eggCycles": 15,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.67,
   "hitbox": {
-    "width": 1,
+    "width": 0.85,
     "height": 1,
     "fixed": false
   },
-  "behaviour": {},
   "drops": {
     "amount": 5,
     "entries": [
@@ -58,15 +58,15 @@
       },
       {
         "item": "cobblemon:mental_herb",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:revival_herb",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:coba_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -94,7 +94,6 @@
     "tm:batonpass",
     "tm:bugbite",
     "tm:bugbuzz",
-    "tm:camouflage",
     "tm:charm",
     "tm:cut",
     "tm:dreameater",
@@ -102,11 +101,9 @@
     "tm:endure",
     "tm:energyball",
     "tm:facade",
-    "tm:flail",
     "tm:flash",
     "tm:gigadrain",
     "tm:grassknot",
-    "tm:grasswhistle",
     "tm:grassyglide",
     "tm:grassyterrain",
     "tm:irondefense",
@@ -114,15 +111,11 @@
     "tm:lunge",
     "tm:magicalleaf",
     "tm:magiccoat",
-    "tm:mefirst",
-    "tm:mindreader",
     "tm:naturepower",
     "tm:payback",
     "tm:pounce",
     "tm:protect",
     "tm:raindance",
-    "tm:razorleaf",
-    "tm:razorwind",
     "tm:rest",
     "tm:safeguard",
     "tm:screech",
@@ -132,18 +125,45 @@
     "tm:sleeptalk",
     "tm:snore",
     "tm:solarbeam",
-    "tm:stickyweb",
     "tm:stringshot",
     "tm:strugglebug",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:switcheroo",
     "tm:synthesis",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
     "tm:trailblaze",
-    "tm:worryseed"
+    "tm:worryseed",
+    "tutor:bugbite",
+    "tutor:electroweb",
+    "tutor:energyball",
+    "tutor:gigadrain",
+    "tutor:grassyglide",
+    "tutor:irondefense",
+    "tutor:magicalleaf",
+    "tutor:magiccoat",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:signalbeam",
+    "tutor:skittersmack",
+    "tutor:sleeptalk",
+    "tutor:snore",
+    "tutor:stringshot",
+    "tutor:synthesis",
+    "tutor:worryseed",
+    "legacy:agility",
+    "legacy:airslash",
+    "legacy:attract",
+    "legacy:calmmind",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "sewaddle",
   "evolutions": [
@@ -162,5 +182,10 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "5"
+    }
+  }
 }

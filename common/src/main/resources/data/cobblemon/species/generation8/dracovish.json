@@ -63,6 +63,19 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "arctovish",
+          "tier": 1
+        },
+        {
+          "pokemon": "dracovish",
+          "tier": 2
+        }
+      ]
     }
   },
   "moves": [
@@ -80,7 +93,6 @@
     "70:dragonpulse",
     "77:dragonrush",
     "tm:ancientpower",
-    "tm:bite",
     "tm:bodyslam",
     "tm:brine",
     "tm:brutalswing",
@@ -88,14 +100,11 @@
     "tm:crunch",
     "tm:dive",
     "tm:dracometeor",
-    "tm:dragonbreath",
     "tm:dragonpulse",
-    "tm:dragonrush",
     "tm:earthpower",
     "tm:earthquake",
     "tm:endure",
     "tm:facade",
-    "tm:fishiousrend",
     "tm:gigaimpact",
     "tm:hydropump",
     "tm:hyperbeam",
@@ -116,18 +125,51 @@
     "tm:rocktomb",
     "tm:scald",
     "tm:sleeptalk",
-    "tm:stomp",
     "tm:stompingtantrum",
     "tm:stoneedge",
     "tm:substitute",
     "tm:superfang",
     "tm:surf",
-    "tm:tackle",
     "tm:terablast",
     "tm:waterfall",
-    "tm:watergun",
     "tm:whirlpool",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:ancientpower",
+    "tutor:bulldoze",
+    "tutor:dive",
+    "tutor:dracometeor",
+    "tutor:dragonpulse",
+    "tutor:earthpower",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:icefang",
+    "tutor:ironhead",
+    "tutor:leechlife",
+    "tutor:liquidation",
+    "tutor:lowkick",
+    "tutor:meteorbeam",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:sleeptalk",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:superfang",
+    "tutor:zenheadbutt",
+    "legacy:round",
+    "legacy:snore"
   ],
-  "evolutions": []
+  "evolutions": [],
+  "drops": {
+    "amount": 3,
+    "entries": [
+      {
+        "item": "minecraft:bone",
+        "quantityRange": "0-2"
+      },
+      {
+        "item": "minecraft:cod"
+      }
+    ]
+  }
 }

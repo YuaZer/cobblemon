@@ -45,19 +45,149 @@
   "baseFriendship": 35,
   "baseScale": 1,
   "hitbox": {
-    "width": 1.5,
     "height": 2.66,
-    "fixed": false
+    "fixed": false,
+    "width": 1.5
+  },
+  "riding": {
+    "behaviours": {
+      "AIR": {
+        "key": "cobblemon:air/bird",
+        "rideSounds": [
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "soundLocation": "cobblemon:ride.loop.wind",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          },
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "soundLocation": "cobblemon:ride.loop.leather",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          }
+        ],
+        "stats": {
+          "ACCELERATION": "30-65",
+          "JUMP": "10-40",
+          "SKILL": "30-65",
+          "SPEED": "30-65",
+          "STAMINA": "55-85"
+        }
+      },
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "canJump": false,
+        "canSprint": false,
+        "stats": {
+          "ACCELERATION": "10-40",
+          "JUMP": "10-40",
+          "SKILL": "80-100",
+          "SPEED": "10-40",
+          "STAMINA": "10-40"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": -5.2106217e-05,
+              "y": -2.7008152,
+              "z": 0.14048183
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.5582676,
+              "z": -0.14046648
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": -5.2106217e-05,
+              "y": -2.7008152,
+              "z": 0.14048183
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.5582676,
+              "z": -0.14046648
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.19591272,
+              "y": -2.442987,
+              "z": 0.23936948
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.19591272,
+              "y": -2.442987,
+              "z": 0.23936948
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.19591272,
+              "y": -2.442987,
+              "z": 0.23936948
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
-    "resting": {
-      "canSleep": true,
-      "light": "0-4"
+    "herd": {
+      "maxSize": "5"
     },
     "moving": {
       "fly": {
         "canFly": true
+      },
+      "walk": {
+        "canWalk": false
       }
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
     }
   },
   "drops": {
@@ -69,7 +199,7 @@
       },
       {
         "item": "cobblemon:roseli_berry",
-        "percentage": 10
+        "percentage": 10.0
       }
     ]
   },
@@ -102,10 +232,7 @@
     "tm:acrobatics",
     "tm:aquatail",
     "tm:assurance",
-    "tm:astonish",
     "tm:beatup",
-    "tm:belch",
-    "tm:bite",
     "tm:bodyslam",
     "tm:breakingswipe",
     "tm:brutalswing",
@@ -113,14 +240,10 @@
     "tm:crunch",
     "tm:darkpulse",
     "tm:defog",
-    "tm:doublehit",
     "tm:dracometeor",
-    "tm:dragonbreath",
     "tm:dragoncheer",
     "tm:dragondance",
     "tm:dragonpulse",
-    "tm:dragonrage",
-    "tm:dragonrush",
     "tm:dragontail",
     "tm:dualwingbeat",
     "tm:earthpower",
@@ -138,7 +261,6 @@
     "tm:focusenergy",
     "tm:gigaimpact",
     "tm:headbutt",
-    "tm:headsmash",
     "tm:heatwave",
     "tm:helpinghand",
     "tm:hydropump",
@@ -166,7 +288,6 @@
     "tm:screech",
     "tm:shockwave",
     "tm:signalbeam",
-    "tm:slam",
     "tm:sleeptalk",
     "tm:snarl",
     "tm:spite",
@@ -179,7 +300,6 @@
     "tm:sunnyday",
     "tm:superpower",
     "tm:surf",
-    "tm:tackle",
     "tm:tailwind",
     "tm:takedown",
     "tm:taunt",
@@ -192,7 +312,59 @@
     "tm:triattack",
     "tm:uturn",
     "tm:workup",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:aquatail",
+    "tutor:bulldoze",
+    "tutor:darkpulse",
+    "tutor:defog",
+    "tutor:dracometeor",
+    "tutor:dragonpulse",
+    "tutor:dualwingbeat",
+    "tutor:earthpower",
+    "tutor:firefang",
+    "tutor:flamethrower",
+    "tutor:flashcannon",
+    "tutor:focusenergy",
+    "tutor:gigaimpact",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:hypervoice",
+    "tutor:icefang",
+    "tutor:irontail",
+    "tutor:lashout",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:roost",
+    "tutor:scaleshot",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:snarl",
+    "tutor:spite",
+    "tutor:stealthrock",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:superpower",
+    "tutor:tailwind",
+    "tutor:throatchop",
+    "tutor:thunderfang",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:chargebeam",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:uproar"
   ],
   "preEvolution": "zweilous",
   "evolutions": []

@@ -49,21 +49,16 @@
     "height": 1.85,
     "fixed": false
   },
-  "behaviour": {},
   "drops": {
-    "amount": 5,
+    "amount": 4,
     "entries": [
       {
-        "item": "minecraft:turtle_scute",
+        "item": "cobblemon:dragon_scale",
         "quantityRange": "0-2"
       },
       {
         "item": "cobblemon:razor_claw",
-        "percentage": 5
-      },
-      {
-        "item": "cobblemon:dragon_scale",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:roseli_berry",
@@ -94,8 +89,6 @@
     "egg:focuspunch",
     "tm:aerialace",
     "tm:aquatail",
-    "tm:autotomize",
-    "tm:bide",
     "tm:bodyslam",
     "tm:breakingswipe",
     "tm:brickbreak",
@@ -104,10 +97,8 @@
     "tm:bulldoze",
     "tm:closecombat",
     "tm:coaching",
-    "tm:counter",
     "tm:doubleedge",
     "tm:dracometeor",
-    "tm:dragonbreath",
     "tm:dragoncheer",
     "tm:dragonclaw",
     "tm:dragondance",
@@ -127,12 +118,10 @@
     "tm:irondefense",
     "tm:ironhead",
     "tm:irontail",
-    "tm:leer",
     "tm:lowkick",
     "tm:megakick",
     "tm:megapunch",
     "tm:metalclaw",
-    "tm:nobleroar",
     "tm:outrage",
     "tm:payback",
     "tm:protect",
@@ -147,12 +136,10 @@
     "tm:scaryface",
     "tm:screech",
     "tm:shadowclaw",
-    "tm:skyuppercut",
     "tm:sleeptalk",
     "tm:substitute",
     "tm:sunnyday",
     "tm:swordsdance",
-    "tm:tackle",
     "tm:takedown",
     "tm:taunt",
     "tm:terablast",
@@ -160,7 +147,41 @@
     "tm:upperhand",
     "tm:vacuumwave",
     "tm:workup",
-    "tm:xscissor"
+    "tm:xscissor",
+    "tutor:aquatail",
+    "tutor:bulkup",
+    "tutor:bulldoze",
+    "tutor:coaching",
+    "tutor:dracometeor",
+    "tutor:dragonpulse",
+    "tutor:drainpunch",
+    "tutor:dualchop",
+    "tutor:falseswipe",
+    "tutor:focuspunch",
+    "tutor:irondefense",
+    "tutor:ironhead",
+    "tutor:irontail",
+    "tutor:lowkick",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:scaleshot",
+    "tutor:shadowclaw",
+    "tutor:sleeptalk",
+    "tutor:throatchop",
+    "tutor:vacuumwave",
+    "tutor:xscissor",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:uproar"
   ],
   "preEvolution": "jangmoo",
   "evolutions": [
@@ -179,5 +200,16 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "kommoo",
+          "tier": 1
+        }
+      ]
+    }
+  }
 }

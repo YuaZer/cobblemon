@@ -45,16 +45,19 @@
   "features": [
     "alolan"
   ],
-  "baseScale": 0.8,
+  "baseScale": 0.7,
   "hitbox": {
-    "width": 1.1,
-    "height": 1.5,
+    "width": 1,
+    "height": 2,
     "fixed": false
   },
   "behaviour": {
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "3"
     }
   },
   "drops": {
@@ -66,11 +69,11 @@
       },
       {
         "item": "minecraft:charcoal",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:rawst_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -118,41 +121,29 @@
     "tm:covet",
     "tm:darkpulse",
     "tm:dig",
-    "tm:disable",
     "tm:doubleedge",
     "tm:dreameater",
-    "tm:ember",
     "tm:encore",
     "tm:endure",
     "tm:energyball",
-    "tm:extrasensory",
     "tm:facade",
     "tm:faketears",
-    "tm:feintattack",
     "tm:fireblast",
     "tm:firespin",
-    "tm:flail",
-    "tm:flameburst",
     "tm:flamecharge",
     "tm:flamethrower",
     "tm:flareblitz",
     "tm:foulplay",
     "tm:gigaimpact",
-    "tm:grudge",
     "tm:headbutt",
-    "tm:healingwish",
     "tm:heatwave",
     "tm:helpinghand",
     "tm:hex",
-    "tm:howl",
     "tm:hyperbeam",
-    "tm:hypnosis",
     "tm:imprison",
     "tm:incinerate",
-    "tm:inferno",
     "tm:irontail",
     "tm:laserfocus",
-    "tm:memento",
     "tm:mysticalfire",
     "tm:nastyplot",
     "tm:nightshade",
@@ -164,7 +155,6 @@
     "tm:protect",
     "tm:psychup",
     "tm:psyshock",
-    "tm:quickattack",
     "tm:rest",
     "tm:roar",
     "tm:roleplay",
@@ -181,12 +171,55 @@
     "tm:sunnyday",
     "tm:swift",
     "tm:tailslap",
-    "tm:tailwhip",
     "tm:takedown",
     "tm:terablast",
     "tm:weatherball",
     "tm:willowisp",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:babydolleyes",
+    "tutor:burningjealousy",
+    "tutor:calmmind",
+    "tutor:covet",
+    "tutor:darkpulse",
+    "tutor:energyball",
+    "tutor:flamethrower",
+    "tutor:foulplay",
+    "tutor:gigaimpact",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:irontail",
+    "tutor:laserfocus",
+    "tutor:mysticalfire",
+    "tutor:ominouswind",
+    "tutor:painsplit",
+    "tutor:rest",
+    "tutor:roleplay",
+    "tutor:scorchingsands",
+    "tutor:shadowball",
+    "tutor:sleeptalk",
+    "tutor:snarl",
+    "tutor:spite",
+    "tutor:swift",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:rage",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:skullbash",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:tackle",
+    "legacy:toxic"
   ],
   "preEvolution": "vulpix",
   "evolutions": [],
@@ -198,6 +231,11 @@
       "maleRatio": 0.25,
       "height": 11,
       "weight": 199,
+      "baseScale": 0.65,
+      "hitbox": {
+        "width": 1,
+        "height": 2
+      },
       "pokedex": [
         "cobblemon.species.ninetales-alola.desc"
       ],
@@ -206,15 +244,11 @@
         "alolan_form"
       ],
       "aspects": [
-        "alolan",
         "alolan"
       ],
       "abilities": [
         "snowcloak",
         "h:snowwarning"
-      ],
-      "eggGroups": [
-        "field"
       ],
       "baseStats": {
         "hp": 73,
@@ -232,12 +266,6 @@
         "special_defence": 0,
         "speed": 2
       },
-      "baseExperienceYield": 177,
-      "experienceGroup": "medium_fast",
-      "catchRate": 75,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "behaviour": {},
       "drops": {
         "amount": 7,
         "entries": [
@@ -251,7 +279,7 @@
           },
           {
             "item": "cobblemon:babiri_berry",
-            "percentage": 5
+            "percentage": 5.0
           }
         ]
       },
@@ -290,7 +318,6 @@
         "egg:secretpower",
         "egg:sheercold",
         "tm:agility",
-        "tm:aurorabeam",
         "tm:auroraveil",
         "tm:avalanche",
         "tm:babydolleyes",
@@ -306,45 +333,33 @@
         "tm:darkpulse",
         "tm:dazzlinggleam",
         "tm:dig",
-        "tm:disable",
         "tm:disarmingvoice",
         "tm:doubleedge",
         "tm:drainingkiss",
         "tm:dreameater",
         "tm:encore",
         "tm:endure",
-        "tm:extrasensory",
         "tm:facade",
         "tm:faketears",
-        "tm:feintattack",
-        "tm:flail",
         "tm:foulplay",
-        "tm:freezedry",
         "tm:frostbreath",
         "tm:gigaimpact",
-        "tm:grudge",
         "tm:hail",
         "tm:healbell",
         "tm:helpinghand",
         "tm:hex",
-        "tm:howl",
         "tm:hyperbeam",
-        "tm:hypnosis",
         "tm:icebeam",
-        "tm:iceshard",
         "tm:iciclespear",
         "tm:icywind",
         "tm:imprison",
         "tm:irontail",
         "tm:laserfocus",
-        "tm:mist",
         "tm:mistyterrain",
-        "tm:moonblast",
         "tm:nastyplot",
         "tm:painsplit",
         "tm:payback",
         "tm:playrough",
-        "tm:powdersnow",
         "tm:powerswap",
         "tm:protect",
         "tm:psychup",
@@ -355,7 +370,6 @@
         "tm:roleplay",
         "tm:safeguard",
         "tm:secretpower",
-        "tm:sheercold",
         "tm:sleeptalk",
         "tm:snowscape",
         "tm:spite",
@@ -363,17 +377,60 @@
         "tm:substitute",
         "tm:swift",
         "tm:tailslap",
-        "tm:tailwhip",
         "tm:takedown",
         "tm:terablast",
         "tm:tripleaxel",
         "tm:weatherball",
         "tm:wonderroom",
-        "tm:zenheadbutt"
+        "tm:zenheadbutt",
+        "tutor:babydolleyes",
+        "tutor:calmmind",
+        "tutor:covet",
+        "tutor:darkpulse",
+        "tutor:dazzlinggleam",
+        "tutor:foulplay",
+        "tutor:gigaimpact",
+        "tutor:healbell",
+        "tutor:helpinghand",
+        "tutor:hyperbeam",
+        "tutor:icebeam",
+        "tutor:icywind",
+        "tutor:irontail",
+        "tutor:laserfocus",
+        "tutor:painsplit",
+        "tutor:playrough",
+        "tutor:rest",
+        "tutor:roleplay",
+        "tutor:sleeptalk",
+        "tutor:spite",
+        "tutor:swift",
+        "tutor:tripleaxel",
+        "tutor:wonderroom",
+        "tutor:zenheadbutt",
+        "legacy:aquatail",
+        "legacy:attract",
+        "legacy:confide",
+        "legacy:doubleteam",
+        "legacy:frustration",
+        "legacy:headbutt",
+        "legacy:hiddenpower",
+        "legacy:reflect",
+        "legacy:return",
+        "legacy:round",
+        "legacy:snore",
+        "legacy:solarbeam",
+        "legacy:swagger",
+        "legacy:tackle",
+        "legacy:toxic"
       ],
       "preEvolution": "vulpix alolan",
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "herd": {
+          "maxSize": "3"
+        }
+      }
     }
   ]
 }

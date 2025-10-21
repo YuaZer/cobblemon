@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 187,
   "name": "Hoppip",
   "primaryType": "grass",
@@ -43,13 +44,58 @@
   "catchRate": 255,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.9,
   "hitbox": {
-    "width": 1,
-    "height": 1,
+    "width": 0.9,
+    "height": 0.7,
     "fixed": false
   },
-  "behaviour": {},
+  "standingEyeHeight": 0.5,
+  "behaviour": {
+    "moving": {
+      "fly": {
+        "canFly": true
+      }
+    },
+    "resting": {
+      "canSleep": true,
+      "willSleepOnBed": true,
+      "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "hoppip",
+          "tier": 1
+        },
+        {
+          "pokemon": "cottonee",
+          "tier": 1
+        },
+        {
+          "pokemon": "gossifleur",
+          "tier": 1
+        },
+        {
+          "pokemon": "skiploom",
+          "tier": 2
+        },
+        {
+          "pokemon": "jumpluff",
+          "tier": 3
+        },
+        {
+          "pokemon": "whimsicott",
+          "tier": 3
+        },
+        {
+          "pokemon": "eldegoss",
+          "tier": 3
+        }
+      ]
+    }
+  },
   "drops": {
     "amount": 1,
     "entries": [
@@ -88,24 +134,18 @@
     "egg:strengthsap",
     "egg:switcheroo",
     "egg:worryseed",
-    "tm:absorb",
     "tm:acrobatics",
     "tm:aerialace",
-    "tm:aromatherapy",
     "tm:batonpass",
     "tm:bounce",
     "tm:bulletseed",
     "tm:charm",
-    "tm:confusion",
-    "tm:cottonguard",
-    "tm:cottonspore",
     "tm:dazzlinggleam",
     "tm:doubleedge",
     "tm:encore",
     "tm:endure",
     "tm:energyball",
     "tm:facade",
-    "tm:fairywind",
     "tm:flash",
     "tm:fling",
     "tm:gigadrain",
@@ -115,42 +155,63 @@
     "tm:helpinghand",
     "tm:infestation",
     "tm:leafstorm",
-    "tm:leechseed",
     "tm:lightscreen",
     "tm:lunge",
     "tm:magicalleaf",
-    "tm:megadrain",
-    "tm:memento",
     "tm:payday",
-    "tm:poisonpowder",
     "tm:pollenpuff",
     "tm:protect",
-    "tm:ragepowder",
     "tm:raindance",
     "tm:reflect",
     "tm:rest",
     "tm:seedbomb",
     "tm:silverwind",
-    "tm:sleeppowder",
     "tm:sleeptalk",
     "tm:solarbeam",
-    "tm:splash",
-    "tm:strengthsap",
-    "tm:stunspore",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:switcheroo",
     "tm:swordsdance",
     "tm:synthesis",
-    "tm:tackle",
-    "tm:tailwhip",
     "tm:tailwind",
     "tm:takedown",
     "tm:terablast",
     "tm:thief",
     "tm:trailblaze",
     "tm:uturn",
-    "tm:worryseed"
+    "tm:worryseed",
+    "tutor:aerialace",
+    "tutor:bounce",
+    "tutor:dazzlinggleam",
+    "tutor:energyball",
+    "tutor:gigadrain",
+    "tutor:helpinghand",
+    "tutor:magicalleaf",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:sleeptalk",
+    "tutor:synthesis",
+    "tutor:tailwind",
+    "tutor:worryseed",
+    "legacy:amnesia",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:defensecurl",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:growl",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:psychup",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:sweetscent",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

@@ -51,12 +51,26 @@
   "behaviour": {
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
     },
     "moving": {
       "walk": {
         "walkSpeed": 0.15
       }
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "gurdurr",
+          "tier": 1
+        },
+        {
+          "pokemon": "conkeldurr",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -98,23 +112,17 @@
     "egg:slam",
     "egg:smellingsalts",
     "egg:wideguard",
-    "tm:bide",
     "tm:block",
     "tm:brickbreak",
     "tm:brutalswing",
     "tm:bulkup",
-    "tm:chipaway",
     "tm:closecombat",
     "tm:coaching",
-    "tm:cometpunch",
-    "tm:counter",
     "tm:curse",
     "tm:defog",
-    "tm:detect",
     "tm:dig",
     "tm:doubleedge",
     "tm:drainpunch",
-    "tm:dynamicpunch",
     "tm:endure",
     "tm:facade",
     "tm:firepunch",
@@ -122,22 +130,16 @@
     "tm:focusblast",
     "tm:focusenergy",
     "tm:focuspunch",
-    "tm:forcepalm",
-    "tm:foresight",
     "tm:grassknot",
-    "tm:hammerarm",
     "tm:helpinghand",
     "tm:icepunch",
     "tm:knockoff",
-    "tm:leer",
     "tm:lowkick",
     "tm:lowsweep",
-    "tm:machpunch",
     "tm:megakick",
     "tm:megapunch",
     "tm:payback",
     "tm:poisonjab",
-    "tm:pound",
     "tm:poweruppunch",
     "tm:protect",
     "tm:raindance",
@@ -147,13 +149,10 @@
     "tm:reversal",
     "tm:rockslide",
     "tm:rocksmash",
-    "tm:rockthrow",
     "tm:rocktomb",
     "tm:scaryface",
-    "tm:slam",
     "tm:sleeptalk",
     "tm:smackdown",
-    "tm:smellingsalts",
     "tm:stoneedge",
     "tm:strength",
     "tm:substitute",
@@ -164,9 +163,38 @@
     "tm:terablast",
     "tm:thief",
     "tm:thunderpunch",
-    "tm:wakeupslap",
-    "tm:wideguard",
-    "tm:workup"
+    "tm:workup",
+    "tutor:block",
+    "tutor:bulkup",
+    "tutor:coaching",
+    "tutor:defog",
+    "tutor:drainpunch",
+    "tutor:firepunch",
+    "tutor:focusenergy",
+    "tutor:focuspunch",
+    "tutor:helpinghand",
+    "tutor:icepunch",
+    "tutor:knockoff",
+    "tutor:lowkick",
+    "tutor:poisonjab",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:sleeptalk",
+    "tutor:stoneedge",
+    "tutor:superpower",
+    "tutor:thunderpunch",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

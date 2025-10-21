@@ -61,6 +61,15 @@
         "canSwimInLava": false,
         "swimSpeed": "0.2"
       }
+    },
+    "herd": {
+      "maxSize": "7",
+      "toleratedLeaders": [
+        {
+          "pokemon": "dragalge",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -72,7 +81,7 @@
       },
       {
         "item": "cobblemon:pecha_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -99,13 +108,9 @@
     "egg:dragontail",
     "egg:haze",
     "egg:twister",
-    "tm:acid",
-    "tm:acidarmor",
     "tm:acidspray",
     "tm:aquatail",
     "tm:bounce",
-    "tm:bubble",
-    "tm:camouflage",
     "tm:chillingwater",
     "tm:dive",
     "tm:doubleteam",
@@ -114,7 +119,6 @@
     "tm:dragontail",
     "tm:endure",
     "tm:facade",
-    "tm:feintattack",
     "tm:flipturn",
     "tm:focusblast",
     "tm:gigaimpact",
@@ -143,13 +147,10 @@
     "tm:sleeptalk",
     "tm:sludgebomb",
     "tm:sludgewave",
-    "tm:smokescreen",
     "tm:snowscape",
     "tm:spite",
     "tm:substitute",
     "tm:surf",
-    "tm:tackle",
-    "tm:tailwhip",
     "tm:takedown",
     "tm:terablast",
     "tm:thief",
@@ -161,9 +162,42 @@
     "tm:venomdrench",
     "tm:venoshock",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:whirlpool"
+    "tm:whirlpool",
+    "tutor:aquatail",
+    "tutor:bounce",
+    "tutor:dive",
+    "tutor:dracometeor",
+    "tutor:dragonpulse",
+    "tutor:flipturn",
+    "tutor:gigaimpact",
+    "tutor:gunkshot",
+    "tutor:hyperbeam",
+    "tutor:icywind",
+    "tutor:irontail",
+    "tutor:liquidation",
+    "tutor:mudslap",
+    "tutor:outrage",
+    "tutor:playrough",
+    "tutor:rest",
+    "tutor:scaleshot",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:spite",
+    "tutor:thunderbolt",
+    "tutor:twister",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger"
   ],
   "preEvolution": "skrelp",
   "evolutions": []

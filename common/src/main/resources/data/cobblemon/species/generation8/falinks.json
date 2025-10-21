@@ -54,6 +54,15 @@
       "walk": {
         "walkSpeed": 0.25
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "falinks",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -61,11 +70,11 @@
     "entries": [
       {
         "item": "minecraft:golden_helmet",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:nanab_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -93,12 +102,10 @@
     "tm:bulkup",
     "tm:closecombat",
     "tm:coaching",
-    "tm:counter",
     "tm:endeavor",
     "tm:endure",
     "tm:facade",
     "tm:falseswipe",
-    "tm:firstimpression",
     "tm:focusblast",
     "tm:focusenergy",
     "tm:gigaimpact",
@@ -111,7 +118,6 @@
     "tm:knockoff",
     "tm:lunge",
     "tm:megahorn",
-    "tm:noretreat",
     "tm:payback",
     "tm:poisonjab",
     "tm:protect",
@@ -131,14 +137,37 @@
     "tm:sunnyday",
     "tm:superpower",
     "tm:swordsdance",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
     "tm:throatchop",
     "tm:trailblaze",
     "tm:upperhand",
     "tm:uproar",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:bulkup",
+    "tutor:coaching",
+    "tutor:endeavor",
+    "tutor:falseswipe",
+    "tutor:focusenergy",
+    "tutor:gigaimpact",
+    "tutor:helpinghand",
+    "tutor:highhorsepower",
+    "tutor:hyperbeam",
+    "tutor:irondefense",
+    "tutor:ironhead",
+    "tutor:knockoff",
+    "tutor:megahorn",
+    "tutor:poisonjab",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:sleeptalk",
+    "tutor:superpower",
+    "tutor:throatchop",
+    "tutor:uproar",
+    "tutor:zenheadbutt",
+    "legacy:round",
+    "legacy:snore"
   ],
   "evolutions": []
 }

@@ -45,10 +45,39 @@
   "baseScale": 0.6,
   "hitbox": {
     "width": 0.6,
-    "height": 0.7,
+    "height": 1.1,
     "fixed": false
   },
-  "behaviour": {},
+  "standingEyeHeight": 0.8,
+  "behaviour": {
+    "moving": {
+      "walk": {
+        "walkSpeed": 0.3
+      }
+    },
+    "resting": {
+      "canSleep": true,
+      "willSleepOnBed": true,
+      "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "jumpluff",
+          "tier": 1
+        },
+        {
+          "pokemon": "whimsicott",
+          "tier": 1
+        },
+        {
+          "pokemon": "eldegoss",
+          "tier": 1
+        }
+      ]
+    }
+  },
   "drops": {
     "amount": 3,
     "entries": [
@@ -58,7 +87,7 @@
       },
       {
         "item": "cobblemon:coba_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -82,11 +111,8 @@
     "egg:sleeppowder",
     "egg:stunspore",
     "egg:worryseed",
-    "tm:aromatherapy",
     "tm:bulletseed",
     "tm:charm",
-    "tm:cottonguard",
-    "tm:cottonspore",
     "tm:endure",
     "tm:energyball",
     "tm:facade",
@@ -95,36 +121,40 @@
     "tm:grassknot",
     "tm:grassyglide",
     "tm:grassyterrain",
-    "tm:growth",
     "tm:helpinghand",
     "tm:hyperbeam",
     "tm:hypervoice",
-    "tm:leafage",
     "tm:leafstorm",
-    "tm:leaftornado",
-    "tm:leechseed",
     "tm:lightscreen",
     "tm:magicalleaf",
-    "tm:poisonpowder",
     "tm:pollenpuff",
     "tm:protect",
-    "tm:rapidspin",
-    "tm:razorleaf",
     "tm:rest",
     "tm:round",
     "tm:seedbomb",
-    "tm:sing",
-    "tm:sleeppowder",
     "tm:sleeptalk",
     "tm:solarbeam",
-    "tm:stunspore",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:sweetscent",
     "tm:synthesis",
     "tm:terablast",
     "tm:weatherball",
-    "tm:worryseed"
+    "tm:worryseed",
+    "tutor:energyball",
+    "tutor:gigadrain",
+    "tutor:gigaimpact",
+    "tutor:grassyglide",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:hypervoice",
+    "tutor:magicalleaf",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:sleeptalk",
+    "tutor:synthesis",
+    "tutor:worryseed",
+    "legacy:attract",
+    "legacy:snore"
   ],
   "preEvolution": "gossifleur",
   "evolutions": []

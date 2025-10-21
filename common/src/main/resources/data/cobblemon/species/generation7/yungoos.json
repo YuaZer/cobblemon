@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 734,
   "name": "Yungoos",
   "primaryType": "normal",
@@ -41,13 +42,12 @@
   "catchRate": 255,
   "eggCycles": 15,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.4,
   "hitbox": {
-    "width": 1,
+    "width": 1.5,
     "height": 1,
     "fixed": false
   },
-  "behaviour": {},
   "drops": {
     "amount": 1,
     "entries": [
@@ -81,8 +81,6 @@
     "egg:lastresort",
     "egg:thunderfang",
     "egg:yawn",
-    "tm:bide",
-    "tm:bite",
     "tm:bulldoze",
     "tm:chillingwater",
     "tm:crunch",
@@ -94,24 +92,19 @@
     "tm:facade",
     "tm:firefang",
     "tm:helpinghand",
-    "tm:hyperfang",
     "tm:icefang",
     "tm:irontail",
     "tm:lastresort",
-    "tm:leer",
     "tm:mudshot",
     "tm:mudslap",
-    "tm:odorsleuth",
     "tm:payback",
     "tm:protect",
     "tm:psychicfangs",
-    "tm:pursuit",
     "tm:raindance",
     "tm:rest",
     "tm:revenge",
     "tm:reversal",
     "tm:rocktomb",
-    "tm:sandattack",
     "tm:sandstorm",
     "tm:scaryface",
     "tm:seedbomb",
@@ -121,20 +114,46 @@
     "tm:substitute",
     "tm:sunnyday",
     "tm:superfang",
-    "tm:tackle",
     "tm:takedown",
     "tm:taunt",
     "tm:terablast",
     "tm:thief",
-    "tm:thrash",
     "tm:thunderfang",
     "tm:torment",
     "tm:trailblaze",
     "tm:uturn",
     "tm:wildcharge",
     "tm:workup",
-    "tm:yawn",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:bulldoze",
+    "tutor:endeavor",
+    "tutor:firefang",
+    "tutor:helpinghand",
+    "tutor:icefang",
+    "tutor:irontail",
+    "tutor:lastresort",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:shockwave",
+    "tutor:sleeptalk",
+    "tutor:stompingtantrum",
+    "tutor:superfang",
+    "tutor:thunderfang",
+    "tutor:wildcharge",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:earthquake",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:uproar"
   ],
   "evolutions": [
     {
@@ -154,5 +173,10 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

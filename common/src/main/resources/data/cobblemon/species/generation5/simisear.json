@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 514,
   "name": "Simisear",
   "primaryType": "fire",
@@ -40,27 +41,27 @@
   "catchRate": 75,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.85,
   "hitbox": {
-    "width": 1,
-    "height": 1,
+    "width": 0.94,
+    "height": 1.83,
     "fixed": false
   },
-  "behaviour": {},
+  "standingEyeHeight": 0.74,
   "drops": {
     "amount": 3,
     "entries": [
       {
         "item": "cobblemon:fire_stone",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:charcoal_stick",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:passho_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -89,9 +90,6 @@
     "egg:tickle",
     "tm:acrobatics",
     "tm:amnesia",
-    "tm:astonish",
-    "tm:belch",
-    "tm:bite",
     "tm:brickbreak",
     "tm:burningjealousy",
     "tm:covet",
@@ -106,14 +104,12 @@
     "tm:firepledge",
     "tm:firepunch",
     "tm:firespin",
-    "tm:flameburst",
     "tm:flamecharge",
     "tm:flamethrower",
     "tm:flareblitz",
     "tm:fling",
     "tm:focusblast",
     "tm:focuspunch",
-    "tm:furyswipes",
     "tm:gastroacid",
     "tm:gigaimpact",
     "tm:grassknot",
@@ -125,15 +121,12 @@
     "tm:incinerate",
     "tm:irontail",
     "tm:knockoff",
-    "tm:leer",
-    "tm:lick",
     "tm:lowkick",
     "tm:lowsweep",
     "tm:nastyplot",
     "tm:naturalgift",
     "tm:overheat",
     "tm:payback",
-    "tm:playnice",
     "tm:poweruppunch",
     "tm:protect",
     "tm:recycle",
@@ -143,7 +136,6 @@
     "tm:rocktomb",
     "tm:roleplay",
     "tm:scorchingsands",
-    "tm:scratch",
     "tm:shadowclaw",
     "tm:sleeptalk",
     "tm:solarbeam",
@@ -155,13 +147,77 @@
     "tm:terablast",
     "tm:thief",
     "tm:throatchop",
-    "tm:tickle",
     "tm:torment",
     "tm:uproar",
     "tm:willowisp",
     "tm:workup",
-    "tm:yawn"
+    "tutor:burningjealousy",
+    "tutor:covet",
+    "tutor:endeavor",
+    "tutor:firepledge",
+    "tutor:firepunch",
+    "tutor:flamethrower",
+    "tutor:focuspunch",
+    "tutor:gastroacid",
+    "tutor:gigaimpact",
+    "tutor:gunkshot",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:irontail",
+    "tutor:knockoff",
+    "tutor:lowkick",
+    "tutor:recycle",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:roleplay",
+    "tutor:scorchingsands",
+    "tutor:shadowclaw",
+    "tutor:sleeptalk",
+    "tutor:superpower",
+    "tutor:swift",
+    "tutor:throatchop",
+    "tutor:uproar",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "pansear",
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "monferno",
+          "tier": 1
+        },
+        {
+          "pokemon": "simisage",
+          "tier": 1
+        },
+        {
+          "pokemon": "simisear",
+          "tier": 1
+        },
+        {
+          "pokemon": "simipour",
+          "tier": 1
+        },
+        {
+          "pokemon": "infernape",
+          "tier": 2
+        }
+      ]
+    }
+  }
 }

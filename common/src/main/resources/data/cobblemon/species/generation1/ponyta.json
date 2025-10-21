@@ -61,6 +61,43 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "blitzle",
+          "tier": 1
+        },
+        {
+          "pokemon": "mudbray",
+          "tier": 1
+        },
+        {
+          "pokemon": "ponyta",
+          "tier": 2
+        },
+        {
+          "pokemon": "zebstrika",
+          "tier": 3
+        },
+        {
+          "pokemon": "mudsdale",
+          "tier": 3
+        },
+        {
+          "pokemon": "rapidash",
+          "tier": 4
+        },
+        {
+          "pokemon": "glastrier",
+          "tier": 5
+        },
+        {
+          "pokemon": "spectrier",
+          "tier": 5
+        }
+      ]
     }
   },
   "drops": {
@@ -108,28 +145,20 @@
     "tm:captivate",
     "tm:charm",
     "tm:doubleedge",
-    "tm:doublekick",
     "tm:echoedvoice",
-    "tm:ember",
     "tm:endure",
     "tm:facade",
     "tm:fireblast",
     "tm:firespin",
     "tm:flamecharge",
     "tm:flamethrower",
-    "tm:flamewheel",
     "tm:flareblitz",
-    "tm:growl",
     "tm:headbutt",
     "tm:heatwave",
     "tm:highhorsepower",
-    "tm:horndrill",
-    "tm:hypnosis",
     "tm:incinerate",
-    "tm:inferno",
     "tm:irontail",
     "tm:lowkick",
-    "tm:morningsun",
     "tm:mysticalfire",
     "tm:overheat",
     "tm:playrough",
@@ -138,18 +167,46 @@
     "tm:sleeptalk",
     "tm:solarbeam",
     "tm:solarblade",
-    "tm:stomp",
     "tm:strength",
     "tm:substitute",
     "tm:sunnyday",
     "tm:swift",
-    "tm:tackle",
-    "tm:tailwhip",
     "tm:takedown",
     "tm:terablast",
-    "tm:thrash",
     "tm:wildcharge",
-    "tm:willowisp"
+    "tm:willowisp",
+    "tutor:allyswitch",
+    "tutor:bounce",
+    "tutor:flamethrower",
+    "tutor:heatwave",
+    "tutor:highhorsepower",
+    "tutor:irontail",
+    "tutor:lowkick",
+    "tutor:mysticalfire",
+    "tutor:playrough",
+    "tutor:rest",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:wildcharge",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:quickattack",
+    "legacy:rage",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:skullbash",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {
@@ -191,31 +248,6 @@
         "pastelveil",
         "h:anticipation"
       ],
-      "eggGroups": [
-        "field"
-      ],
-      "baseStats": {
-        "hp": 50,
-        "attack": 85,
-        "defence": 55,
-        "special_attack": 65,
-        "special_defence": 65,
-        "speed": 90
-      },
-      "evYield": {
-        "hp": 0,
-        "attack": 0,
-        "defence": 0,
-        "special_attack": 0,
-        "special_defence": 0,
-        "speed": 1
-      },
-      "baseExperienceYield": 82,
-      "experienceGroup": "medium_fast",
-      "catchRate": 190,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "behaviour": {},
       "drops": {
         "amount": 2,
         "entries": [
@@ -255,25 +287,16 @@
         "tm:bounce",
         "tm:calmmind",
         "tm:charm",
-        "tm:confusion",
         "tm:dazzlinggleam",
         "tm:doubleedge",
-        "tm:doublekick",
         "tm:endure",
         "tm:expandingforce",
         "tm:facade",
-        "tm:fairywind",
         "tm:futuresight",
-        "tm:growl",
-        "tm:healingwish",
-        "tm:healpulse",
         "tm:highhorsepower",
-        "tm:horndrill",
-        "tm:hypnosis",
         "tm:imprison",
         "tm:irontail",
         "tm:lowkick",
-        "tm:morningsun",
         "tm:mysticalfire",
         "tm:playrough",
         "tm:protect",
@@ -281,17 +304,32 @@
         "tm:psychic",
         "tm:rest",
         "tm:sleeptalk",
-        "tm:stomp",
         "tm:storedpower",
         "tm:substitute",
         "tm:swift",
-        "tm:tackle",
-        "tm:tailwhip",
         "tm:takedown",
         "tm:terablast",
-        "tm:thrash",
         "tm:wildcharge",
-        "tm:zenheadbutt"
+        "tm:zenheadbutt",
+        "tutor:allyswitch",
+        "tutor:bounce",
+        "tutor:calmmind",
+        "tutor:dazzlinggleam",
+        "tutor:expandingforce",
+        "tutor:highhorsepower",
+        "tutor:irontail",
+        "tutor:lowkick",
+        "tutor:mysticalfire",
+        "tutor:playrough",
+        "tutor:psychic",
+        "tutor:rest",
+        "tutor:sleeptalk",
+        "tutor:swift",
+        "tutor:wildcharge",
+        "tutor:zenheadbutt",
+        "legacy:attract",
+        "legacy:round",
+        "legacy:snore"
       ],
       "evolutions": [
         {
@@ -310,7 +348,54 @@
           ]
         }
       ],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "herd": {
+          "maxSize": "9",
+          "toleratedLeaders": [
+            {
+              "pokemon": "blitzle",
+              "tier": 1
+            },
+            {
+              "pokemon": "mudbray",
+              "tier": 1
+            },
+            {
+              "pokemon": "ponyta",
+              "tier": 2
+            },
+            {
+              "pokemon": "zebstrika",
+              "tier": 3
+            },
+            {
+              "pokemon": "mudsdale",
+              "tier": 3
+            },
+            {
+              "pokemon": "rapidash",
+              "tier": 4
+            },
+            {
+              "pokemon": "glastrier",
+              "tier": 5
+            },
+            {
+              "pokemon": "spectrier",
+              "tier": 5
+            }
+          ]
+        }
+      },
+      "lightingData": {
+        "lightLevel": 4,
+        "liquidGlowMode": "LAND"
+      }
     }
-  ]
+  ],
+  "lightingData": {
+    "lightLevel": 6,
+    "liquidGlowMode": "LAND"
+  }
 }

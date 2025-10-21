@@ -45,14 +45,228 @@
   "baseFriendship": 50,
   "baseScale": 1.1,
   "hitbox": {
-    "width": 2,
     "height": 4.4,
-    "fixed": false
+    "fixed": false,
+    "width": 2
+  },
+  "riding": {
+    "behaviours": {
+      "AIR": {
+        "key": "cobblemon:air/bird",
+        "rideSounds": [
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "soundLocation": "cobblemon:ride.loop.wind",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          },
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "soundLocation": "cobblemon:ride.loop.plumage",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          }
+        ],
+        "stats": {
+          "ACCELERATION": "0-10",
+          "JUMP": "10-40",
+          "SKILL": "10-40",
+          "SPEED": "30-65",
+          "STAMINA": "55-85"
+        }
+      },
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "0-10",
+          "JUMP": "30-65",
+          "SKILL": "10-40",
+          "SPEED": "10-40",
+          "STAMINA": "30-65"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 3.7252903e-09,
+              "y": -3.2956975,
+              "z": 0.12137693
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.029628474,
+              "y": -3.505073,
+              "z": -0.16433369
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -3.026501,
+              "z": 0.02329135
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -3.1509643,
+              "z": -0.77240765
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -3.026501,
+              "z": 0.02329135
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -3.1509643,
+              "z": -0.77240765
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 3.7252903e-09,
+              "y": -3.2956975,
+              "z": 0.12137693
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      },
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 3.7252903e-09,
+              "y": -2.5119905,
+              "z": 0.53009856
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.08413556,
+              "y": -2.8625107,
+              "z": 0.43183827
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.218462,
+              "z": 0.61262774
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -3.0305538,
+              "z": -0.15911621
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.218462,
+              "z": 0.61262774
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -3.0305538,
+              "z": -0.15911621
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 3.7252903e-09,
+              "y": -2.5119905,
+              "z": 0.53009856
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "corviknight",
+          "tier": 1
+        }
+      ]
+    },
     "moving": {
       "fly": {
         "canFly": true
+      },
+      "walk": {
+        "canWalk": true,
+        "walkSpeed": 0.18
       }
     },
     "resting": {
@@ -72,11 +286,11 @@
       },
       {
         "item": "cobblemon:metal_coat",
-        "percentage": 10
+        "percentage": 10.0
       },
       {
         "item": "cobblemon:wacan_berry",
-        "percentage": 10
+        "percentage": 10.0
       }
     ]
   },
@@ -115,7 +329,6 @@
     "tm:curse",
     "tm:defog",
     "tm:doubleedge",
-    "tm:drillpeck",
     "tm:dualwingbeat",
     "tm:endure",
     "tm:facade",
@@ -123,7 +336,6 @@
     "tm:flashcannon",
     "tm:fly",
     "tm:focusenergy",
-    "tm:furyattack",
     "tm:gigaimpact",
     "tm:heavyslam",
     "tm:honeclaws",
@@ -131,15 +343,12 @@
     "tm:hyperbeam",
     "tm:irondefense",
     "tm:ironhead",
-    "tm:leer",
     "tm:lightscreen",
     "tm:metalclaw",
     "tm:metalsound",
     "tm:nastyplot",
     "tm:payback",
-    "tm:peck",
     "tm:pluck",
-    "tm:powertrip",
     "tm:protect",
     "tm:raindance",
     "tm:reflect",
@@ -149,7 +358,6 @@
     "tm:reversal",
     "tm:rocksmash",
     "tm:roost",
-    "tm:sandattack",
     "tm:scaryface",
     "tm:screech",
     "tm:skyattack",
@@ -167,7 +375,30 @@
     "tm:terablast",
     "tm:thief",
     "tm:uturn",
-    "tm:workup"
+    "tm:workup",
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:bulkup",
+    "tutor:defog",
+    "tutor:dualwingbeat",
+    "tutor:flashcannon",
+    "tutor:focusenergy",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:irondefense",
+    "tutor:ironhead",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:roost",
+    "tutor:skyattack",
+    "tutor:sleeptalk",
+    "tutor:spite",
+    "tutor:steelbeam",
+    "tutor:swift",
+    "tutor:tailwind",
+    "legacy:attract",
+    "legacy:round",
+    "legacy:snore"
   ],
   "preEvolution": "corvisquire",
   "evolutions": [],
@@ -189,128 +420,9 @@
       "aspects": [
         "gmax"
       ],
-      "abilities": [
-        "pressure",
-        "unnerve",
-        "h:mirrorarmor"
-      ],
-      "eggGroups": [
-        "flying"
-      ],
-      "baseStats": {
-        "hp": 98,
-        "attack": 87,
-        "defence": 105,
-        "special_attack": 53,
-        "special_defence": 85,
-        "speed": 67
-      },
-      "evYield": {
-        "hp": 0,
-        "attack": 0,
-        "defence": 3,
-        "special_attack": 0,
-        "special_defence": 0,
-        "speed": 0
-      },
-      "baseExperienceYield": 248,
-      "experienceGroup": "medium_slow",
-      "catchRate": 45,
-      "eggCycles": 15,
-      "baseFriendship": 50,
-      "dynamaxBlocked": true,
-      "behaviour": {},
-      "moves": [
-        "1:steelwing",
-        "1:irondefense",
-        "1:metalsound",
-        "1:peck",
-        "1:leer",
-        "1:powertrip",
-        "1:honeclaws",
-        "1:screech",
-        "12:furyattack",
-        "16:pluck",
-        "22:taunt",
-        "28:scaryface",
-        "34:drillpeck",
-        "42:swagger",
-        "50:bravebird",
-        "egg:defog",
-        "egg:rocksmash",
-        "egg:roost",
-        "egg:sandattack",
-        "egg:skyattack",
-        "egg:spite",
-        "egg:tailwind",
-        "tm:aerialace",
-        "tm:agility",
-        "tm:aircutter",
-        "tm:airslash",
-        "tm:assurance",
-        "tm:bodypress",
-        "tm:bodyslam",
-        "tm:bravebird",
-        "tm:bulkup",
-        "tm:curse",
-        "tm:defog",
-        "tm:doubleedge",
-        "tm:drillpeck",
-        "tm:dualwingbeat",
-        "tm:endure",
-        "tm:facade",
-        "tm:faketears",
-        "tm:flashcannon",
-        "tm:fly",
-        "tm:focusenergy",
-        "tm:furyattack",
-        "tm:gigaimpact",
-        "tm:heavyslam",
-        "tm:honeclaws",
-        "tm:hurricane",
-        "tm:hyperbeam",
-        "tm:irondefense",
-        "tm:ironhead",
-        "tm:leer",
-        "tm:lightscreen",
-        "tm:metalclaw",
-        "tm:metalsound",
-        "tm:nastyplot",
-        "tm:payback",
-        "tm:peck",
-        "tm:pluck",
-        "tm:powertrip",
-        "tm:protect",
-        "tm:raindance",
-        "tm:reflect",
-        "tm:rest",
-        "tm:retaliate",
-        "tm:revenge",
-        "tm:reversal",
-        "tm:rocksmash",
-        "tm:roost",
-        "tm:sandattack",
-        "tm:scaryface",
-        "tm:screech",
-        "tm:skyattack",
-        "tm:sleeptalk",
-        "tm:spite",
-        "tm:steelbeam",
-        "tm:steelwing",
-        "tm:substitute",
-        "tm:sunnyday",
-        "tm:swagger",
-        "tm:swift",
-        "tm:tailwind",
-        "tm:takedown",
-        "tm:taunt",
-        "tm:terablast",
-        "tm:thief",
-        "tm:uturn",
-        "tm:workup"
-      ],
       "evolutions": [],
-      "battleOnly": true
+      "battleOnly": true,
+      "dynamaxBlocked": true
     }
   ]
 }

@@ -65,6 +65,19 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "magneton",
+          "tier": 1
+        },
+        {
+          "pokemon": "magnezone",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -76,15 +89,15 @@
       },
       {
         "item": "cobblemon:magnet",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:metal_coat",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:shuca_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -116,7 +129,6 @@
     "tm:charge",
     "tm:chargebeam",
     "tm:confuseray",
-    "tm:discharge",
     "tm:eerieimpulse",
     "tm:electricterrain",
     "tm:electroball",
@@ -134,12 +146,9 @@
     "tm:irondefense",
     "tm:ironhead",
     "tm:lightscreen",
-    "tm:lockon",
     "tm:magiccoat",
-    "tm:magnetbomb",
     "tm:magnetrise",
     "tm:metalsound",
-    "tm:mirrorshot",
     "tm:protect",
     "tm:raindance",
     "tm:recycle",
@@ -152,24 +161,60 @@
     "tm:shockwave",
     "tm:signalbeam",
     "tm:sleeptalk",
-    "tm:sonicboom",
-    "tm:spark",
     "tm:steelbeam",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:supersonic",
     "tm:swift",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
     "tm:thunder",
     "tm:thunderbolt",
-    "tm:thundershock",
     "tm:thunderwave",
     "tm:triattack",
     "tm:voltswitch",
     "tm:wildcharge",
-    "tm:zapcannon"
+    "tutor:chargebeam",
+    "tutor:electroweb",
+    "tutor:flashcannon",
+    "tutor:gravity",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:irondefense",
+    "tutor:ironhead",
+    "tutor:magiccoat",
+    "tutor:magnetrise",
+    "tutor:recycle",
+    "tutor:rest",
+    "tutor:risingvoltage",
+    "tutor:rollout",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:steelbeam",
+    "tutor:swift",
+    "tutor:thunderbolt",
+    "tutor:wildcharge",
+    "legacy:bide",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:gigaimpact",
+    "legacy:headbutt",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:psychup",
+    "legacy:rage",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:teleport",
+    "legacy:toxic",
+    "special:refresh"
   ],
   "preEvolution": "magnemite",
   "evolutions": [
@@ -177,7 +222,7 @@
       "id": "magneton_magnezone",
       "variant": "item_interact",
       "result": "magnezone",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [],
       "requirements": [],
       "requiredContext": "cobblemon:thunder_stone"
