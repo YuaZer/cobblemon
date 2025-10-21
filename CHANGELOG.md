@@ -475,6 +475,7 @@
 - Roseli Berry Trees now naturally generate in their preferred biomes.
 - Refactored dynamic lights compat to be more future proof. The dynamic light support is only tested with LambDynamicLights, on NeoForged use that mod in combination with Sinytra Connector
 - Shulker Boxes and Traveler's Backpacks can no longer be held by Pokémon. Thanks Monocle ;) You could re-enable this with a datapack but you'd be crazy.
+- Moomoo Milk now clears Pokémon stat changes when used in battle.
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
@@ -559,6 +560,7 @@
 - Fixed singular Pokémon corruption causing entire storage corruption. Storages will now skip corrupted Pokémon and print an error to console.
 - Fixed species additions not being able to properly mark a species as implemented.
 - Fixed Pokémon item models not showing a glint when enchanted.
+- Fixed some specific bag items not being dropped when used in battle.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
