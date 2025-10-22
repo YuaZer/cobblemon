@@ -55,22 +55,22 @@
         "key": "cobblemon:air/hover",
         "rideSounds": [],
         "stats": {
-          "ACCELERATION": "41-60",
-          "JUMP": "41-60",
-          "SKILL": "41-60",
-          "SPEED": "21-40",
-          "STAMINA": "41-60"
+          "ACCELERATION": "50-65",
+          "JUMP": "12-25",
+          "SKILL": "30-45",
+          "SPEED": "35-60",
+          "STAMINA": "10-25"
         }
       },
       "LAND": {
         "key": "cobblemon:land/horse",
         "rideSounds": [],
         "stats": {
-          "ACCELERATION": "21-40",
-          "JUMP": "41-60",
-          "SKILL": "21-40",
-          "SPEED": "21-40",
-          "STAMINA": "41-60"
+          "ACCELERATION": "50-70",
+          "JUMP": "20-30",
+          "SKILL": "35-50",
+          "SPEED": "10-30",
+          "STAMINA": "55-70"
         }
       }
     },

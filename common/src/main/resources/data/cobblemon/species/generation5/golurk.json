@@ -81,10 +81,10 @@
         "rideSounds": [],
         "canJump": true,
         "stats": {
-          "ACCELERATION": "0-10",
-          "JUMP": "30-65",
-          "SKILL": "30-65",
-          "SPEED": "10-40",
+          "ACCELERATION": "65-90",
+          "JUMP": "40-60",
+          "SKILL": "50-65",
+          "SPEED": "40-50",
           "STAMINA": "55-85"
         }
       }

@@ -71,11 +71,11 @@
           0
         ],
         "stats": {
-          "ACCELERATION": "30-65",
-          "JUMP": "30-65",
-          "SKILL": "30-65",
-          "SPEED": "55-85",
-          "STAMINA": "10-40"
+          "ACCELERATION": "50-70",
+          "JUMP": "50-65",
+          "SKILL": "50-70",
+          "SPEED": "65-75",
+          "STAMINA": "35-45"
         }
       },
       "LAND": {
@@ -89,11 +89,11 @@
           "-1 * 0.5*q.jump_strength/50"
         ],
         "stats": {
-          "ACCELERATION": "10-40",
-          "JUMP": "55-85",
-          "SKILL": "30-65",
-          "SPEED": "30-65",
-          "STAMINA": "30-65"
+          "ACCELERATION": "65-85",
+          "JUMP": "30-45",
+          "SKILL": "40-65",
+          "SPEED": "40-70",
+          "STAMINA": "30-50"
         }
       },
       "LIQUID": {
