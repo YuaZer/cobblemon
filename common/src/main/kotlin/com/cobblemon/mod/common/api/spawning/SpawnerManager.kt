@@ -34,6 +34,7 @@ open class SpawnerManager {
             }
             return field
         }
+
     val influences = mutableListOf<SpawningInfluence>()
         get() {
             if (server()?.isSameThread == false) {
@@ -42,6 +43,7 @@ open class SpawnerManager {
             }
             return field
         }
+
     inline fun <reified T : Spawner> getSpawnersOfType() = spawners.filterIsInstance<T>()
     open fun getSpawnerByName(name: String) = spawners.find { it.name == name }
 
@@ -75,11 +77,15 @@ open class SpawnerManager {
             return
         }
         influences.removeIf { it.isExpired() }
-        getSpawnersOfType<TickingSpawner>().forEach {
+        getValidTickingSpawners().forEach {
             if (it.getCauseEntity()?.level()?.gameRules?.getBoolean(DO_POKEMON_SPAWNING) == false) {
                 return@forEach
             }
             it.tick()
         }
+    }
+
+    open fun getValidTickingSpawners(): List<TickingSpawner> {
+        return getSpawnersOfType<TickingSpawner>()
     }
 }

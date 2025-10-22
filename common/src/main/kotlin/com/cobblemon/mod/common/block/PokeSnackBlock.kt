@@ -166,7 +166,7 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
         if (!state.`is`(newState.block)) {
             val pokeSnackBlockEntity = level.getBlockEntity(pos) as PokeSnackBlockEntity?
             pokeSnackBlockEntity?.pokeSnackSpawner?.let {
-                PokeSnackSpawnerManager.unregisterSpawner(it)
+                PokeSnackSpawnerManager.unregisterPokeSnackSpawner(it)
                 pokeSnackBlockEntity.pokeSnackSpawner = null
             }
 

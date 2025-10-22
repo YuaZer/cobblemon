@@ -15,6 +15,7 @@ import com.cobblemon.mod.common.api.spawning.detail.EntitySpawnResult
 import com.cobblemon.mod.common.api.spawning.detail.SpawnAction
 import com.cobblemon.mod.common.block.PokeSnackBlock
 import com.cobblemon.mod.common.block.entity.PokeSnackBlockEntity
+import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.net.messages.client.effect.PokeSnackBlockParticlesPacket
 import net.minecraft.server.level.ServerLevel
 import kotlin.random.Random.Default.nextInt
@@ -38,6 +39,7 @@ class PokeSnackSpawner(
         const val RADIUS = 3
         const val MIN_TICKS_BETWEEN_SPAWNS = 10 * 20 // 10 seconds
         const val MAX_TICKS_BETWEEN_SPAWNS = 15 * 20 // 15 seconds
+        const val POKE_SNACK_CRUMBED_ASPECT = "poke_snack_crumbed"
 
         fun getRandomTicksBetweenSpawns(): Int {
             return nextInt(MIN_TICKS_BETWEEN_SPAWNS, MAX_TICKS_BETWEEN_SPAWNS + 1)
@@ -67,6 +69,10 @@ class PokeSnackSpawner(
                     64.0,
                     level.dimension(),
                 )
+
+                if (entity is PokemonEntity) {
+                    entity.pokemon.forcedAspects += POKE_SNACK_CRUMBED_ASPECT
+                }
             }
         }
 

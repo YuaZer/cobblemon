@@ -17,7 +17,6 @@ import com.cobblemon.mod.common.api.fishing.SpawnBaitEffects
 import com.cobblemon.mod.common.api.spawning.influence.BucketMultiplyingInfluence
 import com.cobblemon.mod.common.api.spawning.influence.BucketNormalizingInfluence
 import com.cobblemon.mod.common.api.spawning.influence.SpawnBaitInfluence
-import com.cobblemon.mod.common.api.spawning.influence.UnconditionalSpawningZoneInfluence
 import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawner
 import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawnerManager
 import com.cobblemon.mod.common.block.PokeSnackBlock
@@ -37,6 +36,12 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
 
     companion object {
         const val SPAWNS_PER_BITE = 1
+        val bucketMultipliers = mapOf(
+            "uncommon" to 2.25f,
+            "rare" to 5.5f,
+            "ultra-rare" to 5.5f
+        )
+
 
         fun clientTick(level: Level, pos: BlockPos, state: BlockState, pokeSnackBlockEntity: PokeSnackBlockEntity) {
             if (!level.isClientSide) return
@@ -60,7 +65,6 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
                     newPokeSnackSpawner.influences.add(bucketNormalizingInfluence)
                 }
 
-                val bucketMultipliers = mapOf("uncommon" to 2f, "ultra-rare" to 5f)
                 val bucketMultiplyingInfluence = BucketMultiplyingInfluence(bucketMultipliers)
                 newPokeSnackSpawner.influences.add(bucketMultiplyingInfluence)
 
@@ -72,7 +76,7 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
                 }
 
                 pokeSnackBlockEntity.pokeSnackSpawner = newPokeSnackSpawner
-                PokeSnackSpawnerManager.registerSpawner(newPokeSnackSpawner)
+                PokeSnackSpawnerManager.registerPokeSnackSpawner(newPokeSnackSpawner)
             }
         }
     }
