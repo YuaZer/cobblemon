@@ -14,7 +14,10 @@ import com.cobblemon.mod.common.api.cooking.getColourMixFromFlavours
 import com.cobblemon.mod.common.api.fishing.SpawnBait
 import com.cobblemon.mod.common.api.fishing.SpawnBait.Effect
 import com.cobblemon.mod.common.api.fishing.SpawnBaitEffects
+import com.cobblemon.mod.common.api.spawning.influence.BucketMultiplyingInfluence
+import com.cobblemon.mod.common.api.spawning.influence.BucketNormalizingInfluence
 import com.cobblemon.mod.common.api.spawning.influence.SpawnBaitInfluence
+import com.cobblemon.mod.common.api.spawning.influence.UnconditionalSpawningZoneInfluence
 import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawner
 import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawnerManager
 import com.cobblemon.mod.common.block.PokeSnackBlock
@@ -49,12 +52,23 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
                     pokeSnackBlockEntity = pokeSnackBlockEntity,
                 )
 
+                val baitEffects = pokeSnackBlockEntity.getBaitEffects()
+                val highestLureTier = baitEffects.filter { it.type == SpawnBait.Effects.RARITY_BUCKET }.maxOfOrNull { it.value }?.toInt() ?: 0
+
+                if (highestLureTier > 0) {
+                    val bucketNormalizingInfluence = BucketNormalizingInfluence(tier = highestLureTier)
+                    newPokeSnackSpawner.influences.add(bucketNormalizingInfluence)
+                }
+
+                val bucketMultipliers = mapOf("uncommon" to 2f, "ultra-rare" to 5f)
+                val bucketMultiplyingInfluence = BucketMultiplyingInfluence(bucketMultipliers)
+                newPokeSnackSpawner.influences.add(bucketMultiplyingInfluence)
+
                 val seasoningsInfluence = SpawnBaitInfluence(effects = pokeSnackBlockEntity.getBaitEffects())
                 newPokeSnackSpawner.influences.add(seasoningsInfluence)
 
                 pokeSnackBlockEntity.ticksUntilNextSpawn?.let {
                     newPokeSnackSpawner.ticksBetweenSpawns = it.toFloat()
-
                 }
 
                 pokeSnackBlockEntity.pokeSnackSpawner = newPokeSnackSpawner
