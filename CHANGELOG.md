@@ -295,6 +295,8 @@
 - Tauros - Paldea Combat
 - Dewgong
 - Exeggutor - Kanto
+- Corphish (updated placeholders for crustaceous tripod gait legs)
+- Crawdaunt (updated placeholders for crustaceous bipedal legs)
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -561,6 +563,7 @@
 - Fixed species additions not being able to properly mark a species as implemented.
 - Fixed Pokémon item models not showing a glint when enchanted.
 - Fixed some specific bag items not being dropped when used in battle.
+- The Corphish line will now sink in water.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
