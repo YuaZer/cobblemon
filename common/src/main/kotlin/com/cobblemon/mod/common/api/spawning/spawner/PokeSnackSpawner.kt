@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.api.spawning.spawner
 
 import com.cobblemon.mod.common.Cobblemon
+import com.cobblemon.mod.common.api.fishing.SpawnBait
 import com.cobblemon.mod.common.api.spawning.CobblemonSpawnPools
 import com.cobblemon.mod.common.api.spawning.SpawnCause
 import com.cobblemon.mod.common.api.spawning.detail.EntitySpawnResult
@@ -32,18 +33,17 @@ class PokeSnackSpawner(
     position = pokeSnackBlockEntity.blockPos,
     horizontalRadius = RADIUS,
     verticalRadius = RADIUS,
-    ticksBetweenSpawns = getRandomTicksBetweenSpawns().toFloat(),
 ) {
+
+    init {
+        ticksBetweenSpawns = getRandomTicksBetweenSpawns()
+    }
 
     companion object {
         const val RADIUS = 3
         const val MIN_TICKS_BETWEEN_SPAWNS = 10 * 20 // 10 seconds
         const val MAX_TICKS_BETWEEN_SPAWNS = 15 * 20 // 15 seconds
         const val POKE_SNACK_CRUMBED_ASPECT = "poke_snack_crumbed"
-
-        fun getRandomTicksBetweenSpawns(): Int {
-            return nextInt(MIN_TICKS_BETWEEN_SPAWNS, MAX_TICKS_BETWEEN_SPAWNS + 1)
-        }
     }
 
     override fun run(cause: SpawnCause): List<SpawnAction<*>> {
@@ -76,7 +76,7 @@ class PokeSnackSpawner(
             }
         }
 
-        ticksBetweenSpawns = getRandomTicksBetweenSpawns().toFloat()
+        ticksBetweenSpawns = getRandomTicksBetweenSpawns()
 
         val pokeSnackBlockState = pokeSnackBlockEntity.blockState
         val pokeSnackBlock = pokeSnackBlockState.block as PokeSnackBlock
@@ -85,5 +85,24 @@ class PokeSnackSpawner(
 
     override fun getMaxPokemonPerChunk(): Float {
         return Cobblemon.config.pokeSnackPokemonPerChunk
+    }
+
+    fun getRandomTicksBetweenSpawns(): Float {
+        val randomTicks = nextInt(MIN_TICKS_BETWEEN_SPAWNS, MAX_TICKS_BETWEEN_SPAWNS + 1)
+        val biteTimeMultiplier = getBiteTimeMultiplier()
+        return (randomTicks * biteTimeMultiplier).coerceAtLeast(20F)
+    }
+
+    fun getBiteTimeMultiplier(): Float {
+        val baitEffects = pokeSnackBlockEntity.getBaitEffects()
+        val biteTimeEffects = baitEffects.filter { it.type == SpawnBait.Effects.BITE_TIME }
+        if (biteTimeEffects.isEmpty()) return 1F
+
+        val biteTimeEffect = biteTimeEffects.random()
+        if (Math.random() > biteTimeEffect.chance) {
+            return 1F
+        }
+
+        return 1F - biteTimeEffect.value.toFloat()
     }
 }
