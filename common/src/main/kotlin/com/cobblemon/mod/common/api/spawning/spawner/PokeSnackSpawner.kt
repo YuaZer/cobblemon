@@ -12,12 +12,11 @@ import com.cobblemon.mod.common.api.spawning.CobblemonSpawnPools
 import com.cobblemon.mod.common.api.spawning.SpawnCause
 import com.cobblemon.mod.common.api.spawning.detail.EntitySpawnResult
 import com.cobblemon.mod.common.api.spawning.detail.SpawnAction
-import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawnerManager.RADIUS
-import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawnerManager.TICKS_BETWEEN_SPAWNS
 import com.cobblemon.mod.common.block.PokeSnackBlock
 import com.cobblemon.mod.common.block.entity.PokeSnackBlockEntity
 import com.cobblemon.mod.common.net.messages.client.effect.PokeSnackBlockParticlesPacket
 import net.minecraft.server.level.ServerLevel
+import kotlin.random.Random.Default.nextInt
 
 class PokeSnackSpawner(
     name: String,
@@ -31,8 +30,19 @@ class PokeSnackSpawner(
     position = pokeSnackBlockEntity.blockPos,
     horizontalRadius = RADIUS,
     verticalRadius = RADIUS,
-    ticksBetweenSpawns = TICKS_BETWEEN_SPAWNS.toFloat(),
+    ticksBetweenSpawns = getRandomTicksBetweenSpawns().toFloat(),
 ) {
+
+    companion object {
+        const val RADIUS = 3
+        const val MIN_TICKS_BETWEEN_SPAWNS = 10 * 20 // 10 seconds
+        const val MAX_TICKS_BETWEEN_SPAWNS = 15 * 20 // 15 seconds
+
+        fun getRandomTicksBetweenSpawns(): Int {
+            return nextInt(MIN_TICKS_BETWEEN_SPAWNS, MAX_TICKS_BETWEEN_SPAWNS + 1)
+        }
+    }
+
     override fun run(cause: SpawnCause): List<SpawnAction<*>> {
         return super.run(cause)
     }
@@ -58,6 +68,8 @@ class PokeSnackSpawner(
                 )
             }
         }
+
+        ticksBetweenSpawns = getRandomTicksBetweenSpawns().toFloat()
 
         val pokeSnackBlockState = pokeSnackBlockEntity.blockState
         val pokeSnackBlock = pokeSnackBlockState.block as PokeSnackBlock

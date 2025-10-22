@@ -14,6 +14,9 @@ import com.cobblemon.mod.common.api.cooking.getColourMixFromFlavours
 import com.cobblemon.mod.common.api.fishing.SpawnBait
 import com.cobblemon.mod.common.api.fishing.SpawnBait.Effect
 import com.cobblemon.mod.common.api.fishing.SpawnBaitEffects
+import com.cobblemon.mod.common.api.spawning.influence.SpawnBaitInfluence
+import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawner
+import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawnerManager
 import com.cobblemon.mod.common.block.PokeSnackBlock
 import com.cobblemon.mod.common.item.components.BaitEffectsComponent
 import com.cobblemon.mod.common.item.components.FlavourComponent
@@ -21,21 +24,51 @@ import com.cobblemon.mod.common.item.components.IngredientComponent
 import com.cobblemon.mod.common.util.DataKeys
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
-import net.minecraft.nbt.*
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtOps
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
-import kotlin.collections.orEmpty
 
 open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEntity(CobblemonBlockEntities.POKE_SNACK, pos, state) {
 
     companion object {
         const val SPAWNS_PER_BITE = 1
+
+        fun clientTick(level: Level, pos: BlockPos, state: BlockState, pokeSnackBlockEntity: PokeSnackBlockEntity) {
+            if (!level.isClientSide) return
+        }
+
+        fun serverTick(level: Level, pos: BlockPos, state: BlockState, pokeSnackBlockEntity: PokeSnackBlockEntity) {
+            if (level.isClientSide) return
+
+            if (pokeSnackBlockEntity.pokeSnackSpawner == null) {
+                val newPokeSnackSpawner = PokeSnackSpawner(
+                    name = "poke_snack_spawner_${pos}",
+                    manager = PokeSnackSpawnerManager,
+                    pokeSnackBlockEntity = pokeSnackBlockEntity,
+                )
+
+                val seasoningsInfluence = SpawnBaitInfluence(effects = pokeSnackBlockEntity.getBaitEffects())
+                newPokeSnackSpawner.influences.add(seasoningsInfluence)
+
+                pokeSnackBlockEntity.ticksUntilNextSpawn?.let {
+                    newPokeSnackSpawner.ticksBetweenSpawns = it.toFloat()
+
+                }
+
+                pokeSnackBlockEntity.pokeSnackSpawner = newPokeSnackSpawner
+                PokeSnackSpawnerManager.registerSpawner(newPokeSnackSpawner)
+            }
+        }
     }
 
     var amountSpawned: Int = 0
     var flavourComponent: FlavourComponent? = null
     var baitEffectsComponent: BaitEffectsComponent? = null
     var ingredientComponent: IngredientComponent? = null
+    var pokeSnackSpawner: PokeSnackSpawner? = null
+    var ticksUntilNextSpawn: Int? = null
 
     fun initializeFromItemStack(itemStack: ItemStack) {
         flavourComponent = itemStack.get(CobblemonItemComponents.FLAVOUR)
@@ -113,6 +146,10 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
                     tag.put(DataKeys.INGREDIENTS, encodedTag)
                 }
         }
+
+        pokeSnackSpawner?.let { component ->
+            tag.putInt(DataKeys.TICKS_UNTIL_NEXT_SPAWN, component.ticksUntilNextSpawn.toInt())
+        }
     }
 
     override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
@@ -145,6 +182,10 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
                 ?.ifPresent { component ->
                     ingredientComponent = component
                 }
+        }
+
+        if (tag.contains(DataKeys.TICKS_UNTIL_NEXT_SPAWN)) {
+            ticksUntilNextSpawn = tag.getInt(DataKeys.TICKS_UNTIL_NEXT_SPAWN)
         }
     }
 }

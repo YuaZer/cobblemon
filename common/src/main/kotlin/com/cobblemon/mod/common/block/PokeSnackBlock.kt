@@ -8,9 +8,11 @@
 
 package com.cobblemon.mod.common.block
 
+import com.cobblemon.mod.common.CobblemonBlockEntities
 import com.cobblemon.mod.common.CobblemonBlocks
-import com.cobblemon.mod.common.api.spawning.BestSpawner
+import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawner
 import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawnerManager
+import com.cobblemon.mod.common.block.entity.CampfireBlockEntity
 import com.cobblemon.mod.common.block.entity.PokeSnackBlockEntity
 import com.cobblemon.mod.common.util.toEquipmentSlot
 import com.mojang.serialization.MapCodec
@@ -42,6 +44,8 @@ import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.LevelReader
 import net.minecraft.world.level.block.*
 import net.minecraft.world.level.block.entity.BlockEntity
+import net.minecraft.world.level.block.entity.BlockEntityTicker
+import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
@@ -53,6 +57,7 @@ import net.minecraft.world.phys.Vec3
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
+import org.jetbrains.annotations.Nullable
 import kotlin.math.floor
 import kotlin.random.Random
 
@@ -148,12 +153,7 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
         super.setPlacedBy(level, pos, state, placer, stack)
 
         val blockEntity = level.getBlockEntity(pos) as? PokeSnackBlockEntity
-        blockEntity?.let {
-            it.initializeFromItemStack(stack)
-
-            val spawner = PokeSnackSpawnerManager
-            spawner.registerPokeSnackSpawner(it)
-        }
+        blockEntity?.initializeFromItemStack(stack)
     }
 
     override fun onRemove(
@@ -163,13 +163,35 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
         newState: BlockState,
         movedByPiston: Boolean
     ) {
-        val blockEntity = level.getBlockEntity(pos) as? PokeSnackBlockEntity
-        blockEntity?.let {
-            val spawner = PokeSnackSpawnerManager
-            spawner.unregisterPokeSnackSpawner(it)
-        }
+        if (!state.`is`(newState.block)) {
+            val pokeSnackBlockEntity = level.getBlockEntity(pos) as PokeSnackBlockEntity?
+            pokeSnackBlockEntity?.pokeSnackSpawner?.let {
+                PokeSnackSpawnerManager.unregisterSpawner(it)
+                pokeSnackBlockEntity.pokeSnackSpawner = null
+            }
 
-        super.onRemove(state, level, pos, newState, movedByPiston)
+            super.onRemove(state, level, pos, newState, movedByPiston)
+        }
+    }
+
+    override fun <T : BlockEntity?> getTicker(
+        level: Level,
+        state: BlockState,
+        blockEntityType: BlockEntityType<T?>
+    ): BlockEntityTicker<T?>? {
+        return createPokeSnackTicker(level, blockEntityType as BlockEntityType<*>, CobblemonBlockEntities.POKE_SNACK) as BlockEntityTicker<T?>?
+    }
+
+    @Nullable
+    protected fun <T : BlockEntity> createPokeSnackTicker(
+        level: Level,
+        serverType: BlockEntityType<T>,
+        clientType: BlockEntityType<out PokeSnackBlockEntity>
+    ): BlockEntityTicker<T>? {
+        return if (level.isClientSide)
+            createTickerHelper(serverType, clientType, PokeSnackBlockEntity::clientTick)
+        else
+            createTickerHelper(serverType, clientType, PokeSnackBlockEntity::serverTick)
     }
 
     override fun getCloneItemStack(level: LevelReader, pos: BlockPos, state: BlockState): ItemStack {
@@ -331,6 +353,7 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
 
         if (newBites > MAX_BITES) {
             dropCandle(level, pos, state, player)
+
             level.removeBlock(pos, false)
             level.removeBlockEntity(pos)
         } else {
