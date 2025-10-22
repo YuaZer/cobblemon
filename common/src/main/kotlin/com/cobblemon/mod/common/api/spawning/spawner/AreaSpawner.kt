@@ -30,6 +30,7 @@ import net.minecraft.world.level.chunk.status.ChunkStatus
 import net.minecraft.world.level.pathfinder.PathComputationType
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
+import kotlin.math.max
 
 /**
  * A type of [TickingSpawner] that operates within some area. When this spawner type
@@ -83,7 +84,8 @@ abstract class AreaSpawner(
             ).size
 
             val chunksCovered = CHUNK_REACH * CHUNK_REACH
-            if (numberNearby.toFloat() / chunksCovered >= Cobblemon.config.pokemonPerChunk) {
+            val maxPokemonPerChunk = max(Cobblemon.config.pokemonPerChunk, cause.spawner.getMaxPokemonPerChunk().toFloat())
+            if (numberNearby.toFloat() / chunksCovered >= maxPokemonPerChunk) {
                 return emptyList()
             }
 

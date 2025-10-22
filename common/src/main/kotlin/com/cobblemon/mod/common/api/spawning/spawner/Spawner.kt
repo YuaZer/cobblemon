@@ -37,6 +37,9 @@ interface Spawner {
     fun getSpawnPool(): SpawnPool
     fun setSpawnPool(spawnPool: SpawnPool)
     fun <R> afterSpawn(action: SpawnAction<R>, result: R) {}
+    fun getMaxPokemonPerChunk(): Float {
+        return Cobblemon.config.pokemonPerChunk
+    }
 
     fun getMatchingSpawns(bucket: SpawnBucket, spawnablePosition: SpawnablePosition): List<SpawnDetail> {
         val spawns = mutableListOf<SpawnDetail>()

@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.api.spawning.spawner
 
+import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.api.spawning.CobblemonSpawnPools
 import com.cobblemon.mod.common.api.spawning.SpawnCause
 import com.cobblemon.mod.common.api.spawning.detail.EntitySpawnResult
@@ -74,5 +75,9 @@ class PokeSnackSpawner(
         val pokeSnackBlockState = pokeSnackBlockEntity.blockState
         val pokeSnackBlock = pokeSnackBlockState.block as PokeSnackBlock
         pokeSnackBlock.eat(level, pokeSnackBlockPos, pokeSnackBlockState, null)
+    }
+
+    override fun getMaxPokemonPerChunk(): Float {
+        return Cobblemon.config.pokeSnackPokemonPerChunk
     }
 }
