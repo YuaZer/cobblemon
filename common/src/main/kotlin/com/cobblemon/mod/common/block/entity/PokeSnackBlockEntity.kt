@@ -14,9 +14,6 @@ import com.cobblemon.mod.common.api.cooking.getColourMixFromFlavours
 import com.cobblemon.mod.common.api.fishing.SpawnBait
 import com.cobblemon.mod.common.api.fishing.SpawnBait.Effect
 import com.cobblemon.mod.common.api.fishing.SpawnBaitEffects
-import com.cobblemon.mod.common.api.spawning.influence.BucketMultiplyingInfluence
-import com.cobblemon.mod.common.api.spawning.influence.BucketNormalizingInfluence
-import com.cobblemon.mod.common.api.spawning.influence.SpawnBaitInfluence
 import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawner
 import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawnerManager
 import com.cobblemon.mod.common.block.PokeSnackBlock
@@ -36,12 +33,6 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
 
     companion object {
         const val SPAWNS_PER_BITE = 1
-        val bucketMultipliers = mapOf(
-            "uncommon" to 2.25f,
-            "rare" to 5.5f,
-            "ultra-rare" to 5.5f
-        )
-
 
         fun clientTick(level: Level, pos: BlockPos, state: BlockState, pokeSnackBlockEntity: PokeSnackBlockEntity) {
             if (!level.isClientSide) return
@@ -51,32 +42,8 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
             if (level.isClientSide) return
 
             if (pokeSnackBlockEntity.pokeSnackSpawner == null) {
-                val newPokeSnackSpawner = PokeSnackSpawner(
-                    name = "poke_snack_spawner_${pos}",
-                    manager = PokeSnackSpawnerManager,
-                    pokeSnackBlockEntity = pokeSnackBlockEntity,
-                )
-
-                val baitEffects = pokeSnackBlockEntity.getBaitEffects()
-                val highestLureTier = baitEffects.filter { it.type == SpawnBait.Effects.RARITY_BUCKET }.maxOfOrNull { it.value }?.toInt() ?: 0
-
-                if (highestLureTier > 0) {
-                    val bucketNormalizingInfluence = BucketNormalizingInfluence(tier = highestLureTier)
-                    newPokeSnackSpawner.influences.add(bucketNormalizingInfluence)
-                }
-
-                val bucketMultiplyingInfluence = BucketMultiplyingInfluence(bucketMultipliers)
-                newPokeSnackSpawner.influences.add(bucketMultiplyingInfluence)
-
-                val seasoningsInfluence = SpawnBaitInfluence(effects = pokeSnackBlockEntity.getBaitEffects())
-                newPokeSnackSpawner.influences.add(seasoningsInfluence)
-
-                pokeSnackBlockEntity.ticksUntilNextSpawn?.let {
-                    newPokeSnackSpawner.ticksBetweenSpawns = it.toFloat()
-                }
-
+                val newPokeSnackSpawner = PokeSnackSpawnerManager.registerPokeSnackSpawner(pokeSnackBlockEntity)
                 pokeSnackBlockEntity.pokeSnackSpawner = newPokeSnackSpawner
-                PokeSnackSpawnerManager.registerPokeSnackSpawner(newPokeSnackSpawner)
             }
         }
     }

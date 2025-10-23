@@ -9,7 +9,12 @@
 package com.cobblemon.mod.common.api.spawning.spawner
 
 import com.cobblemon.mod.common.CobblemonPoiTypes
+import com.cobblemon.mod.common.api.fishing.SpawnBait
 import com.cobblemon.mod.common.api.spawning.SpawnerManager
+import com.cobblemon.mod.common.api.spawning.influence.BucketMultiplyingInfluence
+import com.cobblemon.mod.common.api.spawning.influence.BucketNormalizingInfluence
+import com.cobblemon.mod.common.api.spawning.influence.SpawnBaitInfluence
+import com.cobblemon.mod.common.block.entity.PokeSnackBlockEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Holder
 import net.minecraft.server.MinecraftServer
@@ -19,13 +24,19 @@ import net.minecraft.world.entity.ai.village.poi.PoiType
 
 object PokeSnackSpawnerManager : SpawnerManager() {
 
-    val pokeSnackSpawnersMap = mutableMapOf<BlockPos, PokeSnackSpawner>()
-    var validPokeSnackSpawners = mutableListOf<PokeSnackSpawner>()
+    private val pokeSnackSpawnersMap = mutableMapOf<BlockPos, PokeSnackSpawner>()
+    private var validPokeSnackSpawners = mutableListOf<PokeSnackSpawner>()
+
+    private val bucketMultipliers = mapOf(
+        "uncommon" to 2.25f,
+        "rare" to 5.5f,
+        "ultra-rare" to 5.5f
+    )
 
     const val SEARCH_RANGE: Int = 48
 
     override fun getValidTickingSpawners(): List<TickingSpawner> {
-        return validPokeSnackSpawners
+        return validPokeSnackSpawners.toList()
     }
 
     fun updateValidSpawners(server: MinecraftServer) {
@@ -45,9 +56,35 @@ object PokeSnackSpawnerManager : SpawnerManager() {
         validPokeSnackSpawners = newValidPokeSnackSpawners ?: mutableListOf<PokeSnackSpawner>()
     }
 
-    fun registerPokeSnackSpawner(pokeSnackSpawner: PokeSnackSpawner) {
-        pokeSnackSpawnersMap.put(pokeSnackSpawner.pokeSnackBlockEntity.blockPos, pokeSnackSpawner)
-        super.registerSpawner(pokeSnackSpawner)
+    fun registerPokeSnackSpawner(pokeSnackBlockEntity: PokeSnackBlockEntity): PokeSnackSpawner {
+        val newPokeSnackSpawner = PokeSnackSpawner(
+            name = "poke_snack_spawner_${pokeSnackBlockEntity.blockPos}",
+            manager = PokeSnackSpawnerManager,
+            pokeSnackBlockEntity = pokeSnackBlockEntity,
+        )
+
+        val baitEffects = pokeSnackBlockEntity.getBaitEffects()
+        val highestLureTier = baitEffects.filter { it.type == SpawnBait.Effects.RARITY_BUCKET }.maxOfOrNull { it.value }?.toInt() ?: 0
+
+        if (highestLureTier > 0) {
+            val bucketNormalizingInfluence = BucketNormalizingInfluence(tier = highestLureTier)
+            newPokeSnackSpawner.influences.add(bucketNormalizingInfluence)
+        }
+
+        val bucketMultiplyingInfluence = BucketMultiplyingInfluence(bucketMultipliers)
+        newPokeSnackSpawner.influences.add(bucketMultiplyingInfluence)
+
+        val seasoningsInfluence = SpawnBaitInfluence(effects = pokeSnackBlockEntity.getBaitEffects())
+        newPokeSnackSpawner.influences.add(seasoningsInfluence)
+
+        pokeSnackBlockEntity.ticksUntilNextSpawn?.let {
+            newPokeSnackSpawner.ticksBetweenSpawns = it.toFloat()
+        }
+
+        pokeSnackSpawnersMap.put(pokeSnackBlockEntity.blockPos, newPokeSnackSpawner)
+        super.registerSpawner(newPokeSnackSpawner)
+
+        return newPokeSnackSpawner
     }
 
     fun unregisterPokeSnackSpawner(pokeSnackSpawner: PokeSnackSpawner) {

@@ -86,6 +86,6 @@ open class SpawnerManager {
     }
 
     open fun getValidTickingSpawners(): List<TickingSpawner> {
-        return getSpawnersOfType<TickingSpawner>()
+        return getSpawnersOfType<TickingSpawner>().toList()
     }
 }

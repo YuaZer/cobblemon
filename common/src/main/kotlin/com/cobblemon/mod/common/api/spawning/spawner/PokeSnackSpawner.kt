@@ -40,14 +40,10 @@ class PokeSnackSpawner(
     }
 
     companion object {
-        const val RADIUS = 3
+        const val RADIUS = 8
         const val MIN_TICKS_BETWEEN_SPAWNS = 10 * 20 // 10 seconds
         const val MAX_TICKS_BETWEEN_SPAWNS = 15 * 20 // 15 seconds
         const val POKE_SNACK_CRUMBED_ASPECT = "poke_snack_crumbed"
-    }
-
-    override fun run(cause: SpawnCause): List<SpawnAction<*>> {
-        return super.run(cause)
     }
 
     override fun <R> afterSpawn(action: SpawnAction<R>, result: R) {
