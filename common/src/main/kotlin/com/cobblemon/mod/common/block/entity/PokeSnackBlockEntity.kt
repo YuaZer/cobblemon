@@ -41,9 +41,9 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
         fun serverTick(level: Level, pos: BlockPos, state: BlockState, pokeSnackBlockEntity: PokeSnackBlockEntity) {
             if (level.isClientSide) return
 
-            if (pokeSnackBlockEntity.pokeSnackSpawner == null) {
-                val newPokeSnackSpawner = PokeSnackSpawnerManager.registerPokeSnackSpawner(pokeSnackBlockEntity)
-                pokeSnackBlockEntity.pokeSnackSpawner = newPokeSnackSpawner
+            val pokeSnackSpawner = PokeSnackSpawnerManager.getPokeSnackSpawner(pos)
+            if (pokeSnackSpawner == null) {
+                PokeSnackSpawnerManager.registerPokeSnackSpawner(pokeSnackBlockEntity)
             }
         }
     }
@@ -52,7 +52,6 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
     var flavourComponent: FlavourComponent? = null
     var baitEffectsComponent: BaitEffectsComponent? = null
     var ingredientComponent: IngredientComponent? = null
-    var pokeSnackSpawner: PokeSnackSpawner? = null
     var ticksUntilNextSpawn: Int? = null
 
     fun initializeFromItemStack(itemStack: ItemStack) {
@@ -132,6 +131,7 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
                 }
         }
 
+        val pokeSnackSpawner = PokeSnackSpawnerManager.getPokeSnackSpawner(blockPos)
         pokeSnackSpawner?.let { component ->
             tag.putInt(DataKeys.TICKS_UNTIL_NEXT_SPAWN, component.ticksUntilNextSpawn.toInt())
         }

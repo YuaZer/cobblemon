@@ -56,7 +56,9 @@ object PokeSnackSpawnerManager : SpawnerManager() {
         validPokeSnackSpawners = newValidPokeSnackSpawners ?: mutableListOf<PokeSnackSpawner>()
     }
 
-    fun registerPokeSnackSpawner(pokeSnackBlockEntity: PokeSnackBlockEntity): PokeSnackSpawner {
+    fun registerPokeSnackSpawner(pokeSnackBlockEntity: PokeSnackBlockEntity) {
+        if (pokeSnackSpawnersMap.containsKey(pokeSnackBlockEntity.blockPos)) return
+
         val newPokeSnackSpawner = PokeSnackSpawner(
             name = "poke_snack_spawner_${pokeSnackBlockEntity.blockPos}",
             manager = PokeSnackSpawnerManager,
@@ -83,13 +85,22 @@ object PokeSnackSpawnerManager : SpawnerManager() {
 
         pokeSnackSpawnersMap.put(pokeSnackBlockEntity.blockPos, newPokeSnackSpawner)
         super.registerSpawner(newPokeSnackSpawner)
-
-        return newPokeSnackSpawner
     }
 
-    fun unregisterPokeSnackSpawner(pokeSnackSpawner: PokeSnackSpawner) {
+    fun unregisterPokeSnackSpawner(blockPos: BlockPos) {
+        val pokeSnackSpawner = getPokeSnackSpawner(blockPos) ?: return
         super.unregisterSpawner(pokeSnackSpawner)
         pokeSnackSpawnersMap.remove(pokeSnackSpawner.pokeSnackBlockEntity.blockPos, pokeSnackSpawner)
         validPokeSnackSpawners.remove(pokeSnackSpawner)
+    }
+
+    fun getPokeSnackSpawner(pos: BlockPos): PokeSnackSpawner? {
+        return pokeSnackSpawnersMap[pos]
+    }
+
+    override fun onServerStarted() {
+        super.onServerStarted()
+        pokeSnackSpawnersMap.clear()
+        validPokeSnackSpawners.clear()
     }
 }
