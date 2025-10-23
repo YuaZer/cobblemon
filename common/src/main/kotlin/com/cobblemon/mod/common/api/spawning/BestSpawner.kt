@@ -89,7 +89,7 @@ import net.minecraft.server.MinecraftServer
 object BestSpawner {
     var config = BestSpawnerConfig()
     val spawnerManagers = mutableListOf<SpawnerManager>(
-        // CobblemonWorldSpawnerManager,
+        CobblemonWorldSpawnerManager,
         PokeSnackSpawnerManager,
     )
 
