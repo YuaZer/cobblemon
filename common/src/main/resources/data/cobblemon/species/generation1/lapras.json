@@ -55,11 +55,11 @@
       "LIQUID": {
         "key": "cobblemon:liquid/boat",
         "stats": {
-          "SPEED": "10-20",
-          "ACCELERATION": "90-100",
-          "SKILL": "15-30",
-          "JUMP": "10-20",
-          "STAMINA": "15-30"
+          "SPEED": "40-50",
+          "ACCELERATION": "30-55",
+          "SKILL": "55-75",
+          "JUMP": "0-1",
+          "STAMINA": "55-85"
         }
       }
     },

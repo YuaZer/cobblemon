@@ -19,10 +19,24 @@
     "cry": "q.bedrock_stateful('dragonite', 'cry')"
   },
   "poses": {
-    "sleep": {
-      "poseTypes": [
-        "SLEEP"
+    "in-air": {
+      "poseTypes": ["STAND", "WALK"],
+      "isRideStyle": ["LIQUID"],
+      "isBattle": false,
+      "condition": "q.in_air && q.is_ridden",
+      "animations": [
+        "q.look('neck', 0.5, 1, 10, -10, 20, -20)",
+        "q.look('head', 1, 0.25, 10, -15, 5, -5)",
+        "q.bedrock('dragonite', 'water_idle')"
       ],
+      "transformTicks": 2,
+      "transformToTicks": 2
+    },
+    "sleep": {
+      "poseTypes": ["SLEEP"],
+      "namedAnimations": {
+        "cry": "q.bedrock_stateful('dummy', 'cry')"
+      },
       "animations": [
         "q.bedrock('dragonite', 'sleep')"
       ]

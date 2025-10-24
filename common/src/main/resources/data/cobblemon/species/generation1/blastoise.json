@@ -84,11 +84,11 @@
         "key": "cobblemon:liquid/boat",
         "rideSounds": [],
         "stats": {
-          "ACCELERATION": "55-85",
-          "JUMP": "0-10",
-          "SKILL": "10-40",
-          "SPEED": "30-65",
-          "STAMINA": "55-85"
+          "ACCELERATION": "30-55",
+          "JUMP": "10-20",
+          "SKILL": "20-40",
+          "SPEED": "35-40",
+          "STAMINA": "45-75"
         }
       }
     },

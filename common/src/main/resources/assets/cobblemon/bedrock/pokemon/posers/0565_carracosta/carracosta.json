@@ -19,6 +19,18 @@
     "cry": "q.bedrock_stateful('carracosta', 'cry')"
   },
   "poses": {
+    "in-air": {
+      "poseTypes": ["STAND", "WALK"],
+      "isRideStyle": ["LIQUID"],
+      "isBattle": false,
+      "condition": "q.in_air && q.is_ridden",
+      "animations": [
+        "q.look('head')",
+        "q.bedrock('carracosta', 'water_idle')"
+      ],
+      "transformTicks": 2,
+      "transformToTicks": 2
+    },
     "battle-standing": {
       "poseName": "battle-standing",
       "poseTypes": ["STAND"],
