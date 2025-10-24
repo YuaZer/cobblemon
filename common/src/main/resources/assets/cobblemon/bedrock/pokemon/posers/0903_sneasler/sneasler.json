@@ -5,7 +5,7 @@
   "profileTranslation": [0, 0.94, 0],
   "rootBone": "sneasler",
   "firstPersonCameraOffset": {
-    "seat_1": [0, -0.35, -1]
+    "seat_1": [0, 0.45, 0]
   },
   "thirdPersonCameraOffset": {
     "seat_1": [0, 0, 0],

@@ -5,7 +5,7 @@
   "profileTranslation": [0.05, 0.99, -10],
   "rootBone": "charizard",
   "firstPersonCameraOffset": {
-    "seat_1": [0, 0.25, 0]
+    "seat_1": [0, 0.45, 0]
   },
   "thirdPersonCameraOffsetNoViewBobbing": {
     "seat_1": [0, 3, 6],

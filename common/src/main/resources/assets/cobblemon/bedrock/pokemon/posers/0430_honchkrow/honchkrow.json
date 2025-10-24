@@ -5,7 +5,7 @@
   "profileScale": 0.77,
   "profileTranslation": [0, 0.54, 0],
   "firstPersonCameraOffset": {
-    "seat_1": [0, 0.3, 0]
+    "seat_1": [0, 0.45, 0]
   },
   "thirdPersonCameraOffset": {
     "seat_1": [0, 1, 2],

@@ -5,7 +5,7 @@
   "profileTranslation": [-0.1, 0.86, 0],
   "rootBone": "magnezone",
   "firstPersonCameraOffset": {
-    "seat_1": [0, 0.35, 0]
+    "seat_1": [0, 0.45, 0]
   },
   "thirdPersonCameraOffset": {
     "seat_1": [0, 0, 1],

@@ -5,7 +5,7 @@
   "profileTranslation": [0.04, 0.86, -5],
   "rootBone": "cyclizar",
   "firstPersonCameraOffset": {
-    "seat_1": [0, 0.25, 0]
+    "seat_1": [0, 0.45, 0]
   },
   "thirdPersonCameraOffset": {
     "seat_1": [0, 0, 1],

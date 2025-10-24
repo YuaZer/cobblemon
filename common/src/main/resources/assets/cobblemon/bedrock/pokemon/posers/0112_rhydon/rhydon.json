@@ -5,7 +5,7 @@
   "profileTranslation": [0.0, 0.89, 0.0],
   "rootBone": "rhydon",
   "firstPersonCameraOffset": {
-    "seat_1": [0, 0.5, 0]
+    "seat_1": [0, 0.45, 0]
   },
   "thirdPersonCameraOffset": {
     "seat_1": [0, 0, 1],

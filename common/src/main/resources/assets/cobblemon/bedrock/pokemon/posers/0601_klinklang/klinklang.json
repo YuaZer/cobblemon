@@ -5,11 +5,11 @@
   "profileTranslation": [-0.07, 0.82, 0],
   "rootBone": "klinklang",
   "firstPersonCameraOffset": {
-    "seat_1": [0, 0.2, 0]
+    "seat_1": [0, 0.45, 0]
   },
   "thirdPersonCameraOffset": {
-    "seat_1": [0, 0, 0],
-    "seat_1_reverse": [0, 0, 0]
+    "seat_1": [0, 1, 0],
+    "seat_1_reverse": [0, 1, 0]
   },
   "thirdPersonCameraOffsetNoViewBobbing": {
     "seat_1": [0, 1.25, 2],

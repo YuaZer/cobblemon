@@ -5,7 +5,7 @@
   "profileTranslation": [-0.06, 0.99, 0],
   "rootBone": "kingler",
   "firstPersonCameraOffset": {
-    "seat_1": [0, 0.35, 0]
+    "seat_1": [0, 0.45, 0]
   },
   "thirdPersonCameraOffset": {
     "seat_1": [0, 0, 1],
