@@ -10,6 +10,7 @@ package com.cobblemon.mod.common.item.crafting
 
 import com.cobblemon.mod.common.CobblemonRecipeSerializers
 import com.cobblemon.mod.common.CobblemonRecipeTypes
+import com.cobblemon.mod.common.api.tags.CobblemonItemTags
 import com.cobblemon.mod.common.util.codec.CodecUtils.createByStringCodec
 import com.cobblemon.mod.common.util.readIdentifier
 import com.cobblemon.mod.common.util.readString
@@ -74,7 +75,7 @@ class CookingPotShapelessRecipe(
                             else -> DataResult.success(NonNullList.of(Ingredient.EMPTY, *ingredients))
                         }
                     }, { DataResult.success(it) }).forGetter { it.ingredients },
-                    TagKey.codec(Registries.ITEM).fieldOf("seasoningTag").forGetter { recipe -> recipe.seasoningTag },
+                    TagKey.codec(Registries.ITEM).fieldOf("seasoningTag").orElse(CobblemonItemTags.EMPTY).forGetter { recipe -> recipe.seasoningTag },
                     createByStringCodec<SeasoningProcessor>(
                         { SeasoningProcessor.processors[it] },
                         { it.type },
