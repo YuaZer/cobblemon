@@ -222,5 +222,23 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "pancham",
+          "tier": 1
+        },
+        {
+          "pokemon": "pangoro",
+          "tier": 2
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

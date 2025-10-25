@@ -54,7 +54,8 @@
   "behaviour": {
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
     },
     "moving": {
       "swim": {
@@ -67,6 +68,9 @@
         "walkSpeed": 0.4,
         "canWalk": false
       }
+    },
+    "herd": {
+      "maxSize": "9"
     }
   },
   "drops": {

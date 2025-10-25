@@ -57,6 +57,18 @@
         "avoidsWater": true,
         "canSwimInWater": false
       }
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "claydol",
+          "tier": 1
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {

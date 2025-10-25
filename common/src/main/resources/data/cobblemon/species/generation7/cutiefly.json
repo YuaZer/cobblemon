@@ -65,7 +65,21 @@
     },
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
+    },
+    "herd": {
+      "maxSize": "6",
+      "toleratedLeaders": [
+        {
+          "pokemon": "cutiefly",
+          "tier": 1
+        },
+        {
+          "pokemon": "ribombee",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {

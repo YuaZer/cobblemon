@@ -52,7 +52,8 @@
   },
   "behaviour": {
     "resting": {
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -268,7 +269,8 @@
       "baseExperienceYield": 168,
       "dynamaxBlocked": true,
       "evolutions": [],
-      "battleOnly": true
+      "battleOnly": true,
+      "behaviour": {}
     }
   ]
 }

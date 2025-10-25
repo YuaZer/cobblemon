@@ -48,6 +48,17 @@
     "height": 0.85,
     "fixed": false
   },
+  "behaviour": {
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "larvesta",
+          "tier": 1
+        }
+      ]
+    }
+  },
   "drops": {
     "amount": 4,
     "entries": [

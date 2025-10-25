@@ -54,9 +54,31 @@
     "fixed": false
   },
   "behaviour": {
+    "moving": {
+      "walk": {
+        "canWalk": true,
+        "walkSpeed": 0.15
+      }
+    },
     "entityInteract": {
       "avoidedByCreeper": true,
       "avoidedByPhantom": true
+    },
+    "herd": {
+      "maxSize": "6",
+      "toleratedLeaders": [
+        {
+          "pokemon": "sneasel",
+          "tier": 1
+        },
+        {
+          "pokemon": "weavile",
+          "tier": 2
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -413,7 +435,21 @@
           "permanent": true
         }
       ],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "herd": {
+          "maxSize": "6",
+          "toleratedLeaders": [
+            {
+              "pokemon": "sneasel",
+              "tier": 1
+            }
+          ]
+        },
+        "resting": {
+          "willSleepOnBed": true
+        }
+      }
     }
   ]
 }

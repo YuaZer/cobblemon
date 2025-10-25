@@ -119,5 +119,20 @@
     "legacy:round",
     "legacy:snore"
   ],
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "regigigas",
+          "tier": 1
+        }
+      ]
+    }
+  },
+  "lightingData": {
+    "lightLevel": 11,
+    "liquidGlowMode": "BOTH"
+  }
 }

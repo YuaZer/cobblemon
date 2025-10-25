@@ -128,7 +128,7 @@ object CobblemonBlocks : PlatformRegistry<Registry<Block>, ResourceKey<Registry<
     @JvmField
     val APRICORN_FENCE = this.create("apricorn_fence", FenceBlock(BlockBehaviour.Properties.of().mapColor(APRICORN_PLANKS.defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0f).sound(SoundType.WOOD)))
     @JvmField
-    val APRICORN_FENCE_GATE = this.create("apricorn_fence_gate", FenceGateBlock(APRICORN_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(APRICORN_PLANKS.defaultMapColor()).strength(2.0f, 3.0f).sound(SoundType.WOOD)))
+    val APRICORN_FENCE_GATE = this.create("apricorn_fence_gate", FenceGateBlock(APRICORN_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(APRICORN_PLANKS.defaultMapColor()).strength(2.0f, 3.0f).sound(SoundType.WOOD).ignitedByLava().forceSolidOn()))
     @JvmField
     val APRICORN_BUTTON = this.create("apricorn_button", BlocksInvoker.createWoodenButtonBlock(APRICORN_BLOCK_SET_TYPE))
     @JvmField
@@ -205,7 +205,7 @@ object CobblemonBlocks : PlatformRegistry<Registry<Block>, ResourceKey<Registry<
     @JvmField
     val SACCHARINE_FENCE = this.create("saccharine_fence", FenceBlock(BlockBehaviour.Properties.of().mapColor(SACCHARINE_PLANKS.defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0f).sound(SoundType.WOOD)))
     @JvmField
-    val SACCHARINE_FENCE_GATE = this.create("saccharine_fence_gate", FenceGateBlock(SACCHARINE_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(SACCHARINE_PLANKS.defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0f).sound(SoundType.WOOD)))
+    val SACCHARINE_FENCE_GATE = this.create("saccharine_fence_gate", FenceGateBlock(SACCHARINE_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(SACCHARINE_PLANKS.defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0f).sound(SoundType.WOOD).ignitedByLava().forceSolidOn()))
     @JvmField
     val SACCHARINE_BUTTON = this.create("saccharine_button", BlocksInvoker.createWoodenButtonBlock(BlockSetType.OAK))
     @JvmField
@@ -213,7 +213,7 @@ object CobblemonBlocks : PlatformRegistry<Registry<Block>, ResourceKey<Registry<
     @JvmField
     val SACCHARINE_SIGN = this.create("saccharine_sign", CobblemonSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN), SACCHARINE_WOOD_TYPE))
     @JvmField
-    val SACCHARINE_WALL_SIGN = this.create("saccharine_wall_sign", CobblemonWallSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN), SACCHARINE_WOOD_TYPE))
+    val SACCHARINE_WALL_SIGN = this.create("saccharine_wall_sign", CobblemonWallSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN), SACCHARINE_WOOD_TYPE))
     @JvmField
     val SACCHARINE_HANGING_SIGN = this.create("saccharine_hanging_sign", CobblemonHangingSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN), SACCHARINE_WOOD_TYPE))
     @JvmField
@@ -522,7 +522,7 @@ object CobblemonBlocks : PlatformRegistry<Registry<Block>, ResourceKey<Registry<
     @JvmField
     val POTTED_PEP_UP_FLOWER = this.create("potted_pep_up_flower", BlocksInvoker.createFlowerPotBlock(PEP_UP_FLOWER))
     @JvmField
-    val HEARTY_GRAINS = this.create("hearty_grains", HeartyGrainsBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).ignitedByLava().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(CobblemonSounds.VIVICHOKE_SOUNDS)))
+    val HEARTY_GRAINS = this.create("hearty_grains", HeartyGrainsBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).ignitedByLava().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak()))
 
     @JvmField
     val GALARICA_NUT_BUSH = this.create("galarica_nut_bush", NutBushBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY)))
@@ -545,11 +545,11 @@ object CobblemonBlocks : PlatformRegistry<Registry<Block>, ResourceKey<Registry<
     val POTTED_SACCHARINE_SAPLING = this.create("potted_saccharine_sapling", BlocksInvoker.createFlowerPotBlock(SACCHARINE_SAPLING))
 
     @JvmField
-    val HEARTY_GRAIN_BALE = this.create("hearty_grain_bale", BaleBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).instrument(NoteBlockInstrument.BANJO).strength(0.5F).sound(SoundType.GRASS)))
+    val HEARTY_GRAIN_BALE = this.create("hearty_grain_bale", BaleBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).instrument(NoteBlockInstrument.BANJO).strength(0.5F).sound(CobblemonSounds.HEARTY_GRAIN_BALE_SOUNDS)))
     @JvmField
-    val TATAMI_BLOCK = this.create("tatami_block", HorizontalRotationalBlock(BlockBehaviour.Properties.of().ignitedByLava().mapColor(MapColor.PLANT).strength(0.1F).sound(SoundType.MOSS_CARPET)))
+    val TATAMI_BLOCK = this.create("tatami_block", HorizontalRotationalBlock(BlockBehaviour.Properties.of().ignitedByLava().mapColor(MapColor.PLANT).strength(0.1F).sound(CobblemonSounds.TATAMI_BLOCK_SOUNDS)))
     @JvmField
-    val TATAMI_MAT = this.create("tatami_mat", HorizontalRotationCarpetBlock(BlockBehaviour.Properties.of().ignitedByLava().mapColor(MapColor.PLANT).strength(0.1F).sound(SoundType.MOSS_CARPET)))
+    val TATAMI_MAT = this.create("tatami_mat", HorizontalRotationCarpetBlock(BlockBehaviour.Properties.of().ignitedByLava().mapColor(MapColor.PLANT).strength(0.1F).sound(CobblemonSounds.TATAMI_MAT_SOUNDS)))
 
     /**
      * Returns a map of all the blocks that can be stripped with an axe in the format of input - output.

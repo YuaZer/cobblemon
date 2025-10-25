@@ -21,7 +21,6 @@ import com.cobblemon.mod.common.api.molang.MoLangFunctions.addPokemonEntityFunct
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.addPokemonFunctions
 import com.cobblemon.mod.common.api.molang.ObjectValue
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties
-import com.cobblemon.mod.common.api.pokemon.stats.Stats
 import com.cobblemon.mod.common.api.pokemon.status.Statuses
 import com.cobblemon.mod.common.api.tags.CobblemonItemTags
 import com.cobblemon.mod.common.battles.BattleRegistry
@@ -41,8 +40,6 @@ import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.damagesource.DamageSource
-import net.minecraft.world.effect.MobEffectInstance
-import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.item.ItemStack
@@ -51,7 +48,6 @@ import org.joml.Matrix3f
 import org.joml.Vector3f
 import java.util.*
 import kotlin.math.ceil
-import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.pow
 import kotlin.math.round
@@ -80,12 +76,14 @@ class PokemonServerDelegate : PokemonSideDelegate {
         val moving = pokemon.form.behaviour.moving
         entity.setPathfindingMalus(PathType.LAVA, if (moving.swim.canSwimInLava) 12F else -1F)
         entity.setPathfindingMalus(PathType.WATER, if (moving.swim.canSwimInWater) 12F else -1F)
-        entity.setPathfindingMalus(PathType.WATER_BORDER, if (moving.swim.canSwimInWater) 6F else -1F)
+        entity.setPathfindingMalus(PathType.WATER_BORDER, if (moving.swim.canSwimInWater || moving.walk.avoidsLand || moving.swim.canBreatheUnderwater) 6F else -1F)
         if (moving.swim.canBreatheUnderwater) {
-            entity.setPathfindingMalus(PathType.WATER, if (moving.walk.avoidsLand) 0F else 4F)
+            // Must have a malus of zero to be a valid wander target
+            entity.setPathfindingMalus(PathType.WATER, 0F)
         }
         if (moving.swim.canBreatheUnderlava) {
-            entity.setPathfindingMalus(PathType.LAVA, if (moving.swim.canSwimInLava) 4F else -1F)
+            // Must have a malus of zero to be a valid wander target
+            entity.setPathfindingMalus(PathType.LAVA, if (moving.swim.canSwimInLava) 0F else -1F)
         }
         if (moving.walk.avoidsLand) {
             entity.setPathfindingMalus(PathType.WALKABLE, 12F)
@@ -237,6 +235,9 @@ class PokemonServerDelegate : PokemonSideDelegate {
 
         entity.entityData.set(PokemonEntity.FRIENDSHIP, entity.pokemon.friendship)
         entity.entityData.set(PokemonEntity.CAUGHT_BALL, trackedBall)
+        if (entity.pokemon.rideStamina != entity.entityData.get(PokemonEntity.RIDE_STAMINA) && entity.passengers.isEmpty()) {
+            entity.entityData.set(PokemonEntity.RIDE_STAMINA, entity.pokemon.rideStamina)
+        }
 
         val currentRideBoosts = entity.entityData.get(PokemonEntity.RIDE_BOOSTS)
         val newRideBoosts = entity.pokemon.getRideBoosts()
@@ -341,7 +342,11 @@ class PokemonServerDelegate : PokemonSideDelegate {
             return
         }
 
-        val isSleeping = (entity.brain.getMemorySafely(CobblemonMemories.POKEMON_SLEEPING).orElse(false) || entity.pokemon.status?.status == Statuses.SLEEP) && entity.behaviour.resting.canSleep
+        val isSleeping = if (entity.battle != null) {
+            entity.pokemon.status?.status == Statuses.SLEEP
+        } else {
+            (entity.brain.getMemorySafely(CobblemonMemories.POKEMON_SLEEPING).orElse(false) || entity.pokemon.status?.status == Statuses.SLEEP) && entity.behaviour.resting.canSleep
+        }
         val isMoving = entity.entityData.get(PokemonEntity.MOVING)
         val isPassenger = entity.isPassenger
         val isUnderwater = entity.getIsSubmerged()

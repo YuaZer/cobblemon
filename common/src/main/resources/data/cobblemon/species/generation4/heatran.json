@@ -171,5 +171,10 @@
     "legacy:uproar",
     "special:eruption"
   ],
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {},
+  "lightingData": {
+    "lightLevel": 8,
+    "liquidGlowMode": "LAND"
+  }
 }

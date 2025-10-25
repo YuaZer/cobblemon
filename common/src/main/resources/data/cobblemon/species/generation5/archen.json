@@ -54,7 +54,8 @@
   "behaviour": {
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
     },
     "moving": {
       "walk": {
@@ -66,6 +67,19 @@
         "canBreatheUnderwater": true,
         "swimSpeed": "0.2"
       }
+    },
+    "herd": {
+      "maxSize": "6",
+      "toleratedLeaders": [
+        {
+          "pokemon": "archen",
+          "tier": 1
+        },
+        {
+          "pokemon": "archeops",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {

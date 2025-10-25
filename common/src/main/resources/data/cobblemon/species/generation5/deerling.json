@@ -293,5 +293,31 @@
       ],
       "battleOnly": false
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "deerling",
+          "tier": 1
+        },
+        {
+          "pokemon": "stantler",
+          "tier": 2
+        },
+        {
+          "pokemon": "wyrdeer",
+          "tier": 3
+        },
+        {
+          "pokemon": "sawsbuck",
+          "tier": 4
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

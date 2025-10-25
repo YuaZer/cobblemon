@@ -189,5 +189,10 @@
     "legacy:uproar",
     "legacy:waterpulse"
   ],
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {},
+  "lightingData": {
+    "lightLevel": 4,
+    "liquidGlowMode": "BOTH"
+  }
 }

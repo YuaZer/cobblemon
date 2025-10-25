@@ -189,5 +189,27 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "magby",
+          "tier": 1
+        },
+        {
+          "pokemon": "magmar",
+          "tier": 2
+        },
+        {
+          "pokemon": "magmortar",
+          "tier": 3
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

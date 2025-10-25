@@ -12,7 +12,6 @@ import com.cobblemon.mod.common.CobblemonMenuType
 import com.cobblemon.mod.common.CobblemonRecipeTypes
 import com.cobblemon.mod.common.api.cooking.Seasonings
 import com.cobblemon.mod.common.block.entity.CampfireBlockEntity
-import com.cobblemon.mod.common.client.tooltips.itemTakesSeasoningData
 import com.cobblemon.mod.common.item.crafting.CookingPotRecipe
 import com.cobblemon.mod.common.item.crafting.CookingPotRecipeBase
 import net.minecraft.recipebook.ServerPlaceRecipe
@@ -42,7 +41,7 @@ class CookingPotMenu : RecipeBookMenu<CraftingInput, CookingPotRecipeBase>, Cont
     private val player: Player
     private val level: Level
     private val playerInventory: Inventory
-    private val container: CraftingContainer
+    val container: CraftingContainer
     private val resultContainer: ResultContainer
     val containerData: ContainerData
     private val recipeType: RecipeType<CookingPotRecipe> = CobblemonRecipeTypes.COOKING_POT_COOKING
@@ -57,7 +56,7 @@ class CookingPotMenu : RecipeBookMenu<CraftingInput, CookingPotRecipeBase>, Cont
             CampfireBlockEntity.Companion.CRAFTING_GRID_WIDTH
         )
         this.resultContainer = ResultContainer()
-        this.containerData = SimpleContainerData(3)
+        this.containerData = SimpleContainerData(4)
         this.addDataSlots(containerData)
         this.player = playerInventory.player
         this.level = playerInventory.player.level()
@@ -236,8 +235,8 @@ class CookingPotMenu : RecipeBookMenu<CraftingInput, CookingPotRecipeBase>, Cont
                 slot.onQuickCraft(slotItemStack, itemStack);
             } else if (index in CampfireBlockEntity.Companion.PLAYER_INVENTORY_SLOTS || index in CampfireBlockEntity.Companion.PLAYER_HOTBAR_SLOTS) {
                 if (Seasonings.isSeasoning(slotItemStack)) {
-                    if (!this.moveItemStackTo(slotItemStack, CampfireBlockEntity.Companion.SEASONING_SLOTS.first, CampfireBlockEntity.Companion.SEASONING_SLOTS.last + 1, false) &&
-                        !this.moveItemStackTo(slotItemStack, CampfireBlockEntity.Companion.CRAFTING_GRID_SLOTS.first, CampfireBlockEntity.Companion.CRAFTING_GRID_SLOTS.last + 1, false)
+                    if (!this.moveItemStackTo(slotItemStack, CampfireBlockEntity.Companion.CRAFTING_GRID_SLOTS.first, CampfireBlockEntity.Companion.CRAFTING_GRID_SLOTS.last + 1, false) &&
+                        !this.moveItemStackTo(slotItemStack, CampfireBlockEntity.Companion.SEASONING_SLOTS.first, CampfireBlockEntity.Companion.SEASONING_SLOTS.last + 1, false)
                     ) {
                         return ItemStack.EMPTY
                     }

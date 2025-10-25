@@ -155,5 +155,23 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "tandemaus",
+          "tier": 1
+        },
+        {
+          "pokemon": "maushold",
+          "tier": 2
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

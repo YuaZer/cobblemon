@@ -122,5 +122,14 @@
     "tutor:sleeptalk",
     "tutor:swift"
   ],
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {
+    "herd": {
+      "maxSize": "4"
+    }
+  },
+  "lightingData": {
+    "lightLevel": 6,
+    "liquidGlowMode": "BOTH"
+  }
 }

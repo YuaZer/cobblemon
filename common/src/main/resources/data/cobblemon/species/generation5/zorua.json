@@ -334,7 +334,29 @@
           ]
         }
       ],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "herd": {
+          "maxSize": "2"
+        },
+        "resting": {
+          "willSleepOnBed": true
+        }
+      }
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "zoroark",
+          "tier": 1
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

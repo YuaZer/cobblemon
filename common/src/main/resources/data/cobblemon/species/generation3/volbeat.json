@@ -60,7 +60,21 @@
     },
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "volbeat",
+          "tier": 1
+        },
+        {
+          "pokemon": "illumise",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -208,5 +222,9 @@
     "legacy:thunderbolt",
     "legacy:toxic"
   ],
-  "evolutions": []
+  "evolutions": [],
+  "lightingData": {
+    "lightLevel": 5,
+    "liquidGlowMode": "BOTH"
+  }
 }

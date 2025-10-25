@@ -60,7 +60,21 @@
     },
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "ledyba",
+          "tier": 1
+        },
+        {
+          "pokemon": "ledian",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {

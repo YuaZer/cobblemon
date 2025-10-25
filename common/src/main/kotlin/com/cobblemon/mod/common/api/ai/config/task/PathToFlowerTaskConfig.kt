@@ -24,7 +24,7 @@ class PathToFlowerTaskConfig : SingleTaskConfig {
 
     val condition = booleanVariable(POLLINATE, "can_pollinate", true).asExpressible()
 
-    override fun getVariables(entity: LivingEntity) = listOf(
+    override fun getVariables(entity: LivingEntity, behaviourConfigurationContext: BehaviourConfigurationContext) = listOf(
         condition
     ).asVariables()
 
@@ -36,16 +36,18 @@ class PathToFlowerTaskConfig : SingleTaskConfig {
             return null
         }
 
-        if (!checkCondition(entity, condition)) {
+        if (!checkCondition(behaviourConfigurationContext.runtime, condition)) {
             return null
         }
         behaviourConfigurationContext.addMemories(
-            CobblemonMemories.NEARBY_FLOWERS,
+            CobblemonMemories.NEARBY_FLOWER,
+            CobblemonMemories.PATH_TO_NEARBY_FLOWER_COOLDOWN,
             CobblemonMemories.HIVE_COOLDOWN,
             CobblemonMemories.HIVE_LOCATION,
-            CobblemonMemories.POLLINATED
+            CobblemonMemories.HIVE_BLACKLIST,
+            CobblemonMemories.HAS_NECTAR,
         )
-        behaviourConfigurationContext.addSensors(CobblemonSensors.NEARBY_BEE_HIVE, CobblemonSensors.NEARBY_FLOWER)
+        behaviourConfigurationContext.addSensors(CobblemonSensors.NEARBY_FLOWER)
         return PathToFlowerTask.create()
     }
 }

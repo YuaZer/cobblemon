@@ -100,13 +100,14 @@ class RideControlsOverlay : Gui(Minecraft.getInstance()) {
             // Don't render if duration config set to 0 or less
             if (maxDurationFrames <= 0F) return
 
-            val rideBehaviourSettings = riddenEntity.ridingBehaviourSettings
-            val rideBehaviourKey = rideBehaviourSettings?.key
+            val rideBehaviourSettings = riddenEntity.ridingController?.context?.settings ?: return
+            val ridingBehaviourState = riddenEntity.ridingController?.context?.state ?: return
+            val rideBehaviourKey = rideBehaviourSettings.key
 
             // Update current ride behaviour if changed
             // If composite, get active behaviour instead
             if (rideBehaviourKey == CompositeBehaviour.KEY) {
-                val activeBehaviour = (riddenEntity.ridingState as CompositeState).activeBehaviour.get()
+                val activeBehaviour = (ridingBehaviourState as CompositeState).activeBehaviour.get()
                 if (currentBehaviourKey != activeBehaviour) {
                     currentBehaviourKey = activeBehaviour
                     resetOverlayState()
@@ -134,7 +135,11 @@ class RideControlsOverlay : Gui(Minecraft.getInstance()) {
                 // Configure what controls to show for each behaviour
                 when (currentBehaviourKey) {
                     BirdBehaviour.KEY -> {}
-                    BoatBehaviour.KEY -> {}
+                    BoatBehaviour.KEY -> {
+                        showVerticalMouse = false
+                        showHorizontalMouse = false
+                        showSneakKey = false
+                    }
                     BurstBehaviour.KEY -> {}
                     DolphinBehaviour.KEY -> {}
                     GliderBehaviour.KEY -> {}
@@ -148,7 +153,6 @@ class RideControlsOverlay : Gui(Minecraft.getInstance()) {
                         showVerticalMouse = false
                     }
                     JetBehaviour.KEY -> {
-                       showMovementKeys = false
                        showSneakKey = false
                        showJumpKey = false
                     }

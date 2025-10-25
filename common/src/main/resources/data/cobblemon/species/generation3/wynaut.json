@@ -91,5 +91,19 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "wobbuffet",
+          "tier": 1
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

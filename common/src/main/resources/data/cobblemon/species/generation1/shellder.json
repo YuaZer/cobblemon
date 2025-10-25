@@ -59,6 +59,18 @@
         "canSwimInWater": true,
         "canSwimInLava": false
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "shellder",
+          "tier": 1
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {

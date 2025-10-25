@@ -300,7 +300,8 @@
       ],
       "preEvolution": "kubfu",
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {}
     },
     {
       "name": "Gmax",
@@ -453,5 +454,10 @@
       "evolutions": [],
       "battleOnly": true
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "3"
+    }
+  }
 }

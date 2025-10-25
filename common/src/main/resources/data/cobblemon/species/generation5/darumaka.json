@@ -54,12 +54,26 @@
   "behaviour": {
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
     },
     "moving": {
       "walk": {
         "walkSpeed": 0.2
       }
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "darumaka",
+          "tier": 1
+        },
+        {
+          "pokemon": "darmanitan",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -317,7 +331,25 @@
           "requiredContext": "cobblemon:ice_stone"
         }
       ],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "herd": {
+          "maxSize": "4",
+          "toleratedLeaders": [
+            {
+              "pokemon": "darumaka",
+              "tier": 1
+            },
+            {
+              "pokemon": "darmanitan",
+              "tier": 2
+            }
+          ]
+        },
+        "resting": {
+          "willSleepOnBed": true
+        }
+      }
     }
   ]
 }

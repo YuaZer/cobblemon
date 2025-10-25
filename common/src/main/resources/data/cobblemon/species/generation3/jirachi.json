@@ -214,5 +214,10 @@
     "special:heartstamp",
     "special:moonblast"
   ],
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

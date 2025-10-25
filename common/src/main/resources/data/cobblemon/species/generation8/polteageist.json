@@ -163,5 +163,19 @@
       "evolutions": [],
       "battleOnly": false
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "polteageist",
+          "tier": 1
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

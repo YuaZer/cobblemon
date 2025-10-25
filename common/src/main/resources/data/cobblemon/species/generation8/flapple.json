@@ -173,5 +173,19 @@
       "evolutions": [],
       "battleOnly": true
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "flapple",
+          "tier": 1
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

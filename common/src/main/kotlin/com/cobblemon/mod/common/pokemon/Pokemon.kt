@@ -58,6 +58,7 @@ import com.cobblemon.mod.common.api.pokemon.stats.Stats
 import com.cobblemon.mod.common.api.properties.CustomPokemonProperty
 import com.cobblemon.mod.common.api.reactive.SettableObservable
 import com.cobblemon.mod.common.api.riding.RidingProperties
+import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.api.scheduling.afterOnServer
 import com.cobblemon.mod.common.api.storage.StoreCoordinates
@@ -357,13 +358,26 @@ open class Pokemon : ShowdownIdentifiable {
 
     var currentFullness = 0
         set(value) {
-            if (value < 0) {
-                field = 0
-                return
-            }
-            FULLNESS_UPDATED.post(FullnessUpdatedEvent(this, value)) {
+            val clamped = value.coerceIn(0, getMaxFullness())
+            if (field == clamped) return
+
+            FULLNESS_UPDATED.post(FullnessUpdatedEvent(this, clamped)) {
                 field = it.newFullness
                 onChange(FullnessUpdatePacket({ this }, it.newFullness))
+            }
+        }
+
+    /**
+     * Just a persistence version of the ride stamina used to hold onto
+     * it between one ride and another. Only applied at the moment of
+     * mounting the Pokémon.
+     */
+    var rideStamina = 1F
+        set(value) {
+            val newValue = value.coerceIn(0F, 1F)
+            if (newValue != field) {
+                field = newValue
+                onChange(RideStaminaUpdatePacket({ this }, newValue))
             }
         }
 
@@ -643,6 +657,12 @@ open class Pokemon : ShowdownIdentifiable {
             onChange()
         }
 
+    /**
+     * Whether this Pokémon's held item can be dropped by its AI.
+     */
+    internal var canDropHeldItem: Boolean = false
+        get() = field || heldItem.isEmpty
+
     val riding: RidingProperties
         get() = this.form.riding
 
@@ -671,7 +691,7 @@ open class Pokemon : ShowdownIdentifiable {
     }
 
     fun sendOut(level: ServerLevel, position: Vec3, illusion: IllusionEffect?, mutation: (PokemonEntity) -> Unit = {}): PokemonEntity? {
-        CobblemonEvents.POKEMON_SENT_PRE.postThen(PokemonSentPreEvent(this, level, position)) {
+        CobblemonEvents.POKEMON_SENT_PRE.postThen(PokemonSentEvent.Pre(this, level, position)) {
             SeasonFeatureHandler.updateSeason(this, level, position.toBlockPos())
             val entity = PokemonEntity(level, this)
             illusion?.start(entity)
@@ -780,7 +800,7 @@ open class Pokemon : ShowdownIdentifiable {
                     it.phasingTargetId = -1
                     it.beamMode = 0
                     future.complete(it)
-                    CobblemonEvents.POKEMON_SENT_POST.post(PokemonSentPostEvent(this, it))
+                    CobblemonEvents.POKEMON_SENT_POST.post(PokemonSentEvent.Post(this, level, position, it))
                     if (doCry) {
                         it.cry()
                     }
@@ -837,7 +857,7 @@ open class Pokemon : ShowdownIdentifiable {
 
             afterOnServer(seconds = SEND_OUT_DURATION) {
                 future.complete(it)
-                CobblemonEvents.POKEMON_SENT_POST.post(PokemonSentPostEvent(this, it))
+                CobblemonEvents.POKEMON_SENT_POST.post(PokemonSentEvent.Post(this, level, currentPosition, it))
                 if (doCry) {
                     it.cry()
                 }
@@ -849,10 +869,12 @@ open class Pokemon : ShowdownIdentifiable {
     }
 
     fun recall() {
-        CobblemonEvents.POKEMON_RECALLED.post(PokemonRecalledEvent(this, this.entity))
-        val state = this.state as? ActivePokemonState
-        this.state = InactivePokemonState()
-        state?.recall()
+        CobblemonEvents.POKEMON_RECALL_PRE.postThen(PokemonRecallEvent.Pre(this, this.entity)) {
+            val state = this.state as? ActivePokemonState
+            this.state = InactivePokemonState()
+            state?.recall()
+            CobblemonEvents.POKEMON_RECALL_POST.post(PokemonRecallEvent.Post(this, this.entity))
+        }
     }
 
     fun tryRecallWithAnimation() {
@@ -1153,7 +1175,7 @@ open class Pokemon : ShowdownIdentifiable {
      *
      * @see [HeldItemEvent]
      */
-    fun swapHeldItem(stack: ItemStack, decrement: Boolean = true): ItemStack {
+    fun swapHeldItem(stack: ItemStack, decrement: Boolean = true, aiCanDrop: Boolean = true): ItemStack {
         val existing = this.heldItem()
         val event = HeldItemEvent.Pre(this, stack, existing, decrement)
         if (!isClient) {
@@ -1165,6 +1187,7 @@ open class Pokemon : ShowdownIdentifiable {
                 event.receiving.shrink(1)
             }
             this.heldItem = giving
+            this.canDropHeldItem = giving.isEmpty || aiCanDrop
             onChange(HeldItemUpdatePacket({ this }, giving))
             CobblemonEvents.HELD_ITEM_POST.post(HeldItemEvent.Post(this, this.heldItem(), event.returning.copy(), event.decrement)) {
                 StashHandler.giveHeldItem(it)
@@ -1369,6 +1392,7 @@ open class Pokemon : ShowdownIdentifiable {
         this.nature = other.nature
         this.mintedNature = other.mintedNature
         this.heldItem = other.heldItem
+        this.canDropHeldItem = other.canDropHeldItem
         this.persistentData = other.persistentData
         this.tetheringId = other.tetheringId
         this.teraType = other.teraType
@@ -1811,8 +1835,10 @@ open class Pokemon : ShowdownIdentifiable {
         moveSet.update()
     }
 
-    fun getMaxRideBoost(stat: RidingStat): Int {
-        return form.riding.stats[stat]?.ranges?.maxOf { it.value.endInclusive } ?: 0
+    fun getMaxRideBoost(stat: RidingStat): Float {
+        val behaviours = form.riding.behaviours ?: return 0F
+        // Get the widest range for this stat, max - min, since that's how far it can be boosted in theory.
+        return behaviours.values.maxOfOrNull { it.stats[stat]?.let { it.last - it.first }?.toFloat() ?: 0F } ?: 0F
     }
 
     fun getRideBoost(stat: RidingStat): Float {
@@ -1823,32 +1849,58 @@ open class Pokemon : ShowdownIdentifiable {
         return rideBoosts.toMap()
     }
 
-    fun canAddRideBoost(stat: RidingStat, boost: Float): Boolean {
-        val max = getMaxRideBoost(stat)
-        val current = rideBoosts[stat] ?: 0F
-        return current + boost <= max
+    fun getRideStat(style: RidingStyle, stat: RidingStat): Float {
+        form.riding.behaviours?.let {
+            return it[style]?.calculate(stat, getRideBoost(stat)) ?: 0F
+        }
+        return 0F
     }
 
-    fun addRideBoost(stat: RidingStat, boost: Float): Boolean {
-        if (!canAddRideBoost(stat, boost)) {
+    fun canAddRideBoost(stat: RidingStat): Boolean {
+        val current = rideBoosts[stat] ?: 0F
+        return current < getMaxRideBoost(stat)
+    }
+
+    fun addRideBoost(stat: RidingStat, boostAmount: Float): Boolean {
+        if (!canAddRideBoost(stat)) {
             return false
         }
         val max = getMaxRideBoost(stat)
-        rideBoosts[stat] = (getRideBoost(stat) + boost).coerceIn(0F, max.toFloat())
-        onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
+        rideBoosts[stat] = (getRideBoost(stat) + boostAmount).coerceAtMost(max)
+        onChange(RideBoostsUpdatePacket({ this }, getRideBoosts()))
         return true
     }
 
+    fun addRideBoosts(boosts: Map<RidingStat, Float>) {
+        var changed = false
+
+        for (boost in boosts) {
+            val (stat, boostAmount) = boost
+
+            if (!canAddRideBoost(stat)) {
+                continue
+            }
+
+            val max = getMaxRideBoost(stat)
+            rideBoosts[stat] = (getRideBoost(stat) + boostAmount).coerceAtMost(max)
+
+            changed = true
+        }
+
+        if (changed) {
+            onChange(RideBoostsUpdatePacket({ this }, getRideBoosts()))
+        }
+    }
+
     fun setRideBoost(stat: RidingStat, boost: Float) {
-        val max = getMaxRideBoost(stat)
-        rideBoosts[stat] = boost.coerceIn(0F, max.toFloat())
-        onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
+        rideBoosts[stat] = boost.coerceIn(0F, getMaxRideBoost(stat))
+        onChange(RideBoostsUpdatePacket({ this }, getRideBoosts()))
     }
 
     fun setRideBoosts(boosts: Map<RidingStat, Float>) {
         rideBoosts.clear()
-        rideBoosts.putAll(boosts.mapValues { it.value.coerceIn(0F, getMaxRideBoost(it.key).toFloat()) })
-        onChange(RideBoostsUpdatePacket({ this }, rideBoosts))
+        rideBoosts.putAll(boosts.mapValues { it.value.coerceIn(0F, getMaxRideBoost(it.key)) })
+        onChange(RideBoostsUpdatePacket({ this }, getRideBoosts()))
     }
 
     fun getExperienceToNextLevel() = getExperienceToLevel(level + 1)
@@ -1867,7 +1919,7 @@ open class Pokemon : ShowdownIdentifiable {
         if (result.experienceAdded <= 0) {
             return result
         }
-        player.sendSystemMessage(lang("experience.gained", getDisplayName(), xp), true)
+        player.sendSystemMessage(lang("experience.gained", getDisplayName(), result.experienceAdded), true)
         if (result.oldLevel != result.newLevel) {
             player.sendSystemMessage(lang("experience.level_up", getDisplayName(), result.newLevel))
             val repeats = result.newLevel - result.oldLevel
@@ -1914,7 +1966,7 @@ open class Pokemon : ShowdownIdentifiable {
         val previousLevelUpMoves = form.moves.getLevelUpMovesUpTo(oldLevel)
         var appliedXP = xp
         CobblemonEvents.EXPERIENCE_GAINED_EVENT_PRE.postThen(
-            event = ExperienceGainedPreEvent(this, source, appliedXP),
+            event = ExperienceGainedEvent.Pre(this, source, appliedXP),
             ifSucceeded = { appliedXP = it.experience},
             ifCanceled = {
                 return AddExperienceResult(level, level, emptySet(), 0)
@@ -1941,7 +1993,7 @@ open class Pokemon : ShowdownIdentifiable {
         }
 
         CobblemonEvents.EXPERIENCE_GAINED_EVENT_POST.post(
-            ExperienceGainedPostEvent(this, source, appliedXP, oldLevel, newLevel, differences),
+            ExperienceGainedEvent.Post(this, source, appliedXP, oldLevel, newLevel, differences),
             then = { return AddExperienceResult(oldLevel, newLevel, it.learnedMoves, appliedXP) }
         )
 

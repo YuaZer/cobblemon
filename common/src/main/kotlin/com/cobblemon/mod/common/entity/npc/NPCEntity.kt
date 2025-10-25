@@ -385,7 +385,7 @@ class NPCEntity(world: Level) : AgeableMob(CobblemonEntities.NPC, world), Npc, P
     fun getBattleConfiguration() = battle ?: npc.battleConfiguration
 
     /** Retrieves the battle theme associated with this Pokemon's Species/Form, or the default PVW theme if not found. */
-    fun getBattleTheme() = this.npc.battleTheme?.let(BuiltInRegistries.SOUND_EVENT::get) ?: CobblemonSounds.PVN_BATTLE
+    fun getBattleTheme() = this.npc.battleTheme ?: CobblemonSounds.PVN_BATTLE.location
 
     override fun tick() {
         super.tick()
@@ -696,7 +696,19 @@ class NPCEntity(world: Level) : AgeableMob(CobblemonEntities.NPC, world), Npc, P
         return false
     }
 
+    override fun canWalkOnLava(): Boolean {
+        return false
+    }
+
     override fun canSwimUnderFluid(fluidState: FluidState): Boolean {
+        return false
+    }
+
+    override fun canWalkOnWater(): Boolean {
+        return false
+    }
+
+    override fun canPathThroughSaccLeaves(): Boolean {
         return false
     }
 

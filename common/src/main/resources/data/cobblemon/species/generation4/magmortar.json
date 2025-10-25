@@ -216,5 +216,14 @@
     "legacy:toxic"
   ],
   "preEvolution": "magmar",
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {
+    "herd": {
+      "maxSize": "5"
+    }
+  },
+  "lightingData": {
+    "lightLevel": 7,
+    "liquidGlowMode": "LAND"
+  }
 }

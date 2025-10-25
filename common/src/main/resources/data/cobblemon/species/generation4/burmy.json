@@ -231,5 +231,10 @@
       ],
       "battleOnly": false
     }
-  ]
+  ],
+  "behaviour": {
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

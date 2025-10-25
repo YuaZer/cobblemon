@@ -56,13 +56,17 @@
   "behaviour": {
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
     },
     "moving": {
       "swim": {
         "avoidsWater": true,
         "canSwimInWater": false
       }
+    },
+    "herd": {
+      "maxSize": "2"
     }
   },
   "drops": {
@@ -409,7 +413,12 @@
           ]
         }
       ],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "herd": {
+          "maxSize": "2"
+        }
+      }
     }
   ]
 }

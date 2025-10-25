@@ -178,7 +178,12 @@
         "pom_pom-style"
       ],
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "resting": {
+          "willSleepOnBed": true
+        }
+      }
     },
     {
       "name": "Pa’u",
@@ -216,7 +221,26 @@
         "sensu-style"
       ],
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "resting": {
+          "willSleepOnBed": true
+        }
+      }
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "oricorio",
+          "tier": 1
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

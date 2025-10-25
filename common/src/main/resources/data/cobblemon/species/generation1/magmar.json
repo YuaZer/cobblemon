@@ -213,5 +213,20 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "3",
+      "toleratedLeaders": [
+        {
+          "pokemon": "magmortar",
+          "tier": 1
+        }
+      ]
+    }
+  },
+  "lightingData": {
+    "lightLevel": 6,
+    "liquidGlowMode": "LAND"
+  }
 }

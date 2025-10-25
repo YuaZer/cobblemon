@@ -51,7 +51,21 @@
   "behaviour": {
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "fomantis",
+          "tier": 1
+        },
+        {
+          "pokemon": "lurantis",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {

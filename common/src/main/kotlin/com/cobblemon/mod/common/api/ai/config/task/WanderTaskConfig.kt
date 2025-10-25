@@ -14,8 +14,11 @@ import com.cobblemon.mod.common.api.ai.CobblemonWanderControl
 import com.cobblemon.mod.common.api.ai.ExpressionOrEntityVariable
 import com.cobblemon.mod.common.api.ai.asVariables
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMostSpecificMoLangValue
+import com.cobblemon.mod.common.entity.OmniPathingEntity
+import com.cobblemon.mod.common.entity.ai.CobblemonRandomSurfacePos
 import com.cobblemon.mod.common.entity.ai.CobblemonWalkTarget
 import com.cobblemon.mod.common.util.asExpression
+import com.cobblemon.mod.common.util.mainThreadRuntime
 import com.cobblemon.mod.common.util.resolveFloat
 import com.cobblemon.mod.common.util.toVec3d
 import com.cobblemon.mod.common.util.withQueryValue
@@ -25,6 +28,7 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.entity.ai.behavior.BehaviorControl
+import net.minecraft.world.entity.ai.behavior.BehaviorUtils
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder
 import net.minecraft.world.entity.ai.behavior.declarative.Trigger
@@ -36,27 +40,31 @@ import net.minecraft.world.level.pathfinder.PathType
 class WanderTaskConfig : SingleTaskConfig {
     companion object {
         const val WANDER = "wander" // Category
+        const val MAX_LOOK_DOWN_DISTANCE = 64
     }
 
     val condition = booleanVariable(WANDER, "wanders", true).asExpressible()
-    val wanderChance = numberVariable(WANDER, "wander_chance", 1/(20 * 6F)).asExpressible()
+    val wanderChance = numberVariable(WANDER, "wander_chance", 1 / (20 * 6F)).asExpressible()
     val horizontalRange = numberVariable(WANDER, "horizontal_wander_range", 10).asExpressible()
     val verticalRange = numberVariable(WANDER, "vertical_wander_range", 5).asExpressible()
-    val speedMultiplier = numberVariable(SharedEntityVariables.MOVEMENT_CATEGORY, SharedEntityVariables.WALK_SPEED, 0.35).asExpressible()
-    val avoidTargetingAir: ExpressionOrEntityVariable = Either.left("true".asExpression()) // Whether to avoid air blocks when wandering
+    val speedMultiplier =
+        numberVariable(SharedEntityVariables.MOVEMENT_CATEGORY, SharedEntityVariables.WALK_SPEED, 0.35).asExpressible()
+    val avoidTargetingAir: ExpressionOrEntityVariable =
+        Either.left("true".asExpression()) // Whether to avoid air blocks when wandering
     val minimumHeight: ExpressionOrEntityVariable = Either.left("0".asExpression()) // Height off the ground
     val maximumHeight: ExpressionOrEntityVariable = Either.left("-1".asExpression()) // Height off the ground
 
-    override fun getVariables(entity: LivingEntity) = listOf(
-        condition,
-        wanderChance,
-        horizontalRange,
-        verticalRange,
-        speedMultiplier,
-        avoidTargetingAir,
-        minimumHeight,
-        maximumHeight
-    ).asVariables()
+    override fun getVariables(entity: LivingEntity, behaviourConfigurationContext: BehaviourConfigurationContext) =
+        listOf(
+            condition,
+            wanderChance,
+            horizontalRange,
+            verticalRange,
+            speedMultiplier,
+            avoidTargetingAir,
+            minimumHeight,
+            maximumHeight
+        ).asVariables()
 
     private fun applyHeightConstraints(
         pos: BlockPos,
@@ -72,10 +80,18 @@ class WanderTaskConfig : SingleTaskConfig {
         val altitude = if (!block.isAir) {
             0
         } else {
-            (1..64).firstOrNull {
+            (1..MAX_LOOK_DOWN_DISTANCE).firstOrNull {
                 val newPos = pos.below(it)
-                return@firstOrNull !world.getBlockState(newPos).isAir
-            } ?: Int.MAX_VALUE
+                if (!world.getBlockState(newPos).isAir) {
+                    return@firstOrNull true
+                } else if (newPos.y <= world.minBuildHeight) {
+                    // Don't adjust downward into the void (Mostly if we're in the end)
+                    // This doesn't stop fliers from wandering off end islands,
+                    // but it does stop them from diving directly into the void.
+                    return pos
+                }
+                return@firstOrNull false
+            } ?: MAX_LOOK_DOWN_DISTANCE
         }
 
         if (altitude > maximumHeight && maximumHeight >= 0) {
@@ -97,8 +113,7 @@ class WanderTaskConfig : SingleTaskConfig {
         entity: LivingEntity,
         behaviourConfigurationContext: BehaviourConfigurationContext
     ): BehaviorControl<in LivingEntity>? {
-        runtime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
-        if (!condition.resolveBoolean()) return null
+        if (!condition.resolveBoolean(behaviourConfigurationContext.runtime)) return null
 
         val wanderChanceExpression = wanderChance.asSimplifiedExpression(entity)
 
@@ -117,22 +132,20 @@ class WanderTaskConfig : SingleTaskConfig {
                 it.registered(CobblemonMemories.WANDER_CONTROL)
             ).apply(it) { walkTarget, lookTarget, pathCooldown, wanderControl ->
                 Trigger { world, entity, time ->
-                    if (entity !is PathfinderMob || entity.isUnderWater) {
+                    if (entity !is PathfinderMob || (entity.isUnderWater && !(entity.canBreatheUnderwater() && !((entity as OmniPathingEntity).canSwimInWater())))) {
                         return@Trigger false
                     }
 
                     val wanderControl = it.tryGet(wanderControl).orElse(null) ?: CobblemonWanderControl()
-                    val avoidsTargetingAir = avoidTargetingAir.resolveBoolean()
-
-                    runtime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
-                    val wanderChance = runtime.resolveFloat(wanderChanceExpression)
-                    if (wanderChance <= 0 || world.random.nextFloat() > wanderChance || !wanderControl.allowLand) {
+                    mainThreadRuntime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
+                    val avoidsTargetingAir = avoidTargetingAir.resolveBoolean(mainThreadRuntime)
+                    val wanderChance = mainThreadRuntime.resolveFloat(wanderChanceExpression)
+                    if (wanderChance <= 0 || world.random.nextFloat() > wanderChance) {
                         return@Trigger false
                     }
-
                     pathCooldown.setWithExpiry(true, wanderControl.pathCooldownTicks.toLong())
-                    val minimumHeight = minimumHeight.resolveInt()
-                    val maximumHeight = maximumHeight.resolveInt()
+                    val minimumHeight = minimumHeight.resolveInt(mainThreadRuntime)
+                    val maximumHeight = maximumHeight.resolveInt(mainThreadRuntime)
 
                     var attempts = 0
                     var pos: BlockPos? = null
@@ -141,21 +154,35 @@ class WanderTaskConfig : SingleTaskConfig {
                         val targetVec = if (maximumHeight != -1) {
                             HoverRandomPos.getPos(
                                 entity,
-                                horizontalRange.resolveInt(),
-                                maxOf(verticalRange.resolveInt(), maximumHeight), // In case they fly up pretty high and need to find a way down
+                                horizontalRange.resolveInt(mainThreadRuntime),
+                                verticalRange.resolveInt(mainThreadRuntime),
                                 entity.random.nextFloat() - 0.5,
                                 entity.random.nextFloat() - 0.5,
                                 Math.PI.toFloat(),
                                 maximumHeight,
                                 minimumHeight
                             )
+                        } else if (entity.isUnderWater && entity.canBreatheUnderwater() && !((entity as OmniPathingEntity).canSwimInWater())) {
+                            BehaviorUtils.getRandomSwimmablePos(
+                                entity,
+                                horizontalRange.resolveInt(mainThreadRuntime),
+                                verticalRange.resolveInt(mainThreadRuntime)
+                            )
+                        } else if (entity is OmniPathingEntity && (entity.canWalkOnWater() || entity.canWalkOnLava())) {
+                            CobblemonRandomSurfacePos.getPos(
+                                entity,
+                                horizontalRange.resolveInt(mainThreadRuntime),
+                                verticalRange.resolveInt(mainThreadRuntime)
+                            )
                         } else {
-                                LandRandomPos.getPos(
-                                    entity,
-                                    horizontalRange.resolveInt(),
-                                    verticalRange.resolveInt()
-                                )
+                            LandRandomPos.getPos(
+                                entity,
+                                horizontalRange.resolveInt(mainThreadRuntime),
+                                verticalRange.resolveInt(mainThreadRuntime)
+                            )
                         } ?: continue
+
+                        if (targetVec == null) continue
 
                         pos = applyHeightConstraints(
                             pos = BlockPos.containing(targetVec),
@@ -172,10 +199,19 @@ class WanderTaskConfig : SingleTaskConfig {
                     walkTarget.set(
                         CobblemonWalkTarget(
                             pos = pos,
-                            speedModifier = speedMultiplier.resolveFloat(),
+                            speedModifier = speedMultiplier.resolveFloat(mainThreadRuntime),
                             completionRange = 0,
-                            nodeTypeFilter = { nodeType -> nodeType !in listOf(PathType.WATER, PathType.WATER_BORDER) },
-                            destinationNodeTypeFilter = { nodeType -> !avoidsTargetingAir || nodeType !in listOf(PathType.OPEN) }
+                            nodeTypeFilter = { nodeType ->
+                                entity.canBreatheUnderwater() || nodeType !in listOf(
+                                    PathType.WATER,
+                                    PathType.WATER_BORDER
+                                )
+                            },
+                            destinationNodeTypeFilter = { nodeType ->
+                                !avoidsTargetingAir || nodeType !in listOf(
+                                    PathType.OPEN
+                                )
+                            }
                         )
                     )
                     lookTarget.set(BlockPosTracker(pos.toVec3d().add(0.0, entity.eyeHeight.toDouble(), 0.0)))

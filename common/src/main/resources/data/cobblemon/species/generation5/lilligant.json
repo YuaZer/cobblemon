@@ -359,7 +359,13 @@
       ],
       "preEvolution": "petilil",
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {}
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "5"
+    }
+  }
 }

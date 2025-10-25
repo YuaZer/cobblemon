@@ -160,5 +160,10 @@
     "legacy:toxic"
   ],
   "preEvolution": "silcoon",
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

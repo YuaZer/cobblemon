@@ -159,5 +159,10 @@
     "legacy:toxic"
   ],
   "preEvolution": "burmy",
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

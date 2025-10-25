@@ -167,5 +167,19 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "3",
+      "toleratedLeaders": [
+        {
+          "pokemon": "tsareena",
+          "tier": 1
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

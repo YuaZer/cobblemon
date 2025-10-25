@@ -18,6 +18,7 @@ import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMostSpecificMoLangV
 import com.cobblemon.mod.common.api.npc.configuration.MoLangConfigVariable
 import com.cobblemon.mod.common.entity.ai.CobblemonWalkTarget
 import com.cobblemon.mod.common.util.asExpression
+import com.cobblemon.mod.common.util.mainThreadRuntime
 import com.cobblemon.mod.common.util.resolveFloat
 import com.cobblemon.mod.common.util.withQueryValue
 import com.mojang.datafixers.util.Either
@@ -30,17 +31,19 @@ import net.minecraft.world.entity.ai.behavior.BlockPosTracker
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder
 import net.minecraft.world.entity.ai.behavior.declarative.Trigger
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
+import net.minecraft.world.level.material.Fluids
 import net.minecraft.world.level.pathfinder.PathType
 import net.minecraft.world.phys.Vec3
+import kotlin.math.ceil
 
 class WaterWanderTaskConfig : SingleTaskConfig {
     val condition = booleanVariable(WANDER, "water_wanders", true).asExpressible()
     val wanderChance = numberVariable(WANDER, "water_wander_chance", 1/(20 * 3F)).asExpressible()
     val speedMultiplier = numberVariable(SharedEntityVariables.MOVEMENT_CATEGORY, SharedEntityVariables.WALK_SPEED, 0.35).asExpressible()
     val horizontalRange: ExpressionOrEntityVariable = Either.left("10.0".asExpression())
-    val verticalRange: ExpressionOrEntityVariable = Either.left("3.0".asExpression())
+    val verticalRange: ExpressionOrEntityVariable = Either.left("7.0".asExpression())
 
-    override fun getVariables(entity: LivingEntity): List<MoLangConfigVariable> {
+    override fun getVariables(entity: LivingEntity, behaviourConfigurationContext: BehaviourConfigurationContext): List<MoLangConfigVariable> {
         return listOf(condition, wanderChance, speedMultiplier).asVariables()
     }
 
@@ -48,8 +51,7 @@ class WaterWanderTaskConfig : SingleTaskConfig {
         entity: LivingEntity,
         behaviourConfigurationContext: BehaviourConfigurationContext
     ): BehaviorControl<in LivingEntity>? {
-        runtime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
-        if (!condition.resolveBoolean()) return null
+        if (!condition.resolveBoolean(behaviourConfigurationContext.runtime)) return null
 
         val wanderChanceExpression = wanderChance.asSimplifiedExpression(entity)
 
@@ -77,8 +79,8 @@ class WaterWanderTaskConfig : SingleTaskConfig {
                         return@Trigger false
                     }
 
-                    runtime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
-                    val wanderChance = runtime.resolveFloat(wanderChanceExpression)
+                    mainThreadRuntime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
+                    val wanderChance = mainThreadRuntime.resolveFloat(wanderChanceExpression)
                     if (wanderChance <= 0 || world.random.nextFloat() > wanderChance) {
                         return@Trigger false
                     }
@@ -91,7 +93,7 @@ class WaterWanderTaskConfig : SingleTaskConfig {
 
                     while (attempts < wanderControl.maxAttempts && pos == null) {
                         attempts++
-                        target = BehaviorUtils.getRandomSwimmablePos(entity, horizontalRange.resolveInt(), verticalRange.resolveInt())
+                        target = BehaviorUtils.getRandomSwimmablePos(entity, horizontalRange.resolveInt(mainThreadRuntime), verticalRange.resolveInt(mainThreadRuntime))
                             ?: continue
                         pos = BlockPos.containing(target).takeIf(wanderControl::isSuitable)
                     }
@@ -100,11 +102,38 @@ class WaterWanderTaskConfig : SingleTaskConfig {
                         return@Trigger false
                     }
 
+                    // Move target pos down so that we don't move out of water too much
+                    val requiredDepth = ceil(0.5 + entity.eyeHeight)
+                    // Get the current depth of the block
+                    var depth = 1
+                    var testPos = pos.above()
+                    var blockState = entity.level().getBlockState(testPos)
+                    while (blockState.fluidState.type == Fluids.WATER) {
+                        depth++
+                        testPos = testPos!!.above()
+                        blockState = entity.level().getBlockState(testPos)
+                    }
+
+                    if (depth < requiredDepth) {
+                        // Iterate down until we reach the desired min depth or we reach a non water block
+                        pos = pos.below()
+                        blockState = entity.level().getBlockState(pos)
+                        while (blockState.fluidState.type == Fluids.WATER && depth < requiredDepth) {
+                            depth ++
+                            pos = pos!!.below()
+                            blockState = entity.level().getBlockState(pos)
+                        }
+                    }
+
+                    if (depth < requiredDepth) {
+                        return@Trigger false
+                    }
+
                     walkTarget.set(
                         CobblemonWalkTarget(
                             pos = pos,
                             nodeTypeFilter = { it == PathType.WATER || it == PathType.WATER_BORDER },
-                            speedModifier = speedMultiplier.resolveFloat(),
+                            speedModifier = speedMultiplier.resolveFloat(mainThreadRuntime),
                             completionRange = 0
                         )
                     )

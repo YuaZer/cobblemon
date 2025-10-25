@@ -131,5 +131,10 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }
