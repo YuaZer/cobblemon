@@ -182,7 +182,7 @@ class CookingPotMenu : RecipeBookMenu<CraftingInput, CookingPotRecipeBase>, Cont
                 container.items.subList(CampfireBlockEntity.SEASONING_SLOTS.first,
                     CampfireBlockEntity.SEASONING_SLOTS.last + 1)
                     .filterNotNull()
-                    .filter { !it.isEmpty })
+                    .filter { !it.isEmpty && it.`is`(recipe.value.seasoningTag) })
 
         } else previewItem = ItemStack.EMPTY
     }
