@@ -22,7 +22,7 @@
         "id": "cobblemon:poke_puff",
         "count": 4
     },
-    "seasoningTag": "cobblemon:empty",
+    "seasoningTag": "cobblemon:recipe_filters/poke_puff_seasoner",
     "seasoningProcessors": [
         "ingredient",
         "flavour",

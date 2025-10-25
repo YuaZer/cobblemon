@@ -13,7 +13,7 @@
     "result": {
         "id": "cobblemon:aprijuice_red"
     },
-    "seasoningTag": "cobblemon:berries",
+    "seasoningTag": "cobblemon:recipe_filters/flavour_seasoning",
     "seasoningProcessors": [
         "flavour"
     ]

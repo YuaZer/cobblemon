@@ -23,7 +23,7 @@
     "result": {
         "id": "cobblemon:poke_cake"
     },
-    "seasoningTag": "cobblemon:empty",
+    "seasoningTag": "cobblemon:recipe_filters/colour_seasoning",
     "seasoningProcessors": [
         "flavour",
         "ingredient"
