@@ -16,6 +16,7 @@
         "id": "cobblemon:poke_bait",
         "count": 4
     },
+    "seasoningTag": "cobblemon:empty",
     "seasoningProcessors": [
         "spawn_bait",
         "food_colour"

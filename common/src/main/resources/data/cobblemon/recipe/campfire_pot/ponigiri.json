@@ -19,6 +19,7 @@
         "id": "cobblemon:ponigiri",
         "count": 3
     },
+    "seasoningTag": "cobblemon:empty",
     "seasoningProcessors": [
         "ingredient",
         "food_colour",

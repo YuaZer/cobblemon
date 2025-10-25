@@ -13,6 +13,7 @@
     "result": {
         "id": "cobblemon:aprijuice_blue"
     },
+    "seasoningTag": "cobblemon:empty",
     "seasoningProcessors": [
         "flavour"
     ]
