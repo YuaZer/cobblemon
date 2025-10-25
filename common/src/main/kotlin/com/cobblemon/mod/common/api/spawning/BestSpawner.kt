@@ -10,46 +10,17 @@ package com.cobblemon.mod.common.api.spawning
 
 import com.cobblemon.mod.common.Cobblemon.LOGGER
 import com.cobblemon.mod.common.api.entity.Despawner
-import com.cobblemon.mod.common.api.spawning.condition.AreaSpawningCondition
-import com.cobblemon.mod.common.api.spawning.condition.BasicSpawningCondition
-import com.cobblemon.mod.common.api.spawning.condition.FishingSpawningCondition
-import com.cobblemon.mod.common.api.spawning.condition.GroundedSpawningCondition
-import com.cobblemon.mod.common.api.spawning.condition.SeafloorSpawningCondition
-import com.cobblemon.mod.common.api.spawning.condition.SpawningCondition
-import com.cobblemon.mod.common.api.spawning.condition.SubmergedSpawningCondition
-import com.cobblemon.mod.common.api.spawning.condition.SurfaceSpawningCondition
-import com.cobblemon.mod.common.api.spawning.position.calculators.GroundedSpawnablePositionCalculator
-import com.cobblemon.mod.common.api.spawning.position.calculators.LavafloorSpawnablePositionCalculator
-import com.cobblemon.mod.common.api.spawning.position.calculators.SeafloorSpawnablePositionCalculator
-import com.cobblemon.mod.common.api.spawning.position.calculators.SpawnablePositionCalculator
-import com.cobblemon.mod.common.api.spawning.position.calculators.SubmergedSpawnablePositionCalculator
-import com.cobblemon.mod.common.api.spawning.position.calculators.SurfaceSpawnablePositionCalculator
-import com.cobblemon.mod.common.api.spawning.detail.NPCSpawnDetail
-import com.cobblemon.mod.common.api.spawning.detail.PokemonHerdSpawnDetail
-import com.cobblemon.mod.common.api.spawning.detail.PokemonSpawnDetail
-import com.cobblemon.mod.common.api.spawning.detail.SpawnAction
-import com.cobblemon.mod.common.api.spawning.detail.SpawnDetail
+import com.cobblemon.mod.common.api.spawning.condition.*
+import com.cobblemon.mod.common.api.spawning.detail.*
 import com.cobblemon.mod.common.api.spawning.fishing.FishingSpawner
 import com.cobblemon.mod.common.api.spawning.influence.SpawningInfluence
-import com.cobblemon.mod.common.api.spawning.position.AreaSpawnablePositionResolver
-import com.cobblemon.mod.common.api.spawning.position.FishingSpawnablePosition
-import com.cobblemon.mod.common.api.spawning.position.GroundedSpawnablePosition
-import com.cobblemon.mod.common.api.spawning.position.LavafloorSpawnablePosition
-import com.cobblemon.mod.common.api.spawning.position.SeafloorSpawnablePosition
-import com.cobblemon.mod.common.api.spawning.position.SpawnablePosition
-import com.cobblemon.mod.common.api.spawning.position.SubmergedSpawnablePosition
-import com.cobblemon.mod.common.api.spawning.position.SurfaceSpawnablePosition
+import com.cobblemon.mod.common.api.spawning.position.*
+import com.cobblemon.mod.common.api.spawning.position.calculators.*
 import com.cobblemon.mod.common.api.spawning.preset.BasicSpawnDetailPreset
 import com.cobblemon.mod.common.api.spawning.preset.BestSpawnerConfig
 import com.cobblemon.mod.common.api.spawning.preset.PokemonSpawnDetailPreset
 import com.cobblemon.mod.common.api.spawning.selection.SpawningSelector
-import com.cobblemon.mod.common.api.spawning.spawner.AreaSpawner
-import com.cobblemon.mod.common.api.spawning.spawner.FixedAreaSpawner
-import com.cobblemon.mod.common.api.spawning.spawner.PlayerSpawner
-import com.cobblemon.mod.common.api.spawning.spawner.PlayerSpawnerFactory
-import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawnerManager
-import com.cobblemon.mod.common.api.spawning.spawner.Spawner
-import com.cobblemon.mod.common.api.spawning.spawner.TickingSpawner
+import com.cobblemon.mod.common.api.spawning.spawner.*
 import com.cobblemon.mod.common.entity.pokemon.CobblemonAgingDespawner
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import net.minecraft.server.MinecraftServer
@@ -90,7 +61,6 @@ object BestSpawner {
     var config = BestSpawnerConfig()
     val spawnerManagers = mutableListOf<SpawnerManager>(
         CobblemonWorldSpawnerManager,
-        PokeSnackSpawnerManager,
     )
 
     lateinit var defaultPokemonDespawner: Despawner<PokemonEntity>

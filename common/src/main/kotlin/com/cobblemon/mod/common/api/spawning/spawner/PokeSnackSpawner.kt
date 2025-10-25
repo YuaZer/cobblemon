@@ -11,15 +11,16 @@ package com.cobblemon.mod.common.api.spawning.spawner
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.api.fishing.SpawnBait
 import com.cobblemon.mod.common.api.spawning.CobblemonSpawnPools
-import com.cobblemon.mod.common.api.spawning.SpawnCause
 import com.cobblemon.mod.common.api.spawning.detail.EntitySpawnResult
 import com.cobblemon.mod.common.api.spawning.detail.SpawnAction
+import com.cobblemon.mod.common.api.spawning.influence.BucketMultiplyingInfluence
+import com.cobblemon.mod.common.api.spawning.influence.BucketNormalizingInfluence
+import com.cobblemon.mod.common.api.spawning.influence.SpawnBaitInfluence
 import com.cobblemon.mod.common.block.PokeSnackBlock
 import com.cobblemon.mod.common.block.entity.PokeSnackBlockEntity
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.net.messages.client.effect.PokeSnackBlockParticlesPacket
 import net.minecraft.server.level.ServerLevel
-import kotlin.random.Random.Default.nextInt
 
 class PokeSnackSpawner(
     name: String,
@@ -35,15 +36,37 @@ class PokeSnackSpawner(
     verticalRadius = RADIUS,
 ) {
 
-    init {
-        ticksBetweenSpawns = getRandomTicksBetweenSpawns()
-    }
-
     companion object {
         const val RADIUS = 8
-        const val MIN_TICKS_BETWEEN_SPAWNS = 10 * 20 // 10 seconds
-        const val MAX_TICKS_BETWEEN_SPAWNS = 15 * 20 // 15 seconds
+        const val RANDOM_TICKS_BETWEEN_SPAWNS = 4
         const val POKE_SNACK_CRUMBED_ASPECT = "poke_snack_crumbed"
+    }
+
+    init {
+        val baitEffects = pokeSnackBlockEntity.getBaitEffects()
+
+        val highestLureTier = baitEffects
+            .filter { it.type == SpawnBait.Effects.RARITY_BUCKET }
+            .maxOfOrNull { it.value }
+            ?.toInt()
+            ?: 0
+
+        if (highestLureTier > 0) {
+            influences += BucketNormalizingInfluence(tier = highestLureTier)
+        }
+
+        influences += BucketMultiplyingInfluence(
+            mapOf(
+                "uncommon" to 2.25f,
+                "rare" to 5.5f,
+                "ultra-rare" to 5.5f,
+            )
+        )
+
+        influences += SpawnBaitInfluence(effects = baitEffects)
+
+        spawnsPerPass = 1
+        this.ticksUntilNextSpawn = pokeSnackBlockEntity.ticksUntilNextSpawn ?: getRandomTicksUntilNextSpawn()
     }
 
     override fun <R> afterSpawn(action: SpawnAction<R>, result: R) {
@@ -72,7 +95,7 @@ class PokeSnackSpawner(
             }
         }
 
-        ticksBetweenSpawns = getRandomTicksBetweenSpawns()
+        ticksUntilNextSpawn = getRandomTicksUntilNextSpawn()
 
         val pokeSnackBlockState = pokeSnackBlockEntity.blockState
         val pokeSnackBlock = pokeSnackBlockState.block as PokeSnackBlock
@@ -83,10 +106,9 @@ class PokeSnackSpawner(
         return Cobblemon.config.pokeSnackPokemonPerChunk
     }
 
-    fun getRandomTicksBetweenSpawns(): Float {
-        val randomTicks = nextInt(MIN_TICKS_BETWEEN_SPAWNS, MAX_TICKS_BETWEEN_SPAWNS + 1)
+    fun getRandomTicksUntilNextSpawn(): Float {
         val biteTimeMultiplier = getBiteTimeMultiplier()
-        return (randomTicks * biteTimeMultiplier).coerceAtLeast(20F)
+        return (RANDOM_TICKS_BETWEEN_SPAWNS * biteTimeMultiplier).coerceAtLeast(1F)
     }
 
     fun getBiteTimeMultiplier(): Float {

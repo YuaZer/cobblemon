@@ -26,33 +26,21 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtOps
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 
-open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEntity(CobblemonBlockEntities.POKE_SNACK, pos, state) {
+open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) :
+    TintBlockEntity(CobblemonBlockEntities.POKE_SNACK, pos, state) {
 
     companion object {
         const val SPAWNS_PER_BITE = 1
-
-        fun clientTick(level: Level, pos: BlockPos, state: BlockState, pokeSnackBlockEntity: PokeSnackBlockEntity) {
-            if (!level.isClientSide) return
-        }
-
-        fun serverTick(level: Level, pos: BlockPos, state: BlockState, pokeSnackBlockEntity: PokeSnackBlockEntity) {
-            if (level.isClientSide) return
-
-            val pokeSnackSpawner = PokeSnackSpawnerManager.getPokeSnackSpawner(pos)
-            if (pokeSnackSpawner == null) {
-                PokeSnackSpawnerManager.registerPokeSnackSpawner(pokeSnackBlockEntity)
-            }
-        }
     }
 
     var amountSpawned: Int = 0
     var flavourComponent: FlavourComponent? = null
     var baitEffectsComponent: BaitEffectsComponent? = null
     var ingredientComponent: IngredientComponent? = null
-    var ticksUntilNextSpawn: Int? = null
+    var ticksUntilNextSpawn: Float? = null
+    var pokeSnackSpawner: PokeSnackSpawner? = null
 
     fun initializeFromItemStack(itemStack: ItemStack) {
         flavourComponent = itemStack.get(CobblemonItemComponents.FLAVOUR)
@@ -72,6 +60,18 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
             return block.isLure
         }
         return false
+    }
+
+    fun tickSpawner() {
+        val pokeSnackSpawner = pokeSnackSpawner ?: PokeSnackSpawner(
+            name = "poke_snack_spawner_$blockPos",
+            manager = PokeSnackSpawnerManager,
+            pokeSnackBlockEntity = this,
+        )
+
+        this.pokeSnackSpawner = pokeSnackSpawner
+
+        pokeSnackSpawner.tick()
     }
 
     fun toItemStack(): ItemStack {
@@ -96,7 +96,8 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
      * Combine all the [SpawnBait.Effect] values from the [baitEffectsComponent] data.
      */
     fun getBaitEffects(): List<Effect> {
-        return baitEffectsComponent?.effects?.mapNotNull(SpawnBaitEffects::getFromIdentifier)?.flatMap { it.effects }.orEmpty()
+        return baitEffectsComponent?.effects?.mapNotNull(SpawnBaitEffects::getFromIdentifier)?.flatMap { it.effects }
+            .orEmpty()
     }
 
     override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
@@ -131,9 +132,8 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
                 }
         }
 
-        val pokeSnackSpawner = PokeSnackSpawnerManager.getPokeSnackSpawner(blockPos)
-        pokeSnackSpawner?.let { component ->
-            tag.putInt(DataKeys.TICKS_UNTIL_NEXT_SPAWN, component.ticksUntilNextSpawn.toInt())
+        ticksUntilNextSpawn?.let { ticks ->
+            tag.putFloat(DataKeys.TICKS_UNTIL_NEXT_SPAWN, ticks)
         }
     }
 
@@ -170,7 +170,7 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) : TintBlockEnt
         }
 
         if (tag.contains(DataKeys.TICKS_UNTIL_NEXT_SPAWN)) {
-            ticksUntilNextSpawn = tag.getInt(DataKeys.TICKS_UNTIL_NEXT_SPAWN)
+            ticksUntilNextSpawn = tag.getFloat(DataKeys.TICKS_UNTIL_NEXT_SPAWN)
         }
     }
 }
