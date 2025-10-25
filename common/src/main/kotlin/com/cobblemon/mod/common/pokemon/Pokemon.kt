@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.pokemon
 
 import com.cobblemon.mod.common.Cobblemon
+import com.cobblemon.mod.common.CobblemonNetwork.sendPacket
 import com.cobblemon.mod.common.CobblemonNetwork.sendPacketToPlayers
 import com.cobblemon.mod.common.CobblemonSounds
 import com.cobblemon.mod.common.api.abilities.Abilities
@@ -80,6 +81,7 @@ import com.cobblemon.mod.common.entity.pokemon.effects.IllusionEffect
 import com.cobblemon.mod.common.net.messages.client.PokemonUpdatePacket
 import com.cobblemon.mod.common.net.messages.client.effect.SpawnSnowstormEntityParticlePacket
 import com.cobblemon.mod.common.net.messages.client.pokemon.update.*
+import com.cobblemon.mod.common.net.messages.client.ui.ExpGainedDataPacket
 import com.cobblemon.mod.common.net.serverhandling.storage.SendOutPokemonHandler.SEND_OUT_DURATION
 import com.cobblemon.mod.common.net.serverhandling.storage.SendOutPokemonHandler.THROW_DURATION
 import com.cobblemon.mod.common.pokeball.PokeBall
@@ -1919,9 +1921,9 @@ open class Pokemon : ShowdownIdentifiable {
         if (result.experienceAdded <= 0) {
             return result
         }
-        player.sendSystemMessage(lang("experience.gained", getDisplayName(), result.experienceAdded), true)
+        //player.sendSystemMessage(lang("experience.gained", getDisplayName(), result.experienceAdded), true)
         if (result.oldLevel != result.newLevel) {
-            player.sendSystemMessage(lang("experience.level_up", getDisplayName(), result.newLevel))
+            //player.sendSystemMessage(lang("experience.level_up", getDisplayName(), result.newLevel))
             val repeats = result.newLevel - result.oldLevel
             // Someone can technically trigger a "delevel"
             if (repeats >= 1) {
@@ -1933,6 +1935,12 @@ open class Pokemon : ShowdownIdentifiable {
                 player.sendSystemMessage(lang("experience.learned_move", getDisplayName(), it.displayName))
             }
         }
+        player.sendPacket(ExpGainedDataPacket(
+            this.uuid,
+            if (result.oldLevel != result.newLevel) result.oldLevel else null,
+            result.experienceAdded,
+            result.newMoves.size
+        ))
         return result
     }
 

@@ -40,6 +40,9 @@ import net.minecraft.client.gui.components.toasts.Toast
 import net.minecraft.client.gui.screens.ChatScreen
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.util.Mth
+import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.math.roundToInt
 
 class PartyOverlay : Gui(Minecraft.getInstance()) {
 
@@ -58,6 +61,8 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
         private val genderIconMale = cobblemonResource("textures/gui/party/party_gender_male.png")
         private val genderIconFemale = cobblemonResource("textures/gui/party/party_gender_female.png")
         private val portraitBackground = cobblemonResource("textures/gui/party/party_slot_portrait_background.png")
+        private val newMovesPopup = cobblemonResource("textures/gui/party/party_slot_notification_new_move.png")
+        private val newEvoPopup = cobblemonResource("textures/gui/party/party_slot_notification_evolution.png")
 
         private val inanimatePortraitDrawer = InanimatePortraitDrawer()
         private val selectedAnimatedPortraitDrawer = SelectedAnimatedPortraitDrawer()
@@ -267,9 +272,48 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
                     blue = 0.27F
                 )
 
+                val expRatio: Float
                 val expForThisLevel = pokemon.experience - if (pokemon.level == 1) 0 else pokemon.experienceGroup.getExperience(pokemon.level)
                 val expToNextLevel = pokemon.experienceGroup.getExperience(pokemon.level + 1) - pokemon.experienceGroup.getExperience(pokemon.level)
-                val expRatio = expForThisLevel / expToNextLevel.toFloat()
+
+                var expRed = 0.2
+                var expGreen = 0.65
+                var expBlue = 0.84
+
+                val expGainedData = PartyOverlayDataControl.getExpGainedData(pokemon.uuid)
+                if (expGainedData != null) {
+                    val ticksWithDelta = expGainedData.ticks + partialDeltaTicks
+
+                    if (expGainedData.oldLevel != null) {
+                        //Handling Exp Bar
+                        if (ticksWithDelta <= PartyOverlayDataControl.BAR_UPDATE_BEFORE_TIME) {
+                            val expForLastLevel = (pokemon.experience - expGainedData.expGained) - if (expGainedData.oldLevel == 1) 0 else pokemon.experienceGroup.getExperience(expGainedData.oldLevel)
+                            val expNeededForLastLevel = pokemon.experienceGroup.getExperience(expGainedData.oldLevel + 1) - pokemon.experienceGroup.getExperience(expGainedData.oldLevel)
+
+                            val transition = (ticksWithDelta / PartyOverlayDataControl.BAR_UPDATE_BEFORE_TIME.toFloat()).coerceIn(0F..1F)
+                            val transitionXP = expForLastLevel + ((expNeededForLastLevel - expForLastLevel) * transition)
+                            expRatio = transitionXP / expNeededForLastLevel
+                        } else if (ticksWithDelta <= PartyOverlayDataControl.BAR_UPDATE_BEFORE_TIME + PartyOverlayDataControl.BAR_FLASH_TIME) {
+                            expRatio = 1F
+                            expRed = 1.0
+                            expGreen = 1.0
+                            expBlue = 1.0
+                        }
+                        else {
+                            val adjustedTicks = ticksWithDelta - (PartyOverlayDataControl.BAR_UPDATE_BEFORE_TIME + PartyOverlayDataControl.BAR_FLASH_TIME)
+                            val transition = (adjustedTicks / PartyOverlayDataControl.BAR_UPDATE_BEFORE_TIME.toFloat()).coerceIn(0F..1F)
+                            val transitionXP = expForThisLevel * transition
+                            expRatio = transitionXP / expToNextLevel
+                        }
+                    } else {
+                        //Handling Exp Bar
+                        val transition = (ticksWithDelta / PartyOverlayDataControl.BAR_UPDATE_NO_LEVEL_TIME.toFloat()).coerceIn(0F..1F)
+                        val transitionXP = expForThisLevel - (expGainedData.expGained * (1 - transition))
+                        expRatio = transitionXP / expToNextLevel
+                    }
+                } else {
+                    expRatio = expForThisLevel / expToNextLevel.toFloat()
+                }
 
                 val expBarWidth = 1
                 val expBarHeight = expRatio * barHeightMax
@@ -283,10 +327,74 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
                     height = expBarHeight,
                     textureHeight = expBarHeight / expRatio,
                     vOffset = barHeightMax - expBarHeight,
-                    red = 0.2,
-                    green = 0.65,
-                    blue = 0.84
+                    red = expRed,
+                    green = expGreen,
+                    blue = expBlue
                 )
+
+                var ticksForMove = -1F
+                var ticksForEvo = -1F
+
+                //Handling Popups
+                if (expGainedData != null) {
+                    val ticksWithDelta = expGainedData.ticks + partialDeltaTicks
+                    ticksForMove = ticksWithDelta - (PartyOverlayDataControl.BAR_UPDATE_BEFORE_TIME + PartyOverlayDataControl.BAR_FLASH_TIME)
+                    ticksForEvo = ticksForMove
+                } else {
+                    val evoGainedData = PartyOverlayDataControl.getEvolutionData(pokemon.uuid)
+                    if (evoGainedData != null) {
+                        ticksForEvo = evoGainedData.ticks + partialDeltaTicks
+                    }
+                    val moveGainedData = PartyOverlayDataControl.getMovesData(pokemon.uuid)
+                    if (moveGainedData != null) {
+                        ticksForMove = moveGainedData.ticks + partialDeltaTicks
+                    }
+                }
+
+                fun popupData(ticks: Float) : Pair<Float, Float> {
+                    if (ticks > 0) {
+                        if (ticks <= PartyOverlayDataControl.POPUP_TIME.fadeIn) {
+                            val transition = ticks / PartyOverlayDataControl.POPUP_TIME.fadeIn
+                            val step = (floor(transition * 3)) + 1
+                            return (4 - step) to (step * 0.25F)
+                        } else if (ticks <= PartyOverlayDataControl.POPUP_TIME.fadeIn + PartyOverlayDataControl.POPUP_TIME.hold) {
+                            return 0F to 1F
+                        } else {
+                            val adjustedPopupTicks = ticks - (PartyOverlayDataControl.POPUP_TIME.fadeIn + PartyOverlayDataControl.POPUP_TIME.hold)
+                            val transition = adjustedPopupTicks / PartyOverlayDataControl.POPUP_TIME.fadeIn
+                            val step = (floor(transition * 3)) + 1
+                            return (-step) to (1F - (step * 0.25F))
+                        }
+                    } else return 0F to 0F
+                }
+
+                val (movePopupYOffset, movePopupTransparency) = popupData(ticksForMove)
+                val (evoPopupYOffset, evoPopupTransparency) = popupData(ticksForEvo)
+
+                if (evoPopupTransparency > 0) {
+                    blitk(
+                        matrixStack = matrices,
+                        texture = newEvoPopup,
+                        x = (panelX + selectedOffsetX + 56.5F) / SCALE,
+                        y = (indexY + 4 + evoPopupYOffset) / SCALE,
+                        width = 37,
+                        height = 20,
+                        scale = SCALE,
+                        alpha = evoPopupTransparency
+                    )
+                }
+                if (movePopupTransparency > 0) {
+                    blitk(
+                        matrixStack = matrices,
+                        texture = newMovesPopup,
+                        x = (panelX + selectedOffsetX + 56.5F) / SCALE,
+                        y = (indexY + 17 + movePopupYOffset) / SCALE,
+                        width = 37,
+                        height = 20,
+                        scale = SCALE,
+                        alpha = movePopupTransparency
+                    )
+                }
 
                 val ballIcon = cobblemonResource("textures/gui/ball/" + pokemon.caughtBall.name.path + ".png")
                 val ballHeight = 22

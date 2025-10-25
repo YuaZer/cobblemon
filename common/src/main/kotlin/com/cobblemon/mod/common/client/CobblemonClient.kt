@@ -23,6 +23,7 @@ import com.cobblemon.mod.common.api.tags.CobblemonItemTags
 import com.cobblemon.mod.common.block.entity.TintBlockEntity
 import com.cobblemon.mod.common.client.battle.ClientBattle
 import com.cobblemon.mod.common.client.gui.PartyOverlay
+import com.cobblemon.mod.common.client.gui.PartyOverlayDataControl
 import com.cobblemon.mod.common.client.gui.RideControlsOverlay
 import com.cobblemon.mod.common.client.gui.battle.BattleOverlay
 import com.cobblemon.mod.common.client.gui.cookingpot.CookingPotScreen
@@ -192,6 +193,7 @@ object CobblemonClient {
                 }
             }
             ClientPlayerIcon.onTick()
+            PartyOverlayDataControl.tick(event.client.isPaused)
         }
     }
 
