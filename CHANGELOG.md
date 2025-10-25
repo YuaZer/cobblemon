@@ -133,6 +133,8 @@
 - Swadloon
 - Leavanny
 - Druddigon
+- Minccino
+- Cinccino
 
 #### Gen 6
 - Skiddo
