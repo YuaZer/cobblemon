@@ -561,6 +561,7 @@
 - Fixed species additions not being able to properly mark a species as implemented.
 - Fixed Pokémon item models not showing a glint when enchanted.
 - Fixed some specific bag items not being dropped when used in battle.
+- Fixed the "use all berry bait" achievement not being progressed
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -705,6 +706,9 @@
     - Mechanics
     - Unlockable Wallpapers
     - Starter Data
+- Fixed `cobblemon:reel_in_pokemon` criteria not working when used together with a `baitId`
+  - Also changed the default from `cobblemon:empty_bait` to `any`
+  - The previous default is still available by using the above as baitId
 
 ### Particles
 Added new/updated particles for the following moves:
