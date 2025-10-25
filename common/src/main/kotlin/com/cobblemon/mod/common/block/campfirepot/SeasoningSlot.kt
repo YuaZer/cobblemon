@@ -16,6 +16,5 @@ class SeasoningSlot(val menu: CookingPotMenu, container: Container, slot: Int, x
     override fun mayPlace(stack: ItemStack): Boolean {
         val recipe = menu.currentActiveRecipe?.value() ?: return false
         return stack.`is`(recipe.seasoningTag) && super.mayPlace(stack)
-//        return Seasonings.isSeasoning(stack) && super.mayPlace(stack)
     }
 }
