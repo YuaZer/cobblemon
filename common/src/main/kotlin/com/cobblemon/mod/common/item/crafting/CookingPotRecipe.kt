@@ -10,6 +10,7 @@ package com.cobblemon.mod.common.item.crafting
 
 import com.cobblemon.mod.common.CobblemonRecipeSerializers
 import com.cobblemon.mod.common.CobblemonRecipeTypes
+import com.cobblemon.mod.common.api.tags.CobblemonItemTags
 import com.cobblemon.mod.common.util.codec.CodecUtils.createByStringCodec
 import com.cobblemon.mod.common.util.readIdentifier
 import com.cobblemon.mod.common.util.readString
@@ -23,6 +24,7 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceKey
+import net.minecraft.tags.TagEntry
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -64,7 +66,7 @@ class CookingPotRecipe(
                     ItemStack.STRICT_CODEC.fieldOf("result").forGetter { recipe -> recipe.result },
                     Codec.STRING.optionalFieldOf("group", "").forGetter { recipe -> recipe.group },
                     CookingPotBookCategory.CODEC.fieldOf("category").orElse(CookingPotBookCategory.MISC).forGetter { recipe -> recipe.category },
-                    TagKey.codec(Registries.ITEM).fieldOf("seasoningTag").forGetter { recipe -> recipe.seasoningTag },
+                    TagKey.codec(Registries.ITEM).fieldOf("seasoningTag").orElse(CobblemonItemTags.EMPTY).forGetter { recipe -> recipe.seasoningTag },
                     createByStringCodec<SeasoningProcessor>(
                         { SeasoningProcessor.processors[it] },
                         { it.type },
