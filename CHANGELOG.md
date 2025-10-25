@@ -34,6 +34,7 @@
 - Added Hyper Training items (IV Modification) as well as some additional candy items to do so (Health Candy, Sickly Candy)
 - Added Galarica Nut Bushes
 - Many Pokémon (mostly cats) are now feared by phantoms
+- Combees are now capable of gathering nectar from flowers and delivering it to either Saccharine leaves or hives. (Hive interactions are restricted to wild Combees) 
 - Lightning is now affected by a Pokemon's ability/typing
   - Pokémon with the ability Lightning Rod draw in lightning similar to a lightning rod block albeit with a lower priority and range, gain immunity to lightning damage, and receive a temporary damage buff.
   - Pokémon with the ability Motor Drive are immune to lightning damage and receive a temporary speed buff when struck by lightning
@@ -476,6 +477,7 @@
 - Disabled advancement Mother Nature's Bounty from appearing in chat when obtained, now only appears as a toast and in the advancements menu
 - Removed Oki-Doki Vivichokey advancement
 - Shulker Boxes and Traveler's Backpacks can no longer be held by Pokémon. Thanks Monocle ;) You could re-enable this with a datapack but you'd be crazy.
+- Moomoo Milk now clears Pokémon stat changes when used in battle.
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
@@ -562,6 +564,7 @@
 - Fixed Pokémon item models not showing a glint when enchanted.
 - Fixed the missing Terracotta Sun Stone Ore smelting and blasting recipes
 - Improved experience gain from smelting evolution stone ores to better match other ore types
+- Fixed some specific bag items not being dropped when used in battle.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -1001,6 +1004,7 @@ Added new/updated particles for the following moves:
 - Parametric particle motion now works.
 - Event-spawned particles now work.
 - Particles can now have independent coordinate spaces.
+- Fixed suffocation of Pokémon when a pokeball breaks near a wall 
 
 ### Developer
 - Updated the Pokédex data updated events to always include a `Pokemon` instance, and optionally a `DisguiseData` instance.
