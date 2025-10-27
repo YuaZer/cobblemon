@@ -57,7 +57,7 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) :
 
     val spawner: FixedAreaSpawner by lazy {
         FixedAreaSpawner(
-            name = "poke_snack_spawner_$blockPos",
+            name = "poke_snack_spawner_${level?.dimension()?.location()}}_$blockPos",
             spawnPool = CobblemonSpawnPools.WORLD_SPAWN_POOL,
             world = level as ServerLevel,
             position = blockPos,
@@ -142,11 +142,20 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) :
     fun randomTick() {
         randomTicksUntilNextSpawn--
         if (randomTicksUntilNextSpawn <= 0) {
-            val nearestPlayer = level?.getNearestPlayer(blockPos.x.toDouble(), blockPos.y.toDouble(), blockPos.z.toDouble(), 64.0, true)
-            spawner.run(
-                cause = SpawnCause(spawner = spawner, entity = nearestPlayer),
-                maxSpawns = 1
+            val nearestPlayer = level?.getNearestPlayer(
+                blockPos.x.toDouble(),
+                blockPos.y.toDouble(),
+                blockPos.z.toDouble(),
+                Cobblemon.config.maximumSpawningZoneDistanceFromPlayer.toDouble(),
+                true
             )
+            // High simulation distances may cause the player to be null here, we don't want to spawn without a player nearby.
+            if (nearestPlayer != null) {
+                spawner.run(
+                    cause = SpawnCause(spawner = spawner, entity = nearestPlayer),
+                    maxSpawns = 1
+                )
+            }
             randomTicksUntilNextSpawn = getRandomTicksBetweenSpawns()
         }
     }
