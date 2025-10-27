@@ -8,39 +8,118 @@
 
 package com.cobblemon.mod.common.block.entity
 
+import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.CobblemonBlockEntities
 import com.cobblemon.mod.common.CobblemonItemComponents
 import com.cobblemon.mod.common.api.cooking.getColourMixFromFlavours
 import com.cobblemon.mod.common.api.fishing.SpawnBait
 import com.cobblemon.mod.common.api.fishing.SpawnBait.Effect
 import com.cobblemon.mod.common.api.fishing.SpawnBaitEffects
-import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawner
-import com.cobblemon.mod.common.api.spawning.spawner.PokeSnackSpawnerManager
+import com.cobblemon.mod.common.api.spawning.CobblemonSpawnPools
+import com.cobblemon.mod.common.api.spawning.SpawnCause
+import com.cobblemon.mod.common.api.spawning.detail.PokemonHerdSpawnDetail
+import com.cobblemon.mod.common.api.spawning.detail.SpawnAction
+import com.cobblemon.mod.common.api.spawning.detail.SpawnDetail
+import com.cobblemon.mod.common.api.spawning.influence.BucketMultiplyingInfluence
+import com.cobblemon.mod.common.api.spawning.influence.BucketNormalizingInfluence
+import com.cobblemon.mod.common.api.spawning.influence.SpawnBaitInfluence
+import com.cobblemon.mod.common.api.spawning.influence.SpawningInfluence
+import com.cobblemon.mod.common.api.spawning.position.SpawnablePosition
+import com.cobblemon.mod.common.api.spawning.spawner.FixedAreaSpawner
 import com.cobblemon.mod.common.block.PokeSnackBlock
+import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.item.components.BaitEffectsComponent
 import com.cobblemon.mod.common.item.components.FlavourComponent
 import com.cobblemon.mod.common.item.components.IngredientComponent
+import com.cobblemon.mod.common.net.messages.client.effect.PokeSnackBlockParticlesPacket
 import com.cobblemon.mod.common.util.DataKeys
+import java.util.UUID
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtOps
+import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.state.BlockState
 
 open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) :
-    TintBlockEntity(CobblemonBlockEntities.POKE_SNACK, pos, state) {
+    TintBlockEntity(CobblemonBlockEntities.POKE_SNACK, pos, state),
+    SpawningInfluence {
 
     companion object {
         const val SPAWNS_PER_BITE = 1
+        const val RADIUS = 8
+        const val RANDOM_TICKS_BETWEEN_SPAWNS = 4
+        const val POKE_SNACK_CRUMBED_ASPECT = "poke_snack_crumbed"
     }
 
+    val spawner: FixedAreaSpawner by lazy {
+        FixedAreaSpawner(
+            name = "poke_snack_spawner_$blockPos",
+            spawnPool = CobblemonSpawnPools.WORLD_SPAWN_POOL,
+            world = level as ServerLevel,
+            position = blockPos,
+            horizontalRadius = RADIUS,
+            verticalRadius = RADIUS,
+            maxPokemonPerChunk = Cobblemon.config.pokeSnackPokemonPerChunk
+        ).also {
+            it.influences.add(this)
+
+            val baitEffects = getBaitEffects()
+
+            val highestLureTier = baitEffects
+                .filter { it.type == SpawnBait.Effects.RARITY_BUCKET }
+                .maxOfOrNull { it.value }
+                ?.toInt()
+                ?: 0
+
+            if (highestLureTier > 0) {
+                it.influences += BucketNormalizingInfluence(tier = highestLureTier)
+            }
+
+            it.influences += BucketMultiplyingInfluence(
+                mapOf(
+                    "uncommon" to 2.25f,
+                    "rare" to 5.5f,
+                    "ultra-rare" to 5.5f,
+                )
+            )
+
+            it.influences += SpawnBaitInfluence(effects = baitEffects)
+        }
+    }
+
+    // Only non-herd Pokémon can be spawned from a Poké Snack
+    override fun affectSpawnable(detail: SpawnDetail, spawnablePosition: SpawnablePosition) = detail.type in SpawnDetail.pokemonTypes && detail !is PokemonHerdSpawnDetail
+
+    // When a Pokémon spawns, apply the crumbed aspect and play the eating effects. Eat part of the cake, too.
+    override fun affectSpawn(action: SpawnAction<*>, entity: Entity) {
+        if (entity is PokemonEntity) {
+            entity.pokemon.forcedAspects += POKE_SNACK_CRUMBED_ASPECT
+            val block = blockState.block as? PokeSnackBlock ?: return
+            val level = level ?: return
+            val entityPos = entity.blockPosition()
+
+            PokeSnackBlockParticlesPacket(blockPos, entityPos).sendToPlayersAround(
+                blockPos.x.toDouble(),
+                blockPos.y.toDouble(),
+                blockPos.z.toDouble(),
+                64.0,
+                level.dimension(),
+            )
+
+            block.eat(level, blockPos, blockState, action.spawnablePosition.cause.entity as? Player)
+        }
+    }
+
+    var placedBy: UUID? = null
     var amountSpawned: Int = 0
     var flavourComponent: FlavourComponent? = null
     var baitEffectsComponent: BaitEffectsComponent? = null
     var ingredientComponent: IngredientComponent? = null
-    var ticksUntilNextSpawn: Float? = null
-    var pokeSnackSpawner: PokeSnackSpawner? = null
+    var randomTicksUntilNextSpawn: Float = getRandomTicksBetweenSpawns()
 
     fun initializeFromItemStack(itemStack: ItemStack) {
         flavourComponent = itemStack.get(CobblemonItemComponents.FLAVOUR)
@@ -48,9 +127,7 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) :
         if (isLure()) baitEffectsComponent = itemStack.get(CobblemonItemComponents.BAIT_EFFECTS)
 
         flavourComponent?.let {
-            getColourMixFromFlavours(it.getDominantFlavours())?.let {
-                setTint(it)
-            }
+            getColourMixFromFlavours(it.getDominantFlavours())?.let(::setTint)
         }
     }
 
@@ -62,16 +139,34 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) :
         return false
     }
 
-    fun tickSpawner() {
-        val pokeSnackSpawner = pokeSnackSpawner ?: PokeSnackSpawner(
-            name = "poke_snack_spawner_$blockPos",
-            manager = PokeSnackSpawnerManager,
-            pokeSnackBlockEntity = this,
-        )
+    fun randomTick() {
+        randomTicksUntilNextSpawn--
+        if (randomTicksUntilNextSpawn <= 0) {
+            val nearestPlayer = level?.getNearestPlayer(blockPos.x.toDouble(), blockPos.y.toDouble(), blockPos.z.toDouble(), 64.0, true)
+            spawner.run(
+                cause = SpawnCause(spawner = spawner, entity = nearestPlayer),
+                maxSpawns = 1
+            )
+            randomTicksUntilNextSpawn = getRandomTicksBetweenSpawns()
+        }
+    }
 
-        this.pokeSnackSpawner = pokeSnackSpawner
+    fun getRandomTicksBetweenSpawns(): Float {
+        val biteTimeMultiplier = getBiteTimeMultiplier()
+        return (RANDOM_TICKS_BETWEEN_SPAWNS * biteTimeMultiplier).coerceAtLeast(1F)
+    }
 
-        pokeSnackSpawner.tick()
+    fun getBiteTimeMultiplier(): Float {
+        val baitEffects = getBaitEffects()
+        val biteTimeEffects = baitEffects.filter { it.type == SpawnBait.Effects.BITE_TIME }
+        if (biteTimeEffects.isEmpty()) return 1F
+
+        val biteTimeEffect = biteTimeEffects.random()
+        if (Math.random() > biteTimeEffect.chance) {
+            return 1F
+        }
+
+        return 1F - biteTimeEffect.value.toFloat()
     }
 
     fun toItemStack(): ItemStack {
@@ -96,7 +191,10 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) :
      * Combine all the [SpawnBait.Effect] values from the [baitEffectsComponent] data.
      */
     fun getBaitEffects(): List<Effect> {
-        return baitEffectsComponent?.effects?.mapNotNull(SpawnBaitEffects::getFromIdentifier)?.flatMap { it.effects }
+        return baitEffectsComponent
+            ?.effects
+            ?.mapNotNull(SpawnBaitEffects::getFromIdentifier)
+            ?.flatMap { it.effects }
             .orEmpty()
     }
 
@@ -132,8 +230,10 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) :
                 }
         }
 
-        ticksUntilNextSpawn?.let { ticks ->
-            tag.putFloat(DataKeys.TICKS_UNTIL_NEXT_SPAWN, ticks)
+        tag.putFloat(DataKeys.TICKS_UNTIL_NEXT_SPAWN, randomTicksUntilNextSpawn)
+
+        placedBy?.let {
+            tag.putUUID(DataKeys.PLACED_BY, it)
         }
     }
 
@@ -170,7 +270,11 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) :
         }
 
         if (tag.contains(DataKeys.TICKS_UNTIL_NEXT_SPAWN)) {
-            ticksUntilNextSpawn = tag.getFloat(DataKeys.TICKS_UNTIL_NEXT_SPAWN)
+            randomTicksUntilNextSpawn = tag.getFloat(DataKeys.TICKS_UNTIL_NEXT_SPAWN)
+        }
+
+        if (tag.contains(DataKeys.PLACED_BY)) {
+            placedBy = tag.getUUID(DataKeys.PLACED_BY)
         }
     }
 }

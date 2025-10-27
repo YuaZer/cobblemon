@@ -155,6 +155,9 @@ object DataKeys {
     const val FLAVOUR = "Flavour"
     const val BAIT_EFFECTS = "BaitEffects"
     const val INGREDIENTS = "Ingredients"
+
+    const val PLACED_BY = "PlacedBy"
+
     const val TICKS_UNTIL_NEXT_SPAWN = "TicksUntilNextSpawn"
 
     // Pokémon Item

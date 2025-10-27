@@ -141,13 +141,14 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
         return SHAPES[state.getValue(BITES)]
     }
 
-    override fun getRenderShape(blockState: BlockState?) = RenderShape.MODEL
+    override fun getRenderShape(blockState: BlockState) = RenderShape.MODEL
 
     override fun setPlacedBy(level: Level, pos: BlockPos, state: BlockState, placer: LivingEntity?, stack: ItemStack) {
         super.setPlacedBy(level, pos, state, placer, stack)
 
-        val blockEntity = level.getBlockEntity(pos) as? PokeSnackBlockEntity
-        blockEntity?.initializeFromItemStack(stack)
+        val blockEntity = level.getBlockEntity(pos) as? PokeSnackBlockEntity ?: return
+        blockEntity.initializeFromItemStack(stack)
+        blockEntity.placedBy = placer?.uuid
     }
 
     override fun getCloneItemStack(level: LevelReader, pos: BlockPos, state: BlockState): ItemStack {
@@ -368,14 +369,11 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
                 0.0,
                 0.0,
                 0.0
-
             )
         }
     }
 
-    override fun isRandomlyTicking(state: BlockState): Boolean {
-        return isLure
-    }
+    override fun isRandomlyTicking(state: BlockState) = isLure
 
     override fun randomTick(
         state: BlockState,
@@ -384,8 +382,6 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
         random: RandomSource
     ) {
         if (level.isClientSide) return
-
-        val pokeSnackBlockEntity = level.getBlockEntity(pos) as? PokeSnackBlockEntity ?: return
-        pokeSnackBlockEntity.tickSpawner()
+        (level.getBlockEntity(pos) as? PokeSnackBlockEntity)?.randomTick()
     }
 }

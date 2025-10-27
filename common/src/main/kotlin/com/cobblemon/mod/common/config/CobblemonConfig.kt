@@ -156,7 +156,7 @@ class CobblemonConfig {
     var pokemonPerChunk = 1F
 
     @CobblemonConfigField(Category.Spawning, lang = "poke_snack_pokemon_per_chunk", SERVER)
-    var pokeSnackPokemonPerChunk = 16F
+    var pokeSnackPokemonPerChunk = 2F
 
     @CobblemonConfigField(Category.PassiveStatus, lang = "passive_statuses", SERVER)
     var passiveStatuses = mutableMapOf(
