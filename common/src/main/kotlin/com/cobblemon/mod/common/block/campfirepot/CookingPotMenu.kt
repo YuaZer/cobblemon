@@ -173,9 +173,6 @@ class CookingPotMenu : RecipeBookMenu<CraftingInput, CookingPotRecipeBase>, Cont
         currentActiveRecipe = recipe
         if (recipe != null) {
             previewItem = recipe.value.assemble(craftInput, level.registryAccess())
-            // clear any seasoning items that don't fit the recipe's seasoningTag
-            // Ok I don't know how to do that exactly.
-
             // Apply seasoning to the preview item
             recipe.value.applySeasoning(
                 previewItem,
