@@ -1,0 +1,86 @@
+{
+  "portraitScale": 1.65,
+  "portraitTranslation": [-0.3, 0.3, 0],
+  "profileScale": 0.7,
+  "profileTranslation": [0, 0.8, 0],
+  "rootBone": "forretress",
+  "firstPersonCameraOffset": {
+    "seat_1": [0, 0.45, 0]
+  },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 0.3, 0],
+    "seat_1_reverse": [0, 0.3, 0]
+  },
+  "thirdPersonCameraOffsetNoViewBobbing": {
+    "seat_1": [0, 0.3, 0],
+    "seat_1_reverse": [0, 0.3, 0]
+  },
+  "animations": {
+    "faint": "q.bedrock_primary('forretress', 'faint')"
+  },
+  "poses": {
+    "mount-standing": {
+      "poseTypes": ["STAND"],
+      "isBattle": false,
+      "condition": "q.is_ridden",
+      "animations": [
+        "q.bedrock('forretress', 'ground_idle')",
+        "q.bedrock('forretress', 'ride_ground_run')"
+      ],
+      "quirks": ["q.bedrock_quirk('slaking', 'blink')"]
+    },
+    "standing": {
+      "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
+      "condition": "!q.is_ridden",
+      "animations": [
+        "q.bedrock('forretress', 'ground_idle')"
+      ],
+      "quirks": ["q.bedrock_quirk('slaking', 'blink')"]
+    },
+    "mount-walking": {
+      "poseTypes": ["WALK"],
+      "isBattle": false,
+      "condition": "q.is_ridden",
+      "animations": [
+        "q.bedrock('forretress', 'ground_run')",
+        "q.bedrock('forretress', 'ride_ground_run')"
+      ],
+      "quirks": ["q.bedrock_quirk('slaking', 'blink')"]
+    },
+    "walking": {
+      "poseTypes": ["WALK"],
+      "isBattle": false,
+      "condition": "!q.is_ridden",
+      "animations": [
+        "q.bedrock('forretress', 'ground_walk')"
+      ],
+      "quirks": ["q.bedrock_quirk('slaking', 'blink')"]
+    },
+    "hover": {
+      "poseTypes": ["HOVER"],
+      "condition": "!q.is_ridden",
+      "animations": [
+        "q.bedrock('forretress', 'ground_idle')"
+      ],
+      "quirks": ["q.bedrock_quirk('slaking', 'blink')"]
+    },
+    "fly": {
+      "poseTypes": ["FLY"],
+      "isBattle": false,
+      "condition": "!q.is_ridden",
+      "animations": [
+        "q.bedrock('forretress', 'ground_walk')"
+      ],
+      "quirks": ["q.bedrock_quirk('slaking', 'blink')"]
+    },
+    "sleep": {
+      "poseTypes": ["SLEEP"],
+      "namedAnimations": {
+        "cry": "q.bedrock_stateful('dummy', 'cry')"
+      },
+      "animations": [
+        "q.bedrock('forretress', 'sleep')"
+      ]
+    }
+  }
+}

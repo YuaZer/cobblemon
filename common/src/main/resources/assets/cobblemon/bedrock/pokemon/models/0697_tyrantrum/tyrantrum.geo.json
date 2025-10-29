@@ -472,9 +472,10 @@
 				{
 					"name": "locator_seat_1",
 					"parent": "neck",
-					"pivot": [0, 42, -49],
+					"pivot": [0, 40, -49],
+					"rotation": [10, 0, 0],
 					"locators": {
-						"seat_1": [0, 42, -49]
+						"seat_1": [0, 40, -49]
 					}
 				},
 				{
