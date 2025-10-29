@@ -147,7 +147,7 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) :
                 blockPos.y.toDouble(),
                 blockPos.z.toDouble(),
                 Cobblemon.config.maximumSpawningZoneDistanceFromPlayer.toDouble(),
-                true
+                false, // true here makes it so creative players aren't considered
             )
             // High simulation distances may cause the player to be null here, we don't want to spawn without a player nearby.
             if (nearestPlayer != null) {
