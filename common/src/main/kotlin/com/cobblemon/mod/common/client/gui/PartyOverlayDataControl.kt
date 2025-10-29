@@ -35,6 +35,16 @@ object PartyOverlayDataControl {
             if (data.evoGainedData != null) {
                 newData.countOfEvosUnlocked += data.evoGainedData!!.evolutionCount
             }
+
+            val expData = data.expGainedData
+            if (expData != null) {
+                newData.countOfMovesLearned += expData.countOfMovesLearned
+                newData.countOfEvosUnlocked += expData.countOfEvosUnlocked
+                if (expData.oldLevel != null) {
+                    newData.oldLevel = expData.oldLevel
+                }
+                newData.expGained += expData.expGained
+            }
         }
         overlayData[pokemonUuid] = OverlayData(expGainedData = newData)
     }
@@ -50,10 +60,8 @@ object PartyOverlayDataControl {
             }
 
             if (data.evoGainedData != null) {
-                if (data.evoGainedData!!.evolutionCount <= 1) {
-                    data.evoGainedData!!.evolutionCount += evoCount
-                    data.evoGainedData!!.ticks = 0
-                }
+                data.evoGainedData!!.evolutionCount += evoCount
+                data.evoGainedData!!.ticks = 0
             } else {
                 data.evoGainedData = newData
             }
@@ -73,10 +81,8 @@ object PartyOverlayDataControl {
             }
 
             if (data.movesGainedData != null) {
-                if (data.movesGainedData!!.movesCount <= 1) {
-                    data.movesGainedData!!.movesCount += movesCount
-                    data.evoGainedData!!.ticks = 0
-                }
+                data.movesGainedData!!.movesCount += movesCount
+                data.evoGainedData!!.ticks = 0
             } else {
                 data.movesGainedData = newData
             }
@@ -148,8 +154,8 @@ object PartyOverlayDataControl {
     )
 
     class ExpGainedData (
-        val oldLevel: Int?, //If Null we never leveled up
-        val expGained: Int,
+        var oldLevel: Int?, //If Null we never leveled up
+        var expGained: Int,
         var countOfMovesLearned: Int, //We don't care what moves we learned, just how many
         var countOfEvosUnlocked: Int
     ) : TickCounter(0)

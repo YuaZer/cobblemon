@@ -205,7 +205,7 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
                 var levelScrollOffset = 0F
                 var levelScrollPositionOffset = 0F
                 var levelScrollSize = 17F
-                if (expGainedData != null) {
+                if (expGainedData != null && expGainedData.oldLevel != null) {
                     val ticksWithDelta = (expGainedData.ticks + partialDeltaTicks) - (PartyOverlayDataControl.BAR_UPDATE_BEFORE_TIME + PartyOverlayDataControl.BAR_FLASH_TIME)
                     val transition = ticksWithDelta / PartyOverlayDataControl.LEVEL_UP_PORTRAIT_TIME
                     if ((0F..<1F).contains(transition)) {
@@ -261,9 +261,17 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
                     shadow = true
                 )
 
+                var level = pokemon.level
+                if (expGainedData?.oldLevel != null) {
+                    val ticksWithDelta = expGainedData.ticks + partialDeltaTicks
+                    if (ticksWithDelta < PartyOverlayDataControl.BAR_UPDATE_BEFORE_TIME) {
+                        level = expGainedData.oldLevel!!
+                    }
+                }
+
                 drawScaledText(
                     context = context,
-                    text = pokemon.level.toString().text(),
+                    text = level.toString().text(),
                     x = panelX + selectedOffsetX + 6.5F,
                     y = indexY + 18,
                     scale = SCALE,
@@ -326,8 +334,8 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
                     if (expGainedData.oldLevel != null) {
                         //Handling Exp Bar
                         if (ticksWithDelta <= PartyOverlayDataControl.BAR_UPDATE_BEFORE_TIME) {
-                            val expForLastLevel = (pokemon.experience - expGainedData.expGained) - if (expGainedData.oldLevel == 1) 0 else pokemon.experienceGroup.getExperience(expGainedData.oldLevel)
-                            val expNeededForLastLevel = pokemon.experienceGroup.getExperience(expGainedData.oldLevel + 1) - pokemon.experienceGroup.getExperience(expGainedData.oldLevel)
+                            val expForLastLevel = (pokemon.experience - expGainedData.expGained) - if (expGainedData.oldLevel!! == 1) 0 else pokemon.experienceGroup.getExperience(expGainedData.oldLevel!!)
+                            val expNeededForLastLevel = pokemon.experienceGroup.getExperience(expGainedData.oldLevel!! + 1) - pokemon.experienceGroup.getExperience(expGainedData.oldLevel!!)
 
                             val transition = (ticksWithDelta / PartyOverlayDataControl.BAR_UPDATE_BEFORE_TIME.toFloat()).coerceIn(0F..1F)
                             val transitionXP = expForLastLevel + ((expNeededForLastLevel - expForLastLevel) * transition)
@@ -377,8 +385,13 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
                 //Handling Popups
                 if (expGainedData != null) {
                     val ticksWithDelta = expGainedData.ticks + partialDeltaTicks
-                    ticksForMove = ticksWithDelta - (PartyOverlayDataControl.BAR_UPDATE_BEFORE_TIME + PartyOverlayDataControl.BAR_FLASH_TIME)
-                    ticksForEvo = ticksForMove
+                    val ticks = ticksWithDelta - (PartyOverlayDataControl.BAR_UPDATE_BEFORE_TIME + PartyOverlayDataControl.BAR_FLASH_TIME)
+                    if (expGainedData.countOfMovesLearned > 0) {
+                        ticksForMove = ticks
+                    }
+                    if (expGainedData.countOfEvosUnlocked > 0) {
+                        ticksForEvo = ticks
+                    }
                 } else {
                     val evoGainedData = PartyOverlayDataControl.getEvolutionData(pokemon.uuid)
                     if (evoGainedData != null) {
