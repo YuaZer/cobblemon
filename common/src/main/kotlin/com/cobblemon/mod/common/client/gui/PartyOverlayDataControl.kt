@@ -3,10 +3,11 @@ package com.cobblemon.mod.common.client.gui
 import java.util.*
 
 object PartyOverlayDataControl {
-    val BAR_UPDATE_BEFORE_TIME = 15
-    val BAR_UPDATE_AFTER_TIME = 15
-    val BAR_FLASH_TIME = 2
-    val POPUP_TIME = FadeTimings(3, 20, 3)
+    const val BAR_UPDATE_BEFORE_TIME = 15
+    const val BAR_UPDATE_AFTER_TIME = 15
+    const val BAR_FLASH_TIME = 2
+    val POPUP_TIME = FadeTimings(3, 40, 3)
+    const val LEVEL_UP_PORTRAIT_TIME = 10
 
     val BAR_UPDATE_NO_LEVEL_TIME = BAR_UPDATE_BEFORE_TIME + BAR_UPDATE_AFTER_TIME + BAR_FLASH_TIME
 

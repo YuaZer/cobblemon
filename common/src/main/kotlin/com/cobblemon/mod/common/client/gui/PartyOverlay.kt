@@ -42,7 +42,6 @@ import net.minecraft.client.gui.screens.Screen
 import net.minecraft.util.Mth
 import kotlin.math.ceil
 import kotlin.math.floor
-import kotlin.math.roundToInt
 
 class PartyOverlay : Gui(Minecraft.getInstance()) {
 
@@ -63,6 +62,7 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
         private val portraitBackground = cobblemonResource("textures/gui/party/party_slot_portrait_background.png")
         private val newMovesPopup = cobblemonResource("textures/gui/party/party_slot_notification_new_move.png")
         private val newEvoPopup = cobblemonResource("textures/gui/party/party_slot_notification_evolution.png")
+        private val levelScroll = cobblemonResource("textures/gui/party/party_slot_portrait_level_up.png")
 
         private val inanimatePortraitDrawer = InanimatePortraitDrawer()
         private val selectedAnimatedPortraitDrawer = SelectedAnimatedPortraitDrawer()
@@ -198,6 +198,46 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
             )
 
             if (pokemon != null) {
+                val expGainedData = PartyOverlayDataControl.getExpGainedData(pokemon.uuid)
+
+                //Handling Level Up Scroll / For some reason draw text makes any future blitk render behind our model render, don't ask why
+                var displayLevelScroll = false
+                var levelScrollOffset = 0F
+                var levelScrollPositionOffset = 0F
+                var levelScrollSize = 17F
+                if (expGainedData != null) {
+                    val ticksWithDelta = (expGainedData.ticks + partialDeltaTicks) - (PartyOverlayDataControl.BAR_UPDATE_BEFORE_TIME + PartyOverlayDataControl.BAR_FLASH_TIME)
+                    val transition = ticksWithDelta / PartyOverlayDataControl.LEVEL_UP_PORTRAIT_TIME
+                    if ((0F..<1F).contains(transition)) {
+                        displayLevelScroll = true
+                        var step = ceil(transition * 14)
+                        if (step <= 4) {
+                            levelScrollSize = step * 4
+                            levelScrollPositionOffset = 17 - (levelScrollSize)
+                        } else if (step <= 10) {
+                            step -= 4
+                            levelScrollOffset = -1 + (step * 4)
+                        } else {
+                            step -= 10
+                            levelScrollSize = 20 - (step * 4)
+                            levelScrollOffset = 23 + (step * 4)
+                        }
+                    }
+                }
+
+                if (displayLevelScroll) {
+                    blitk(
+                        matrixStack = matrices,
+                        texture = levelScroll,
+                        x = (panelX + selectedOffsetX + portraitFrameOffsetX + 2),
+                        y = (indexY + portraitFrameOffsetY + 2 + levelScrollPositionOffset),
+                        height = levelScrollSize,
+                        width = 17,
+                        textureHeight = 43,
+                        vOffset = levelScrollOffset
+                    )
+                }
+
                 val stateIcon = pokemon.state.getIcon(pokemon)
                 if (stateIcon != null) {
                     blitk(
@@ -280,7 +320,6 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
                 var expGreen = 0.65
                 var expBlue = 0.84
 
-                val expGainedData = PartyOverlayDataControl.getExpGainedData(pokemon.uuid)
                 if (expGainedData != null) {
                     val ticksWithDelta = expGainedData.ticks + partialDeltaTicks
 
