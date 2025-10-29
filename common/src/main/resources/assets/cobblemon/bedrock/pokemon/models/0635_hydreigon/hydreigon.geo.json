@@ -1115,7 +1115,7 @@
 					"name": "locator_seat_1",
 					"parent": "chest",
 					"pivot": [0, 23.1, 6.25],
-					"rotation": [-75, 0, 0],
+					"rotation": [-10, 0, 0],
 					"locators": {
 						"seat_1": {
 							"offset": [0, 23.1, 6.25],
