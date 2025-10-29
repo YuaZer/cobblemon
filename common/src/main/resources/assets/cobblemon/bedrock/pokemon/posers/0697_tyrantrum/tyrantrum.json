@@ -8,12 +8,12 @@
     "seat_1": [0, 0.45, 0]
   },
   "thirdPersonCameraOffset": {
-    "seat_1": [0, 1, 2],
-    "seat_1_reverse": [0, 1, 2]
+    "seat_1": [0, 0.4, 0.5],
+    "seat_1_reverse": [0, 0.4, 0.5]
   },
   "thirdPersonCameraOffsetNoViewBobbing": {
-    "seat_1": [0, 1.5, 10],
-    "seat_1_reverse": [0, 1.5, 10]
+    "seat_1": [0, 0.4, 0.5],
+    "seat_1_reverse": [0, 0.4, 0.5]
   },
   "animations": {
     "cry": "q.bedrock_stateful('tyrantrum', 'cry')",
@@ -47,11 +47,7 @@
       "condition": "!q.in_air",
       "animations": [
         "q.look('head')",
-        "q.bedrock('tyrantrum', 'ground_idle')",
-        {
-          "condition": "q.is_ridden",
-          "animation": "q.bedrock('tyrantrum', 'ride_ground_run')"
-        }
+        "q.bedrock('tyrantrum', 'ground_idle')"
       ],
       "quirks": [
         "q.bedrock_quirk('tyrantrum', 'blink')"

@@ -7,12 +7,13 @@
   "firstPersonCameraOffset": {
     "seat_1": [0, 0.45, 0]
   },
-  "thirdPersonCameraOffsetNoViewBobbing": {
-    "seat_1": [0, 3, 6],
-    "seat_1_reverse": [0, 3, 6]
-  },
   "thirdPersonCameraOffset": {
-    "seat_1": [0, 1, 2]
+    "seat_1": [0, 0.35, 0],
+    "seat_1_reverse": [0, 0.35, 0]
+  },
+  "thirdPersonCameraOffsetNoViewBobbing": {
+    "seat_1": [0, 0.35, 0],
+    "seat_1_reverse": [0, 0.35, 0]
   },
   "animations": {
     "cry": "q.bedrock_stateful('aerodactyl', 'cry')",

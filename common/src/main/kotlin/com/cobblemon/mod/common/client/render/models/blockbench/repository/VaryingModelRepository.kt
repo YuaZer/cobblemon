@@ -361,7 +361,6 @@ object VaryingModelRepository {
         inbuilt("quilladin", :: QuilladinModel)
         inbuilt("chesnaught", :: ChesnaughtModel)
         inbuilt("pineco", :: PinecoModel)
-        inbuilt("forretress", :: ForretressModel)
         inbuilt("lotad", :: LotadModel)
         inbuilt("lombre", :: LombreModel)
         inbuilt("ludicolo", :: LudicoloModel)

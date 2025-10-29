@@ -12,8 +12,8 @@
     "seat_1_reverse": [0, 0.5, 1]
   },
   "thirdPersonCameraOffsetNoViewBobbing": {
-    "seat_1": [0, 1.25, 4],
-    "seat_1_reverse": [0, 1.25, 4]
+    "seat_1": [0, 0.5, 1],
+    "seat_1_reverse": [0, 0.5, 1]
   },
   "animations": {
     "cry": "q.bedrock_stateful('gyarados', 'cry')"

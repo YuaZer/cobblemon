@@ -25,7 +25,7 @@
       "condition": "q.is_ridden",
       "animations": [
         "q.bedrock('forretress', 'ground_idle')",
-        "q.bedrock('forretress', 'ride_ground_run')"
+        "q.bedrock('forretress', 'ride_ground_walk')"
       ],
       "quirks": ["q.bedrock_quirk('slaking', 'blink')"]
     },
