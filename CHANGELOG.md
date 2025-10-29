@@ -421,6 +421,8 @@
 - Updated some item tags to better integrate behaviours between Cobblemon, Vanilla Minecraft, and other mods
   - Removed Cooked Meat, Raw Meat, Protein Ingredients, and Zinc Ingredients, the first two are now using `c` namespace tags, the latter have better integrated use of tags within their recipes which removes need for custom tags.
   - Added our seeds tag into `#c:seeds`, which is now made use of for the Miracle Seed recipe.
+  - Updated the `#cobblemon:berries` tag to use subtags located in `data/cobblemon/tags/item/berries`, such as `#cobblemon:berries/hp_recovery` for sorting purposes
+  - Moved the tag `#cobblemon:mutated_berries` to `#cobblemon:berries/mutation_result`
 - Added herbs and snowballs to the consumable in PvE and Wild battle tags
 - Tweaked the Natural Materials Vanilla file to fit with the changes to tags
 - Substantially optimised spawning checks mainly by front-loading biome filtering.
@@ -473,6 +475,7 @@
 - Roseli Berry Trees now naturally generate in their preferred biomes.
 - Refactored dynamic lights compat to be more future proof. The dynamic light support is only tested with LambDynamicLights, on NeoForged use that mod in combination with Sinytra Connector
 - Shulker Boxes and Traveler's Backpacks can no longer be held by Pokémon. Thanks Monocle ;) You could re-enable this with a datapack but you'd be crazy.
+- Moomoo Milk now clears Pokémon stat changes when used in battle.
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
@@ -557,6 +560,8 @@
 - Fixed singular Pokémon corruption causing entire storage corruption. Storages will now skip corrupted Pokémon and print an error to console.
 - Fixed species additions not being able to properly mark a species as implemented.
 - Fixed Pokémon item models not showing a glint when enchanted.
+- Fixed some specific bag items not being dropped when used in battle.
+- Fixed the "use all berry bait" achievement not being progressed
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -701,6 +706,9 @@
     - Mechanics
     - Unlockable Wallpapers
     - Starter Data
+- Fixed `cobblemon:reel_in_pokemon` criteria not working when used together with a `baitId`
+  - Also changed the default from `cobblemon:empty_bait` to `any`
+  - The previous default is still available by using the above as baitId
 
 ### Particles
 Added new/updated particles for the following moves:

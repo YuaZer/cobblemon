@@ -817,8 +817,11 @@ class PokeRodFishingBobberEntity(type: EntityType<out PokeRodFishingBobberEntity
                 // create accessory splash particle when you fish something up
                 particleEntityHandler(this, ResourceLocation.fromNamespaceAndPath("cobblemon", "accessory_fish_splash"))
 
-                var baitId = PokerodItem.getBaitStackOnRod(this.bobberBait).takeUnless { it.isEmpty }?.itemHolder?.unwrapKey()
-                    ?.orElse(null)?.location() ?: "empty_bait".asIdentifierDefaultingNamespace()
+                val baitId =
+                    if (bobberBait.isEmpty)
+                        "empty_bait".asIdentifierDefaultingNamespace()
+                    else
+                        bobberBait.itemHolder.unwrapKey().map { it.location() }.orElse("empty_bait".asIdentifierDefaultingNamespace())
                 val pokemonId = spawnedPokemon.pokemon.species.resourceIdentifier
                 CobblemonCriteria.REEL_IN_POKEMON.trigger(player, ReelInPokemonContext(pokemonId, baitId))
 
@@ -856,7 +859,7 @@ class PokeRodFishingBobberEntity(type: EntityType<out PokeRodFishingBobberEntity
                     BobberSpawnPokemonEvent.Post(
                         this,
                         spawnAction,
-                        rodItemStack,
+                        bobberBait,
                         entity
                     )
                 )
