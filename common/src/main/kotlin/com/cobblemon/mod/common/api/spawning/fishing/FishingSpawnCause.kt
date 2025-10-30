@@ -16,7 +16,6 @@ import com.cobblemon.mod.common.api.fishing.SpawnBaitEffects
 import com.cobblemon.mod.common.api.fishing.SpawnBait
 import com.cobblemon.mod.common.api.pokemon.Natures
 import com.cobblemon.mod.common.api.pokemon.stats.Stats
-import com.cobblemon.mod.common.api.spawning.SpawnBucket
 import com.cobblemon.mod.common.api.spawning.SpawnCause
 import com.cobblemon.mod.common.api.spawning.position.SpawnablePosition
 import com.cobblemon.mod.common.api.spawning.detail.SpawnAction
@@ -47,6 +46,7 @@ class FishingSpawnCause(
 ) : SpawnCause(spawner, entity) {
     companion object {
         const val FISHED_ASPECT = "fished"
+
         fun shinyReroll(pokemonEntity: PokemonEntity, effect: SpawnBait.Effect) {
             if (pokemonEntity.pokemon.shiny) return
 
@@ -59,6 +59,14 @@ class FishingSpawnCause(
             if (randomNumber <= effect.value.toInt()) {
                 pokemonEntity.pokemon.shiny = true
             }
+        }
+
+        fun alterMarksAttempt(pokemonEntity: PokemonEntity, effect: SpawnBait.Effect) {
+            // This is not needed as markings are only applied when the pokémon gets captured by a player,
+            // but let's leave it here just in case
+            if (pokemonEntity.pokemon.marks.isNotEmpty()) return
+
+            pokemonEntity.pokemon.applyPotentialMarks()
         }
 
         fun alterNatureAttempt(pokemonEntity: PokemonEntity, effect: SpawnBait.Effect) {
