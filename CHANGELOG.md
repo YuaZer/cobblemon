@@ -299,6 +299,7 @@
 - Exeggutor - Kanto
 - Corphish (updated placeholders for crustaceous tripod gait legs)
 - Crawdaunt (updated placeholders for crustaceous bipedal legs)
+- Dragapult
 
 ### Model updates for the following Pokémon
 - Cleffa
