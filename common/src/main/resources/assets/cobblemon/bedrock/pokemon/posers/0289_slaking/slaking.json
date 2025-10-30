@@ -62,7 +62,7 @@
       "transformToTicks": 5
     },
     "running": {
-      "poseTypes": ["WALK", "FLOAT", "SWIM"],
+      "poseTypes": ["WALK", "SWIM"],
       "isBattle": false,
       "condition": "!q.in_air && q.is_sprinting",
       "animations": [
@@ -90,7 +90,7 @@
       "quirks": ["q.bedrock_quirk('slaking', 'blink')"]
     },
     "walking": {
-      "poseTypes": ["WALK", "FLOAT", "SWIM"],
+      "poseTypes": ["WALK", "SWIM"],
       "condition": "!q.in_air && !q.is_sprinting",
       "animations": [
         "q.look('head')",
