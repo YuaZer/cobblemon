@@ -452,6 +452,7 @@
       },
       "baseExperienceYield": 278,
       "catchRate": 5,
+      "behaviour": {},
       "moves": [
         "1:scratch",
         "1:leer",
@@ -565,8 +566,7 @@
         "tutor:vacuumwave"
       ],
       "evolutions": [],
-      "battleOnly": false,
-      "behaviour": {}
+      "battleOnly": false
     }
   ]
 }

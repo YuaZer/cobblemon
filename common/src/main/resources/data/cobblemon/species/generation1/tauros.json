@@ -467,6 +467,7 @@
           }
         ]
       },
+      "behaviour": {},
       "moves": [
         "1:tackle",
         "1:tailwhip",
@@ -549,8 +550,7 @@
         "tutor:zenheadbutt"
       ],
       "evolutions": [],
-      "battleOnly": false,
-      "behaviour": {}
+      "battleOnly": false
     },
     {
       "name": "Paldea-Blaze",
@@ -842,10 +842,10 @@
           "LIQUID": {
             "key": "cobblemon:liquid/boat",
             "stats": {
-              "SPEED": "40-55",
               "ACCELERATION": "55-70",
-              "SKILL": "40-55",
               "JUMP": "25-35",
+              "SKILL": "40-55",
+              "SPEED": "40-55",
               "STAMINA": "40-60"
             }
           }
