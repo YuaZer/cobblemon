@@ -602,7 +602,6 @@ object VaryingModelRepository {
         inbuilt("beartic", ::BearticModel)
         inbuilt("dreepy", ::DreepyModel)
         inbuilt("drakloak", ::DrakloakModel)
-        inbuilt("dragapult", ::DragapultModel)
         inbuilt("diglett_alolan", ::DiglettAlolanModel)
         inbuilt("dugtrio_alolan", ::DugtrioAlolanModel)
         inbuilt("makuhita", ::MakuhitaModel)
