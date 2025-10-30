@@ -273,7 +273,7 @@ class CobblemonConfig {
     var summaryPokemonFollowCursor = true
 
     @CobblemonConfigField(Category.Interface, lang = "party_portrait_animations", CLIENT)
-    var partyPortraitAnimations = PortraitStyle.NEVER_ANIMATE
+    var partyPortraitAnimations = PortraitStyle.ANIMATE_SELECTED
 
     @CobblemonConfigField(Category.Riding, lang = "third_person_view_bobbing", CLIENT)
     var thirdPersonViewBobbing = true
