@@ -4582,8 +4582,14 @@
   "pokemon.vulpix.cry": {
     "sounds": [ {  "name": "cobblemon:pokemon/vulpix/vulpix_cry", "volume": 0.8 } ]
   },
+  "pokemon.vulpix_alolan.cry": {
+    "sounds": [ {  "name": "cobblemon:pokemon/vulpix/vulpix_alolan_cry", "volume": 0.8 } ]
+  },
   "pokemon.ninetales.cry": {
     "sounds": [ { "name": "cobblemon:pokemon/ninetales/ninetales_cry", "volume": 0.8 } ]
+  },
+  "pokemon.ninetales_alolan.cry": {
+    "sounds": [ { "name": "cobblemon:pokemon/ninetales/ninetales_alolan_cry", "volume": 0.8 } ]
   },
   "pokemon.jigglypuff.cry": {
     "sounds": [ { "name": "cobblemon:pokemon/jigglypuff/jigglypuff_cry", "volume": 0.8 } ]
