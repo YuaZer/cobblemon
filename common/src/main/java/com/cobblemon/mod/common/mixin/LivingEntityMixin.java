@@ -55,48 +55,6 @@ public abstract class LivingEntityMixin extends Entity implements OrientationCon
         }
     }
 
-    @Override
-    public @NotNull HitResult pick(double hitDistance, float partialTicks, boolean hitFluids) {
-        Entity vehicle = this.getVehicle();
-        if (vehicle instanceof PokemonEntity pokemonEntity && pokemonEntity.getDelegate() instanceof PokemonClientDelegate delegate) {
-            int seatIndex = pokemonEntity.getPassengers().indexOf(this);
-            Seat seat = pokemonEntity.getSeats().get(seatIndex);
-            MatrixWrapper locator = delegate.getLocatorStates().get(seat.getLocator());
-
-            Vec3 locatorOffset = new Vec3(locator.getMatrix().getTranslation(new Vector3f()));
-
-            Vec3 eyePosition = cobblemon$getEyePosition(partialTicks, pokemonEntity, locatorOffset);
-
-            Vec3 viewVector = this.getViewVector(partialTicks);
-            Vec3 viewDistanceVector = eyePosition.add(viewVector.x * hitDistance, viewVector.y * hitDistance, viewVector.z * hitDistance);
-
-            return this.level()
-                    .clip(
-                            new ClipContext(
-                                    eyePosition, viewDistanceVector, ClipContext.Block.OUTLINE, hitFluids ? net.minecraft.world.level.ClipContext.Fluid.ANY : net.minecraft.world.level.ClipContext.Fluid.NONE, this
-                            )
-                    );
-        }
-
-        return super.pick(hitDistance, partialTicks, hitFluids);
-    }
-
-    @Unique
-    private Vec3 cobblemon$getEyePosition(float partialTicks, PokemonEntity pokemonEntity, Vec3 locatorOffset) {
-        OrientationController controller = this.getOrientationController();
-
-        float currEyeHeight = this.getEyeHeight();
-        Vec3 offset = locatorOffset.add(pokemonEntity.position());
-        if (controller.isActive() && controller.getOrientation() != null) {
-            Quaternionf orientation = controller.getRenderOrientation(partialTicks);
-            Vec3 rotatedEyeHeight = new Vec3(orientation.transform(new Vector3f(0f, currEyeHeight - (this.getBbHeight() / 2), 0f)));
-
-            offset.add(rotatedEyeHeight);
-        }
-
-        return offset;
-    }
-
     @Inject(method = "tick", at = @At("HEAD"))
     private void cobblemon$updateRenderOrientation(CallbackInfo ci) {
         this.cobblemon$orientationController.tick();
