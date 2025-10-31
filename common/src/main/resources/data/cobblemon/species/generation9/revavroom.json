@@ -51,7 +51,7 @@
   "riding": {
     "behaviours": {
       "LAND": {
-        "key": "cobblemon:land/minekart",
+        "key": "cobblemon:land/horse",
         "rideSounds": [],
         "stats": {
           "ACCELERATION": "30-65",
