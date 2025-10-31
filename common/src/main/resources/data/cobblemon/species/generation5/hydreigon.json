@@ -76,19 +76,6 @@
           "SPEED": "40-60",
           "STAMINA": "60-75"
         }
-      },
-      "LAND": {
-        "key": "cobblemon:land/horse",
-        "rideSounds": [],
-        "canJump": false,
-        "canSprint": false,
-        "stats": {
-          "ACCELERATION": "10-40",
-          "JUMP": "10-40",
-          "SKILL": "80-100",
-          "SPEED": "10-40",
-          "STAMINA": "10-40"
-        }
       }
     },
     "seats": [

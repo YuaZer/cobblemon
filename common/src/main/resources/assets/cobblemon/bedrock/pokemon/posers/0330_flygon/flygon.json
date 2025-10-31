@@ -34,7 +34,11 @@
       "condition": "q.has_entity ? !q.is_sprinting : 1.0",
       "animations": [
         "q.look('head')",
-        "q.bedrock('flygon', 'ground_walk')"
+        "q.bedrock('flygon', 'ground_walk')",
+        {
+          "condition": "q.is_ridden",
+          "animation": "q.bedrock('flygon', 'ride_ground_walk')"
+        }
       ],
       "quirks": ["q.bedrock_quirk('flygon', 'blink')"]
     },
@@ -43,13 +47,13 @@
       "condition": "q.has_entity ? q.is_sprinting : 0.0",
       "animations": [
         "q.look('head')",
-        "q.bedrock('flygon', 'ground_run')"
+        "q.bedrock('flygon', 'ground_run')",
+        {
+          "condition": "q.is_ridden",
+          "animation": "q.bedrock('flygon', 'ride_ground_run')"
+        }
       ],
       "quirks": ["q.bedrock_quirk('flygon', 'blink')"]
-    },
-    "sleep": {
-      "poseTypes": ["SLEEP"],
-      "animations": ["q.bedrock('flygon', 'sleep')"]
     },
     "hover": {
       "poseTypes": ["HOVER"],
@@ -91,6 +95,13 @@
       "quirks": [
         "q.bedrock_quirk('flygon', 'blink')"
       ]
+    },
+    "sleep": {
+      "poseTypes": ["SLEEP"],
+      "namedAnimations": {
+        "cry": "q.bedrock_stateful('dummy', 'cry')"
+      },
+      "animations": ["q.bedrock('flygon', 'sleep')"]
     }
   }
 }

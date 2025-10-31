@@ -78,35 +78,6 @@
           "SPEED": "30-65",
           "STAMINA": "30-65"
         }
-      },
-      "LAND": {
-        "speed": "Math.clamp(q.entity.velocity.horizontal_magnitude + 0.33, 0, 1)",
-        "key": "cobblemon:land/horse",
-        "rideSounds": [],
-        "gravity": "q.gravity * (0.1 + (q.passenger_count - 1) * 0.1)",
-        "jumpVector": [
-          0,
-          "0.3*q.jump_strength/50",
-          "-1 * 0.5*q.jump_strength/50"
-        ],
-        "stats": {
-          "ACCELERATION": "10-40",
-          "JUMP": "30-65",
-          "SKILL": "55-85",
-          "SPEED": "30-65",
-          "STAMINA": "30-65"
-        }
-      },
-      "LIQUID": {
-        "key": "cobblemon:liquid/boat",
-        "rideSounds": [],
-        "stats": {
-          "ACCELERATION": "10-40",
-          "JUMP": "30-65",
-          "SKILL": "55-85",
-          "SPEED": "30-65",
-          "STAMINA": "30-65"
-        }
       }
     },
     "seats": [
