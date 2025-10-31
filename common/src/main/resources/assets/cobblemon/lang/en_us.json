@@ -2480,6 +2480,8 @@
   "cobblemon.config.ui.experience_multiplier.tooltip": "Additional Exp. multiplier for Exp. calculation.",
   "cobblemon.config.ui.pokemon_per_chunk": "Pokémon per Chunk",
   "cobblemon.config.ui.pokemon_per_chunk.tooltip": "The amount of Pokémon allowed within a Chunk when spawning.",
+  "cobblemon.config.ui.poke_snack_pokemon_per_chunk": "Poké Snack Pokémon per Chunk",
+  "cobblemon.config.ui.poke_snack_pokemon_per_chunk.tooltip": "The amount of Pokémon allowed within a Chunk when spawning via Poké Snacks.",
   "cobblemon.config.ui.passive_statuses": "Passive Statuses",
   "cobblemon.config.ui.passive_statuses.tooltip": "Range of seconds before clearing the status effect. The value is selected randomly from the range each time an effect is applied.",
   "cobblemon.config.ui.infinite_healer_charge": "Infinite Healer Charge",
