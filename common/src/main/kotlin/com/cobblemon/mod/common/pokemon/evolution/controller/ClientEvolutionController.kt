@@ -27,11 +27,6 @@ class ClientEvolutionController(
     private val pokemon: Pokemon,
     evolutions: Set<EvolutionDisplay>,
 ) : EvolutionController<EvolutionDisplay, ClientEvolutionController.Intermediate> {
-
-    init {
-        if (evolutions.isNotEmpty()) sendPlayerNotification()
-    }
-
     private val evolutions = evolutions.toMutableSet()
 
     override val size: Int
@@ -88,12 +83,6 @@ class ClientEvolutionController(
 
     fun sendPlayerNotification() {
         if (pokemon.heldItem?.item != CobblemonItems.EVERSTONE) {
-
-            Minecraft.getInstance().player?.let { player ->
-                player.sendSystemMessage("cobblemon.ui.evolve.hint".asTranslated(pokemon.getDisplayName()).green())
-                player.playSound(CobblemonSounds.EVOLUTION_NOTIFICATION, 1F, 1F)
-            }
-
             PartyOverlayDataControl.pokemonGainedEvo(pokemon.uuid, 1)
         }
     }

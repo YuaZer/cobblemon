@@ -1921,18 +1921,13 @@ open class Pokemon : ShowdownIdentifiable {
         if (result.experienceAdded <= 0) {
             return result
         }
-        //player.sendSystemMessage(lang("experience.gained", getDisplayName(), result.experienceAdded), true)
         if (result.oldLevel != result.newLevel) {
-            //player.sendSystemMessage(lang("experience.level_up", getDisplayName(), result.newLevel))
             val repeats = result.newLevel - result.oldLevel
             // Someone can technically trigger a "delevel"
             if (repeats >= 1) {
                 repeat(repeats) {
                     this.incrementFriendship(LEVEL_UP_FRIENDSHIP_CALCULATOR.calculate(this))
                 }
-            }
-            result.newMoves.forEach {
-                player.sendSystemMessage(lang("experience.learned_move", getDisplayName(), it.displayName))
             }
         }
         player.sendPacket(ExpGainedDataPacket(
