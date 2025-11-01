@@ -122,7 +122,7 @@ val CHARACTERISTIC_RAINBOW_ASPECT = object : AspectProvider {
         if (!pokemon.form.behaviour.characteristicRainbow) {
             return emptySet()
         }
-        val char = pokemon.characteristic ?: return emptySet()
+        val char = pokemon.characteristic
         return setOf(calculateColourAspect(pokemon.nature, char) ?: return emptySet())
     }
 
