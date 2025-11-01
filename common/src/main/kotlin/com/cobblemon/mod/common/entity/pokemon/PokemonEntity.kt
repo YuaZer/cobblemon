@@ -18,6 +18,7 @@ import com.cobblemon.mod.common.CobblemonItems
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.CobblemonNetwork.sendPacket
 import com.cobblemon.mod.common.CobblemonSounds
+import com.cobblemon.mod.common.OrientationControllable
 import com.cobblemon.mod.common.api.battles.model.PokemonBattle
 import com.cobblemon.mod.common.api.drop.DropTable
 import com.cobblemon.mod.common.api.entity.Despawner
@@ -2188,9 +2189,19 @@ open class PokemonEntity(
             }
 
             this.yRotO = this.yRot
-            val rotation = behaviour.rotation(settings, state, this, driver)
 
-            setRot(rotation.y, rotation.x)
+            if (this is OrientationControllable) {
+                val controller = this.orientationController
+                if (!controller.isActive()) {
+                    val rotation = behaviour.rotation(settings, state, this, driver)
+                    // TODO: Find a better solution than setting the vehicle xrot to zero.
+                    // The problem is that nothing actually effects the vehicle/pokemon xrot so when it gets set to
+                    // -45 degrees by a rollable ride controller it gets saved off and not modified until you try
+                    // and takeoff again. And at that point you snap to -45 pitch in the orientationControllers matrix
+                    setRot(rotation.y, 0.0f)
+                }
+            }
+
             this.yHeadRot = this.yRot
             this.yBodyRot = this.yRot
             this.passengers.filterIsInstance<LivingEntity>()
