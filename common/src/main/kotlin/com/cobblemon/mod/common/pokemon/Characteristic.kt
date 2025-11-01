@@ -9,6 +9,10 @@
 package com.cobblemon.mod.common.pokemon
 
 import com.cobblemon.mod.common.api.pokemon.stats.Stat
+import com.cobblemon.mod.common.api.pokemon.stats.Stats
+import com.cobblemon.mod.common.util.collections.RotatedIterable
+import java.util.UUID
+import kotlin.math.abs
 
 const val CHARACTERISTIC_MODULUS: Int = 5
 
@@ -17,4 +21,19 @@ data class Characteristic(val relevantStat: Stat, val mod: Int) {
     // mod is a number between 0 and 4, inclusive.
     fun getTranslationKey(): String =
         "${relevantStat.identifier.namespace}.characteristic.${relevantStat.identifier.path}.${mod}.desc"
+
+    companion object {
+        fun calculate(ivs: IVs, uuid: UUID): Characteristic {
+            val ivList = ivs.toList()
+            // If multiple IVs are the highest maxWithOrNull always returns the first one found, so we rotate the first one
+            // found to depend on UUID (vis-à-vis Personality value)
+            val startAt = abs(uuid.hashCode()) % ivList.size
+            val relevantIv = RotatedIterable(ivList, startAt).maxWithOrNull { left, right -> right.value - left.value } ?: return empty()
+            val mod = relevantIv.value % CHARACTERISTIC_MODULUS
+            return Characteristic(relevantIv.key, mod)
+        }
+
+        // Provide an empty default Characteristic for the extremely rare cases that a Pokémon has no proper IVs
+        fun empty(): Characteristic = Characteristic(Stats.HP, 0)
+    }
 }
