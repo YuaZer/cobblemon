@@ -36,12 +36,113 @@
     "special_defence": 0,
     "speed": 0
   },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "0-15",
+          "JUMP": "10-20",
+          "SKILL": "0-15",
+          "SPEED": "60-85",
+          "STAMINA": "40-65"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.031073919,
+              "y": -1.7777503,
+              "z": 0.18550363
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.13405332,
+              "y": -1.6520588,
+              "z": -0.12340391
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.4867662,
+              "y": -1.1163056,
+              "z": -0.022205783
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.4867662,
+              "y": -1.1163056,
+              "z": -0.022205783
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.13405332,
+              "y": -1.6520588,
+              "z": -0.12340391
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.13405332,
+              "y": -1.6520588,
+              "z": -0.12340391
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.4867662,
+              "y": -1.1163056,
+              "z": -0.022205783
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "baseExperienceYield": 240,
   "experienceGroup": "slow",
   "catchRate": 25,
   "eggCycles": 35,
   "baseFriendship": 50,
   "baseScale": 1,
+  "hitbox": {
+    "height": 0.5,
+    "fixed": false,
+    "width": 1.3
+  },
   "drops": {
     "amount": 3,
     "entries": [

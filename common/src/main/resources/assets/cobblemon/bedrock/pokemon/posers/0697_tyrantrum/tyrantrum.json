@@ -5,15 +5,15 @@
   "profileScale": 0.29,
   "profileTranslation": [0.02, 1.28, -10],
   "firstPersonCameraOffset": {
-    "seat_1": [0, 0.25, 0]
+    "seat_1": [0, 0.45, 0]
   },
   "thirdPersonCameraOffset": {
-    "seat_1": [0, 1, 2],
-    "seat_1_reverse": [0, 1, 2]
+    "seat_1": [0, 0.4, 0.5],
+    "seat_1_reverse": [0, 0.4, 0.5]
   },
   "thirdPersonCameraOffsetNoViewBobbing": {
-    "seat_1": [0, 1.5, 10],
-    "seat_1_reverse": [0, 1.5, 10]
+    "seat_1": [0, 0.4, 0.5],
+    "seat_1_reverse": [0, 0.4, 0.5]
   },
   "animations": {
     "cry": "q.bedrock_stateful('tyrantrum', 'cry')",
@@ -47,11 +47,7 @@
       "condition": "!q.in_air",
       "animations": [
         "q.look('head')",
-        "q.bedrock('tyrantrum', 'ground_idle')",
-        {
-          "condition": "q.is_ridden",
-          "animation": "q.bedrock('tyrantrum', 'ride_ground_run')"
-        }
+        "q.bedrock('tyrantrum', 'ground_idle')"
       ],
       "quirks": [
         "q.bedrock_quirk('tyrantrum', 'blink')"
@@ -62,8 +58,8 @@
         "isBattle": false,
         "condition": "q.in_air && q.is_ridden",
         "animations": ["q.look('head')", "q.bedrock('tyrantrum', 'ride_jump')"],
-        "transformTicks": 2,
-        "transformToTicks": 2
+        "transformTicks": 5,
+        "transformToTicks": 5
       },
     "walk": {
       "poseTypes": [

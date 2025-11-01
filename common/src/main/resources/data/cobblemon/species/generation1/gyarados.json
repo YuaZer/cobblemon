@@ -77,11 +77,11 @@
       "AIR": {
         "key": "cobblemon:air/jet",
         "stats": {
-          "SPEED": "30-60",
-          "ACCELERATION": "30-65",
-          "SKILL": "30-60",
-          "JUMP": "30-60",
-          "STAMINA": "35-75"
+          "SPEED": "15-50",
+          "ACCELERATION": "35-60",
+          "SKILL": "45-65",
+          "JUMP": "20-45",
+          "STAMINA": "15-40"
         }
       },
       "LAND": {
