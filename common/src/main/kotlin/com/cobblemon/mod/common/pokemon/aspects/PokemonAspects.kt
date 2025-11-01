@@ -61,58 +61,58 @@ val CHARACTERISTIC_RAINBOW_ASPECT = object : AspectProvider {
             (null to Stats.ATTACK),
             (Stats.SPEED to Stats.DEFENCE),
             (Stats.DEFENCE to Stats.SPEED)
-                 -> "color-red"
+                 -> "rainbow-red"
 
             (Stats.ATTACK to Stats.DEFENCE),
             (Stats.DEFENCE to Stats.ATTACK)
-                -> "color-orange"
+                -> "rainbow-orange"
 
             (Stats.DEFENCE to Stats.DEFENCE),
             (Stats.DEFENCE to Stats.HP),
             (null to Stats.DEFENCE),
             (Stats.ATTACK to Stats.SPECIAL_DEFENCE),
             (Stats.SPECIAL_DEFENCE to Stats.ATTACK)
-                -> "color-yellow"
+                -> "rainbow-yellow"
 
             (Stats.DEFENCE to Stats.SPECIAL_DEFENCE),
             (Stats.SPECIAL_DEFENCE to Stats.DEFENCE)
-                -> "color-lime"
+                -> "rainbow-lime"
 
             (Stats.SPECIAL_DEFENCE to Stats.SPECIAL_DEFENCE),
             (Stats.SPECIAL_DEFENCE to Stats.HP),
             (null to Stats.SPECIAL_DEFENCE),
             (Stats.DEFENCE to Stats.SPECIAL_ATTACK),
             (Stats.SPECIAL_ATTACK to Stats.DEFENCE)
-                -> "color-green"
+                -> "rainbow-green"
 
             (Stats.SPECIAL_DEFENCE to Stats.SPECIAL_ATTACK),
             (Stats.SPECIAL_ATTACK to Stats.SPECIAL_DEFENCE) 
-                -> "color-cyan"
+                -> "rainbow-cyan"
 
             (Stats.SPECIAL_ATTACK to Stats.SPECIAL_ATTACK),
             (Stats.SPECIAL_ATTACK to Stats.HP),
             (null to Stats.SPECIAL_ATTACK),
             (Stats.SPECIAL_DEFENCE to Stats.SPEED),
             (Stats.SPEED to Stats.SPECIAL_DEFENCE) 
-                -> "color-blue"
+                -> "rainbow-blue"
 
             (Stats.SPECIAL_ATTACK to Stats.SPEED),
             (Stats.SPEED to Stats.SPECIAL_ATTACK) 
-                -> "color-purple"
+                -> "rainbow-purple"
 
             (Stats.SPEED to Stats.SPEED),
             (Stats.SPEED to Stats.HP),
             (null to Stats.SPEED),
             (Stats.SPECIAL_ATTACK to Stats.ATTACK),
             (Stats.ATTACK to Stats.SPECIAL_ATTACK)
-                -> "color-magenta"
+                -> "rainbow-magenta"
 
             (Stats.SPEED to Stats.ATTACK),
             (Stats.ATTACK to Stats.SPEED),
-                -> "color-pink"
+                -> "rainbow-pink"
 
             (null to Stats.HP) 
-                -> "color-light-blue"
+                -> "rainbow-light-blue"
 
             else -> null
         }
