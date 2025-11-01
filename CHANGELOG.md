@@ -83,6 +83,8 @@
 - Altaria
 - Snorunt
 - Glalie
+- Shuppet
+- Banette
 - Latias
 - Latios
 
