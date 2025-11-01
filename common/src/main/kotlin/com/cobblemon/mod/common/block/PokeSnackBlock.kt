@@ -18,6 +18,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.particles.BlockParticleOption
 import net.minecraft.core.particles.ColorParticleOption
 import net.minecraft.core.particles.ParticleTypes
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.stats.Stats
@@ -140,13 +141,14 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
         return SHAPES[state.getValue(BITES)]
     }
 
-    override fun getRenderShape(blockState: BlockState?) = RenderShape.MODEL
+    override fun getRenderShape(blockState: BlockState) = RenderShape.MODEL
 
     override fun setPlacedBy(level: Level, pos: BlockPos, state: BlockState, placer: LivingEntity?, stack: ItemStack) {
         super.setPlacedBy(level, pos, state, placer, stack)
 
-        val blockEntity = level.getBlockEntity(pos) as? PokeSnackBlockEntity
-        blockEntity?.initializeFromItemStack(stack)
+        val blockEntity = level.getBlockEntity(pos) as? PokeSnackBlockEntity ?: return
+        blockEntity.initializeFromItemStack(stack)
+        blockEntity.placedBy = placer?.uuid
     }
 
     override fun getCloneItemStack(level: LevelReader, pos: BlockPos, state: BlockState): ItemStack {
@@ -308,6 +310,7 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
 
         if (newBites > MAX_BITES) {
             dropCandle(level, pos, state, player)
+
             level.removeBlock(pos, false)
             level.removeBlockEntity(pos)
         } else {
@@ -366,8 +369,19 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
                 0.0,
                 0.0,
                 0.0
-
             )
         }
+    }
+
+    override fun isRandomlyTicking(state: BlockState) = isLure
+
+    override fun randomTick(
+        state: BlockState,
+        level: ServerLevel,
+        pos: BlockPos,
+        random: RandomSource
+    ) {
+        if (level.isClientSide) return
+        (level.getBlockEntity(pos) as? PokeSnackBlockEntity)?.randomTick()
     }
 }

@@ -14,13 +14,15 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.core.BlockPos
 
 /**
- * A spawnable position relating to triggered spawning. Uses a single-point structure cache which is
- * the only contribution of this implementation.
+ * A spawnable position relating to single-point spawning. Uses a single-point structure cache which is
+ * the only contribution of this implementation really. By contrast, the area spawnable position provides
+ * a structure cache that's shared across the entire zone that was used for spawning, which is great for
+ * performance. That kind of optimization shouldn't be necessary for single-point spawning.
  *
  * @author Hiroku
  * @since February 3rd, 2024
  */
-open class TriggerSpawnablePosition(
+open class BasicSpawnablePosition(
     override val cause: SpawnCause,
     override val world: ServerLevel,
     override val position: BlockPos,
@@ -29,6 +31,6 @@ open class TriggerSpawnablePosition(
     override val canSeeSky: Boolean,
     override val influences: MutableList<SpawningInfluence>
 ) : SpawnablePosition() {
-    val triggerStructureCache = StructureChunkCache()
-    override fun getStructureCache(pos: BlockPos) = triggerStructureCache
+    val singlePointStructureCache = StructureChunkCache()
+    override fun getStructureCache(pos: BlockPos) = singlePointStructureCache
 }

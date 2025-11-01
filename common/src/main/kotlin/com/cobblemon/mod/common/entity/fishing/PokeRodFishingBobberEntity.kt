@@ -26,6 +26,7 @@ import com.cobblemon.mod.common.api.spawning.fishing.FishingSpawnCause
 import com.cobblemon.mod.common.api.spawning.influence.BucketNormalizingInfluence
 import com.cobblemon.mod.common.api.spawning.influence.PlayerLevelRangeInfluence
 import com.cobblemon.mod.common.api.spawning.influence.PlayerLevelRangeInfluence.Companion.TYPICAL_VARIATION
+import com.cobblemon.mod.common.api.spawning.position.FishingSpawnablePosition
 import com.cobblemon.mod.common.api.text.red
 import com.cobblemon.mod.common.client.sound.EntitySoundTracker
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
@@ -771,11 +772,16 @@ class PokeRodFishingBobberEntity(type: EntityType<out PokeRodFishingBobberEntity
             lureLevel = lureLevel,
         )
 
-        val result = spawner.getSpawnAction(
+        val spawnablePosition = FishingSpawnablePosition(
             cause = spawnCause,
             world = level() as ServerLevel,
             pos = position().toBlockPos(),
-            influences = listOf(PlayerLevelRangeInfluence(player, TYPICAL_VARIATION), bucketInfluence)
+            influences = mutableListOf(PlayerLevelRangeInfluence(player, TYPICAL_VARIATION), bucketInfluence)
+        )
+
+        val result = spawner.calculateSpawnActionForPosition(
+            cause = spawnCause,
+            spawnablePosition = spawnablePosition
         )
 
         this.plannedSpawnAction = result
