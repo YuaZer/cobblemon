@@ -28,7 +28,7 @@ data class Characteristic(val relevantStat: Stat, val mod: Int) {
             // If multiple IVs are the highest maxWithOrNull always returns the first one found, so we rotate the first one
             // found to depend on UUID (vis-à-vis Personality value)
             val startAt = abs(uuid.hashCode()) % ivList.size
-            val relevantIv = RotatedIterable(ivList, startAt).maxWithOrNull { left, right -> right.value - left.value } ?: return empty()
+            val relevantIv = RotatedIterable(ivList, startAt).maxByOrNull { it.value } ?: return empty()
             val mod = relevantIv.value % CHARACTERISTIC_MODULUS
             return Characteristic(relevantIv.key, mod)
         }
