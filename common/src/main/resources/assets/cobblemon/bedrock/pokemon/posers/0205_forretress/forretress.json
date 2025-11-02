@@ -1,61 +1,26 @@
 {
   "portraitScale": 1.65,
-  "portraitTranslation": [
-    -0.3,
-    0.3,
-    0
-  ],
+  "portraitTranslation": [-0.3, 0.3, 0],
   "profileScale": 0.7,
-  "profileTranslation": [
-    0,
-    0.8,
-    0
-  ],
+  "profileTranslation": [0, 0.8, 0],
   "rootBone": "forretress",
   "firstPersonCameraOffset": {
-    "seat_1": [
-      0,
-      0.45,
-      0
-    ]
+    "seat_1": [0, 0.45, 0]
   },
   "thirdPersonCameraOffset": {
-    "seat_1": [
-      0,
-      0.3,
-      0
-    ],
-    "seat_1_reverse": [
-      0,
-      0.3,
-      0
-    ]
+    "seat_1": [0, 0.3, 0],
+    "seat_1_reverse": [0, 0.3, 0]
   },
   "thirdPersonCameraOffsetNoViewBobbing": {
-    "seat_1": [
-      0,
-      0.3,
-      0
-    ],
-    "seat_1_reverse": [
-      0,
-      0.3,
-      0
-    ]
+    "seat_1": [0, 0.3, 0],
+    "seat_1_reverse": [0, 0.3, 0]
   },
   "animations": {
     "faint": "q.bedrock_primary('forretress', 'faint')"
   },
   "poses": {
     "hover": {
-      "poseTypes": [
-        "HOVER",
-        "STAND",
-        "FLOAT",
-        "NONE",
-        "PORTRAIT",
-        "PROFILE"
-      ],
+      "poseTypes": ["HOVER", "STAND", "FLOAT", "NONE", "PORTRAIT", "PROFILE"],
       "isBattle": false,
       "transformTicks": 10,
       "animations": [
@@ -67,12 +32,7 @@
       ]
     },
     "battle_hover": {
-      "poseTypes": [
-        "HOVER",
-        "STAND",
-        "FLOAT",
-        "NONE"
-      ],
+      "poseTypes": ["HOVER", "STAND", "FLOAT", "NONE"],
       "isBattle": true,
       "animations": [
         "q.bedrock('forretress', 'ground_idle')"
@@ -82,33 +42,21 @@
       ]
     },
     "walking": {
-      "poseTypes": [
-        "FLY",
-        "WALK",
-        "SWIM"
-      ],
+      "poseTypes": ["FLY", "WALK", "SWIM"],
       "condition": "q.has_entity ? !q.is_ridden && !q.is_sprinting : 1.0",
       "animations": [
         "q.bedrock('forretress', 'ground_walk')"
       ]
     },
     "running": {
-      "poseTypes": [
-        "FLY",
-        "WALK",
-        "SWIM"
-      ],
+      "poseTypes": ["FLY", "WALK", "SWIM"],
       "condition": "q.has_entity ? !q.is_ridden && q.is_sprinting : 0.0",
       "animations": [
         "q.bedrock('forretress', 'ground_run')"
       ]
     },
     "mount-walking": {
-      "poseTypes": [
-        "WALK",
-        "SWIM",
-        "FLY"
-      ],
+      "poseTypes": ["WALK", "SWIM", "FLY"],
       "condition": "q.has_entity ? q.is_ridden && !q.is_sprinting : 0.0",
       "animations": [
         "q.bedrock('forretress', 'ground_run')",
@@ -116,9 +64,7 @@
       ]
     },
     "sleep": {
-      "poseTypes": [
-        "SLEEP"
-      ],
+      "poseTypes": ["SLEEP"],
       "namedAnimations": {
         "cry": "q.bedrock_stateful('dummy', 'cry')"
       },
