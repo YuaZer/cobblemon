@@ -53,7 +53,7 @@
     },
     "stand": {
       "isBattle": false,
-      "condition": "q.has_entity ? !q.in_air : 0.0",
+      "condition": "q.has_entity ? !q.in_air : 1.0",
       "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
       "animations": [
         "q.bedrock('metagross', 'ground_idle')"
