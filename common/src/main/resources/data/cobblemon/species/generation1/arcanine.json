@@ -47,6 +47,21 @@
     "hisuian"
   ],
   "behaviour": {
+    "moving": {
+      "swim": {
+        "canBreatheUnderwater": false,
+        "canWalkOnWater": true,
+        "canSwimInLava": true,
+        "swimSpeed": "0.1"
+      },
+      "walk": {
+        "walkSpeed": "0.25"
+      }
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
+    },
     "entityInteract": {
       "avoidedBySkeleton": true
     }
@@ -56,6 +71,102 @@
     "width": 1.2,
     "height": 1.7,
     "fixed": false
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "65-90",
+          "JUMP": "25-50",
+          "SKILL": "45-80",
+          "SPEED": "40-65",
+          "STAMINA": "40-75"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.031073919,
+              "y": -1.7777503,
+              "z": 0.18550363
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.13405332,
+              "y": -1.6520588,
+              "z": -0.12340391
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.4867662,
+              "y": -1.1163056,
+              "z": -0.022205783
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.4867662,
+              "y": -1.1163056,
+              "z": -0.022205783
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.13405332,
+              "y": -1.6520588,
+              "z": -0.12340391
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.13405332,
+              "y": -1.6520588,
+              "z": -0.12340391
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.4867662,
+              "y": -1.1163056,
+              "z": -0.022205783
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "drops": {
     "amount": 3,
@@ -374,28 +485,5 @@
       },
       "behaviour": {}
     }
-  ],
-  "riding": {
-    "stats": {
-      "SPEED": {
-        "ranges": "35-70"
-      },
-      "ACCELERATION": {
-        "ranges": "30-60"
-      },
-      "SKILL": {
-        "ranges": "35-70"
-      },
-      "JUMP": {
-        "ranges": "25-50"
-      },
-      "STAMINA": {
-        "ranges": "40-80"
-      }
-    },
-    "seats": [],
-    "behaviour": {
-      "key": "cobblemon:land/horse"
-    }
-  }
+  ]
 }

@@ -308,6 +308,7 @@
 - Salamence
 - Staraptor
 - Dusknoir
+- Arcanine
 
 ### Model updates for the following Pokémon
 - Cleffa
