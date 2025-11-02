@@ -3812,7 +3812,7 @@
   "cobblemon.behaviour.dialogue_selection.desc": "Sets the dialogue to be ran on interaction with the NPC",
   
   "cobblemon.entity.variable.dialogue_selection.name": "Dialogue Name",
-  "cobblemon.entity.variable.dialgoue_selection.desc": "The name of the dialogue file to run when interacting with the NPC, without file extension. E.g. test_dialogue.json = test_dialogue",
+  "cobblemon.entity.variable.dialogue_selection.desc": "The name of the dialogue file to run when interacting with the NPC, without file extension. E.g. test_dialogue.json = test_dialogue",
 
   "npc.sacchi.name": "Professor Sacchi",
 
