@@ -35,27 +35,4 @@ public abstract class EntityMixin {
         }
     }
 
-    @WrapOperation(
-            method = "collide(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/entity/Entity;onGround()Z"
-            )
-    )
-    public boolean cobblemon$forceOnGroundForStepUp(Entity entity, Operation<Boolean> original) {
-        if (entity instanceof PokemonEntity && entity.hasControllingPassenger()) {
-            BlockPos below = entity.blockPosition().below();
-            Level level = entity.level();
-            var blockStateBelow = level.getBlockState(below);
-            boolean isAirOrLiquid = blockStateBelow.isAir() || !blockStateBelow.getFluidState().isEmpty();
-            boolean canSupportEntity = blockStateBelow.isFaceSturdy(level, below, Direction.UP);
-            boolean standingOnSolid = canSupportEntity && !isAirOrLiquid;
-            if (standingOnSolid) {
-                return true;
-            }
-        }
-        return original.call(entity);
-    }
-
-
 }
