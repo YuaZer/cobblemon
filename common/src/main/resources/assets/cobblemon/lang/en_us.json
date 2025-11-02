@@ -3802,6 +3802,18 @@
   "cobblemon.entity.variable.resource_identifier.name": "Resource Identifier",
   "cobblemon.entity.variable.resource_identifier.desc": "The resource identifier to be used for controlling the NPC's appearance, such as cobblemon:standard or cobblemon:mudkip.",
   
+    "cobblemon.behaviour.name_tag_display.name": "Name Tag Display",
+  "cobblemon.behaviour.name_tag_display.desc": "Toggles the visibility of the entity's name tag.",
+  
+  "cobblemon.entity.variable.name_tag_display.name": "Display Name Tag",
+  "cobblemon.entity.variable.name_tag_display.desc": "Toggles the visibility of the entity's name tag. Sets to true or false. Default = true.",
+  
+  "cobblemon.behaviour.dialogue_selection.name": "Dialogue Selection",
+  "cobblemon.behaviour.dialogue_selection.desc": "Sets the dialogue to be ran on interaction with the NPC",
+  
+  "cobblemon.entity.variable.dialogue_selection.name": "Dialogue Name",
+  "cobblemon.entity.variable.dialgoue_selection.desc": "The name of the dialogue file to run when interacting with the NPC, without file extension. E.g. test_dialogue.json = test_dialogue",
+
   "npc.sacchi.name": "Professor Sacchi",
 
   "cobblemon.move.pound": "Pound",
