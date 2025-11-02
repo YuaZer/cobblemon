@@ -17,8 +17,21 @@
   },
   "animations": {},
   "poses": {
+    "jump": {
+      "poseTypes": ["STAND", "WALK"],
+      "condition": "q.in_air",
+      "animations": [
+        "q.bedrock('heracross', 'ride_jump')"
+      ],
+      "quirks": [
+        "q.bedrock_quirk('heracross', 'blink')"
+      ],
+      "transformTicks": 3,
+      "transformToTicks": 3
+    },
     "standing": {
       "poseTypes": ["STAND", "FLOAT", "NONE", "PORTRAIT", "PROFILE"],
+      "condition": "!q.in_air",
       "animations": [
         "q.bedrock('heracross', 'ground_idle')"
       ],
@@ -28,7 +41,7 @@
     },
     "walking": {
       "poseTypes": ["WALK", "SWIM"],
-      "condition": "q.has_entity ? !q.is_sprinting : 1.0",
+      "condition": "!q.in_air && q.has_entity ? !q.is_sprinting : 1.0",
       "animations": [
         "q.bedrock('heracross', 'ground_walk')",
         {
@@ -40,7 +53,7 @@
     },
     "running": {
       "poseTypes": ["WALK", "SWIM"],
-      "condition": "q.has_entity ? q.is_sprinting : 0.0",
+      "condition": "!q.in_air && q.has_entity ? q.is_sprinting : 0.0",
       "animations": [
         "q.bedrock('heracross', 'ground_run')",
         {

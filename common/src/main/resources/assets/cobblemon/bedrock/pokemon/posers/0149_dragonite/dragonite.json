@@ -53,7 +53,11 @@
       "animations": [
         "q.look('neck', 0.5, 1, 10, -10, 20, -20)",
         "q.look('head', 1, 0.25, 10, -15, 5, -5)",
-        "q.bedrock('dragonite', 'ground_idle')"
+        "q.bedrock('dragonite', 'ground_idle')",
+        {
+          "condition": "q.is_ridden && q.has_entity",
+          "animation": "q.bedrock('dragonite', 'ride_ground_walk')"
+        }
       ],
       "quirks": [
         "q.bedrock_quirk('dragonite', 'blink')"
@@ -64,7 +68,11 @@
       "animations": [
         "q.look('neck', 0.5, 1, 10, -10, 20, -20)",
         "q.look('head', 1, 0.25, 10, -15, 5, -5)",
-        "q.bedrock('dragonite', 'ground_walk')"
+        "q.bedrock('dragonite', 'ground_walk')",
+        {
+          "condition": "q.is_ridden && q.has_entity",
+          "animation": "q.bedrock('dragonite', 'ride_ground_walk')"
+        }
       ],
       "quirks": [
         "q.bedrock_quirk('dragonite', 'blink')"
