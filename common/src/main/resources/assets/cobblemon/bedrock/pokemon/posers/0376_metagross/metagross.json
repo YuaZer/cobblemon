@@ -28,8 +28,9 @@
   "poses": {
     "mount-hover": {
       "isBattle": false,
-      "condition": "q.is_ridden && q.riding_style == 'AIR'",
-      "poseTypes": ["STAND"],
+      "condition": "q.has_entity ? q.is_ridden && q.riding_style == 'AIR' : 0.0",
+      "transformTicks": 5,
+      "poseTypes": ["STAND", "HOVER"],
       "animations": [
         "q.bedrock('metagross', 'air_idle')",
         "q.bedrock('metagross', 'ride_air_idle')"
@@ -40,8 +41,8 @@
     },
     "mount-fly": {
       "isBattle": false,
-      "condition": "q.is_ridden && q.riding_style == 'AIR'",
-      "poseTypes": ["WALK"],
+      "condition": "q.has_entity ? q.is_ridden && q.riding_style == 'AIR' : 0.0",
+      "poseTypes": ["WALK", "FLY"],
       "animations": [
         "q.bedrock('metagross', 'air_fly')",
         "q.bedrock('metagross', 'ride_air_fly')"
@@ -52,7 +53,7 @@
     },
     "stand": {
       "isBattle": false,
-      "condition": "q.has_entity ? !q.in_air : 1.0",
+      "condition": "q.has_entity ? !q.in_air : 0.0",
       "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
       "animations": [
         "q.bedrock('metagross', 'ground_idle')"
@@ -94,7 +95,7 @@
     },
     "walk": {
       "poseTypes": ["WALK"],
-      "condition": "!q.in_air && !q.is_sprinting",
+      "condition": "!q.in_air && !q.is_sprinting : 1.0",
       "animations": [
         "q.bedrock('metagross', 'ground_walk')",
         {
@@ -145,7 +146,6 @@
       }
     },
       "run": {
-        "poseName": "run",
         "poseTypes": ["STAND","WALK"],
         "isBattle": false,
         "condition": "!q.in_air && q.is_sprinting",

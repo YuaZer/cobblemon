@@ -466,7 +466,6 @@ object VaryingModelRepository {
         inbuilt("luxio", ::LuxioModel)
         inbuilt("luxray", ::LuxrayModel)
         inbuilt("numel", ::NumelModel)
-        inbuilt("camerupt", ::CameruptModel)
         inbuilt("roggenrola", ::RoggenrolaModel)
         inbuilt("boldore", ::BoldoreModel)
         inbuilt("gigalith", ::GigalithModel)
