@@ -642,6 +642,7 @@
 - Adds Flows for `POKEMON_HEALED`, `POKEMON_SCANNED`, `BERRY_HARVEST`, `LOOT_DROPPED`, `POKEMON_SEEN`, `COLLECT_EGG`, `HATCH_EGG`, and `EXPERIENCE_GAINED`.
 - Adds Flows for `POKEMON_CATCH_RATE`, `BAIT_SET`, `BAIT_SET_PRE`, `BAIT_CONSUMED`, `POKEROD_CAST_PRE`, `POKEROD_CAST_POST`, `POKEROD_REEL`, and `BOBBER_SPAWN_POKEMON_PRE`.
 - Adds Flows for `POKEMON_ASPECTS_CHANGED`, `FRIENDSHIP_UPDATED`, `CHANGE_PC_BOX_WALLPAPER_EVENT_PRE`, `CHANGE_PC_BOX_WALLPAPER_EVENT_POST`, and `FULLNESS_UPDATED`.
+- Added Callback for `SERVER_STOPPING`
 - MoLang triggered battles may now set the battle format, whether to clone the player's party, set level, or heal prior.
 - Added Molang function for Player: `inventory`
 - Adds Flows for `STARTER_CHOSEN`, `EV_GAINED`, `POKEMON_RELEASED`, `POKEMON_NICKNAMED`, `HELD_ITEM`, and `TRADE_COMPLETED` events
@@ -709,6 +710,12 @@
   - Also changed the default from `cobblemon:empty_bait` to `any`
   - The previous default is still available by using the above as baitId
 - Added support for species-specific move action effects, using the format `{move_id}_{species}.json`.
+- Added various functions to `q.file` for file handling in MoLang, strictly for the config and data folders:
+  - `q.file.save(<path>, <struct>)` Saves to the given file path with the given variable struct.
+  - `q.file.load(<path>)` Loads a variable struct from the given path, or gets it from the cache if it's already been loaded.
+  - `q.file.exists(<path>)` Returns 1 if the given file path exists.
+  - `q.file.clear(<path>)` Clears the given file from the cache.
+- Using `q.run_script` will now allow additional arguments which will be put into `c.arg_1`, `c.arg_2`, etc.
 
 ### Particles
 Added new/updated particles for the following moves:
