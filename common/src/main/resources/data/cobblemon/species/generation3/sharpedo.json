@@ -171,6 +171,8 @@
         "swimSpeed": 0.7
       },
       "walk": {
+        "canWalk": false,
+        "walkSpeed": 0.7,
         "avoidsLand": true
       }
     }

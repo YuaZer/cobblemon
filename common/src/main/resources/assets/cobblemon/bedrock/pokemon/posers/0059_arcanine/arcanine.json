@@ -23,7 +23,6 @@
     "battle-standing": {
       "poseTypes": ["STAND"],
       "isBattle": true,
-      "isTouchingWater": false,
       "animations": [
         "q.look('head')",
         "q.bedrock('arcanine', 'battle_idle')"
@@ -49,9 +48,8 @@
       "transformToTicks": 3
     },
     "standing": {
-      "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
+      "poseTypes": ["STAND", "FLOAT", "NONE", "PORTRAIT", "PROFILE"],
       "isBattle": false,
-      "isTouchingWater": false,
       "condition": "!q.in_air",
       "animations": [
         "q.look('head')",
@@ -66,7 +64,6 @@
     "running": {
       "poseTypes": ["WALK"],
       "isBattle": false,
-      "isTouchingWater": false,
       "condition": "!q.in_air && q.is_sprinting",
       "animations": [
         "q.look('head')",
@@ -79,9 +76,8 @@
       "quirks": ["q.bedrock_quirk('arcanine', 'blink')"]
     },
     "walking": {
-      "poseTypes": ["WALK"],
+      "poseTypes": ["WALK", "SWIM"],
       "condition": "!q.in_air && !q.is_sprinting",
-      "isTouchingWater": false,
       "animations": [
         "q.look('head')",
         "q.bedrock('arcanine', 'ground_walk')",
@@ -91,43 +87,6 @@
         }
       ],
       "quirks": ["q.bedrock_quirk('arcanine', 'blink')"]
-    },
-    "floating": {
-      "poseTypes": ["STAND", "FLOAT"],
-      "isTouchingWater": true,
-      "animations": [
-        "q.look('head')",
-        "q.bedrock('arcanine', 'water_surface_idle')"
-      ],
-      "quirks": ["q.bedrock_quirk('arcanine', 'blink')"],
-      "namedAnimations": {
-        "cry": "q.bedrock_stateful('arcanine', 'cry_water_surface')"
-      },
-      "transformedParts": [
-        {
-          "part": "body",
-          "position": [0, 10, 0]
-        }
-      ]
-    },
-    "swimming": {
-      "poseTypes": ["WALK", "SWIM"],
-      "isTouchingWater": true,
-      "isBattle": false,
-      "animations": [
-        "q.look('head')",
-        "q.bedrock('arcanine', 'water_surface_swim')"
-      ],
-      "quirks": ["q.bedrock_quirk('arcanine', 'blink')"],
-      "namedAnimations": {
-        "cry": "q.bedrock_stateful('arcanine', 'cry_water_surface')"
-      },
-      "transformedParts": [
-        {
-          "part": "body",
-          "position": [0, 10, 0]
-        }
-      ]
     },
     "battle-sleep": {
       "poseTypes": ["SLEEP"],

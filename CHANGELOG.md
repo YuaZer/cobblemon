@@ -309,6 +309,8 @@
 - Staraptor
 - Dusknoir
 - Arcanine
+- Carvanha
+- Sharpedo
 
 ### Model updates for the following Pokémon
 - Cleffa

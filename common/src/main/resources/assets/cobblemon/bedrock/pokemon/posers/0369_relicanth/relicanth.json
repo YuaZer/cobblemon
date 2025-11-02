@@ -31,7 +31,7 @@
       "transformToTicks": 3
     },
     "standing": {
-      "poseTypes": ["STAND", "PORTRAIT", "PROFILE", "NONE"],
+      "poseTypes": ["STAND", "NONE"],
       "isTouchingWater": false,
       "animations": ["q.bedrock('relicanth', 'ground_idle')"]
     },
