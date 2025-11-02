@@ -11,8 +11,8 @@
         "variables": [
           {
             "variableName": "name_tag_display",
-            "displayName": "cobblemon.entity.variable.name_tag_display.name",
-            "description": "cobblemon.entity.variable.display_name_tag_display.desc",
+            "displayName": "cobblemon.entity.variable.display_name_tag.name",
+            "description": "cobblemon.entity.variable.display_name_tag.desc",
             "type": "BOOLEAN",
             "defaultValue": "true"
           }

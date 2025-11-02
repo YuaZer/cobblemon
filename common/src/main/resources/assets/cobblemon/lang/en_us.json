@@ -3823,17 +3823,17 @@
   "cobblemon.entity.variable.resource_identifier.name": "Resource Identifier",
   "cobblemon.entity.variable.resource_identifier.desc": "The resource identifier to be used for controlling the NPC's appearance, such as cobblemon:standard or cobblemon:mudkip.",
   
-    "cobblemon.behaviour.name_tag_display.name": "Name Tag Display",
-  "cobblemon.behaviour.name_tag_display.desc": "Toggles the visibility of the entity's name tag.",
+  "cobblemon.behaviour.name_tag_display.name": "Name Tag Display",
+  "cobblemon.behaviour.name_tag_display.desc": "Allows toggling the visibility of the entity's name tag.",
   
-  "cobblemon.entity.variable.name_tag_display.name": "Display Name Tag",
-  "cobblemon.entity.variable.name_tag_display.desc": "Toggles the visibility of the entity's name tag. Sets to true or false. Default = true.",
+  "cobblemon.entity.variable.display_name_tag.name": "Display Name Tag",
+  "cobblemon.entity.variable.display_name_tag.desc": "Whether or not the entity's name tag is visible.",
   
   "cobblemon.behaviour.dialogue_selection.name": "Dialogue Selection",
-  "cobblemon.behaviour.dialogue_selection.desc": "Sets the dialogue to be ran on interaction with the NPC",
+  "cobblemon.behaviour.dialogue_selection.desc": "Allows configuring NPC interaction to open a specific dialogue.",
   
-  "cobblemon.entity.variable.dialogue_selection.name": "Dialogue Name",
-  "cobblemon.entity.variable.dialogue_selection.desc": "The name of the dialogue file to run when interacting with the NPC, without file extension. E.g. test_dialogue.json = test_dialogue",
+  "cobblemon.entity.variable.dialogue_selection.name": "Dialogue",
+  "cobblemon.entity.variable.dialogue_selection.desc": "The resource identifier of the dialogue to open on interaction, such as cobblemon:your_dialogue",
 
   "npc.sacchi.name": "Professor Sacchi",
 
