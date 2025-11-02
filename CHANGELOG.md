@@ -302,6 +302,12 @@
 - Corphish (updated placeholders for crustaceous tripod gait legs)
 - Crawdaunt (updated placeholders for crustaceous bipedal legs)
 - Dragapult
+- Camerupt
+- Relicanth
+- Heracross
+- Salamence
+- Staraptor
+- Dusknoir
 
 ### Model updates for the following Pokémon
 - Cleffa
