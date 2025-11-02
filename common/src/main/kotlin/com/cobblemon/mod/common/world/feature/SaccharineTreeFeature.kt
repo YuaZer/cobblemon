@@ -10,6 +10,7 @@ package com.cobblemon.mod.common.world.feature
 
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.CobblemonBlocks
+import com.cobblemon.mod.common.api.pokemon.PokemonProperties
 import com.cobblemon.mod.common.api.tags.CobblemonBiomeTags
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -21,12 +22,15 @@ import net.minecraft.world.level.block.Block.UPDATE_ALL
 import net.minecraft.world.level.block.Block.UPDATE_CLIENTS
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.LeavesBlock
+import net.minecraft.world.level.block.entity.BeehiveBlockEntity
+import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.chunk.status.ChunkStatus
 import net.minecraft.world.level.levelgen.feature.Feature
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext
 import net.minecraft.world.level.levelgen.feature.TreeFeature
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration
+import java.util.function.Consumer
 
 class SaccharineTreeFeature : Feature<BlockStateConfiguration>(BlockStateConfiguration.CODEC) {
 
@@ -209,11 +213,33 @@ class SaccharineTreeFeature : Feature<BlockStateConfiguration>(BlockStateConfigu
         if (validNestPos != null && worldGenLevel.isEmptyBlock(validNestPos)) {
             val southFacingBeeNest = Blocks.BEE_NEST.defaultBlockState().setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
             setBlockIfClear(worldGenLevel, validNestPos, southFacingBeeNest)
+            populateBeeNest(worldGenLevel, validNestPos)
         } else if (nestPos != null && worldGenLevel.isEmptyBlock(nestPos)) {
             // Natural Generation
             val southFacingBeeNest = Blocks.BEE_NEST.defaultBlockState().setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
             setBlockIfClear(worldGenLevel, nestPos, southFacingBeeNest)
+            populateBeeNest(worldGenLevel, nestPos)
         }
+    }
+
+    private fun populateBeeNest(worldGenLevel: WorldGenLevel, pos: BlockPos) {
+        worldGenLevel.getBlockEntity(pos, BlockEntityType.BEEHIVE)
+            .ifPresent(
+                Consumer { beehiveBlockEntity: BeehiveBlockEntity? ->
+                    val randomSource: RandomSource = worldGenLevel.random
+                    val isCombee = randomSource.nextInt(2)
+                    val i: Int = 2 + randomSource.nextInt(2)
+                    for (j in 0..<i) {
+                        if (isCombee > 0) {
+                            beehiveBlockEntity!!.storeBee(BeehiveBlockEntity.Occupant.create(randomSource.nextInt(599)))
+                        } else {
+                            val properties = "${POKEMON_ARGS} lvl=${LEVEL_RANGE.random()}"
+                            val pokemon = PokemonProperties.parse(properties)
+                            val entity = pokemon.createEntity(worldGenLevel.level)
+                            beehiveBlockEntity!!.addOccupant(entity)
+                        }
+                    }
+                })
     }
 
     private fun placeBigLeafPattern(worldGenLevel: WorldGenLevel, origin: BlockPos, logBlock: BlockState, leafBlock: BlockState) {
@@ -348,6 +374,11 @@ class SaccharineTreeFeature : Feature<BlockStateConfiguration>(BlockStateConfigu
             return
         }
         worldGenLevel.setBlock(blockPos, blockState, UPDATE_ALL)
+    }
+
+    companion object {
+        val POKEMON_ARGS = "combee"
+        val LEVEL_RANGE = 5..15
     }
 
     /*private fun isAir(testableWorld: TestableWorld, blockPos: BlockPos?): Boolean {
