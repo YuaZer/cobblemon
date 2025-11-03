@@ -36,6 +36,7 @@ import com.cobblemon.mod.common.item.components.FoodColourComponent
 import com.cobblemon.mod.common.item.components.IngredientComponent
 import com.cobblemon.mod.common.net.messages.client.effect.PokeSnackBlockParticlesPacket
 import com.cobblemon.mod.common.util.DataKeys
+import java.util.UUID
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
@@ -72,14 +73,17 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) :
 
             val baitEffects = getBaitEffects()
 
-            val highestLureTier = baitEffects
+            val stackedLureTier = baitEffects
                 .filter { it.type == SpawnBait.Effects.RARITY_BUCKET }
-                .maxOfOrNull { it.value }
-                ?.toInt()
-                ?: 0
+                .sumOf { it.value }
+                .toInt()
 
-            if (highestLureTier > 0) {
-                it.influences += BucketNormalizingInfluence(tier = highestLureTier)
+            if (stackedLureTier > 0) {
+                it.influences += BucketNormalizingInfluence(
+                    tier = stackedLureTier,
+                    gradient = 0.2F,
+                    firstTier = 1.2F
+                )
             }
 
             it.influences += BucketMultiplyingInfluence(

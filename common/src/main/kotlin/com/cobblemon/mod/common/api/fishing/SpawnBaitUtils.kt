@@ -21,11 +21,7 @@ object SpawnBaitUtils {
             val totalChance = groupEffects.sumOf { it.chance }
             val totalValue = groupEffects.sumOf { it.value }
 
-            val multiplier = when (count) {
-                2 -> 0.8
-                3 -> 0.6
-                else -> 1.0
-            }
+            val multiplier = 1.0
 
             val adjustedChance = (totalChance * multiplier).coerceAtMost(1.0)
             val adjustedValue = ceil(totalValue * multiplier)

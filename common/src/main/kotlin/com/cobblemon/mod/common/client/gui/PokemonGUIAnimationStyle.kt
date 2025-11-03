@@ -6,24 +6,20 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-package com.cobblemon.mod.common.client.gui.portrait
+package com.cobblemon.mod.common.client.gui
 
 import com.mojang.serialization.Codec
 import net.minecraft.util.StringRepresentable
 
-enum class PortraitStyle : StringRepresentable {
+enum class PokemonGUIAnimationStyle : StringRepresentable {
 
     NEVER_ANIMATE,
     ANIMATE_SELECTED,
     ALWAYS_ANIMATE;
 
-    override fun getSerializedName(): String = this.name
-
+    override fun getSerializedName() = this.name
     companion object {
-
         @JvmStatic
-        val CODEC: Codec<PortraitStyle> = StringRepresentable.fromEnum(PortraitStyle::values)
-
+        val CODEC: Codec<PokemonGUIAnimationStyle> = StringRepresentable.fromEnum(PokemonGUIAnimationStyle::values)
     }
-
 }
