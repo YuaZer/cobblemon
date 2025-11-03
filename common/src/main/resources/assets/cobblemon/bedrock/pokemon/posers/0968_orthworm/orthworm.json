@@ -49,17 +49,6 @@
       "transformTicks": 2,
       "transformToTicks": 2
     },
-    "mount-standing": {
-      "poseTypes": ["STAND", "FLOAT", "NONE"],
-      "isBattle": false,
-      "condition": "!q.in_air' && q.is_ridden)",
-      "animations": [
-        "q.look('head')",
-        "q.bedrock('orthworm', 'ground_idle')",
-        "q.bedrock('orthworm', 'ride_ground_walk')"
-      ],
-      "quirks": ["q.bedrock_quirk('orthworm', 'blink')"]
-    },
     "standing": {
       "poseTypes": ["STAND", "FLOAT", "NONE"],
       "isBattle": false,
@@ -84,7 +73,7 @@
       "poseTypes": ["STAND"],
       "isBattle": false,
       "isTouchingWater": false,
-      "condition": "!q.in_air && !q.is_ridden && q.is_standing_on_blocks(2, 'minecraft:sand', 'minecraft:red_sand')",
+      "condition": "!q.in_air && q.is_standing_on_blocks(2, 'minecraft:sand', 'minecraft:red_sand')",
       "animations": [
         "q.bedrock('orthworm', 'sand_idle')"
       ],
@@ -97,6 +86,17 @@
       "condition": "!q.in_air && !q.is_ridden && q.is_standing_on_blocks(2, 'minecraft:sand', 'minecraft:red_sand')",
       "animations": [
         "q.bedrock('orthworm', 'sand_swim')"
+      ],
+      "quirks": ["q.bedrock_quirk('orthworm', 'blink')"]
+    },
+    "mount-standing": {
+      "poseTypes": ["STAND", "FLOAT", "NONE"],
+      "isBattle": false,
+      "condition": "!q.in_air' && q.is_ridden)",
+      "animations": [
+        "q.look('head')",
+        "q.bedrock('orthworm', 'ground_idle')",
+        "q.bedrock('orthworm', 'ride_ground_walk')"
       ],
       "quirks": ["q.bedrock_quirk('orthworm', 'blink')"]
     },
