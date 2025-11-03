@@ -318,7 +318,6 @@ object VaryingModelRepository {
         inbuilt("mamoswine", ::MamoswineModel)
         inbuilt("piplup", ::PiplupModel)
         inbuilt("yanmega", ::YanmegaModel)
-        inbuilt("basculin", ::BasculinModel)
         inbuilt("emolga", ::EmolgaModel)
         inbuilt("bounsweet", ::BounsweetModel)
         inbuilt("dartrix", ::DartrixModel)
