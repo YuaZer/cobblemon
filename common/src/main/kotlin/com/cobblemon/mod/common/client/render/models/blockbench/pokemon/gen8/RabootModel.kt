@@ -21,11 +21,11 @@ class RabootModel (root: ModelPart) : PokemonPosableModel(root), HeadedFrame {
     override val rootPart = root.registerChildWithAllChildren("raboot")
     override val head = getPart("head")
 
-    override var portraitScale = 2.5F
-    override var portraitTranslation = Vec3(-0.15, 0.3, 0.0)
+    override var portraitScale = 1.89F
+    override var portraitTranslation = Vec3(-0.14, 0.41, 0.0)
 
-    override var profileScale = 0.63F
-    override var profileTranslation = Vec3(0.0, 0.86, 0.0)
+    override var profileScale = 0.66F
+    override var profileTranslation = Vec3(0.0, 0.78, 0.0)
 
     lateinit var standing: CobblemonPose
     lateinit var walk: CobblemonPose
