@@ -2081,7 +2081,7 @@ open class PokemonEntity(
     private fun createSidedPokemon(): Pokemon = Pokemon().apply { isClient = this@PokemonEntity.level().isClientSide }
 
     override fun canRide(entity: Entity): Boolean {
-        return platform == PlatformType.NONE && super.canRide(entity)
+        return platform == PlatformType.NONE && super.canRide(entity) && seats.isNotEmpty()
     }
 
     // Takes in a requested stat type with a base minimum and base maximum and returns the interpolated
@@ -2095,6 +2095,10 @@ open class PokemonEntity(
         // Cap the minimum value at a very small value to prevent control inversions and other unexpected behaviour in
         // the ride controllers when using negative values
         return max(statVal, 1e-6)
+    }
+
+    override fun couldAcceptPassenger(): Boolean {
+        return seats.isNotEmpty() && super.couldAcceptPassenger()
     }
 
     fun getRawRideStat(stat: RidingStat, style: RidingStyle): Double {
