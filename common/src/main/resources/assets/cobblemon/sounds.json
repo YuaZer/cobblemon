@@ -1387,6 +1387,26 @@
       }
     ]
   },
+  "ride.loop.water_surface": {
+    "sounds": [
+      {
+        "name": "cobblemon:ride/loop/water_surface_loop",
+        "stream": true,
+        "attenuation_distance": 32.0,
+        "volume": 0.4
+      }
+    ]
+  },
+  "ride.loop.underwater": {
+    "sounds": [
+      {
+        "name": "cobblemon:ride/loop/underwater_loop",
+        "stream": true,
+        "attenuation_distance": 16.0,
+        "volume": 0.4
+      }
+    ]
+  },
   "pokemon.bulbasaur.ambient": {
     "sounds": [ "cobblemon:pokemon/bulbasaur/bulbasaur_ambient" ]
   },
