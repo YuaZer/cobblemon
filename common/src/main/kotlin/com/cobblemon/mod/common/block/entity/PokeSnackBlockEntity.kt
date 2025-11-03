@@ -12,11 +12,14 @@ import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.CobblemonBlockEntities
 import com.cobblemon.mod.common.CobblemonItemComponents
 import com.cobblemon.mod.common.api.cooking.getColourMixFromColors
+import com.cobblemon.mod.common.api.events.CobblemonEvents
+import com.cobblemon.mod.common.api.events.cooking.PokeSnackSpawnPokemonEvent
 import com.cobblemon.mod.common.api.fishing.SpawnBait
 import com.cobblemon.mod.common.api.fishing.SpawnBait.Effect
 import com.cobblemon.mod.common.api.fishing.SpawnBaitEffects
 import com.cobblemon.mod.common.api.spawning.CobblemonSpawnPools
 import com.cobblemon.mod.common.api.spawning.SpawnCause
+import com.cobblemon.mod.common.api.spawning.detail.EntitySpawnResult
 import com.cobblemon.mod.common.api.spawning.detail.PokemonHerdSpawnDetail
 import com.cobblemon.mod.common.api.spawning.detail.SpawnAction
 import com.cobblemon.mod.common.api.spawning.detail.SpawnDetail
@@ -141,23 +144,51 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) :
 
     fun randomTick() {
         randomTicksUntilNextSpawn--
-        if (randomTicksUntilNextSpawn <= 0) {
-            val nearestPlayer = level?.getNearestPlayer(
-                blockPos.x.toDouble(),
-                blockPos.y.toDouble(),
-                blockPos.z.toDouble(),
-                Cobblemon.config.maximumSpawningZoneDistanceFromPlayer.toDouble(),
-                false, // true here makes it so creative players aren't considered
-            )
-            // High simulation distances may cause the player to be null here, we don't want to spawn without a player nearby.
-            if (nearestPlayer != null) {
-                spawner.run(
-                    cause = SpawnCause(spawner = spawner, entity = nearestPlayer),
-                    maxSpawns = 1
-                )
-            }
-            randomTicksUntilNextSpawn = getRandomTicksBetweenSpawns()
+        if (randomTicksUntilNextSpawn > 0) {
+            return
         }
+
+        val nearestPlayer = level?.getNearestPlayer(
+            blockPos.x.toDouble(),
+            blockPos.y.toDouble(),
+            blockPos.z.toDouble(),
+            Cobblemon.config.maximumSpawningZoneDistanceFromPlayer.toDouble(),
+            false, // true here makes it so creative players aren't considered
+        )
+
+        // High simulation distances may cause the player to be null here, we don't want to spawn without a player nearby.
+        if (nearestPlayer != null) {
+            attemptSpawn(nearestPlayer)
+        }
+
+        randomTicksUntilNextSpawn = getRandomTicksBetweenSpawns()
+    }
+
+    fun attemptSpawn(player: Player) {
+        val cause = SpawnCause(spawner = spawner, entity = player)
+        val zoneInput = spawner.getZoneInput(cause)
+        val spawnAction = spawner.calculateSpawnActionsForArea(zoneInput, 1).firstOrNull()
+
+        if (spawnAction == null) {
+            return
+        }
+
+        CobblemonEvents.POKE_SNACK_SPAWN_POKEMON_PRE.postThen(
+            PokeSnackSpawnPokemonEvent.Pre(this, spawnAction),
+            { },
+            { event ->
+                spawnAction.complete()
+                val result = spawnAction.future
+                val resultingSpawn = result.get()
+
+                if (resultingSpawn is EntitySpawnResult) {
+                    val pokemonEntity = resultingSpawn.entities.firstOrNull() as PokemonEntity
+                    CobblemonEvents.POKE_SNACK_SPAWN_POKEMON_POST.post(
+                        PokeSnackSpawnPokemonEvent.Post(this, spawnAction, pokemonEntity)
+                    )
+                }
+            }
+        )
     }
 
     fun getRandomTicksBetweenSpawns(): Float {
