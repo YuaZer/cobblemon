@@ -28,7 +28,7 @@ class FoodColourComponent(
         val CODEC: Codec<FoodColourComponent> = DyeColor.CODEC.listOf().xmap(::FoodColourComponent, FoodColourComponent::colours)
         val PACKET_CODEC: StreamCodec<ByteBuf, FoodColourComponent> = ByteBufCodecs.fromCodec(CODEC)
 
-        val PRETTY_COLORS = mapOf<DyeColor, Int>(
+        private val COLORS = mapOf<DyeColor, Int>(
             DyeColor.RED to FastColor.ARGB32.color(255, 235, 64, 52),
             DyeColor.YELLOW to FastColor.ARGB32.color(255, 255, 223, 79),
             DyeColor.GREEN to FastColor.ARGB32.color(255, 93, 201, 98),
@@ -51,7 +51,7 @@ class FoodColourComponent(
     }
 
     fun getColoursAsARGB(): List<Int> {
-        return colours.map { dye -> PRETTY_COLORS[dye] ?: PRETTY_COLORS[DyeColor.WHITE]!! }
+        return colours.map { dye -> COLORS[dye] ?: COLORS[DyeColor.WHITE]!! }
     }
 
     override fun hashCode() = colours.hashCode()
