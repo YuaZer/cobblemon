@@ -169,6 +169,12 @@
   "evolution.ui": {
     "sounds": [ { "name": "cobblemon:evolution/evolution_ui", "volume": 0.2 } ]
   },
+  "gui.levelup_start": {
+    "sounds": [ { "name": "cobblemon:gui/levelup_start", "volume": 0.5 } ]
+  },
+  "gui.levelup": {
+    "sounds": [ { "name": "cobblemon:gui/levelup", "volume": 0.65 } ]
+  },
   "gui.click": {
     "sounds": [ "cobblemon:gui/click" ]
   },
