@@ -137,6 +137,9 @@
 - Druddigon
 - Minccino
 - Cinccino
+- Vanillite
+- Vanillish
+- Vanilluxe
 
 #### Gen 6
 - Skiddo
@@ -311,6 +314,9 @@
 - Arcanine
 - Carvanha
 - Sharpedo
+- Mimikyu
+- Dewgong
+- Mime Jr
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -430,6 +436,9 @@
 - Aerodactyl
 - Basculin
 - Basculegion
+- Shroodle
+- Grafaiai
+- Steelix
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked

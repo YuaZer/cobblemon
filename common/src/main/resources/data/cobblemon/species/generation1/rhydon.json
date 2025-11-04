@@ -62,17 +62,6 @@
           "SPEED": "5-10",
           "STAMINA": "65-90"
         }
-      },
-      "LIQUID": {
-        "key": "cobblemon:liquid/boat",
-        "rideSounds": [],
-        "stats": {
-          "ACCELERATION": "30-40",
-          "JUMP": "10-15",
-          "SKILL": "30-40",
-          "SPEED": "10-20",
-          "STAMINA": "10-20"
-        }
       }
     },
     "seats": [
