@@ -116,6 +116,7 @@ object PartyOverlayDataControl {
     }
 
     fun tick(paused: Boolean) {
+        val deletion = mutableListOf<UUID>()
         if (paused) return
         overlayData.forEach { (id, data) ->
             if (data.expGainedData != null) { // We update this in order and render these in order, and as such we don't tick others
@@ -140,7 +141,10 @@ object PartyOverlayDataControl {
                     }
                 }
             }
-            if (getCurrentRenderTarget(id) == RenderTarget.NONE) overlayData.remove(id)
+            if (getCurrentRenderTarget(id) == RenderTarget.NONE) deletion.add(id)
+        }
+        deletion.forEach {
+            overlayData.remove(it)
         }
     }
 
