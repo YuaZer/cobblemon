@@ -373,11 +373,11 @@ class PokeRodFishingBobberEntity(type: EntityType<out PokeRodFishingBobberEntity
                 if (Mth.nextInt(random, 0, 100) < getPokemonSpawnChance(rodStack)) {
                     val player = playerOwner as? ServerPlayer ?: return
                     this.typeCaught = TypeCaught.POKEMON
-                    val lureBoost = SpawnBaitEffects.getEffectsFromItemStack(bobberBait)
+                    val stackedLureTier = SpawnBaitEffects.getEffectsFromItemStack(bobberBait)
                         .filter { it.type == SpawnBait.Effects.RARITY_BUCKET }
-                        .maxOfOrNull { it.value.toInt() }
-                        ?: 0
-                    planSpawn(player, rodStack, lureBoost)
+                        .sumOf { it.value }
+                        .toInt()
+                    planSpawn(player, rodStack, stackedLureTier)
                     val selectedWeight = plannedSpawnAction?.bucket?.weight ?: 50F
                     val reactionMinMax = calculateMinMaxCountdown(selectedWeight)
 
