@@ -64,10 +64,10 @@
         ],
         "stats": {
           "ACCELERATION": "25-45",
-          "JUMP": "50-70",
-          "SKILL": "65-85",
+          "JUMP": "55-75",
+          "SKILL": "65-80",
           "SPEED": "25-45",
-          "STAMINA": "50-65"
+          "STAMINA": "55-75"
         }
       },
       "LAND": {

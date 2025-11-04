@@ -33,10 +33,8 @@ public class AbstractClientPlayerMixin {
             cir.setReturnValue(usageContext.getFovMultiplier());
         } else {
             // Only modify fov through riding if the pokedex is not open
-            LocalPlayer player = (LocalPlayer) (Object) this;
-            if (player != null && player.isPassenger() && player.getVehicle() instanceof PokemonEntity) {
-                PokemonEntity ride = (PokemonEntity) player.getVehicle();
-
+            AbstractClientPlayer player = (AbstractClientPlayer) (Object) this;
+            if (player != null && player.isPassenger() && player.getVehicle() instanceof PokemonEntity ride) {
                 // Return custom fov mult for riding
                 cir.setReturnValue(ride.rideFovMult());
             }

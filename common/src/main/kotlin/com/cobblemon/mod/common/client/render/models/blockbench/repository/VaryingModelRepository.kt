@@ -321,7 +321,6 @@ object VaryingModelRepository {
         inbuilt("bounsweet", ::BounsweetModel)
         inbuilt("dartrix", ::DartrixModel)
         inbuilt("decidueye", ::DecidueyeModel)
-        inbuilt("mimikyu", ::MimikyuModel)
         inbuilt("naganadel", ::NaganadelModel)
         inbuilt("poipole", ::PoipoleModel)
         inbuilt("rowlet", ::RowletModel)

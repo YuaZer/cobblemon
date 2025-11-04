@@ -74,14 +74,14 @@
         "rideSounds": [],
         "stats": {
           "ACCELERATION": "30-50",
-          "JUMP": "1-10",
+          "JUMP": "0-10",
           "SKILL": "10-25",
           "SPEED": "30-45",
           "STAMINA": "15-25"
         }
       },
       "LIQUID": {
-        "key": "cobblemon:liquid/submarine",
+        "key": "cobblemon:liquid/boat",
         "rideSounds": [],
         "stats": {
           "ACCELERATION": "30-55",

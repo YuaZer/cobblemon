@@ -48,9 +48,9 @@
   "baseFriendship": 50,
   "baseScale": 0.62,
   "hitbox": {
-    "width": 1.8,
     "height": 1.95,
-    "fixed": false
+    "fixed": false,
+    "width": 1.8
   },
   "riding": {
     "behaviours": {
@@ -61,8 +61,8 @@
           "ACCELERATION": "70-90",
           "JUMP": "0-10",
           "SKILL": "0-15",
-          "SPEED": "0-15",
-          "STAMINA": "30-55"
+          "SPEED": "5-10",
+          "STAMINA": "10-20"
         }
       }
     },
@@ -76,9 +76,9 @@
         "poseOffsets": [
           {
             "offset": {
-              "x": 0.031073919,
-              "y": -1.7777503,
-              "z": 0.18550363
+              "x": 0.0,
+              "y": -1.0359498,
+              "z": 0.35699695
             },
             "poseTypes": [
               "STAND"
@@ -86,9 +86,9 @@
           },
           {
             "offset": {
-              "x": 0.13405332,
-              "y": -1.6520588,
-              "z": -0.12340391
+              "x": 0.00881529,
+              "y": -1.0483669,
+              "z": 0.34604
             },
             "poseTypes": [
               "WALK"
@@ -96,9 +96,9 @@
           },
           {
             "offset": {
-              "x": 0.4867662,
-              "y": -1.1163056,
-              "z": -0.022205783
+              "x": 0.0,
+              "y": -1.0706725,
+              "z": 0.30555227
             },
             "poseTypes": [
               "HOVER"
@@ -106,9 +106,9 @@
           },
           {
             "offset": {
-              "x": 0.4867662,
-              "y": -1.1163056,
-              "z": -0.022205783
+              "x": 0.0,
+              "y": -1.0706725,
+              "z": 0.30555227
             },
             "poseTypes": [
               "FLY"
@@ -116,9 +116,9 @@
           },
           {
             "offset": {
-              "x": 0.13405332,
-              "y": -1.6520588,
-              "z": -0.12340391
+              "x": 0.0,
+              "y": -1.0359498,
+              "z": 0.35699695
             },
             "poseTypes": [
               "FLOAT"
@@ -126,9 +126,9 @@
           },
           {
             "offset": {
-              "x": 0.13405332,
-              "y": -1.6520588,
-              "z": -0.12340391
+              "x": 0.00881529,
+              "y": -1.0483669,
+              "z": 0.34604
             },
             "poseTypes": [
               "SWIM"
@@ -136,9 +136,9 @@
           },
           {
             "offset": {
-              "x": 0.4867662,
-              "y": -1.1163056,
-              "z": -0.022205783
+              "x": 0.0,
+              "y": -1.0706725,
+              "z": 0.30555227
             },
             "poseTypes": [
               "GLIDE"
@@ -150,15 +150,15 @@
   },
   "behaviour": {
     "moving": {
+      "swim": {
+        "canBreatheUnderwater": true,
+        "canSwimInLava": false,
+        "canSwimInWater": false,
+        "swimSpeed": "0.2"
+      },
       "walk": {
         "avoidsLand": true,
         "walkSpeed": "0.2"
-      },
-      "swim": {
-        "canSwimInWater": false,
-        "canSwimInLava": false,
-        "canBreatheUnderwater": true,
-        "swimSpeed": "0.2"
       }
     }
   },
@@ -320,10 +320,10 @@
       "aspects": [
         "east-sea"
       ],
+      "behaviour": {},
       "preEvolution": "shellos",
       "evolutions": [],
-      "battleOnly": false,
-      "behaviour": {}
+      "battleOnly": false
     }
   ]
 }

@@ -2050,6 +2050,7 @@
   "key.cobblemon.translateportraitleft": "Translate Portrait Left",
   "key.cobblemon.translateportraitright": "Translate Portrait Right",
   "key.cobblemon.printmodelsettings": "Print Model Settings",
+  "key.cobblemon.toggleridingstatsgui": "Toggle Riding Stats GUI",
   "key.cobblemon.categories.cobblemon.debug": "Cobblemon Debug",
 
   "cobblemon.subtitle.poke_ball.capture_succeeded": "Poké Ball capture succeeds",
@@ -2082,10 +2083,10 @@
   "cobblemon.pc.inbattle": "You cannot use a PC while in battle!",
 
   "cobblemon.held_item": "Held Item",
-  "cobblemon.held_item.give": "%1$s was given %2$s to hold.",
-  "cobblemon.held_item.replace": "You retrieved %1$s from %2$s and gave it %3$s to hold.",
+  "cobblemon.held_item.give": "%1$s was given %2$s.",
+  "cobblemon.held_item.replace": "You retrieved %1$s from %2$s and gave it %3$s.",
   "cobblemon.held_item.take": "You retrieved %1$s from %2$s.",
-  "cobblemon.held_item.forbidden": "You can't give %1$s for %2$s to hold.",
+  "cobblemon.held_item.forbidden": "You can't give %1$s to %2$s.",
   "cobblemon.held_item.already_holding": "%1$s is already holding %2$s!",
 
   "cobblemon.cosmetic_item": "Cosmetic Item",
@@ -2554,6 +2555,9 @@
   "cobblemon.config.ui.hide_unimplemented_pokemon_in_the_pokedex.tooltip": "Whether to hide unimplemented Pokémon from the Pokédex.",
   "cobblemon.config.ui.summary_pokemon_follow_cursor": "Make Pokémon Follow Cursor",
   "cobblemon.config.ui.summary_pokemon_follow_cursor.tooltip": "Whether or not Pokémon should follow the mouse cursor with their heads in the Summary screen.",
+  "cobblemon.config.ui.animate_battle_tiles": "Animate Battle Tiles",
+  "cobblemon.config.ui.animate_battle_tiles.tooltip": "Whether or not the battle portraits of Pokemon should be animated.",
+
   "cobblemon.config.ui.party_portrait_animations": "Party Portrait Animations",
   "cobblemon.config.ui.party_portrait_animations.never_animate": "Never Animate",
   "cobblemon.config.ui.party_portrait_animations.never_animate.tooltip": "No portraits animate",
@@ -2561,6 +2565,23 @@
   "cobblemon.config.ui.party_portrait_animations.animate_selected.tooltip": "Selected Pokémon animates unless fainted",
   "cobblemon.config.ui.party_portrait_animations.always_animate": "Always animate",
   "cobblemon.config.ui.party_portrait_animations.always_animate.tooltip": "Entire party animates unless fainted",
+
+  "cobblemon.config.ui.pc_profile_animations": "PC Profile Animations",
+  "cobblemon.config.ui.pc_profile_animations.never_animate": "Never Animate",
+  "cobblemon.config.ui.pc_profile_animations.never_animate.tooltip": "No profiles animate",
+  "cobblemon.config.ui.pc_profile_animations.animate_selected": "Animate Selected",
+  "cobblemon.config.ui.pc_profile_animations.animate_selected.tooltip": "Selected Pokémon animates unless fainted",
+  "cobblemon.config.ui.pc_profile_animations.always_animate": "Always animate",
+  "cobblemon.config.ui.pc_profile_animations.always_animate.tooltip": "Entire PC animates unless fainted",
+
+  "cobblemon.config.ui.summary_profile_animations": "Summary Profile Animations",
+  "cobblemon.config.ui.summary_profile_animations.never_animate": "Never Animate",
+  "cobblemon.config.ui.summary_profile_animations.never_animate.tooltip": "No portraits animate",
+  "cobblemon.config.ui.summary_profile_animations.animate_selected": "Animate Selected",
+  "cobblemon.config.ui.summary_profile_animations.animate_selected.tooltip": "Selected Pokémon animates unless fainted",
+  "cobblemon.config.ui.summary_profile_animations.always_animate": "Always animate",
+  "cobblemon.config.ui.summary_profile_animations.always_animate.tooltip": "Entire party animates unless fainted",
+
   "cobblemon.config.ui.third_person_view_bobbing": "Third Person View Bobbing",
   "cobblemon.config.ui.third_person_view_bobbing.tooltip": "If true then use default Minecraft behavior to follow directly behind the player's head. If false then follow a fixed offset from the pokemon.",
   "cobblemon.config.ui.invert_pitch": "Invert Pitch",
@@ -3802,6 +3823,18 @@
   "cobblemon.entity.variable.resource_identifier.name": "Resource Identifier",
   "cobblemon.entity.variable.resource_identifier.desc": "The resource identifier to be used for controlling the NPC's appearance, such as cobblemon:standard or cobblemon:mudkip.",
   
+  "cobblemon.behaviour.name_tag_display.name": "Name Tag Display",
+  "cobblemon.behaviour.name_tag_display.desc": "Allows toggling the visibility of the entity's name tag.",
+  
+  "cobblemon.entity.variable.display_name_tag.name": "Display Name Tag",
+  "cobblemon.entity.variable.display_name_tag.desc": "Whether or not the entity's name tag is visible.",
+  
+  "cobblemon.behaviour.dialogue_selection.name": "Dialogue Selection",
+  "cobblemon.behaviour.dialogue_selection.desc": "Allows configuring NPC interaction to open a specific dialogue.",
+  
+  "cobblemon.entity.variable.dialogue_selection.name": "Dialogue",
+  "cobblemon.entity.variable.dialogue_selection.desc": "The resource identifier of the dialogue to open on interaction, such as cobblemon:your_dialogue",
+
   "npc.sacchi.name": "Professor Sacchi",
 
   "cobblemon.move.pound": "Pound",
