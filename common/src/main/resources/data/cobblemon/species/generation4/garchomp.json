@@ -98,7 +98,15 @@
       },
       "LIQUID": {
         "key": "cobblemon:liquid/boat",
-        "rideSounds": [],
+        "rideSounds": [
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "soundLocation": "cobblemon:ride.loop.water_surface",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          }
+        ],
         "stats": {
           "ACCELERATION": "60-85",
           "JUMP": "40-80",
