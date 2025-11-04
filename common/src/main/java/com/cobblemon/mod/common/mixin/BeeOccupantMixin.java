@@ -28,6 +28,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
 @Mixin(BeehiveBlockEntity.Occupant.class)
 public abstract class BeeOccupantMixin {
 
@@ -88,8 +92,11 @@ public abstract class BeeOccupantMixin {
     @Inject(method = "of", at = @At("HEAD"), cancellable = true)
     private static void cobblemon$of(Entity entity, CallbackInfoReturnable<BeehiveBlockEntity.Occupant> cir) {
         if (entity instanceof PokemonEntity pokemonEntity) {
+            List<String> IGNORED_BEE_TAGS = Arrays.asList("Air", "ArmorDropChances", "ArmorItems", "Brain", "CanPickUpLoot", "DeathTime", "FallDistance", "FallFlying", "Fire", "HandDropChances", "HandItems", "HurtByTimestamp", "HurtTime", "LeftHanded", "Motion", "NoGravity", "OnGround", "PortalCooldown", "Pos", "Rotation", "Passengers", "leash", "UUID");
             CompoundTag compoundTag = new CompoundTag();
             entity.save(compoundTag);
+            Objects.requireNonNull(compoundTag);
+            IGNORED_BEE_TAGS.forEach(compoundTag::remove);
             Boolean hasNectar = pokemonEntity.getBrain().getMemory(CobblemonMemories.INSTANCE.getHAS_NECTAR()).orElse(false);
             cir.setReturnValue(new BeehiveBlockEntity.Occupant(CustomData.of(compoundTag), 0, hasNectar ? 2400 : 600));
             cir.cancel();
