@@ -15,6 +15,8 @@
           "PROFILE"
         ],
         "animations": [
+          "q.pitch_tilt('body')",
+          "q.look('head', 1, 1, 5, -10, 30, -30)",
           "q.bedrock('duosion', 'ground_idle')"
         ],
         "quirks": [
@@ -28,7 +30,7 @@
           "FLY"
         ],
         "animations": [
-          "q.look('head', 1, 1, 5, -10, 30, -30)",
+          "q.pitch_tilt('body')",
           "q.bedrock('duosion', 'ground_idle')"
         ],
         "quirks": [

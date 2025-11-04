@@ -15,6 +15,8 @@
           "PROFILE"
         ],
         "animations": [
+          "q.pitch_tilt('body')",
+          "q.look('body')",
           "q.bedrock('solosis', 'ground_idle')"
         ],
         "quirks": [
@@ -28,7 +30,7 @@
           "FLY"
         ],
         "animations": [
-          "q.look('body')",
+          "q.pitch_tilt('body')",
           "q.bedrock('solosis', 'ground_idle')"
         ],
         "quirks": [

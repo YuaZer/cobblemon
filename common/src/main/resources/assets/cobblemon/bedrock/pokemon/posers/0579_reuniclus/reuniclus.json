@@ -19,6 +19,8 @@
           "NONE"
         ],
         "animations": [
+          "q.pitch_tilt('body')",
+          "q.look('head', 1, 1, 1, -15, 10, -10)",
           "q.bedrock('reuniclus', 'ground_idle')"
         ],
         "quirks": [
@@ -32,7 +34,7 @@
           "FLY"
         ],
         "animations": [
-          "q.look('head', 1, 1, 1, -15, 10, -10)",
+          "q.pitch_tilt('body')",
           "q.bedrock('reuniclus', 'ground_idle')"
         ],
         "quirks": [
