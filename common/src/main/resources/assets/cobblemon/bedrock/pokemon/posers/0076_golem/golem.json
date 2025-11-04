@@ -1,8 +1,8 @@
 {
     "portraitScale": 1.7,
     "portraitTranslation": [-0.6, -0.25, 0],
-    "profileScale": 0.75,
-    "profileTranslation": [0.0, 0.55, 0],
+    "profileScale": 0.70,
+    "profileTranslation": [0.0, 0.63, 0],
     "rootBone": "golem",
     "animations": {
       "cry": "q.bedrock_stateful('golem', 'cry')",

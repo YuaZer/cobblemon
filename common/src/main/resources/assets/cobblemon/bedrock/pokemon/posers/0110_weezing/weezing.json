@@ -1,8 +1,8 @@
 {
   "portraitScale": 1.5,
   "portraitTranslation": [ 0, 0, 0],
-  "profileScale": 1,
-  "profileTranslation": [ 0.05, 0.4, 0],
+  "profileScale": 0.9,
+  "profileTranslation": [0, 0.46, 0],
   "rootBone": "weezing",
   "animations": {
     "faint": "q.bedrock_primary('weezing', 'faint')",

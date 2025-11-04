@@ -2,7 +2,7 @@
   "portraitScale": 1.37,
   "portraitTranslation": [-0.58, 1.21, 0],
   "profileScale": 0.58,
-  "profileTranslation": [0.14, 0.92, 0],
+  "profileTranslation": [0, 0.89, 0],
   "rootBone": "arcanine",
   "firstPersonCameraOffset": {
     "seat_1": [0, 0.45, 0]
