@@ -39,17 +39,28 @@
     "special_defence": 2,
     "speed": 0
   },
+  "baseExperienceYield": 161,
+  "experienceGroup": "medium_fast",
+  "catchRate": 45,
+  "eggCycles": 25,
+  "baseFriendship": 50,
+  "baseScale": 0.7,
+  "hitbox": {
+    "height": 1.8,
+    "fixed": false,
+    "width": 0.8
+  },
   "riding": {
     "behaviours": {
       "LAND": {
         "key": "cobblemon:land/horse",
         "rideSounds": [],
         "stats": {
-          "ACCELERATION": "0-15",
-          "JUMP": "10-25",
-          "SKILL": "0-15",
-          "SPEED": "60-85",
-          "STAMINA": "40-65"
+          "ACCELERATION": "20-40",
+          "JUMP": "15-35",
+          "SKILL": "15-45",
+          "SPEED": "25-45",
+          "STAMINA": "35-60"
         }
       }
     },
@@ -63,9 +74,9 @@
         "poseOffsets": [
           {
             "offset": {
-              "x": 0.031073919,
-              "y": -1.7777503,
-              "z": 0.18550363
+              "x": 0.0,
+              "y": -0.6875,
+              "z": 1.0625
             },
             "poseTypes": [
               "STAND"
@@ -73,9 +84,9 @@
           },
           {
             "offset": {
-              "x": 0.13405332,
-              "y": -1.6520588,
-              "z": -0.12340391
+              "x": 0.0,
+              "y": -0.6875,
+              "z": 1.0625
             },
             "poseTypes": [
               "WALK"
@@ -83,9 +94,9 @@
           },
           {
             "offset": {
-              "x": 0.4867662,
-              "y": -1.1163056,
-              "z": -0.022205783
+              "x": 0.0,
+              "y": -0.6875,
+              "z": 1.0625
             },
             "poseTypes": [
               "HOVER"
@@ -93,9 +104,9 @@
           },
           {
             "offset": {
-              "x": 0.4867662,
-              "y": -1.1163056,
-              "z": -0.022205783
+              "x": 0.0,
+              "y": -0.6875,
+              "z": 1.0625
             },
             "poseTypes": [
               "FLY"
@@ -103,9 +114,9 @@
           },
           {
             "offset": {
-              "x": 0.13405332,
-              "y": -1.6520588,
-              "z": -0.12340391
+              "x": 0.0,
+              "y": -0.6875,
+              "z": 1.0625
             },
             "poseTypes": [
               "FLOAT"
@@ -113,9 +124,9 @@
           },
           {
             "offset": {
-              "x": 0.13405332,
-              "y": -1.6520588,
-              "z": -0.12340391
+              "x": 0.0,
+              "y": -0.6875,
+              "z": 1.0625
             },
             "poseTypes": [
               "SWIM"
@@ -123,9 +134,9 @@
           },
           {
             "offset": {
-              "x": 0.4867662,
-              "y": -1.1163056,
-              "z": -0.022205783
+              "x": 0.0,
+              "y": -0.6875,
+              "z": 1.0625
             },
             "poseTypes": [
               "GLIDE"
@@ -135,19 +146,10 @@
       }
     ]
   },
-  "baseExperienceYield": 161,
-  "experienceGroup": "medium_fast",
-  "catchRate": 45,
-  "eggCycles": 25,
-  "baseFriendship": 50,
-  "features": [
-    "galarian"
-  ],
-  "baseScale": 0.7,
-  "hitbox": {
-    "width": 0.8,
-    "height": 1.8,
-    "fixed": false
+  "behaviour": {
+    "herd": {
+      "maxSize": "3"
+    }
   },
   "drops": {
     "amount": 2,
@@ -398,10 +400,11 @@
       },
       "baseScale": 0.8,
       "hitbox": {
-        "width": 0.8,
         "height": 2.3,
-        "fixed": false
+        "fixed": false,
+        "width": 0.8
       },
+      "behaviour": {},
       "drops": {
         "amount": 1,
         "entries": [
@@ -569,26 +572,23 @@
       "preEvolution": "mimejr",
       "evolutions": [
         {
-          "id": "mrmime_mrrime",
-          "variant": "level_up",
-          "result": "mrrime",
           "consumeHeldItem": false,
+          "id": "mrmime_mrrime",
           "learnableMoves": [],
           "requirements": [
             {
-              "variant": "level",
-              "minLevel": 42
+              "minLevel": 42,
+              "variant": "level"
             }
-          ]
+          ],
+          "result": "mrrime",
+          "variant": "level_up"
         }
       ],
-      "battleOnly": false,
-      "behaviour": {}
+      "battleOnly": false
     }
   ],
-  "behaviour": {
-    "herd": {
-      "maxSize": "3"
-    }
-  }
+  "features": [
+    "galarian"
+  ]
 }
