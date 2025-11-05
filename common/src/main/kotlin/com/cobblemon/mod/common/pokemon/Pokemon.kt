@@ -232,7 +232,6 @@ open class Pokemon : ShowdownIdentifiable {
             value.changeFunction = oldChangeFunction
         }
 
-    // Yes this value can be `null`. Specifically, when a Pokémon has no IVs.
     var characteristic: Characteristic = Characteristic.calculate(ivs, uuid)
         private set
 
