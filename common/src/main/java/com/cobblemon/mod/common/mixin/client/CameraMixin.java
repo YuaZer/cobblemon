@@ -14,10 +14,12 @@ import com.cobblemon.mod.common.api.orientation.OrientationController;
 import com.cobblemon.mod.common.api.riding.Rideable;
 import com.cobblemon.mod.common.client.MountedPokemonAnimationRenderController;
 import com.cobblemon.mod.common.client.render.camera.MountedCameraRenderer;
+import com.cobblemon.mod.common.duck.RidePassenger;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.mojang.blaze3d.Blaze3D;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
@@ -35,6 +37,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.minecraft.util.Mth.abs;
+import static net.minecraft.util.Mth.atan2;
 
 @Mixin(Camera.class)
 public abstract class CameraMixin {
@@ -58,9 +61,17 @@ public abstract class CameraMixin {
     @Unique private float cobblemon$returnTimer = 0;
     @Unique private float cobblemon$rollAngleStart = 0;
 
+    @Unique private double cobblemon$lastHandledRotationTime = Double.MIN_VALUE;
+    @Unique private double cobblemon$frameTime = 0.0;
+
     @Inject(method = "setRotation", at = @At("HEAD"), cancellable = true)
 
     public void cobblemon$setRotation(float f, float g, CallbackInfo ci) {
+        // Calculate the current frametime
+        double d = Blaze3D.getTime();
+        this.cobblemon$frameTime = (this.cobblemon$lastHandledRotationTime != Double.MIN_VALUE) ? d - this.cobblemon$lastHandledRotationTime : 0.0;
+        this.cobblemon$lastHandledRotationTime = d;
+
         var vehicle = this.entity.getVehicle();
         if (!(vehicle instanceof OrientationControllable controllableVehicle)) return;
         var instance = (Camera)(Object)this;
@@ -134,18 +145,46 @@ public abstract class CameraMixin {
             newRotation = vehicleController.getRenderOrientation(this.partialTickTime);
         }
 
+        // Unroll the current rotation if no roll is requested
+        if (Cobblemon.config.getDisableRoll()) {
+            var eulerAngs = newRotation.getEulerAnglesYXZ(new Vector3f());
+            var currAngs = this.rotation.getEulerAnglesYXZ(new Vector3f());
+            var vehicle = (PokemonEntity)driver.getVehicle();
+            var vel = vehicle.getRidingAnimationData().getVelocitySpring().getInterpolated(this.partialTickTime, 0);
+
+            // lerp the new rotation towards this y rot at a rate proportional to the horizontal movement speed?
+            var yaw = Mth.wrapDegrees(Math.toDegrees(Mth.atan2(vel.x(), vel.z())) + 180.0f);
+
+            var degDiff = Mth.degreesDifference((float)Math.toDegrees(currAngs.y()), (float)yaw);
+            var pitchDeadzoneDeg = 15.0; // x degrees of deadzone about +-90 degrees of pitch.
+            var pitchDeg = vehicleController.getPitch();
+            // ConsiderPitch to be already 90 if within the deadzone around it.
+            var cutoffPitch =  Math.min(1.0,(Mth.abs(pitchDeg) / (90.0f - pitchDeadzoneDeg))) * 90.0f * Math.signum(pitchDeg);
+            var lerpRateMod = Mth.cos((float)Math.toRadians(cutoffPitch));
+
+            // Apply smoothing from the cameras current yaw to the yaw of the velocity vector of the ride.
+            var k = 5.0f; // Some smoothing constant k
+            var smoothingFactor = lerpRateMod * cobblemon$frameTime * k;
+            var newYaw = currAngs.y() + (Math.toRadians(degDiff) * smoothingFactor);
+
+            newRotation.set(new Quaternionf().rotateYXZ((float)newYaw, eulerAngs.x(), 0.0f));
+        }
+
+        var rotationOffset = 0;
         if (Minecraft.getInstance().options.getCameraType().isMirrored()) {
             newRotation.rotateY((float)Math.toRadians(180));
+            rotationOffset = 180;
         }
 
         // Get the drivers local look angle in relation to the ride and apply it.
         if (vehicleController.getActive()) {
             var vehicleMatrix = new Matrix3f().set(newRotation);
             var driverMatrix = new Matrix3f();// Base the driver
+            var playerRotater = (RidePassenger)driver;
             newRotation = vehicleMatrix.mul(
                     driverMatrix.rotateYXZ(
-                            -Mth.DEG_TO_RAD * (driver.getYRot()),
-                            -Mth.DEG_TO_RAD * driver.getXRot(),
+                            -Mth.DEG_TO_RAD * (playerRotater.cobblemon$getRideYRot()),
+                            -Mth.DEG_TO_RAD * playerRotater.cobblemon$getRideXRot(),
                             0.0f)
                 ).normal(new Matrix3f()).getNormalizedRotation(new Quaternionf());
         }
@@ -153,6 +192,11 @@ public abstract class CameraMixin {
         var eulerAngs = newRotation.getEulerAnglesXYZ(new Vector3f());
         this.xRot = eulerAngs.x() * Mth.RAD_TO_DEG;
         this.yRot = eulerAngs.y() * Mth.RAD_TO_DEG;
+        // Set the drivers rotations to match
+        var driverEulerAngs = new Quaternionf(this.rotation).getEulerAnglesYXZ(new Vector3f());
+        driver.setXRot(-driverEulerAngs.x() * Mth.RAD_TO_DEG + rotationOffset);
+        driver.setYRot(180.0f - (driverEulerAngs.y() * Mth.RAD_TO_DEG));
+
         OrientationController.Companion.getFORWARDS().rotate(this.rotation, this.forwards);
         OrientationController.Companion.getUP().rotate(this.rotation, this.up);
         OrientationController.Companion.getLEFT().rotate(this.rotation, this.left);
