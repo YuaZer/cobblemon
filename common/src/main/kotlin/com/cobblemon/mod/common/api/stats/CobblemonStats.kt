@@ -27,6 +27,9 @@ object CobblemonStats {
     val EGGS_HATCHED: ResourceLocation = ResourceLocation.fromNamespaceAndPath("cobblemon", "eggs_hatched") //makeCustomStat("eggs_hatched", StatFormatter.DEFAULT)
     val TRADED: ResourceLocation = ResourceLocation.fromNamespaceAndPath("cobblemon", "traded") //makeCustomStat("traded", StatFormatter.DEFAULT)
     val FOSSILS_REVIVED: ResourceLocation = ResourceLocation.fromNamespaceAndPath("cobblemon", "fossils_revived") //makeCustomStat("fossils_revived", StatFormatter.DEFAULT)
+    val TIMES_RIDDEN: ResourceLocation = ResourceLocation.fromNamespaceAndPath("cobblemon", "times_ridden")
+    val ROD_CASTS: ResourceLocation = ResourceLocation.fromNamespaceAndPath("cobblemon", "rod_casts")
+    val REEL_INS: ResourceLocation = ResourceLocation.fromNamespaceAndPath("cobblemon", "reel_ins")
     val POKEMON_INTERACTED_WITH: ResourceLocation = ResourceLocation.fromNamespaceAndPath("cobblemon", "pokemon_interacted_with") //makeCustomStat("pokemon_interacted_with", StatFormatter.DEFAULT)
     //TODO block, stats (interact, gimmi), riding (styles?)
 
@@ -45,6 +48,9 @@ object CobblemonStats {
         stats["eggs_hatched"] = EGGS_HATCHED
         stats["traded"] = TRADED
         stats["fossils_revived"] = FOSSILS_REVIVED
+        stats["times_ridden"] = TIMES_RIDDEN
+        stats["rod_casts"] = ROD_CASTS
+        stats["reel_ins"] = REEL_INS
         stats["pokemon_interacted_with"] = POKEMON_INTERACTED_WITH
     }
 }

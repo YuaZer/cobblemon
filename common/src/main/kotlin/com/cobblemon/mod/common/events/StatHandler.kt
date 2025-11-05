@@ -21,16 +21,20 @@ import com.cobblemon.mod.common.api.events.CobblemonEvents.LEVEL_UP_EVENT
 import com.cobblemon.mod.common.api.events.CobblemonEvents.POKEMON_CAPTURED
 import com.cobblemon.mod.common.api.events.CobblemonEvents.POKEMON_GAINED
 import com.cobblemon.mod.common.api.events.CobblemonEvents.POKEMON_RELEASED_EVENT_POST
+import com.cobblemon.mod.common.api.events.CobblemonEvents.POKEROD_REEL
+import com.cobblemon.mod.common.api.events.CobblemonEvents.RIDE_EVENT_POST
 import com.cobblemon.mod.common.api.events.CobblemonEvents.TRADE_EVENT_POST
 import com.cobblemon.mod.common.api.events.battles.BattleFledEvent
 import com.cobblemon.mod.common.api.events.battles.BattleStartedEvent
 import com.cobblemon.mod.common.api.events.battles.BattleVictoryEvent
+import com.cobblemon.mod.common.api.events.fishing.PokerodReelEvent
 import com.cobblemon.mod.common.api.events.pokemon.CollectEggEvent
 import com.cobblemon.mod.common.api.events.pokemon.FossilRevivedEvent
 import com.cobblemon.mod.common.api.events.pokemon.HatchEggEvent
 import com.cobblemon.mod.common.api.events.pokemon.LevelUpEvent
 import com.cobblemon.mod.common.api.events.pokemon.PokemonCapturedEvent
 import com.cobblemon.mod.common.api.events.pokemon.PokemonGainedEvent
+import com.cobblemon.mod.common.api.events.pokemon.RidePokemonEvent
 import com.cobblemon.mod.common.api.events.pokemon.TradeEvent
 import com.cobblemon.mod.common.api.events.pokemon.evolution.EvolutionCompleteEvent
 import com.cobblemon.mod.common.api.events.storage.ReleasePokemonEvent
@@ -53,6 +57,8 @@ object StatHandler : EventHandler {
         HATCH_EGG_POST.subscribe(Priority.NORMAL, ::onHatchEgg)
         TRADE_EVENT_POST.subscribe(Priority.NORMAL, ::onTradeCompleted)
         FOSSIL_REVIVED.subscribe(Priority.NORMAL, ::onFossilRevived)
+        RIDE_EVENT_POST.subscribe(Priority.NORMAL, ::onRide)
+        POKEROD_REEL.subscribe(Priority.NORMAL, ::onReelIn)
     }
 
     fun onCapture(event : PokemonCapturedEvent) {
@@ -114,6 +120,19 @@ object StatHandler : EventHandler {
 
     fun onFossilRevived(event : FossilRevivedEvent) {
         event.player?.awardStat(getStat(Cobblemon.statistics.FOSSILS_REVIVED))
+    }
+
+    fun onRide(event : RidePokemonEvent.Post) {
+        event.player.awardStat(getStat(Cobblemon.statistics.TIMES_RIDDEN))
+    }
+
+    //TODO: figure out item interact event or add one for rod casting
+    /*fun onPokeRodCast() {
+
+    }*/
+
+    fun onReelIn(event : PokerodReelEvent) {
+        event.player.awardStat(getStat(Cobblemon.statistics.REEL_INS))
     }
 
     fun getStat(resourceLocation: ResourceLocation) : ResourceLocation {

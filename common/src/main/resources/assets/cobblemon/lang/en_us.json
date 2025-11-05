@@ -3816,22 +3816,22 @@
 
   "cobblemon.behaviour.pokemon_picks_up_items.name": "Picks Up Items",
   "cobblemon.behaviour.pokemon_picks_up_items.desc": "The Pokémon will pick up items that it cares about.",
-  
+
   "cobblemon.behaviour.configurable_resource_identifier.name": "Configurable Resource Identifier",
   "cobblemon.behaviour.configurable_resource_identifier.desc": "Allows changing the resource identifier that controls the NPC's appearance.",
 
   "cobblemon.entity.variable.resource_identifier.name": "Resource Identifier",
   "cobblemon.entity.variable.resource_identifier.desc": "The resource identifier to be used for controlling the NPC's appearance, such as cobblemon:standard or cobblemon:mudkip.",
-  
+
   "cobblemon.behaviour.name_tag_display.name": "Name Tag Display",
   "cobblemon.behaviour.name_tag_display.desc": "Allows toggling the visibility of the entity's name tag.",
-  
+
   "cobblemon.entity.variable.display_name_tag.name": "Display Name Tag",
   "cobblemon.entity.variable.display_name_tag.desc": "Whether or not the entity's name tag is visible.",
-  
+
   "cobblemon.behaviour.dialogue_selection.name": "Dialogue Selection",
   "cobblemon.behaviour.dialogue_selection.desc": "Allows configuring NPC interaction to open a specific dialogue.",
-  
+
   "cobblemon.entity.variable.dialogue_selection.name": "Dialogue",
   "cobblemon.entity.variable.dialogue_selection.desc": "The resource identifier of the dialogue to open on interaction, such as cobblemon:your_dialogue",
 
@@ -9391,5 +9391,8 @@
   "stat.cobblemon.pokemon_interacted_with": "Interacted with Pokémon",
   "stat.cobblemon.released": "Pokémon Released",
   "stat.cobblemon.shinies_captured": "Pokémon Shinies Captured",
-  "stat.cobblemon.traded": "Pokémon Traded"
+  "stat.cobblemon.traded": "Pokémon Traded",
+  "stat.cobblemon.times_ridden": "Pokémon Ridden",
+  "stat.cobblemon.rod_casts": "PokéRod Casts",
+  "stat.cobblemon.reel_ins": "PokéRod Catches"
 }
