@@ -75,7 +75,6 @@ class SaccharineTreeFeature : Feature<BlockStateConfiguration>(BlockStateConfigu
 
         // Place the tree
         val potentialBeeNestPositions = mutableListOf<BlockPos>()
-        val flowerPositions = isFlowerNearby(worldGenLevel, origin)
 
         // Create trunk
         val logState = CobblemonBlocks.SACCHARINE_LOG.defaultBlockState()
@@ -83,7 +82,7 @@ class SaccharineTreeFeature : Feature<BlockStateConfiguration>(BlockStateConfigu
             val logPos = origin.relative(UP, y)
             worldGenLevel.setBlock(logPos, logState, UPDATE_CLIENTS)
         }
-        
+
         var currentHeight = trunkHeight
 
         // Place patterns
@@ -157,15 +156,21 @@ class SaccharineTreeFeature : Feature<BlockStateConfiguration>(BlockStateConfigu
         }
 
         // Place bee nest logic
-        if (isGenerating || flowerPositions.isNotEmpty()) {
-            placeBeeNest(worldGenLevel, potentialBeeNestPositions, flowerPositions)
+        if (isGenerating) {
+            // world gen
+            if (worldGenLevel.random.nextInt(5) == 0) {
+                placeBeeNest(worldGenLevel, potentialBeeNestPositions)
+            }
+        } else if (isFlowerNearby(worldGenLevel, origin) && worldGenLevel.random.nextInt(20) == 0) {
+            // post world gen
+            placeBeeNest(worldGenLevel, potentialBeeNestPositions)
         }
 
         return true
     }
 
     /**
-     * A function to filter possible bee nest positions [locationsToCheck] to remove locations with a none empty block to the south.
+     * A function to filter possible bee nest positions [locationsToCheck] to remove locations with a non-empty block to the south.
      * @return A sub-set of bee nest positions with an empty block to the south (z + 1).
      */
     private fun filterBeeNestPositions(worldGenLevel: WorldGenLevel, locationsToCheck: List<BlockPos>): List<BlockPos> {
@@ -184,37 +189,25 @@ class SaccharineTreeFeature : Feature<BlockStateConfiguration>(BlockStateConfigu
         return viableBeeNestPositions
     }
 
-    private fun isFlowerNearby(worldGenLevel: WorldGenLevel, origin: BlockPos): List<BlockPos> {
-        val flowerPositions = mutableListOf<BlockPos>()
+    private fun isFlowerNearby(worldGenLevel: WorldGenLevel, origin: BlockPos): Boolean {
         for (dx in -2..2) {
             for (dy in -2..2) {
                 for (dz in -2..2) {
                     val pos = origin.offset(dx, dy, dz)
                     if (worldGenLevel.getBlockState(pos).`is`(BlockTags.FLOWERS)) {
-                        flowerPositions.add(pos)
+                        return true
                     }
                 }
             }
         }
-        return flowerPositions
+        return false
     }
 
-    private fun placeBeeNest(worldGenLevel: WorldGenLevel, potentialBeeNestPositions: MutableList<BlockPos>, flowerPositions: List<BlockPos>) {
+    private fun placeBeeNest(worldGenLevel: WorldGenLevel, potentialBeeNestPositions: MutableList<BlockPos>) {
         val viableBeeNestPositions: List<BlockPos> = filterBeeNestPositions(worldGenLevel, potentialBeeNestPositions)
+        val nestPos = viableBeeNestPositions.randomOrNull()
 
-        val nestPos = viableBeeNestPositions.firstOrNull { pos ->
-            flowerPositions.any { flowerPos -> flowerPos.closerThan(pos, 1.5) }
-        } ?: viableBeeNestPositions.randomOrNull()
-
-        val validNestPos = flowerPositions.firstOrNull { flowerPos ->
-            nestPos?.closerThan(flowerPos, 1.5) == true
-        }?.relative(Direction.SOUTH) ?: nestPos
-
-        if (validNestPos != null && worldGenLevel.isEmptyBlock(validNestPos)) {
-            val southFacingBeeNest = Blocks.BEE_NEST.defaultBlockState().setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
-            setBlockIfClear(worldGenLevel, validNestPos, southFacingBeeNest)
-            populateBeeNest(worldGenLevel, validNestPos)
-        } else if (nestPos != null && worldGenLevel.isEmptyBlock(nestPos)) {
+         if (nestPos != null && worldGenLevel.isEmptyBlock(nestPos)) {
             // Natural Generation
             val southFacingBeeNest = Blocks.BEE_NEST.defaultBlockState().setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
             setBlockIfClear(worldGenLevel, nestPos, southFacingBeeNest)
