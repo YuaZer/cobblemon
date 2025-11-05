@@ -99,6 +99,7 @@
       "LIQUID": {
         "key": "cobblemon:liquid/boat",
         "rideSounds": [],
+        "surfaceLevelOffset": "-1.5",
         "stats": {
           "ACCELERATION": "10-40",
           "JUMP": "0-10",
