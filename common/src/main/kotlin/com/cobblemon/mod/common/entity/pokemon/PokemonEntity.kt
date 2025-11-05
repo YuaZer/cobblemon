@@ -558,25 +558,22 @@ open class PokemonEntity(
 
     override fun thunderHit(level: ServerLevel, lightning: LightningBolt) {
         // Ground types shouldn't take lightning damage
-        val type_immune = this.pokemon.types.any { it == ElementalTypes.GROUND }
+        val isTypeImmune = ElementalTypes.GROUND in pokemon.types
 
         // Deals with special cases in which Pokemon should either be immune or buffed by lightning strikes.
-        val ability_immune = when (pokemon.ability.name) {
+        val isAbilityImmune = when (pokemon.ability.name) {
             "lightningrod" -> {
                 this.addEffect(MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, 1))
                 true
             }
-
             "motordrive" -> {
                 this.addEffect(MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1200, 0))
                 true
             }
-
             "voltabsorb" -> {
                 this.addEffect(MobEffectInstance(MobEffects.HEAL, 1, 1))
                 true
             }
-
             else -> false
         }
 
@@ -603,14 +600,13 @@ open class PokemonEntity(
             }
         }
 
-        // Sorted most to least likely for that sweet logical-AND micro-optimisation
-        if (!type_immune && !ability_immune && !rotated) {
+        if (!isTypeImmune && !isAbilityImmune && !rotated) {
             super.thunderHit(level, lightning)
         }
     }
 
 
-        override fun tick() {
+    override fun tick() {
         /* Addresses watchdog hanging that is completely bloody inexplicable. */
         yBodyRot = Mth.wrapDegrees(yBodyRot)
         yBodyRotO = Mth.wrapDegrees(yBodyRotO)
@@ -630,8 +626,7 @@ open class PokemonEntity(
         if (passengers.isNotEmpty() && level().isClientSide) {
             rideSoundManager.tick()
             ridingAnimationData.update()
-        } else if (!passengers.isNotEmpty() && level().isClientSide)
-        {
+        } else if (!passengers.isNotEmpty() && level().isClientSide) {
             rideSoundManager.stop()
         }
 
