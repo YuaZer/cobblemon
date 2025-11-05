@@ -492,19 +492,19 @@
 			"loop": true,
 			"bones": {
 				"torso": {
-					"rotation": ["0+q.r.velocity_forward(0)*10", 0, "0+q.r.velocity_right(0)*-20"]
+					"rotation": ["0+q.r.input_forward(0)*10", 0, "0+q.r.input_right(0)*-20"]
 				},
 				"arm_left": {
-					"rotation": [0, "0+math.max(q.r.velocity_right(0)*-20,0)", 0]
+					"rotation": [0, "0+math.max(q.r.input_right(0)*-20,0)", 0]
 				},
 				"arm_left2": {
-					"rotation": [0, "0+math.max(q.r.velocity_right(0)*-20,0)", 0]
+					"rotation": [0, "0+math.max(q.r.input_right(0)*-20,0)", 0]
 				},
 				"arm_right": {
-					"rotation": [0, "0+math.min(q.r.velocity_right(0)*-20,0)", 0]
+					"rotation": [0, "0+math.min(q.r.input_right(0)*-20,0)", 0]
 				},
 				"arm_right2": {
-					"rotation": [0, "0+math.min(q.r.velocity_right(0)*-20,0)", 0]
+					"rotation": [0, "0+math.min(q.r.input_right(0)*-20,0)", 0]
 				}
 			}
 		},
