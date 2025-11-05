@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.pokemon.ai
 
+import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.api.molang.ObjectValue
 import com.google.gson.annotations.SerializedName
 
@@ -102,6 +103,7 @@ class FormPokemonBehaviour {
         it.addFunction("idle") { idle.struct }
         it.addFunction("entity_interact") { entityInteract.struct }
         it.addFunction("lightning_hit") { lightningHit.struct }
+        it.addFunction("characteristic_rainbow") { DoubleValue(characteristicRainbow) }
         it.addFunction("block_interact") { blockInteract.struct }
         it.addFunction("item_interact") { itemInteract.struct }
         it.addFunction("combat") { combat.struct }

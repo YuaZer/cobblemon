@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.pokemon.ai
 
+import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.api.molang.ObjectValue
 
 /**
@@ -38,6 +39,7 @@ open class PokemonBehaviour {
         it.addFunction("entity_interact") { entityInteract.struct }
         it.addFunction("block_interact") { blockInteract.struct }
         it.addFunction("lightning_hit") { lightningHit.struct }
+        it.addFunction("characteristic_rainbow") { DoubleValue(characteristicRainbow) }
         it.addFunction("combat") { combat.struct }
         it.addFunction("herd") { herd.struct }
         it.addFunction("item_interact") { itemInteract.struct }
