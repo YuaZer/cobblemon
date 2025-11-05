@@ -36,9 +36,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.minecraft.util.Mth.abs;
-import static net.minecraft.util.Mth.atan2;
-
 @Mixin(Camera.class)
 public abstract class CameraMixin {
     @Shadow private Entity entity;
@@ -65,13 +62,14 @@ public abstract class CameraMixin {
     @Unique private double cobblemon$frameTime = 0.0;
 
     @Inject(method = "setRotation", at = @At("HEAD"), cancellable = true)
-
     public void cobblemon$setRotation(float f, float g, CallbackInfo ci) {
         // Calculate the current frametime
         double d = Blaze3D.getTime();
         this.cobblemon$frameTime = (this.cobblemon$lastHandledRotationTime != Double.MIN_VALUE) ? d - this.cobblemon$lastHandledRotationTime : 0.0;
         this.cobblemon$lastHandledRotationTime = d;
 
+        // Don't assume the camera to be attached to an entity. Ponder Scenes from create et.al. for example aren't.
+        if (this.entity == null) return;
         var vehicle = this.entity.getVehicle();
         if (!(vehicle instanceof OrientationControllable controllableVehicle)) return;
         var instance = (Camera)(Object)this;
