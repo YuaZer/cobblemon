@@ -179,7 +179,7 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
                     doQuirks = false,
                     partialTicks = if (shouldAnimate) partialDeltaTicks else 0F,
                     contextScale = pokemon.form.baseScale,
-                    state = getPokemonState(index = index, pokemonUUID = pokemon.uuid)
+                    state = getPokemonState(index = index, pokemonUUID = pokemon.uuid).also { it.currentAspects = pokemon.aspects }
                 )
 
                 matrices.popPose()
