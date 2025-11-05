@@ -11,7 +11,7 @@ package com.cobblemon.mod.common.config
 import com.cobblemon.mod.common.api.drop.ItemDropMethod
 import com.cobblemon.mod.common.api.pokeball.catching.calculators.CaptureCalculator
 import com.cobblemon.mod.common.api.pokemon.status.Statuses
-import com.cobblemon.mod.common.client.gui.portrait.PortraitStyle
+import com.cobblemon.mod.common.client.gui.PokemonGUIAnimationStyle
 import com.cobblemon.mod.common.config.CobblemonConfigField.CobblemonConfigSide.CLIENT
 import com.cobblemon.mod.common.config.CobblemonConfigField.CobblemonConfigSide.SERVER
 import com.cobblemon.mod.common.config.constraint.IntConstraint
@@ -155,6 +155,9 @@ class CobblemonConfig {
     @CobblemonConfigField(Category.Spawning, lang = "pokemon_per_chunk", SERVER)
     var pokemonPerChunk = 1F
 
+    @CobblemonConfigField(Category.Spawning, lang = "poke_snack_pokemon_per_chunk", SERVER)
+    var pokeSnackPokemonPerChunk = 2F
+
     @CobblemonConfigField(Category.PassiveStatus, lang = "passive_statuses", SERVER)
     var passiveStatuses = mutableMapOf(
         Statuses.POISON.configEntry(),
@@ -273,7 +276,16 @@ class CobblemonConfig {
     var summaryPokemonFollowCursor = true
 
     @CobblemonConfigField(Category.Interface, lang = "party_portrait_animations", CLIENT)
-    var partyPortraitAnimations = PortraitStyle.NEVER_ANIMATE
+    var partyPortraitAnimations = PokemonGUIAnimationStyle.NEVER_ANIMATE
+
+    @CobblemonConfigField(Category.Interface, lang = "pc_profile_animations", CLIENT)
+    var pcProfileAnimations = PokemonGUIAnimationStyle.ANIMATE_SELECTED
+
+    @CobblemonConfigField(Category.Interface, lang = "summary_profile_animations", CLIENT)
+    var summaryProfileAnimations = PokemonGUIAnimationStyle.ANIMATE_SELECTED
+
+    @CobblemonConfigField(Category.Interface, lang = "animate_battle_tiles", CLIENT)
+    var animateBattleTiles = false
 
     @CobblemonConfigField(Category.Riding, lang = "third_person_view_bobbing", CLIENT)
     var thirdPersonViewBobbing = true

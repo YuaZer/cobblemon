@@ -26,6 +26,7 @@ import com.cobblemon.mod.common.api.spawning.fishing.FishingSpawnCause
 import com.cobblemon.mod.common.api.spawning.influence.BucketNormalizingInfluence
 import com.cobblemon.mod.common.api.spawning.influence.PlayerLevelRangeInfluence
 import com.cobblemon.mod.common.api.spawning.influence.PlayerLevelRangeInfluence.Companion.TYPICAL_VARIATION
+import com.cobblemon.mod.common.api.spawning.position.FishingSpawnablePosition
 import com.cobblemon.mod.common.api.text.red
 import com.cobblemon.mod.common.client.sound.EntitySoundTracker
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
@@ -372,11 +373,11 @@ class PokeRodFishingBobberEntity(type: EntityType<out PokeRodFishingBobberEntity
                 if (Mth.nextInt(random, 0, 100) < getPokemonSpawnChance(rodStack)) {
                     val player = playerOwner as? ServerPlayer ?: return
                     this.typeCaught = TypeCaught.POKEMON
-                    val lureBoost = SpawnBaitEffects.getEffectsFromItemStack(bobberBait)
+                    val stackedLureTier = SpawnBaitEffects.getEffectsFromItemStack(bobberBait)
                         .filter { it.type == SpawnBait.Effects.RARITY_BUCKET }
-                        .maxOfOrNull { it.value.toInt() }
-                        ?: 0
-                    planSpawn(player, rodStack, lureBoost)
+                        .sumOf { it.value }
+                        .toInt()
+                    planSpawn(player, rodStack, stackedLureTier)
                     val selectedWeight = plannedSpawnAction?.bucket?.weight ?: 50F
                     val reactionMinMax = calculateMinMaxCountdown(selectedWeight)
 
@@ -771,11 +772,16 @@ class PokeRodFishingBobberEntity(type: EntityType<out PokeRodFishingBobberEntity
             lureLevel = lureLevel,
         )
 
-        val result = spawner.getSpawnAction(
+        val spawnablePosition = FishingSpawnablePosition(
             cause = spawnCause,
             world = level() as ServerLevel,
             pos = position().toBlockPos(),
-            influences = listOf(PlayerLevelRangeInfluence(player, TYPICAL_VARIATION), bucketInfluence)
+            influences = mutableListOf(PlayerLevelRangeInfluence(player, TYPICAL_VARIATION), bucketInfluence)
+        )
+
+        val result = spawner.calculateSpawnActionForPosition(
+            cause = spawnCause,
+            spawnablePosition = spawnablePosition
         )
 
         this.plannedSpawnAction = result

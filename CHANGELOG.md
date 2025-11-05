@@ -474,7 +474,7 @@
 - Updated `HatchEggEvent.Post` to include the Pokemon that hatched.
 - Roseli Berry Trees now naturally generate in their preferred biomes.
 - Refactored dynamic lights compat to be more future proof. The dynamic light support is only tested with LambDynamicLights, on NeoForged use that mod in combination with Sinytra Connector
-- Shulker Boxes and Traveler's Backpacks can no longer be held by Pokémon. Thanks Monocle ;) You could re-enable this with a datapack but you'd be crazy.
+- Shulker Boxes and Traveler's Backpacks AND Packed Up backpacks can no longer be held by Pokémon. Thanks Monocle ;) You could re-enable this with our datapack (but you'd be crazy).
 - Moomoo Milk now clears Pokémon stat changes when used in battle.
 
 ### Fixes
@@ -599,7 +599,6 @@
 - Added a `hoverText` option to PartySelectCallback, to display a tooltip on hovering over a Pokémon in the selection screen.
 - `PokemonEntity` instances spawned into the world now appropriately finalize the spawn for mod compatibility.
 - Added PokedexManager.obtain as a replacement for .catch which is not a friendly function name in Java.
-
 - Added `Pokemon#hyperTrainIV()` and `IVs#setHyperTrainedIV(Stat, Int)`
 - `ElementalType` now implements `ShowdownIdentifiable` to ensure the communcation with showdown stays consistent (also in regards to TeraTypes)
 - Pokemon no longer have a change observable
@@ -709,6 +708,7 @@
 - Fixed `cobblemon:reel_in_pokemon` criteria not working when used together with a `baitId`
   - Also changed the default from `cobblemon:empty_bait` to `any`
   - The previous default is still available by using the above as baitId
+- Added support for species-specific move action effects, using the format `{move_id}_{species}.json`.
 
 ### Particles
 Added new/updated particles for the following moves:
