@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.mixin;
 
+import com.cobblemon.mod.common.CobblemonNetwork;
 import com.cobblemon.mod.common.OrientationControllable;
 import com.cobblemon.mod.common.api.orientation.OrientationController;
 import com.cobblemon.mod.common.api.pokemon.effect.ShoulderEffectRegistry;
@@ -15,6 +16,8 @@ import com.cobblemon.mod.common.api.riding.Seat;
 import com.cobblemon.mod.common.client.entity.PokemonClientDelegate;
 import com.cobblemon.mod.common.client.render.MatrixWrapper;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
+import com.cobblemon.mod.common.net.messages.server.orientation.ServerboundUpdateOrientationPacket;
+import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -25,6 +28,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix3f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
@@ -47,54 +51,18 @@ public abstract class LivingEntityMixin extends Entity implements OrientationCon
         return cobblemon$orientationController;
     }
 
+//    @Inject(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientPacketListener;send(Lnet/minecraft/network/protocol/Packet;)V"))
+//    private void cobblemon$updateRotationMatrix(CallbackInfo ci) {
+//        if (!cobblemon$orientationController.isActive() || cobblemon$orientationController.getOrientation() == null) return;
+//        CobblemonNetwork.INSTANCE.sendToServer(new ServerboundUpdateOrientationPacket(this.getId(), cobblemon$orientationController.getOrientation()));
+//    }
+
     @Inject(method = "onEffectRemoved", at = @At(value = "TAIL"))
     private void cobblemon$onEffectRemoved(MobEffectInstance effect, CallbackInfo ci) {
         final LivingEntity entity = (LivingEntity) (Object) this;
         if (entity instanceof ServerPlayer) {
             ShoulderEffectRegistry.INSTANCE.onEffectEnd((ServerPlayer) entity);
         }
-    }
-
-    @Override
-    public @NotNull HitResult pick(double hitDistance, float partialTicks, boolean hitFluids) {
-        Entity vehicle = this.getVehicle();
-        if (vehicle instanceof PokemonEntity pokemonEntity && pokemonEntity.getDelegate() instanceof PokemonClientDelegate delegate) {
-            int seatIndex = pokemonEntity.getPassengers().indexOf(this);
-            Seat seat = pokemonEntity.getSeats().get(seatIndex);
-            MatrixWrapper locator = delegate.getLocatorStates().get(seat.getLocator());
-
-            Vec3 locatorOffset = new Vec3(locator.getMatrix().getTranslation(new Vector3f()));
-
-            Vec3 eyePosition = cobblemon$getEyePosition(partialTicks, pokemonEntity, locatorOffset);
-
-            Vec3 viewVector = this.getViewVector(partialTicks);
-            Vec3 viewDistanceVector = eyePosition.add(viewVector.x * hitDistance, viewVector.y * hitDistance, viewVector.z * hitDistance);
-
-            return this.level()
-                    .clip(
-                            new ClipContext(
-                                    eyePosition, viewDistanceVector, ClipContext.Block.OUTLINE, hitFluids ? net.minecraft.world.level.ClipContext.Fluid.ANY : net.minecraft.world.level.ClipContext.Fluid.NONE, this
-                            )
-                    );
-        }
-
-        return super.pick(hitDistance, partialTicks, hitFluids);
-    }
-
-    @Unique
-    private Vec3 cobblemon$getEyePosition(float partialTicks, PokemonEntity pokemonEntity, Vec3 locatorOffset) {
-        OrientationController controller = this.getOrientationController();
-
-        float currEyeHeight = this.getEyeHeight();
-        Vec3 offset = locatorOffset.add(pokemonEntity.position());
-        if (controller.isActive() && controller.getOrientation() != null) {
-            Quaternionf orientation = controller.getRenderOrientation(partialTicks);
-            Vec3 rotatedEyeHeight = new Vec3(orientation.transform(new Vector3f(0f, currEyeHeight - (this.getBbHeight() / 2), 0f)));
-
-            offset.add(rotatedEyeHeight);
-        }
-
-        return offset;
     }
 
     @Inject(method = "tick", at = @At("HEAD"))

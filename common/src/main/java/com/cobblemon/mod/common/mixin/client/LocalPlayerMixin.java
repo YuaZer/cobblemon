@@ -29,12 +29,10 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.Input;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -72,30 +70,34 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer implements O
         super(clientLevel, gameProfile);
     }
 
-//    @Inject(method = "sendPosition", at = @At("TAIL"))
-//    private void cobblemon$updateRotationMatrix(CallbackInfo ci) {
-//        if (!(this instanceof OrientationControllable controllable)) return;
-//        var controller = controllable.getOrientationController();
-//        if (!controller.isActive() || controller.getOrientation() == cobblemon$lastOrientation) return;
-//        cobblemon$lastOrientation = controller.getOrientation() != null ? new Matrix3f(controller.getOrientation()) : null;
-//        CobblemonNetwork.INSTANCE.sendToServer(new ServerboundUpdateOrientationPacket(controller.getOrientation()));
-//    }
-
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientPacketListener;send(Lnet/minecraft/network/protocol/Packet;)V"))
-    private void cobblemon$updateRotationMatrixPassenger(CallbackInfo ci) {
-        if (!(this instanceof OrientationControllable controllable)) return;
-        var controller = controllable.getOrientationController();
-        if (!controller.isActive() || controller.getOrientation() == cobblemon$lastOrientation) return;
-        cobblemon$lastOrientation = controller.getOrientation() != null ? new Matrix3f(controller.getOrientation()) : null;
-        CobblemonNetwork.INSTANCE.sendToServer(new ServerboundUpdateOrientationPacket(controller.getOrientation()));
+    private void cobblemon$updateRotationMatrix(CallbackInfo ci) {
+        if (!(this.getVehicle() instanceof OrientationControllable controllableVehicle)) return;
+        var vehicleController = controllableVehicle.getOrientationController();
+        if (!vehicleController.isActive() || vehicleController.getOrientation() == cobblemon$lastOrientation) return;
+        cobblemon$lastOrientation = vehicleController.getOrientation() != null ? new Matrix3f(vehicleController.getOrientation()) : null;
+        CobblemonNetwork.INSTANCE.sendToServer(new ServerboundUpdateOrientationPacket(this.getVehicle().getId(), vehicleController.getOrientation()));
     }
 
     @Inject(method = "rideTick", at = @At("HEAD"))
     private void cobblemon$updateOrientationControllerRideTick(CallbackInfo ci) {
         if (Minecraft.getInstance().player != (Object)this) return;
-        if (!(this instanceof OrientationControllable controllable)) return;
+        var driver = (LocalPlayer)(Object)this;
+        var vehicle = driver.getVehicle();
+        if (!(this.getVehicle() instanceof OrientationControllable controllableVehicle)) return;
         var shouldUseCustomOrientation = cobblemon$shouldUseCustomOrientation((LocalPlayer)(Object)this);
-        controllable.getOrientationController().setActive(shouldUseCustomOrientation);
+        var vehicleController = controllableVehicle.getOrientationController();
+
+        // If the player has just switched to riding a custom orientation ride then set their
+        // x and y rots local to the vehicle rots(if the controller wasn't active and will now be active)
+        // This ensures that on transition your camera stays in the same spot
+        if (!vehicleController.isActive() && shouldUseCustomOrientation) {
+            // Set local to the vehicle x and yrot so
+            driver.setXRot(Mth.wrapDegrees(driver.getXRot() - vehicle.getXRot()));
+            driver.setYRot(Mth.wrapDegrees(driver.getYRot() - vehicle.getYRot()));
+        }
+
+        vehicleController.setActive(shouldUseCustomOrientation);
     }
 
     @Inject(method = "rideTick", at = @At("HEAD"))
@@ -129,8 +131,8 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer implements O
     public void stopRiding() {
         super.stopRiding();
         if (Minecraft.getInstance().player != (Object)this) return;
-        if (!(this instanceof OrientationControllable controllable)) return;
-        controllable.getOrientationController().setActive(false);
+        if (!(this instanceof OrientationControllable controllableVehicle)) return;
+        controllableVehicle.getOrientationController().setActive(false);
     }
 
     @Inject(method = "getJumpRidingScale", at = @At("HEAD"), cancellable = true)

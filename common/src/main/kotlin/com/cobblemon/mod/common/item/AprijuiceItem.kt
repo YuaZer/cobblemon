@@ -38,6 +38,9 @@ class AprijuiceItem(val type: Apricorn): CobblemonItem(Properties().stacksTo(16)
 
         const val STRONG_APRICORN_MULTIPLIER = 1.25F
         const val WEAK_APRICORN_MULTIPLIER = 0.75F
+
+        const val TRIPLE_POINT_THRESHOLD = 30
+        const val DOUBLE_POINT_THRESHOLD = 15
     }
 
     override fun use(world: Level, user: Player, hand: InteractionHand): InteractionResultHolder<ItemStack> {
@@ -102,13 +105,11 @@ class AprijuiceItem(val type: Apricorn): CobblemonItem(Properties().stacksTo(16)
         if (!canUseOnPokemon(stack, pokemon)) {
             return InteractionResultHolder.fail(stack)
         }
-        val boosts = getBoosts(stack, pokemon)
-        // Feed the Pokémon 1 fullness point
-        pokemon.feedPokemon(1)
 
-        boosts.forEach { (stat, value) ->
-            pokemon.addRideBoost(stat, value)
-        }
+        pokemon.feedPokemon(1)
+        
+        val boosts = getBoosts(stack, pokemon)
+        pokemon.addRideBoosts(boosts)
 
         stack.consume(1, player)
 
@@ -133,7 +134,14 @@ class AprijuiceItem(val type: Apricorn): CobblemonItem(Properties().stacksTo(16)
             1F
         }
 
-        return value * apricornMultiplier * tasteMultiplier
+        val applyFlavour = value * apricornMultiplier * tasteMultiplier
+        return if (applyFlavour >= TRIPLE_POINT_THRESHOLD) {
+            3F
+        } else if (applyFlavour >= DOUBLE_POINT_THRESHOLD) {
+            2F
+        } else {
+            1F
+        }
     }
 
     override fun finishUsingItem(stack: ItemStack, world: Level, user: LivingEntity): ItemStack {

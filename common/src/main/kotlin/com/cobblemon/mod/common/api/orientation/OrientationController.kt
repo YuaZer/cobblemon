@@ -15,6 +15,7 @@ import net.minecraft.world.entity.LivingEntity
 import org.joml.Matrix3f
 import org.joml.Quaternionf
 import org.joml.Vector3f
+import kotlin.math.abs
 import kotlin.math.asin
 import kotlin.math.sign
 
@@ -62,7 +63,7 @@ open class OrientationController(val entity: LivingEntity) {
     }
 
     fun getRenderOrientation(delta: Float): Quaternionf {
-        val old = renderOrientationO ?: renderOrientation ?: orientation
+        val old = renderOrientationO ?: renderOrientation ?: orientation ?: Matrix3f()
         val new = renderOrientation ?: old
         val oldQuat = Quaternionf().setFromUnnormalized(old)
         val newQuat  = Quaternionf().setFromUnnormalized(new)
@@ -113,7 +114,7 @@ open class OrientationController(val entity: LivingEntity) {
 
     fun applyGlobalPitch(deltaPitchDegrees: Float) = updateOrientation { original ->
         val currQuat = Quaternionf().setFromUnnormalized(original)
-        val horzLeftVector = Vector3f(0.0f, this.upVector.y.sign, 0.0f).cross(this.forwardVector)
+        val horzLeftVector = Vector3f(0.0f, -abs(this.upVector.y.sign), 0.0f).cross(this.forwardVector)
         // Avoid NaN issue when normalizing and the forwardVector and upVector are equal
         val pitchAxis = if (horzLeftVector.lengthSquared() < 0.01) this.leftVector else horzLeftVector
 
