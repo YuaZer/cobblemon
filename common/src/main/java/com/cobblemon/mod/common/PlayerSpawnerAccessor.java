@@ -17,6 +17,7 @@ import com.cobblemon.mod.common.api.spawning.spawner.PlayerSpawner;
  * @author Hiroku
  * @since October 27th, 2025
  */
-public interface PlayerSpawnerGetter {
+public interface PlayerSpawnerAccessor {
     PlayerSpawner getPlayerSpawner();
+    void setPlayerSpawner(PlayerSpawner spawner);
 }
