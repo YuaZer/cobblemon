@@ -87,6 +87,8 @@
 - Altaria
 - Snorunt
 - Glalie
+- Shuppet
+- Banette
 - Latias
 - Latios
 
@@ -135,6 +137,11 @@
 - Swadloon
 - Leavanny
 - Druddigon
+- Minccino
+- Cinccino
+- Vanillite
+- Vanillish
+- Vanilluxe
 
 #### Gen 6
 - Skiddo
@@ -297,6 +304,22 @@
 - Tauros - Paldea Combat
 - Dewgong
 - Exeggutor - Kanto
+- Corphish (updated placeholders for crustaceous tripod gait legs)
+- Crawdaunt (updated placeholders for crustaceous bipedal legs)
+- Dragapult
+- Camerupt
+- Relicanth
+- Heracross
+- Salamence
+- Staraptor
+- Dusknoir
+- Arcanine
+- Carvanha
+- Sharpedo
+- Mimikyu
+- Dewgong
+- Mime Jr
+- Gyarados
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -324,6 +347,8 @@
 - Nosepass
 - Probopass
 - Kangaskhan
+- Scorbunny
+- Raboot
 - Cinderace
 - Magnemite
 - Magneton
@@ -410,6 +435,13 @@
 - Litwick
 - Lampent
 - Chandelure
+- Rayquaza
+- Aerodactyl
+- Basculin
+- Basculegion
+- Shroodle
+- Grafaiai
+- Steelix
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
@@ -563,6 +595,7 @@
 - Fixed species additions not being able to properly mark a species as implemented.
 - Fixed Pokémon item models not showing a glint when enchanted.
 - Fixed some specific bag items not being dropped when used in battle.
+- The Corphish line will now sink in water.
 - Fixed the "use all berry bait" achievement not being progressed
 
 ### Developer

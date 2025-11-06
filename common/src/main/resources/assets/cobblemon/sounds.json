@@ -1387,6 +1387,26 @@
       }
     ]
   },
+  "ride.loop.water_surface": {
+    "sounds": [
+      {
+        "name": "cobblemon:ride/loop/water_surface_loop",
+        "stream": true,
+        "attenuation_distance": 32.0,
+        "volume": 0.4
+      }
+    ]
+  },
+  "ride.loop.underwater": {
+    "sounds": [
+      {
+        "name": "cobblemon:ride/loop/underwater_loop",
+        "stream": true,
+        "attenuation_distance": 16.0,
+        "volume": 0.4
+      }
+    ]
+  },
   "pokemon.bulbasaur.ambient": {
     "sounds": [ "cobblemon:pokemon/bulbasaur/bulbasaur_ambient" ]
   },
@@ -4582,8 +4602,14 @@
   "pokemon.vulpix.cry": {
     "sounds": [ {  "name": "cobblemon:pokemon/vulpix/vulpix_cry", "volume": 0.8 } ]
   },
+  "pokemon.vulpix_alolan.cry": {
+    "sounds": [ {  "name": "cobblemon:pokemon/vulpix/vulpix_alolan_cry", "volume": 0.8 } ]
+  },
   "pokemon.ninetales.cry": {
     "sounds": [ { "name": "cobblemon:pokemon/ninetales/ninetales_cry", "volume": 0.8 } ]
+  },
+  "pokemon.ninetales_alolan.cry": {
+    "sounds": [ { "name": "cobblemon:pokemon/ninetales/ninetales_alolan_cry", "volume": 0.8 } ]
   },
   "pokemon.jigglypuff.cry": {
     "sounds": [ { "name": "cobblemon:pokemon/jigglypuff/jigglypuff_cry", "volume": 0.8 } ]
