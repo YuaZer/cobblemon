@@ -68,11 +68,11 @@
         "key": "cobblemon:liquid/submarine",
         "rideSounds": [],
         "stats": {
-          "ACCELERATION": "30-50",
-          "JUMP": "15-30",
-          "SKILL": "30-35",
-          "SPEED": "25-40",
-          "STAMINA": "40-55"
+          "ACCELERATION": "30-55",
+          "JUMP": "35-60",
+          "SKILL": "30-55",
+          "SPEED": "30-50",
+          "STAMINA": "50-75"
         }
       }
     },
