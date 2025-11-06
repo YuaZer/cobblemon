@@ -728,7 +728,7 @@
   - Also changed the default from `cobblemon:empty_bait` to `any`
   - The previous default is still available by using the above as baitId
 - Added support for species-specific move action effects, using the format `{move_id}_{species}.json`.
-- Added various functions to `q.file` for file handling in MoLang, strictly for the config and data folders:
+- Added various functions to `q.file` for JSON file handling in MoLang, strictly for `./config` and `./data` folders that have `/molang/` in the path:
   - `q.file.save(<path>, <struct>)` Saves to the given file path with the given variable struct.
   - `q.file.load(<path>)` Loads a variable struct from the given path, or gets it from the cache if it's already been loaded.
   - `q.file.exists(<path>)` Returns 1 if the given file path exists.

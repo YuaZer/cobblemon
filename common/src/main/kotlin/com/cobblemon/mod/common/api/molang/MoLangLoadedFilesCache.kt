@@ -13,11 +13,10 @@ import com.bedrockk.molang.runtime.struct.VariableStruct
 import com.bedrockk.molang.runtime.value.DoubleValue
 import com.bedrockk.molang.runtime.value.MoValue
 import com.cobblemon.mod.common.Cobblemon
-import com.cobblemon.mod.common.util.server
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
 import java.nio.file.Path
-import kotlin.io.path.pathString
+import java.util.concurrent.ConcurrentHashMap
 import net.minecraft.server.MinecraftServer
 import net.minecraft.world.level.storage.LevelResource
 
@@ -25,13 +24,17 @@ import net.minecraft.world.level.storage.LevelResource
  * A cache for loaded MoLang files to avoid redundant file I/O operations.
  * Provides functions to load, save, check existence, and clear cached files.
  *
+ * Only files with /molang/ in their path and a .json extension within the config
+ * or data folders can be accessed.
+ *
  * @author Hiroku
  * @since November 1st, 2025
  */
 object MoLangLoadedFilesCache {
     private val gson = GsonBuilder().setPrettyPrinting().create()
-    private val loadedFiles = mutableMapOf<String, VariableStruct>()
-    
+    val loadedFiles = ConcurrentHashMap<String, VariableStruct>()
+
+    /** Essentially the server root or world root for singleplayer. */
     lateinit var baseFolder: Path
     private lateinit var configFolder: Path
     private lateinit var dataFolder: Path
@@ -42,30 +45,27 @@ object MoLangLoadedFilesCache {
         dataFolder = baseFolder.resolve("data").normalize().toAbsolutePath()
     }
     
-    val struct = QueryStruct(
-        hashMapOf(
-            "load" to java.util.function.Function { params ->
-                val fileName = params.params[0].asString()
-                return@Function load(fileName)
-            },
-            "save" to java.util.function.Function { params ->
-                val fileName = params.params[0].asString()
-                val data = params.params[1] as VariableStruct
-                save(fileName, data)
-                return@Function DoubleValue.ONE
-            },
-            "exists" to java.util.function.Function { params ->
-                val fileName = params.params[0].asString()
-                val exists = exists(fileName)
-                return@Function if (exists) DoubleValue.ONE else DoubleValue.ZERO
-            },
-            "clear" to java.util.function.Function { params ->
-                val fileName = params.params[0].asString()
-                clear(fileName)
-                return@Function DoubleValue.ONE
-            }
-        )
-    )
+    val struct = QueryStruct(hashMapOf())
+        .addFunction("load") { params ->
+            val fileName = params.params[0].asString()
+            return@addFunction load(fileName)
+        }
+        .addFunction("save") { params ->
+            val fileName = params.params[0].asString()
+            val data = params.params[1] as VariableStruct
+            save(fileName, data)
+            return@addFunction DoubleValue.ONE
+        }
+        .addFunction("exists") { params ->
+            val fileName = params.params[0].asString()
+            val exists = exists(fileName)
+            return@addFunction if (exists) DoubleValue.ONE else DoubleValue.ZERO
+        }
+        .addFunction("clear") { params ->
+            val fileName = params.params[0].asString()
+            clear(fileName)
+            return@addFunction DoubleValue.ONE
+        }
 
     private fun validatePath(fileName: String): Path? {
         val filePath = baseFolder.resolve(fileName).normalize().toAbsolutePath()
