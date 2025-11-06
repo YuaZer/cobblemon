@@ -6,9 +6,9 @@
 				"identifier": "geometry.dragonite",
 				"texture_width": 256,
 				"texture_height": 128,
-				"visible_bounds_width": 10,
-				"visible_bounds_height": 6,
-				"visible_bounds_offset": [0, 2, 0]
+				"visible_bounds_width": 8,
+				"visible_bounds_height": 5.5,
+				"visible_bounds_offset": [0, 2.25, 0]
 			},
 			"bones": [
 				{
@@ -86,14 +86,6 @@
 						{"origin": [-6, 27, -6], "size": [12, 9, 12], "uv": [0, 29]},
 						{"origin": [-6, 27, -6], "size": [12, 9, 12], "inflate": 0.25, "uv": [207, 63]}
 					]
-				},
-				{
-					"name": "locator_seat_1",
-					"parent": "chest2",
-					"pivot": [0, 36, 8],
-					"locators": {
-						"seat_1": [0, 35, 8]
-					}
 				},
 				{
 					"name": "arms",
@@ -662,6 +654,15 @@
 					]
 				},
 				{
+					"name": "locator_seat_1",
+					"parent": "chest2",
+					"pivot": [0, 37, 9],
+					"rotation": [-12.5, 0, 0],
+					"locators": {
+						"seat_1": [0, 37, 9]
+					}
+				},
+				{
 					"name": "tail1",
 					"parent": "torso",
 					"pivot": [0, 13, -4],
@@ -731,6 +732,15 @@
 							"offset": [0, 13, 63],
 							"rotation": [180, 0, 0]
 						}
+					}
+				},
+				{
+					"name": "locator_seat_2",
+					"parent": "tail1",
+					"pivot": [0, 17, 13],
+					"rotation": [-12.5, 0, 0],
+					"locators": {
+						"seat_2": [0, 17, 13]
 					}
 				},
 				{

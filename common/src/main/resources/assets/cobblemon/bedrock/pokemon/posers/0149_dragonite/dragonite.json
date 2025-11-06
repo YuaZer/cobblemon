@@ -24,18 +24,24 @@
     "cry": "q.bedrock_stateful('dragonite', 'cry')"
   },
   "poses": {
-    "in-air": {
+    "ground-jump": {
       "poseTypes": ["STAND", "WALK"],
-      "isRideStyle": ["LIQUID"],
-      "isBattle": false,
       "condition": "q.in_air && q.is_ridden",
       "animations": [
         "q.look('neck', 0.5, 1, 10, -10, 20, -20)",
         "q.look('head', 1, 0.25, 10, -15, 5, -5)",
-        "q.bedrock('dragonite', 'water_idle')"
-      ],
-      "transformTicks": 2,
-      "transformToTicks": 2
+        "q.bedrock('gyarados', 'air_fly')"
+      ]
+    },
+    "water-jump": {
+      "poseTypes": ["FLOAT", "SWIM"],
+      "condition": "q.is_ridden",
+      "isTouchingWater": false,
+      "animations": [
+        "q.look('neck', 0.5, 1, 10, -10, 20, -20)",
+        "q.look('head', 1, 0.25, 10, -15, 5, -5)",
+        "q.bedrock('dragonite', 'water_swim')"
+      ]
     },
     "sleep": {
       "poseTypes": ["SLEEP"],
@@ -136,6 +142,7 @@
     },
     "float": {
       "isTouchingWater": true,
+      "isUnderWater": true,
       "poseTypes": ["FLOAT"],
       "animations": [
         "q.look('neck', 0.5, 1, 10, -10, 20, -20)",
@@ -148,6 +155,7 @@
     },
     "swim": {
       "isTouchingWater": true,
+      "isUnderWater": true,
       "poseTypes": ["SWIM"],
       "animations": [
         "q.look('neck', 0.5, 1, 10, -10, 20, -20)",

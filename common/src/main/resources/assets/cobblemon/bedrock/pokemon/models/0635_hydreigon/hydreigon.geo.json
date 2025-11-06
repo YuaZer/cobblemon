@@ -1114,12 +1114,24 @@
 				{
 					"name": "locator_seat_1",
 					"parent": "chest",
-					"pivot": [0, 23.1, 6.25],
-					"rotation": [-10, 0, 0],
+					"pivot": [0, 24.1, 8.25],
+					"rotation": [-75, 0, 0],
 					"locators": {
 						"seat_1": {
-							"offset": [0, 23.1, 6.25],
-							"rotation": [-75, 0, 0]
+							"offset": [0, 24.1, 8.25],
+							"rotation": [5, 0, 0]
+						}
+					}
+				},
+				{
+					"name": "locator_seat_2",
+					"parent": "chest",
+					"pivot": [0, 12.1, 8.25],
+					"rotation": [-75, 0, 0],
+					"locators": {
+						"seat_2": {
+							"offset": [0, 12.1, 8.25],
+							"rotation": [5, 0, 0]
 						}
 					}
 				},

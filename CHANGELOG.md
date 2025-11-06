@@ -317,6 +317,7 @@
 - Mimikyu
 - Dewgong
 - Mime Jr
+- Gyarados
 
 ### Model updates for the following Pokémon
 - Cleffa
