@@ -19,7 +19,7 @@
     },
     {
       "type": "molang",
-      "expressions": "q.run_script('run_callback_dialogue', 1);"
+      "expressions": "q.run_script('run_callback_dialogue');"
     }
   ]
 }
