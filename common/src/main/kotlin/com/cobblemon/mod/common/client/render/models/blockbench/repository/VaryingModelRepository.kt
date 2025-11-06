@@ -390,7 +390,6 @@ object VaryingModelRepository {
         inbuilt("grookey", ::GrookeyModel)
         inbuilt("thwackey", ::ThwackeyModel)
         inbuilt("rillaboom", ::RillaboomModel)
-        inbuilt("raboot", ::RabootModel)
         inbuilt("oshawott", ::OshawottModel)
         inbuilt("dewott", ::DewottModel)
         inbuilt("samurott", ::SamurottModel)
