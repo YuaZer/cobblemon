@@ -63,10 +63,6 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
         private val newEvoPopup = cobblemonResource("textures/gui/party/party_slot_notification_evolution.png")
         private val levelScroll = cobblemonResource("textures/gui/party/party_slot_portrait_level_up.png")
 
-        private val inanimatePortraitDrawer = InanimatePortraitDrawer()
-        private val selectedAnimatedPortraitDrawer = SelectedAnimatedPortraitDrawer()
-        private val fullyAnimatedPortraitDrawer = FullyAnimatedPortraitDrawer()
-
         private val screenExemptions: List<Class<out Screen>> = listOf(
             ChatScreen::class.java,
             BattleGUI::class.java
