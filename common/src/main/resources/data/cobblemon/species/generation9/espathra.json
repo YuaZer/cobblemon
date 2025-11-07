@@ -44,11 +44,120 @@
   "baseFriendship": 50,
   "baseScale": 0.87,
   "hitbox": {
-    "width": 1.2,
     "height": 2.1,
-    "fixed": false
+    "fixed": false,
+    "width": 1.2
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "30-65",
+          "JUMP": "40-55",
+          "SKILL": "10-40",
+          "SPEED": "55-85",
+          "STAMINA": "10-25"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.71875,
+              "z": 0.2625
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0039696433,
+              "y": -1.6745994,
+              "z": 0.26254645
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.71875,
+              "z": 0.2625
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.71875,
+              "z": 0.2625
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.71875,
+              "z": 0.2625
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0039696433,
+              "y": -1.6745994,
+              "z": 0.26254645
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.71875,
+              "z": 0.2625
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "dodrio",
+          "tier": 1
+        },
+        {
+          "pokemon": "espathra",
+          "tier": 1
+        }
+      ]
+    },
     "moving": {
       "walk": {
         "walkSpeed": 0.3
@@ -67,7 +176,7 @@
       },
       {
         "item": "cobblemon:tanga_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -100,11 +209,9 @@
     "tm:bravebird",
     "tm:calmmind",
     "tm:confuseray",
-    "tm:confusion",
     "tm:dazzlinggleam",
     "tm:disarmingvoice",
     "tm:doubleedge",
-    "tm:drillpeck",
     "tm:endure",
     "tm:energyball",
     "tm:expandingforce",
@@ -113,19 +220,15 @@
     "tm:flashcannon",
     "tm:foulplay",
     "tm:gigaimpact",
-    "tm:growl",
     "tm:helpinghand",
     "tm:hex",
     "tm:hyperbeam",
     "tm:hypervoice",
-    "tm:hypnosis",
     "tm:lastresort",
     "tm:lightscreen",
     "tm:lowkick",
-    "tm:luminacrash",
     "tm:mudslap",
     "tm:nightshade",
-    "tm:peck",
     "tm:pluck",
     "tm:pounce",
     "tm:protect",
@@ -134,7 +237,6 @@
     "tm:psychicterrain",
     "tm:psychup",
     "tm:psyshock",
-    "tm:quickattack",
     "tm:raindance",
     "tm:reflect",
     "tm:rest",
@@ -155,7 +257,34 @@
     "tm:trickroom",
     "tm:uproar",
     "tm:uturn",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:aerialace",
+    "tutor:allyswitch",
+    "tutor:babydolleyes",
+    "tutor:calmmind",
+    "tutor:dazzlinggleam",
+    "tutor:energyball",
+    "tutor:expandingforce",
+    "tutor:flashcannon",
+    "tutor:foulplay",
+    "tutor:gigaimpact",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:hypervoice",
+    "tutor:lastresort",
+    "tutor:lowkick",
+    "tutor:mudslap",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:roost",
+    "tutor:seedbomb",
+    "tutor:shadowball",
+    "tutor:skillswap",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:trick",
+    "tutor:uproar",
+    "tutor:zenheadbutt"
   ],
   "preEvolution": "flittle",
   "evolutions": []

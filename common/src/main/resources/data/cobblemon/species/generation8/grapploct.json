@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 853,
   "name": "Grapploct",
   "primaryType": "fighting",
@@ -41,10 +42,10 @@
   "catchRate": 45,
   "eggCycles": 25,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.75,
   "hitbox": {
-    "width": 1,
-    "height": 1,
+    "width": 1.2,
+    "height": 2.25,
     "fixed": false
   },
   "behaviour": {
@@ -55,6 +56,9 @@
         "canBreatheUnderwater": true,
         "swimSpeed": "0.2"
       }
+    },
+    "herd": {
+      "maxSize": "3"
     }
   },
   "drops": {
@@ -66,7 +70,7 @@
       },
       {
         "item": "cobblemon:pinap_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -97,28 +101,22 @@
     "tm:brine",
     "tm:brutalswing",
     "tm:bulkup",
-    "tm:circlethrow",
     "tm:closecombat",
     "tm:coaching",
-    "tm:detect",
     "tm:dig",
     "tm:dive",
     "tm:drainpunch",
     "tm:endure",
     "tm:facade",
-    "tm:feint",
     "tm:focusblast",
     "tm:gigaimpact",
     "tm:hydropump",
     "tm:hyperbeam",
     "tm:icepunch",
-    "tm:leer",
     "tm:liquidation",
     "tm:megapunch",
     "tm:muddywater",
     "tm:mudshot",
-    "tm:octazooka",
-    "tm:octolock",
     "tm:painsplit",
     "tm:payback",
     "tm:poweruppunch",
@@ -129,22 +127,38 @@
     "tm:reversal",
     "tm:rocksmash",
     "tm:scaryface",
-    "tm:seismictoss",
     "tm:skittersmack",
     "tm:sleeptalk",
-    "tm:soak",
     "tm:stompingtantrum",
-    "tm:submission",
     "tm:substitute",
     "tm:suckerpunch",
     "tm:superpower",
     "tm:surf",
     "tm:taunt",
     "tm:terablast",
-    "tm:topsyturvy",
     "tm:waterfall",
     "tm:whirlpool",
-    "tm:workup"
+    "tm:workup",
+    "tutor:bind",
+    "tutor:bulkup",
+    "tutor:coaching",
+    "tutor:dive",
+    "tutor:drainpunch",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:icepunch",
+    "tutor:liquidation",
+    "tutor:painsplit",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:skittersmack",
+    "tutor:sleeptalk",
+    "tutor:stompingtantrum",
+    "tutor:suckerpunch",
+    "tutor:superpower",
+    "legacy:attract",
+    "legacy:round",
+    "legacy:snore"
   ],
   "preEvolution": "clobbopus",
   "evolutions": []

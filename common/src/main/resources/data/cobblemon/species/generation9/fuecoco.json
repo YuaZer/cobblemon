@@ -53,6 +53,23 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "fuecoco",
+          "tier": 1
+        },
+        {
+          "pokemon": "crocalor",
+          "tier": 2
+        },
+        {
+          "pokemon": "skeledirge",
+          "tier": 3
+        }
+      ]
     }
   },
   "drops": {
@@ -60,7 +77,7 @@
     "entries": [
       {
         "item": "cobblemon:charcoal_stick",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -81,14 +98,11 @@
     "egg:curse",
     "egg:encore",
     "egg:slackoff",
-    "tm:belch",
-    "tm:bite",
     "tm:bodyslam",
     "tm:crunch",
     "tm:curse",
     "tm:dig",
     "tm:disarmingvoice",
-    "tm:ember",
     "tm:encore",
     "tm:endure",
     "tm:facade",
@@ -103,7 +117,6 @@
     "tm:helpinghand",
     "tm:hypervoice",
     "tm:incinerate",
-    "tm:leer",
     "tm:mudslap",
     "tm:outrage",
     "tm:overheat",
@@ -112,20 +125,32 @@
     "tm:roar",
     "tm:round",
     "tm:seedbomb",
-    "tm:slackoff",
     "tm:sleeptalk",
     "tm:snarl",
     "tm:stompingtantrum",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:tackle",
     "tm:takedown",
     "tm:temperflare",
     "tm:terablast",
     "tm:thunderfang",
     "tm:willowisp",
-    "tm:yawn",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:firefang",
+    "tutor:firepledge",
+    "tutor:flamethrower",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:hypervoice",
+    "tutor:mudslap",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:sleeptalk",
+    "tutor:snarl",
+    "tutor:stompingtantrum",
+    "tutor:thunderfang",
+    "tutor:zenheadbutt"
   ],
   "evolutions": [
     {
@@ -141,5 +166,9 @@
         }
       ]
     }
-  ]
+  ],
+  "lightingData": {
+    "lightLevel": 3,
+    "liquidGlowMode": "LAND"
+  }
 }

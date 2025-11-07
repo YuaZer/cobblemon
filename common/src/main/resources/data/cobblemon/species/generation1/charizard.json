@@ -45,28 +45,153 @@
   "baseFriendship": 50,
   "baseScale": 1,
   "hitbox": {
-    "width": 1.5,
     "height": 2.65,
-    "fixed": false
+    "fixed": false,
+    "width": 1.5
+  },
+  "riding": {
+    "behaviours": {
+      "AIR": {
+        "key": "cobblemon:air/bird",
+        "rideSounds": [
+          {
+            "soundLocation": "cobblemon:ride.loop.wind"
+          },
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "soundLocation": "cobblemon:ride.loop.leather",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          }
+        ],
+        "stats": {
+          "ACCELERATION": "45-75",
+          "JUMP": "30-65",
+          "SKILL": "55-85",
+          "SPEED": "30-65",
+          "STAMINA": "30-65"
+        }
+      },
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "55-65",
+          "JUMP": "15-25",
+          "SKILL": "10-25",
+          "SPEED": "25-40",
+          "STAMINA": "20-30"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.0047415113,
+              "y": -1.6152971,
+              "z": 0.35461712
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.003806442,
+              "y": -1.7203209,
+              "z": 0.12983066
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.039005388,
+              "y": -2.4511793,
+              "z": 0.10381147
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.056267936,
+              "y": -2.0914204,
+              "z": -0.45272845
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.7674751,
+              "z": -0.27694723
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.003806442,
+              "y": -1.7203209,
+              "z": 0.12983066
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0047415113,
+              "y": -1.6152971,
+              "z": 0.35461712
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
-    "resting": {
-      "canSleep": true,
-      "light": "0-4"
+    "combat": {
+      "willDefendOwner": true,
+      "willDefendSelf": true
+    },
+    "herd": {
+      "maxSize": "5"
     },
     "moving": {
-      "walk": {
-        "walkSpeed": 0.147
-      },
       "fly": {
         "canFly": true,
         "flySpeedHorizontal": 0.6
       },
       "swim": {
-        "swimSpeed": 0.1,
-        "canWalkOnWater": true,
-        "canSwimInLava": true
+        "canSwimInLava": true,
+        "swimSpeed": 0.1
+      },
+      "walk": {
+        "canWalk": true,
+        "walkSpeed": 0.147
       }
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
     }
   },
   "drops": {
@@ -78,7 +203,7 @@
       },
       {
         "item": "cobblemon:charcoal_stick",
-        "percentage": 25
+        "percentage": 25.0
       }
     ]
   },
@@ -117,8 +242,6 @@
     "tm:airslash",
     "tm:ancientpower",
     "tm:beatup",
-    "tm:bellydrum",
-    "tm:bite",
     "tm:blastburn",
     "tm:blazekick",
     "tm:bodyslam",
@@ -126,22 +249,17 @@
     "tm:brickbreak",
     "tm:brutalswing",
     "tm:bulldoze",
-    "tm:counter",
     "tm:crunch",
     "tm:cut",
     "tm:dig",
     "tm:doubleedge",
-    "tm:dragonbreath",
     "tm:dragoncheer",
     "tm:dragonclaw",
     "tm:dragondance",
     "tm:dragonpulse",
-    "tm:dragonrage",
-    "tm:dragonrush",
     "tm:dragontail",
     "tm:earthquake",
     "tm:echoedvoice",
-    "tm:ember",
     "tm:endure",
     "tm:facade",
     "tm:fireblast",
@@ -149,7 +267,6 @@
     "tm:firepledge",
     "tm:firepunch",
     "tm:firespin",
-    "tm:flameburst",
     "tm:flamecharge",
     "tm:flamethrower",
     "tm:flareblitz",
@@ -159,7 +276,6 @@
     "tm:focuspunch",
     "tm:furycutter",
     "tm:gigaimpact",
-    "tm:growl",
     "tm:headbutt",
     "tm:heatcrash",
     "tm:heatwave",
@@ -168,7 +284,6 @@
     "tm:hurricane",
     "tm:hyperbeam",
     "tm:incinerate",
-    "tm:inferno",
     "tm:irontail",
     "tm:megakick",
     "tm:megapunch",
@@ -188,12 +303,9 @@
     "tm:sandstorm",
     "tm:scaryface",
     "tm:scorchingsands",
-    "tm:scratch",
     "tm:shadowclaw",
     "tm:skydrop",
-    "tm:slash",
     "tm:sleeptalk",
-    "tm:smokescreen",
     "tm:solarbeam",
     "tm:steelwing",
     "tm:strength",
@@ -208,8 +320,74 @@
     "tm:twister",
     "tm:weatherball",
     "tm:willowisp",
-    "tm:wingattack",
-    "tm:workup"
+    "tm:workup",
+    "tutor:ancientpower",
+    "tutor:blastburn",
+    "tutor:block",
+    "tutor:bulldoze",
+    "tutor:dragonpulse",
+    "tutor:firefang",
+    "tutor:firepledge",
+    "tutor:firepunch",
+    "tutor:flamethrower",
+    "tutor:focuspunch",
+    "tutor:furycutter",
+    "tutor:gigaimpact",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:irontail",
+    "tutor:mysticalfire",
+    "tutor:ominouswind",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:roost",
+    "tutor:scorchingsands",
+    "tutor:shadowclaw",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:thunderpunch",
+    "tutor:twister",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:defensecurl",
+    "legacy:defog",
+    "legacy:doubleteam",
+    "legacy:dualwingbeat",
+    "legacy:dynamicpunch",
+    "legacy:falseswipe",
+    "legacy:fissure",
+    "legacy:frustration",
+    "legacy:furyswipes",
+    "legacy:hiddenpower",
+    "legacy:leer",
+    "legacy:mimic",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:rage",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:scaleshot",
+    "legacy:secretpower",
+    "legacy:seismictoss",
+    "legacy:skullbash",
+    "legacy:snore",
+    "legacy:submission",
+    "legacy:swagger",
+    "legacy:tailwind",
+    "legacy:toxic",
+    "special:blastburn",
+    "special:block",
+    "special:celebrate",
+    "special:holdhands",
+    "special:howl",
+    "special:quickattack"
   ],
   "preEvolution": "charmeleon",
   "evolutions": [],
@@ -235,10 +413,6 @@
         "toughclaws",
         "h:toughclaws"
       ],
-      "eggGroups": [
-        "monster",
-        "dragon"
-      ],
       "baseStats": {
         "hp": 78,
         "attack": 130,
@@ -247,158 +421,78 @@
         "special_defence": 85,
         "speed": 100
       },
-      "evYield": {
-        "hp": 0,
-        "attack": 0,
-        "defence": 0,
-        "special_attack": 3,
-        "special_defence": 0,
-        "speed": 0
-      },
       "baseExperienceYield": 317,
-      "experienceGroup": "medium_slow",
-      "catchRate": 45,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "dynamaxBlocked": true,
-      "behaviour": {
-        "moving": {
-          "swim": {
-            "canSwimInLava": true
+      "riding": {
+        "behaviour": {
+          "key": "cobblemon:composite",
+          "alternateBehaviour": {
+            "speed": "Math.clamp(q.entity.velocity.horizontal_magnitude + 0.33, 0, 1)",
+            "key": "cobblemon:air/bird",
+            "gravity": "q.gravity * (0.1 + (q.passenger_count - 1) * 0.1)",
+            "jumpVector": [
+              0,
+              "0.3*q.jump_strength/50",
+              0
+            ]
+          },
+          "defaultBehaviour": {
+            "speed": "Math.clamp(q.entity.velocity.horizontal_magnitude + 0.33, 0, 1)",
+            "key": "cobblemon:land/horse",
+            "gravity": "q.gravity * (0.1 + (q.passenger_count - 1) * 0.1)",
+            "jumpVector": [
+              0,
+              "0.3*q.jump_strength/50",
+              "-1 * 0.5*q.jump_strength/50"
+            ]
+          },
+          "transitionStrategy": "cobblemon:strategy/jump"
+        },
+        "seats": [],
+        "stats": {
+          "ACCELERATION": {
+            "ranges": {
+              "AIR": "20-50",
+              "LAND": "90-100"
+            }
+          },
+          "JUMP": {
+            "ranges": {
+              "AIR": "25-50",
+              "LAND": "10-20"
+            }
+          },
+          "SKILL": {
+            "ranges": {
+              "AIR": "50-100",
+              "LAND": "15-30"
+            }
+          },
+          "SPEED": {
+            "ranges": {
+              "AIR": "25-60",
+              "LAND": "10-20"
+            }
+          },
+          "STAMINA": {
+            "ranges": {
+              "AIR": "35-70",
+              "LAND": "15-30"
+            }
           }
         }
       },
-      "moves": [
-        "1:dragonclaw",
-        "1:airslash",
-        "1:scratch",
-        "1:growl",
-        "1:ember",
-        "1:smokescreen",
-        "1:dragonrage",
-        "1:wingattack",
-        "1:heatwave",
-        "1:flameburst",
-        "12:dragonbreath",
-        "19:firefang",
-        "24:slash",
-        "30:flamethrower",
-        "39:scaryface",
-        "46:firespin",
-        "54:inferno",
-        "62:flareblitz",
-        "egg:ancientpower",
-        "egg:bellydrum",
-        "egg:bite",
-        "egg:counter",
-        "egg:dragonrage",
-        "egg:dragonrush",
-        "egg:dragontail",
-        "egg:irontail",
-        "egg:metalclaw",
-        "egg:wingattack",
-        "tm:acrobatics",
-        "tm:aerialace",
-        "tm:aircutter",
-        "tm:airslash",
-        "tm:ancientpower",
-        "tm:beatup",
-        "tm:bellydrum",
-        "tm:bite",
-        "tm:blastburn",
-        "tm:blazekick",
-        "tm:bodyslam",
-        "tm:breakingswipe",
-        "tm:brickbreak",
-        "tm:brutalswing",
-        "tm:bulldoze",
-        "tm:counter",
-        "tm:crunch",
-        "tm:cut",
-        "tm:dig",
-        "tm:doubleedge",
-        "tm:dragonbreath",
-        "tm:dragoncheer",
-        "tm:dragonclaw",
-        "tm:dragondance",
-        "tm:dragonpulse",
-        "tm:dragonrage",
-        "tm:dragonrush",
-        "tm:dragontail",
-        "tm:earthquake",
-        "tm:echoedvoice",
-        "tm:ember",
-        "tm:endure",
-        "tm:facade",
-        "tm:fireblast",
-        "tm:firefang",
-        "tm:firepledge",
-        "tm:firepunch",
-        "tm:firespin",
-        "tm:flameburst",
-        "tm:flamecharge",
-        "tm:flamethrower",
-        "tm:flareblitz",
-        "tm:fling",
-        "tm:fly",
-        "tm:focusblast",
-        "tm:focuspunch",
-        "tm:furycutter",
-        "tm:gigaimpact",
-        "tm:growl",
-        "tm:headbutt",
-        "tm:heatcrash",
-        "tm:heatwave",
-        "tm:helpinghand",
-        "tm:honeclaws",
-        "tm:hurricane",
-        "tm:hyperbeam",
-        "tm:incinerate",
-        "tm:inferno",
-        "tm:irontail",
-        "tm:megakick",
-        "tm:megapunch",
-        "tm:metalclaw",
-        "tm:mysticalfire",
-        "tm:ominouswind",
-        "tm:outrage",
-        "tm:overheat",
-        "tm:poweruppunch",
-        "tm:protect",
-        "tm:rest",
-        "tm:roar",
-        "tm:rockslide",
-        "tm:rocksmash",
-        "tm:rocktomb",
-        "tm:roost",
-        "tm:sandstorm",
-        "tm:scaryface",
-        "tm:scorchingsands",
-        "tm:scratch",
-        "tm:shadowclaw",
-        "tm:skydrop",
-        "tm:slash",
-        "tm:sleeptalk",
-        "tm:smokescreen",
-        "tm:solarbeam",
-        "tm:steelwing",
-        "tm:strength",
-        "tm:substitute",
-        "tm:sunnyday",
-        "tm:swift",
-        "tm:swordsdance",
-        "tm:takedown",
-        "tm:temperflare",
-        "tm:terablast",
-        "tm:thunderpunch",
-        "tm:twister",
-        "tm:weatherball",
-        "tm:willowisp",
-        "tm:wingattack",
-        "tm:workup"
-      ],
+      "behaviour": {
+        "herd": {
+          "maxSize": "6"
+        }
+      },
       "evolutions": [],
-      "battleOnly": true
+      "battleOnly": true,
+      "dynamaxBlocked": true,
+      "lightingData": {
+        "lightLevel": 7,
+        "liquidGlowMode": "LAND"
+      }
     },
     {
       "name": "Mega-Y",
@@ -421,10 +515,6 @@
         "drought",
         "h:drought"
       ],
-      "eggGroups": [
-        "monster",
-        "dragon"
-      ],
       "baseStats": {
         "hp": 78,
         "attack": 104,
@@ -433,158 +523,78 @@
         "special_defence": 115,
         "speed": 100
       },
-      "evYield": {
-        "hp": 0,
-        "attack": 0,
-        "defence": 0,
-        "special_attack": 3,
-        "special_defence": 0,
-        "speed": 0
-      },
       "baseExperienceYield": 317,
-      "experienceGroup": "medium_slow",
-      "catchRate": 45,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "dynamaxBlocked": true,
-      "behaviour": {
-        "moving": {
-          "swim": {
-            "canSwimInLava": true
+      "riding": {
+        "behaviour": {
+          "key": "cobblemon:composite",
+          "alternateBehaviour": {
+            "speed": "Math.clamp(q.entity.velocity.horizontal_magnitude + 0.33, 0, 1)",
+            "key": "cobblemon:air/bird",
+            "gravity": "q.gravity * (0.1 + (q.passenger_count - 1) * 0.1)",
+            "jumpVector": [
+              0,
+              "0.3*q.jump_strength/50",
+              0
+            ]
+          },
+          "defaultBehaviour": {
+            "speed": "Math.clamp(q.entity.velocity.horizontal_magnitude + 0.33, 0, 1)",
+            "key": "cobblemon:land/horse",
+            "gravity": "q.gravity * (0.1 + (q.passenger_count - 1) * 0.1)",
+            "jumpVector": [
+              0,
+              "0.3*q.jump_strength/50",
+              "-1 * 0.5*q.jump_strength/50"
+            ]
+          },
+          "transitionStrategy": "cobblemon:strategy/jump"
+        },
+        "seats": [],
+        "stats": {
+          "ACCELERATION": {
+            "ranges": {
+              "AIR": "20-50",
+              "LAND": "90-100"
+            }
+          },
+          "JUMP": {
+            "ranges": {
+              "AIR": "25-50",
+              "LAND": "10-20"
+            }
+          },
+          "SKILL": {
+            "ranges": {
+              "AIR": "50-100",
+              "LAND": "15-30"
+            }
+          },
+          "SPEED": {
+            "ranges": {
+              "AIR": "25-60",
+              "LAND": "10-20"
+            }
+          },
+          "STAMINA": {
+            "ranges": {
+              "AIR": "35-70",
+              "LAND": "15-30"
+            }
           }
         }
       },
-      "moves": [
-        "1:dragonclaw",
-        "1:airslash",
-        "1:scratch",
-        "1:growl",
-        "1:ember",
-        "1:smokescreen",
-        "1:dragonrage",
-        "1:wingattack",
-        "1:heatwave",
-        "1:flameburst",
-        "12:dragonbreath",
-        "19:firefang",
-        "24:slash",
-        "30:flamethrower",
-        "39:scaryface",
-        "46:firespin",
-        "54:inferno",
-        "62:flareblitz",
-        "egg:ancientpower",
-        "egg:bellydrum",
-        "egg:bite",
-        "egg:counter",
-        "egg:dragonrage",
-        "egg:dragonrush",
-        "egg:dragontail",
-        "egg:irontail",
-        "egg:metalclaw",
-        "egg:wingattack",
-        "tm:acrobatics",
-        "tm:aerialace",
-        "tm:aircutter",
-        "tm:airslash",
-        "tm:ancientpower",
-        "tm:beatup",
-        "tm:bellydrum",
-        "tm:bite",
-        "tm:blastburn",
-        "tm:blazekick",
-        "tm:bodyslam",
-        "tm:breakingswipe",
-        "tm:brickbreak",
-        "tm:brutalswing",
-        "tm:bulldoze",
-        "tm:counter",
-        "tm:crunch",
-        "tm:cut",
-        "tm:dig",
-        "tm:doubleedge",
-        "tm:dragonbreath",
-        "tm:dragoncheer",
-        "tm:dragonclaw",
-        "tm:dragondance",
-        "tm:dragonpulse",
-        "tm:dragonrage",
-        "tm:dragonrush",
-        "tm:dragontail",
-        "tm:earthquake",
-        "tm:echoedvoice",
-        "tm:ember",
-        "tm:endure",
-        "tm:facade",
-        "tm:fireblast",
-        "tm:firefang",
-        "tm:firepledge",
-        "tm:firepunch",
-        "tm:firespin",
-        "tm:flameburst",
-        "tm:flamecharge",
-        "tm:flamethrower",
-        "tm:flareblitz",
-        "tm:fling",
-        "tm:fly",
-        "tm:focusblast",
-        "tm:focuspunch",
-        "tm:furycutter",
-        "tm:gigaimpact",
-        "tm:growl",
-        "tm:headbutt",
-        "tm:heatcrash",
-        "tm:heatwave",
-        "tm:helpinghand",
-        "tm:honeclaws",
-        "tm:hurricane",
-        "tm:hyperbeam",
-        "tm:incinerate",
-        "tm:inferno",
-        "tm:irontail",
-        "tm:megakick",
-        "tm:megapunch",
-        "tm:metalclaw",
-        "tm:mysticalfire",
-        "tm:ominouswind",
-        "tm:outrage",
-        "tm:overheat",
-        "tm:poweruppunch",
-        "tm:protect",
-        "tm:rest",
-        "tm:roar",
-        "tm:rockslide",
-        "tm:rocksmash",
-        "tm:rocktomb",
-        "tm:roost",
-        "tm:sandstorm",
-        "tm:scaryface",
-        "tm:scorchingsands",
-        "tm:scratch",
-        "tm:shadowclaw",
-        "tm:skydrop",
-        "tm:slash",
-        "tm:sleeptalk",
-        "tm:smokescreen",
-        "tm:solarbeam",
-        "tm:steelwing",
-        "tm:strength",
-        "tm:substitute",
-        "tm:sunnyday",
-        "tm:swift",
-        "tm:swordsdance",
-        "tm:takedown",
-        "tm:temperflare",
-        "tm:terablast",
-        "tm:thunderpunch",
-        "tm:twister",
-        "tm:weatherball",
-        "tm:willowisp",
-        "tm:wingattack",
-        "tm:workup"
-      ],
+      "behaviour": {
+        "herd": {
+          "maxSize": "6"
+        }
+      },
       "evolutions": [],
-      "battleOnly": true
+      "battleOnly": true,
+      "dynamaxBlocked": true,
+      "lightingData": {
+        "lightLevel": 6,
+        "liquidGlowMode": "LAND"
+      }
     },
     {
       "name": "Gmax",
@@ -603,174 +613,13 @@
       "aspects": [
         "gmax"
       ],
-      "abilities": [
-        "blaze",
-        "h:solarpower"
-      ],
-      "eggGroups": [
-        "monster",
-        "dragon"
-      ],
-      "baseStats": {
-        "hp": 78,
-        "attack": 84,
-        "defence": 78,
-        "special_attack": 109,
-        "special_defence": 85,
-        "speed": 100
-      },
-      "evYield": {
-        "hp": 0,
-        "attack": 0,
-        "defence": 0,
-        "special_attack": 3,
-        "special_defence": 0,
-        "speed": 0
-      },
-      "baseExperienceYield": 267,
-      "experienceGroup": "medium_slow",
-      "catchRate": 45,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "dynamaxBlocked": true,
-      "behaviour": {
-        "moving": {
-          "swim": {
-            "canSwimInLava": true
-          }
-        }
-      },
-      "moves": [
-        "1:dragonclaw",
-        "1:airslash",
-        "1:scratch",
-        "1:growl",
-        "1:ember",
-        "1:smokescreen",
-        "1:dragonrage",
-        "1:wingattack",
-        "1:heatwave",
-        "1:flameburst",
-        "12:dragonbreath",
-        "19:firefang",
-        "24:slash",
-        "30:flamethrower",
-        "39:scaryface",
-        "46:firespin",
-        "54:inferno",
-        "62:flareblitz",
-        "egg:ancientpower",
-        "egg:bellydrum",
-        "egg:bite",
-        "egg:counter",
-        "egg:dragonrage",
-        "egg:dragonrush",
-        "egg:dragontail",
-        "egg:irontail",
-        "egg:metalclaw",
-        "egg:wingattack",
-        "tm:acrobatics",
-        "tm:aerialace",
-        "tm:aircutter",
-        "tm:airslash",
-        "tm:ancientpower",
-        "tm:beatup",
-        "tm:bellydrum",
-        "tm:bite",
-        "tm:blastburn",
-        "tm:blazekick",
-        "tm:bodyslam",
-        "tm:breakingswipe",
-        "tm:brickbreak",
-        "tm:brutalswing",
-        "tm:bulldoze",
-        "tm:counter",
-        "tm:crunch",
-        "tm:cut",
-        "tm:dig",
-        "tm:doubleedge",
-        "tm:dragonbreath",
-        "tm:dragoncheer",
-        "tm:dragonclaw",
-        "tm:dragondance",
-        "tm:dragonpulse",
-        "tm:dragonrage",
-        "tm:dragonrush",
-        "tm:dragontail",
-        "tm:earthquake",
-        "tm:echoedvoice",
-        "tm:ember",
-        "tm:endure",
-        "tm:facade",
-        "tm:fireblast",
-        "tm:firefang",
-        "tm:firepledge",
-        "tm:firepunch",
-        "tm:firespin",
-        "tm:flameburst",
-        "tm:flamecharge",
-        "tm:flamethrower",
-        "tm:flareblitz",
-        "tm:fling",
-        "tm:fly",
-        "tm:focusblast",
-        "tm:focuspunch",
-        "tm:furycutter",
-        "tm:gigaimpact",
-        "tm:growl",
-        "tm:headbutt",
-        "tm:heatcrash",
-        "tm:heatwave",
-        "tm:helpinghand",
-        "tm:honeclaws",
-        "tm:hurricane",
-        "tm:hyperbeam",
-        "tm:incinerate",
-        "tm:inferno",
-        "tm:irontail",
-        "tm:megakick",
-        "tm:megapunch",
-        "tm:metalclaw",
-        "tm:mysticalfire",
-        "tm:ominouswind",
-        "tm:outrage",
-        "tm:overheat",
-        "tm:poweruppunch",
-        "tm:protect",
-        "tm:rest",
-        "tm:roar",
-        "tm:rockslide",
-        "tm:rocksmash",
-        "tm:rocktomb",
-        "tm:roost",
-        "tm:sandstorm",
-        "tm:scaryface",
-        "tm:scorchingsands",
-        "tm:scratch",
-        "tm:shadowclaw",
-        "tm:skydrop",
-        "tm:slash",
-        "tm:sleeptalk",
-        "tm:smokescreen",
-        "tm:solarbeam",
-        "tm:steelwing",
-        "tm:strength",
-        "tm:substitute",
-        "tm:sunnyday",
-        "tm:swift",
-        "tm:swordsdance",
-        "tm:takedown",
-        "tm:temperflare",
-        "tm:terablast",
-        "tm:thunderpunch",
-        "tm:twister",
-        "tm:weatherball",
-        "tm:willowisp",
-        "tm:wingattack",
-        "tm:workup"
-      ],
       "evolutions": [],
-      "battleOnly": true
+      "battleOnly": true,
+      "dynamaxBlocked": true
     }
-  ]
+  ],
+  "lightingData": {
+    "lightLevel": 6,
+    "liquidGlowMode": "LAND"
+  }
 }

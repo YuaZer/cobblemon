@@ -43,10 +43,13 @@
   "eggCycles": 15,
   "baseFriendship": 50,
   "shoulderMountable": true,
-  "baseScale": 0.6,
+  "standingEyeHeight": 0.7,
+  "swimmingEyeHeight": 0.7,
+  "flyingEyeHeight": 0.7,
+  "baseScale": 0.5,
   "hitbox": {
     "width": 0.7,
-    "height": 0.9,
+    "height": 1.15,
     "fixed": false
   },
   "behaviour": {
@@ -58,6 +61,23 @@
     "resting": {
       "canSleep": true,
       "willSleepOnBed": true
+    },
+    "entityInteract": {
+      "avoidedByCreeper": true,
+      "avoidedByPhantom": true
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "litten",
+          "tier": 1
+        },
+        {
+          "pokemon": "torracat",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -65,11 +85,11 @@
     "entries": [
       {
         "item": "cobblemon:charcoal_stick",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:expert_belt",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -93,18 +113,14 @@
     "egg:partingshot",
     "egg:powertrip",
     "tm:acrobatics",
-    "tm:bite",
     "tm:bodyslam",
     "tm:bulkup",
     "tm:covet",
     "tm:crunch",
     "tm:doubleedge",
-    "tm:doublekick",
-    "tm:ember",
     "tm:endeavor",
     "tm:endure",
     "tm:facade",
-    "tm:fakeout",
     "tm:fireblast",
     "tm:firefang",
     "tm:firepledge",
@@ -112,25 +128,18 @@
     "tm:flamecharge",
     "tm:flamethrower",
     "tm:flareblitz",
-    "tm:furyswipes",
-    "tm:growl",
     "tm:heatwave",
     "tm:helpinghand",
     "tm:leechlife",
-    "tm:leer",
-    "tm:lick",
     "tm:nastyplot",
     "tm:outrage",
     "tm:overheat",
-    "tm:partingshot",
     "tm:payday",
-    "tm:powertrip",
     "tm:protect",
     "tm:rest",
     "tm:revenge",
     "tm:roar",
     "tm:scaryface",
-    "tm:scratch",
     "tm:shadowclaw",
     "tm:sleeptalk",
     "tm:substitute",
@@ -141,12 +150,33 @@
     "tm:taunt",
     "tm:temperflare",
     "tm:terablast",
-    "tm:thrash",
     "tm:torment",
     "tm:trailblaze",
     "tm:uturn",
     "tm:willowisp",
-    "tm:workup"
+    "tm:workup",
+    "tutor:bulkup",
+    "tutor:covet",
+    "tutor:endeavor",
+    "tutor:firefang",
+    "tutor:firepledge",
+    "tutor:flamethrower",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:leechlife",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:shadowclaw",
+    "tutor:sleeptalk",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:snore",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

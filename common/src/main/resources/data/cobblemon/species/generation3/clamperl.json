@@ -55,7 +55,7 @@
       },
       "swim": {
         "swimSpeed": 0.1,
-        "canSwimInWater": true,
+        "canSwimInWater": false,
         "canBreatheUnderwater": true,
         "canSwimInLava": false
       }
@@ -63,6 +63,9 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "9"
     }
   },
   "drops": {
@@ -85,12 +88,9 @@
     "egg:mudsport",
     "egg:refresh",
     "egg:supersonic",
-    "tm:aquaring",
-    "tm:barrier",
     "tm:blizzard",
     "tm:bodyslam",
     "tm:brine",
-    "tm:clamp",
     "tm:confuseray",
     "tm:dive",
     "tm:endure",
@@ -100,22 +100,39 @@
     "tm:icywind",
     "tm:irondefense",
     "tm:muddywater",
-    "tm:mudsport",
     "tm:protect",
     "tm:raindance",
-    "tm:refresh",
     "tm:rest",
     "tm:scald",
-    "tm:shellsmash",
     "tm:sleeptalk",
     "tm:substitute",
-    "tm:supersonic",
     "tm:surf",
     "tm:terablast",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:whirlpool"
+    "tm:whirlpool",
+    "tutor:dive",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:irondefense",
+    "tutor:rest",
+    "tutor:sleeptalk",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

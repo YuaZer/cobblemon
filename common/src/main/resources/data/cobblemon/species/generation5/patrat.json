@@ -53,6 +53,19 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "6",
+      "toleratedLeaders": [
+        {
+          "pokemon": "patrat",
+          "tier": 1
+        },
+        {
+          "pokemon": "watchog",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -95,56 +108,72 @@
     "tm:aquatail",
     "tm:assurance",
     "tm:batonpass",
-    "tm:bide",
-    "tm:bite",
     "tm:bulletseed",
     "tm:covet",
     "tm:crunch",
     "tm:cut",
-    "tm:detect",
     "tm:dig",
     "tm:endeavor",
     "tm:endure",
     "tm:facade",
-    "tm:flail",
     "tm:fling",
     "tm:focusenergy",
-    "tm:foresight",
     "tm:grassknot",
     "tm:gunkshot",
     "tm:helpinghand",
-    "tm:hyperfang",
-    "tm:hypnosis",
     "tm:irontail",
     "tm:laserfocus",
     "tm:lastresort",
-    "tm:leer",
     "tm:lowkick",
-    "tm:meanlook",
     "tm:nastyplot",
     "tm:protect",
-    "tm:pursuit",
     "tm:raindance",
     "tm:rest",
     "tm:retaliate",
     "tm:revenge",
-    "tm:sandattack",
     "tm:screech",
     "tm:seedbomb",
     "tm:shadowball",
     "tm:shockwave",
-    "tm:slam",
     "tm:sleeptalk",
     "tm:substitute",
     "tm:sunnyday",
     "tm:superfang",
     "tm:swordsdance",
-    "tm:tackle",
-    "tm:tearfullook",
     "tm:terablast",
     "tm:thunderbolt",
     "tm:workup",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:afteryou",
+    "tutor:aquatail",
+    "tutor:covet",
+    "tutor:endeavor",
+    "tutor:focusenergy",
+    "tutor:gunkshot",
+    "tutor:helpinghand",
+    "tutor:irontail",
+    "tutor:laserfocus",
+    "tutor:lastresort",
+    "tutor:lowkick",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:sleeptalk",
+    "tutor:superfang",
+    "tutor:thunderbolt",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {
@@ -160,5 +189,9 @@
         }
       ]
     }
-  ]
+  ],
+  "lightingData": {
+    "lightLevel": 1,
+    "liquidGlowMode": "BOTH"
+  }
 }

@@ -54,6 +54,9 @@
       "swim": {
         "canBreatheUnderwater": true
       }
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -75,21 +78,24 @@
     "egg:recycle",
     "egg:rollout",
     "egg:suckerpunch",
-    "tm:astonish",
-    "tm:defensecurl",
     "tm:pounce",
     "tm:recycle",
     "tm:rollout",
     "tm:suckerpunch",
     "tm:terablast",
-    "tm:withdraw"
+    "tutor:recycle",
+    "tutor:rollout",
+    "tutor:suckerpunch",
+    "legacy:attract",
+    "legacy:dracometeor",
+    "legacy:grassyglide"
   ],
   "evolutions": [
     {
       "id": "applin_flapple",
       "variant": "item_interact",
       "result": "flapple",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [
         "wingattack"
       ],
@@ -100,7 +106,7 @@
       "id": "applin_appletun",
       "variant": "item_interact",
       "result": "appletun",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [
         "headbutt"
       ],
@@ -111,7 +117,7 @@
       "id": "applin_dipplin",
       "variant": "item_interact",
       "result": "dipplin",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [
         "doublehit"
       ],

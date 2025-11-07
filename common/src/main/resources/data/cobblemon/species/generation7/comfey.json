@@ -53,20 +53,44 @@
     "moving": {
       "fly": {
         "canFly": true
+      },
+      "walk": {
+        "canWalk": false
       }
     },
     "resting": {
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "floette",
+          "tier": 1
+        },
+        {
+          "pokemon": "floette eternal",
+          "tier": 2
+        },
+        {
+          "pokemon": "comfey",
+          "tier": 3
+        }
+      ]
     }
   },
   "drops": {
-    "amount": 1,
+    "amount": 2,
     "entries": [
       {
+        "item": "cobblemon:misty_seed",
+        "percentage": 5.0
+      },
+      {
         "item": "cobblemon:kebia_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -101,7 +125,6 @@
     "tm:alluringvoice",
     "tm:allyswitch",
     "tm:amnesia",
-    "tm:aromatherapy",
     "tm:bind",
     "tm:bulletseed",
     "tm:calmmind",
@@ -117,28 +140,21 @@
     "tm:energyball",
     "tm:facade",
     "tm:fling",
-    "tm:floralhealing",
-    "tm:flowershield",
     "tm:gigadrain",
     "tm:grassknot",
     "tm:grassyglide",
     "tm:grassyterrain",
-    "tm:growth",
     "tm:healbell",
     "tm:helpinghand",
     "tm:hyperbeam",
     "tm:knockoff",
-    "tm:leaftornado",
-    "tm:leechseed",
     "tm:lightscreen",
-    "tm:luckychant",
     "tm:magicalleaf",
     "tm:magiccoat",
     "tm:naturalgift",
     "tm:naturepower",
     "tm:painsplit",
     "tm:petalblizzard",
-    "tm:petaldance",
     "tm:playrough",
     "tm:pollenpuff",
     "tm:protect",
@@ -152,8 +168,6 @@
     "tm:storedpower",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:sweetkiss",
-    "tm:sweetscent",
     "tm:swift",
     "tm:synthesis",
     "tm:tailwind",
@@ -165,9 +179,46 @@
     "tm:trick",
     "tm:trickroom",
     "tm:uturn",
-    "tm:vinewhip",
     "tm:worryseed",
-    "tm:wrap"
+    "tutor:afteryou",
+    "tutor:allyswitch",
+    "tutor:bind",
+    "tutor:calmmind",
+    "tutor:covet",
+    "tutor:dazzlinggleam",
+    "tutor:defog",
+    "tutor:energyball",
+    "tutor:gigadrain",
+    "tutor:grassyglide",
+    "tutor:healbell",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:knockoff",
+    "tutor:magicalleaf",
+    "tutor:magiccoat",
+    "tutor:painsplit",
+    "tutor:playrough",
+    "tutor:rest",
+    "tutor:roleplay",
+    "tutor:seedbomb",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:synthesis",
+    "tutor:tailwind",
+    "tutor:telekinesis",
+    "tutor:trick",
+    "tutor:worryseed",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "special:celebrate"
   ],
   "evolutions": []
 }

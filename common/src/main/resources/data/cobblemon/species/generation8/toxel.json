@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 848,
   "name": "Toxel",
   "primaryType": "electric",
@@ -43,13 +44,12 @@
   "catchRate": 75,
   "eggCycles": 25,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.8,
   "hitbox": {
-    "width": 1,
-    "height": 1,
+    "width": 0.7,
+    "height": 0.9,
     "fixed": false
   },
-  "behaviour": {},
   "drops": {
     "amount": 1,
     "entries": [
@@ -68,24 +68,24 @@
     "1:acid",
     "egg:endeavor",
     "egg:metalsound",
-    "tm:acid",
-    "tm:belch",
     "tm:charm",
     "tm:encore",
     "tm:endeavor",
     "tm:endure",
     "tm:facade",
-    "tm:flail",
-    "tm:growl",
     "tm:metalsound",
-    "tm:nuzzle",
     "tm:poweruppunch",
     "tm:protect",
     "tm:rest",
     "tm:sleeptalk",
     "tm:substitute",
-    "tm:tearfullook",
-    "tm:terablast"
+    "tm:terablast",
+    "tutor:endeavor",
+    "tutor:rest",
+    "tutor:sleeptalk",
+    "legacy:attract",
+    "legacy:round",
+    "legacy:snore"
   ],
   "evolutions": [
     {
@@ -101,7 +101,7 @@
         },
         {
           "variant": "properties",
-          "target": "nature=hardy"
+          "target": "toxel nature=hardy"
         }
       ]
     },
@@ -118,7 +118,7 @@
         },
         {
           "variant": "properties",
-          "target": "nature=brave"
+          "target": "toxel nature=brave"
         }
       ]
     },
@@ -135,7 +135,7 @@
         },
         {
           "variant": "properties",
-          "target": "nature=adamant"
+          "target": "toxel nature=adamant"
         }
       ]
     },
@@ -152,7 +152,7 @@
         },
         {
           "variant": "properties",
-          "target": "nature=naughty"
+          "target": "toxel nature=naughty"
         }
       ]
     },
@@ -169,7 +169,7 @@
         },
         {
           "variant": "properties",
-          "target": "nature=docile"
+          "target": "toxel nature=docile"
         }
       ]
     },
@@ -186,7 +186,7 @@
         },
         {
           "variant": "properties",
-          "target": "nature=impish"
+          "target": "toxel nature=impish"
         }
       ]
     },
@@ -203,7 +203,7 @@
         },
         {
           "variant": "properties",
-          "target": "nature=lax"
+          "target": "toxel nature=lax"
         }
       ]
     },
@@ -220,7 +220,7 @@
         },
         {
           "variant": "properties",
-          "target": "nature=hasty"
+          "target": "toxel nature=hasty"
         }
       ]
     },
@@ -237,7 +237,7 @@
         },
         {
           "variant": "properties",
-          "target": "nature=jolly"
+          "target": "toxel nature=jolly"
         }
       ]
     },
@@ -254,7 +254,7 @@
         },
         {
           "variant": "properties",
-          "target": "nature=naive"
+          "target": "toxel nature=naive"
         }
       ]
     },
@@ -271,7 +271,7 @@
         },
         {
           "variant": "properties",
-          "target": "nature=rash"
+          "target": "toxel nature=rash"
         }
       ]
     },
@@ -288,7 +288,7 @@
         },
         {
           "variant": "properties",
-          "target": "nature=sassy"
+          "target": "toxel nature=sassy"
         }
       ]
     },
@@ -307,12 +307,12 @@
         },
         {
           "variant": "properties",
-          "target": "nature=quirky"
+          "target": "toxel nature=quirky"
         }
       ]
     },
     {
-      "id": "toxel_toxtricitylowkey",
+      "id": "toxellonely_toxtricitylowkey",
       "variant": "level_up",
       "result": "toxtricity punk_form=low_key",
       "consumeHeldItem": false,
@@ -324,12 +324,12 @@
         },
         {
           "variant": "properties",
-          "target": "nature=lonely"
+          "target": "toxel nature=lonely"
         }
       ]
     },
     {
-      "id": "toxel_toxtricitylowkey",
+      "id": "toxelbold_toxtricitylowkey",
       "variant": "level_up",
       "result": "toxtricity punk_form=low_key",
       "consumeHeldItem": false,
@@ -341,12 +341,12 @@
         },
         {
           "variant": "properties",
-          "target": "nature=bold"
+          "target": "toxel nature=bold"
         }
       ]
     },
     {
-      "id": "toxel_toxtricitylowkey",
+      "id": "toxelrelaxed_toxtricitylowkey",
       "variant": "level_up",
       "result": "toxtricity punk_form=low_key",
       "consumeHeldItem": false,
@@ -358,12 +358,12 @@
         },
         {
           "variant": "properties",
-          "target": "nature=relaxed"
+          "target": "toxel nature=relaxed"
         }
       ]
     },
     {
-      "id": "toxel_toxtricitylowkey",
+      "id": "toxeltimid_toxtricitylowkey",
       "variant": "level_up",
       "result": "toxtricity punk_form=low_key",
       "consumeHeldItem": false,
@@ -375,12 +375,12 @@
         },
         {
           "variant": "properties",
-          "target": "nature=timid"
+          "target": "toxel nature=timid"
         }
       ]
     },
     {
-      "id": "toxel_toxtricitylowkey",
+      "id": "toxelserious_toxtricitylowkey",
       "variant": "level_up",
       "result": "toxtricity punk_form=low_key",
       "consumeHeldItem": false,
@@ -392,12 +392,12 @@
         },
         {
           "variant": "properties",
-          "target": "nature=serious"
+          "target": "toxel nature=serious"
         }
       ]
     },
     {
-      "id": "toxel_toxtricitylowkey",
+      "id": "toxelmodest_toxtricitylowkey",
       "variant": "level_up",
       "result": "toxtricity punk_form=low_key",
       "consumeHeldItem": false,
@@ -409,12 +409,12 @@
         },
         {
           "variant": "properties",
-          "target": "nature=modest"
+          "target": "toxel nature=modest"
         }
       ]
     },
     {
-      "id": "toxel_toxtricitylowkey",
+      "id": "toxelmild_toxtricitylowkey",
       "variant": "level_up",
       "result": "toxtricity punk_form=low_key",
       "consumeHeldItem": false,
@@ -426,12 +426,12 @@
         },
         {
           "variant": "properties",
-          "target": "nature=mild"
+          "target": "toxel nature=mild"
         }
       ]
     },
     {
-      "id": "toxel_toxtricitylowkey",
+      "id": "toxelquiet_toxtricitylowkey",
       "variant": "level_up",
       "result": "toxtricity punk_form=low_key",
       "consumeHeldItem": false,
@@ -443,12 +443,12 @@
         },
         {
           "variant": "properties",
-          "target": "nature=quiet"
+          "target": "toxel nature=quiet"
         }
       ]
     },
     {
-      "id": "toxel_toxtricitylowkey",
+      "id": "toxelbashful_toxtricitylowkey",
       "variant": "level_up",
       "result": "toxtricity punk_form=low_key",
       "consumeHeldItem": false,
@@ -460,12 +460,12 @@
         },
         {
           "variant": "properties",
-          "target": "nature=bashful"
+          "target": "toxel nature=bashful"
         }
       ]
     },
     {
-      "id": "toxel_toxtricitylowkey",
+      "id": "toxelcalm_toxtricitylowkey",
       "variant": "level_up",
       "result": "toxtricity punk_form=low_key",
       "consumeHeldItem": false,
@@ -477,12 +477,12 @@
         },
         {
           "variant": "properties",
-          "target": "nature=calm"
+          "target": "toxel nature=calm"
         }
       ]
     },
     {
-      "id": "toxel_toxtricitylowkey",
+      "id": "toxelgentle_toxtricitylowkey",
       "variant": "level_up",
       "result": "toxtricity punk_form=low_key",
       "consumeHeldItem": false,
@@ -494,12 +494,12 @@
         },
         {
           "variant": "properties",
-          "target": "nature=gentle"
+          "target": "toxel nature=gentle"
         }
       ]
     },
     {
-      "id": "toxel_toxtricitylowkey",
+      "id": "toxelcareful_toxtricitylowkey",
       "variant": "level_up",
       "result": "toxtricity punk_form=low_key",
       "consumeHeldItem": false,
@@ -513,9 +513,31 @@
         },
         {
           "variant": "properties",
-          "target": "nature=careful"
+          "target": "toxel nature=careful"
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "toxel",
+          "tier": 1
+        },
+        {
+          "pokemon": "toxtricity",
+          "tier": 2
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  },
+  "lightingData": {
+    "lightLevel": 3,
+    "liquidGlowMode": "BOTH"
+  }
 }

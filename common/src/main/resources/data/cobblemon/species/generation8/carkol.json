@@ -54,6 +54,19 @@
         "avoidsWater": true,
         "canSwimInWater": false
       }
+    },
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "carkol",
+          "tier": 1
+        },
+        {
+          "pokemon": "coalossal",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -65,11 +78,11 @@
       },
       {
         "item": "cobblemon:black_augurite",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:passho_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -95,7 +108,6 @@
     "tm:bodypress",
     "tm:bodyslam",
     "tm:bulldoze",
-    "tm:burnup",
     "tm:curse",
     "tm:dig",
     "tm:endure",
@@ -118,7 +130,6 @@
     "tm:overheat",
     "tm:powergem",
     "tm:protect",
-    "tm:rapidspin",
     "tm:reflect",
     "tm:rest",
     "tm:rockblast",
@@ -132,17 +143,35 @@
     "tm:selfdestruct",
     "tm:sleeptalk",
     "tm:smackdown",
-    "tm:smokescreen",
     "tm:spikes",
     "tm:stealthrock",
     "tm:stoneedge",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:tackle",
     "tm:takedown",
     "tm:temperflare",
     "tm:terablast",
-    "tm:willowisp"
+    "tm:willowisp",
+    "tutor:ancientpower",
+    "tutor:block",
+    "tutor:bulldoze",
+    "tutor:flamethrower",
+    "tutor:heatwave",
+    "tutor:irondefense",
+    "tutor:ironhead",
+    "tutor:meteorbeam",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:scorchingsands",
+    "tutor:sleeptalk",
+    "tutor:spikes",
+    "tutor:stealthrock",
+    "tutor:stoneedge",
+    "legacy:attract",
+    "legacy:highhorsepower",
+    "legacy:round",
+    "legacy:snore"
   ],
   "preEvolution": "rolycoly",
   "evolutions": [
@@ -161,5 +190,9 @@
         }
       ]
     }
-  ]
+  ],
+  "lightingData": {
+    "lightLevel": 3,
+    "liquidGlowMode": "LAND"
+  }
 }

@@ -56,11 +56,23 @@
       "swim": {
         "avoidsWater": true,
         "canSwimInWater": false
+      },
+      "walk": {
+        "canWalk": false
       }
     },
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "glimmora",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -72,11 +84,11 @@
       },
       {
         "item": "cobblemon:shuca_berry",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:float_stone",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -101,7 +113,6 @@
     "egg:explosion",
     "egg:memento",
     "egg:toxic",
-    "tm:acidarmor",
     "tm:acidspray",
     "tm:ancientpower",
     "tm:confuseray",
@@ -114,13 +125,10 @@
     "tm:flashcannon",
     "tm:gigaimpact",
     "tm:gunkshot",
-    "tm:harden",
     "tm:hyperbeam",
     "tm:irondefense",
     "tm:lightscreen",
-    "tm:memento",
     "tm:meteorbeam",
-    "tm:mortalspin",
     "tm:mudshot",
     "tm:powergem",
     "tm:protect",
@@ -130,7 +138,6 @@
     "tm:rockblast",
     "tm:rockpolish",
     "tm:rockslide",
-    "tm:rockthrow",
     "tm:rocktomb",
     "tm:sandstorm",
     "tm:sandtomb",
@@ -141,7 +148,6 @@
     "tm:smackdown",
     "tm:solarbeam",
     "tm:spikes",
-    "tm:spikyshield",
     "tm:stealthrock",
     "tm:stoneedge",
     "tm:substitute",
@@ -149,7 +155,24 @@
     "tm:terablast",
     "tm:toxic",
     "tm:toxicspikes",
-    "tm:venoshock"
+    "tm:venoshock",
+    "tutor:ancientpower",
+    "tutor:dazzlinggleam",
+    "tutor:earthpower",
+    "tutor:energyball",
+    "tutor:flashcannon",
+    "tutor:gigaimpact",
+    "tutor:gunkshot",
+    "tutor:hyperbeam",
+    "tutor:irondefense",
+    "tutor:meteorbeam",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:spikes",
+    "tutor:stealthrock",
+    "tutor:stoneedge"
   ],
   "preEvolution": "glimmet",
   "evolutions": []

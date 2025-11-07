@@ -56,6 +56,22 @@
         "canBreatheUnderwater": true,
         "swimSpeed": "0.2"
       }
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "phione",
+          "tier": 1
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 2
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -80,16 +96,12 @@
     "61:dive",
     "69:raindance",
     "75:takeheart",
-    "tm:acidarmor",
     "tm:alluringvoice",
     "tm:ancientpower",
-    "tm:aquaring",
     "tm:batonpass",
     "tm:blizzard",
     "tm:bounce",
     "tm:brine",
-    "tm:bubble",
-    "tm:bubblebeam",
     "tm:charm",
     "tm:chillingwater",
     "tm:covet",
@@ -120,19 +132,47 @@
     "tm:signalbeam",
     "tm:sleeptalk",
     "tm:substitute",
-    "tm:supersonic",
     "tm:surf",
     "tm:swift",
-    "tm:takeheart",
     "tm:terablast",
     "tm:uturn",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:watersport",
     "tm:weatherball",
     "tm:whirlpool",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:ancientpower",
+    "tutor:bounce",
+    "tutor:covet",
+    "tutor:dazzlinggleam",
+    "tutor:dive",
+    "tutor:flipturn",
+    "tutor:healbell",
+    "tutor:helpinghand",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:knockoff",
+    "tutor:lastresort",
+    "tutor:liquidation",
+    "tutor:rest",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:waterpulse",
+    "tutor:zenheadbutt",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:uproar"
   ],
   "evolutions": []
 }

@@ -45,14 +45,122 @@
   "baseFriendship": 50,
   "baseScale": 1.4,
   "hitbox": {
-    "width": 1.2,
     "height": 1.8,
-    "fixed": false
+    "fixed": false,
+    "width": 1.2
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "60-80",
+          "JUMP": "35-45",
+          "SKILL": "35-55",
+          "SPEED": "45-65",
+          "STAMINA": "45-70"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.05625,
+              "z": -0.003125
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0017714971,
+              "y": -1.0216126,
+              "z": 0.007088958
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.0543863,
+              "z": 0.007932731
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.0543863,
+              "z": 0.007932731
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.05625,
+              "z": -0.003125
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.0543863,
+              "z": 0.007932731
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.0543863,
+              "z": 0.007932731
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "wyrdeer",
+          "tier": 1
+        }
+      ]
+    },
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "walking": {
+      "walkSpeed": 0.24
     }
   },
   "drops": {
@@ -64,7 +172,7 @@
       },
       {
         "item": "cobblemon:persim_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -100,8 +208,6 @@
     "egg:swagger",
     "egg:thrash",
     "tm:agility",
-    "tm:astonish",
-    "tm:bite",
     "tm:bodyslam",
     "tm:bulldoze",
     "tm:calmmind",
@@ -110,15 +216,12 @@
     "tm:confuseray",
     "tm:curse",
     "tm:dig",
-    "tm:disable",
     "tm:doubleedge",
-    "tm:doublekick",
     "tm:earthpower",
     "tm:earthquake",
     "tm:endure",
     "tm:energyball",
     "tm:expandingforce",
-    "tm:extrasensory",
     "tm:facade",
     "tm:futuresight",
     "tm:gigaimpact",
@@ -126,47 +229,36 @@
     "tm:helpinghand",
     "tm:highhorsepower",
     "tm:hyperbeam",
-    "tm:hypnosis",
     "tm:imprison",
     "tm:irontail",
-    "tm:jumpkick",
-    "tm:leer",
     "tm:lightscreen",
     "tm:lunge",
-    "tm:mefirst",
     "tm:megahorn",
-    "tm:mudsport",
     "tm:protect",
     "tm:psybeam",
     "tm:psychic",
     "tm:psychicnoise",
     "tm:psychup",
-    "tm:psyshieldbash",
     "tm:psyshock",
-    "tm:rage",
     "tm:raindance",
     "tm:reflect",
     "tm:rest",
     "tm:roar",
     "tm:roleplay",
-    "tm:sandattack",
     "tm:scaryface",
     "tm:shadowball",
     "tm:skillswap",
     "tm:sleeptalk",
     "tm:solarbeam",
     "tm:spite",
-    "tm:stomp",
     "tm:storedpower",
     "tm:substitute",
     "tm:sunnyday",
     "tm:swagger",
     "tm:swift",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
     "tm:thief",
-    "tm:thrash",
     "tm:throatchop",
     "tm:thunder",
     "tm:thunderbolt",
@@ -176,7 +268,49 @@
     "tm:trickroom",
     "tm:uproar",
     "tm:wildcharge",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:bulldoze",
+    "tutor:calmmind",
+    "tutor:chargebeam",
+    "tutor:earthpower",
+    "tutor:energyball",
+    "tutor:expandingforce",
+    "tutor:gigaimpact",
+    "tutor:gravity",
+    "tutor:helpinghand",
+    "tutor:highhorsepower",
+    "tutor:hyperbeam",
+    "tutor:irontail",
+    "tutor:megahorn",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:roleplay",
+    "tutor:shadowball",
+    "tutor:skillswap",
+    "tutor:sleeptalk",
+    "tutor:spite",
+    "tutor:swift",
+    "tutor:throatchop",
+    "tutor:thunderbolt",
+    "tutor:trick",
+    "tutor:uproar",
+    "tutor:wildcharge",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:detect",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:nightmare",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:toxic"
   ],
   "preEvolution": "stantler",
   "evolutions": []

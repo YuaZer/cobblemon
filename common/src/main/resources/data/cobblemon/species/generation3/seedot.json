@@ -43,13 +43,12 @@
   "catchRate": 255,
   "eggCycles": 15,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.85,
   "hitbox": {
     "width": 0.6,
     "height": 0.65,
     "fixed": false
   },
-  "behaviour": {},
   "drops": {
     "amount": 2,
     "entries": [
@@ -85,11 +84,8 @@
     "egg:razorwind",
     "egg:takedown",
     "egg:worryseed",
-    "tm:absorb",
     "tm:amnesia",
-    "tm:astonish",
     "tm:beatup",
-    "tm:bide",
     "tm:bodyslam",
     "tm:bulletseed",
     "tm:curse",
@@ -108,22 +104,15 @@
     "tm:grassknot",
     "tm:grassyglide",
     "tm:grassyterrain",
-    "tm:growth",
-    "tm:harden",
     "tm:headbutt",
     "tm:leafstorm",
-    "tm:leechseed",
     "tm:magicalleaf",
-    "tm:megadrain",
     "tm:nastyplot",
     "tm:naturepower",
-    "tm:nightslash",
     "tm:payback",
     "tm:powerswap",
     "tm:protect",
-    "tm:quickattack",
     "tm:raindance",
-    "tm:razorwind",
     "tm:rest",
     "tm:retaliate",
     "tm:rocksmash",
@@ -138,11 +127,45 @@
     "tm:suckerpunch",
     "tm:sunnyday",
     "tm:synthesis",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
     "tm:trailblaze",
-    "tm:worryseed"
+    "tm:worryseed",
+    "tutor:defog",
+    "tutor:endeavor",
+    "tutor:energyball",
+    "tutor:falseswipe",
+    "tutor:foulplay",
+    "tutor:gigadrain",
+    "tutor:grassyglide",
+    "tutor:magicalleaf",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:rollout",
+    "tutor:seedbomb",
+    "tutor:shadowball",
+    "tutor:sleeptalk",
+    "tutor:spite",
+    "tutor:suckerpunch",
+    "tutor:synthesis",
+    "tutor:worryseed",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:defensecurl",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:swordsdance",
+    "legacy:toxic",
+    "special:refresh"
   ],
   "evolutions": [
     {
@@ -160,5 +183,27 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "seedot",
+          "tier": 1
+        },
+        {
+          "pokemon": "nuzleaf",
+          "tier": 2
+        },
+        {
+          "pokemon": "shiftry",
+          "tier": 3
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

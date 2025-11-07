@@ -54,17 +54,33 @@
   },
   "behaviour": {
     "moving": {
+      "walk": {
+        "canWalk": false
+      },
       "fly": {
         "canFly": true
       }
+    },
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "weezing",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
-    "amount": 1,
+    "amount": 2,
     "entries": [
       {
         "item": "cobblemon:black_sludge",
-        "percentage": 5
+        "percentage": 5.0
+      },
+      {
+        "item": "cobblemon:smoke_ball",
+        "percentage": 5.0
       }
     ]
   },
@@ -96,14 +112,10 @@
     "egg:swallow",
     "tm:acidspray",
     "tm:assurance",
-    "tm:belch",
     "tm:bodyslam",
-    "tm:clearsmog",
     "tm:corrosivegas",
     "tm:curse",
     "tm:darkpulse",
-    "tm:destinybond",
-    "tm:doublehit",
     "tm:endure",
     "tm:explosion",
     "tm:facade",
@@ -111,7 +123,6 @@
     "tm:flamethrower",
     "tm:flash",
     "tm:gigaimpact",
-    "tm:grudge",
     "tm:gunkshot",
     "tm:gyroball",
     "tm:haze",
@@ -119,13 +130,10 @@
     "tm:hyperbeam",
     "tm:incinerate",
     "tm:infestation",
-    "tm:memento",
     "tm:painsplit",
     "tm:payback",
-    "tm:poisongas",
     "tm:protect",
     "tm:psybeam",
-    "tm:psywave",
     "tm:raindance",
     "tm:rest",
     "tm:rollout",
@@ -135,18 +143,11 @@
     "tm:shadowball",
     "tm:shockwave",
     "tm:sleeptalk",
-    "tm:sludge",
     "tm:sludgebomb",
     "tm:sludgewave",
-    "tm:smog",
-    "tm:smokescreen",
     "tm:spite",
-    "tm:spitup",
-    "tm:stockpile",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:swallow",
-    "tm:tackle",
     "tm:takedown",
     "tm:taunt",
     "tm:terablast",
@@ -158,7 +159,41 @@
     "tm:toxicspikes",
     "tm:venomdrench",
     "tm:venoshock",
-    "tm:willowisp"
+    "tm:willowisp",
+    "tutor:corrosivegas",
+    "tutor:darkpulse",
+    "tutor:flamethrower",
+    "tutor:gigaimpact",
+    "tutor:gunkshot",
+    "tutor:heatwave",
+    "tutor:hyperbeam",
+    "tutor:painsplit",
+    "tutor:rest",
+    "tutor:rollout",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:spite",
+    "tutor:thunderbolt",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:headbutt",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:rage",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:uproar",
+    "legacy:zapcannon"
   ],
   "preEvolution": "koffing",
   "evolutions": [],
@@ -185,49 +220,25 @@
         "neutralizinggas",
         "h:mistysurge"
       ],
-      "eggGroups": [
-        "amorphous"
-      ],
-      "baseStats": {
-        "hp": 65,
-        "attack": 90,
-        "defence": 120,
-        "special_attack": 85,
-        "special_defence": 70,
-        "speed": 60
-      },
-      "evYield": {
-        "hp": 0,
-        "attack": 0,
-        "defence": 2,
-        "special_attack": 0,
-        "special_defence": 0,
-        "speed": 0
-      },
-      "baseExperienceYield": 172,
-      "experienceGroup": "medium_fast",
-      "catchRate": 60,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "behaviour": {},
       "drops": {
         "amount": 3,
         "entries": [
           {
             "item": "cobblemon:black_sludge",
-            "percentage": 5
+            "percentage": 5.0
           },
           {
             "item": "cobblemon:payapa_berry",
-            "percentage": 5
+            "percentage": 5.0
           },
           {
             "item": "cobblemon:smoke_ball",
-            "percentage": 5
+            "percentage": 5.0
           }
         ]
       },
       "moves": [
+        "1:aromatherapy",
         "1:doublehit",
         "1:strangesteam",
         "1:defog",
@@ -250,7 +261,6 @@
         "56:memento",
         "62:destinybond",
         "68:mistyterrain",
-        "egg:aromatherapy",
         "egg:curse",
         "egg:grudge",
         "egg:painsplit",
@@ -260,45 +270,34 @@
         "egg:stockpile",
         "egg:swallow",
         "tm:acidspray",
-        "tm:aromatherapy",
-        "tm:aromaticmist",
         "tm:assurance",
-        "tm:belch",
         "tm:bodyslam",
         "tm:brutalswing",
-        "tm:clearsmog",
         "tm:corrosivegas",
         "tm:curse",
         "tm:darkpulse",
         "tm:dazzlinggleam",
         "tm:defog",
-        "tm:destinybond",
         "tm:doubleedge",
-        "tm:doublehit",
         "tm:endure",
         "tm:explosion",
         "tm:facade",
-        "tm:fairywind",
         "tm:fireblast",
         "tm:flamethrower",
         "tm:gigaimpact",
-        "tm:grudge",
         "tm:gunkshot",
         "tm:gyroball",
         "tm:haze",
         "tm:heatwave",
         "tm:hyperbeam",
-        "tm:memento",
         "tm:mistyexplosion",
         "tm:mistyterrain",
         "tm:overheat",
         "tm:painsplit",
         "tm:payback",
         "tm:playrough",
-        "tm:poisongas",
         "tm:protect",
         "tm:psybeam",
-        "tm:psywave",
         "tm:raindance",
         "tm:rest",
         "tm:scaryface",
@@ -306,19 +305,11 @@
         "tm:selfdestruct",
         "tm:shadowball",
         "tm:sleeptalk",
-        "tm:sludge",
         "tm:sludgebomb",
         "tm:sludgewave",
-        "tm:smog",
-        "tm:smokescreen",
         "tm:spite",
-        "tm:spitup",
-        "tm:stockpile",
-        "tm:strangesteam",
         "tm:substitute",
         "tm:sunnyday",
-        "tm:swallow",
-        "tm:tackle",
         "tm:takedown",
         "tm:taunt",
         "tm:terablast",
@@ -330,11 +321,80 @@
         "tm:venomdrench",
         "tm:venoshock",
         "tm:willowisp",
-        "tm:wonderroom"
+        "tm:wonderroom",
+        "tutor:corrosivegas",
+        "tutor:darkpulse",
+        "tutor:dazzlinggleam",
+        "tutor:defog",
+        "tutor:flamethrower",
+        "tutor:gigaimpact",
+        "tutor:gunkshot",
+        "tutor:heatwave",
+        "tutor:hyperbeam",
+        "tutor:mistyexplosion",
+        "tutor:painsplit",
+        "tutor:playrough",
+        "tutor:rest",
+        "tutor:shadowball",
+        "tutor:sleeptalk",
+        "tutor:sludgebomb",
+        "tutor:spite",
+        "tutor:thunderbolt",
+        "tutor:wonderroom",
+        "legacy:attract",
+        "legacy:bide",
+        "legacy:captivate",
+        "legacy:confide",
+        "legacy:doubleteam",
+        "legacy:frustration",
+        "legacy:headbutt",
+        "legacy:hiddenpower",
+        "legacy:mimic",
+        "legacy:naturalgift",
+        "legacy:rage",
+        "legacy:return",
+        "legacy:round",
+        "legacy:secretpower",
+        "legacy:snore",
+        "legacy:swagger",
+        "legacy:uproar",
+        "legacy:zapcannon"
       ],
       "preEvolution": "koffing",
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "herd": {
+          "maxSize": "5",
+          "toleratedLeaders": [
+            {
+              "pokemon": "weezing",
+              "tier": 1
+            }
+          ]
+        }
+      }
     }
-  ]
+  ],
+  "riding": {
+    "stats": {
+      "SPEED": {
+        "ranges": "5-10"
+      },
+      "ACCELERATION": {
+        "ranges": "50-100"
+      },
+      "SKILL": {
+        "ranges": "30-60"
+      },
+      "JUMP": {
+        "ranges": "10-20"
+      },
+      "STAMINA": {
+        "ranges": "20-40"
+      }
+    },
+    "seats": [],
+    "behaviour": null
+  }
 }

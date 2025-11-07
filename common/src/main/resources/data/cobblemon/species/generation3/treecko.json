@@ -43,10 +43,13 @@
   "catchRate": 45,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 0.65,
+  "standingEyeHeight": 0.8,
+  "swimmingEyeHeight": 0.8,
+  "flyingEyeHeight": 0.8,
+  "baseScale": 0.6,
   "hitbox": {
-    "width": 0.6,
-    "height": 1.4,
+    "width": 0.72,
+    "height": 1.5,
     "fixed": false
   },
   "behaviour": {
@@ -54,6 +57,23 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "grovyle",
+          "tier": 1
+        },
+        {
+          "pokemon": "sceptile mega=false",
+          "tier": 2
+        },
+        {
+          "pokemon": "sceptile mega",
+          "tier": 3
+        }
+      ]
     }
   },
   "drops": {
@@ -65,7 +85,7 @@
       },
       {
         "item": "cobblemon:miracle_seed",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -100,7 +120,6 @@
     "egg:slash",
     "egg:synthesis",
     "egg:worryseed",
-    "tm:absorb",
     "tm:acrobatics",
     "tm:aerialace",
     "tm:agility",
@@ -109,13 +128,9 @@
     "tm:brickbreak",
     "tm:bulletseed",
     "tm:crunch",
-    "tm:crushclaw",
     "tm:cut",
-    "tm:detect",
     "tm:dig",
-    "tm:doublekick",
     "tm:doubleteam",
-    "tm:dragonbreath",
     "tm:dragontail",
     "tm:drainpunch",
     "tm:endeavor",
@@ -128,32 +143,20 @@
     "tm:gigadrain",
     "tm:grassknot",
     "tm:grasspledge",
-    "tm:grasswhistle",
     "tm:grassyglide",
     "tm:grassyterrain",
     "tm:headbutt",
     "tm:helpinghand",
     "tm:irontail",
-    "tm:leafage",
     "tm:leafstorm",
-    "tm:leechseed",
-    "tm:leer",
     "tm:lowkick",
     "tm:magicalleaf",
-    "tm:megadrain",
     "tm:megakick",
     "tm:megapunch",
-    "tm:mudsport",
     "tm:naturalgift",
     "tm:naturepower",
-    "tm:nightslash",
-    "tm:pound",
     "tm:poweruppunch",
     "tm:protect",
-    "tm:pursuit",
-    "tm:quickattack",
-    "tm:quickguard",
-    "tm:razorwind",
     "tm:rest",
     "tm:rockslide",
     "tm:rocksmash",
@@ -161,8 +164,6 @@
     "tm:safeguard",
     "tm:screech",
     "tm:seedbomb",
-    "tm:slam",
-    "tm:slash",
     "tm:sleeptalk",
     "tm:solarbeam",
     "tm:strength",
@@ -178,7 +179,47 @@
     "tm:trailblaze",
     "tm:upperhand",
     "tm:workup",
-    "tm:worryseed"
+    "tm:worryseed",
+    "tutor:aerialace",
+    "tutor:drainpunch",
+    "tutor:endeavor",
+    "tutor:energyball",
+    "tutor:furycutter",
+    "tutor:gigadrain",
+    "tutor:grasspledge",
+    "tutor:grassyglide",
+    "tutor:helpinghand",
+    "tutor:irontail",
+    "tutor:lowkick",
+    "tutor:magicalleaf",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:seedbomb",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:synthesis",
+    "tutor:thunderpunch",
+    "tutor:worryseed",
+    "legacy:attract",
+    "legacy:bodyslam",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:counter",
+    "legacy:doubleedge",
+    "legacy:dynamicpunch",
+    "legacy:focuspunch",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:mudslap",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:seismictoss",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

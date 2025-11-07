@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 582,
   "name": "Vanillite",
   "primaryType": "ice",
@@ -41,18 +42,41 @@
   "catchRate": 255,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.7,
   "hitbox": {
-    "width": 1,
-    "height": 1,
+    "width": 0.8,
+    "height": 1.4,
     "fixed": false
   },
   "behaviour": {
     "moving": {
+      "fly": {
+        "canFly": true
+      },
+      "walk": {
+        "canWalkOnWater": true
+      },
       "swim": {
         "avoidsWater": true,
         "canSwimInWater": false
       }
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "vanillish",
+          "tier": 1
+        },
+        {
+          "pokemon": "vanilluxe",
+          "tier": 2
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true,
+      "canSleep": true
     }
   },
   "drops": {
@@ -96,11 +120,8 @@
     "egg:mirrorshot",
     "egg:naturalgift",
     "egg:powdersnow",
-    "tm:acidarmor",
     "tm:allyswitch",
-    "tm:astonish",
     "tm:auroraveil",
-    "tm:autotomize",
     "tm:avalanche",
     "tm:blizzard",
     "tm:endure",
@@ -109,11 +130,8 @@
     "tm:flashcannon",
     "tm:frostbreath",
     "tm:hail",
-    "tm:harden",
     "tm:hypervoice",
     "tm:icebeam",
-    "tm:iceshard",
-    "tm:iciclecrash",
     "tm:iciclespear",
     "tm:icywind",
     "tm:imprison",
@@ -121,23 +139,42 @@
     "tm:lightscreen",
     "tm:magiccoat",
     "tm:magnetrise",
-    "tm:mirrorcoat",
-    "tm:mirrorshot",
-    "tm:mist",
     "tm:naturalgift",
-    "tm:powdersnow",
     "tm:protect",
     "tm:raindance",
     "tm:rest",
     "tm:selfdestruct",
-    "tm:sheercold",
     "tm:signalbeam",
     "tm:sleeptalk",
     "tm:substitute",
     "tm:taunt",
     "tm:terablast",
     "tm:uproar",
-    "tm:waterpulse"
+    "tm:waterpulse",
+    "tutor:allyswitch",
+    "tutor:flashcannon",
+    "tutor:hypervoice",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:irondefense",
+    "tutor:magiccoat",
+    "tutor:magnetrise",
+    "tutor:rest",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:uproar",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

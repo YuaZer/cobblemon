@@ -8,14 +8,17 @@
 
 package com.cobblemon.mod.common.api.events.pokemon
 
+import com.cobblemon.mod.common.util.server
+import com.bedrockk.molang.runtime.value.DoubleValue
+import com.bedrockk.molang.runtime.value.MoValue
 import com.cobblemon.mod.common.api.events.Cancelable
-import com.cobblemon.mod.common.api.events.pokemon.HeldItemEvent.Post
-import com.cobblemon.mod.common.api.events.pokemon.HeldItemEvent.Pre
+import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMoLangValue
+import com.cobblemon.mod.common.api.molang.MoLangFunctions.moLangFunctionMap
 import com.cobblemon.mod.common.pokemon.Pokemon
 import net.minecraft.world.item.ItemStack
 
 /**
- * The base for all the events related to held items.
+ * The base for all the events related to held items and cosmetic items.
  *
  * @see [Pre]
  * @see [Post]
@@ -28,7 +31,7 @@ interface HeldItemEvent {
     val pokemon: Pokemon
 
     /**
-     * Fired at the start of [Pokemon.swapHeldItem].
+     * Fired at the start of [Pokemon.swapHeldItem] and [Pokemon.swapCosmeticItem].
      *
      * This event should be used to mutate the results of this transaction.
      *
@@ -41,10 +44,22 @@ interface HeldItemEvent {
      *
      * @see [Post]
      */
-    data class Pre(override val pokemon: Pokemon, var receiving: ItemStack, var returning: ItemStack, var decrement: Boolean) : HeldItemEvent, Cancelable()
+    data class Pre(override val pokemon: Pokemon, var receiving: ItemStack, var returning: ItemStack, var decrement: Boolean) : HeldItemEvent, Cancelable() {
+        fun getContext(): MutableMap<String, MoValue> {
+            return mutableMapOf(
+                "pokemon" to pokemon.struct,
+                "receiving" to receiving.asMoLangValue(server()!!.registryAccess()),
+                "returning" to returning.asMoLangValue(server()!!.registryAccess()),
+                "decrement" to DoubleValue(if (decrement) 1.0 else 0.0)
+            )
+        }
+        val functions = moLangFunctionMap(
+            cancelFunc
+        )
+    }
 
     /**
-     * Fired at the end of [Pokemon.swapHeldItem].
+     * Fired at the end of [Pokemon.swapHeldItem] and [Pokemon.swapCosmeticItem].
      *
      * @property pokemon The [Pokemon] triggering this event.
      * @property received The [ItemStack] considered as received and set to the [pokemon]. This is a copy and mutation will not be taken into account.
@@ -53,6 +68,15 @@ interface HeldItemEvent {
      *
      * @see [Pre]
      */
-    data class Post(override val pokemon: Pokemon, val received: ItemStack, val returned: ItemStack, val decremented: Boolean) : HeldItemEvent
+    data class Post(override val pokemon: Pokemon, val received: ItemStack, val returned: ItemStack, val decremented: Boolean) : HeldItemEvent {
+        fun getContext(): MutableMap<String, MoValue> {
+            return mutableMapOf(
+                "pokemon" to pokemon.struct,
+                "received" to received.asMoLangValue(server()!!.registryAccess()),
+                "returned" to returned.asMoLangValue(server()!!.registryAccess()),
+                "decremented" to DoubleValue(if (decremented) 1.0 else 0.0)
+            )
+        }
+    }
 
 }

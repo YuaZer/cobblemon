@@ -26,6 +26,7 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
+import net.minecraft.world.item.Rarity
 import net.minecraft.world.level.Level
 
 /**
@@ -34,22 +35,26 @@ import net.minecraft.world.level.Level
  * @author Hiroku
  * @since June 30th, 2023
  */
-class EtherItem(val max: Boolean): CobblemonItem(Properties()), PokemonAndMoveSelectingItem {
+class EtherItem(
+    val max: Boolean
+) : CobblemonItem(Properties().apply {
+    if (max) rarity(Rarity.UNCOMMON)
+}), PokemonAndMoveSelectingItem {
     override val bagItem = object : BagItem {
         override val itemName = "item.cobblemon.${ if (max) "max_ether" else "ether" }"
         override val returnItem = Items.GLASS_BOTTLE
-        override fun canUse(battle: PokemonBattle, target: BattlePokemon) = target.health > 0 && target.moveSet.any { it.currentPp < it.maxPp }
+        override fun canUse(stack: ItemStack, battle: PokemonBattle, target: BattlePokemon) = target.health > 0 && target.moveSet.any { it.currentPp < it.maxPp }
         override fun getShowdownInput(actor: BattleActor, battlePokemon: BattlePokemon, data: String?) = "ether $data${ if (max) "" else " 10" }"
     }
 
-    override fun canUseOnMove(move: Move) = move.currentPp < move.maxPp
-    override fun canUseOnPokemon(pokemon: Pokemon) = pokemon.moveSet.any(::canUseOnMove)
+    override fun canUseOnMove(stack: ItemStack, move: Move) = move.currentPp < move.maxPp
+    override fun canUseOnPokemon(stack: ItemStack, pokemon: Pokemon) = pokemon.moveSet.any { canUseOnMove(stack, it) }
     override fun applyToPokemon(player: ServerPlayer, stack: ItemStack, pokemon: Pokemon, move: Move) {
         val moveToRecover = pokemon.moveSet.find { it.template == move.template }
         if (moveToRecover != null && moveToRecover.currentPp < moveToRecover.maxPp) {
             moveToRecover.currentPp = if (max) moveToRecover.maxPp else min(moveToRecover.maxPp, moveToRecover.currentPp + 10)
             pokemon.entity?.playSound(CobblemonSounds.MEDICINE_LIQUID_USE, 1F, 1F)
-            if (!player.isCreative) {
+            if (!player.hasInfiniteMaterials()) {
                 stack.shrink(1)
                 player.giveOrDropItemStack(ItemStack(Items.GLASS_BOTTLE))
             }

@@ -54,6 +54,9 @@
       "light": "0-4"
     },
     "moving": {
+      "walk": {
+        "walkSpeed": 0.25
+      },
       "swim": {
         "canWalkOnWater": true,
         "canBreatheUnderwater": true,
@@ -83,7 +86,6 @@
     "56:makeitrain",
     "63:nastyplot",
     "70:memento",
-    "tm:astonish",
     "tm:chargebeam",
     "tm:confuseray",
     "tm:dazzlinggleam",
@@ -101,8 +103,6 @@
     "tm:lightscreen",
     "tm:lowkick",
     "tm:lowsweep",
-    "tm:makeitrain",
-    "tm:memento",
     "tm:metalsound",
     "tm:nastyplot",
     "tm:nightshade",
@@ -111,7 +111,6 @@
     "tm:protect",
     "tm:psychic",
     "tm:psyshock",
-    "tm:recover",
     "tm:reflect",
     "tm:rest",
     "tm:sandstorm",
@@ -119,7 +118,6 @@
     "tm:sleeptalk",
     "tm:steelbeam",
     "tm:substitute",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
     "tm:thief",
@@ -127,7 +125,24 @@
     "tm:thunderbolt",
     "tm:thunderpunch",
     "tm:thunderwave",
-    "tm:trick"
+    "tm:trick",
+    "tutor:chargebeam",
+    "tutor:dazzlinggleam",
+    "tutor:flashcannon",
+    "tutor:focuspunch",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:ironhead",
+    "tutor:lowkick",
+    "tutor:poltergeist",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:shadowball",
+    "tutor:sleeptalk",
+    "tutor:steelbeam",
+    "tutor:thunderbolt",
+    "tutor:thunderpunch",
+    "tutor:trick"
   ],
   "preEvolution": "gimmighoul",
   "evolutions": []

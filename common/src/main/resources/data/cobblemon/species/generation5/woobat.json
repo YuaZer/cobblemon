@@ -52,9 +52,44 @@
   },
   "behaviour": {
     "moving": {
+      "walk": {
+        "canWalk": false
+      },
       "fly": {
         "canFly": true
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "zubat",
+          "tier": 1
+        },
+        {
+          "pokemon": "noibat",
+          "tier": 1
+        },
+        {
+          "pokemon": "golbat",
+          "tier": 2
+        },
+        {
+          "pokemon": "crobat",
+          "tier": 3
+        },
+        {
+          "pokemon": "woobat",
+          "tier": 4
+        },
+        {
+          "pokemon": "swoobat",
+          "tier": 5
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -105,7 +140,6 @@
     "tm:captivate",
     "tm:chargebeam",
     "tm:charm",
-    "tm:confusion",
     "tm:defog",
     "tm:dreameater",
     "tm:dualwingbeat",
@@ -117,13 +151,10 @@
     "tm:facade",
     "tm:faketears",
     "tm:flash",
-    "tm:flatter",
     "tm:fly",
     "tm:futuresight",
     "tm:gigadrain",
-    "tm:gust",
     "tm:gyroball",
-    "tm:heartstamp",
     "tm:heatwave",
     "tm:helpinghand",
     "tm:imprison",
@@ -131,12 +162,10 @@
     "tm:lightscreen",
     "tm:magiccoat",
     "tm:nastyplot",
-    "tm:odorsleuth",
     "tm:pluck",
     "tm:protect",
     "tm:psychic",
     "tm:psychocut",
-    "tm:psychoshift",
     "tm:psychup",
     "tm:psyshock",
     "tm:raindance",
@@ -147,7 +176,6 @@
     "tm:shadowball",
     "tm:shockwave",
     "tm:signalbeam",
-    "tm:simplebeam",
     "tm:skillswap",
     "tm:sleeptalk",
     "tm:speedswap",
@@ -155,9 +183,7 @@
     "tm:storedpower",
     "tm:substitute",
     "tm:superfang",
-    "tm:supersonic",
     "tm:swift",
-    "tm:synchronoise",
     "tm:tailwind",
     "tm:taunt",
     "tm:telekinesis",
@@ -170,7 +196,49 @@
     "tm:uproar",
     "tm:uturn",
     "tm:venomdrench",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:aerialace",
+    "tutor:afteryou",
+    "tutor:aircutter",
+    "tutor:allyswitch",
+    "tutor:calmmind",
+    "tutor:chargebeam",
+    "tutor:defog",
+    "tutor:dualwingbeat",
+    "tutor:endeavor",
+    "tutor:energyball",
+    "tutor:expandingforce",
+    "tutor:gigadrain",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:knockoff",
+    "tutor:magiccoat",
+    "tutor:psychic",
+    "tutor:psychocut",
+    "tutor:rest",
+    "tutor:roost",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:skillswap",
+    "tutor:sleeptalk",
+    "tutor:superfang",
+    "tutor:swift",
+    "tutor:tailwind",
+    "tutor:telekinesis",
+    "tutor:trick",
+    "tutor:uproar",
+    "tutor:zenheadbutt",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

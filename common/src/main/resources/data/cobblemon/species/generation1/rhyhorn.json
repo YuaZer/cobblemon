@@ -46,14 +46,122 @@
   "baseFriendship": 50,
   "baseScale": 1,
   "hitbox": {
-    "width": 1.2,
     "height": 1.4,
-    "fixed": false
+    "fixed": false,
+    "width": 1.2
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "5-10",
+          "JUMP": "10-15",
+          "SKILL": "5-25",
+          "SPEED": "30-40",
+          "STAMINA": "40-85"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": -0.0016335993,
+              "y": -1.1859827,
+              "z": -0.50283176
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0048732185,
+              "y": -1.1896727,
+              "z": -0.49589556
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.0017163849,
+              "y": -1.2334154,
+              "z": -0.40224022
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.0017163849,
+              "y": -1.2334154,
+              "z": -0.40224022
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0048732185,
+              "y": -1.1896727,
+              "z": -0.49589556
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0048732185,
+              "y": -1.1896727,
+              "z": -0.49589556
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.0017163849,
+              "y": -1.2334154,
+              "z": -0.40224022
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "rhyhorn",
+          "tier": 1
+        }
+      ]
+    },
     "moving": {
       "swim": {
         "canSwimInLava": true
+      },
+      "walk": {
+        "walkSpeed": 0.2
       }
     }
   },
@@ -103,15 +211,11 @@
     "tm:bodypress",
     "tm:bodyslam",
     "tm:bulldoze",
-    "tm:chipaway",
-    "tm:counter",
     "tm:crunch",
-    "tm:crushclaw",
     "tm:curse",
     "tm:dig",
     "tm:doubleedge",
     "tm:dragonpulse",
-    "tm:dragonrush",
     "tm:drillrun",
     "tm:earthpower",
     "tm:earthquake",
@@ -121,21 +225,15 @@
     "tm:fireblast",
     "tm:firefang",
     "tm:flamethrower",
-    "tm:furyattack",
-    "tm:guardsplit",
     "tm:headbutt",
     "tm:heavyslam",
     "tm:highhorsepower",
-    "tm:hornattack",
-    "tm:horndrill",
     "tm:icebeam",
     "tm:icefang",
     "tm:icywind",
     "tm:incinerate",
     "tm:irontail",
-    "tm:magnitude",
     "tm:megahorn",
-    "tm:metalburst",
     "tm:mudshot",
     "tm:mudslap",
     "tm:payback",
@@ -152,17 +250,14 @@
     "tm:rocksmash",
     "tm:rocktomb",
     "tm:rollout",
-    "tm:rototiller",
     "tm:sandstorm",
     "tm:scaryface",
     "tm:scorchingsands",
     "tm:shockwave",
-    "tm:skullbash",
     "tm:sleeptalk",
     "tm:smackdown",
     "tm:smartstrike",
     "tm:stealthrock",
-    "tm:stomp",
     "tm:stompingtantrum",
     "tm:stoneedge",
     "tm:strength",
@@ -171,31 +266,84 @@
     "tm:supercellslam",
     "tm:superpower",
     "tm:swordsdance",
-    "tm:tackle",
-    "tm:tailwhip",
     "tm:takedown",
     "tm:terablast",
     "tm:thief",
     "tm:thunder",
     "tm:thunderbolt",
     "tm:thunderfang",
-    "tm:uproar"
+    "tm:uproar",
+    "tutor:ancientpower",
+    "tutor:aquatail",
+    "tutor:bulldoze",
+    "tutor:dragonpulse",
+    "tutor:drillrun",
+    "tutor:earthpower",
+    "tutor:endeavor",
+    "tutor:firefang",
+    "tutor:flamethrower",
+    "tutor:highhorsepower",
+    "tutor:icebeam",
+    "tutor:icefang",
+    "tutor:icywind",
+    "tutor:irontail",
+    "tutor:megahorn",
+    "tutor:mudslap",
+    "tutor:poisonjab",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:rollout",
+    "tutor:scorchingsands",
+    "tutor:shockwave",
+    "tutor:sleeptalk",
+    "tutor:stealthrock",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:superpower",
+    "tutor:thunderbolt",
+    "tutor:thunderfang",
+    "tutor:uproar",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:fissure",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:leer",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:pursuit",
+    "legacy:rage",
+    "legacy:return",
+    "legacy:rockthrow",
+    "legacy:round",
+    "legacy:sandattack",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:spite",
+    "legacy:swagger",
+    "legacy:thrash",
+    "legacy:toxic",
+    "legacy:zapcannon"
   ],
   "evolutions": [
     {
-      "id": "rhyhorn_rhydon",
-      "variant": "level_up",
-      "result": "rhydon",
       "consumeHeldItem": false,
+      "id": "rhyhorn_rhydon",
       "learnableMoves": [
         "hammerarm"
       ],
       "requirements": [
         {
-          "variant": "level",
-          "minLevel": 42
+          "minLevel": 42,
+          "variant": "level"
         }
-      ]
+      ],
+      "result": "rhydon",
+      "variant": "level_up"
     }
   ]
 }

@@ -55,6 +55,23 @@
       "fly": {
         "canFly": true
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "jumpluff",
+          "tier": 1
+        },
+        {
+          "pokemon": "whimsicott",
+          "tier": 1
+        },
+        {
+          "pokemon": "eldegoss",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -66,11 +83,11 @@
       },
       {
         "item": "cobblemon:kebia_berry",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:absorb_bulb",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -105,12 +122,9 @@
     "egg:switcheroo",
     "egg:tickle",
     "egg:worryseed",
-    "tm:absorb",
     "tm:beatup",
     "tm:captivate",
     "tm:charm",
-    "tm:cottonguard",
-    "tm:cottonspore",
     "tm:covet",
     "tm:dazzlinggleam",
     "tm:defog",
@@ -120,53 +134,70 @@
     "tm:endure",
     "tm:energyball",
     "tm:facade",
-    "tm:fairywind",
     "tm:faketears",
     "tm:flash",
     "tm:fling",
     "tm:gigadrain",
     "tm:gigaimpact",
     "tm:grassknot",
-    "tm:grasswhistle",
     "tm:grassyglide",
     "tm:grassyterrain",
-    "tm:growth",
-    "tm:gust",
     "tm:helpinghand",
     "tm:hurricane",
     "tm:hyperbeam",
-    "tm:leechseed",
     "tm:lightscreen",
-    "tm:megadrain",
-    "tm:memento",
     "tm:mistyterrain",
-    "tm:moonblast",
     "tm:naturalgift",
     "tm:naturepower",
     "tm:playrough",
-    "tm:poisonpowder",
     "tm:protect",
     "tm:psychic",
-    "tm:razorleaf",
     "tm:rest",
     "tm:safeguard",
     "tm:seedbomb",
     "tm:shadowball",
     "tm:sleeptalk",
     "tm:solarbeam",
-    "tm:stunspore",
     "tm:substitute",
     "tm:sunnyday",
     "tm:swift",
-    "tm:switcheroo",
     "tm:tailwind",
     "tm:taunt",
     "tm:terablast",
     "tm:thief",
-    "tm:tickle",
     "tm:trickroom",
     "tm:uturn",
-    "tm:worryseed"
+    "tm:worryseed",
+    "tutor:covet",
+    "tutor:dazzlinggleam",
+    "tutor:defog",
+    "tutor:endeavor",
+    "tutor:energyball",
+    "tutor:gigadrain",
+    "tutor:gigaimpact",
+    "tutor:grassyglide",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:playrough",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:shadowball",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:worryseed",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:knockoff",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "cottonee",
   "evolutions": []

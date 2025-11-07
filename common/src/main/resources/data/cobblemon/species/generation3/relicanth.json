@@ -46,21 +46,131 @@
   "baseFriendship": 50,
   "baseScale": 1,
   "hitbox": {
-    "width": 1.5,
     "height": 1.4,
-    "fixed": false
+    "fixed": false,
+    "width": 1.5
+  },
+  "riding": {
+    "behaviours": {
+      "LIQUID": {
+        "key": "cobblemon:liquid/submarine",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "25-40",
+          "JUMP": "20-40",
+          "SKILL": "60-80",
+          "SPEED": "25-35",
+          "STAMINA": "70-90"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": -0.48058435,
+              "y": -0.27500024,
+              "z": 0.14605118
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.48242062,
+              "y": -1.3168869,
+              "z": 0.053928375
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.044194173,
+              "y": -1.3188695,
+              "z": 0.16690472
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.044194173,
+              "y": -1.3188695,
+              "z": 0.16690472
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.044194173,
+              "y": -1.3188695,
+              "z": 0.16690472
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.021463323,
+              "y": -1.3135426,
+              "z": 0.1828245
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.044194173,
+              "y": -1.3188695,
+              "z": 0.16690472
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "relicanth",
+          "tier": 1
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 2
+        }
+      ]
+    },
     "moving": {
       "canLook": false,
-      "walk": {
-        "avoidsLand": true
-      },
       "swim": {
-        "swimSpeed": 0.1,
         "canBreatheUnderwater": true,
+        "canSwimInLava": false,
         "canSwimInWater": true,
-        "canSwimInLava": false
+        "swimSpeed": 0.1
+      },
+      "walk": {
+        "avoidsLand": true,
+        "walkSpeed": 0.25
       }
     }
   },
@@ -69,11 +179,11 @@
     "entries": [
       {
         "item": "cobblemon:deep_sea_scale",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:rindo_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -113,24 +223,19 @@
     "tm:earthquake",
     "tm:endure",
     "tm:facade",
-    "tm:flail",
     "tm:gigaimpact",
     "tm:hail",
-    "tm:harden",
     "tm:headbutt",
-    "tm:headsmash",
     "tm:hydropump",
     "tm:hyperbeam",
     "tm:icebeam",
     "tm:icywind",
     "tm:irondefense",
     "tm:liquidation",
-    "tm:magnitude",
     "tm:meteorbeam",
     "tm:muddywater",
     "tm:mudshot",
     "tm:mudslap",
-    "tm:mudsport",
     "tm:protect",
     "tm:psychup",
     "tm:raindance",
@@ -144,7 +249,6 @@
     "tm:sandstorm",
     "tm:scald",
     "tm:scaleshot",
-    "tm:skullbash",
     "tm:sleeptalk",
     "tm:smackdown",
     "tm:snore",
@@ -153,16 +257,51 @@
     "tm:stoneedge",
     "tm:substitute",
     "tm:surf",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:watersport",
     "tm:whirlpool",
-    "tm:yawn",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:ancientpower",
+    "tutor:aquatail",
+    "tutor:bounce",
+    "tutor:bulldoze",
+    "tutor:calmmind",
+    "tutor:dive",
+    "tutor:earthpower",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:irondefense",
+    "tutor:liquidation",
+    "tutor:meteorbeam",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:scaleshot",
+    "tutor:sleeptalk",
+    "tutor:snore",
+    "tutor:stealthrock",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:waterpulse",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": []
 }

@@ -61,6 +61,15 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "ledian",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -68,7 +77,7 @@
     "entries": [
       {
         "item": "cobblemon:charti_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -97,14 +106,10 @@
     "tm:airslash",
     "tm:assurance",
     "tm:batonpass",
-    "tm:bide",
     "tm:brickbreak",
     "tm:bugbite",
     "tm:bugbuzz",
-    "tm:cometpunch",
-    "tm:counter",
     "tm:dig",
-    "tm:dizzypunch",
     "tm:doubleedge",
     "tm:drainpunch",
     "tm:dualwingbeat",
@@ -123,7 +128,6 @@
     "tm:infestation",
     "tm:knockoff",
     "tm:lightscreen",
-    "tm:machpunch",
     "tm:megakick",
     "tm:megapunch",
     "tm:ominouswind",
@@ -145,16 +149,55 @@
     "tm:strugglebug",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:supersonic",
     "tm:swift",
     "tm:swordsdance",
-    "tm:tackle",
     "tm:tailwind",
     "tm:terablast",
     "tm:thief",
     "tm:thunderpunch",
     "tm:uproar",
-    "tm:uturn"
+    "tm:uturn",
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:bugbite",
+    "tutor:drainpunch",
+    "tutor:dualwingbeat",
+    "tutor:focuspunch",
+    "tutor:gigadrain",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:icepunch",
+    "tutor:knockoff",
+    "tutor:ominouswind",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:rollout",
+    "tutor:roost",
+    "tutor:sleeptalk",
+    "tutor:stringshot",
+    "tutor:swift",
+    "tutor:tailwind",
+    "tutor:thunderpunch",
+    "tutor:uproar",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:defog",
+    "legacy:doubleteam",
+    "legacy:dynamicpunch",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:sweetscent",
+    "legacy:toxic",
+    "special:refresh"
   ],
   "preEvolution": "ledyba",
   "evolutions": []

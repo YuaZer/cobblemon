@@ -47,7 +47,7 @@
   ],
   "baseScale": 0.7,
   "hitbox": {
-    "width": 0.9,
+    "width": 0.7,
     "height": 1.1,
     "fixed": false
   },
@@ -56,8 +56,40 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "itemInteract": {
+      "desiredItems": [
+        {
+          "_comment": "Drop it",
+          "item": "minecraft:glass_bottle",
+          "pickupPriority": -1
+        },
+        {
+          "item": "minecraft:potion",
+          "pickupPriority": 1,
+          "returnItem": "minecraft:glass_bottle",
+          "fullnessValue": 10
+        }
+      ]
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "ninetales",
+          "tier": 1
+        }
+      ]
     }
   },
+  "ai": [
+    {
+      "type": "apply_behaviours",
+      "behaviours": [
+        "cobblemon:pokemon_fox"
+      ]
+    }
+  ],
   "drops": {
     "amount": 5,
     "entries": [
@@ -115,36 +147,24 @@
     "tm:covet",
     "tm:darkpulse",
     "tm:dig",
-    "tm:disable",
     "tm:doubleedge",
-    "tm:ember",
     "tm:encore",
     "tm:endure",
     "tm:energyball",
-    "tm:extrasensory",
     "tm:facade",
-    "tm:feintattack",
     "tm:fireblast",
     "tm:firespin",
-    "tm:flail",
-    "tm:flameburst",
     "tm:flamecharge",
     "tm:flamethrower",
     "tm:flareblitz",
     "tm:foulplay",
-    "tm:grudge",
     "tm:headbutt",
-    "tm:healingwish",
     "tm:heatwave",
     "tm:helpinghand",
     "tm:hex",
-    "tm:howl",
-    "tm:hypnosis",
     "tm:imprison",
     "tm:incinerate",
-    "tm:inferno",
     "tm:irontail",
-    "tm:memento",
     "tm:mysticalfire",
     "tm:nastyplot",
     "tm:ominouswind",
@@ -154,7 +174,6 @@
     "tm:powerswap",
     "tm:protect",
     "tm:psychup",
-    "tm:quickattack",
     "tm:rest",
     "tm:roar",
     "tm:roleplay",
@@ -167,19 +186,56 @@
     "tm:sunnyday",
     "tm:swift",
     "tm:tailslap",
-    "tm:tailwhip",
     "tm:takedown",
     "tm:terablast",
     "tm:weatherball",
     "tm:willowisp",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:babydolleyes",
+    "tutor:burningjealousy",
+    "tutor:covet",
+    "tutor:darkpulse",
+    "tutor:energyball",
+    "tutor:flamethrower",
+    "tutor:foulplay",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:irontail",
+    "tutor:mysticalfire",
+    "tutor:ominouswind",
+    "tutor:painsplit",
+    "tutor:rest",
+    "tutor:roleplay",
+    "tutor:sleeptalk",
+    "tutor:snarl",
+    "tutor:spite",
+    "tutor:swift",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:rage",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:skullbash",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:tackle",
+    "legacy:toxic"
   ],
   "evolutions": [
     {
       "id": "vulpix_ninetales",
       "variant": "item_interact",
       "result": "ninetales",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [],
       "requirements": [],
       "requiredContext": "cobblemon:fire_stone"
@@ -192,6 +248,12 @@
       "maleRatio": 0.25,
       "height": 6,
       "weight": 99,
+      "baseScale": 0.6,
+      "hitbox": {
+        "width": 0.7,
+        "height": 1.1,
+        "fixed": false
+      },
       "pokedex": [
         "cobblemon.species.vulpix-alola.desc"
       ],
@@ -206,31 +268,6 @@
         "snowcloak",
         "h:snowwarning"
       ],
-      "eggGroups": [
-        "field"
-      ],
-      "baseStats": {
-        "hp": 38,
-        "attack": 41,
-        "defence": 40,
-        "special_attack": 50,
-        "special_defence": 65,
-        "speed": 65
-      },
-      "evYield": {
-        "hp": 0,
-        "attack": 0,
-        "defence": 0,
-        "special_attack": 0,
-        "special_defence": 0,
-        "speed": 1
-      },
-      "baseExperienceYield": 60,
-      "experienceGroup": "medium_fast",
-      "catchRate": 190,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "behaviour": {},
       "drops": {
         "amount": 5,
         "entries": [
@@ -278,7 +315,6 @@
         "egg:secretpower",
         "egg:sheercold",
         "tm:agility",
-        "tm:aurorabeam",
         "tm:auroraveil",
         "tm:babydolleyes",
         "tm:batonpass",
@@ -292,41 +328,29 @@
         "tm:darkpulse",
         "tm:dazzlinggleam",
         "tm:dig",
-        "tm:disable",
         "tm:disarmingvoice",
         "tm:doubleedge",
         "tm:drainingkiss",
         "tm:encore",
         "tm:endure",
-        "tm:extrasensory",
         "tm:facade",
         "tm:faketears",
-        "tm:feintattack",
-        "tm:flail",
         "tm:foulplay",
-        "tm:freezedry",
         "tm:frostbreath",
-        "tm:grudge",
         "tm:hail",
         "tm:healbell",
         "tm:helpinghand",
         "tm:hex",
-        "tm:howl",
-        "tm:hypnosis",
         "tm:icebeam",
-        "tm:iceshard",
         "tm:iciclespear",
         "tm:icywind",
         "tm:imprison",
         "tm:irontail",
-        "tm:mist",
         "tm:mistyterrain",
-        "tm:moonblast",
         "tm:nastyplot",
         "tm:painsplit",
         "tm:payback",
         "tm:playrough",
-        "tm:powdersnow",
         "tm:powerswap",
         "tm:protect",
         "tm:psychup",
@@ -336,7 +360,6 @@
         "tm:roleplay",
         "tm:safeguard",
         "tm:secretpower",
-        "tm:sheercold",
         "tm:sleeptalk",
         "tm:snowscape",
         "tm:spite",
@@ -344,18 +367,50 @@
         "tm:substitute",
         "tm:swift",
         "tm:tailslap",
-        "tm:tailwhip",
         "tm:takedown",
         "tm:terablast",
         "tm:weatherball",
-        "tm:zenheadbutt"
+        "tm:zenheadbutt",
+        "tutor:babydolleyes",
+        "tutor:covet",
+        "tutor:darkpulse",
+        "tutor:dazzlinggleam",
+        "tutor:foulplay",
+        "tutor:healbell",
+        "tutor:helpinghand",
+        "tutor:icebeam",
+        "tutor:icywind",
+        "tutor:irontail",
+        "tutor:painsplit",
+        "tutor:playrough",
+        "tutor:rest",
+        "tutor:roleplay",
+        "tutor:sleeptalk",
+        "tutor:spite",
+        "tutor:swift",
+        "tutor:zenheadbutt",
+        "legacy:aquatail",
+        "legacy:attract",
+        "legacy:confide",
+        "legacy:doubleteam",
+        "legacy:frustration",
+        "legacy:headbutt",
+        "legacy:hiddenpower",
+        "legacy:reflect",
+        "legacy:return",
+        "legacy:round",
+        "legacy:snore",
+        "legacy:swagger",
+        "legacy:tackle",
+        "legacy:toxic",
+        "special:celebrate"
       ],
       "evolutions": [
         {
           "id": "vulpix_ninetalesalola",
           "variant": "item_interact",
           "result": "ninetales alolan",
-          "consumeHeldItem": true,
+          "consumeHeldItem": false,
           "learnableMoves": [
             "dazzlinggleam"
           ],
@@ -363,7 +418,21 @@
           "requiredContext": "cobblemon:ice_stone"
         }
       ],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "herd": {
+          "maxSize": "2",
+          "toleratedLeaders": [
+            {
+              "pokemon": "ninetales",
+              "tier": 1
+            }
+          ]
+        },
+        "resting": {
+          "willSleepOnBed": true
+        }
+      }
     }
   ]
 }

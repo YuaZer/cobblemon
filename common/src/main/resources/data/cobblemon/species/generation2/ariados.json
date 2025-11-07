@@ -43,13 +43,120 @@
   "catchRate": 90,
   "eggCycles": 15,
   "baseFriendship": 50,
-  "baseScale": 0.8,
+  "baseScale": 1,
   "hitbox": {
-    "width": 1,
     "height": 1,
-    "fixed": false
+    "fixed": false,
+    "width": 1
   },
-  "behaviour": {},
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "55-65",
+          "JUMP": "25-45",
+          "SKILL": "45-65",
+          "SPEED": "30-45",
+          "STAMINA": "30-50"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 9.895586E-4,
+              "y": -0.6805381,
+              "z": 0.0058082193
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.008947004,
+              "y": -0.6557218,
+              "z": 5.530901E-4
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.002574316,
+              "y": -0.6861138,
+              "z": -0.17605162
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.002574316,
+              "y": -0.6861138,
+              "z": -0.17605162
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.002574316,
+              "y": -0.6861138,
+              "z": -0.17605162
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.002574316,
+              "y": -0.6861138,
+              "z": -0.17605162
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.002574316,
+              "y": -0.6861138,
+              "z": -0.17605162
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "behaviour": {
+    "herd": {
+      "maxSize": "5"
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
+    },
+    "walking": {
+      "walkSpeed": 0.18
+    }
+  },
   "drops": {
     "amount": 7,
     "entries": [
@@ -67,7 +174,7 @@
       },
       {
         "item": "cobblemon:poison_barb",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -103,7 +210,6 @@
     "egg:ragepowder",
     "egg:sonicboom",
     "egg:twineedle",
-    "tm:absorb",
     "tm:acidspray",
     "tm:agility",
     "tm:assurance",
@@ -111,18 +217,14 @@
     "tm:bounce",
     "tm:bugbite",
     "tm:bugbuzz",
-    "tm:constrict",
     "tm:crosspoison",
     "tm:dig",
-    "tm:disable",
     "tm:electroweb",
     "tm:endure",
     "tm:facade",
-    "tm:fellstinger",
     "tm:flash",
     "tm:focusenergy",
     "tm:foulplay",
-    "tm:furyswipes",
     "tm:gigadrain",
     "tm:gigaimpact",
     "tm:hex",
@@ -134,19 +236,14 @@
     "tm:lunge",
     "tm:megahorn",
     "tm:nightshade",
-    "tm:nightslash",
     "tm:pinmissile",
     "tm:poisonjab",
-    "tm:poisonsting",
     "tm:pounce",
     "tm:protect",
     "tm:psychic",
-    "tm:pursuit",
-    "tm:ragepowder",
     "tm:rest",
     "tm:scaryface",
     "tm:screech",
-    "tm:shadowsneak",
     "tm:signalbeam",
     "tm:skittersmack",
     "tm:sleeptalk",
@@ -154,10 +251,7 @@
     "tm:sludgewave",
     "tm:smartstrike",
     "tm:solarbeam",
-    "tm:sonicboom",
-    "tm:spiderweb",
     "tm:spite",
-    "tm:stickyweb",
     "tm:stringshot",
     "tm:strugglebug",
     "tm:substitute",
@@ -169,12 +263,52 @@
     "tm:throatchop",
     "tm:toxic",
     "tm:toxicspikes",
-    "tm:toxicthread",
     "tm:trailblaze",
-    "tm:twineedle",
     "tm:venomdrench",
     "tm:venoshock",
-    "tm:xscissor"
+    "tm:xscissor",
+    "tutor:bounce",
+    "tutor:bugbite",
+    "tutor:electroweb",
+    "tutor:focusenergy",
+    "tutor:foulplay",
+    "tutor:gigadrain",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:knockoff",
+    "tutor:leechlife",
+    "tutor:megahorn",
+    "tutor:poisonjab",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:signalbeam",
+    "tutor:skittersmack",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:spite",
+    "tutor:stringshot",
+    "tutor:suckerpunch",
+    "tutor:throatchop",
+    "tutor:xscissor",
+    "legacy:attract",
+    "legacy:bodyslam",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:psybeam",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:stompingtantrum",
+    "legacy:swagger",
+    "special:refresh"
   ],
   "preEvolution": "spinarak",
   "evolutions": []

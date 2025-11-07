@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 584,
   "name": "Vanilluxe",
   "primaryType": "ice",
@@ -41,18 +42,30 @@
   "catchRate": 45,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.8,
   "hitbox": {
-    "width": 1,
-    "height": 1,
+    "width": 1.5,
+    "height": 2.4,
     "fixed": false
   },
   "behaviour": {
     "moving": {
+      "fly": {
+        "canFly": true
+      },
+      "walk": {
+        "canWalkOnWater": true
+      },
       "swim": {
         "avoidsWater": true,
         "canSwimInWater": false
       }
+    },
+    "resting": {
+      "canSleep": false
+    },
+    "herd": {
+      "maxSize": "6"
     }
   },
   "drops": {
@@ -64,11 +77,11 @@
       },
       {
         "item": "cobblemon:never_melt_ice",
-        "percentage": 10
+        "percentage": 10.0
       },
       {
         "item": "cobblemon:aspear_berry",
-        "percentage": 10
+        "percentage": 10.0
       }
     ]
   },
@@ -100,11 +113,8 @@
     "egg:mirrorshot",
     "egg:naturalgift",
     "egg:powdersnow",
-    "tm:acidarmor",
     "tm:allyswitch",
-    "tm:astonish",
     "tm:auroraveil",
-    "tm:autotomize",
     "tm:avalanche",
     "tm:beatup",
     "tm:blizzard",
@@ -112,16 +122,12 @@
     "tm:explosion",
     "tm:facade",
     "tm:flashcannon",
-    "tm:freezedry",
     "tm:frostbreath",
     "tm:gigaimpact",
     "tm:hail",
-    "tm:harden",
     "tm:hyperbeam",
     "tm:hypervoice",
     "tm:icebeam",
-    "tm:iceshard",
-    "tm:iciclecrash",
     "tm:iciclespear",
     "tm:icywind",
     "tm:imprison",
@@ -129,16 +135,11 @@
     "tm:lightscreen",
     "tm:magiccoat",
     "tm:magnetrise",
-    "tm:mirrorcoat",
-    "tm:mirrorshot",
-    "tm:mist",
     "tm:naturalgift",
-    "tm:powdersnow",
     "tm:protect",
     "tm:raindance",
     "tm:rest",
     "tm:selfdestruct",
-    "tm:sheercold",
     "tm:signalbeam",
     "tm:sleeptalk",
     "tm:substitute",
@@ -146,7 +147,33 @@
     "tm:terablast",
     "tm:uproar",
     "tm:waterpulse",
-    "tm:weatherball"
+    "tm:weatherball",
+    "tutor:allyswitch",
+    "tutor:flashcannon",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:hypervoice",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:irondefense",
+    "tutor:magiccoat",
+    "tutor:magnetrise",
+    "tutor:rest",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:uproar",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "vanillish",
   "evolutions": []

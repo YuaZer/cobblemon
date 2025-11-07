@@ -51,6 +51,19 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "quilladin",
+          "tier": 1
+        },
+        {
+          "pokemon": "chesnaught",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -58,7 +71,7 @@
     "entries": [
       {
         "item": "cobblemon:miracle_seed",
-        "percentage": 10
+        "percentage": 10.0
       }
     ]
   },
@@ -87,8 +100,6 @@
     "egg:synthesis",
     "egg:wideguard",
     "tm:aerialace",
-    "tm:bellydrum",
-    "tm:bite",
     "tm:bodyslam",
     "tm:brickbreak",
     "tm:bulkup",
@@ -96,7 +107,6 @@
     "tm:bulletseed",
     "tm:curse",
     "tm:cut",
-    "tm:defensecurl",
     "tm:dig",
     "tm:drainpunch",
     "tm:dualchop",
@@ -112,7 +122,6 @@
     "tm:grasspledge",
     "tm:grassyglide",
     "tm:grassyterrain",
-    "tm:growl",
     "tm:gyroball",
     "tm:helpinghand",
     "tm:honeclaws",
@@ -120,21 +129,18 @@
     "tm:ironhead",
     "tm:irontail",
     "tm:leafstorm",
-    "tm:leechseed",
     "tm:lowkick",
     "tm:lowsweep",
     "tm:magicalleaf",
     "tm:metalclaw",
     "tm:mudshot",
     "tm:naturepower",
-    "tm:needlearm",
     "tm:painsplit",
     "tm:payback",
     "tm:pinmissile",
     "tm:poisonjab",
     "tm:poweruppunch",
     "tm:protect",
-    "tm:quickguard",
     "tm:raindance",
     "tm:reflect",
     "tm:rest",
@@ -158,18 +164,61 @@
     "tm:superpower",
     "tm:swift",
     "tm:synthesis",
-    "tm:tackle",
     "tm:takedown",
     "tm:taunt",
     "tm:terablast",
     "tm:thunderpunch",
     "tm:trailblaze",
-    "tm:vinewhip",
-    "tm:wideguard",
-    "tm:woodhammer",
     "tm:workup",
     "tm:worryseed",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:aerialace",
+    "tutor:bulldoze",
+    "tutor:drainpunch",
+    "tutor:dualchop",
+    "tutor:endeavor",
+    "tutor:energyball",
+    "tutor:focuspunch",
+    "tutor:gigadrain",
+    "tutor:grasspledge",
+    "tutor:grassyglide",
+    "tutor:helpinghand",
+    "tutor:ironhead",
+    "tutor:irontail",
+    "tutor:lowkick",
+    "tutor:magicalleaf",
+    "tutor:painsplit",
+    "tutor:poisonjab",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:rollout",
+    "tutor:seedbomb",
+    "tutor:shadowclaw",
+    "tutor:sleeptalk",
+    "tutor:spikes",
+    "tutor:stompingtantrum",
+    "tutor:superfang",
+    "tutor:superpower",
+    "tutor:swift",
+    "tutor:synthesis",
+    "tutor:thunderpunch",
+    "tutor:worryseed",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:sludgebomb",
+    "legacy:smackdown",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:swordsdance",
+    "legacy:toxic"
   ],
   "preEvolution": "chespin",
   "evolutions": [

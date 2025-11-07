@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.client.gui
 
+import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.CobblemonItems
 import com.cobblemon.mod.common.api.gui.blitk
 import com.cobblemon.mod.common.api.gui.drawPosablePortrait
@@ -24,11 +25,11 @@ import com.cobblemon.mod.common.client.keybind.keybinds.SummaryBinding
 import com.cobblemon.mod.common.client.render.drawScaledText
 import com.cobblemon.mod.common.client.render.getDepletableRedGreen
 import com.cobblemon.mod.common.client.render.models.blockbench.FloatingState
-import com.cobblemon.mod.common.client.render.models.blockbench.repository.PokemonModelRepository
 import com.cobblemon.mod.common.client.render.renderScaledGuiItemIcon
 import com.cobblemon.mod.common.pokemon.Gender
 import com.cobblemon.mod.common.util.cobblemonResource
 import com.cobblemon.mod.common.util.lang
+import java.util.UUID
 import net.minecraft.client.DeltaTracker
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui
@@ -56,8 +57,9 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
         private val genderIconMale = cobblemonResource("textures/gui/party/party_gender_male.png")
         private val genderIconFemale = cobblemonResource("textures/gui/party/party_gender_female.png")
         private val portraitBackground = cobblemonResource("textures/gui/party/party_slot_portrait_background.png")
-        val state = FloatingState()
     }
+
+    private val stateAtIndex = hashMapOf<Int, Pair<UUID, FloatingState>>()
 
     private val screenExemptions: List<Class<out Screen>> = listOf(
         ChatScreen::class.java,
@@ -83,8 +85,19 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
         attachedToast = false
     }
 
+    fun getPokemonState(index: Int, pokemonUUID: UUID): FloatingState {
+        val state = this.stateAtIndex.getOrPut(index) { pokemonUUID to FloatingState() }
+        if (state.first != pokemonUUID) {
+            val newState = FloatingState()
+            this.stateAtIndex[index] = pokemonUUID to newState
+            return newState
+        }
+        return state.second
+    }
+
     override fun render(context: GuiGraphics, tickCounter: DeltaTracker) {
         val partialDeltaTicks = tickCounter.realtimeDeltaTicks
+
         val minecraft = Minecraft.getInstance()
 
         // Hiding if a Screen is open and not exempt
@@ -101,7 +114,7 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
         }
 
         val panelX = 0
-        val party = CobblemonClient.storage.myParty
+        val party = CobblemonClient.storage.party
         val matrices = context.pose()
         if (party.slots.none { it != null }) {
             if (CobblemonClient.clientPlayerData.promptStarter &&
@@ -154,16 +167,21 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
                     0.0
                 )
 
-                state.currentAspects = pokemon.aspects
+                val shouldAnimate = when (Cobblemon.config.partyPortraitAnimations) {
+                    PokemonGUIAnimationStyle.NEVER_ANIMATE -> false
+                    PokemonGUIAnimationStyle.ANIMATE_SELECTED -> selectedSlot == index
+                    PokemonGUIAnimationStyle.ALWAYS_ANIMATE -> true
+                }
 
                 drawPosablePortrait(
                     identifier = pokemon.species.resourceIdentifier,
                     matrixStack = matrices,
-                    partialTicks = 0F, // partialDeltaTicks, //Before you get any funny ideas about party animated pokemon, make sure they each get their own state instead of sharing.
+                    doQuirks = false,
+                    partialTicks = if (shouldAnimate) partialDeltaTicks else 0F,
                     contextScale = pokemon.form.baseScale,
-                    repository = PokemonModelRepository,
-                    state = state
+                    state = getPokemonState(index = index, pokemonUUID = pokemon.uuid).also { it.currentAspects = pokemon.aspects }
                 )
+
                 matrices.popPose()
                 context.disableScissor()
             }

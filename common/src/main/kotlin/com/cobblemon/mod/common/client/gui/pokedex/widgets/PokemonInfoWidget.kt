@@ -9,7 +9,6 @@
 package com.cobblemon.mod.common.client.gui.pokedex.widgets
 
 import com.bedrockk.molang.runtime.MoLangRuntime
-import com.cobblemon.mod.common.api.gui.ParentWidget
 import com.cobblemon.mod.common.api.gui.blitk
 import com.cobblemon.mod.common.api.pokedex.entry.PokedexEntry
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.setup
@@ -34,11 +33,12 @@ import com.cobblemon.mod.common.client.gui.pokedex.PokedexGUIConstants.PORTRAIT_
 import com.cobblemon.mod.common.client.gui.pokedex.PokedexGUIConstants.PORTRAIT_POKE_BALL_WIDTH
 import com.cobblemon.mod.common.client.gui.pokedex.PokedexGUIConstants.SCALE
 import com.cobblemon.mod.common.client.gui.pokedex.ScaledButton
+import com.cobblemon.mod.common.client.gui.pokedex.renderTooltip
 import com.cobblemon.mod.common.client.gui.summary.widgets.SoundlessWidget
 import com.cobblemon.mod.common.client.render.drawScaledText
 import com.cobblemon.mod.common.client.render.drawScaledTextJustifiedRight
 import com.cobblemon.mod.common.client.render.models.blockbench.FloatingState
-import com.cobblemon.mod.common.client.render.models.blockbench.repository.PokemonModelRepository
+import com.cobblemon.mod.common.client.render.models.blockbench.repository.VaryingModelRepository
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.pokemon.FormData
 import com.cobblemon.mod.common.pokemon.Gender
@@ -95,9 +95,6 @@ class PokemonInfoWidget(val pX: Int, val pY: Int, val updateForm: (PokedexForm) 
         private val buttonGenderFemale = cobblemonResource("textures/gui/pokedex/button_female.png")
         private val buttonNone = cobblemonResource("textures/gui/pokedex/button_none.png")
         private val buttonShiny = cobblemonResource("textures/gui/pokedex/button_shiny.png")
-
-        private val tooltipEdge = cobblemonResource("textures/gui/pokedex/tooltip_edge.png")
-        private val tooltipBackground = cobblemonResource("textures/gui/pokedex/tooltip_background.png")
     }
 
     var currentEntry : PokedexEntry? = null
@@ -441,13 +438,14 @@ class PokemonInfoWidget(val pX: Int, val pY: Int, val updateForm: (PokedexForm) 
                 // Tooltip
                 if (it.isVisible() && it.getWidget().isButtonHovered(mouseX, mouseY)) {
                     val variationText = it.variation.displayName.asTranslated().bold()
-                    val variationTextWidth = Minecraft.getInstance().font.width(variationText.font(CobblemonResources.DEFAULT_LARGE))
-                    val tooltipWidth = variationTextWidth + 6
-
-                    blitk(matrixStack = matrices, texture = tooltipEdge, x = mouseX - (tooltipWidth / 2) - 1, y = mouseY + 8, width = 1, height = 11)
-                    blitk(matrixStack = matrices, texture = tooltipBackground, x = mouseX - (tooltipWidth / 2), y = mouseY + 8, width = tooltipWidth, height = 11)
-                    blitk(matrixStack = matrices, texture = tooltipEdge, x = mouseX + (tooltipWidth / 2), y = mouseY + 8, width = 1, height = 11)
-                    drawScaledText(context = context, font = CobblemonResources.DEFAULT_LARGE, text = variationText, x = mouseX, y = mouseY + 9, shadow = true, centered = true)
+                    renderTooltip(
+                        context,
+                        variationText,
+                        mouseX,
+                        mouseY,
+                        delta,
+                        10
+                    )
                 }
             }
 
@@ -459,10 +457,11 @@ class PokemonInfoWidget(val pX: Int, val pY: Int, val updateForm: (PokedexForm) 
                 formRightButton.render(context,mouseX, mouseY, delta)
 
                 val form = showableForms[selectedFormIndex]
+                val formName = if (form.displayForm.lowercase() == "normal") "" else "-${form.displayForm.lowercase().replace("-", "")}"
                 drawScaledTextJustifiedRight(
                     context = context,
                     font = CobblemonResources.DEFAULT_LARGE,
-                    text = lang("ui.pokedex.info.form.${form.displayForm.lowercase()}").bold(),
+                    text = lang("ui.pokedex.info.form.${species}${formName}").bold(),
                     x = pX + 136,
                     y = pY + 15,
                     shadow = true
@@ -655,7 +654,7 @@ class PokemonInfoWidget(val pX: Int, val pY: Int, val updateForm: (PokedexForm) 
     fun recalculatePoses(renderablePokemon: RenderablePokemon) {
         val state = FloatingState()
         state.currentAspects = renderablePokemon.aspects
-        val poser = PokemonModelRepository.getPoser(renderablePokemon.species.resourceIdentifier, state)
+        val poser = VaryingModelRepository.getPoser(renderablePokemon.species.resourceIdentifier, state)
         state.currentModel = poser
         this.poseList = poser.poses
             .map { it.value.poseTypes.minBy { it.ordinal } }
@@ -669,7 +668,7 @@ class PokemonInfoWidget(val pX: Int, val pY: Int, val updateForm: (PokedexForm) 
         val primaryType = type[0]
         if (primaryType != null) {
             return try {
-                cobblemonResource("textures/gui/pokedex/platform_base_${primaryType.name}.png")
+                cobblemonResource("textures/gui/pokedex/platform_base_${primaryType.showdownId}.png")
             } catch (error: FileNotFoundException) {
                 null
             }

@@ -60,7 +60,29 @@
     },
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "dratini",
+          "tier": 1
+        },
+        {
+          "pokemon": "milotic",
+          "tier": 2
+        },
+        {
+          "pokemon": "dragonair",
+          "tier": 3
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 4
+        }
+      ]
     }
   },
   "drops": {
@@ -106,7 +128,6 @@
     "egg:supersonic",
     "egg:waterpulse",
     "tm:agility",
-    "tm:aquajet",
     "tm:aquatail",
     "tm:bind",
     "tm:blizzard",
@@ -115,15 +136,11 @@
     "tm:brutalswing",
     "tm:chillingwater",
     "tm:dracometeor",
-    "tm:dragonbreath",
     "tm:dragoncheer",
     "tm:dragondance",
     "tm:dragonpulse",
-    "tm:dragonrage",
-    "tm:dragonrush",
     "tm:dragontail",
     "tm:endure",
-    "tm:extremespeed",
     "tm:facade",
     "tm:fireblast",
     "tm:firespin",
@@ -140,9 +157,7 @@
     "tm:incinerate",
     "tm:ironhead",
     "tm:irontail",
-    "tm:leer",
     "tm:lightscreen",
-    "tm:mist",
     "tm:outrage",
     "tm:protect",
     "tm:raindance",
@@ -150,11 +165,9 @@
     "tm:safeguard",
     "tm:scaleshot",
     "tm:shockwave",
-    "tm:slam",
     "tm:sleeptalk",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:supersonic",
     "tm:surf",
     "tm:swift",
     "tm:takedown",
@@ -165,7 +178,52 @@
     "tm:twister",
     "tm:waterfall",
     "tm:waterpulse",
-    "tm:wrap"
+    "tutor:aquatail",
+    "tutor:bind",
+    "tutor:dracometeor",
+    "tutor:dragonpulse",
+    "tutor:flamethrower",
+    "tutor:gigaimpact",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:ironhead",
+    "tutor:irontail",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:scaleshot",
+    "tutor:shockwave",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:thunderbolt",
+    "tutor:twister",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:bubblebeam",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:detect",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:rage",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:skullbash",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:watergun",
+    "legacy:whirlpool",
+    "legacy:zapcannon"
   ],
   "evolutions": [
     {
@@ -181,5 +239,26 @@
         }
       ]
     }
-  ]
+  ],
+  "riding": {
+    "stats": {
+      "SPEED": {
+        "ranges": "20-40"
+      },
+      "ACCELERATION": {
+        "ranges": "50-100"
+      },
+      "SKILL": {
+        "ranges": "5-10"
+      },
+      "JUMP": {
+        "ranges": "5-10"
+      },
+      "STAMINA": {
+        "ranges": "25-50"
+      }
+    },
+    "seats": [],
+    "behaviour": null
+  }
 }

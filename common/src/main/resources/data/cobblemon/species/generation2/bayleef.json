@@ -57,6 +57,27 @@
       "walk": {
         "walkSpeed": 0.2
       }
+    },
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "bayleef",
+          "tier": 1
+        },
+        {
+          "pokemon": "meganium",
+          "tier": 2
+        },
+        {
+          "pokemon": "tropius",
+          "tier": 3
+        },
+        {
+          "pokemon": "aurorus",
+          "tier": 4
+        }
+      ]
     }
   },
   "drops": {
@@ -64,7 +85,7 @@
     "entries": [
       {
         "item": "cobblemon:miracle_seed",
-        "percentage": 10
+        "percentage": 10.0
       }
     ]
   },
@@ -96,11 +117,9 @@
     "egg:vinewhip",
     "egg:wringout",
     "tm:ancientpower",
-    "tm:aromatherapy",
     "tm:bodyslam",
     "tm:bulletseed",
     "tm:charm",
-    "tm:counter",
     "tm:curse",
     "tm:cut",
     "tm:doubleedge",
@@ -110,36 +129,27 @@
     "tm:energyball",
     "tm:facade",
     "tm:faketears",
-    "tm:flail",
     "tm:flash",
     "tm:furycutter",
     "tm:gigadrain",
     "tm:grassknot",
     "tm:grasspledge",
-    "tm:grasswhistle",
     "tm:grassyglide",
     "tm:grassyterrain",
-    "tm:growl",
     "tm:headbutt",
-    "tm:healpulse",
     "tm:helpinghand",
-    "tm:ingrain",
     "tm:irontail",
     "tm:knockoff",
     "tm:laserfocus",
     "tm:leafstorm",
-    "tm:leechseed",
     "tm:lightscreen",
     "tm:magicalleaf",
     "tm:magiccoat",
     "tm:mudslap",
     "tm:naturalgift",
     "tm:naturepower",
-    "tm:poisonpowder",
     "tm:protect",
-    "tm:razorleaf",
     "tm:reflect",
-    "tm:refresh",
     "tm:rest",
     "tm:rocksmash",
     "tm:safeguard",
@@ -151,17 +161,49 @@
     "tm:strength",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:sweetscent",
     "tm:swordsdance",
     "tm:synthesis",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
     "tm:trailblaze",
-    "tm:vinewhip",
     "tm:workup",
     "tm:worryseed",
-    "tm:wringout"
+    "tutor:ancientpower",
+    "tutor:energyball",
+    "tutor:frenzyplant",
+    "tutor:furycutter",
+    "tutor:gigadrain",
+    "tutor:grasspledge",
+    "tutor:grassyglide",
+    "tutor:helpinghand",
+    "tutor:irontail",
+    "tutor:knockoff",
+    "tutor:laserfocus",
+    "tutor:magicalleaf",
+    "tutor:magiccoat",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:seedbomb",
+    "tutor:sleeptalk",
+    "tutor:stompingtantrum",
+    "tutor:synthesis",
+    "tutor:worryseed",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:detect",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "special:frenzyplant"
   ],
   "preEvolution": "chikorita",
   "evolutions": [

@@ -42,6 +42,9 @@
   "catchRate": 45,
   "eggCycles": 20,
   "baseFriendship": 50,
+  "standingEyeHeight": 0.7,
+  "swimmingEyeHeight": 0.7,
+  "flyingEyeHeight": 0.7,
   "baseScale": 0.5,
   "hitbox": {
     "width": 1,
@@ -53,6 +56,30 @@
       "walk": {
         "walkSpeed": 0.2
       }
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "fennekin",
+          "tier": 1
+        },
+        {
+          "pokemon": "ninetales",
+          "tier": 2
+        },
+        {
+          "pokemon": "braixen",
+          "tier": 2
+        },
+        {
+          "pokemon": "delphox",
+          "tier": 3
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -64,7 +91,7 @@
       },
       {
         "item": "cobblemon:charcoal_stick",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -92,13 +119,11 @@
     "tm:burningjealousy",
     "tm:calmmind",
     "tm:charm",
-    "tm:copycat",
     "tm:covet",
     "tm:cut",
     "tm:dreameater",
     "tm:echoedvoice",
     "tm:embargo",
-    "tm:ember",
     "tm:encore",
     "tm:endure",
     "tm:facade",
@@ -112,13 +137,10 @@
     "tm:grassknot",
     "tm:heatwave",
     "tm:helpinghand",
-    "tm:howl",
-    "tm:hypnosis",
     "tm:imprison",
     "tm:incinerate",
     "tm:irontail",
     "tm:lightscreen",
-    "tm:luckychant",
     "tm:magiccoat",
     "tm:magicroom",
     "tm:mudshot",
@@ -133,7 +155,6 @@
     "tm:raindance",
     "tm:rest",
     "tm:safeguard",
-    "tm:scratch",
     "tm:skillswap",
     "tm:sleeptalk",
     "tm:solarbeam",
@@ -141,15 +162,43 @@
     "tm:substitute",
     "tm:sunnyday",
     "tm:swift",
-    "tm:tailwhip",
     "tm:takedown",
     "tm:terablast",
     "tm:thief",
     "tm:trick",
     "tm:trickroom",
     "tm:willowisp",
-    "tm:wish",
-    "tm:workup"
+    "tm:workup",
+    "tutor:burningjealousy",
+    "tutor:calmmind",
+    "tutor:covet",
+    "tutor:firepledge",
+    "tutor:flamethrower",
+    "tutor:foulplay",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:irontail",
+    "tutor:magiccoat",
+    "tutor:magicroom",
+    "tutor:mudslap",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:skillswap",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:trick",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:psychup",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

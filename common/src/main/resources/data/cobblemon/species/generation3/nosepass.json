@@ -53,16 +53,30 @@
       "canSleep": true,
       "light": "0-4"
     },
-    "idle": {
-      "pointsAtSpawn": true
-    },
     "moving": {
+      "walk": {
+        "walkSpeed": 0.12
+      },
       "swim": {
         "avoidsWater": true,
         "canSwimInWater": false
       }
+    },
+    "herd": {
+      "maxSize": "2"
     }
   },
+  "ai": [
+    {
+      "type": "add_tasks_to_activity",
+      "activity": "idle",
+      "tasksByPriority": {
+        "2": [
+          "point_to_spawn"
+        ]
+      }
+    }
+  ],
   "drops": {
     "amount": 4,
     "entries": [
@@ -113,7 +127,6 @@
     "tm:bulldoze",
     "tm:curse",
     "tm:dazzlinggleam",
-    "tm:discharge",
     "tm:doubleedge",
     "tm:earthpower",
     "tm:earthquake",
@@ -123,18 +136,14 @@
     "tm:firepunch",
     "tm:flashcannon",
     "tm:gravity",
-    "tm:harden",
     "tm:headbutt",
-    "tm:headsmash",
     "tm:heavyslam",
     "tm:helpinghand",
     "tm:highhorsepower",
     "tm:icepunch",
     "tm:irondefense",
-    "tm:lockon",
     "tm:magiccoat",
     "tm:magnetrise",
-    "tm:magnitude",
     "tm:meteorbeam",
     "tm:painsplit",
     "tm:powergem",
@@ -145,7 +154,6 @@
     "tm:rockpolish",
     "tm:rockslide",
     "tm:rocksmash",
-    "tm:rockthrow",
     "tm:rocktomb",
     "tm:rollout",
     "tm:sandstorm",
@@ -154,7 +162,6 @@
     "tm:shockwave",
     "tm:sleeptalk",
     "tm:smackdown",
-    "tm:spark",
     "tm:stealthrock",
     "tm:steelbeam",
     "tm:stompingtantrum",
@@ -162,7 +169,6 @@
     "tm:strength",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:tackle",
     "tm:takedown",
     "tm:taunt",
     "tm:terablast",
@@ -172,15 +178,59 @@
     "tm:thunderwave",
     "tm:torment",
     "tm:voltswitch",
-    "tm:wideguard",
-    "tm:zapcannon"
+    "tutor:ancientpower",
+    "tutor:block",
+    "tutor:bulldoze",
+    "tutor:dazzlinggleam",
+    "tutor:earthpower",
+    "tutor:firepunch",
+    "tutor:flashcannon",
+    "tutor:gravity",
+    "tutor:helpinghand",
+    "tutor:highhorsepower",
+    "tutor:icepunch",
+    "tutor:irondefense",
+    "tutor:magiccoat",
+    "tutor:magnetrise",
+    "tutor:meteorbeam",
+    "tutor:painsplit",
+    "tutor:powershift",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:rollout",
+    "tutor:shockwave",
+    "tutor:sleeptalk",
+    "tutor:stealthrock",
+    "tutor:steelbeam",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:thunderbolt",
+    "tutor:thunderpunch",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:defensecurl",
+    "legacy:doubleteam",
+    "legacy:dynamicpunch",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {
       "id": "nosepass_probopass",
       "variant": "item_interact",
       "result": "probopass",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [
         "triattack"
       ],

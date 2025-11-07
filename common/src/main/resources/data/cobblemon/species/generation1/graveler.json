@@ -66,26 +66,29 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "3"
     }
   },
   "drops": {
     "amount": 5,
     "entries": [
       {
-        "item": "minecraft:flint",
+        "item": "minecraft:gravel",
         "quantityRange": "0-2"
       },
       {
         "item": "cobblemon:everstone",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:black_augurite",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:rindo_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -115,7 +118,6 @@
     "egg:megapunch",
     "egg:wideguard",
     "tm:ancientpower",
-    "tm:autotomize",
     "tm:block",
     "tm:bodypress",
     "tm:bodyslam",
@@ -123,10 +125,8 @@
     "tm:brutalswing",
     "tm:bulldoze",
     "tm:curse",
-    "tm:defensecurl",
     "tm:dig",
     "tm:doubleedge",
-    "tm:dynamicpunch",
     "tm:earthpower",
     "tm:earthquake",
     "tm:endure",
@@ -134,13 +134,11 @@
     "tm:facade",
     "tm:fireblast",
     "tm:firepunch",
-    "tm:flail",
     "tm:flamethrower",
     "tm:fling",
     "tm:focusblast",
     "tm:focuspunch",
     "tm:gyroball",
-    "tm:hammerarm",
     "tm:harden",
     "tm:hardpress",
     "tm:headbutt",
@@ -149,12 +147,10 @@
     "tm:incinerate",
     "tm:irondefense",
     "tm:ironhead",
-    "tm:magnitude",
     "tm:megapunch",
     "tm:metronome",
     "tm:mudshot",
     "tm:mudslap",
-    "tm:mudsport",
     "tm:naturepower",
     "tm:poweruppunch",
     "tm:protect",
@@ -164,7 +160,6 @@
     "tm:rockpolish",
     "tm:rockslide",
     "tm:rocksmash",
-    "tm:rockthrow",
     "tm:rocktomb",
     "tm:rollout",
     "tm:sandstorm",
@@ -181,11 +176,53 @@
     "tm:suckerpunch",
     "tm:sunnyday",
     "tm:superpower",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
     "tm:thunderpunch",
-    "tm:wideguard"
+    "tutor:ancientpower",
+    "tutor:block",
+    "tutor:bulldoze",
+    "tutor:earthpower",
+    "tutor:firepunch",
+    "tutor:flamethrower",
+    "tutor:focuspunch",
+    "tutor:highhorsepower",
+    "tutor:irondefense",
+    "tutor:ironhead",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:rollout",
+    "tutor:sleeptalk",
+    "tutor:stealthrock",
+    "tutor:steelroller",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:suckerpunch",
+    "tutor:superpower",
+    "tutor:thunderpunch",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:counter",
+    "legacy:doubleteam",
+    "legacy:fissure",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:rage",
+    "legacy:return",
+    "legacy:round",
+    "legacy:sandattack",
+    "legacy:secretpower",
+    "legacy:seismictoss",
+    "legacy:snore",
+    "legacy:submission",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "geodude",
   "evolutions": [
@@ -214,7 +251,6 @@
         "alolan_form"
       ],
       "aspects": [
-        "alolan",
         "alolan"
       ],
       "abilities": [
@@ -222,38 +258,6 @@
         "sturdy",
         "h:galvanize"
       ],
-      "eggGroups": [
-        "mineral"
-      ],
-      "baseStats": {
-        "hp": 55,
-        "attack": 95,
-        "defence": 115,
-        "special_attack": 45,
-        "special_defence": 45,
-        "speed": 35
-      },
-      "evYield": {
-        "hp": 0,
-        "attack": 0,
-        "defence": 2,
-        "special_attack": 0,
-        "special_defence": 0,
-        "speed": 0
-      },
-      "baseExperienceYield": 137,
-      "experienceGroup": "medium_slow",
-      "catchRate": 120,
-      "eggCycles": 15,
-      "baseFriendship": 50,
-      "behaviour": {
-        "moving": {
-          "swim": {
-            "avoidsWater": true,
-            "canSwimInWater": false
-          }
-        }
-      },
       "drops": {
         "amount": 5,
         "entries": [
@@ -263,15 +267,15 @@
           },
           {
             "item": "cobblemon:cell_battery",
-            "percentage": 5
+            "percentage": 5.0
           },
           {
             "item": "cobblemon:magnet",
-            "percentage": 5
+            "percentage": 5.0
           },
           {
             "item": "cobblemon:shuca_berry",
-            "percentage": 5
+            "percentage": 5.0
           }
         ]
       },
@@ -302,7 +306,6 @@
         "egg:wideguard",
         "egg:zapcannon",
         "tm:allyswitch",
-        "tm:autotomize",
         "tm:block",
         "tm:bodyslam",
         "tm:brickbreak",
@@ -310,11 +313,8 @@
         "tm:bulldoze",
         "tm:charge",
         "tm:chargebeam",
-        "tm:counter",
         "tm:curse",
-        "tm:defensecurl",
         "tm:dig",
-        "tm:discharge",
         "tm:doubleedge",
         "tm:earthpower",
         "tm:earthquake",
@@ -325,7 +325,6 @@
         "tm:facade",
         "tm:fireblast",
         "tm:firepunch",
-        "tm:flail",
         "tm:flamethrower",
         "tm:fling",
         "tm:focusblast",
@@ -346,7 +345,6 @@
         "tm:rockblast",
         "tm:rockpolish",
         "tm:rockslide",
-        "tm:rockthrow",
         "tm:rocktomb",
         "tm:rollout",
         "tm:sandstorm",
@@ -356,7 +354,6 @@
         "tm:shockwave",
         "tm:sleeptalk",
         "tm:smackdown",
-        "tm:spark",
         "tm:stealthrock",
         "tm:steelroller",
         "tm:stompingtantrum",
@@ -365,7 +362,6 @@
         "tm:sunnyday",
         "tm:supercellslam",
         "tm:superpower",
-        "tm:tackle",
         "tm:takedown",
         "tm:terablast",
         "tm:thunder",
@@ -373,9 +369,48 @@
         "tm:thunderpunch",
         "tm:thunderwave",
         "tm:voltswitch",
-        "tm:wideguard",
         "tm:wildcharge",
-        "tm:zapcannon"
+        "tutor:allyswitch",
+        "tutor:block",
+        "tutor:bulldoze",
+        "tutor:chargebeam",
+        "tutor:earthpower",
+        "tutor:electroweb",
+        "tutor:firepunch",
+        "tutor:flamethrower",
+        "tutor:focuspunch",
+        "tutor:highhorsepower",
+        "tutor:irondefense",
+        "tutor:magnetrise",
+        "tutor:mudslap",
+        "tutor:rest",
+        "tutor:risingvoltage",
+        "tutor:rockslide",
+        "tutor:rollout",
+        "tutor:shockwave",
+        "tutor:sleeptalk",
+        "tutor:stealthrock",
+        "tutor:steelroller",
+        "tutor:stompingtantrum",
+        "tutor:stoneedge",
+        "tutor:superpower",
+        "tutor:thunderbolt",
+        "tutor:thunderpunch",
+        "tutor:wildcharge",
+        "legacy:attract",
+        "legacy:bide",
+        "legacy:confide",
+        "legacy:doubleteam",
+        "legacy:frustration",
+        "legacy:headbutt",
+        "legacy:hiddenpower",
+        "legacy:return",
+        "legacy:round",
+        "legacy:seismictoss",
+        "legacy:snore",
+        "legacy:swagger",
+        "legacy:thundershock",
+        "legacy:toxic"
       ],
       "preEvolution": "geodude alolan",
       "evolutions": [
@@ -388,7 +423,35 @@
           "requirements": []
         }
       ],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "herd": {
+          "maxSize": "3"
+        }
+      }
     }
-  ]
+  ],
+  "riding": {
+    "stats": {
+      "SPEED": {
+        "ranges": "5-15"
+      },
+      "ACCELERATION": {
+        "ranges": "5-100"
+      },
+      "SKILL": {
+        "ranges": "20-40"
+      },
+      "JUMP": {
+        "ranges": "5-15"
+      },
+      "STAMINA": {
+        "ranges": "15-30"
+      }
+    },
+    "seats": [],
+    "behaviour": {
+      "key": "cobblemon:land/horse"
+    }
+  }
 }

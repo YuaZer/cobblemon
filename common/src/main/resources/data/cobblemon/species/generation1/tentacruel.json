@@ -45,20 +45,37 @@
   "baseFriendship": 50,
   "baseScale": 0.9,
   "hitbox": {
-    "width": 1.2,
     "height": 2.45,
-    "fixed": false
+    "fixed": false,
+    "width": 1.2
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "jellicent",
+          "tier": 1
+        },
+        {
+          "pokemon": "tentacruel",
+          "tier": 2
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 3
+        }
+      ]
+    },
     "moving": {
+      "swim": {
+        "canBreatheUnderwater": true,
+        "canSwimInLava": false,
+        "canSwimInWater": true,
+        "swimSpeed": 0.2
+      },
       "walk": {
         "avoidsLand": true
-      },
-      "swim": {
-        "swimSpeed": 0.2,
-        "canBreatheUnderwater": true,
-        "canSwimInWater": true,
-        "canSwimInLava": false
       }
     },
     "resting": {
@@ -75,12 +92,12 @@
       },
       {
         "item": "minecraft:glow_ink_sac",
-        "quantityRange": "2-4",
-        "percentage": 10
+        "percentage": 10.0,
+        "quantityRange": "2-4"
       },
       {
         "item": "cobblemon:poison_barb",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -115,22 +132,13 @@
     "egg:rapidspin",
     "egg:tickle",
     "egg:wringout",
-    "tm:acid",
-    "tm:acidarmor",
     "tm:acidspray",
-    "tm:acupressure",
-    "tm:aquaring",
-    "tm:aurorabeam",
-    "tm:barrier",
     "tm:bind",
     "tm:blizzard",
     "tm:brine",
     "tm:brutalswing",
-    "tm:bubble",
-    "tm:bubblebeam",
     "tm:chillingwater",
     "tm:confuseray",
-    "tm:constrict",
     "tm:corrosivegas",
     "tm:crosspoison",
     "tm:cut",
@@ -153,17 +161,13 @@
     "tm:knockoff",
     "tm:liquidation",
     "tm:magiccoat",
-    "tm:mirrorcoat",
     "tm:muddywater",
     "tm:mudshot",
     "tm:payback",
     "tm:poisonjab",
-    "tm:poisonsting",
     "tm:pounce",
     "tm:protect",
     "tm:raindance",
-    "tm:rapidspin",
-    "tm:reflecttype",
     "tm:rest",
     "tm:safeguard",
     "tm:scaryface",
@@ -173,25 +177,70 @@
     "tm:sludgebomb",
     "tm:sludgewave",
     "tm:substitute",
-    "tm:supersonic",
     "tm:surf",
     "tm:swift",
     "tm:swordsdance",
     "tm:terablast",
     "tm:thief",
     "tm:throatchop",
-    "tm:tickle",
     "tm:toxic",
     "tm:toxicspikes",
     "tm:venomdrench",
     "tm:venoshock",
-    "tm:watergun",
     "tm:waterpulse",
     "tm:weatherball",
     "tm:whirlpool",
-    "tm:wrap",
-    "tm:wringout"
+    "tutor:bind",
+    "tutor:corrosivegas",
+    "tutor:dazzlinggleam",
+    "tutor:dive",
+    "tutor:flipturn",
+    "tutor:gigadrain",
+    "tutor:gigaimpact",
+    "tutor:gunkshot",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:knockoff",
+    "tutor:liquidation",
+    "tutor:magiccoat",
+    "tutor:poisonjab",
+    "tutor:rest",
+    "tutor:skittersmack",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:swift",
+    "tutor:throatchop",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:headbutt",
+    "legacy:hiddenpower",
+    "legacy:megadrain",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:rage",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:scald",
+    "legacy:secretpower",
+    "legacy:skullbash",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:takedown",
+    "legacy:waterfall"
   ],
   "preEvolution": "tentacool",
-  "evolutions": []
+  "evolutions": [],
+  "lightingData": {
+    "lightLevel": 6,
+    "liquidGlowMode": "BOTH"
+  }
 }

@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 529,
   "name": "Drilbur",
   "primaryType": "ground",
@@ -41,16 +42,31 @@
   "catchRate": 120,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.6,
   "hitbox": {
     "width": 1,
     "height": 1,
     "fixed": false
   },
-  "behaviour": {},
+  "behaviour": {
+    "resting": {
+      "canSleep": true,
+      "willSleepOnBed": true,
+      "light": "0-4"
+    },
+    "moving": {
+      "walk": {
+        "walkSpeed": 0.15
+      }
+    }
+  },
   "drops": {
-    "amount": 2,
+    "amount": 3,
     "entries": [
+      {
+        "item": "minecraft:dirt",
+        "quantityRange": "0-1"
+      },
       {
         "item": "cobblemon:soft_sand",
         "percentage": 2.5
@@ -84,7 +100,6 @@
     "tm:aerialace",
     "tm:brickbreak",
     "tm:bulldoze",
-    "tm:crushclaw",
     "tm:curse",
     "tm:cut",
     "tm:dig",
@@ -94,9 +109,7 @@
     "tm:earthquake",
     "tm:endure",
     "tm:facade",
-    "tm:fissure",
     "tm:fling",
-    "tm:furyswipes",
     "tm:helpinghand",
     "tm:highhorsepower",
     "tm:honeclaws",
@@ -105,10 +118,8 @@
     "tm:metalsound",
     "tm:mudshot",
     "tm:mudslap",
-    "tm:mudsport",
     "tm:poisonjab",
     "tm:protect",
-    "tm:rapidspin",
     "tm:rest",
     "tm:rockclimb",
     "tm:rockslide",
@@ -117,21 +128,47 @@
     "tm:sandstorm",
     "tm:sandtomb",
     "tm:scorchingsands",
-    "tm:scratch",
     "tm:shadowclaw",
-    "tm:skullbash",
-    "tm:slash",
     "tm:sleeptalk",
     "tm:stealthrock",
     "tm:stompingtantrum",
     "tm:strength",
-    "tm:submission",
     "tm:substitute",
     "tm:sunnyday",
     "tm:swordsdance",
     "tm:takedown",
     "tm:terablast",
-    "tm:xscissor"
+    "tm:xscissor",
+    "tutor:aerialace",
+    "tutor:bulldoze",
+    "tutor:drillrun",
+    "tutor:earthpower",
+    "tutor:helpinghand",
+    "tutor:highhorsepower",
+    "tutor:irondefense",
+    "tutor:mudslap",
+    "tutor:poisonjab",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:scorchingsands",
+    "tutor:shadowclaw",
+    "tutor:sleeptalk",
+    "tutor:stealthrock",
+    "tutor:stompingtantrum",
+    "tutor:xscissor",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:sludgebomb",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

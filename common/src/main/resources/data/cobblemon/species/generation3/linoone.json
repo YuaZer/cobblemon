@@ -61,6 +61,23 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "furret",
+          "tier": 1
+        },
+        {
+          "pokemon": "linoone",
+          "tier": 2
+        },
+        {
+          "pokemon": "obstagoon",
+          "tier": 3
+        }
+      ]
     }
   },
   "drops": {
@@ -68,7 +85,7 @@
     "entries": [
       {
         "item": "cobblemon:oran_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -102,8 +119,6 @@
     "egg:simplebeam",
     "egg:tickle",
     "tm:babydolleyes",
-    "tm:bellydrum",
-    "tm:bestow",
     "tm:blizzard",
     "tm:bodyslam",
     "tm:chargebeam",
@@ -114,15 +129,11 @@
     "tm:doubleedge",
     "tm:echoedvoice",
     "tm:endure",
-    "tm:extremespeed",
     "tm:facade",
-    "tm:flail",
     "tm:fling",
     "tm:furycutter",
-    "tm:furyswipes",
     "tm:gigaimpact",
     "tm:grassknot",
-    "tm:growl",
     "tm:gunkshot",
     "tm:headbutt",
     "tm:helpinghand",
@@ -135,26 +146,19 @@
     "tm:lastresort",
     "tm:mudshot",
     "tm:mudslap",
-    "tm:mudsport",
-    "tm:odorsleuth",
     "tm:pinmissile",
     "tm:playrough",
     "tm:protect",
-    "tm:pursuit",
     "tm:raindance",
     "tm:rest",
     "tm:retaliate",
     "tm:roar",
     "tm:rocksmash",
     "tm:rollout",
-    "tm:rototiller",
-    "tm:sandattack",
     "tm:seedbomb",
     "tm:shadowball",
     "tm:shadowclaw",
     "tm:shockwave",
-    "tm:simplebeam",
-    "tm:slash",
     "tm:sleeptalk",
     "tm:stompingtantrum",
     "tm:strength",
@@ -163,10 +167,7 @@
     "tm:superfang",
     "tm:surf",
     "tm:swift",
-    "tm:switcheroo",
-    "tm:tackle",
     "tm:tailslap",
-    "tm:tailwhip",
     "tm:takedown",
     "tm:terablast",
     "tm:thief",
@@ -174,11 +175,56 @@
     "tm:thunder",
     "tm:thunderbolt",
     "tm:thunderwave",
-    "tm:tickle",
     "tm:trick",
     "tm:waterpulse",
     "tm:whirlpool",
-    "tm:workup"
+    "tm:workup",
+    "tutor:babydolleyes",
+    "tutor:chargebeam",
+    "tutor:covet",
+    "tutor:furycutter",
+    "tutor:gigaimpact",
+    "tutor:gunkshot",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:hypervoice",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:irontail",
+    "tutor:lastresort",
+    "tutor:mudslap",
+    "tutor:playrough",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:rollout",
+    "tutor:seedbomb",
+    "tutor:shadowball",
+    "tutor:shadowclaw",
+    "tutor:shockwave",
+    "tutor:sleeptalk",
+    "tutor:stompingtantrum",
+    "tutor:superfang",
+    "tutor:swift",
+    "tutor:throatchop",
+    "tutor:thunderbolt",
+    "tutor:trick",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:defensecurl",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:rockclimb",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "zigzagoon",
   "evolutions": [],
@@ -198,45 +244,14 @@
         "galarian_form"
       ],
       "aspects": [
-        "galarian",
         "galarian"
       ],
-      "abilities": [
-        "pickup",
-        "gluttony",
-        "h:quickfeet"
-      ],
-      "eggGroups": [
-        "field"
-      ],
-      "baseStats": {
-        "hp": 78,
-        "attack": 70,
-        "defence": 61,
-        "special_attack": 50,
-        "special_defence": 61,
-        "speed": 100
-      },
-      "evYield": {
-        "hp": 0,
-        "attack": 0,
-        "defence": 0,
-        "special_attack": 0,
-        "special_defence": 0,
-        "speed": 2
-      },
-      "baseExperienceYield": 147,
-      "experienceGroup": "medium_fast",
-      "catchRate": 90,
-      "eggCycles": 15,
-      "baseFriendship": 50,
-      "behaviour": {},
       "drops": {
         "amount": 1,
         "entries": [
           {
             "item": "cobblemon:chople_berry",
-            "percentage": 5
+            "percentage": 5.0
           }
         ]
       },
@@ -267,14 +282,12 @@
         "tm:blizzard",
         "tm:bodypress",
         "tm:bodyslam",
-        "tm:counter",
         "tm:dig",
         "tm:doubleedge",
         "tm:endure",
         "tm:facade",
         "tm:faketears",
         "tm:fling",
-        "tm:furyswipes",
         "tm:gigaimpact",
         "tm:grassknot",
         "tm:gunkshot",
@@ -288,19 +301,13 @@
         "tm:irontail",
         "tm:knockoff",
         "tm:lashout",
-        "tm:leer",
-        "tm:lick",
         "tm:mudshot",
-        "tm:nightslash",
-        "tm:partingshot",
         "tm:payback",
         "tm:pinmissile",
         "tm:protect",
-        "tm:quickguard",
         "tm:raindance",
         "tm:rest",
         "tm:retaliate",
-        "tm:sandattack",
         "tm:scaryface",
         "tm:screech",
         "tm:seedbomb",
@@ -313,8 +320,6 @@
         "tm:sunnyday",
         "tm:surf",
         "tm:swift",
-        "tm:switcheroo",
-        "tm:tackle",
         "tm:takedown",
         "tm:taunt",
         "tm:terablast",
@@ -325,7 +330,32 @@
         "tm:thunderwave",
         "tm:trick",
         "tm:whirlpool",
-        "tm:workup"
+        "tm:workup",
+        "tutor:babydolleyes",
+        "tutor:gigaimpact",
+        "tutor:gunkshot",
+        "tutor:helpinghand",
+        "tutor:hyperbeam",
+        "tutor:hypervoice",
+        "tutor:icebeam",
+        "tutor:icywind",
+        "tutor:irontail",
+        "tutor:knockoff",
+        "tutor:lashout",
+        "tutor:rest",
+        "tutor:seedbomb",
+        "tutor:shadowball",
+        "tutor:shadowclaw",
+        "tutor:sleeptalk",
+        "tutor:snarl",
+        "tutor:stompingtantrum",
+        "tutor:swift",
+        "tutor:throatchop",
+        "tutor:thunderbolt",
+        "tutor:trick",
+        "legacy:attract",
+        "legacy:round",
+        "legacy:snore"
       ],
       "preEvolution": "zigzagoon galarian",
       "evolutions": [
@@ -349,7 +379,22 @@
           ]
         }
       ],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "herd": {
+          "maxSize": "5",
+          "toleratedLeaders": [
+            {
+              "pokemon": "linoone",
+              "tier": 1
+            },
+            {
+              "pokemon": "obstagoon",
+              "tier": 2
+            }
+          ]
+        }
+      }
     }
   ]
 }

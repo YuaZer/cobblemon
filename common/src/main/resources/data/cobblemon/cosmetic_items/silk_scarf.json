@@ -1,0 +1,9 @@
+{
+  "pokemon": ["braixien", "delphox"],
+  "cosmeticItems": [
+    {
+      "consumedItem": "cobblemon:silk_scarf",
+      "aspects": ["cosmetic_item-silk_scarf"]
+    }
+  ]
+}

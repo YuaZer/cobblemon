@@ -52,6 +52,18 @@
       "swim": {
         "canBreatheUnderwater": true
       }
+    },
+    "herd": {
+      "maxSize": "6",
+      "toleratedLeaders": [
+        {
+          "pokemon": "snom",
+          "tier": 1
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -80,27 +92,33 @@
     "tm:bugbite",
     "tm:bugbuzz",
     "tm:facade",
-    "tm:fairywind",
     "tm:iciclespear",
     "tm:icywind",
     "tm:lunge",
-    "tm:mirrorcoat",
     "tm:pounce",
-    "tm:powdersnow",
     "tm:protect",
     "tm:rest",
     "tm:skittersmack",
     "tm:sleeptalk",
     "tm:strugglebug",
     "tm:substitute",
-    "tm:terablast"
+    "tm:terablast",
+    "tutor:bugbite",
+    "tutor:icywind",
+    "tutor:rest",
+    "tutor:skittersmack",
+    "tutor:sleeptalk",
+    "legacy:attract",
+    "legacy:endure",
+    "legacy:round",
+    "legacy:snore"
   ],
   "evolutions": [
     {
       "id": "snom_frosmoth",
       "variant": "level_up",
       "result": "frosmoth",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [
         "icywind"
       ],

@@ -44,13 +44,12 @@
   "eggCycles": 10,
   "baseFriendship": 140,
   "shoulderMountable": true,
-  "baseScale": 0.7,
+  "baseScale": 0.55,
   "hitbox": {
-    "width": 0.6,
-    "height": 0.6,
+    "width": 0.8,
+    "height": 0.8,
     "fixed": false
   },
-  "behaviour": {},
   "drops": {
     "amount": 3,
     "entries": [
@@ -87,14 +86,11 @@
     "tm:afteryou",
     "tm:alluringvoice",
     "tm:amnesia",
-    "tm:aromatherapy",
     "tm:babydolleyes",
-    "tm:bellydrum",
     "tm:bodyslam",
     "tm:calmmind",
     "tm:charm",
     "tm:chillingwater",
-    "tm:copycat",
     "tm:covet",
     "tm:dazzlinggleam",
     "tm:dig",
@@ -114,7 +110,6 @@
     "tm:grassknot",
     "tm:gravity",
     "tm:headbutt",
-    "tm:healpulse",
     "tm:helpinghand",
     "tm:hypervoice",
     "tm:icywind",
@@ -127,11 +122,8 @@
     "tm:megakick",
     "tm:megapunch",
     "tm:metronome",
-    "tm:mimic",
     "tm:mistyterrain",
     "tm:playrough",
-    "tm:pound",
-    "tm:present",
     "tm:protect",
     "tm:psybeam",
     "tm:psychic",
@@ -146,26 +138,77 @@
     "tm:shadowball",
     "tm:shockwave",
     "tm:signalbeam",
-    "tm:sing",
     "tm:sleeptalk",
     "tm:solarbeam",
-    "tm:splash",
     "tm:storedpower",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:sweetkiss",
     "tm:swift",
     "tm:telekinesis",
     "tm:terablast",
     "tm:thunderwave",
-    "tm:tickle",
     "tm:trick",
     "tm:uproar",
     "tm:waterpulse",
-    "tm:wish",
     "tm:wonderroom",
     "tm:workup",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:afteryou",
+    "tutor:babydolleyes",
+    "tutor:calmmind",
+    "tutor:covet",
+    "tutor:dazzlinggleam",
+    "tutor:endeavor",
+    "tutor:flamethrower",
+    "tutor:gravity",
+    "tutor:helpinghand",
+    "tutor:hypervoice",
+    "tutor:icywind",
+    "tutor:irontail",
+    "tutor:lastresort",
+    "tutor:magicalleaf",
+    "tutor:magiccoat",
+    "tutor:playrough",
+    "tutor:psychic",
+    "tutor:recycle",
+    "tutor:rest",
+    "tutor:roleplay",
+    "tutor:rollout",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:telekinesis",
+    "tutor:trick",
+    "tutor:uproar",
+    "tutor:waterpulse",
+    "tutor:wonderroom",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:counter",
+    "legacy:curse",
+    "legacy:defensecurl",
+    "legacy:detect",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:nightmare",
+    "legacy:psychup",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:seismictoss",
+    "legacy:snore",
+    "legacy:softboiled",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:zapcannon"
   ],
   "evolutions": [
     {
@@ -181,5 +224,27 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "cleffa",
+          "tier": 1
+        },
+        {
+          "pokemon": "clefairy",
+          "tier": 2
+        },
+        {
+          "pokemon": "clefable",
+          "tier": 3
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

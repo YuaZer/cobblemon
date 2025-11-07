@@ -60,8 +60,43 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "mareep",
+          "tier": 1
+        },
+        {
+          "pokemon": "wooloo",
+          "tier": 1
+        },
+        {
+          "pokemon": "flaaffy",
+          "tier": 2
+        },
+        {
+          "pokemon": "dubwool",
+          "tier": 3
+        },
+        {
+          "pokemon": "ampharos mega=false",
+          "tier": 4
+        },
+        {
+          "pokemon": "ampharos mega",
+          "tier": 5
+        }
+      ]
     }
   },
+  "ai": [
+    {
+      "type": "apply_behaviours",
+      "preset": "cobblemon:eats_grass"
+    }
+  ],
   "drops": {
     "amount": 5,
     "entries": [
@@ -109,11 +144,8 @@
     "tm:charge",
     "tm:chargebeam",
     "tm:confuseray",
-    "tm:cottonguard",
-    "tm:cottonspore",
     "tm:dazzlinggleam",
     "tm:dig",
-    "tm:discharge",
     "tm:doubleedge",
     "tm:echoedvoice",
     "tm:eerieimpulse",
@@ -124,15 +156,12 @@
     "tm:endure",
     "tm:facade",
     "tm:flash",
-    "tm:flatter",
-    "tm:growl",
     "tm:headbutt",
     "tm:healbell",
     "tm:helpinghand",
     "tm:irontail",
     "tm:lightscreen",
     "tm:magnetrise",
-    "tm:odorsleuth",
     "tm:powergem",
     "tm:protect",
     "tm:raindance",
@@ -140,23 +169,55 @@
     "tm:rest",
     "tm:risingvoltage",
     "tm:safeguard",
-    "tm:sandattack",
     "tm:screech",
     "tm:shockwave",
     "tm:signalbeam",
     "tm:sleeptalk",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
     "tm:thunder",
     "tm:thunderbolt",
-    "tm:thundershock",
     "tm:thunderwave",
     "tm:trailblaze",
     "tm:voltswitch",
-    "tm:wildcharge"
+    "tm:wildcharge",
+    "tutor:afteryou",
+    "tutor:chargebeam",
+    "tutor:dazzlinggleam",
+    "tutor:electroweb",
+    "tutor:endeavor",
+    "tutor:healbell",
+    "tutor:helpinghand",
+    "tutor:irontail",
+    "tutor:magnetrise",
+    "tutor:rest",
+    "tutor:risingvoltage",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:thunderbolt",
+    "tutor:wildcharge",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:defensecurl",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:swift",
+    "legacy:toxic",
+    "legacy:zapcannon",
+    "special:holdback"
   ],
   "evolutions": [
     {
@@ -172,5 +233,9 @@
         }
       ]
     }
-  ]
+  ],
+  "lightingData": {
+    "lightLevel": 3,
+    "liquidGlowMode": "BOTH"
+  }
 }

@@ -48,10 +48,13 @@
     "height": 0.9,
     "fixed": false
   },
-  "behaviour": {},
   "drops": {
-    "amount": 2,
+    "amount": 3,
     "entries": [
+      {
+        "item": "minecraft:sand",
+        "quantityRange": "0-1"
+      },
       {
         "item": "cobblemon:soft_sand",
         "percentage": 2.5
@@ -83,18 +86,15 @@
     "egg:spitup",
     "egg:stockpile",
     "egg:swallow",
-    "tm:absorb",
     "tm:afteryou",
     "tm:amnesia",
     "tm:ancientpower",
-    "tm:astonish",
     "tm:block",
     "tm:brine",
     "tm:bulldoze",
     "tm:chillingwater",
     "tm:confuseray",
     "tm:curse",
-    "tm:destinybond",
     "tm:earthpower",
     "tm:earthquake",
     "tm:endure",
@@ -104,13 +104,10 @@
     "tm:fling",
     "tm:gigadrain",
     "tm:gravity",
-    "tm:harden",
     "tm:hex",
-    "tm:hypnosis",
     "tm:imprison",
     "tm:infestation",
     "tm:irondefense",
-    "tm:megadrain",
     "tm:mudshot",
     "tm:mudslap",
     "tm:nightshade",
@@ -125,26 +122,58 @@
     "tm:rockslide",
     "tm:rocktomb",
     "tm:roleplay",
-    "tm:sandattack",
     "tm:sandstorm",
     "tm:sandtomb",
     "tm:scaryface",
     "tm:scorchingsands",
     "tm:shadowball",
-    "tm:shoreup",
     "tm:skillswap",
     "tm:sleeptalk",
     "tm:sludgebomb",
     "tm:spite",
-    "tm:spitup",
     "tm:stealthrock",
-    "tm:stockpile",
     "tm:stoneedge",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:swallow",
     "tm:terablast",
-    "tm:trick"
+    "tm:trick",
+    "tutor:afteryou",
+    "tutor:ancientpower",
+    "tutor:block",
+    "tutor:bulldoze",
+    "tutor:earthpower",
+    "tutor:energyball",
+    "tutor:flashcannon",
+    "tutor:gigadrain",
+    "tutor:gravity",
+    "tutor:irondefense",
+    "tutor:mudslap",
+    "tutor:painsplit",
+    "tutor:poltergeist",
+    "tutor:psychic",
+    "tutor:recycle",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:roleplay",
+    "tutor:scorchingsands",
+    "tutor:shadowball",
+    "tutor:skillswap",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:spite",
+    "tutor:stealthrock",
+    "tutor:stoneedge",
+    "tutor:trick",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {
@@ -160,5 +189,16 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "palossand",
+          "tier": 1
+        }
+      ]
+    }
+  }
 }

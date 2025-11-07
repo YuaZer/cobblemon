@@ -52,6 +52,23 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "moving": {
+      "walk": {
+        "canWalk": false
+      },
+      "fly": {
+        "canFly": true
+      }
+    },
+    "herd": {
+      "maxSize": "3",
+      "toleratedLeaders": [
+        {
+          "pokemon": "beheeyem",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -63,11 +80,11 @@
       },
       {
         "item": "cobblemon:light_clay",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:colbur_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -100,15 +117,10 @@
     "tm:afteryou",
     "tm:agility",
     "tm:allyswitch",
-    "tm:astonish",
-    "tm:barrier",
     "tm:calmmind",
     "tm:chargebeam",
-    "tm:confusion",
     "tm:cosmicpower",
     "tm:darkpulse",
-    "tm:destinybond",
-    "tm:disable",
     "tm:dreameater",
     "tm:echoedvoice",
     "tm:embargo",
@@ -121,20 +133,15 @@
     "tm:futuresight",
     "tm:gigaimpact",
     "tm:gravity",
-    "tm:growl",
-    "tm:guardsplit",
     "tm:guardswap",
     "tm:headbutt",
-    "tm:healblock",
     "tm:hyperbeam",
     "tm:imprison",
     "tm:lightscreen",
     "tm:magiccoat",
     "tm:meteorbeam",
-    "tm:miracleeye",
     "tm:nastyplot",
     "tm:painsplit",
-    "tm:powersplit",
     "tm:powerswap",
     "tm:protect",
     "tm:psybeam",
@@ -143,7 +150,6 @@
     "tm:psychup",
     "tm:psyshock",
     "tm:raindance",
-    "tm:recover",
     "tm:recycle",
     "tm:reflect",
     "tm:rest",
@@ -155,16 +161,13 @@
     "tm:shadowball",
     "tm:shockwave",
     "tm:signalbeam",
-    "tm:simplebeam",
     "tm:skillswap",
     "tm:sleeptalk",
     "tm:snatch",
     "tm:steelwing",
     "tm:storedpower",
     "tm:substitute",
-    "tm:synchronoise",
     "tm:telekinesis",
-    "tm:teleport",
     "tm:terablast",
     "tm:thief",
     "tm:thunderbolt",
@@ -174,7 +177,49 @@
     "tm:trickroom",
     "tm:uproar",
     "tm:wonderroom",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:afteryou",
+    "tutor:allyswitch",
+    "tutor:calmmind",
+    "tutor:chargebeam",
+    "tutor:darkpulse",
+    "tutor:energyball",
+    "tutor:expandingforce",
+    "tutor:flashcannon",
+    "tutor:gigaimpact",
+    "tutor:gravity",
+    "tutor:hyperbeam",
+    "tutor:magiccoat",
+    "tutor:meteorbeam",
+    "tutor:painsplit",
+    "tutor:psychic",
+    "tutor:recycle",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:roleplay",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:skillswap",
+    "tutor:sleeptalk",
+    "tutor:snatch",
+    "tutor:telekinesis",
+    "tutor:thunderbolt",
+    "tutor:trick",
+    "tutor:uproar",
+    "tutor:wonderroom",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "elgyem",
   "evolutions": []

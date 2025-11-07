@@ -8,7 +8,7 @@
 
 package com.cobblemon.mod.common.api.storage
 
-import com.cobblemon.mod.common.api.reactive.Observable.Companion.stopAfter
+import com.cobblemon.mod.common.Cobblemon.LOGGER
 import com.cobblemon.mod.common.api.reactive.SimpleObservable
 import com.cobblemon.mod.common.pokemon.Pokemon
 import com.cobblemon.mod.common.util.DataKeys
@@ -45,9 +45,6 @@ open class BottomlessStore(override val uuid: UUID) : PokemonStore<BottomlessPos
     override fun initialize() {
         pokemon.forEachIndexed { index, pokemon ->
             pokemon.storeCoordinates.set(StoreCoordinates(this, BottomlessPosition(index)))
-            pokemon.getChangeObservable().pipe(
-                stopAfter { it.storeCoordinates.get()?.store != this }
-            ).subscribe { storeChangeObservable.emit(Unit) }
         }
     }
 
@@ -64,6 +61,8 @@ open class BottomlessStore(override val uuid: UUID) : PokemonStore<BottomlessPos
                 pokemon.add(Pokemon.loadFromNBT(registryAccess, pokemonNBT))
             } catch(_: InvalidSpeciesException) {
                 handleInvalidSpeciesNBT(pokemonNBT)
+            } catch (e: Exception) {
+                LOGGER.error("Failed to read a pokémon: $pokemonNBT", e)
             }
         }
         return this
@@ -82,6 +81,8 @@ open class BottomlessStore(override val uuid: UUID) : PokemonStore<BottomlessPos
                 pokemon.add(Pokemon.loadFromJSON(registryAccess, pokemonJSON))
             } catch (_: InvalidSpeciesException) {
                 handleInvalidSpeciesJSON(pokemonJSON)
+            } catch (e: Exception) {
+                LOGGER.error("Failed to read a pokémon: $pokemonJSON", e)
             }
         }
         return this
@@ -110,10 +111,14 @@ open class BottomlessStore(override val uuid: UUID) : PokemonStore<BottomlessPos
             } else {
                 this.pokemon.removeAt(position.currentIndex)
             }
-            for(i in startIndex until this.pokemon.size) {
+            for (i in startIndex until this.pokemon.size) {
                 this.pokemon[i].storeCoordinates.set(StoreCoordinates(this, BottomlessPosition(i)))
             }
             storeChangeObservable.emit(Unit)
         }
+    }
+
+    override fun onPokemonChanged(pokemon: Pokemon) {
+        this.storeChangeObservable.emit(Unit)
     }
 }

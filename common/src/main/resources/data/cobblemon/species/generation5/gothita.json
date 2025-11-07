@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 574,
   "name": "Gothita",
   "primaryType": "psychic",
@@ -41,13 +42,12 @@
   "catchRate": 200,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.75,
   "hitbox": {
-    "width": 1,
-    "height": 1,
+    "width": 0.5,
+    "height": 0.75,
     "fixed": false
   },
-  "behaviour": {},
   "drops": {
     "amount": 3,
     "entries": [
@@ -93,21 +93,16 @@
     "tm:calmmind",
     "tm:captivate",
     "tm:charm",
-    "tm:confusion",
     "tm:covet",
     "tm:darkpulse",
-    "tm:doubleslap",
     "tm:dreameater",
     "tm:embargo",
     "tm:endure",
     "tm:energyball",
     "tm:expandingforce",
     "tm:facade",
-    "tm:fakeout",
     "tm:faketears",
-    "tm:feintattack",
     "tm:flash",
-    "tm:flatter",
     "tm:fling",
     "tm:foulplay",
     "tm:futuresight",
@@ -115,21 +110,13 @@
     "tm:gravity",
     "tm:guardswap",
     "tm:healbell",
-    "tm:healblock",
-    "tm:healpulse",
     "tm:helpinghand",
-    "tm:hypnosis",
     "tm:imprison",
     "tm:lightscreen",
     "tm:magiccoat",
     "tm:magicroom",
-    "tm:meanlook",
-    "tm:miracleeye",
-    "tm:mirrorcoat",
     "tm:nastyplot",
     "tm:payback",
-    "tm:playnice",
-    "tm:pound",
     "tm:protect",
     "tm:psybeam",
     "tm:psychic",
@@ -160,11 +147,51 @@
     "tm:thief",
     "tm:thunderbolt",
     "tm:thunderwave",
-    "tm:tickle",
     "tm:torment",
     "tm:trick",
     "tm:trickroom",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:allyswitch",
+    "tutor:calmmind",
+    "tutor:covet",
+    "tutor:darkpulse",
+    "tutor:energyball",
+    "tutor:expandingforce",
+    "tutor:foulplay",
+    "tutor:gravity",
+    "tutor:healbell",
+    "tutor:helpinghand",
+    "tutor:magiccoat",
+    "tutor:magicroom",
+    "tutor:psychic",
+    "tutor:recycle",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:roleplay",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:skillswap",
+    "tutor:sleeptalk",
+    "tutor:snatch",
+    "tutor:swift",
+    "tutor:telekinesis",
+    "tutor:thunderbolt",
+    "tutor:trick",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:chargebeam",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:uproar"
   ],
   "evolutions": [
     {
@@ -180,5 +207,27 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "gothita",
+          "tier": 1
+        },
+        {
+          "pokemon": "gothorita",
+          "tier": 2
+        },
+        {
+          "pokemon": "gothitelle",
+          "tier": 3
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

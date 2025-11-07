@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.client.render.models.blockbench
 
+import com.cobblemon.mod.common.Cobblemon.LOGGER
 import com.cobblemon.mod.common.client.util.adapters.LocatorBoneAdapter
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
@@ -27,8 +28,8 @@ class TexturedModel {
     @SerializedName("minecraft:geometry")
     val geometry: List<ModelGeometry>? = null
 
-    fun create(isForLivingEntityRenderer: Boolean) : LayerDefinition {
-        return createWithUvOverride(isForLivingEntityRenderer, 0, 0, null, null)
+    fun create() : LayerDefinition {
+        return createWithUvOverride(0, 0, null, null)
     }
 
     fun resolveParentsFromRoot(boneMap: MutableMap<String, ModelBone>, bone: ModelBone): Set<ModelBone> {
@@ -147,7 +148,7 @@ class TexturedModel {
 //        return modelBuilder.build()
 //    }
 
-    fun createWithUvOverride(isForLivingEntityRenderer: Boolean, u: Int, v: Int, textureWidth: Int?, textureHeight: Int?) : LayerDefinition {
+    fun createWithUvOverride(u: Int, v: Int, textureWidth: Int?, textureHeight: Int?) : LayerDefinition {
         val modelData = MeshDefinition()
         val parts = HashMap<String, PartDefinition>()
         val bones = HashMap<String, ModelBone>()
@@ -184,8 +185,7 @@ class TexturedModel {
                 val modelTransform : PartPose
                 when {
                     bone.parent == null -> {
-                        // The root part always has a 24 Y offset. One of life's great mysteries.
-                        modelTransform = PartPose.offset(0F, if (isForLivingEntityRenderer) 24F else 0F, 0F)
+                        modelTransform = PartPose.offset(0F, 0F, 0F)
                     }
                     boneRotation != null -> {
                         modelTransform = PartPose.offsetAndRotation(
@@ -267,7 +267,7 @@ class TexturedModel {
                 var counter = 0
                 subParts.forEachIndexed { index, part ->
                     parts[bone.name]!!.addOrReplaceChild(
-                        bone.name + counter++.toString(),
+                        "%" + bone.name + "%" + counter++.toString(),
                         part,
                         modelTransforms[index]
                     )
@@ -294,11 +294,12 @@ class TexturedModel {
             .registerTypeAdapter(LocatorBone::class.java, LocatorBoneAdapter)
             .create()
 
-        fun from(json: String) : TexturedModel {
-            try {
-                return GSON.fromJson(json, TexturedModel::class.java)
+        fun from(json: String) : TexturedModel? {
+            return try {
+                GSON.fromJson(json, TexturedModel::class.java)
             } catch (exception: Exception) {
-                throw IllegalStateException("Issue loading pokemon geo: $json", exception)
+                LOGGER.warn(exception)
+                null
             }
         }
     }

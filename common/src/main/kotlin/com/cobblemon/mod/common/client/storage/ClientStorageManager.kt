@@ -12,6 +12,7 @@ import com.cobblemon.mod.common.Cobblemon.LOGGER
 import com.cobblemon.mod.common.api.storage.party.PartyPosition
 import com.cobblemon.mod.common.api.storage.pc.PCPosition
 import com.cobblemon.mod.common.pokemon.Pokemon
+import net.minecraft.resources.ResourceLocation
 import java.util.UUID
 
 /**
@@ -22,7 +23,7 @@ import java.util.UUID
  * @since November 28th, 2021
  */
 class ClientStorageManager {
-    var myParty = ClientParty(UUID.randomUUID(), 1)
+    var party = ClientParty(UUID.randomUUID(), 1)
     val partyStores = mutableMapOf<UUID, ClientParty>()
     val pcStores = mutableMapOf<UUID, ClientPC>()
 
@@ -30,7 +31,7 @@ class ClientStorageManager {
     private var selectedPokemon: UUID? = null
 
     fun shiftSelected(forward: Boolean) {
-        val partyHasSome = myParty.slots.any { it != null }
+        val partyHasSome = party.slots.any { it != null }
         if (!partyHasSome) {
             selectedSlot = 0
             selectedPokemon = null
@@ -38,46 +39,46 @@ class ClientStorageManager {
         }
 
         selectedSlot += if (forward) 1 else -1
-        if (selectedSlot >= myParty.slots.size) {
+        if (selectedSlot >= party.slots.size) {
             selectedSlot = -1
             shiftSelected(forward)
         } else if (selectedSlot < 0) {
-            selectedSlot = myParty.slots.size
+            selectedSlot = party.slots.size
             shiftSelected(forward)
-        } else if (myParty.get(selectedSlot) == null) {
+        } else if (party.get(selectedSlot) == null) {
             shiftSelected(forward)
         } else {
-            selectedPokemon = myParty.get(selectedSlot)?.uuid
+            selectedPokemon = party.get(selectedSlot)?.uuid
         }
     }
 
     fun switchToPokemon(pokemon: UUID) {
         selectedPokemon = pokemon
-        selectedSlot = myParty.indexOf(myParty.findByUUID(pokemon))
+        selectedSlot = party.indexOf(party.findByUUID(pokemon))
         // Check selected Pokémon in-case it's been set to -1 (Pokémon was not in the party for some reason)
         checkSelectedPokemon()
     }
 
     fun checkSelectedPokemon() {
         if (selectedSlot == -1) {
-            val pokemon = myParty.firstOrNull { it != null } ?: return
-            selectedSlot = myParty.slots.indexOf(pokemon)
+            val pokemon = party.firstOrNull { it != null } ?: return
+            selectedSlot = party.slots.indexOf(pokemon)
             selectedPokemon = pokemon.uuid
         } else if (selectedPokemon == null) {
-            selectedPokemon = myParty.get(PartyPosition(selectedSlot))?.uuid ?: run {
+            selectedPokemon = party.get(PartyPosition(selectedSlot))?.uuid ?: run {
                 selectedSlot = -1
                 checkSelectedPokemon()
                 null
             }
-        } else if (myParty.getPosition(selectedPokemon!!) != selectedSlot) {
-            val foundSlot = myParty.getPosition(selectedPokemon!!)
+        } else if (party.getPosition(selectedPokemon!!) != selectedSlot) {
+            val foundSlot = party.getPosition(selectedPokemon!!)
             if (foundSlot != -1) {
                 selectedSlot = foundSlot
             } else {
                 selectedPokemon = null
                 checkSelectedPokemon()
             }
-        } else if (selectedSlot >= myParty.slots.size) {
+        } else if (selectedSlot >= party.slots.size) {
             selectedSlot = -1
             checkSelectedPokemon()
         }
@@ -91,7 +92,7 @@ class ClientStorageManager {
         val party = ClientParty(uuid, slots)
         partyStores[uuid] = party
         if (mine) {
-            myParty = party
+            this@ClientStorageManager.party = party
             checkSelectedPokemon()
         }
     }
@@ -110,7 +111,7 @@ class ClientStorageManager {
     }
 
     fun setPartyStore(storeID: UUID) {
-        myParty = partyStores[storeID] ?: throw IllegalArgumentException("Was told to set party store to $storeID but no such store is known!")
+        party = partyStores[storeID] ?: throw IllegalArgumentException("Was told to set party store to $storeID but no such store is known!")
         checkSelectedPokemon()
     }
 
@@ -142,8 +143,16 @@ class ClientStorageManager {
         pcStores[storeID]?.remove(pokemonID)
     }
 
+    fun renameBox(storeID: UUID, boxNumber: Int, name: String?) {
+        pcStores[storeID]?.renameBox(boxNumber, name)
+    }
+
+    fun changeBoxWallpaper(storeID: UUID, boxNumber: Int, wallpaper: ResourceLocation) {
+        pcStores[storeID]?.changeBoxWallpaper(boxNumber, wallpaper)
+    }
+
     fun onLogin() {
-        myParty = ClientParty(UUID.randomUUID(), 1)
+        party = ClientParty(UUID.randomUUID(), 1)
         checkSelectedPokemon()
     }
 

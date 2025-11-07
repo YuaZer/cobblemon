@@ -52,12 +52,16 @@
   "behaviour": {
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
     },
     "moving": {
       "walk": {
         "walkSpeed": 0.26
       }
+    },
+    "herd": {
+      "maxSize": "9"
     }
   },
   "drops": {
@@ -79,10 +83,13 @@
     "9:bugbite",
     "tm:bugbite",
     "tm:electroweb",
-    "tm:poisonsting",
     "tm:skittersmack",
     "tm:stringshot",
-    "tm:terablast"
+    "tm:terablast",
+    "tutor:bugbite",
+    "tutor:electroweb",
+    "tutor:skittersmack",
+    "tutor:stringshot"
   ],
   "evolutions": [
     {

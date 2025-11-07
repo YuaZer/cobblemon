@@ -45,21 +45,383 @@
   "baseFriendship": 35,
   "baseScale": 1.3,
   "hitbox": {
-    "width": 1.8,
     "height": 1.6,
-    "fixed": false
+    "fixed": false,
+    "width": 1.8
+  },
+  "riding": {
+    "behaviours": {
+      "AIR": {
+        "key": "cobblemon:air/hover",
+        "rideSounds": [
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "soundLocation": "cobblemon:ride.loop.wind",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          },
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.pow(math.min(math.max(0.5,(q.ride_velocity()*0.5 / 1.5) + 0.5), 1.0),2)",
+            "playForNonPassengers": true,
+            "soundLocation": "cobblemon:ride.loop.saucer",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          }
+        ],
+        "stats": {
+          "ACCELERATION": "50-65",
+          "JUMP": "12-25",
+          "SKILL": "30-45",
+          "SPEED": "35-60",
+          "STAMINA": "10-25"
+        }
+      },
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "50-70",
+          "JUMP": "20-30",
+          "SKILL": "35-50",
+          "SPEED": "10-30",
+          "STAMINA": "55-70"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": -7.805396E-4,
+              "y": -1.2943133,
+              "z": -0.40744212
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.03168701,
+              "y": -1.443021,
+              "z": -0.38566333
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 7.733833E-4,
+              "y": -1.4106412,
+              "z": -0.3683446
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 7.733833E-4,
+              "y": -1.4106412,
+              "z": -0.4224712
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 7.733833E-4,
+              "y": -1.4106412,
+              "z": -0.3683446
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 7.733833E-4,
+              "y": -1.4106412,
+              "z": -0.4224712
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 7.733833E-4,
+              "y": -1.4106412,
+              "z": -0.3683446
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      },
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.37363234,
+              "y": -1.3079666,
+              "z": -0.03210418
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.4100101,
+              "y": -1.4489274,
+              "z": -0.014063157
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.37576288,
+              "y": -1.4043188,
+              "z": 0.0066125556
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.37576288,
+              "y": -1.4043188,
+              "z": -0.04751403
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.37576288,
+              "y": -1.4043188,
+              "z": 0.0066125556
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.37576288,
+              "y": -1.4043188,
+              "z": -0.04751403
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.37576288,
+              "y": -1.4043188,
+              "z": 0.0066125556
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      },
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": -0.3763659,
+              "y": -1.3068329,
+              "z": -0.033237804
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.33993268,
+              "y": -1.4554721,
+              "z": -0.0075182593
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.3742359,
+              "y": -1.4056278,
+              "z": 0.0066125556
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.3742359,
+              "y": -1.4056278,
+              "z": -0.04751403
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.3742359,
+              "y": -1.4056278,
+              "z": 0.0066125556
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.3742359,
+              "y": -1.4056278,
+              "z": -0.04751403
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.3742359,
+              "y": -1.4056278,
+              "z": 0.0066125556
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      },
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": -0.0019530337,
+              "y": -1.3204862,
+              "z": 0.3421001
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.038390387,
+              "y": -1.4613783,
+              "z": 0.36408192
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 7.53602E-4,
+              "y": -1.3993053,
+              "z": 0.38156968
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 7.53602E-4,
+              "y": -1.3993053,
+              "z": 0.3274431
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 7.53602E-4,
+              "y": -1.3993053,
+              "z": 0.38156968
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 7.53602E-4,
+              "y": -1.3993053,
+              "z": 0.3274431
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 7.53602E-4,
+              "y": -1.3993053,
+              "z": 0.38156968
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "6"
+    },
     "moving": {
-      "walk": {
-        "walkSpeed": 0.25
-      },
       "fly": {
         "canFly": true
       },
       "swim": {
         "avoidsWater": true,
         "canSwimInWater": false
+      },
+      "walk": {
+        "walkSpeed": 0.25
       }
     },
     "resting": {
@@ -68,11 +430,15 @@
     }
   },
   "drops": {
-    "amount": 1,
+    "amount": 4,
     "entries": [
       {
+        "item": "minecraft:ender_pearl",
+        "quantityRange": "0-3"
+      },
+      {
         "item": "cobblemon:metal_coat",
-        "percentage": 10
+        "percentage": 10.0
       }
     ]
   },
@@ -105,8 +471,6 @@
     "tm:brickbreak",
     "tm:brutalswing",
     "tm:bulldoze",
-    "tm:bulletpunch",
-    "tm:confusion",
     "tm:cosmicpower",
     "tm:cut",
     "tm:doubleedge",
@@ -124,7 +488,6 @@
     "tm:grassknot",
     "tm:gravity",
     "tm:gyroball",
-    "tm:hammerarm",
     "tm:hardpress",
     "tm:headbutt",
     "tm:heavyslam",
@@ -140,8 +503,6 @@
     "tm:magnetrise",
     "tm:metalclaw",
     "tm:meteorbeam",
-    "tm:meteormash",
-    "tm:miracleeye",
     "tm:mudslap",
     "tm:poweruppunch",
     "tm:protect",
@@ -151,7 +512,6 @@
     "tm:psychocut",
     "tm:psychup",
     "tm:psyshock",
-    "tm:pursuit",
     "tm:raindance",
     "tm:reflect",
     "tm:rest",
@@ -177,14 +537,69 @@
     "tm:substitute",
     "tm:sunnyday",
     "tm:swift",
-    "tm:tackle",
     "tm:takedown",
     "tm:telekinesis",
     "tm:terablast",
     "tm:thunderpunch",
     "tm:trailblaze",
     "tm:trick",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:aerialace",
+    "tutor:allyswitch",
+    "tutor:block",
+    "tutor:bulldoze",
+    "tutor:expandingforce",
+    "tutor:flashcannon",
+    "tutor:focuspunch",
+    "tutor:furycutter",
+    "tutor:gigaimpact",
+    "tutor:gravity",
+    "tutor:hyperbeam",
+    "tutor:icepunch",
+    "tutor:icywind",
+    "tutor:irondefense",
+    "tutor:ironhead",
+    "tutor:knockoff",
+    "tutor:laserfocus",
+    "tutor:magnetrise",
+    "tutor:meteorbeam",
+    "tutor:psychic",
+    "tutor:psychocut",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:rollout",
+    "tutor:shadowball",
+    "tutor:shadowclaw",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:stealthrock",
+    "tutor:steelbeam",
+    "tutor:steelroller",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:swift",
+    "tutor:telekinesis",
+    "tutor:thunderpunch",
+    "tutor:trick",
+    "tutor:zenheadbutt",
+    "legacy:confide",
+    "legacy:defensecurl",
+    "legacy:doubleteam",
+    "legacy:dynamicpunch",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "special:holdback",
+    "special:refresh"
   ],
   "preEvolution": "metang",
   "evolutions": [],
@@ -210,9 +625,6 @@
         "toughclaws",
         "h:toughclaws"
       ],
-      "eggGroups": [
-        "mineral"
-      ],
       "baseStats": {
         "hp": 80,
         "attack": 145,
@@ -221,140 +633,15 @@
         "special_defence": 110,
         "speed": 110
       },
-      "evYield": {
-        "hp": 0,
-        "attack": 0,
-        "defence": 3,
-        "special_attack": 0,
-        "special_defence": 0,
-        "speed": 0
-      },
       "baseExperienceYield": 350,
-      "experienceGroup": "slow",
-      "catchRate": 3,
-      "eggCycles": 40,
-      "baseFriendship": 35,
-      "dynamaxBlocked": true,
       "behaviour": {
-        "moving": {
-          "swim": {
-            "avoidsWater": true,
-            "canSwimInWater": false
-          }
+        "herd": {
+          "maxSize": "7"
         }
       },
-      "moves": [
-        "1:metalclaw",
-        "1:confusion",
-        "1:pursuit",
-        "1:bulletpunch",
-        "1:hammerarm",
-        "1:explosion",
-        "1:miracleeye",
-        "1:honeclaws",
-        "1:tackle",
-        "6:zenheadbutt",
-        "12:magnetrise",
-        "16:flashcannon",
-        "26:takedown",
-        "34:psychic",
-        "42:scaryface",
-        "52:meteormash",
-        "62:irondefense",
-        "72:agility",
-        "82:hyperbeam",
-        "tm:aerialace",
-        "tm:agility",
-        "tm:allyswitch",
-        "tm:block",
-        "tm:bodypress",
-        "tm:bodyslam",
-        "tm:brickbreak",
-        "tm:brutalswing",
-        "tm:bulldoze",
-        "tm:bulletpunch",
-        "tm:confusion",
-        "tm:cosmicpower",
-        "tm:cut",
-        "tm:doubleedge",
-        "tm:earthquake",
-        "tm:endure",
-        "tm:expandingforce",
-        "tm:explosion",
-        "tm:facade",
-        "tm:flash",
-        "tm:flashcannon",
-        "tm:focuspunch",
-        "tm:furycutter",
-        "tm:futuresight",
-        "tm:gigaimpact",
-        "tm:grassknot",
-        "tm:gravity",
-        "tm:gyroball",
-        "tm:hammerarm",
-        "tm:hardpress",
-        "tm:headbutt",
-        "tm:heavyslam",
-        "tm:honeclaws",
-        "tm:hyperbeam",
-        "tm:icepunch",
-        "tm:icywind",
-        "tm:irondefense",
-        "tm:ironhead",
-        "tm:knockoff",
-        "tm:laserfocus",
-        "tm:lightscreen",
-        "tm:magnetrise",
-        "tm:metalclaw",
-        "tm:meteorbeam",
-        "tm:meteormash",
-        "tm:miracleeye",
-        "tm:mudslap",
-        "tm:poweruppunch",
-        "tm:protect",
-        "tm:psychic",
-        "tm:psychicfangs",
-        "tm:psychicnoise",
-        "tm:psychocut",
-        "tm:psychup",
-        "tm:psyshock",
-        "tm:pursuit",
-        "tm:raindance",
-        "tm:reflect",
-        "tm:rest",
-        "tm:rockpolish",
-        "tm:rockslide",
-        "tm:rocksmash",
-        "tm:rocktomb",
-        "tm:rollout",
-        "tm:sandstorm",
-        "tm:scaryface",
-        "tm:selfdestruct",
-        "tm:shadowball",
-        "tm:shadowclaw",
-        "tm:signalbeam",
-        "tm:sleeptalk",
-        "tm:sludgebomb",
-        "tm:stealthrock",
-        "tm:steelbeam",
-        "tm:steelroller",
-        "tm:stompingtantrum",
-        "tm:stoneedge",
-        "tm:strength",
-        "tm:substitute",
-        "tm:sunnyday",
-        "tm:swift",
-        "tm:tackle",
-        "tm:takedown",
-        "tm:telekinesis",
-        "tm:terablast",
-        "tm:thunderpunch",
-        "tm:trailblaze",
-        "tm:trick",
-        "tm:zenheadbutt"
-      ],
       "evolutions": [],
-      "battleOnly": true
+      "battleOnly": true,
+      "dynamaxBlocked": true
     }
   ]
 }

@@ -55,11 +55,36 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "moving": {
+      "fly": {
+        "canFly": true
+      },
+      "walk": {
+        "canWalk": false
+      }
+    },
+    "herd": {
+      "maxSize": "6",
+      "toleratedLeaders": [
+        {
+          "pokemon": "phantump",
+          "tier": 1
+        },
+        {
+          "pokemon": "trevenant",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 3,
     "entries": [
+      {
+        "item": "minecraft:jack_o_lantern",
+        "quantityRange": "0-1"
+      },
       {
         "item": "cobblemon:spell_tag",
         "percentage": 2.5
@@ -93,36 +118,24 @@
     "egg:grudge",
     "egg:suckerpunch",
     "tm:allyswitch",
-    "tm:astonish",
-    "tm:bestow",
-    "tm:branchpoke",
     "tm:bulldoze",
     "tm:confuseray",
     "tm:curse",
     "tm:cut",
     "tm:darkpulse",
-    "tm:destinybond",
     "tm:dig",
-    "tm:disable",
     "tm:dreameater",
     "tm:endure",
     "tm:energyball",
     "tm:facade",
-    "tm:feintattack",
-    "tm:forestscurse",
     "tm:foulplay",
     "tm:gigadrain",
     "tm:grassknot",
     "tm:grassyglide",
     "tm:grassyterrain",
-    "tm:growth",
-    "tm:grudge",
     "tm:hex",
-    "tm:hornleech",
     "tm:imprison",
-    "tm:ingrain",
     "tm:lashout",
-    "tm:leechseed",
     "tm:magicalleaf",
     "tm:magiccoat",
     "tm:naturepower",
@@ -154,7 +167,6 @@
     "tm:substitute",
     "tm:suckerpunch",
     "tm:sunnyday",
-    "tm:tackle",
     "tm:telekinesis",
     "tm:terablast",
     "tm:thief",
@@ -163,8 +175,47 @@
     "tm:trickroom",
     "tm:venomdrench",
     "tm:willowisp",
-    "tm:woodhammer",
-    "tm:worryseed"
+    "tm:worryseed",
+    "tutor:allyswitch",
+    "tutor:bulldoze",
+    "tutor:darkpulse",
+    "tutor:energyball",
+    "tutor:foulplay",
+    "tutor:gigadrain",
+    "tutor:grassyglide",
+    "tutor:lashout",
+    "tutor:magicalleaf",
+    "tutor:magiccoat",
+    "tutor:painsplit",
+    "tutor:poisonjab",
+    "tutor:poltergeist",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:roleplay",
+    "tutor:seedbomb",
+    "tutor:shadowball",
+    "tutor:shadowclaw",
+    "tutor:skillswap",
+    "tutor:skittersmack",
+    "tutor:sleeptalk",
+    "tutor:spite",
+    "tutor:suckerpunch",
+    "tutor:telekinesis",
+    "tutor:trick",
+    "tutor:worryseed",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

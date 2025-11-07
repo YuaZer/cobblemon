@@ -53,7 +53,25 @@
   "behaviour": {
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "impidimp",
+          "tier": 1
+        },
+        {
+          "pokemon": "morgrem",
+          "tier": 2
+        },
+        {
+          "pokemon": "grimmsnarl",
+          "tier": 3
+        }
+      ]
     }
   },
   "drops": {
@@ -81,7 +99,6 @@
     "44:foulplay",
     "egg:partingshot",
     "tm:assurance",
-    "tm:bite",
     "tm:burningjealousy",
     "tm:chillingwater",
     "tm:confide",
@@ -91,9 +108,7 @@
     "tm:drainpunch",
     "tm:endure",
     "tm:facade",
-    "tm:fakeout",
     "tm:faketears",
-    "tm:flatter",
     "tm:fling",
     "tm:foulplay",
     "tm:lashout",
@@ -105,7 +120,6 @@
     "tm:metronome",
     "tm:mistyterrain",
     "tm:nastyplot",
-    "tm:partingshot",
     "tm:playrough",
     "tm:protect",
     "tm:reflect",
@@ -125,7 +139,25 @@
     "tm:thunderwave",
     "tm:torment",
     "tm:trailblaze",
-    "tm:trick"
+    "tm:trick",
+    "tutor:burningjealousy",
+    "tutor:darkpulse",
+    "tutor:dazzlinggleam",
+    "tutor:drainpunch",
+    "tutor:foulplay",
+    "tutor:lashout",
+    "tutor:leechlife",
+    "tutor:lowkick",
+    "tutor:playrough",
+    "tutor:rest",
+    "tutor:sleeptalk",
+    "tutor:suckerpunch",
+    "tutor:throatchop",
+    "tutor:trick",
+    "legacy:attract",
+    "legacy:round",
+    "legacy:snore",
+    "legacy:uproar"
   ],
   "evolutions": [
     {

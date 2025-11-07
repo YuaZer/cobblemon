@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 715,
   "name": "Noivern",
   "primaryType": "flying",
@@ -43,13 +44,144 @@
   "catchRate": 45,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.9,
   "hitbox": {
-    "width": 1,
-    "height": 1,
-    "fixed": false
+    "height": 2.5,
+    "fixed": false,
+    "width": 2
+  },
+  "riding": {
+    "behaviours": {
+      "AIR": {
+        "key": "cobblemon:air/bird",
+        "rideSounds": [
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "soundLocation": "cobblemon:ride.loop.wind",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          },
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "soundLocation": "cobblemon:ride.loop.leather",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          }
+        ],
+        "stats": {
+          "ACCELERATION": "50-65",
+          "JUMP": "55-85",
+          "SKILL": "50-85",
+          "SPEED": "70-90",
+          "STAMINA": "15-35"
+        }
+      },
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "60-75",
+          "JUMP": "30-40",
+          "SKILL": "25-35",
+          "SPEED": "30-50",
+          "STAMINA": "20-40"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.3334379,
+              "z": 0.22584726
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.048653785,
+              "y": -1.257053,
+              "z": 0.47211075
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.7405432,
+              "z": 0.27634206
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.2315297,
+              "z": 0.30676118
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.3334379,
+              "z": 0.22584726
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.048653785,
+              "y": -1.257053,
+              "z": 0.47211075
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -1.3334379,
+              "z": 0.22584726
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "noivern",
+          "tier": 1
+        }
+      ]
+    },
     "moving": {
       "fly": {
         "canFly": true
@@ -61,11 +193,11 @@
     "entries": [
       {
         "item": "minecraft:phantom_membrane",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:yache_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -93,15 +225,12 @@
     "egg:dragonrush",
     "egg:razorwind",
     "egg:switcheroo",
-    "tm:absorb",
     "tm:acrobatics",
     "tm:aerialace",
     "tm:agility",
     "tm:aircutter",
     "tm:airslash",
-    "tm:bite",
     "tm:bodyslam",
-    "tm:boomburst",
     "tm:breakingswipe",
     "tm:brickbreak",
     "tm:cut",
@@ -114,7 +243,6 @@
     "tm:dragonclaw",
     "tm:dragondance",
     "tm:dragonpulse",
-    "tm:dragonrush",
     "tm:dragontail",
     "tm:dreameater",
     "tm:dualwingbeat",
@@ -125,7 +253,6 @@
     "tm:fly",
     "tm:focusblast",
     "tm:gigaimpact",
-    "tm:gust",
     "tm:heatwave",
     "tm:honeclaws",
     "tm:hurricane",
@@ -134,12 +261,10 @@
     "tm:irontail",
     "tm:laserfocus",
     "tm:leechlife",
-    "tm:moonlight",
     "tm:outrage",
     "tm:protect",
     "tm:psychic",
     "tm:psychicnoise",
-    "tm:razorwind",
     "tm:rest",
     "tm:roost",
     "tm:scaryface",
@@ -154,10 +279,7 @@
     "tm:substitute",
     "tm:sunnyday",
     "tm:superfang",
-    "tm:supersonic",
     "tm:swift",
-    "tm:switcheroo",
-    "tm:tackle",
     "tm:tailwind",
     "tm:takedown",
     "tm:taunt",
@@ -167,10 +289,48 @@
     "tm:uproar",
     "tm:uturn",
     "tm:waterpulse",
-    "tm:whirlwind",
     "tm:wildcharge",
-    "tm:wingattack",
-    "tm:xscissor"
+    "tm:xscissor",
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:darkpulse",
+    "tutor:defog",
+    "tutor:dracometeor",
+    "tutor:dragonpulse",
+    "tutor:dualwingbeat",
+    "tutor:flamethrower",
+    "tutor:gigaimpact",
+    "tutor:heatwave",
+    "tutor:hyperbeam",
+    "tutor:hypervoice",
+    "tutor:irontail",
+    "tutor:laserfocus",
+    "tutor:leechlife",
+    "tutor:outrage",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:roost",
+    "tutor:shadowball",
+    "tutor:shadowclaw",
+    "tutor:skyattack",
+    "tutor:sleeptalk",
+    "tutor:snatch",
+    "tutor:superfang",
+    "tutor:swift",
+    "tutor:tailwind",
+    "tutor:uproar",
+    "tutor:wildcharge",
+    "tutor:xscissor",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "noibat",
   "evolutions": []

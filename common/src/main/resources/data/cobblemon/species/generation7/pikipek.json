@@ -54,6 +54,26 @@
       "fly": {
         "canFly": true
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "pikipek",
+          "tier": 1
+        },
+        {
+          "pokemon": "trumbeak",
+          "tier": 2
+        },
+        {
+          "pokemon": "toucannon",
+          "tier": 3
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -90,12 +110,10 @@
     "tm:aerialace",
     "tm:aircutter",
     "tm:airslash",
-    "tm:boomburst",
     "tm:bravebird",
     "tm:brickbreak",
     "tm:bulletseed",
     "tm:defog",
-    "tm:drillpeck",
     "tm:dualwingbeat",
     "tm:echoedvoice",
     "tm:endeavor",
@@ -104,15 +122,11 @@
     "tm:featherdance",
     "tm:flamecharge",
     "tm:fly",
-    "tm:furyattack",
-    "tm:growl",
     "tm:gunkshot",
     "tm:heatwave",
     "tm:helpinghand",
     "tm:hypervoice",
     "tm:knockoff",
-    "tm:mirrormove",
-    "tm:peck",
     "tm:pluck",
     "tm:protect",
     "tm:rest",
@@ -125,7 +139,6 @@
     "tm:steelwing",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:supersonic",
     "tm:swordsdance",
     "tm:tailwind",
     "tm:takedown",
@@ -133,7 +146,34 @@
     "tm:thief",
     "tm:uproar",
     "tm:uturn",
-    "tm:workup"
+    "tm:workup",
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:defog",
+    "tutor:dualwingbeat",
+    "tutor:endeavor",
+    "tutor:gunkshot",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:hypervoice",
+    "tutor:knockoff",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:roost",
+    "tutor:skyattack",
+    "tutor:sleeptalk",
+    "tutor:tailwind",
+    "tutor:uproar",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

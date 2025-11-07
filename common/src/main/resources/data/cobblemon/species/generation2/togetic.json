@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 176,
   "name": "Togetic",
   "primaryType": "fairy",
@@ -43,27 +44,57 @@
   "catchRate": 75,
   "eggCycles": 10,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "standingEyeHeight": 0.8,
+  "swimmingEyeHeight": 0.8,
+  "flyingEyeHeight": 0.8,
+  "baseScale": 0.55,
   "hitbox": {
     "width": 1,
-    "height": 1,
+    "height": 1.5,
     "fixed": false
   },
-  "behaviour": {},
+  "behaviour": {
+    "resting": {
+      "canSleep": true,
+      "light": "0-4",
+      "willSleepOnBed": true
+    },
+    "moving": {
+      "walk": {
+        "walkSpeed": 0.3
+      },
+      "fly": {
+        "canFly": true
+      }
+    },
+    "herd": {
+      "maxSize": "7",
+      "toleratedLeaders": [
+        {
+          "pokemon": "togetic",
+          "tier": 1
+        },
+        {
+          "pokemon": "togekiss",
+          "tier": 2
+        }
+      ]
+    }
+  },
   "drops": {
     "amount": 3,
     "entries": [
       {
         "item": "cobblemon:lucky_egg",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:shiny_stone",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:fairy_feather",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -102,7 +133,6 @@
     "tm:ancientpower",
     "tm:babydolleyes",
     "tm:batonpass",
-    "tm:bestow",
     "tm:bodyslam",
     "tm:brickbreak",
     "tm:charm",
@@ -118,21 +148,16 @@
     "tm:encore",
     "tm:endeavor",
     "tm:endure",
-    "tm:extrasensory",
     "tm:facade",
-    "tm:fairywind",
     "tm:fireblast",
     "tm:flamethrower",
     "tm:flash",
     "tm:fling",
     "tm:fly",
     "tm:focuspunch",
-    "tm:followme",
-    "tm:foresight",
     "tm:futuresight",
     "tm:gigaimpact",
     "tm:grassknot",
-    "tm:growl",
     "tm:headbutt",
     "tm:healbell",
     "tm:heatwave",
@@ -142,27 +167,19 @@
     "tm:imprison",
     "tm:incinerate",
     "tm:lastresort",
-    "tm:lifedew",
     "tm:lightscreen",
-    "tm:luckychant",
     "tm:magicalleaf",
     "tm:magiccoat",
     "tm:megakick",
     "tm:megapunch",
     "tm:metronome",
-    "tm:mirrormove",
-    "tm:morningsun",
     "tm:mudslap",
     "tm:mysticalfire",
     "tm:nastyplot",
     "tm:ominouswind",
-    "tm:peck",
     "tm:playrough",
-    "tm:pound",
-    "tm:present",
     "tm:protect",
     "tm:psychic",
-    "tm:psychoshift",
     "tm:psychup",
     "tm:psyshock",
     "tm:raindance",
@@ -185,7 +202,6 @@
     "tm:storedpower",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:sweetkiss",
     "tm:swift",
     "tm:tailwind",
     "tm:telekinesis",
@@ -196,10 +212,72 @@
     "tm:twister",
     "tm:uproar",
     "tm:waterpulse",
-    "tm:wish",
     "tm:workup",
-    "tm:yawn",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:aerialace",
+    "tutor:afteryou",
+    "tutor:aircutter",
+    "tutor:ancientpower",
+    "tutor:babydolleyes",
+    "tutor:covet",
+    "tutor:dazzlinggleam",
+    "tutor:defog",
+    "tutor:drainpunch",
+    "tutor:dualwingbeat",
+    "tutor:endeavor",
+    "tutor:flamethrower",
+    "tutor:focuspunch",
+    "tutor:gigaimpact",
+    "tutor:healbell",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:hypervoice",
+    "tutor:lastresort",
+    "tutor:magicalleaf",
+    "tutor:magiccoat",
+    "tutor:mudslap",
+    "tutor:mysticalfire",
+    "tutor:ominouswind",
+    "tutor:playrough",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:rollout",
+    "tutor:roost",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:tailwind",
+    "tutor:telekinesis",
+    "tutor:trick",
+    "tutor:twister",
+    "tutor:uproar",
+    "tutor:waterpulse",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:counter",
+    "legacy:curse",
+    "legacy:defensecurl",
+    "legacy:detect",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:seismictoss",
+    "legacy:skyattack",
+    "legacy:snore",
+    "legacy:softboiled",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:zapcannon"
   ],
   "preEvolution": "togepi",
   "evolutions": [
@@ -207,7 +285,7 @@
       "id": "togetic_togekiss",
       "variant": "item_interact",
       "result": "togekiss",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [
         "airslash"
       ],

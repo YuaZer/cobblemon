@@ -54,10 +54,29 @@
       "light": "0-4"
     },
     "moving": {
+      "walk": {
+        "canWalk": false
+      },
+      "fly": {
+        "canFly": true
+      },
       "swim": {
         "avoidsWater": true,
         "canSwimInWater": false
       }
+    },
+    "herd": {
+      "maxSize": "7",
+      "toleratedLeaders": [
+        {
+          "pokemon": "klang",
+          "tier": 1
+        },
+        {
+          "pokemon": "klinklang",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -87,23 +106,18 @@
     "54:hyperbeam",
     "tm:allyswitch",
     "tm:assurance",
-    "tm:autotomize",
     "tm:bind",
     "tm:charge",
     "tm:chargebeam",
-    "tm:discharge",
     "tm:endure",
     "tm:facade",
     "tm:flashcannon",
-    "tm:geargrind",
     "tm:gravity",
     "tm:hyperbeam",
     "tm:irondefense",
-    "tm:lockon",
     "tm:magiccoat",
     "tm:magnetrise",
     "tm:metalsound",
-    "tm:mirrorshot",
     "tm:powergem",
     "tm:protect",
     "tm:recycle",
@@ -113,7 +127,6 @@
     "tm:rocksmash",
     "tm:sandstorm",
     "tm:screech",
-    "tm:shiftgear",
     "tm:shockwave",
     "tm:signalbeam",
     "tm:sleeptalk",
@@ -123,13 +136,42 @@
     "tm:telekinesis",
     "tm:terablast",
     "tm:thunderbolt",
-    "tm:thundershock",
     "tm:thunderwave",
     "tm:uproar",
-    "tm:visegrip",
     "tm:voltswitch",
     "tm:wildcharge",
-    "tm:zapcannon"
+    "tutor:allyswitch",
+    "tutor:bind",
+    "tutor:chargebeam",
+    "tutor:flashcannon",
+    "tutor:gravity",
+    "tutor:hyperbeam",
+    "tutor:irondefense",
+    "tutor:magiccoat",
+    "tutor:magnetrise",
+    "tutor:recycle",
+    "tutor:rest",
+    "tutor:risingvoltage",
+    "tutor:rocksmash",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:steelbeam",
+    "tutor:steelroller",
+    "tutor:telekinesis",
+    "tutor:thunderbolt",
+    "tutor:uproar",
+    "tutor:wildcharge",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "klink",
   "evolutions": [

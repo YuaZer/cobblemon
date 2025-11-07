@@ -52,15 +52,32 @@
   "behaviour": {
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
     },
     "moving": {
       "swim": {
-        "canSwimInWater": true,
+        "canSwimInWater": false,
         "canBreatheUnderwater": true,
         "canSwimInLava": false,
         "swimSpeed": "0.2"
       }
+    },
+    "combat": {
+      "willFlee": true
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "wimpod",
+          "tier": 1
+        },
+        {
+          "pokemon": "golisopod",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -81,14 +98,11 @@
     "egg:metalclaw",
     "egg:rollout",
     "egg:wideguard",
-    "tm:aquajet",
     "tm:assurance",
     "tm:bugbuzz",
-    "tm:defensecurl",
     "tm:endure",
     "tm:facade",
     "tm:hail",
-    "tm:harden",
     "tm:leechlife",
     "tm:metalclaw",
     "tm:mudshot",
@@ -96,7 +110,6 @@
     "tm:raindance",
     "tm:rest",
     "tm:rollout",
-    "tm:sandattack",
     "tm:scald",
     "tm:screech",
     "tm:skittersmack",
@@ -109,7 +122,23 @@
     "tm:taunt",
     "tm:terablast",
     "tm:waterfall",
-    "tm:wideguard"
+    "tutor:leechlife",
+    "tutor:rest",
+    "tutor:rollout",
+    "tutor:skittersmack",
+    "tutor:sleeptalk",
+    "tutor:spikes",
+    "tutor:swift",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

@@ -51,6 +51,9 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "5"
     }
   },
   "drops": {
@@ -58,11 +61,11 @@
     "entries": [
       {
         "item": "cobblemon:miracle_seed",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:tanga_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -87,7 +90,6 @@
     "egg:defog",
     "egg:superpower",
     "egg:worryseed",
-    "tm:aromatherapy",
     "tm:brickbreak",
     "tm:bugbite",
     "tm:bulletseed",
@@ -105,19 +107,15 @@
     "tm:grassknot",
     "tm:grassyglide",
     "tm:grassyterrain",
-    "tm:growth",
     "tm:hyperbeam",
-    "tm:ingrain",
     "tm:knockoff",
     "tm:laserfocus",
-    "tm:leafage",
     "tm:leafblade",
     "tm:leafstorm",
     "tm:leechlife",
     "tm:lowsweep",
     "tm:magicalleaf",
     "tm:naturepower",
-    "tm:nightslash",
     "tm:payback",
     "tm:petalblizzard",
     "tm:poisonjab",
@@ -125,21 +123,18 @@
     "tm:protect",
     "tm:psychocut",
     "tm:raindance",
-    "tm:razorleaf",
     "tm:rest",
     "tm:safeguard",
     "tm:scaryface",
     "tm:seedbomb",
     "tm:signalbeam",
     "tm:skittersmack",
-    "tm:slash",
     "tm:sleeptalk",
     "tm:solarbeam",
     "tm:solarblade",
     "tm:substitute",
     "tm:sunnyday",
     "tm:superpower",
-    "tm:sweetscent",
     "tm:swordsdance",
     "tm:synthesis",
     "tm:takedown",
@@ -147,7 +142,42 @@
     "tm:trailblaze",
     "tm:weatherball",
     "tm:worryseed",
-    "tm:xscissor"
+    "tm:xscissor",
+    "tutor:bugbite",
+    "tutor:defog",
+    "tutor:dualchop",
+    "tutor:energyball",
+    "tutor:falseswipe",
+    "tutor:furycutter",
+    "tutor:gigadrain",
+    "tutor:gigaimpact",
+    "tutor:grassyglide",
+    "tutor:hyperbeam",
+    "tutor:knockoff",
+    "tutor:laserfocus",
+    "tutor:leechlife",
+    "tutor:magicalleaf",
+    "tutor:psychocut",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:signalbeam",
+    "tutor:skittersmack",
+    "tutor:sleeptalk",
+    "tutor:superpower",
+    "tutor:synthesis",
+    "tutor:worryseed",
+    "tutor:xscissor",
+    "legacy:aerialace",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "fomantis",
   "evolutions": []

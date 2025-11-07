@@ -51,9 +51,45 @@
   },
   "behaviour": {
     "moving": {
+      "walk": {
+        "walkSpeed": 0.3
+      },
       "swim": {
         "canSwimInLava": true
       }
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "gible",
+          "tier": 1
+        },
+        {
+          "pokemon": "axew",
+          "tier": 1
+        },
+        {
+          "pokemon": "fraxure",
+          "tier": 2
+        },
+        {
+          "pokemon": "gabite",
+          "tier": 3
+        },
+        {
+          "pokemon": "haxorus",
+          "tier": 4
+        },
+        {
+          "pokemon": "garchomp mega=false",
+          "tier": 5
+        },
+        {
+          "pokemon": "garchomp mega",
+          "tier": 6
+        }
+      ]
     }
   },
   "drops": {
@@ -87,19 +123,15 @@
     "egg:metalclaw",
     "egg:thrash",
     "egg:twister",
-    "tm:bite",
     "tm:bodyslam",
     "tm:bulldoze",
     "tm:cut",
     "tm:dig",
     "tm:doubleedge",
     "tm:dracometeor",
-    "tm:dragonbreath",
     "tm:dragoncheer",
     "tm:dragonclaw",
     "tm:dragonpulse",
-    "tm:dragonrage",
-    "tm:dragonrush",
     "tm:dragontail",
     "tm:earthpower",
     "tm:earthquake",
@@ -126,14 +158,12 @@
     "tm:rockslide",
     "tm:rocksmash",
     "tm:rocktomb",
-    "tm:sandattack",
     "tm:sandstorm",
     "tm:sandtomb",
     "tm:scaleshot",
     "tm:scaryface",
     "tm:scorchingsands",
     "tm:shadowclaw",
-    "tm:slash",
     "tm:sleeptalk",
     "tm:stealthrock",
     "tm:stoneedge",
@@ -142,12 +172,50 @@
     "tm:sunnyday",
     "tm:swift",
     "tm:swordsdance",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
-    "tm:thrash",
     "tm:thunderfang",
-    "tm:twister"
+    "tm:twister",
+    "tutor:bulldoze",
+    "tutor:dracometeor",
+    "tutor:dragonpulse",
+    "tutor:earthpower",
+    "tutor:falseswipe",
+    "tutor:firefang",
+    "tutor:flamethrower",
+    "tutor:furycutter",
+    "tutor:helpinghand",
+    "tutor:ironhead",
+    "tutor:irontail",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:scaleshot",
+    "tutor:scorchingsands",
+    "tutor:shadowclaw",
+    "tutor:sleeptalk",
+    "tutor:stealthrock",
+    "tutor:stoneedge",
+    "tutor:swift",
+    "tutor:thunderfang",
+    "tutor:twister",
+    "legacy:aerialace",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:roar",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

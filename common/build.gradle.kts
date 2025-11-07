@@ -1,8 +1,9 @@
+
+import utilities.isSnapshot
+import utilities.version
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
-import utilities.isSnapshot
-import utilities.version
 
 /*
  *
@@ -20,7 +21,6 @@ plugins {
 
     id("net.kyori.blossom")
     id("org.jetbrains.gradle.plugin.idea-ext")
-    id("net.nemerosa.versioning") version "3.1.0"
 }
 
 architectury {
@@ -31,6 +31,7 @@ repositories {
     maven(url = "${rootProject.projectDir}/deps")
     maven(url = "https://api.modrinth.com/maven")
     maven(url = "https://maven.neoforged.net/releases")
+    maven(url = "https://maven.gegy.dev")
     mavenLocal()
 }
 
@@ -41,8 +42,14 @@ dependencies {
 
     // Integrations
     compileOnlyApi(libs.jei.api)
-    modCompileOnly(libs.bundles.fabric.integrations.compileOnly) {
+    modCompileOnly(libs.bundles.common.integrations.compileOnly) {
         isTransitive = false
+    }
+    // LambDynamicLights is handled differently because we need the Mojang-mappings version of it.
+    modCompileOnly(libs.lambDynamicLights) {
+        capabilities {
+            requireCapability("dev.lambdaurora.lambdynamiclights:api-mojmap")
+        }
     }
     // Flywheel has no common dep so just pick one and don't use any platform specific code in common
     // modCompileOnly(libs.flywheelFabric)

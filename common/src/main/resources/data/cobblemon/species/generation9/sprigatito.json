@@ -60,6 +60,23 @@
       "walk": {
         "walkSpeed": 0.2
       }
+    },
+    "entityInteract": {
+      "avoidedByCreeper": true,
+      "avoidedByPhantom": true
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "florgato",
+          "tier": 1
+        },
+        {
+          "pokemon": "meowscarada",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -67,7 +84,7 @@
     "entries": [
       {
         "item": "cobblemon:miracle_seed",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -93,10 +110,8 @@
     "tm:acrobatics",
     "tm:agility",
     "tm:allyswitch",
-    "tm:bite",
     "tm:bulletseed",
     "tm:charm",
-    "tm:copycat",
     "tm:disarmingvoice",
     "tm:endure",
     "tm:energyball",
@@ -109,33 +124,43 @@
     "tm:grassyterrain",
     "tm:helpinghand",
     "tm:honeclaws",
-    "tm:leafage",
     "tm:leafstorm",
-    "tm:leechseed",
     "tm:magicalleaf",
     "tm:mudslap",
     "tm:nastyplot",
     "tm:petalblizzard",
     "tm:playrough",
     "tm:protect",
-    "tm:quickattack",
     "tm:rest",
-    "tm:scratch",
     "tm:seedbomb",
     "tm:shadowclaw",
-    "tm:slash",
     "tm:sleeptalk",
     "tm:solarbeam",
     "tm:substitute",
     "tm:suckerpunch",
     "tm:swift",
-    "tm:tailwhip",
     "tm:takedown",
     "tm:taunt",
     "tm:terablast",
     "tm:trailblaze",
     "tm:uturn",
-    "tm:worryseed"
+    "tm:worryseed",
+    "tutor:allyswitch",
+    "tutor:energyball",
+    "tutor:gigadrain",
+    "tutor:grasspledge",
+    "tutor:grassyglide",
+    "tutor:helpinghand",
+    "tutor:magicalleaf",
+    "tutor:mudslap",
+    "tutor:playrough",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:shadowclaw",
+    "tutor:sleeptalk",
+    "tutor:suckerpunch",
+    "tutor:swift",
+    "tutor:worryseed"
   ],
   "evolutions": [
     {

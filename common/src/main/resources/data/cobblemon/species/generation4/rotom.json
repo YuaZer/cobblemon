@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 479,
   "name": "Rotom",
   "primaryType": "electric",
@@ -47,7 +48,6 @@
     "height": 1.3,
     "fixed": false
   },
-  "behaviour": {},
   "moves": [
     "1:astonish",
     "1:doubleteam",
@@ -63,12 +63,10 @@
     "50:discharge",
     "55:uproar",
     "tm:allyswitch",
-    "tm:astonish",
     "tm:charge",
     "tm:chargebeam",
     "tm:confuseray",
     "tm:darkpulse",
-    "tm:discharge",
     "tm:doubleteam",
     "tm:dreameater",
     "tm:eerieimpulse",
@@ -109,12 +107,49 @@
     "tm:thief",
     "tm:thunder",
     "tm:thunderbolt",
-    "tm:thundershock",
     "tm:thunderwave",
     "tm:trick",
     "tm:uproar",
     "tm:voltswitch",
-    "tm:willowisp"
+    "tm:willowisp",
+    "tutor:allyswitch",
+    "tutor:chargebeam",
+    "tutor:darkpulse",
+    "tutor:electroweb",
+    "tutor:foulplay",
+    "tutor:helpinghand",
+    "tutor:hypervoice",
+    "tutor:ominouswind",
+    "tutor:painsplit",
+    "tutor:poltergeist",
+    "tutor:rest",
+    "tutor:risingvoltage",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:snatch",
+    "tutor:spite",
+    "tutor:suckerpunch",
+    "tutor:swift",
+    "tutor:telekinesis",
+    "tutor:thunderbolt",
+    "tutor:trick",
+    "tutor:uproar",
+    "legacy:confide",
+    "legacy:defog",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:psychup",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "special:disarmingvoice"
   ],
   "evolutions": [],
   "forms": [
@@ -134,13 +169,6 @@
       "aspects": [
         "heat-appliance"
       ],
-      "abilities": [
-        "levitate",
-        "h:levitate"
-      ],
-      "eggGroups": [
-        "amorphous"
-      ],
       "baseStats": {
         "hp": 50,
         "attack": 65,
@@ -149,20 +177,7 @@
         "special_defence": 107,
         "speed": 86
       },
-      "evYield": {
-        "hp": 0,
-        "attack": 0,
-        "defence": 0,
-        "special_attack": 1,
-        "special_defence": 0,
-        "speed": 1
-      },
       "baseExperienceYield": 182,
-      "experienceGroup": "medium_fast",
-      "catchRate": 45,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "behaviour": {},
       "moves": [
         "1:astonish",
         "1:doubleteam",
@@ -179,12 +194,10 @@
         "55:uproar",
         "form_change:overheat",
         "tm:allyswitch",
-        "tm:astonish",
         "tm:charge",
         "tm:chargebeam",
         "tm:confuseray",
         "tm:darkpulse",
-        "tm:discharge",
         "tm:doubleteam",
         "tm:dreameater",
         "tm:eerieimpulse",
@@ -226,15 +239,43 @@
         "tm:thief",
         "tm:thunder",
         "tm:thunderbolt",
-        "tm:thundershock",
         "tm:thunderwave",
         "tm:trick",
         "tm:uproar",
         "tm:voltswitch",
-        "tm:willowisp"
+        "tm:willowisp",
+        "tutor:allyswitch",
+        "tutor:chargebeam",
+        "tutor:darkpulse",
+        "tutor:electroweb",
+        "tutor:foulplay",
+        "tutor:helpinghand",
+        "tutor:hypervoice",
+        "tutor:ominouswind",
+        "tutor:painsplit",
+        "tutor:poltergeist",
+        "tutor:rest",
+        "tutor:risingvoltage",
+        "tutor:shadowball",
+        "tutor:shockwave",
+        "tutor:signalbeam",
+        "tutor:sleeptalk",
+        "tutor:snatch",
+        "tutor:spite",
+        "tutor:suckerpunch",
+        "tutor:swift",
+        "tutor:telekinesis",
+        "tutor:thunderbolt",
+        "tutor:trick",
+        "tutor:uproar"
       ],
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {},
+      "lightingData": {
+        "lightLevel": 6,
+        "liquidGlowMode": "BOTH"
+      }
     },
     {
       "name": "Wash",
@@ -252,13 +293,6 @@
       "aspects": [
         "wash-appliance"
       ],
-      "abilities": [
-        "levitate",
-        "h:levitate"
-      ],
-      "eggGroups": [
-        "amorphous"
-      ],
       "baseStats": {
         "hp": 50,
         "attack": 65,
@@ -267,20 +301,7 @@
         "special_defence": 107,
         "speed": 86
       },
-      "evYield": {
-        "hp": 0,
-        "attack": 0,
-        "defence": 0,
-        "special_attack": 1,
-        "special_defence": 0,
-        "speed": 1
-      },
       "baseExperienceYield": 182,
-      "experienceGroup": "medium_fast",
-      "catchRate": 45,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "behaviour": {},
       "moves": [
         "1:astonish",
         "1:doubleteam",
@@ -297,12 +318,10 @@
         "55:uproar",
         "form_change:hydropump",
         "tm:allyswitch",
-        "tm:astonish",
         "tm:charge",
         "tm:chargebeam",
         "tm:confuseray",
         "tm:darkpulse",
-        "tm:discharge",
         "tm:doubleteam",
         "tm:dreameater",
         "tm:eerieimpulse",
@@ -344,15 +363,43 @@
         "tm:thief",
         "tm:thunder",
         "tm:thunderbolt",
-        "tm:thundershock",
         "tm:thunderwave",
         "tm:trick",
         "tm:uproar",
         "tm:voltswitch",
-        "tm:willowisp"
+        "tm:willowisp",
+        "tutor:allyswitch",
+        "tutor:chargebeam",
+        "tutor:darkpulse",
+        "tutor:electroweb",
+        "tutor:foulplay",
+        "tutor:helpinghand",
+        "tutor:hypervoice",
+        "tutor:ominouswind",
+        "tutor:painsplit",
+        "tutor:poltergeist",
+        "tutor:rest",
+        "tutor:risingvoltage",
+        "tutor:shadowball",
+        "tutor:shockwave",
+        "tutor:signalbeam",
+        "tutor:sleeptalk",
+        "tutor:snatch",
+        "tutor:spite",
+        "tutor:suckerpunch",
+        "tutor:swift",
+        "tutor:telekinesis",
+        "tutor:thunderbolt",
+        "tutor:trick",
+        "tutor:uproar"
       ],
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {},
+      "lightingData": {
+        "lightLevel": 6,
+        "liquidGlowMode": "BOTH"
+      }
     },
     {
       "name": "Frost",
@@ -370,13 +417,6 @@
       "aspects": [
         "frost-appliance"
       ],
-      "abilities": [
-        "levitate",
-        "h:levitate"
-      ],
-      "eggGroups": [
-        "amorphous"
-      ],
       "baseStats": {
         "hp": 50,
         "attack": 65,
@@ -385,20 +425,7 @@
         "special_defence": 107,
         "speed": 86
       },
-      "evYield": {
-        "hp": 0,
-        "attack": 0,
-        "defence": 0,
-        "special_attack": 1,
-        "special_defence": 0,
-        "speed": 1
-      },
       "baseExperienceYield": 182,
-      "experienceGroup": "medium_fast",
-      "catchRate": 45,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "behaviour": {},
       "moves": [
         "1:astonish",
         "1:doubleteam",
@@ -415,13 +442,11 @@
         "55:uproar",
         "form_change:blizzard",
         "tm:allyswitch",
-        "tm:astonish",
         "tm:blizzard",
         "tm:charge",
         "tm:chargebeam",
         "tm:confuseray",
         "tm:darkpulse",
-        "tm:discharge",
         "tm:doubleteam",
         "tm:dreameater",
         "tm:eerieimpulse",
@@ -462,15 +487,43 @@
         "tm:thief",
         "tm:thunder",
         "tm:thunderbolt",
-        "tm:thundershock",
         "tm:thunderwave",
         "tm:trick",
         "tm:uproar",
         "tm:voltswitch",
-        "tm:willowisp"
+        "tm:willowisp",
+        "tutor:allyswitch",
+        "tutor:chargebeam",
+        "tutor:darkpulse",
+        "tutor:electroweb",
+        "tutor:foulplay",
+        "tutor:helpinghand",
+        "tutor:hypervoice",
+        "tutor:ominouswind",
+        "tutor:painsplit",
+        "tutor:poltergeist",
+        "tutor:rest",
+        "tutor:risingvoltage",
+        "tutor:shadowball",
+        "tutor:shockwave",
+        "tutor:signalbeam",
+        "tutor:sleeptalk",
+        "tutor:snatch",
+        "tutor:spite",
+        "tutor:suckerpunch",
+        "tutor:swift",
+        "tutor:telekinesis",
+        "tutor:thunderbolt",
+        "tutor:trick",
+        "tutor:uproar"
       ],
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {},
+      "lightingData": {
+        "lightLevel": 6,
+        "liquidGlowMode": "BOTH"
+      }
     },
     {
       "name": "Fan",
@@ -488,13 +541,6 @@
       "aspects": [
         "fan-appliance"
       ],
-      "abilities": [
-        "levitate",
-        "h:levitate"
-      ],
-      "eggGroups": [
-        "amorphous"
-      ],
       "baseStats": {
         "hp": 50,
         "attack": 65,
@@ -503,20 +549,7 @@
         "special_defence": 107,
         "speed": 86
       },
-      "evYield": {
-        "hp": 0,
-        "attack": 0,
-        "defence": 0,
-        "special_attack": 1,
-        "special_defence": 0,
-        "speed": 1
-      },
       "baseExperienceYield": 182,
-      "experienceGroup": "medium_fast",
-      "catchRate": 45,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "behaviour": {},
       "moves": [
         "1:astonish",
         "1:doubleteam",
@@ -534,12 +567,10 @@
         "form_change:airslash",
         "tm:airslash",
         "tm:allyswitch",
-        "tm:astonish",
         "tm:charge",
         "tm:chargebeam",
         "tm:confuseray",
         "tm:darkpulse",
-        "tm:discharge",
         "tm:doubleteam",
         "tm:dreameater",
         "tm:eerieimpulse",
@@ -580,15 +611,43 @@
         "tm:thief",
         "tm:thunder",
         "tm:thunderbolt",
-        "tm:thundershock",
         "tm:thunderwave",
         "tm:trick",
         "tm:uproar",
         "tm:voltswitch",
-        "tm:willowisp"
+        "tm:willowisp",
+        "tutor:allyswitch",
+        "tutor:chargebeam",
+        "tutor:darkpulse",
+        "tutor:electroweb",
+        "tutor:foulplay",
+        "tutor:helpinghand",
+        "tutor:hypervoice",
+        "tutor:ominouswind",
+        "tutor:painsplit",
+        "tutor:poltergeist",
+        "tutor:rest",
+        "tutor:risingvoltage",
+        "tutor:shadowball",
+        "tutor:shockwave",
+        "tutor:signalbeam",
+        "tutor:sleeptalk",
+        "tutor:snatch",
+        "tutor:spite",
+        "tutor:suckerpunch",
+        "tutor:swift",
+        "tutor:telekinesis",
+        "tutor:thunderbolt",
+        "tutor:trick",
+        "tutor:uproar"
       ],
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {},
+      "lightingData": {
+        "lightLevel": 6,
+        "liquidGlowMode": "BOTH"
+      }
     },
     {
       "name": "Mow",
@@ -606,13 +665,6 @@
       "aspects": [
         "mow-appliance"
       ],
-      "abilities": [
-        "levitate",
-        "h:levitate"
-      ],
-      "eggGroups": [
-        "amorphous"
-      ],
       "baseStats": {
         "hp": 50,
         "attack": 65,
@@ -621,20 +673,7 @@
         "special_defence": 107,
         "speed": 86
       },
-      "evYield": {
-        "hp": 0,
-        "attack": 0,
-        "defence": 0,
-        "special_attack": 1,
-        "special_defence": 0,
-        "speed": 1
-      },
       "baseExperienceYield": 182,
-      "experienceGroup": "medium_fast",
-      "catchRate": 45,
-      "eggCycles": 20,
-      "baseFriendship": 50,
-      "behaviour": {},
       "moves": [
         "1:astonish",
         "1:doubleteam",
@@ -651,12 +690,10 @@
         "55:uproar",
         "form_change:leafstorm",
         "tm:allyswitch",
-        "tm:astonish",
         "tm:charge",
         "tm:chargebeam",
         "tm:confuseray",
         "tm:darkpulse",
-        "tm:discharge",
         "tm:doubleteam",
         "tm:dreameater",
         "tm:eerieimpulse",
@@ -698,15 +735,55 @@
         "tm:thief",
         "tm:thunder",
         "tm:thunderbolt",
-        "tm:thundershock",
         "tm:thunderwave",
         "tm:trick",
         "tm:uproar",
         "tm:voltswitch",
-        "tm:willowisp"
+        "tm:willowisp",
+        "tutor:allyswitch",
+        "tutor:chargebeam",
+        "tutor:darkpulse",
+        "tutor:electroweb",
+        "tutor:foulplay",
+        "tutor:helpinghand",
+        "tutor:hypervoice",
+        "tutor:ominouswind",
+        "tutor:painsplit",
+        "tutor:poltergeist",
+        "tutor:rest",
+        "tutor:risingvoltage",
+        "tutor:shadowball",
+        "tutor:shockwave",
+        "tutor:signalbeam",
+        "tutor:sleeptalk",
+        "tutor:snatch",
+        "tutor:spite",
+        "tutor:suckerpunch",
+        "tutor:swift",
+        "tutor:telekinesis",
+        "tutor:thunderbolt",
+        "tutor:trick",
+        "tutor:uproar"
       ],
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {},
+      "lightingData": {
+        "lightLevel": 6,
+        "liquidGlowMode": "BOTH"
+      }
     }
-  ]
+  ],
+  "behaviour": {
+    "herd": {
+      "maxSize": "4"
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  },
+  "lightingData": {
+    "lightLevel": 6,
+    "liquidGlowMode": "BOTH"
+  }
 }

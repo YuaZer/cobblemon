@@ -10,8 +10,9 @@ package com.cobblemon.mod.common.config.starter
 
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties
 import com.cobblemon.mod.common.config.Category
+import com.cobblemon.mod.common.config.CobblemonConfigField
+import com.cobblemon.mod.common.config.CobblemonConfigField.CobblemonConfigSide.SERVER
 import com.cobblemon.mod.common.config.LastChangedVersion
-import com.cobblemon.mod.common.config.NodeCategory
 import com.cobblemon.mod.common.util.adapters.pokemonPropertiesShortAdapter
 import com.google.gson.GsonBuilder
 
@@ -24,14 +25,17 @@ class StarterConfig {
             .create()
     }
 
-    @NodeCategory(Category.Starter)
+    @CobblemonConfigField(Category.Starter, lang = "allow_starter_on_join", SERVER)
     var allowStarterOnJoin = true
 
-    @NodeCategory(Category.Starter)
+    @CobblemonConfigField(Category.Starter, lang = "prompt_starter_once_only", SERVER)
     @LastChangedVersion("1.5.0")
     var promptStarterOnceOnly = true
 
-    @NodeCategory(Category.Starter)
+    @CobblemonConfigField(Category.Starter, lang = "use_config_starters", SERVER)
+    var useConfigStarters = false
+
+    @CobblemonConfigField(Category.Starter, lang = "starters", SERVER)
     var starters = mutableListOf(
         StarterCategory(
             name = "Kanto",

@@ -54,6 +54,23 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "6",
+      "toleratedLeaders": [
+        {
+          "pokemon": "swinub",
+          "tier": 1
+        },
+        {
+          "pokemon": "piloswine",
+          "tier": 2
+        },
+        {
+          "pokemon": "mamoswine",
+          "tier": 3
+        }
+      ]
     }
   },
   "drops": {
@@ -102,7 +119,6 @@
     "tm:ancientpower",
     "tm:avalanche",
     "tm:babydolleyes",
-    "tm:bite",
     "tm:blizzard",
     "tm:bodyslam",
     "tm:bulldoze",
@@ -115,26 +131,16 @@
     "tm:endeavor",
     "tm:endure",
     "tm:facade",
-    "tm:fissure",
-    "tm:flail",
-    "tm:freezedry",
     "tm:hail",
     "tm:haze",
     "tm:headbutt",
     "tm:highhorsepower",
     "tm:icebeam",
     "tm:icefang",
-    "tm:iceshard",
-    "tm:iciclecrash",
     "tm:iciclespear",
     "tm:icywind",
-    "tm:mist",
-    "tm:mudbomb",
     "tm:mudshot",
     "tm:mudslap",
-    "tm:mudsport",
-    "tm:odorsleuth",
-    "tm:powdersnow",
     "tm:protect",
     "tm:raindance",
     "tm:rest",
@@ -155,10 +161,45 @@
     "tm:strength",
     "tm:substitute",
     "tm:superpower",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
-    "tm:trailblaze"
+    "tm:trailblaze",
+    "tutor:ancientpower",
+    "tutor:babydolleyes",
+    "tutor:bulldoze",
+    "tutor:earthpower",
+    "tutor:endeavor",
+    "tutor:highhorsepower",
+    "tutor:icebeam",
+    "tutor:icefang",
+    "tutor:icywind",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:sleeptalk",
+    "tutor:stealthrock",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:superpower",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:defensecurl",
+    "legacy:detect",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:lightscreen",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

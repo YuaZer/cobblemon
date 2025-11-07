@@ -59,6 +59,31 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "murkrow",
+          "tier": 1
+        },
+        {
+          "pokemon": "rookidee",
+          "tier": 2
+        },
+        {
+          "pokemon": "corvisquire",
+          "tier": 3
+        },
+        {
+          "pokemon": "honchkrow",
+          "tier": 4
+        },
+        {
+          "pokemon": "corviknight",
+          "tier": 5
+        }
+      ]
     }
   },
   "drops": {
@@ -103,21 +128,16 @@
     "tm:assurance",
     "tm:bravebird",
     "tm:defog",
-    "tm:drillpeck",
     "tm:dualwingbeat",
     "tm:endure",
     "tm:facade",
     "tm:faketears",
     "tm:fly",
     "tm:focusenergy",
-    "tm:furyattack",
     "tm:honeclaws",
-    "tm:leer",
     "tm:nastyplot",
     "tm:payback",
-    "tm:peck",
     "tm:pluck",
-    "tm:powertrip",
     "tm:protect",
     "tm:rest",
     "tm:retaliate",
@@ -125,7 +145,6 @@
     "tm:reversal",
     "tm:rocksmash",
     "tm:roost",
-    "tm:sandattack",
     "tm:scaryface",
     "tm:skyattack",
     "tm:sleeptalk",
@@ -139,7 +158,23 @@
     "tm:terablast",
     "tm:thief",
     "tm:uturn",
-    "tm:workup"
+    "tm:workup",
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:defog",
+    "tutor:dualwingbeat",
+    "tutor:focusenergy",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:roost",
+    "tutor:skyattack",
+    "tutor:sleeptalk",
+    "tutor:spite",
+    "tutor:swift",
+    "tutor:tailwind",
+    "legacy:attract",
+    "legacy:round",
+    "legacy:snore"
   ],
   "evolutions": [
     {

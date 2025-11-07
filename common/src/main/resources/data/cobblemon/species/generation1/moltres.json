@@ -47,17 +47,69 @@
   "features": [
     "galarian"
   ],
-  "baseScale": 1.6,
+  "baseScale": 1,
   "hitbox": {
-    "width": 0.8,
-    "height": 1.7,
+    "width": 1.5,
+    "height": 4,
     "fixed": false
   },
+  "riding": {
+    "behaviours": {
+      "AIR": {
+        "key": "cobblemon:air/bird",
+        "rideSounds": [
+          {
+            "soundLocation": "cobblemon:ride.loop.plumage",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)",
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "muffleEnabled": true
+          }
+        ],
+        "stats": {
+          "SPEED": "35-75",
+          "ACCELERATION": "25-50",
+          "SKILL": "50-80",
+          "JUMP": "25-60",
+          "STAMINA": "35-75"
+        }
+      },
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "stats": {
+          "SPEED": "10-20",
+          "ACCELERATION": "70-90",
+          "SKILL": "30-60",
+          "JUMP": "25-50",
+          "STAMINA": "40-80"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    ]
+  },
   "behaviour": {
+    "fireImmune": true,
     "moving": {
       "fly": {
         "canFly": true
       }
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "moltres galarian=false",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -100,11 +152,9 @@
     "tm:ancientpower",
     "tm:bravebird",
     "tm:burningjealousy",
-    "tm:burnup",
     "tm:defog",
     "tm:doubleedge",
     "tm:dualwingbeat",
-    "tm:ember",
     "tm:endure",
     "tm:facade",
     "tm:fireblast",
@@ -114,14 +164,12 @@
     "tm:flareblitz",
     "tm:fly",
     "tm:gigaimpact",
-    "tm:gust",
     "tm:heatwave",
     "tm:helpinghand",
     "tm:hurricane",
     "tm:hyperbeam",
     "tm:incinerate",
     "tm:laserfocus",
-    "tm:leer",
     "tm:mysticalfire",
     "tm:ominouswind",
     "tm:overheat",
@@ -151,7 +199,53 @@
     "tm:uturn",
     "tm:weatherball",
     "tm:willowisp",
-    "tm:wingattack"
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:ancientpower",
+    "tutor:burningjealousy",
+    "tutor:defog",
+    "tutor:dualwingbeat",
+    "tutor:flamethrower",
+    "tutor:gigaimpact",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:laserfocus",
+    "tutor:mysticalfire",
+    "tutor:ominouswind",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:roost",
+    "tutor:scorchingsands",
+    "tutor:skyattack",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:tailwind",
+    "tutor:twister",
+    "legacy:bide",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:detect",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:headbutt",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:peck",
+    "legacy:rage",
+    "legacy:razorwind",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:whirlwind",
+    "special:extrasensory",
+    "special:morningsun"
   ],
   "evolutions": [],
   "forms": [
@@ -177,9 +271,6 @@
         "berserk",
         "h:berserk"
       ],
-      "eggGroups": [
-        "undiscovered"
-      ],
       "baseStats": {
         "hp": 90,
         "attack": 85,
@@ -196,12 +287,7 @@
         "special_defence": 3,
         "speed": 0
       },
-      "baseExperienceYield": 290,
-      "experienceGroup": "slow",
-      "catchRate": 3,
       "eggCycles": 120,
-      "baseFriendship": 35,
-      "behaviour": {},
       "drops": {
         "amount": 6,
         "entries": [
@@ -246,11 +332,9 @@
         "tm:dualwingbeat",
         "tm:endure",
         "tm:facade",
-        "tm:fierywrath",
         "tm:fly",
         "tm:foulplay",
         "tm:gigaimpact",
-        "tm:gust",
         "tm:helpinghand",
         "tm:hex",
         "tm:hurricane",
@@ -258,8 +342,6 @@
         "tm:hypervoice",
         "tm:imprison",
         "tm:lashout",
-        "tm:leer",
-        "tm:memento",
         "tm:nastyplot",
         "tm:painsplit",
         "tm:payback",
@@ -285,10 +367,51 @@
         "tm:terablast",
         "tm:thief",
         "tm:uturn",
-        "tm:wingattack"
+        "tutor:aerialace",
+        "tutor:afteryou",
+        "tutor:ancientpower",
+        "tutor:darkpulse",
+        "tutor:dualwingbeat",
+        "tutor:foulplay",
+        "tutor:gigaimpact",
+        "tutor:helpinghand",
+        "tutor:hyperbeam",
+        "tutor:hypervoice",
+        "tutor:lashout",
+        "tutor:painsplit",
+        "tutor:rest",
+        "tutor:shadowball",
+        "tutor:skyattack",
+        "tutor:sleeptalk",
+        "tutor:snarl",
+        "tutor:spite",
+        "tutor:suckerpunch",
+        "tutor:swift",
+        "tutor:tailwind",
+        "legacy:round",
+        "legacy:snore"
       ],
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "herd": {
+          "maxSize": "2",
+          "toleratedLeaders": [
+            {
+              "pokemon": "moltres galarian",
+              "tier": 1
+            }
+          ]
+        }
+      },
+      "lightingData": {
+        "lightLevel": 6,
+        "liquidGlowMode": "LAND"
+      }
     }
-  ]
+  ],
+  "lightingData": {
+    "lightLevel": 8,
+    "liquidGlowMode": "LAND"
+  }
 }

@@ -44,26 +44,123 @@
   "catchRate": 45,
   "eggCycles": 25,
   "baseFriendship": 50,
-  "features": [
-    "galarian"
-  ],
   "baseScale": 0.7,
   "hitbox": {
-    "width": 0.8,
     "height": 1.8,
-    "fixed": false
+    "fixed": false,
+    "width": 0.8
   },
-  "behaviour": {},
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "20-40",
+          "JUMP": "15-35",
+          "SKILL": "15-45",
+          "SPEED": "25-45",
+          "STAMINA": "35-60"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.6875,
+              "z": 1.0625
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.6875,
+              "z": 1.0625
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.6875,
+              "z": 1.0625
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.6875,
+              "z": 1.0625
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.6875,
+              "z": 1.0625
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.6875,
+              "z": 1.0625
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.6875,
+              "z": 1.0625
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "behaviour": {
+    "herd": {
+      "maxSize": "3"
+    }
+  },
   "drops": {
     "amount": 2,
     "entries": [
       {
         "item": "cobblemon:light_clay",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:babiri_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -105,7 +202,6 @@
     "egg:wakeupslap",
     "tm:aerialace",
     "tm:allyswitch",
-    "tm:barrier",
     "tm:batonpass",
     "tm:bodyslam",
     "tm:brickbreak",
@@ -113,11 +209,8 @@
     "tm:chargebeam",
     "tm:charm",
     "tm:confuseray",
-    "tm:confusion",
-    "tm:copycat",
     "tm:covet",
     "tm:dazzlinggleam",
-    "tm:doubleslap",
     "tm:drainpunch",
     "tm:dreameater",
     "tm:encore",
@@ -125,7 +218,6 @@
     "tm:energyball",
     "tm:expandingforce",
     "tm:facade",
-    "tm:fakeout",
     "tm:firepunch",
     "tm:flash",
     "tm:fling",
@@ -137,10 +229,8 @@
     "tm:grassknot",
     "tm:guardswap",
     "tm:headbutt",
-    "tm:healingwish",
     "tm:helpinghand",
     "tm:hyperbeam",
-    "tm:hypnosis",
     "tm:icepunch",
     "tm:icywind",
     "tm:infestation",
@@ -149,19 +239,15 @@
     "tm:magicalleaf",
     "tm:magiccoat",
     "tm:magicroom",
-    "tm:meditate",
     "tm:megakick",
     "tm:megapunch",
     "tm:metronome",
-    "tm:mimic",
     "tm:mistyterrain",
     "tm:mudslap",
     "tm:mysticalfire",
     "tm:nastyplot",
     "tm:payback",
-    "tm:pound",
     "tm:powershift",
-    "tm:powersplit",
     "tm:powerswap",
     "tm:poweruppunch",
     "tm:protect",
@@ -170,8 +256,6 @@
     "tm:psychicterrain",
     "tm:psychup",
     "tm:psyshock",
-    "tm:psywave",
-    "tm:quickguard",
     "tm:raindance",
     "tm:recycle",
     "tm:reflect",
@@ -190,7 +274,6 @@
     "tm:suckerpunch",
     "tm:sunnyday",
     "tm:taunt",
-    "tm:teeterdance",
     "tm:telekinesis",
     "tm:terablast",
     "tm:thief",
@@ -198,15 +281,81 @@
     "tm:thunderbolt",
     "tm:thunderpunch",
     "tm:thunderwave",
-    "tm:tickle",
     "tm:torment",
     "tm:trick",
     "tm:trickroom",
     "tm:uproar",
-    "tm:wakeupslap",
-    "tm:wideguard",
     "tm:wonderroom",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:aerialace",
+    "tutor:allyswitch",
+    "tutor:calmmind",
+    "tutor:chargebeam",
+    "tutor:covet",
+    "tutor:dazzlinggleam",
+    "tutor:drainpunch",
+    "tutor:energyball",
+    "tutor:expandingforce",
+    "tutor:firepunch",
+    "tutor:focuspunch",
+    "tutor:foulplay",
+    "tutor:gigaimpact",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:icepunch",
+    "tutor:icywind",
+    "tutor:irondefense",
+    "tutor:magicalleaf",
+    "tutor:magiccoat",
+    "tutor:magicroom",
+    "tutor:mudslap",
+    "tutor:mysticalfire",
+    "tutor:powershift",
+    "tutor:psychic",
+    "tutor:recycle",
+    "tutor:rest",
+    "tutor:roleplay",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:skillswap",
+    "tutor:sleeptalk",
+    "tutor:snatch",
+    "tutor:suckerpunch",
+    "tutor:telekinesis",
+    "tutor:thunderbolt",
+    "tutor:thunderpunch",
+    "tutor:trick",
+    "tutor:uproar",
+    "tutor:wonderroom",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:counter",
+    "legacy:curse",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:dynamicpunch",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:naturalgift",
+    "legacy:nightmare",
+    "legacy:rage",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:seismictoss",
+    "legacy:skullbash",
+    "legacy:snore",
+    "legacy:submission",
+    "legacy:swagger",
+    "legacy:takedown",
+    "legacy:teleport",
+    "legacy:toxic",
+    "legacy:zapcannon",
+    "special:followme"
   ],
   "preEvolution": "mimejr",
   "evolutions": [],
@@ -233,9 +382,6 @@
         "screencleaner",
         "h:icebody"
       ],
-      "eggGroups": [
-        "human_like"
-      ],
       "baseStats": {
         "hp": 50,
         "attack": 65,
@@ -252,18 +398,19 @@
         "special_defence": 0,
         "speed": 2
       },
-      "baseExperienceYield": 161,
-      "experienceGroup": "medium_fast",
-      "catchRate": 45,
-      "eggCycles": 25,
-      "baseFriendship": 50,
+      "baseScale": 0.8,
+      "hitbox": {
+        "height": 2.3,
+        "fixed": false,
+        "width": 0.8
+      },
       "behaviour": {},
       "drops": {
         "amount": 1,
         "entries": [
           {
             "item": "cobblemon:aspear_berry",
-            "percentage": 5
+            "percentage": 5.0
           }
         ]
       },
@@ -307,7 +454,6 @@
         "egg:wakeupslap",
         "tm:allyswitch",
         "tm:avalanche",
-        "tm:barrier",
         "tm:batonpass",
         "tm:blizzard",
         "tm:bodyslam",
@@ -315,50 +461,36 @@
         "tm:calmmind",
         "tm:charm",
         "tm:confuseray",
-        "tm:confusion",
-        "tm:copycat",
         "tm:dazzlinggleam",
-        "tm:doublekick",
-        "tm:doubleslap",
         "tm:drainpunch",
         "tm:encore",
         "tm:endure",
         "tm:energyball",
         "tm:expandingforce",
         "tm:facade",
-        "tm:fakeout",
         "tm:fling",
         "tm:focusblast",
         "tm:foulplay",
-        "tm:freezedry",
         "tm:futuresight",
         "tm:gigaimpact",
         "tm:grassknot",
         "tm:guardswap",
         "tm:hail",
-        "tm:healingwish",
         "tm:helpinghand",
         "tm:hyperbeam",
-        "tm:hypnosis",
         "tm:icebeam",
         "tm:icepunch",
-        "tm:iceshard",
         "tm:iciclespear",
         "tm:icywind",
         "tm:irondefense",
         "tm:lightscreen",
         "tm:magicroom",
-        "tm:meditate",
         "tm:megakick",
         "tm:megapunch",
         "tm:metronome",
-        "tm:mimic",
-        "tm:mirrorcoat",
         "tm:mistyterrain",
         "tm:nastyplot",
         "tm:payback",
-        "tm:pound",
-        "tm:powersplit",
         "tm:powerswap",
         "tm:protect",
         "tm:psybeam",
@@ -366,7 +498,6 @@
         "tm:psychicterrain",
         "tm:psyshock",
         "tm:raindance",
-        "tm:rapidspin",
         "tm:recycle",
         "tm:reflect",
         "tm:rest",
@@ -383,38 +514,81 @@
         "tm:suckerpunch",
         "tm:sunnyday",
         "tm:taunt",
-        "tm:teeterdance",
         "tm:terablast",
         "tm:thief",
         "tm:thunder",
         "tm:thunderbolt",
         "tm:thunderwave",
-        "tm:tickle",
         "tm:trick",
         "tm:trickroom",
         "tm:tripleaxel",
         "tm:uproar",
-        "tm:wakeupslap",
         "tm:wonderroom",
-        "tm:zenheadbutt"
+        "tm:zenheadbutt",
+        "tutor:allyswitch",
+        "tutor:calmmind",
+        "tutor:dazzlinggleam",
+        "tutor:drainpunch",
+        "tutor:energyball",
+        "tutor:expandingforce",
+        "tutor:foulplay",
+        "tutor:gigaimpact",
+        "tutor:helpinghand",
+        "tutor:hyperbeam",
+        "tutor:icebeam",
+        "tutor:icepunch",
+        "tutor:icywind",
+        "tutor:irondefense",
+        "tutor:magicroom",
+        "tutor:psychic",
+        "tutor:recycle",
+        "tutor:rest",
+        "tutor:roleplay",
+        "tutor:shadowball",
+        "tutor:skillswap",
+        "tutor:sleeptalk",
+        "tutor:stompingtantrum",
+        "tutor:suckerpunch",
+        "tutor:thunderbolt",
+        "tutor:trick",
+        "tutor:tripleaxel",
+        "tutor:uproar",
+        "tutor:wonderroom",
+        "tutor:zenheadbutt",
+        "legacy:attract",
+        "legacy:captivate",
+        "legacy:confide",
+        "legacy:doubleteam",
+        "legacy:frustration",
+        "legacy:hiddenpower",
+        "legacy:naturalgift",
+        "legacy:return",
+        "legacy:round",
+        "legacy:secretpower",
+        "legacy:snore",
+        "legacy:swagger",
+        "legacy:toxic"
       ],
       "preEvolution": "mimejr",
       "evolutions": [
         {
-          "id": "mrmime_mrrime",
-          "variant": "level_up",
-          "result": "mrrime",
           "consumeHeldItem": false,
+          "id": "mrmime_mrrime",
           "learnableMoves": [],
           "requirements": [
             {
-              "variant": "level",
-              "minLevel": 42
+              "minLevel": 42,
+              "variant": "level"
             }
-          ]
+          ],
+          "result": "mrrime",
+          "variant": "level_up"
         }
       ],
       "battleOnly": false
     }
+  ],
+  "features": [
+    "galarian"
   ]
 }

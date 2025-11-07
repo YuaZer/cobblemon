@@ -44,21 +44,136 @@
   "baseFriendship": 35,
   "baseScale": 1,
   "hitbox": {
-    "width": 1.2,
     "height": 1,
-    "fixed": false
+    "fixed": false,
+    "width": 1.2
+  },
+  "riding": {
+    "behaviours": {
+      "LIQUID": {
+        "key": "cobblemon:liquid/dolphin",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "55-85",
+          "JUMP": "45-75",
+          "SKILL": "25-65",
+          "SPEED": "55-85",
+          "STAMINA": "20-45"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.016692027,
+              "y": -0.97483945,
+              "z": 0.625
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.085860536,
+              "y": -0.9310412,
+              "z": 0.625
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.84375,
+              "z": 0.625
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.84375,
+              "z": 0.625
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.84375,
+              "z": 0.625
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.011510778,
+              "y": -0.875,
+              "z": 0.623573
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.84375,
+              "z": 0.625
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "sharpedo mega=false",
+          "tier": 1
+        },
+        {
+          "pokemon": "sharpedo mega",
+          "tier": 2
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 3
+        }
+      ]
+    },
     "moving": {
       "canLook": false,
-      "walk": {
-        "avoidsLand": true
-      },
       "swim": {
-        "swimSpeed": 0.7,
         "canBreatheUnderwater": true,
+        "canSwimInLava": false,
         "canSwimInWater": true,
-        "canSwimInLava": false
+        "swimSpeed": 0.7
+      },
+      "walk": {
+        "avoidsLand": true,
+        "canWalk": false,
+        "walkSpeed": 0.7
       }
     }
   },
@@ -67,11 +182,11 @@
     "entries": [
       {
         "item": "cobblemon:deep_sea_tooth",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:aspear_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -101,10 +216,8 @@
     "egg:waterpulse",
     "tm:agility",
     "tm:ancientpower",
-    "tm:aquajet",
     "tm:assurance",
     "tm:avalanche",
-    "tm:bite",
     "tm:blizzard",
     "tm:bounce",
     "tm:brine",
@@ -112,13 +225,11 @@
     "tm:closecombat",
     "tm:crunch",
     "tm:darkpulse",
-    "tm:destinybond",
     "tm:dive",
     "tm:doubleedge",
     "tm:earthquake",
     "tm:endure",
     "tm:facade",
-    "tm:feint",
     "tm:flipturn",
     "tm:focusenergy",
     "tm:furycutter",
@@ -129,16 +240,12 @@
     "tm:icebeam",
     "tm:icefang",
     "tm:icywind",
-    "tm:leer",
     "tm:liquidation",
     "tm:mudslap",
-    "tm:nightslash",
     "tm:payback",
-    "tm:poisonfang",
     "tm:poisonjab",
     "tm:protect",
     "tm:psychicfangs",
-    "tm:rage",
     "tm:raindance",
     "tm:rest",
     "tm:retaliate",
@@ -149,8 +256,6 @@
     "tm:scaleshot",
     "tm:scaryface",
     "tm:screech",
-    "tm:skullbash",
-    "tm:slash",
     "tm:sleeptalk",
     "tm:snarl",
     "tm:spite",
@@ -164,13 +269,53 @@
     "tm:taunt",
     "tm:terablast",
     "tm:thief",
-    "tm:thrash",
     "tm:torment",
     "tm:uproar",
     "tm:waterfall",
     "tm:waterpulse",
     "tm:whirlpool",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:ancientpower",
+    "tutor:bounce",
+    "tutor:bulldoze",
+    "tutor:darkpulse",
+    "tutor:dive",
+    "tutor:flipturn",
+    "tutor:focusenergy",
+    "tutor:furycutter",
+    "tutor:gigaimpact",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icefang",
+    "tutor:icywind",
+    "tutor:liquidation",
+    "tutor:mudslap",
+    "tutor:poisonjab",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:scaleshot",
+    "tutor:sleeptalk",
+    "tutor:snarl",
+    "tutor:spite",
+    "tutor:superfang",
+    "tutor:swift",
+    "tutor:uproar",
+    "tutor:waterpulse",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:toxic",
+    "special:refresh"
   ],
   "preEvolution": "carvanha",
   "evolutions": [],
@@ -196,9 +341,6 @@
         "strongjaw",
         "h:strongjaw"
       ],
-      "eggGroups": [
-        "water_2"
-      ],
       "baseStats": {
         "hp": 70,
         "attack": 140,
@@ -207,132 +349,37 @@
         "special_defence": 65,
         "speed": 105
       },
-      "evYield": {
-        "hp": 0,
-        "attack": 2,
-        "defence": 0,
-        "special_attack": 0,
-        "special_defence": 0,
-        "speed": 0
-      },
       "baseExperienceYield": 196,
-      "experienceGroup": "slow",
-      "catchRate": 60,
-      "eggCycles": 20,
-      "baseFriendship": 35,
-      "dynamaxBlocked": true,
       "behaviour": {
+        "herd": {
+          "maxSize": "9",
+          "toleratedLeaders": [
+            {
+              "pokemon": "sharpedo mega",
+              "tier": 1
+            },
+            {
+              "pokemon": "manaphy",
+              "tier": 2
+            }
+          ]
+        },
         "moving": {
+          "canLook": false,
+          "swim": {
+            "canBreatheUnderwater": true,
+            "canSwimInLava": false,
+            "canSwimInWater": true,
+            "swimSpeed": "0.2"
+          },
           "walk": {
             "avoidsLand": true
-          },
-          "swim": {
-            "canSwimInWater": true,
-            "canSwimInLava": false,
-            "canBreatheUnderwater": true,
-            "swimSpeed": "0.2"
           }
         }
       },
-      "moves": [
-        "1:feint",
-        "1:leer",
-        "1:rage",
-        "1:focusenergy",
-        "1:slash",
-        "1:aquajet",
-        "1:skullbash",
-        "1:nightslash",
-        "1:poisonfang",
-        "12:scaryface",
-        "16:bite",
-        "20:icefang",
-        "24:screech",
-        "28:swagger",
-        "34:crunch",
-        "40:agility",
-        "46:liquidation",
-        "52:takedown",
-        "egg:ancientpower",
-        "egg:destinybond",
-        "egg:doubleedge",
-        "egg:thrash",
-        "egg:waterpulse",
-        "tm:agility",
-        "tm:ancientpower",
-        "tm:aquajet",
-        "tm:assurance",
-        "tm:avalanche",
-        "tm:bite",
-        "tm:blizzard",
-        "tm:bounce",
-        "tm:brine",
-        "tm:bulldoze",
-        "tm:closecombat",
-        "tm:crunch",
-        "tm:darkpulse",
-        "tm:destinybond",
-        "tm:dive",
-        "tm:doubleedge",
-        "tm:earthquake",
-        "tm:endure",
-        "tm:facade",
-        "tm:feint",
-        "tm:flipturn",
-        "tm:focusenergy",
-        "tm:furycutter",
-        "tm:gigaimpact",
-        "tm:hail",
-        "tm:hydropump",
-        "tm:hyperbeam",
-        "tm:icebeam",
-        "tm:icefang",
-        "tm:icywind",
-        "tm:leer",
-        "tm:liquidation",
-        "tm:mudslap",
-        "tm:nightslash",
-        "tm:payback",
-        "tm:poisonfang",
-        "tm:poisonjab",
-        "tm:protect",
-        "tm:psychicfangs",
-        "tm:rage",
-        "tm:raindance",
-        "tm:rest",
-        "tm:retaliate",
-        "tm:roar",
-        "tm:rocksmash",
-        "tm:rocktomb",
-        "tm:scald",
-        "tm:scaleshot",
-        "tm:scaryface",
-        "tm:screech",
-        "tm:skullbash",
-        "tm:slash",
-        "tm:sleeptalk",
-        "tm:snarl",
-        "tm:spite",
-        "tm:strength",
-        "tm:substitute",
-        "tm:superfang",
-        "tm:surf",
-        "tm:swagger",
-        "tm:swift",
-        "tm:takedown",
-        "tm:taunt",
-        "tm:terablast",
-        "tm:thief",
-        "tm:thrash",
-        "tm:torment",
-        "tm:uproar",
-        "tm:waterfall",
-        "tm:waterpulse",
-        "tm:whirlpool",
-        "tm:zenheadbutt"
-      ],
       "evolutions": [],
-      "battleOnly": true
+      "battleOnly": true,
+      "dynamaxBlocked": true
     }
   ]
 }

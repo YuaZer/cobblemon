@@ -50,10 +50,31 @@
     "fixed": false
   },
   "behaviour": {
+    "fireImmune": true,
     "moving": {
       "fly": {
         "canFly": true
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "fletchling",
+          "tier": 1
+        },
+        {
+          "pokemon": "fletchinder",
+          "tier": 2
+        },
+        {
+          "pokemon": "talonflame",
+          "tier": 3
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -100,26 +121,18 @@
     "tm:defog",
     "tm:doubleedge",
     "tm:dualwingbeat",
-    "tm:ember",
     "tm:endure",
     "tm:facade",
     "tm:featherdance",
-    "tm:flail",
     "tm:flamecharge",
     "tm:flareblitz",
     "tm:fly",
-    "tm:growl",
     "tm:heatwave",
     "tm:hurricane",
-    "tm:mefirst",
     "tm:naturalgift",
     "tm:overheat",
-    "tm:peck",
     "tm:protect",
-    "tm:quickattack",
-    "tm:quickguard",
     "tm:raindance",
-    "tm:razorwind",
     "tm:rest",
     "tm:roost",
     "tm:sleeptalk",
@@ -129,14 +142,36 @@
     "tm:sunnyday",
     "tm:swift",
     "tm:swordsdance",
-    "tm:tackle",
     "tm:tailwind",
     "tm:takedown",
     "tm:taunt",
     "tm:terablast",
     "tm:thief",
     "tm:uturn",
-    "tm:workup"
+    "tm:workup",
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:defog",
+    "tutor:dualwingbeat",
+    "tutor:heatwave",
+    "tutor:rest",
+    "tutor:roost",
+    "tutor:sleeptalk",
+    "tutor:snatch",
+    "tutor:swift",
+    "tutor:tailwind",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic",
+    "legacy:willowisp"
   ],
   "evolutions": [
     {

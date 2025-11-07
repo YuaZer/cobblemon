@@ -66,6 +66,47 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "seel",
+          "tier": 1
+        },
+        {
+          "pokemon": "spheal",
+          "tier": 1
+        },
+        {
+          "pokemon": "popplio",
+          "tier": 2
+        },
+        {
+          "pokemon": "dewgong",
+          "tier": 3
+        },
+        {
+          "pokemon": "sealeo",
+          "tier": 3
+        },
+        {
+          "pokemon": "brionne",
+          "tier": 4
+        },
+        {
+          "pokemon": "walrein",
+          "tier": 5
+        },
+        {
+          "pokemon": "primarina",
+          "tier": 6
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 7
+        }
+      ]
     }
   },
   "drops": {
@@ -73,7 +114,7 @@
     "entries": [
       {
         "item": "cobblemon:mystic_water",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -100,28 +141,22 @@
     "egg:perishsong",
     "tm:acrobatics",
     "tm:amnesia",
-    "tm:aquajet",
-    "tm:aquaring",
     "tm:aquatail",
-    "tm:aromaticmist",
     "tm:babydolleyes",
     "tm:blizzard",
     "tm:brine",
-    "tm:bubblebeam",
     "tm:captivate",
     "tm:charm",
     "tm:chillingwater",
     "tm:covet",
     "tm:disarmingvoice",
     "tm:dive",
-    "tm:doubleslap",
     "tm:drainingkiss",
     "tm:echoedvoice",
     "tm:encore",
     "tm:endure",
     "tm:facade",
     "tm:flipturn",
-    "tm:growl",
     "tm:hail",
     "tm:helpinghand",
     "tm:hydropump",
@@ -130,16 +165,11 @@
     "tm:icespinner",
     "tm:icywind",
     "tm:irontail",
-    "tm:lifedew",
     "tm:mistyterrain",
-    "tm:moonblast",
-    "tm:perishsong",
     "tm:playrough",
-    "tm:pound",
     "tm:protect",
     "tm:raindance",
     "tm:rest",
-    "tm:sing",
     "tm:sleeptalk",
     "tm:substitute",
     "tm:surf",
@@ -148,12 +178,41 @@
     "tm:tripleaxel",
     "tm:uproar",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpledge",
     "tm:waterpulse",
     "tm:whirlpool",
     "tm:wonderroom",
-    "tm:workup"
+    "tm:workup",
+    "tutor:aquatail",
+    "tutor:babydolleyes",
+    "tutor:covet",
+    "tutor:dive",
+    "tutor:flipturn",
+    "tutor:helpinghand",
+    "tutor:hypervoice",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:irontail",
+    "tutor:playrough",
+    "tutor:rest",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:tripleaxel",
+    "tutor:uproar",
+    "tutor:waterpledge",
+    "tutor:waterpulse",
+    "tutor:wonderroom",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:scald",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

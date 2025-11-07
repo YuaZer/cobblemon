@@ -48,7 +48,48 @@
     "height": 1,
     "fixed": false
   },
-  "behaviour": {},
+  "behaviour": {
+    "entityInteract": {
+      "avoidedByCreeper": true,
+      "avoidedByPhantom": true
+    },
+    "herd": {
+      "maxSize": "6",
+      "toleratedLeaders": [
+        {
+          "pokemon": "shinx",
+          "tier": 1
+        },
+        {
+          "pokemon": "litleo",
+          "tier": 1
+        },
+        {
+          "pokemon": "luxio",
+          "tier": 2
+        },
+        {
+          "pokemon": "luxray female",
+          "tier": 3
+        },
+        {
+          "pokemon": "luxray male",
+          "tier": 4
+        },
+        {
+          "pokemon": "pyroar female",
+          "tier": 5
+        },
+        {
+          "pokemon": "pyroar male",
+          "tier": 6
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  },
   "drops": {
     "amount": 3,
     "entries": [
@@ -93,10 +134,8 @@
     "tm:dig",
     "tm:doubleedge",
     "tm:echoedvoice",
-    "tm:ember",
     "tm:endeavor",
     "tm:endure",
-    "tm:entrainment",
     "tm:facade",
     "tm:fireblast",
     "tm:firefang",
@@ -110,9 +149,7 @@
     "tm:hypervoice",
     "tm:incinerate",
     "tm:irontail",
-    "tm:leer",
     "tm:mudslap",
-    "tm:nobleroar",
     "tm:overheat",
     "tm:payback",
     "tm:protect",
@@ -130,7 +167,6 @@
     "tm:substitute",
     "tm:sunnyday",
     "tm:swift",
-    "tm:tackle",
     "tm:takedown",
     "tm:taunt",
     "tm:terablast",
@@ -140,7 +176,35 @@
     "tm:wildcharge",
     "tm:willowisp",
     "tm:workup",
-    "tm:yawn"
+    "tutor:bulldoze",
+    "tutor:endeavor",
+    "tutor:firefang",
+    "tutor:flamethrower",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:hypervoice",
+    "tutor:irontail",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:sleeptalk",
+    "tutor:snarl",
+    "tutor:snatch",
+    "tutor:swift",
+    "tutor:thunderfang",
+    "tutor:wildcharge",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:darkpulse",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

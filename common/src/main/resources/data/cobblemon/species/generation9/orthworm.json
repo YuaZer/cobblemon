@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 968,
   "name": "Orthworm",
   "primaryType": "steel",
@@ -40,6 +41,108 @@
   "catchRate": 25,
   "eggCycles": 35,
   "baseFriendship": 50,
+  "baseScale": 1,
+  "hitbox": {
+    "height": 0.5,
+    "fixed": false,
+    "width": 1.3
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "15-25",
+          "JUMP": "0-10",
+          "SKILL": "0-15",
+          "SPEED": "35-45",
+          "STAMINA": "40-85"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.5104057,
+              "z": -0.3168178
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": -2.6898228E-18,
+              "y": -0.5152839,
+              "z": -0.24532038
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.01842716,
+              "y": -1.5648918,
+              "z": 0.62338775
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.01842716,
+              "y": -1.5648918,
+              "z": 0.62338775
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -0.5104057,
+              "z": -0.3168178
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": -2.6898228E-18,
+              "y": -0.5152839,
+              "z": -0.24532038
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.01842716,
+              "y": -1.5648918,
+              "z": 0.62338775
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "behaviour": {},
   "drops": {
     "amount": 3,
@@ -50,7 +153,7 @@
       },
       {
         "item": "cobblemon:shuca_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -75,7 +178,6 @@
     "tm:bodypress",
     "tm:bodyslam",
     "tm:bulldoze",
-    "tm:coil",
     "tm:curse",
     "tm:dig",
     "tm:doubleedge",
@@ -85,7 +187,6 @@
     "tm:facade",
     "tm:flashcannon",
     "tm:gigaimpact",
-    "tm:harden",
     "tm:heavyslam",
     "tm:helpinghand",
     "tm:highhorsepower",
@@ -93,7 +194,6 @@
     "tm:irondefense",
     "tm:ironhead",
     "tm:irontail",
-    "tm:metalburst",
     "tm:metalsound",
     "tm:mudshot",
     "tm:mudslap",
@@ -104,7 +204,6 @@
     "tm:rocktomb",
     "tm:sandstorm",
     "tm:sandtomb",
-    "tm:shedtail",
     "tm:sleeptalk",
     "tm:smackdown",
     "tm:spikes",
@@ -112,10 +211,27 @@
     "tm:steelbeam",
     "tm:stompingtantrum",
     "tm:substitute",
-    "tm:tackle",
     "tm:takedown",
     "tm:terablast",
-    "tm:wrap"
+    "tutor:bulldoze",
+    "tutor:earthpower",
+    "tutor:flashcannon",
+    "tutor:gigaimpact",
+    "tutor:helpinghand",
+    "tutor:highhorsepower",
+    "tutor:hyperbeam",
+    "tutor:irondefense",
+    "tutor:ironhead",
+    "tutor:irontail",
+    "tutor:mudslap",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:sleeptalk",
+    "tutor:spikes",
+    "tutor:stealthrock",
+    "tutor:steelbeam",
+    "tutor:stompingtantrum",
+    "special:headbutt"
   ],
   "evolutions": []
 }

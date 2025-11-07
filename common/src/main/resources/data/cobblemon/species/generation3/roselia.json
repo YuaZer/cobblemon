@@ -53,12 +53,26 @@
   "behaviour": {
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
     },
     "moving": {
       "walk": {
         "walkSpeed": 0.12
       }
+    },
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "roselia",
+          "tier": 1
+        },
+        {
+          "pokemon": "roserade",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -70,15 +84,15 @@
       },
       {
         "item": "cobblemon:poison_barb",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:absorb_bulb",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:pecha_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -111,57 +125,40 @@
     "egg:razorleaf",
     "egg:sleeppowder",
     "egg:synthesis",
-    "tm:absorb",
-    "tm:aromatherapy",
     "tm:bodyslam",
     "tm:bulletseed",
-    "tm:cottonspore",
     "tm:covet",
     "tm:cut",
     "tm:dazzlinggleam",
     "tm:endure",
     "tm:energyball",
-    "tm:extrasensory",
     "tm:facade",
     "tm:flash",
     "tm:furycutter",
     "tm:gigadrain",
     "tm:grassknot",
-    "tm:grasswhistle",
     "tm:grassyglide",
-    "tm:growth",
-    "tm:ingrain",
     "tm:leafstorm",
-    "tm:leechseed",
-    "tm:lifedew",
     "tm:magicalleaf",
-    "tm:megadrain",
-    "tm:mindreader",
     "tm:mudslap",
     "tm:naturalgift",
     "tm:naturepower",
     "tm:petalblizzard",
-    "tm:petaldance",
     "tm:pinmissile",
     "tm:poisonjab",
-    "tm:poisonsting",
     "tm:powerwhip",
     "tm:protect",
     "tm:psychup",
     "tm:raindance",
-    "tm:razorleaf",
     "tm:rest",
     "tm:seedbomb",
     "tm:shadowball",
-    "tm:sleeppowder",
     "tm:sleeptalk",
     "tm:sludgebomb",
     "tm:solarbeam",
     "tm:spikes",
-    "tm:stunspore",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:sweetscent",
     "tm:swift",
     "tm:swordsdance",
     "tm:synthesis",
@@ -170,9 +167,42 @@
     "tm:toxicspikes",
     "tm:uproar",
     "tm:venoshock",
-    "tm:watersport",
     "tm:weatherball",
-    "tm:worryseed"
+    "tm:worryseed",
+    "tutor:covet",
+    "tutor:dazzlinggleam",
+    "tutor:energyball",
+    "tutor:furycutter",
+    "tutor:gigadrain",
+    "tutor:grassyglide",
+    "tutor:magicalleaf",
+    "tutor:mudslap",
+    "tutor:poisonjab",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:shadowball",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:spikes",
+    "tutor:swift",
+    "tutor:synthesis",
+    "tutor:uproar",
+    "tutor:worryseed",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:nightmare",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "special:sweetkiss"
   ],
   "preEvolution": "budew",
   "evolutions": [
@@ -180,7 +210,7 @@
       "id": "roselia_roserade",
       "variant": "item_interact",
       "result": "roserade",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [],
       "requirements": [],
       "requiredContext": "cobblemon:shiny_stone"

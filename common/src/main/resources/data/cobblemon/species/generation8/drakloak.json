@@ -44,7 +44,7 @@
   "catchRate": 45,
   "eggCycles": 40,
   "baseFriendship": 50,
-  "baseScale": 0.75,
+  "baseScale": 0.65,
   "hitbox": {
     "width": 0.9,
     "height": 1.55,
@@ -59,11 +59,27 @@
       },
       "fly": {
         "canFly": true
+      },
+      "walk": {
+        "canWalk": false
       }
     },
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "5",
+      "toleratedLeaders": [
+        {
+          "pokemon": "drakloak",
+          "tier": 1
+        },
+        {
+          "pokemon": "dragapult",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -71,11 +87,11 @@
     "entries": [
       {
         "item": "minecraft:phantom_membrane",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:haban_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -108,44 +124,36 @@
     "tm:agility",
     "tm:allyswitch",
     "tm:assurance",
-    "tm:astonish",
     "tm:batonpass",
     "tm:beatup",
-    "tm:bite",
     "tm:breakingswipe",
     "tm:brine",
     "tm:confuseray",
     "tm:curse",
-    "tm:disable",
     "tm:dive",
     "tm:doubleedge",
-    "tm:doublehit",
     "tm:doubleteam",
     "tm:dracometeor",
     "tm:dragoncheer",
     "tm:dragondance",
     "tm:dragonpulse",
-    "tm:dragonrush",
     "tm:dragontail",
     "tm:endure",
     "tm:facade",
     "tm:fireblast",
     "tm:flamethrower",
-    "tm:grudge",
     "tm:helpinghand",
     "tm:hex",
     "tm:hydropump",
     "tm:infestation",
     "tm:lastresort",
     "tm:lightscreen",
-    "tm:lockon",
     "tm:nightshade",
     "tm:outrage",
     "tm:phantomforce",
     "tm:pounce",
     "tm:protect",
     "tm:psychicfangs",
-    "tm:quickattack",
     "tm:reflect",
     "tm:rest",
     "tm:shadowball",
@@ -163,7 +171,25 @@
     "tm:thunderbolt",
     "tm:thunderwave",
     "tm:uturn",
-    "tm:willowisp"
+    "tm:willowisp",
+    "tutor:allyswitch",
+    "tutor:dive",
+    "tutor:dracometeor",
+    "tutor:dragonpulse",
+    "tutor:flamethrower",
+    "tutor:helpinghand",
+    "tutor:lastresort",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:shadowball",
+    "tutor:sleeptalk",
+    "tutor:suckerpunch",
+    "tutor:swift",
+    "tutor:thunderbolt",
+    "legacy:attract",
+    "legacy:round",
+    "legacy:scald",
+    "legacy:snore"
   ],
   "preEvolution": "dreepy",
   "evolutions": [

@@ -61,6 +61,9 @@
         "canSwimInWater": false
       },
       "canLook": false
+    },
+    "herd": {
+      "maxSize": "9"
     }
   },
   "drops": {
@@ -81,12 +84,15 @@
     "1:poisonsting",
     "tm:bugbite",
     "tm:electroweb",
-    "tm:harden",
     "tm:irondefense",
-    "tm:poisonsting",
     "tm:skittersmack",
     "tm:stringshot",
-    "tm:terablast"
+    "tm:terablast",
+    "tutor:bugbite",
+    "tutor:electroweb",
+    "tutor:irondefense",
+    "tutor:skittersmack",
+    "tutor:stringshot"
   ],
   "preEvolution": "weedle",
   "evolutions": [

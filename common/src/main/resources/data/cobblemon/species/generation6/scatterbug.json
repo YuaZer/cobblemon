@@ -60,7 +60,8 @@
     },
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -89,14 +90,12 @@
     "egg:ragepowder",
     "egg:stunspore",
     "tm:bugbite",
-    "tm:poisonpowder",
     "tm:pounce",
-    "tm:ragepowder",
     "tm:stringshot",
     "tm:strugglebug",
-    "tm:stunspore",
-    "tm:tackle",
-    "tm:terablast"
+    "tm:terablast",
+    "tutor:bugbite",
+    "tutor:stringshot"
   ],
   "evolutions": [
     {

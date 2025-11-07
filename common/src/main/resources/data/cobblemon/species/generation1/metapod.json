@@ -63,6 +63,9 @@
         "canSwimInWater": false
       },
       "canLook": false
+    },
+    "herd": {
+      "maxSize": "9"
     }
   },
   "drops": {
@@ -83,11 +86,14 @@
     "1:tackle",
     "tm:bugbite",
     "tm:electroweb",
-    "tm:harden",
     "tm:irondefense",
     "tm:stringshot",
-    "tm:tackle",
-    "tm:terablast"
+    "tm:terablast",
+    "tutor:bugbite",
+    "tutor:electroweb",
+    "tutor:irondefense",
+    "tutor:stringshot",
+    "legacy:snore"
   ],
   "preEvolution": "caterpie",
   "evolutions": [

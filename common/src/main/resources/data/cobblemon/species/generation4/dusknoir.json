@@ -43,14 +43,124 @@
   "baseFriendship": 35,
   "baseScale": 1,
   "hitbox": {
-    "width": 1.8,
     "height": 3.4,
-    "fixed": false
+    "fixed": false,
+    "width": 1.8
+  },
+  "riding": {
+    "behaviours": {
+      "AIR": {
+        "key": "cobblemon:air/hover",
+        "rideSounds": [
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "soundLocation": "cobblemon:ride.loop.wind",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          }
+        ],
+        "stats": {
+          "ACCELERATION": "25-40",
+          "JUMP": "20-45",
+          "SKILL": "35-50",
+          "SPEED": "9-22",
+          "STAMINA": "40-60"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.800053,
+              "z": 0.15268813
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.041538313,
+              "y": -3.0530646,
+              "z": -0.3417098
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.800053,
+              "z": 0.15268813
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.041538313,
+              "y": -3.0530646,
+              "z": -0.3417098
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.8875523,
+              "z": -0.09665136
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.8875523,
+              "z": -0.09665136
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.0,
+              "y": -2.8875523,
+              "z": -0.09665136
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "4"
+    },
     "moving": {
       "fly": {
         "canFly": true
+      },
+      "walk": {
+        "canWalk": false
       }
     },
     "resting": {
@@ -63,15 +173,15 @@
     "entries": [
       {
         "item": "minecraft:phantom_membrane",
-        "percentage": 10
+        "percentage": 10.0
       },
       {
         "item": "cobblemon:reaper_cloth",
-        "percentage": 10
+        "percentage": 10.0
       },
       {
         "item": "cobblemon:kasib_berry",
-        "percentage": 10
+        "percentage": 10.0
       }
     ]
   },
@@ -106,7 +216,6 @@
     "egg:painsplit",
     "egg:pursuit",
     "tm:allyswitch",
-    "tm:astonish",
     "tm:bind",
     "tm:blizzard",
     "tm:bodyslam",
@@ -117,24 +226,19 @@
     "tm:curse",
     "tm:darkestlariat",
     "tm:darkpulse",
-    "tm:destinybond",
-    "tm:disable",
     "tm:dreameater",
     "tm:earthquake",
     "tm:embargo",
     "tm:endure",
     "tm:facade",
-    "tm:feintattack",
     "tm:firepunch",
     "tm:flash",
     "tm:fling",
     "tm:focusblast",
     "tm:focuspunch",
-    "tm:foresight",
     "tm:futuresight",
     "tm:gigaimpact",
     "tm:gravity",
-    "tm:grudge",
     "tm:hardpress",
     "tm:haze",
     "tm:headbutt",
@@ -148,11 +252,8 @@
     "tm:infestation",
     "tm:laserfocus",
     "tm:leechlife",
-    "tm:leer",
-    "tm:meanlook",
     "tm:megakick",
     "tm:megapunch",
-    "tm:memento",
     "tm:metronome",
     "tm:nightshade",
     "tm:ominouswind",
@@ -165,7 +266,6 @@
     "tm:protect",
     "tm:psychic",
     "tm:psychup",
-    "tm:pursuit",
     "tm:raindance",
     "tm:rest",
     "tm:revenge",
@@ -173,8 +273,6 @@
     "tm:rocksmash",
     "tm:rocktomb",
     "tm:shadowball",
-    "tm:shadowpunch",
-    "tm:shadowsneak",
     "tm:skillswap",
     "tm:skittersmack",
     "tm:sleeptalk",
@@ -194,7 +292,63 @@
     "tm:trick",
     "tm:trickroom",
     "tm:willowisp",
-    "tm:wonderroom"
+    "tm:wonderroom",
+    "tutor:allyswitch",
+    "tutor:bind",
+    "tutor:calmmind",
+    "tutor:chargebeam",
+    "tutor:darkpulse",
+    "tutor:firepunch",
+    "tutor:focuspunch",
+    "tutor:gigaimpact",
+    "tutor:gravity",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icepunch",
+    "tutor:icywind",
+    "tutor:laserfocus",
+    "tutor:leechlife",
+    "tutor:ominouswind",
+    "tutor:painsplit",
+    "tutor:poltergeist",
+    "tutor:powershift",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:rocksmash",
+    "tutor:shadowball",
+    "tutor:skillswap",
+    "tutor:skittersmack",
+    "tutor:sleeptalk",
+    "tutor:snatch",
+    "tutor:spite",
+    "tutor:suckerpunch",
+    "tutor:swift",
+    "tutor:telekinesis",
+    "tutor:thunderpunch",
+    "tutor:trick",
+    "tutor:wonderroom",
+    "legacy:attract",
+    "legacy:bulldoze",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:counter",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:dynamicpunch",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:nightmare",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:seismictoss",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "dusclops",
   "evolutions": []

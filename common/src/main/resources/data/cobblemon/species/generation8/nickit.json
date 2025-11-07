@@ -53,6 +53,15 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "thievul",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
@@ -98,16 +107,12 @@
     "tm:faketears",
     "tm:foulplay",
     "tm:honeclaws",
-    "tm:howl",
     "tm:knockoff",
     "tm:lashout",
     "tm:mudshot",
     "tm:nastyplot",
-    "tm:nightslash",
     "tm:playrough",
     "tm:protect",
-    "tm:quickattack",
-    "tm:quickguard",
     "tm:rest",
     "tm:screech",
     "tm:sleeptalk",
@@ -116,11 +121,22 @@
     "tm:suckerpunch",
     "tm:swift",
     "tm:tailslap",
-    "tm:tailwhip",
     "tm:taunt",
     "tm:terablast",
     "tm:thief",
-    "tm:torment"
+    "tm:torment",
+    "tutor:foulplay",
+    "tutor:knockoff",
+    "tutor:lashout",
+    "tutor:playrough",
+    "tutor:rest",
+    "tutor:sleeptalk",
+    "tutor:snarl",
+    "tutor:suckerpunch",
+    "tutor:swift",
+    "legacy:attract",
+    "legacy:round",
+    "legacy:snore"
   ],
   "evolutions": [
     {

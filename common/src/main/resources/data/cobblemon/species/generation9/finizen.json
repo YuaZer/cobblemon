@@ -60,6 +60,27 @@
         "canSwimInWater": true,
         "canSwimInLava": false
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "finizen",
+          "tier": 1
+        },
+        {
+          "pokemon": "palafin hero=false",
+          "tier": 2
+        },
+        {
+          "pokemon": "palafin hero",
+          "tier": 3
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 4
+        }
+      ]
     }
   },
   "drops": {
@@ -92,19 +113,14 @@
     "egg:tickle",
     "tm:acrobatics",
     "tm:agility",
-    "tm:aquajet",
     "tm:aquatail",
-    "tm:astonish",
     "tm:blizzard",
     "tm:bodyslam",
-    "tm:boomburst",
     "tm:bounce",
     "tm:charm",
     "tm:chillingwater",
-    "tm:counter",
     "tm:disarmingvoice",
     "tm:dive",
-    "tm:doublehit",
     "tm:drainingkiss",
     "tm:encore",
     "tm:endure",
@@ -117,23 +133,32 @@
     "tm:icebeam",
     "tm:icywind",
     "tm:liquidation",
-    "tm:mist",
     "tm:protect",
     "tm:psychup",
     "tm:raindance",
     "tm:rest",
     "tm:sleeptalk",
     "tm:substitute",
-    "tm:supersonic",
     "tm:surf",
     "tm:swift",
     "tm:takedown",
     "tm:terablast",
-    "tm:tickle",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:aquatail",
+    "tutor:bounce",
+    "tutor:dive",
+    "tutor:focusenergy",
+    "tutor:helpinghand",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:liquidation",
+    "tutor:rest",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:waterpulse",
+    "tutor:zenheadbutt"
   ],
   "evolutions": [
     {

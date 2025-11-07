@@ -53,6 +53,19 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "kricketot",
+          "tier": 1
+        },
+        {
+          "pokemon": "kricketune",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -70,17 +83,21 @@
     "1:tackle",
     "6:strugglebug",
     "16:bugbite",
-    "tm:bide",
     "tm:bugbite",
     "tm:endeavor",
-    "tm:growl",
     "tm:lunge",
     "tm:pound",
     "tm:skittersmack",
     "tm:stringshot",
     "tm:strugglebug",
-    "tm:tackle",
-    "tm:terablast"
+    "tm:terablast",
+    "tutor:bugbite",
+    "tutor:endeavor",
+    "tutor:skittersmack",
+    "tutor:stringshot",
+    "legacy:mudslap",
+    "legacy:snore",
+    "legacy:uproar"
   ],
   "evolutions": [
     {

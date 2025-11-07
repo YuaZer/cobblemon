@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 618,
   "name": "Stunfisk",
   "primaryType": "ground",
@@ -47,10 +48,10 @@
   "features": [
     "galarian"
   ],
-  "baseScale": 1,
+  "baseScale": 0.9,
   "hitbox": {
     "width": 1,
-    "height": 1,
+    "height": 0.25,
     "fixed": false
   },
   "behaviour": {
@@ -61,6 +62,9 @@
         "canBreatheUnderwater": true,
         "swimSpeed": "0.2"
       }
+    },
+    "resting": {
+      "willSleepOnBed": true
     }
   },
   "drops": {
@@ -72,7 +76,7 @@
       },
       {
         "item": "cobblemon:passho_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -105,15 +109,11 @@
     "egg:spite",
     "egg:yawn",
     "tm:aquatail",
-    "tm:astonish",
-    "tm:bide",
     "tm:bounce",
     "tm:bulldoze",
-    "tm:camouflage",
     "tm:charge",
     "tm:curse",
     "tm:dig",
-    "tm:discharge",
     "tm:earthpower",
     "tm:earthquake",
     "tm:eerieimpulse",
@@ -122,24 +122,18 @@
     "tm:endeavor",
     "tm:endure",
     "tm:facade",
-    "tm:fissure",
-    "tm:flail",
     "tm:flash",
     "tm:foulplay",
     "tm:infestation",
     "tm:lashout",
     "tm:magnetrise",
-    "tm:mefirst",
-    "tm:mudbomb",
     "tm:muddywater",
     "tm:mudshot",
     "tm:mudslap",
-    "tm:mudsport",
     "tm:painsplit",
     "tm:payback",
     "tm:protect",
     "tm:raindance",
-    "tm:reflecttype",
     "tm:rest",
     "tm:revenge",
     "tm:rockslide",
@@ -150,7 +144,6 @@
     "tm:sleeptalk",
     "tm:sludgebomb",
     "tm:sludgewave",
-    "tm:spark",
     "tm:spite",
     "tm:stealthrock",
     "tm:stompingtantrum",
@@ -158,16 +151,47 @@
     "tm:substitute",
     "tm:suckerpunch",
     "tm:surf",
-    "tm:tackle",
     "tm:terablast",
     "tm:thunder",
     "tm:thunderbolt",
-    "tm:thundershock",
     "tm:thunderwave",
     "tm:uproar",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:yawn"
+    "tutor:aquatail",
+    "tutor:bounce",
+    "tutor:bulldoze",
+    "tutor:earthpower",
+    "tutor:electroweb",
+    "tutor:endeavor",
+    "tutor:foulplay",
+    "tutor:lashout",
+    "tutor:magnetrise",
+    "tutor:mudslap",
+    "tutor:painsplit",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:shockwave",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:spite",
+    "tutor:stealthrock",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:suckerpunch",
+    "tutor:thunderbolt",
+    "tutor:uproar",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [],
   "forms": [
@@ -192,10 +216,6 @@
         "mimicry",
         "h:mimicry"
       ],
-      "eggGroups": [
-        "water_1",
-        "amorphous"
-      ],
       "baseStats": {
         "hp": 109,
         "attack": 81,
@@ -204,29 +224,7 @@
         "special_defence": 84,
         "speed": 32
       },
-      "evYield": {
-        "hp": 2,
-        "attack": 0,
-        "defence": 0,
-        "special_attack": 0,
-        "special_defence": 0,
-        "speed": 0
-      },
-      "baseExperienceYield": 165,
-      "experienceGroup": "medium_fast",
-      "catchRate": 75,
-      "eggCycles": 20,
       "baseFriendship": 50,
-      "behaviour": {
-        "moving": {
-          "swim": {
-            "canSwimInWater": true,
-            "canSwimInLava": false,
-            "canBreatheUnderwater": true,
-            "swimSpeed": "0.2"
-          }
-        }
-      },
       "moves": [
         "1:mudslap",
         "1:tackle",
@@ -251,11 +249,9 @@
         "egg:reflecttype",
         "egg:spite",
         "egg:yawn",
-        "tm:astonish",
         "tm:bind",
         "tm:bounce",
         "tm:bulldoze",
-        "tm:counter",
         "tm:crunch",
         "tm:curse",
         "tm:dig",
@@ -263,8 +259,6 @@
         "tm:earthquake",
         "tm:endure",
         "tm:facade",
-        "tm:fissure",
-        "tm:flail",
         "tm:flashcannon",
         "tm:foulplay",
         "tm:icefang",
@@ -279,7 +273,6 @@
         "tm:payback",
         "tm:protect",
         "tm:raindance",
-        "tm:reflecttype",
         "tm:rest",
         "tm:revenge",
         "tm:rockslide",
@@ -290,7 +283,6 @@
         "tm:sleeptalk",
         "tm:sludgebomb",
         "tm:sludgewave",
-        "tm:snaptrap",
         "tm:spite",
         "tm:stealthrock",
         "tm:steelbeam",
@@ -299,16 +291,44 @@
         "tm:substitute",
         "tm:suckerpunch",
         "tm:surf",
-        "tm:tackle",
         "tm:terablast",
         "tm:terrainpulse",
         "tm:thunderwave",
         "tm:uproar",
-        "tm:watergun",
-        "tm:yawn"
+        "tutor:bind",
+        "tutor:bounce",
+        "tutor:bulldoze",
+        "tutor:earthpower",
+        "tutor:flashcannon",
+        "tutor:foulplay",
+        "tutor:icefang",
+        "tutor:irondefense",
+        "tutor:lashout",
+        "tutor:mudslap",
+        "tutor:painsplit",
+        "tutor:rest",
+        "tutor:rockslide",
+        "tutor:sleeptalk",
+        "tutor:sludgebomb",
+        "tutor:spite",
+        "tutor:stealthrock",
+        "tutor:steelbeam",
+        "tutor:stompingtantrum",
+        "tutor:stoneedge",
+        "tutor:suckerpunch",
+        "tutor:terrainpulse",
+        "tutor:uproar",
+        "legacy:attract",
+        "legacy:round",
+        "legacy:snore"
       ],
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "resting": {
+          "willSleepOnBed": true
+        }
+      }
     }
   ]
 }

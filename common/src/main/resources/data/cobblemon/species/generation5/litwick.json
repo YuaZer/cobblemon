@@ -44,10 +44,13 @@
   "eggCycles": 20,
   "baseFriendship": 50,
   "shoulderMountable": true,
-  "baseScale": 1,
+  "standingEyeHeight": 0.4,
+  "swimmingEyeHeight": 0.4,
+  "flyingEyeHeight": 0.4,
+  "baseScale": 0.6,
   "hitbox": {
-    "width": 0.5,
-    "height": 0.5,
+    "width": 0.6,
+    "height": 0.65,
     "fixed": false
   },
   "behaviour": {
@@ -55,13 +58,23 @@
       "canSleep": true,
       "willSleepOnBed": true,
       "light": "12-15"
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "litwick",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
     "amount": 3,
     "entries": [
       {
-        "item": "minecraft:candle"
+        "item": "minecraft:candle",
+        "quantityRange": "0-1"
       },
       {
         "item": "cobblemon:dusk_stone",
@@ -96,26 +109,20 @@
     "egg:clearsmog",
     "egg:haze",
     "egg:powersplit",
-    "tm:acid",
-    "tm:acidarmor",
     "tm:allyswitch",
-    "tm:astonish",
     "tm:burningjealousy",
     "tm:calmmind",
     "tm:captivate",
-    "tm:clearsmog",
     "tm:confuseray",
     "tm:curse",
     "tm:darkpulse",
     "tm:dreameater",
     "tm:embargo",
-    "tm:ember",
     "tm:endure",
     "tm:energyball",
     "tm:facade",
     "tm:fireblast",
     "tm:firespin",
-    "tm:flameburst",
     "tm:flamecharge",
     "tm:flamethrower",
     "tm:flareblitz",
@@ -125,16 +132,12 @@
     "tm:hex",
     "tm:imprison",
     "tm:incinerate",
-    "tm:inferno",
-    "tm:memento",
-    "tm:minimize",
     "tm:mysticalfire",
     "tm:nightshade",
     "tm:overheat",
     "tm:painsplit",
     "tm:payback",
     "tm:poltergeist",
-    "tm:powersplit",
     "tm:protect",
     "tm:psychic",
     "tm:psychup",
@@ -144,7 +147,6 @@
     "tm:shockwave",
     "tm:skittersmack",
     "tm:sleeptalk",
-    "tm:smog",
     "tm:solarbeam",
     "tm:spite",
     "tm:substitute",
@@ -156,7 +158,37 @@
     "tm:thief",
     "tm:trick",
     "tm:trickroom",
-    "tm:willowisp"
+    "tm:willowisp",
+    "tutor:allyswitch",
+    "tutor:burningjealousy",
+    "tutor:calmmind",
+    "tutor:darkpulse",
+    "tutor:energyball",
+    "tutor:flamethrower",
+    "tutor:heatwave",
+    "tutor:mysticalfire",
+    "tutor:painsplit",
+    "tutor:poltergeist",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:skittersmack",
+    "tutor:sleeptalk",
+    "tutor:spite",
+    "tutor:telekinesis",
+    "tutor:trick",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {
@@ -172,5 +204,9 @@
         }
       ]
     }
-  ]
+  ],
+  "lightingData": {
+    "lightLevel": 6,
+    "liquidGlowMode": "LAND"
+  }
 }

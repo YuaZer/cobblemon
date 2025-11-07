@@ -48,17 +48,20 @@
     "height": 1.55,
     "fixed": false
   },
-  "behaviour": {},
   "drops": {
-    "amount": 2,
+    "amount": 4,
     "entries": [
       {
+        "item": "minecraft:sand",
+        "quantityRange": "0-2"
+      },
+      {
         "item": "cobblemon:soft_sand",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:passho_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -83,11 +86,9 @@
     "egg:spitup",
     "egg:stockpile",
     "egg:swallow",
-    "tm:absorb",
     "tm:afteryou",
     "tm:amnesia",
     "tm:ancientpower",
-    "tm:astonish",
     "tm:block",
     "tm:bodyslam",
     "tm:brine",
@@ -95,7 +96,6 @@
     "tm:chillingwater",
     "tm:confuseray",
     "tm:curse",
-    "tm:destinybond",
     "tm:earthpower",
     "tm:earthquake",
     "tm:embargo",
@@ -107,14 +107,11 @@
     "tm:gigadrain",
     "tm:gigaimpact",
     "tm:gravity",
-    "tm:harden",
     "tm:hex",
     "tm:hyperbeam",
-    "tm:hypnosis",
     "tm:imprison",
     "tm:infestation",
     "tm:irondefense",
-    "tm:megadrain",
     "tm:mudshot",
     "tm:mudslap",
     "tm:nightshade",
@@ -130,28 +127,68 @@
     "tm:rockslide",
     "tm:rocktomb",
     "tm:roleplay",
-    "tm:sandattack",
     "tm:sandstorm",
     "tm:sandtomb",
     "tm:scaryface",
     "tm:scorchingsands",
     "tm:shadowball",
-    "tm:shoreup",
     "tm:skillswap",
     "tm:sleeptalk",
     "tm:sludgebomb",
     "tm:spite",
-    "tm:spitup",
     "tm:stealthrock",
-    "tm:stockpile",
     "tm:stoneedge",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:swallow",
     "tm:terablast",
     "tm:terrainpulse",
-    "tm:trick"
+    "tm:trick",
+    "tutor:afteryou",
+    "tutor:ancientpower",
+    "tutor:block",
+    "tutor:bulldoze",
+    "tutor:earthpower",
+    "tutor:energyball",
+    "tutor:flashcannon",
+    "tutor:gigadrain",
+    "tutor:gigaimpact",
+    "tutor:gravity",
+    "tutor:hyperbeam",
+    "tutor:irondefense",
+    "tutor:mudslap",
+    "tutor:painsplit",
+    "tutor:poltergeist",
+    "tutor:psychic",
+    "tutor:recycle",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:roleplay",
+    "tutor:scorchingsands",
+    "tutor:shadowball",
+    "tutor:skillswap",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:spite",
+    "tutor:stealthrock",
+    "tutor:stoneedge",
+    "tutor:terrainpulse",
+    "tutor:trick",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "sandygast",
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {
+    "herd": {
+      "maxSize": "3"
+    }
+  }
 }

@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 702,
   "name": "Dedenne",
   "primaryType": "electric",
@@ -43,19 +44,19 @@
   "catchRate": 180,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "shoulderMountable": true,
+  "baseScale": 0.35,
   "hitbox": {
-    "width": 1,
-    "height": 1,
+    "width": 0.9,
+    "height": 0.9,
     "fixed": false
   },
-  "behaviour": {},
   "drops": {
     "amount": 1,
     "entries": [
       {
         "item": "cobblemon:cheri_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -88,7 +89,6 @@
     "tm:cut",
     "tm:dazzlinggleam",
     "tm:dig",
-    "tm:discharge",
     "tm:drainingkiss",
     "tm:eerieimpulse",
     "tm:electricterrain",
@@ -96,7 +96,6 @@
     "tm:electroweb",
     "tm:endeavor",
     "tm:endure",
-    "tm:entrainment",
     "tm:facade",
     "tm:flash",
     "tm:fling",
@@ -110,8 +109,6 @@
     "tm:magnetrise",
     "tm:mistyterrain",
     "tm:naturalgift",
-    "tm:nuzzle",
-    "tm:paraboliccharge",
     "tm:playrough",
     "tm:protect",
     "tm:raindance",
@@ -128,21 +125,80 @@
     "tm:sunnyday",
     "tm:superfang",
     "tm:swift",
-    "tm:tackle",
-    "tm:tailwhip",
     "tm:takedown",
-    "tm:tearfullook",
     "tm:terablast",
     "tm:thief",
     "tm:thunder",
     "tm:thunderbolt",
     "tm:thunderpunch",
-    "tm:thundershock",
     "tm:thunderwave",
     "tm:trailblaze",
     "tm:uturn",
     "tm:voltswitch",
-    "tm:wildcharge"
+    "tm:wildcharge",
+    "tutor:allyswitch",
+    "tutor:chargebeam",
+    "tutor:covet",
+    "tutor:dazzlinggleam",
+    "tutor:electroweb",
+    "tutor:endeavor",
+    "tutor:gigaimpact",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:irontail",
+    "tutor:lastresort",
+    "tutor:magnetrise",
+    "tutor:playrough",
+    "tutor:recycle",
+    "tutor:rest",
+    "tutor:risingvoltage",
+    "tutor:seedbomb",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:snore",
+    "tutor:superfang",
+    "tutor:swift",
+    "tutor:thunderbolt",
+    "tutor:thunderpunch",
+    "tutor:wildcharge",
+    "legacy:aerialace",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "dedenne",
+          "tier": 1
+        },
+        {
+          "pokemon": "pikachu",
+          "tier": 2
+        },
+        {
+          "pokemon": "morpeko",
+          "tier": 2
+        },
+        {
+          "pokemon": "raichu",
+          "tier": 3
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

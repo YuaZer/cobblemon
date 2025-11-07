@@ -45,7 +45,7 @@
   "eggCycles": 40,
   "baseFriendship": 50,
   "shoulderMountable": true,
-  "baseScale": 0.75,
+  "baseScale": 0.55,
   "hitbox": {
     "width": 0.75,
     "height": 0.5,
@@ -60,11 +60,32 @@
       },
       "fly": {
         "canFly": true
+      },
+      "walk": {
+        "canWalk": false
       }
     },
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "dreepy",
+          "tier": 1
+        },
+        {
+          "pokemon": "drakloak",
+          "tier": 2
+        },
+        {
+          "pokemon": "dragapult",
+          "tier": 3
+        }
+      ]
     }
   },
   "drops": {
@@ -92,29 +113,33 @@
     "egg:dragontail",
     "egg:grudge",
     "egg:suckerpunch",
-    "tm:astonish",
     "tm:batonpass",
-    "tm:bite",
     "tm:confuseray",
     "tm:curse",
-    "tm:disable",
     "tm:doubleteam",
     "tm:dracometeor",
     "tm:dragontail",
     "tm:endure",
     "tm:facade",
-    "tm:grudge",
     "tm:helpinghand",
     "tm:infestation",
     "tm:protect",
-    "tm:quickattack",
     "tm:rest",
     "tm:sleeptalk",
     "tm:substitute",
     "tm:suckerpunch",
     "tm:swift",
     "tm:terablast",
-    "tm:thunderwave"
+    "tm:thunderwave",
+    "tutor:dracometeor",
+    "tutor:helpinghand",
+    "tutor:rest",
+    "tutor:sleeptalk",
+    "tutor:suckerpunch",
+    "tutor:swift",
+    "legacy:attract",
+    "legacy:round",
+    "legacy:snore"
   ],
   "evolutions": [
     {

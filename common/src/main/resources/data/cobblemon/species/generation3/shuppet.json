@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 353,
   "name": "Shuppet",
   "primaryType": "ghost",
@@ -41,13 +42,16 @@
   "catchRate": 225,
   "eggCycles": 25,
   "baseFriendship": 35,
-  "baseScale": 1,
+  "shoulderMountable": true,
+  "standingEyeHeight": 0.75,
+  "swimmingEyeHeight": 0.75,
+  "flyingEyeHeight": 0.75,
+  "baseScale": 0.6,
   "hitbox": {
-    "width": 1,
-    "height": 1,
+    "width": 0.8,
+    "height": 1.5,
     "fixed": false
   },
-  "behaviour": {},
   "drops": {
     "amount": 2,
     "entries": [
@@ -85,23 +89,18 @@
     "egg:pursuit",
     "egg:shadowsneak",
     "tm:allyswitch",
-    "tm:astonish",
     "tm:calmmind",
     "tm:chargebeam",
     "tm:confuseray",
     "tm:curse",
     "tm:darkpulse",
     "tm:dazzlinggleam",
-    "tm:destinybond",
-    "tm:disable",
     "tm:dreameater",
     "tm:embargo",
     "tm:encore",
     "tm:endure",
     "tm:facade",
-    "tm:feintattack",
     "tm:flash",
-    "tm:foresight",
     "tm:foulplay",
     "tm:grudge",
     "tm:gunkshot",
@@ -126,14 +125,12 @@
     "tm:psybeam",
     "tm:psychic",
     "tm:psychup",
-    "tm:pursuit",
     "tm:raindance",
     "tm:rest",
     "tm:roleplay",
     "tm:scaryface",
     "tm:screech",
     "tm:shadowball",
-    "tm:shadowsneak",
     "tm:shockwave",
     "tm:skillswap",
     "tm:skittersmack",
@@ -153,7 +150,54 @@
     "tm:torment",
     "tm:trick",
     "tm:trickroom",
-    "tm:willowisp"
+    "tm:willowisp",
+    "tutor:allyswitch",
+    "tutor:calmmind",
+    "tutor:chargebeam",
+    "tutor:darkpulse",
+    "tutor:dazzlinggleam",
+    "tutor:foulplay",
+    "tutor:gunkshot",
+    "tutor:helpinghand",
+    "tutor:icywind",
+    "tutor:lashout",
+    "tutor:magiccoat",
+    "tutor:magicroom",
+    "tutor:ominouswind",
+    "tutor:painsplit",
+    "tutor:poltergeist",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:roleplay",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:skillswap",
+    "tutor:skittersmack",
+    "tutor:sleeptalk",
+    "tutor:snatch",
+    "tutor:spite",
+    "tutor:suckerpunch",
+    "tutor:telekinesis",
+    "tutor:thunderbolt",
+    "tutor:trick",
+    "legacy:attract",
+    "legacy:bodyslam",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:knockoff",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:nightmare",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {
@@ -171,5 +215,36 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {
+    "moving": {
+      "fly": {
+        "canFly": true
+      }
+    },
+    "herd": {
+      "maxSize": "4",
+      "toleratedLeaders": [
+        {
+          "pokemon": "gastly",
+          "tier": 1
+        },
+        {
+          "pokemon": "misdreavus",
+          "tier": 1
+        },
+        {
+          "pokemon": "shuppet",
+          "tier": 1
+        },
+        {
+          "pokemon": "duskull",
+          "tier": 1
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  }
 }

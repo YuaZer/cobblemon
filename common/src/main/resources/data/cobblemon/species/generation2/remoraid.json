@@ -60,6 +60,71 @@
         "canSwimInWater": true,
         "canSwimInLava": false
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "remoraid",
+          "tier": 1
+        },
+        {
+          "pokemon": "sharpedo mega=false",
+          "tier": 2
+        },
+        {
+          "pokemon": "sharpedo mega",
+          "tier": 3
+        },
+        {
+          "pokemon": "alomomola",
+          "tier": 3
+        },
+        {
+          "pokemon": "wailmer",
+          "tier": 4
+        },
+        {
+          "pokemon": "lapras",
+          "tier": 5
+        },
+        {
+          "pokemon": "arctovish",
+          "tier": 5
+        },
+        {
+          "pokemon": "gyarados mega=false",
+          "tier": 6
+        },
+        {
+          "pokemon": "dondozo",
+          "tier": 6
+        },
+        {
+          "pokemon": "gyarados mega",
+          "tier": 7
+        },
+        {
+          "pokemon": "wailord",
+          "tier": 8
+        },
+        {
+          "pokemon": "kyogre",
+          "tier": 9
+        },
+        {
+          "pokemon": "mantyke",
+          "tier": 10
+        },
+        {
+          "pokemon": "mantine",
+          "tier": 11
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 12
+        }
+      ]
     }
   },
   "drops": {
@@ -70,7 +135,7 @@
       },
       {
         "item": "minecraft:bone_meal",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:aspear_berry",
@@ -103,20 +168,15 @@
     "egg:waterspout",
     "tm:acidspray",
     "tm:assurance",
-    "tm:aurorabeam",
     "tm:blizzard",
     "tm:bounce",
     "tm:brine",
-    "tm:bubble",
-    "tm:bubblebeam",
     "tm:bulletseed",
     "tm:chargebeam",
     "tm:dive",
     "tm:endure",
-    "tm:entrainment",
     "tm:facade",
     "tm:fireblast",
-    "tm:flail",
     "tm:flamethrower",
     "tm:focusenergy",
     "tm:gunkshot",
@@ -127,10 +187,8 @@
     "tm:icebeam",
     "tm:icywind",
     "tm:incinerate",
-    "tm:lockon",
     "tm:mudshot",
     "tm:mudslap",
-    "tm:octazooka",
     "tm:protect",
     "tm:psybeam",
     "tm:psychic",
@@ -144,21 +202,53 @@
     "tm:sleeptalk",
     "tm:smackdown",
     "tm:snore",
-    "tm:soak",
     "tm:stringshot",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:supersonic",
     "tm:surf",
     "tm:swift",
     "tm:terablast",
     "tm:thief",
     "tm:thunderwave",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:waterspout",
-    "tm:whirlpool"
+    "tm:whirlpool",
+    "tutor:bounce",
+    "tutor:chargebeam",
+    "tutor:dive",
+    "tutor:flamethrower",
+    "tutor:focusenergy",
+    "tutor:gunkshot",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:mudslap",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:snore",
+    "tutor:stringshot",
+    "tutor:swift",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:defensecurl",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

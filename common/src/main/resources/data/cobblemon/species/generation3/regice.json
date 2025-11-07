@@ -48,7 +48,6 @@
     "height": 2.75,
     "fixed": false
   },
-  "behaviour": {},
   "drops": {
     "amount": 1,
     "entries": [
@@ -97,7 +96,6 @@
     "tm:gigaimpact",
     "tm:gravity",
     "tm:hail",
-    "tm:hammerarm",
     "tm:headbutt",
     "tm:heavyslam",
     "tm:hyperbeam",
@@ -107,7 +105,6 @@
     "tm:iciclespear",
     "tm:icywind",
     "tm:ironhead",
-    "tm:lockon",
     "tm:megakick",
     "tm:megapunch",
     "tm:poweruppunch",
@@ -126,7 +123,6 @@
     "tm:signalbeam",
     "tm:sleeptalk",
     "tm:snowscape",
-    "tm:stomp",
     "tm:stompingtantrum",
     "tm:strength",
     "tm:substitute",
@@ -136,7 +132,60 @@
     "tm:thunderbolt",
     "tm:thunderpunch",
     "tm:thunderwave",
-    "tm:zapcannon"
+    "tutor:ancientpower",
+    "tutor:block",
+    "tutor:bulldoze",
+    "tutor:chargebeam",
+    "tutor:flashcannon",
+    "tutor:focuspunch",
+    "tutor:gigaimpact",
+    "tutor:gravity",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icepunch",
+    "tutor:icywind",
+    "tutor:ironhead",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:rollout",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:stompingtantrum",
+    "tutor:superpower",
+    "tutor:thunderbolt",
+    "tutor:thunderpunch",
+    "legacy:confide",
+    "legacy:counter",
+    "legacy:defensecurl",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:dynamicpunch",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:mudslap",
+    "legacy:naturalgift",
+    "legacy:psychup",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:seismictoss",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
-  "evolutions": []
+  "evolutions": [],
+  "behaviour": {
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "regigigas",
+          "tier": 1
+        }
+      ]
+    }
+  }
 }

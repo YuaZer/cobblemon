@@ -10,11 +10,19 @@
   "poses": {
     "standing": {
       "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
-      "animations": ["q.bedrock('corphish', 'ground_idle')"]
+      "animations": ["q.bedrock('corphish', 'ground_idle_placeholder')"]
     },
     "walking": {
       "poseTypes": ["WALK"],
-      "animations": ["q.bedrock('corphish', 'ground_idle')"]
+      "animations": ["q.bedrock('corphish', 'ground_walk_placeholder')"]
+    },
+    "seafloor-standing": {
+      "poseTypes": ["FLOAT"],
+      "animations": ["q.bedrock('corphish', 'ground_idle_placeholder')"]
+    },
+    "seafloor-swimming": {
+      "poseTypes": ["SWIM"],
+      "animations": ["q.bedrock('corphish', 'ground_walk_placeholder')"]
     }
   }
 }

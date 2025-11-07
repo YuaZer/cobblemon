@@ -64,6 +64,19 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "alomomola",
+          "tier": 1
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -74,11 +87,11 @@
       },
       {
         "item": "minecraft:bone_meal",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:deep_sea_scale",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -111,8 +124,6 @@
     "egg:wakeupslap",
     "tm:acrobatics",
     "tm:alluringvoice",
-    "tm:aquajet",
-    "tm:aquaring",
     "tm:batonpass",
     "tm:blizzard",
     "tm:bodyslam",
@@ -121,14 +132,11 @@
     "tm:calmmind",
     "tm:chillingwater",
     "tm:dive",
-    "tm:doubleslap",
     "tm:endure",
     "tm:facade",
     "tm:flipturn",
     "tm:gigaimpact",
     "tm:hail",
-    "tm:healingwish",
-    "tm:healpulse",
     "tm:helpinghand",
     "tm:hydropump",
     "tm:hyperbeam",
@@ -137,17 +145,12 @@
     "tm:lightscreen",
     "tm:liquidation",
     "tm:magiccoat",
-    "tm:mirrorcoat",
-    "tm:mist",
     "tm:mistyterrain",
     "tm:painsplit",
-    "tm:playnice",
     "tm:playrough",
-    "tm:pound",
     "tm:protect",
     "tm:psychic",
     "tm:raindance",
-    "tm:refresh",
     "tm:rest",
     "tm:safeguard",
     "tm:scald",
@@ -156,20 +159,48 @@
     "tm:skillswap",
     "tm:sleeptalk",
     "tm:snowscape",
-    "tm:soak",
     "tm:substitute",
     "tm:surf",
     "tm:takedown",
     "tm:terablast",
-    "tm:tickle",
-    "tm:wakeupslap",
     "tm:waterfall",
     "tm:waterpulse",
-    "tm:watersport",
     "tm:whirlpool",
-    "tm:wideguard",
-    "tm:wish",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:bounce",
+    "tutor:calmmind",
+    "tutor:dive",
+    "tutor:flipturn",
+    "tutor:gigaimpact",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:liquidation",
+    "tutor:magiccoat",
+    "tutor:painsplit",
+    "tutor:playrough",
+    "tutor:psychic",
+    "tutor:rest",
+    "tutor:scaleshot",
+    "tutor:shadowball",
+    "tutor:skillswap",
+    "tutor:sleeptalk",
+    "tutor:waterpulse",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:knockoff",
+    "legacy:psychup",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": []
 }

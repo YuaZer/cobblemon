@@ -54,10 +54,19 @@
       "swim": {
         "canSwimInLava": true
       }
+    },
+    "herd": {
+      "maxSize": "7",
+      "toleratedLeaders": [
+        {
+          "pokemon": "salazzle",
+          "tier": 1
+        }
+      ]
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 4,
     "entries": [
       {
         "item": "minecraft:rotten_flesh",
@@ -65,7 +74,11 @@
       },
       {
         "item": "cobblemon:shuca_berry",
-        "percentage": 5
+        "percentage": 5.0
+      },
+      {
+        "item": "cobblemon:smoke_ball",
+        "percentage": 5.0
       }
     ]
   },
@@ -104,7 +117,6 @@
     "tm:acrobatics",
     "tm:agility",
     "tm:beatup",
-    "tm:belch",
     "tm:bodyslam",
     "tm:breakingswipe",
     "tm:burningjealousy",
@@ -112,25 +124,18 @@
     "tm:corrosivegas",
     "tm:covet",
     "tm:crosspoison",
-    "tm:disable",
-    "tm:doubleslap",
     "tm:dragoncheer",
     "tm:dragonclaw",
     "tm:dragondance",
     "tm:dragonpulse",
-    "tm:dragonrage",
     "tm:dragontail",
-    "tm:ember",
     "tm:encore",
     "tm:endeavor",
     "tm:endure",
     "tm:facade",
-    "tm:fakeout",
     "tm:faketears",
     "tm:fireblast",
     "tm:firefang",
-    "tm:firelash",
-    "tm:flameburst",
     "tm:flamecharge",
     "tm:flamethrower",
     "tm:flareblitz",
@@ -151,28 +156,21 @@
     "tm:nastyplot",
     "tm:overheat",
     "tm:payback",
-    "tm:poisonfang",
-    "tm:poisongas",
     "tm:poisonjab",
     "tm:poisontail",
-    "tm:pound",
     "tm:protect",
     "tm:rest",
-    "tm:sandattack",
     "tm:scaleshot",
     "tm:scaryface",
-    "tm:scratch",
     "tm:shadowclaw",
     "tm:skittersmack",
     "tm:sleeptalk",
     "tm:sludgebomb",
     "tm:sludgewave",
-    "tm:smog",
     "tm:snatch",
     "tm:substitute",
     "tm:sunnyday",
     "tm:swagger",
-    "tm:sweetscent",
     "tm:swift",
     "tm:takedown",
     "tm:taunt",
@@ -186,7 +184,43 @@
     "tm:trailblaze",
     "tm:venomdrench",
     "tm:venoshock",
-    "tm:willowisp"
+    "tm:willowisp",
+    "tutor:burningjealousy",
+    "tutor:corrosivegas",
+    "tutor:covet",
+    "tutor:dragonpulse",
+    "tutor:endeavor",
+    "tutor:firefang",
+    "tutor:flamethrower",
+    "tutor:foulplay",
+    "tutor:gigaimpact",
+    "tutor:gunkshot",
+    "tutor:heatwave",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:hypervoice",
+    "tutor:irontail",
+    "tutor:knockoff",
+    "tutor:laserfocus",
+    "tutor:leechlife",
+    "tutor:mudslap",
+    "tutor:poisonjab",
+    "tutor:rest",
+    "tutor:scaleshot",
+    "tutor:shadowclaw",
+    "tutor:skittersmack",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:snatch",
+    "tutor:swift",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:snore"
   ],
   "preEvolution": "salandit",
   "evolutions": []

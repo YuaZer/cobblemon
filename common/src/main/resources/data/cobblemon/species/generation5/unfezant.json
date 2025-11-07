@@ -43,17 +43,41 @@
   "catchRate": 45,
   "eggCycles": 15,
   "baseFriendship": 50,
-  "baseScale": 0.75,
+  "baseScale": 0.65,
   "hitbox": {
-    "width": 0.8,
     "height": 2.15,
-    "fixed": false
+    "fixed": false,
+    "width": 0.8
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "pidgeot mega=false",
+          "tier": 1
+        },
+        {
+          "pokemon": "pidgeot mega",
+          "tier": 2
+        },
+        {
+          "pokemon": "unfezant",
+          "tier": 3
+        }
+      ]
+    },
     "moving": {
       "fly": {
         "canFly": true
+      },
+      "walk": {
+        "walkSpeed": 0.145
       }
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
     }
   },
   "drops": {
@@ -68,11 +92,11 @@
       },
       {
         "item": "cobblemon:sharp_beak",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:razz_berry",
-        "percentage": 10
+        "percentage": 10.0
       }
     ]
   },
@@ -102,10 +126,8 @@
     "tm:agility",
     "tm:aircutter",
     "tm:airslash",
-    "tm:bestow",
     "tm:bravebird",
     "tm:defog",
-    "tm:detect",
     "tm:dualwingbeat",
     "tm:echoedvoice",
     "tm:endure",
@@ -114,22 +136,13 @@
     "tm:fly",
     "tm:focusenergy",
     "tm:gigaimpact",
-    "tm:growl",
-    "tm:gust",
     "tm:heatwave",
     "tm:hurricane",
     "tm:hyperbeam",
-    "tm:hypnosis",
-    "tm:leer",
-    "tm:luckychant",
-    "tm:morningsun",
-    "tm:nightslash",
     "tm:pluck",
     "tm:protect",
     "tm:psychup",
-    "tm:quickattack",
     "tm:raindance",
-    "tm:razorwind",
     "tm:rest",
     "tm:roost",
     "tm:skyattack",
@@ -144,9 +157,34 @@
     "tm:terablast",
     "tm:uproar",
     "tm:uturn",
-    "tm:wish",
-    "tm:workup"
+    "tm:workup",
+    "tutor:aerialace",
+    "tutor:aircutter",
+    "tutor:defog",
+    "tutor:dualwingbeat",
+    "tutor:focusenergy",
+    "tutor:gigaimpact",
+    "tutor:heatwave",
+    "tutor:hyperbeam",
+    "tutor:rest",
+    "tutor:roost",
+    "tutor:skyattack",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:tailwind",
+    "tutor:uproar",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:toxic"
   ],
   "preEvolution": "tranquill",
-  "evolutions": []
+  "evolutions": [],
+  "forms": []
 }

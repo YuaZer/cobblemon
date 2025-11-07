@@ -55,6 +55,9 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "3"
     }
   },
   "drops": {
@@ -62,11 +65,11 @@
     "entries": [
       {
         "item": "cobblemon:absorb_bulb",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:pecha_berry",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -99,8 +102,6 @@
     "egg:synthesis",
     "egg:teeterdance",
     "egg:tickle",
-    "tm:absorb",
-    "tm:acid",
     "tm:acidspray",
     "tm:afteryou",
     "tm:bulletseed",
@@ -109,53 +110,70 @@
     "tm:endure",
     "tm:energyball",
     "tm:facade",
-    "tm:flail",
     "tm:flash",
     "tm:gastroacid",
     "tm:gigadrain",
     "tm:grassknot",
     "tm:grassyglide",
     "tm:grassyterrain",
-    "tm:growth",
     "tm:helpinghand",
     "tm:infestation",
-    "tm:ingrain",
     "tm:leafstorm",
-    "tm:leechseed",
-    "tm:luckychant",
     "tm:magicalleaf",
-    "tm:megadrain",
-    "tm:moonblast",
-    "tm:moonlight",
     "tm:naturalgift",
     "tm:naturepower",
     "tm:petalblizzard",
-    "tm:petaldance",
-    "tm:poisonpowder",
     "tm:pollenpuff",
     "tm:protect",
-    "tm:razorleaf",
     "tm:rest",
     "tm:secretpower",
     "tm:seedbomb",
-    "tm:sleeppowder",
     "tm:sleeptalk",
     "tm:sludgebomb",
     "tm:solarbeam",
-    "tm:strengthsap",
-    "tm:stunspore",
     "tm:substitute",
     "tm:sunnyday",
-    "tm:sweetscent",
     "tm:swordsdance",
     "tm:synthesis",
-    "tm:teeterdance",
     "tm:terablast",
-    "tm:tickle",
     "tm:toxic",
     "tm:trailblaze",
     "tm:venoshock",
-    "tm:worryseed"
+    "tm:worryseed",
+    "tutor:afteryou",
+    "tutor:energyball",
+    "tutor:gastroacid",
+    "tutor:gigadrain",
+    "tutor:grassyglide",
+    "tutor:helpinghand",
+    "tutor:magicalleaf",
+    "tutor:rest",
+    "tutor:seedbomb",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:synthesis",
+    "tutor:worryseed",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:dazzlinggleam",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:drainpunch",
+    "legacy:fling",
+    "legacy:frustration",
+    "legacy:headbutt",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:rage",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:takedown"
   ],
   "preEvolution": "oddish",
   "evolutions": [
@@ -163,7 +181,7 @@
       "id": "gloom_vileplume",
       "variant": "item_interact",
       "result": "vileplume",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [
         "petalblizzard"
       ],
@@ -174,7 +192,7 @@
       "id": "gloom_bellossom",
       "variant": "item_interact",
       "result": "bellossom",
-      "consumeHeldItem": true,
+      "consumeHeldItem": false,
       "learnableMoves": [
         "magicalleaf",
         "petalblizzard"

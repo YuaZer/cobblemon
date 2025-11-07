@@ -63,6 +63,19 @@
       "walk": {
         "avoidsLand": true
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "lumineon",
+          "tier": 1
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -73,15 +86,15 @@
       },
       {
         "item": "minecraft:bone_meal",
-        "percentage": 10
+        "percentage": 10.0
       },
       {
         "item": "cobblemon:rindo_berry",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:prism_scale",
-        "percentage": 5
+        "percentage": 5.0
       }
     ]
   },
@@ -117,15 +130,12 @@
     "tm:aircutter",
     "tm:airslash",
     "tm:alluringvoice",
-    "tm:aquaring",
     "tm:aquatail",
     "tm:attract",
-    "tm:aurorabeam",
     "tm:babydolleyes",
     "tm:blizzard",
     "tm:bounce",
     "tm:brine",
-    "tm:bubble",
     "tm:captivate",
     "tm:charm",
     "tm:chillingwater",
@@ -136,11 +146,9 @@
     "tm:encore",
     "tm:endure",
     "tm:facade",
-    "tm:flail",
     "tm:flash",
     "tm:flipturn",
     "tm:gigaimpact",
-    "tm:gust",
     "tm:hail",
     "tm:helpinghand",
     "tm:hydropump",
@@ -149,7 +157,6 @@
     "tm:icywind",
     "tm:ominouswind",
     "tm:payback",
-    "tm:pound",
     "tm:protect",
     "tm:psybeam",
     "tm:psychup",
@@ -159,24 +166,55 @@
     "tm:signalbeam",
     "tm:silverwind",
     "tm:sleeptalk",
-    "tm:soak",
-    "tm:splash",
     "tm:substitute",
     "tm:surf",
-    "tm:sweetkiss",
     "tm:swift",
     "tm:tailwind",
     "tm:takedown",
     "tm:terablast",
     "tm:thief",
-    "tm:tickle",
     "tm:twister",
     "tm:uturn",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:whirlpool"
+    "tm:whirlpool",
+    "tutor:aquatail",
+    "tutor:babydolleyes",
+    "tutor:bounce",
+    "tutor:dazzlinggleam",
+    "tutor:defog",
+    "tutor:dive",
+    "tutor:flipturn",
+    "tutor:gigaimpact",
+    "tutor:helpinghand",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:ominouswind",
+    "tutor:rest",
+    "tutor:signalbeam",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:tailwind",
+    "tutor:twister",
+    "tutor:waterpulse",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:scald",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "finneon",
-  "evolutions": []
+  "evolutions": [],
+  "lightingData": {
+    "lightLevel": 4,
+    "liquidGlowMode": "BOTH"
+  }
 }

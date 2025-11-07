@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 677,
   "name": "Espurr",
   "primaryType": "psychic",
@@ -41,13 +42,30 @@
   "catchRate": 190,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 1,
+  "baseScale": 0.55,
   "hitbox": {
-    "width": 1,
-    "height": 1,
+    "width": 0.55,
+    "height": 1.1,
     "fixed": false
   },
-  "behaviour": {},
+  "behaviour": {
+    "entityInteract": {
+      "avoidedByCreeper": true,
+      "avoidedByPhantom": true
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "meowstic",
+          "tier": 1
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  },
   "drops": {
     "amount": 1,
     "entries": [
@@ -73,12 +91,9 @@
     "egg:tickle",
     "egg:yawn",
     "tm:allyswitch",
-    "tm:assist",
-    "tm:barrier",
     "tm:calmmind",
     "tm:chargebeam",
     "tm:charm",
-    "tm:confusion",
     "tm:covet",
     "tm:cut",
     "tm:darkpulse",
@@ -89,14 +104,12 @@
     "tm:energyball",
     "tm:expandingforce",
     "tm:facade",
-    "tm:fakeout",
     "tm:faketears",
     "tm:flash",
     "tm:gravity",
     "tm:healbell",
     "tm:helpinghand",
     "tm:irontail",
-    "tm:leer",
     "tm:lightscreen",
     "tm:magiccoat",
     "tm:magicroom",
@@ -116,7 +129,6 @@
     "tm:rest",
     "tm:roleplay",
     "tm:safeguard",
-    "tm:scratch",
     "tm:shadowball",
     "tm:shockwave",
     "tm:signalbeam",
@@ -130,14 +142,53 @@
     "tm:terablast",
     "tm:thunderbolt",
     "tm:thunderwave",
-    "tm:tickle",
     "tm:torment",
     "tm:trick",
     "tm:trickroom",
     "tm:wonderroom",
     "tm:workup",
-    "tm:yawn",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:allyswitch",
+    "tutor:calmmind",
+    "tutor:chargebeam",
+    "tutor:covet",
+    "tutor:darkpulse",
+    "tutor:energyball",
+    "tutor:expandingforce",
+    "tutor:gravity",
+    "tutor:healbell",
+    "tutor:helpinghand",
+    "tutor:irontail",
+    "tutor:magiccoat",
+    "tutor:magicroom",
+    "tutor:playrough",
+    "tutor:psychic",
+    "tutor:recycle",
+    "tutor:rest",
+    "tutor:roleplay",
+    "tutor:shadowball",
+    "tutor:shockwave",
+    "tutor:signalbeam",
+    "tutor:skillswap",
+    "tutor:sleeptalk",
+    "tutor:snatch",
+    "tutor:swift",
+    "tutor:telekinesis",
+    "tutor:thunderbolt",
+    "tutor:trick",
+    "tutor:wonderroom",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

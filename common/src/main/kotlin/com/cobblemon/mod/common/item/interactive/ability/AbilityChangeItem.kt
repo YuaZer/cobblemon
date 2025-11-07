@@ -17,14 +17,22 @@ import com.cobblemon.mod.common.util.asTranslated
 import com.cobblemon.mod.common.util.lang
 import net.minecraft.world.item.ItemStack
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.item.Rarity
 
-open class AbilityChangeItem<T : PotentialAbility>(val changer: AbilityChanger<T>) : CobblemonItem(Properties()), PokemonEntityInteraction {
+open class AbilityChangeItem<T : PotentialAbility>(
+    val changer: AbilityChanger<T>
+) : CobblemonItem(Properties().apply {
+    when(changer) {
+        AbilityChanger.HIDDEN_ABILITY -> rarity(Rarity.EPIC)
+        AbilityChanger.COMMON_ABILITY -> rarity(Rarity.RARE)
+    }
+}), PokemonEntityInteraction {
 
     override val accepted: Set<PokemonEntityInteraction.Ownership> = setOf(PokemonEntityInteraction.Ownership.OWNER)
 
     override fun processInteraction(player: ServerPlayer, entity: PokemonEntity, stack: ItemStack): Boolean {
         if (this.changer.performChange(entity.pokemon)) {
-            this.consumeItem(player, stack)
+            stack.consume(1, player)
             val feedback = lang(
                 "ability_changer.changed",
                 entity.pokemon.getDisplayName(),

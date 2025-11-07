@@ -48,7 +48,23 @@
     "height": 0.8,
     "fixed": false
   },
-  "behaviour": {},
+  "behaviour": {
+    "entityInteract": {
+      "avoidedBySkeleton": true
+    },
+    "herd": {
+      "maxSize": "2",
+      "toleratedLeaders": [
+        {
+          "pokemon": "mabosstiff",
+          "tier": 1
+        }
+      ]
+    },
+    "resting": {
+      "willSleepOnBed": true
+    }
+  },
   "drops": {
     "amount": 3,
     "entries": [
@@ -86,12 +102,10 @@
     "egg:endeavor",
     "egg:playrough",
     "egg:retaliate",
-    "tm:bite",
     "tm:bodyslam",
     "tm:charm",
     "tm:crunch",
     "tm:darkpulse",
-    "tm:destinybond",
     "tm:dig",
     "tm:doubleedge",
     "tm:endeavor",
@@ -103,10 +117,7 @@
     "tm:helpinghand",
     "tm:honeclaws",
     "tm:icefang",
-    "tm:jawlock",
     "tm:lashout",
-    "tm:leer",
-    "tm:lick",
     "tm:payback",
     "tm:playrough",
     "tm:protect",
@@ -122,13 +133,23 @@
     "tm:substitute",
     "tm:sunnyday",
     "tm:swagger",
-    "tm:tackle",
     "tm:takedown",
     "tm:taunt",
     "tm:terablast",
     "tm:thief",
     "tm:thunderfang",
-    "tm:trailblaze"
+    "tm:trailblaze",
+    "tutor:darkpulse",
+    "tutor:endeavor",
+    "tutor:firefang",
+    "tutor:helpinghand",
+    "tutor:icefang",
+    "tutor:lashout",
+    "tutor:playrough",
+    "tutor:rest",
+    "tutor:sleeptalk",
+    "tutor:snarl",
+    "tutor:thunderfang"
   ],
   "evolutions": [
     {

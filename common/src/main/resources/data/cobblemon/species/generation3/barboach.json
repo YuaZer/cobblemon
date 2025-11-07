@@ -61,6 +61,23 @@
         "canSwimInWater": true,
         "canSwimInLava": false
       }
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "barboach",
+          "tier": 1
+        },
+        {
+          "pokemon": "whiscash",
+          "tier": 2
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 3
+        }
+      ]
     }
   },
   "drops": {
@@ -109,8 +126,6 @@
     "tm:earthquake",
     "tm:endure",
     "tm:facade",
-    "tm:fissure",
-    "tm:flail",
     "tm:futuresight",
     "tm:hail",
     "tm:headbutt",
@@ -120,12 +135,9 @@
     "tm:icebeam",
     "tm:icywind",
     "tm:liquidation",
-    "tm:magnitude",
-    "tm:mudbomb",
     "tm:muddywater",
     "tm:mudshot",
     "tm:mudslap",
-    "tm:mudsport",
     "tm:outrage",
     "tm:protect",
     "tm:raindance",
@@ -135,7 +147,6 @@
     "tm:sandstorm",
     "tm:sleeptalk",
     "tm:snore",
-    "tm:spark",
     "tm:stealthrock",
     "tm:stompingtantrum",
     "tm:stoneedge",
@@ -145,13 +156,46 @@
     "tm:swift",
     "tm:takedown",
     "tm:terablast",
-    "tm:thrash",
     "tm:waterfall",
-    "tm:watergun",
     "tm:waterpulse",
-    "tm:watersport",
     "tm:whirlpool",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:aquatail",
+    "tutor:bounce",
+    "tutor:bulldoze",
+    "tutor:dive",
+    "tutor:earthpower",
+    "tutor:helpinghand",
+    "tutor:highhorsepower",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:liquidation",
+    "tutor:mudslap",
+    "tutor:outrage",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:sleeptalk",
+    "tutor:snore",
+    "tutor:stealthrock",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:swift",
+    "tutor:waterpulse",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:captivate",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:scald",
+    "legacy:secretpower",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

@@ -64,6 +64,27 @@
     },
     "resting": {
       "canSleep": true
+    },
+    "herd": {
+      "maxSize": "9",
+      "toleratedLeaders": [
+        {
+          "pokemon": "magikarp",
+          "tier": 1
+        },
+        {
+          "pokemon": "feebas",
+          "tier": 1
+        },
+        {
+          "pokemon": "milotic",
+          "tier": 2
+        },
+        {
+          "pokemon": "manaphy",
+          "tier": 3
+        }
+      ]
     }
   },
   "drops": {
@@ -74,7 +95,7 @@
       },
       {
         "item": "minecraft:bone_meal",
-        "percentage": 5
+        "percentage": 5.0
       },
       {
         "item": "cobblemon:prism_scale",
@@ -102,38 +123,53 @@
     "tm:confuseray",
     "tm:dive",
     "tm:doubleedge",
-    "tm:dragonbreath",
     "tm:dragonpulse",
     "tm:endure",
     "tm:facade",
-    "tm:flail",
     "tm:hail",
     "tm:haze",
-    "tm:hypnosis",
     "tm:icebeam",
     "tm:icywind",
     "tm:irontail",
     "tm:lightscreen",
-    "tm:mirrorcoat",
-    "tm:mist",
     "tm:muddywater",
     "tm:mudshot",
-    "tm:mudsport",
     "tm:protect",
     "tm:raindance",
     "tm:rest",
     "tm:scaleshot",
     "tm:sleeptalk",
-    "tm:splash",
     "tm:substitute",
     "tm:surf",
     "tm:swift",
-    "tm:tackle",
     "tm:terablast",
-    "tm:tickle",
     "tm:waterfall",
     "tm:waterpulse",
-    "tm:whirlpool"
+    "tm:whirlpool",
+    "tutor:dive",
+    "tutor:dragonpulse",
+    "tutor:icebeam",
+    "tutor:icywind",
+    "tutor:irontail",
+    "tutor:rest",
+    "tutor:scaleshot",
+    "tutor:sleeptalk",
+    "tutor:swift",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:return",
+    "legacy:round",
+    "legacy:scald",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "evolutions": [
     {

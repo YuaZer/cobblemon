@@ -1,4 +1,5 @@
 {
+  "implemented": true,
   "nationalPokedexNumber": 946,
   "name": "Bramblin",
   "primaryType": "grass",
@@ -41,10 +42,13 @@
   "catchRate": 190,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "behaviour": {},
   "drops": {
-    "amount": 2,
+    "amount": 3,
     "entries": [
+      {
+        "item": "minecraft:dead_bush",
+        "quantityRange": "0-1"
+      },
       {
         "item": "minecraft:stick",
         "quantityRange": "0-1"
@@ -76,15 +80,11 @@
     "egg:leechseed",
     "egg:shadowsneak",
     "egg:strengthsap",
-    "tm:absorb",
-    "tm:astonish",
     "tm:beatup",
     "tm:block",
     "tm:bulletseed",
     "tm:confuseray",
     "tm:curse",
-    "tm:defensecurl",
-    "tm:disable",
     "tm:endure",
     "tm:energyball",
     "tm:facade",
@@ -95,8 +95,6 @@
     "tm:hex",
     "tm:infestation",
     "tm:leafstorm",
-    "tm:leechseed",
-    "tm:megadrain",
     "tm:nightshade",
     "tm:painsplit",
     "tm:phantomforce",
@@ -104,22 +102,32 @@
     "tm:pounce",
     "tm:powerwhip",
     "tm:protect",
-    "tm:rapidspin",
     "tm:rest",
     "tm:rollout",
     "tm:scaryface",
     "tm:seedbomb",
     "tm:shadowball",
-    "tm:shadowsneak",
     "tm:sleeptalk",
     "tm:solarbeam",
     "tm:spikes",
     "tm:spite",
-    "tm:strengthsap",
     "tm:substitute",
     "tm:terablast",
     "tm:thief",
-    "tm:trailblaze"
+    "tm:trailblaze",
+    "tutor:block",
+    "tutor:energyball",
+    "tutor:gigadrain",
+    "tutor:grassyglide",
+    "tutor:painsplit",
+    "tutor:poltergeist",
+    "tutor:rest",
+    "tutor:rollout",
+    "tutor:seedbomb",
+    "tutor:shadowball",
+    "tutor:sleeptalk",
+    "tutor:spikes",
+    "tutor:spite"
   ],
   "evolutions": [
     {
@@ -135,5 +143,6 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviour": {}
 }

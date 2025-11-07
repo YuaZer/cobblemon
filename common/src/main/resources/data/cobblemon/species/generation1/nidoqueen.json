@@ -53,6 +53,19 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
+    },
+    "herd": {
+      "maxSize": "7",
+      "toleratedLeaders": [
+        {
+          "pokemon": "nidoqueen",
+          "tier": 1
+        },
+        {
+          "pokemon": "nidoking",
+          "tier": 2
+        }
+      ]
     }
   },
   "drops": {
@@ -60,11 +73,11 @@
     "entries": [
       {
         "item": "cobblemon:poison_barb",
-        "percentage": 10
+        "percentage": 10.0
       },
       {
         "item": "cobblemon:pecha_berry",
-        "percentage": 10
+        "percentage": 10.0
       }
     ]
   },
@@ -100,7 +113,6 @@
     "tm:aquatail",
     "tm:avalanche",
     "tm:beatup",
-    "tm:bite",
     "tm:blizzard",
     "tm:bodypress",
     "tm:bodyslam",
@@ -108,13 +120,9 @@
     "tm:bulldoze",
     "tm:captivate",
     "tm:charm",
-    "tm:chipaway",
-    "tm:counter",
     "tm:crunch",
     "tm:cut",
     "tm:dig",
-    "tm:disable",
-    "tm:doublekick",
     "tm:dragonpulse",
     "tm:dragontail",
     "tm:drillrun",
@@ -126,15 +134,12 @@
     "tm:fireblast",
     "tm:firepunch",
     "tm:flamethrower",
-    "tm:flatter",
     "tm:fling",
     "tm:focusblast",
     "tm:focusenergy",
     "tm:focuspunch",
     "tm:furycutter",
-    "tm:furyswipes",
     "tm:gigaimpact",
-    "tm:growl",
     "tm:headbutt",
     "tm:helpinghand",
     "tm:hex",
@@ -152,13 +157,10 @@
     "tm:mudslap",
     "tm:outrage",
     "tm:payday",
-    "tm:poisonfang",
     "tm:poisonjab",
-    "tm:poisonsting",
     "tm:poisontail",
     "tm:poweruppunch",
     "tm:protect",
-    "tm:pursuit",
     "tm:quash",
     "tm:raindance",
     "tm:rest",
@@ -171,11 +173,9 @@
     "tm:sandstorm",
     "tm:sandtomb",
     "tm:scorchingsands",
-    "tm:scratch",
     "tm:shadowball",
     "tm:shadowclaw",
     "tm:shockwave",
-    "tm:skullbash",
     "tm:sleeptalk",
     "tm:sludgebomb",
     "tm:sludgewave",
@@ -188,9 +188,7 @@
     "tm:sunnyday",
     "tm:superfang",
     "tm:superpower",
-    "tm:supersonic",
     "tm:surf",
-    "tm:tailwhip",
     "tm:takedown",
     "tm:taunt",
     "tm:terablast",
@@ -206,8 +204,115 @@
     "tm:venomdrench",
     "tm:venoshock",
     "tm:waterpulse",
-    "tm:whirlpool"
+    "tm:whirlpool",
+    "tutor:aerialace",
+    "tutor:aquatail",
+    "tutor:bulldoze",
+    "tutor:dragonpulse",
+    "tutor:drillrun",
+    "tutor:earthpower",
+    "tutor:firepunch",
+    "tutor:flamethrower",
+    "tutor:focusenergy",
+    "tutor:focuspunch",
+    "tutor:furycutter",
+    "tutor:gigaimpact",
+    "tutor:helpinghand",
+    "tutor:highhorsepower",
+    "tutor:hyperbeam",
+    "tutor:icebeam",
+    "tutor:icepunch",
+    "tutor:icywind",
+    "tutor:irontail",
+    "tutor:mudslap",
+    "tutor:outrage",
+    "tutor:poisonjab",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:scorchingsands",
+    "tutor:shadowball",
+    "tutor:shadowclaw",
+    "tutor:shockwave",
+    "tutor:sleeptalk",
+    "tutor:sludgebomb",
+    "tutor:stealthrock",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:superfang",
+    "tutor:superpower",
+    "tutor:throatchop",
+    "tutor:thunderbolt",
+    "tutor:thunderpunch",
+    "tutor:uproar",
+    "tutor:waterpulse",
+    "legacy:attract",
+    "legacy:bide",
+    "legacy:bubblebeam",
+    "legacy:confide",
+    "legacy:curse",
+    "legacy:defensecurl",
+    "legacy:detect",
+    "legacy:doubleedge",
+    "legacy:doubleteam",
+    "legacy:dynamicpunch",
+    "legacy:fissure",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:horndrill",
+    "legacy:mimic",
+    "legacy:naturalgift",
+    "legacy:rage",
+    "legacy:reflect",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:seismictoss",
+    "legacy:snore",
+    "legacy:submission",
+    "legacy:suckerpunch",
+    "legacy:swagger",
+    "legacy:tackle",
+    "legacy:watergun"
   ],
   "preEvolution": "nidorina",
-  "evolutions": []
+  "evolutions": [],
+  "riding": {
+    "stats": {
+      "SPEED": {
+        "ranges": {
+          "LAND": "25-50",
+          "LIQUID": "5-20"
+        }
+      },
+      "ACCELERATION": {
+        "ranges": {
+          "LAND": "20-70",
+          "LIQUID": "50-80"
+        }
+      },
+      "SKILL": {
+        "ranges": {
+          "LAND": "15-30",
+          "LIQUID": "20-40"
+        }
+      },
+      "JUMP": {
+        "ranges": {
+          "LAND": "5-10",
+          "LIQUID": "5-10"
+        }
+      },
+      "STAMINA": {
+        "ranges": {
+          "LAND": "30-60",
+          "LIQUID": "25-65"
+        }
+      }
+    },
+    "seats": [],
+    "behaviour": {
+      "key": "cobblemon:land/horse"
+    }
+  }
 }

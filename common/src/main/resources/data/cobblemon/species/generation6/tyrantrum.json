@@ -46,22 +46,200 @@
   "baseFriendship": 50,
   "baseScale": 1,
   "hitbox": {
-    "width": 3.05,
     "height": 4.65,
-    "fixed": false
+    "fixed": false,
+    "width": 3.05
+  },
+  "riding": {
+    "behaviours": {
+      "LAND": {
+        "key": "cobblemon:land/horse",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "45-60",
+          "JUMP": "10-25",
+          "SKILL": "30-45",
+          "SPEED": "25-35",
+          "STAMINA": "65-90"
+        }
+      }
+    },
+    "seats": [
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": -0.0044199796,
+              "y": -4.43871,
+              "z": -1.7035363
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.24040884,
+              "y": -4.319892,
+              "z": -1.9330622
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.4900259,
+              "y": -4.2273817,
+              "z": -1.8066592
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.4900259,
+              "y": -4.2273817,
+              "z": -1.8066592
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.4900259,
+              "y": -4.2273817,
+              "z": -1.8066592
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.4900259,
+              "y": -4.2273817,
+              "z": -1.8066592
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": -0.4900259,
+              "y": -4.2273817,
+              "z": -1.8066592
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      },
+      {
+        "offset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "poseOffsets": [
+          {
+            "offset": {
+              "x": -0.0013658587,
+              "y": -2.688829,
+              "z": 0.88855124
+            },
+            "poseTypes": [
+              "STAND"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.014507234,
+              "y": -2.91135,
+              "z": 0.50614136
+            },
+            "poseTypes": [
+              "WALK"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.28322676,
+              "y": -2.8153157,
+              "z": 0.828276
+            },
+            "poseTypes": [
+              "HOVER"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.28322676,
+              "y": -2.8153157,
+              "z": 0.828276
+            },
+            "poseTypes": [
+              "FLY"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.28322676,
+              "y": -2.8153157,
+              "z": 0.828276
+            },
+            "poseTypes": [
+              "FLOAT"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.28322676,
+              "y": -2.8153157,
+              "z": 0.828276
+            },
+            "poseTypes": [
+              "SWIM"
+            ]
+          },
+          {
+            "offset": {
+              "x": 0.28322676,
+              "y": -2.8153157,
+              "z": 0.828276
+            },
+            "poseTypes": [
+              "GLIDE"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "behaviour": {
+    "herd": {
+      "maxSize": "7"
+    },
+    "moving": {
+      "swim": {
+        "canSwimInLava": true
+      },
+      "walk": {
+        "walkSpeed": 0.27
+      }
+    },
     "resting": {
       "canSleep": true,
       "light": "0-4"
-    },
-    "moving": {
-      "walk": {
-        "walkSpeed": 0.27
-      },
-      "swim": {
-        "canSwimInLava": true
-      }
     }
   },
   "drops": {
@@ -69,7 +247,7 @@
     "entries": [
       {
         "item": "cobblemon:razor_fang",
-        "percentage": 10
+        "percentage": 10.0
       }
     ]
   },
@@ -98,8 +276,6 @@
     "tm:aerialace",
     "tm:ancientpower",
     "tm:assurance",
-    "tm:bide",
-    "tm:bite",
     "tm:block",
     "tm:bodyslam",
     "tm:breakingswipe",
@@ -123,10 +299,8 @@
     "tm:facade",
     "tm:firefang",
     "tm:gigaimpact",
-    "tm:headsmash",
     "tm:highhorsepower",
     "tm:honeclaws",
-    "tm:horndrill",
     "tm:hyperbeam",
     "tm:hypervoice",
     "tm:icefang",
@@ -137,7 +311,6 @@
     "tm:meteorbeam",
     "tm:outrage",
     "tm:playrough",
-    "tm:poisonfang",
     "tm:protect",
     "tm:psychicfangs",
     "tm:rest",
@@ -146,26 +319,64 @@
     "tm:rockpolish",
     "tm:rockslide",
     "tm:rocksmash",
-    "tm:rockthrow",
     "tm:rocktomb",
     "tm:sandstorm",
     "tm:scaleshot",
     "tm:scaryface",
     "tm:sleeptalk",
     "tm:stealthrock",
-    "tm:stomp",
     "tm:stompingtantrum",
     "tm:stoneedge",
     "tm:strength",
     "tm:substitute",
     "tm:sunnyday",
     "tm:superpower",
-    "tm:tackle",
-    "tm:tailwhip",
     "tm:terablast",
-    "tm:thrash",
     "tm:thunderfang",
-    "tm:zenheadbutt"
+    "tm:zenheadbutt",
+    "tutor:aerialace",
+    "tutor:ancientpower",
+    "tutor:block",
+    "tutor:bulldoze",
+    "tutor:darkpulse",
+    "tutor:dracometeor",
+    "tutor:dragonpulse",
+    "tutor:earthpower",
+    "tutor:firefang",
+    "tutor:gigaimpact",
+    "tutor:highhorsepower",
+    "tutor:hyperbeam",
+    "tutor:hypervoice",
+    "tutor:icefang",
+    "tutor:irondefense",
+    "tutor:ironhead",
+    "tutor:irontail",
+    "tutor:lashout",
+    "tutor:meteorbeam",
+    "tutor:outrage",
+    "tutor:playrough",
+    "tutor:rest",
+    "tutor:rockslide",
+    "tutor:rocksmash",
+    "tutor:scaleshot",
+    "tutor:sleeptalk",
+    "tutor:stealthrock",
+    "tutor:stompingtantrum",
+    "tutor:stoneedge",
+    "tutor:superpower",
+    "tutor:thunderfang",
+    "tutor:zenheadbutt",
+    "legacy:attract",
+    "legacy:confide",
+    "legacy:doubleteam",
+    "legacy:frustration",
+    "legacy:hiddenpower",
+    "legacy:return",
+    "legacy:round",
+    "legacy:secretpower",
+    "legacy:snore",
+    "legacy:swagger",
+    "legacy:toxic"
   ],
   "preEvolution": "tyrunt",
   "evolutions": []
