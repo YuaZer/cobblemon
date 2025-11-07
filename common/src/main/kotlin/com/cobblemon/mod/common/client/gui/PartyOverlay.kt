@@ -67,12 +67,29 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
         private val inanimatePortraitDrawer = InanimatePortraitDrawer()
         private val selectedAnimatedPortraitDrawer = SelectedAnimatedPortraitDrawer()
         private val fullyAnimatedPortraitDrawer = FullyAnimatedPortraitDrawer()
-    }
 
-    private val screenExemptions: List<Class<out Screen>> = listOf(
-        ChatScreen::class.java,
-        BattleGUI::class.java
-    )
+        private val screenExemptions: List<Class<out Screen>> = listOf(
+            ChatScreen::class.java,
+            BattleGUI::class.java
+        )
+
+        fun canRender(): Boolean {
+            val minecraft = Minecraft.getInstance()
+            // Hiding if a Screen is open and not exempt
+            if (minecraft.screen != null) {
+                if (!screenExemptions.contains(minecraft.screen?.javaClass as Class<out Screen>))
+                    return false
+            }
+            if (minecraft.options.hideGui || minecraft.debugOverlay.showDebugScreen()) {
+                return false
+            }
+            // Hiding if toggled via Keybind
+            if (HidePartyBinding.shouldHide) {
+                return false
+            }
+            return true
+        }
+    }
 
     val starterToast = CobblemonToast(
         Mth.createInsecureUUID(),
@@ -94,22 +111,10 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
     }
 
     override fun render(context: GuiGraphics, tickCounter: DeltaTracker) {
+        if (!canRender()) return
+
         val partialDeltaTicks = tickCounter.realtimeDeltaTicks
-
         val minecraft = Minecraft.getInstance()
-
-        // Hiding if a Screen is open and not exempt
-        if (minecraft.screen != null) {
-            if (!screenExemptions.contains(minecraft.screen?.javaClass as Class<out Screen>))
-                return
-        }
-        if (minecraft.options.hideGui || minecraft.debugOverlay.showDebugScreen()) {
-            return
-        }
-        // Hiding if toggled via Keybind
-        if (HidePartyBinding.shouldHide) {
-            return
-        }
 
         val panelX = 0
         val party = CobblemonClient.storage.party

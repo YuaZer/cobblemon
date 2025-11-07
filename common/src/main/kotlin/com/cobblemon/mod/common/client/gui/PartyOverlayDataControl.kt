@@ -8,6 +8,11 @@
 
 package com.cobblemon.mod.common.client.gui
 
+import com.cobblemon.mod.common.CobblemonSounds
+import net.minecraft.client.Minecraft
+import net.minecraft.client.resources.sounds.SimpleSoundInstance
+import net.minecraft.client.resources.sounds.SoundInstance
+import net.minecraft.sounds.SoundEvent
 import java.util.*
 
 object PartyOverlayDataControl {
@@ -27,6 +32,9 @@ object PartyOverlayDataControl {
     }
 
     private val overlayData = mutableMapOf<UUID, OverlayData>()
+
+    private var barFillupSound: SoundInstance? = null
+    private var levelUpJingleSound: SoundInstance? = null
 
     fun pokemonGainedExp(pokemonUuid : UUID, oldLevel: Int?, expGained: Int, countOfMovesLearned: Int, countOfEvosUnlocked: Int = 0) {
         var time = BAR_UPDATE_NO_LEVEL_TIME
@@ -55,6 +63,9 @@ object PartyOverlayDataControl {
             }
         }
         overlayData[pokemonUuid] = OverlayData(expGainedData = newData)
+
+        stopSound(barFillupSound)
+        barFillupSound = playSound(CobblemonSounds.LEVELUP_START)
     }
 
     fun pokemonGainedEvo(pokemonUuid : UUID, evoCount: Int) {
@@ -130,6 +141,10 @@ object PartyOverlayDataControl {
             if (data.expGainedData != null) { // We update this in order and render these in order, and as such we don't tick others
                 val expGainedData = data.expGainedData!!
                 expGainedData.ticks += 1
+                if (expGainedData.ticks == BAR_UPDATE_BEFORE_TIME && expGainedData.oldLevel != null) {
+                    stopSound(levelUpJingleSound)
+                    levelUpJingleSound = playSound(CobblemonSounds.LEVELUP)
+                }
                 if (expGainedData.ticks >= expGainedData.ticksMax) {
                     data.expGainedData = null
                 }
@@ -158,6 +173,8 @@ object PartyOverlayDataControl {
 
     fun clear() {
         overlayData.clear()
+        stopSound(barFillupSound)
+        stopSound(levelUpJingleSound)
     }
 
     open class TickCounter(
@@ -194,5 +211,17 @@ object PartyOverlayDataControl {
         fun total(): Int {
             return fadeIn + hold + fadeOut
         }
+    }
+
+    //SOUNDS
+    private fun playSound(soundEvent: SoundEvent): SoundInstance? {
+        if (!PartyOverlay.canRender()) return null
+        val soundInstance = SimpleSoundInstance.forUI(soundEvent, 1F)
+        Minecraft.getInstance().soundManager.play(soundInstance)
+        return soundInstance
+    }
+
+    private fun stopSound(soundInstance: SoundInstance?) {
+        if (soundInstance != null) Minecraft.getInstance().soundManager.stop(soundInstance)
     }
 }
