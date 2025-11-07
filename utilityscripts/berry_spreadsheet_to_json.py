@@ -54,6 +54,16 @@ def stuff():
                     "maxGroveSize": 5
                 }
             ]
+        elif spawn_type == "MIRAGE_ISLAND":
+            berry_dict["spawnConditions"] = [
+                {
+                    "variant": "cobblemon:specific_biome",
+                    "biome": "cobblemon:is_mirage_island",
+                    "minGroveSize": 1,
+                    "maxGroveSize": 1
+                }
+            ]
+
         else:
             berry_dict["spawnConditions"] = []
         berry_dict["growthPoints"] = get_growth_points(row[0].row)

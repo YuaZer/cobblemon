@@ -73,7 +73,7 @@
                     "#cobblemon:is_overworld"
                 ],
                 "neededNearbyBlocks": [
-                    "#minecraft:water"
+                    "#cobblemon:water"
                 ],
                 "maxY": 62
             },
@@ -348,7 +348,7 @@
                     "#aether:is_aether"
                 ],
                 "neededNearbyBlocks": [
-                    "#minecraft:water"
+                    "#cobblemon:water"
                 ]
             }
         },
@@ -372,7 +372,7 @@
             }
         },
         {
-            "id": "wooper-heart-15",
+            "id": "wooper-true-15",
             "pokemon": "wooper wooper_heart=true",
             "type": "pokemon",
             "context": "fishing",
@@ -390,7 +390,7 @@
             }
         },
         {
-            "id": "wooper-heart-16",
+            "id": "wooper-true-16",
             "pokemon": "wooper wooper_heart=true",
             "type": "pokemon",
             "context": "fishing",
@@ -427,7 +427,7 @@
             }
         },
         {
-            "id": "wooper-heart-17",
+            "id": "wooper-true-17",
             "pokemon": "wooper wooper_heart=true",
             "type": "pokemon",
             "context": "fishing",
@@ -445,7 +445,7 @@
             }
         },
         {
-            "id": "wooper-heart-18",
+            "id": "wooper-true-18",
             "pokemon": "wooper wooper_heart=true",
             "type": "pokemon",
             "context": "fishing",
@@ -482,7 +482,7 @@
             }
         },
         {
-            "id": "wooper-heart-19",
+            "id": "wooper-true-19",
             "pokemon": "wooper wooper_heart=true",
             "type": "pokemon",
             "context": "fishing",
@@ -521,7 +521,7 @@
             }
         },
         {
-            "id": "wooper-heart-20",
+            "id": "wooper-true-20",
             "pokemon": "wooper wooper_heart=true",
             "type": "pokemon",
             "context": "fishing",
@@ -614,7 +614,7 @@
                     "#cobblemon:is_savanna"
                 ],
                 "neededNearbyBlocks": [
-                    "#minecraft:water"
+                    "#cobblemon:water"
                 ]
             }
         },

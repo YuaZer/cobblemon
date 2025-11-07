@@ -68,7 +68,7 @@
                 ],
                 "isRaining": true,
                 "neededNearbyBlocks": [
-                    "#minecraft:water"
+                    "#cobblemon:water"
                 ]
             },
             "anticondition": {
