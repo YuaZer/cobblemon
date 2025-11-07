@@ -46,6 +46,7 @@ class FishingSpawnCause(
 ) : SpawnCause(spawner, entity) {
     companion object {
         const val FISHED_ASPECT = "fished"
+        const val DROPS_REROLL_ASPECT = "drops_reroll"
 
         fun shinyReroll(pokemonEntity: PokemonEntity, effect: SpawnBait.Effect) {
             if (pokemonEntity.pokemon.shiny) return
@@ -61,12 +62,8 @@ class FishingSpawnCause(
             }
         }
 
-        fun alterMarksAttempt(pokemonEntity: PokemonEntity, effect: SpawnBait.Effect) {
-            // This is not needed as markings are only applied when the pokémon gets captured by a player,
-            // but let's leave it here just in case
-            if (pokemonEntity.pokemon.marks.isNotEmpty()) return
-
-            pokemonEntity.pokemon.applyPotentialMarks()
+        fun saveDropsReroll(pokemonEntity: PokemonEntity, effect: SpawnBait.Effect) {
+            pokemonEntity.pokemon.forcedAspects += DROPS_REROLL_ASPECT
         }
 
         fun alterNatureAttempt(pokemonEntity: PokemonEntity, effect: SpawnBait.Effect) {
