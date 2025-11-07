@@ -1790,6 +1790,10 @@
 				},
 				"toe_outer_right": {
 					"rotation": [5, 0, 0]
+				},
+				"locator_seat_1": {
+					"rotation": [-42.5, 0, 0],
+					"position": [0, -1, -2]
 				}
 			}
 		},
@@ -2135,6 +2139,10 @@
 				},
 				"toe_outer_right": {
 					"rotation": [5, 0, 0]
+				},
+				"locator_seat_1": {
+					"rotation": [-42.5, 0, 0],
+					"position": [0, -1, -2]
 				}
 			}
 		},

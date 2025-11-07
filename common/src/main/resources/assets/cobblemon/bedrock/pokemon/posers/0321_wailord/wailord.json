@@ -123,6 +123,7 @@
       "standing": {
         "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
         "isBattle": false,
+        "isTouchingWater": false,
         "condition": "q.has_entity ? !q.in_air : 1.0",
         "animations": [
           "q.bedrock('wailord', 'ground_idle')"
@@ -133,6 +134,7 @@
       },
       "walking": {
         "poseTypes": ["WALK"],
+        "isTouchingWater": false,
         "animations": [
           "q.bedrock('wailord', 'ground_walk')"
         ],
@@ -140,6 +142,20 @@
       },
       "float": {
         "poseTypes": ["FLOAT"],
+        "isTouchingWater": true,
+        "isUnderWater": true,
+        "animations": [
+          "q.bedrock('wailord', 'water_idle')"
+        ],
+        "namedAnimations": {
+          "faint": "q.bedrock_primary('wailord', 'faint_water', q.curve('one'))"
+        },
+        "quirks": ["q.bedrock_quirk('wailord', 'blink')"]
+      },
+      "surface-float": {
+        "poseTypes": ["STAND", "FLOAT"],
+        "isTouchingWater": true,
+        "isUnderWater": false,
         "animations": [
           "q.bedrock('wailord', 'water_idle')"
         ],
@@ -150,6 +166,17 @@
       },
       "swim": {
         "poseTypes": ["SWIM"],
+        "isTouchingWater": true,
+        "isUnderWater": true,
+        "animations": [
+          "q.bedrock('wailord', 'water_swim')"
+        ],
+        "quirks": ["q.bedrock_quirk('wailord', 'blink')"]
+      },
+      "surface-swim": {
+        "poseTypes": ["WALK", "SWIM"],
+        "isTouchingWater": true,
+        "isUnderWater": false,
         "animations": [
           "q.bedrock('wailord', 'water_swim')"
         ],

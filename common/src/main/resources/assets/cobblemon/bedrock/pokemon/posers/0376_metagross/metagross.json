@@ -5,15 +5,30 @@
   "profileTranslation": [0, 1, 0],
   "rootBone": "metagross",
   "firstPersonCameraOffset": {
-    "seat_1": [0, 0.45, 0]
+    "seat_1": [0, 0.45, 0],
+    "seat_2": [0, 0.45, 0],
+    "seat_3": [0, 0.45, 0],
+    "seat_4": [0, 0.45, 0]
   },
   "thirdPersonCameraOffset": {
     "seat_1": [0, 0.5, 1],
-    "seat_1_reverse": [0, 0.5, 1]
+    "seat_1_reverse": [0, 0.5, 1],
+    "seat_2": [0, 0.5, 1],
+    "seat_2_reverse": [0, 0.5, 1],
+    "seat_3": [0, 0.5, 1],
+    "seat_3_reverse": [0, 0.5, 1],
+    "seat_4": [0, 0.5, 1],
+    "seat_4_reverse": [0, 0.5, 1]
   },
   "thirdPersonCameraOffsetNoViewBobbing": {
     "seat_1": [0, 0.5, 1],
-    "seat_1_reverse": [0, 0.5, 1]
+    "seat_1_reverse": [0, 0.5, 1],
+    "seat_2": [0, 0.5, 1],
+    "seat_2_reverse": [0, 0.5, 1],
+    "seat_3": [0, 0.5, 1],
+    "seat_3_reverse": [0, 0.5, 1],
+    "seat_4": [0, 0.5, 1],
+    "seat_4_reverse": [0, 0.5, 1]
   },
   "animations": {
     "cry": "q.bedrock_stateful('metagross', 'cry')",
@@ -27,10 +42,11 @@
   },
   "poses": {
     "mount-hover": {
+      "poseTypes": ["STAND", "HOVER"],
       "isBattle": false,
       "condition": "q.has_entity ? q.is_ridden && q.riding_style == 'AIR' : 0.0",
       "transformTicks": 5,
-      "poseTypes": ["STAND", "HOVER"],
+      "isRideStyle": ["AIR"],
       "animations": [
         "q.bedrock('metagross', 'air_idle')",
         "q.bedrock('metagross', 'ride_air_idle')"
