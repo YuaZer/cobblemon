@@ -45,7 +45,7 @@
   "eggCycles": 40,
   "baseFriendship": 50,
   "shoulderMountable": true,
-  "baseScale": 0.7,
+  "baseScale": 0.55,
   "hitbox": {
     "width": 0.75,
     "height": 0.5,
@@ -67,7 +67,8 @@
     },
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "willSleepOnBed": true
     },
     "herd": {
       "maxSize": "4",

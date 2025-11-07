@@ -4,6 +4,47 @@
   "profileScale": 0.31,
   "profileTranslation": [-0.11, 1.02, -20],
   "rootBone": "dondozo",
+  "firstPersonCameraOffset": {
+    "seat_1": [0, 0.45, 0],
+    "seat_2": [0, 0.45, 0],
+    "seat_3": [0, 0.45, 0],
+    "seat_4": [0, 0.45, 0],
+    "seat_5": [0, 0.45, 0],
+    "seat_6": [0, 0.45, 0],
+    "seat_7": [0, 0.45, 0]
+  },
+  "thirdPersonCameraOffset": {
+    "seat_1": [0, 0.35, 0],
+    "seat_1_reverse": [0, 0.35, 0],
+    "seat_2": [0, 0.35, 0],
+    "seat_2_reverse": [0, 0.35, 0],
+    "seat_3": [0, 0.35, 0],
+    "seat_3_reverse": [0, 0.35, 0],
+    "seat_4": [0, 0.35, 0],
+    "seat_4_reverse": [0, 0.35, 0],
+    "seat_5": [0, 0.35, 0],
+    "seat_5_reverse": [0, 0.35, 0],
+    "seat_6": [0, 0.35, 0],
+    "seat_6_reverse": [0, 0.35, 0],
+    "seat_7": [0, 0.35, 0],
+    "seat_7_reverse": [0, 0.35, 0]
+  },
+  "thirdPersonCameraOffsetNoViewBobbing": {
+    "seat_1": [0, 0.35, 0],
+    "seat_1_reverse": [0, 0.35, 0],
+    "seat_2": [0, 0.35, 0],
+    "seat_2_reverse": [0, 0.35, 0],
+    "seat_3": [0, 0.35, 0],
+    "seat_3_reverse": [0, 0.35, 0],
+    "seat_4": [0, 0.35, 0],
+    "seat_4_reverse": [0, 0.35, 0],
+    "seat_5": [0, 0.35, 0],
+    "seat_5_reverse": [0, 0.35, 0],
+    "seat_6": [0, 0.35, 0],
+    "seat_6_reverse": [0, 0.35, 0],
+    "seat_7": [0, 0.35, 0],
+    "seat_7_reverse": [0, 0.35, 0]
+  },
   "animations": {
     "cry": "q.bedrock_stateful('dondozo', 'cry')"
   },

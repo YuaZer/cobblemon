@@ -50,6 +50,9 @@
   },
   "behaviour": {
     "moving": {
+      "walk": {
+        "walkSpeed": "0.2"
+      },
       "swim": {
         "canSwimInWater": true,
         "canSwimInLava": false,
@@ -142,5 +145,9 @@
     "tutor:wildcharge"
   ],
   "preEvolution": "tadbulb",
-  "evolutions": []
+  "evolutions": [],
+  "lightingData": {
+    "lightLevel": 6,
+    "liquidGlowMode": "BOTH"
+  }
 }
