@@ -54,6 +54,8 @@
     - `PokemonRecallEvent`
     - `TradeEvent`
 - Added a new gamerule, 'healerHealsPC', when set to true a successful use of a healer will also heal all of the Pokemon in that player's PC.
+- Mooshtanks will switch between their red and brown variant when hit by lightning
+- Smeargle spawns with differing tail colour depending on its [Characteristic](https://bulbapedia.bulbagarden.net/wiki/Characteristic) stat
 
 ### Pokémon Added
 
@@ -85,6 +87,8 @@
 - Altaria
 - Snorunt
 - Glalie
+- Shuppet
+- Banette
 - Latias
 - Latios
 
@@ -133,6 +137,11 @@
 - Swadloon
 - Leavanny
 - Druddigon
+- Minccino
+- Cinccino
+- Vanillite
+- Vanillish
+- Vanilluxe
 
 #### Gen 6
 - Skiddo
@@ -295,6 +304,22 @@
 - Tauros - Paldea Combat
 - Dewgong
 - Exeggutor - Kanto
+- Corphish (updated placeholders for crustaceous tripod gait legs)
+- Crawdaunt (updated placeholders for crustaceous bipedal legs)
+- Dragapult
+- Camerupt
+- Relicanth
+- Heracross
+- Salamence
+- Staraptor
+- Dusknoir
+- Arcanine
+- Carvanha
+- Sharpedo
+- Mimikyu
+- Dewgong
+- Mime Jr
+- Gyarados
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -322,6 +347,8 @@
 - Nosepass
 - Probopass
 - Kangaskhan
+- Scorbunny
+- Raboot
 - Cinderace
 - Magnemite
 - Magneton
@@ -408,6 +435,13 @@
 - Litwick
 - Lampent
 - Chandelure
+- Rayquaza
+- Aerodactyl
+- Basculin
+- Basculegion
+- Shroodle
+- Grafaiai
+- Steelix
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
@@ -421,6 +455,8 @@
 - Updated some item tags to better integrate behaviours between Cobblemon, Vanilla Minecraft, and other mods
   - Removed Cooked Meat, Raw Meat, Protein Ingredients, and Zinc Ingredients, the first two are now using `c` namespace tags, the latter have better integrated use of tags within their recipes which removes need for custom tags.
   - Added our seeds tag into `#c:seeds`, which is now made use of for the Miracle Seed recipe.
+  - Updated the `#cobblemon:berries` tag to use subtags located in `data/cobblemon/tags/item/berries`, such as `#cobblemon:berries/hp_recovery` for sorting purposes
+  - Moved the tag `#cobblemon:mutated_berries` to `#cobblemon:berries/mutation_result`
 - Added herbs and snowballs to the consumable in PvE and Wild battle tags
 - Tweaked the Natural Materials Vanilla file to fit with the changes to tags
 - Substantially optimised spawning checks mainly by front-loading biome filtering.
@@ -477,6 +513,7 @@
 - Disabled advancement Mother Nature's Bounty from appearing in chat when obtained, now only appears as a toast and in the advancements menu
 - Removed Oki-Doki Vivichokey advancement
 - Shulker Boxes and Traveler's Backpacks can no longer be held by Pokémon. Thanks Monocle ;) You could re-enable this with a datapack but you'd be crazy.
+- Shulker Boxes and Traveler's Backpacks AND Packed Up backpacks can no longer be held by Pokémon. Thanks Monocle ;) You could re-enable this with our datapack (but you'd be crazy).
 - Moomoo Milk now clears Pokémon stat changes when used in battle.
 
 ### Fixes
@@ -565,6 +602,8 @@
 - Fixed the missing Terracotta Sun Stone Ore smelting and blasting recipes
 - Improved experience gain from smelting evolution stone ores to better match other ore types
 - Fixed some specific bag items not being dropped when used in battle.
+- The Corphish line will now sink in water.
+- Fixed the "use all berry bait" achievement not being progressed
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -602,10 +641,25 @@
 - Added a `hoverText` option to PartySelectCallback, to display a tooltip on hovering over a Pokémon in the selection screen.
 - `PokemonEntity` instances spawned into the world now appropriately finalize the spawn for mod compatibility.
 - Added PokedexManager.obtain as a replacement for .catch which is not a friendly function name in Java.
-
 - Added `Pokemon#hyperTrainIV()` and `IVs#setHyperTrainedIV(Stat, Int)`
 - `ElementalType` now implements `ShowdownIdentifiable` to ensure the communcation with showdown stays consistent (also in regards to TeraTypes)
 - Pokemon no longer have a change observable
+- Pokémon can now have a behaviour changing the value of a species feature on lightning hit: 
+  ```JSON
+  { 
+    "behaviour": {
+      "lightningHit": {
+        "rotateFeatures": [
+          {
+            "key": "mooshtank",
+            "chain": ["red", "brown"]
+          }
+        ]
+      }
+    }
+  }
+  ```
+  This will change the value of `mooshtank` from `red` to `brown` and vice versa when a lightning strikes this Pokémon. Only chains of which a value is the current value will be considered, so multiple entries for the same key with different chains can be added.
 
 ### MoLang & Datapacks
 - The following usages for item predicates can now use item conditions like advancements do, you can learn about them in the [Minecraft wiki](https://minecraft.wiki/w/Advancement_definition#minecraft:filled_bucket)
@@ -709,6 +763,10 @@
     - Mechanics
     - Unlockable Wallpapers
     - Starter Data
+- Fixed `cobblemon:reel_in_pokemon` criteria not working when used together with a `baitId`
+  - Also changed the default from `cobblemon:empty_bait` to `any`
+  - The previous default is still available by using the above as baitId
+- Added support for species-specific move action effects, using the format `{move_id}_{species}.json`.
 
 ### Particles
 Added new/updated particles for the following moves:

@@ -13,5 +13,6 @@
         "id": "cobblemon:revive",
         "count": 1
     },
+    "seasoningTag": "cobblemon:empty",
     "seasoningProcessors": []
 }
