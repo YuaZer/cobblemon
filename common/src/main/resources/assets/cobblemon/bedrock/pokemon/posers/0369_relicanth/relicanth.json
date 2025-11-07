@@ -40,17 +40,45 @@
       "isTouchingWater": false,
       "animations": ["q.bedrock('relicanth', 'ground_walk')"]
     },
-    "surface-floating": {
-      "poseTypes": ["STAND"],
+    "mount-surface-floating": {
+      "poseTypes": ["STAND", "FLOAT"],
+      "condition": "q.is_ridden",
       "isTouchingWater": true,
       "isUnderWater": false,
       "animations": ["q.bedrock('relicanth', 'water_idle')"]
     },
-    "surface-swimming": {
-      "poseTypes": ["WALK"],
+    "surface-floating": {
+      "poseTypes": ["STAND"],
+      "condition": "!q.is_ridden",
+      "isTouchingWater": true,
+      "isUnderWater": false,
+      "animations": ["q.bedrock('relicanth', 'water_idle')"],
+      "transformedParts": [
+        {
+          "part": "body",
+          "position": [0, 6, 0]
+        }
+      ]
+    },
+    "mount-surface-swimming": {
+      "poseTypes": ["WALK", "SWIM"],
+      "condition": "q.is_ridden",
       "isTouchingWater": true,
       "isUnderWater": false,
       "animations": ["q.bedrock('relicanth', 'water_swim')"]
+    },
+    "surface-swimming": {
+      "poseTypes": ["WALK"],
+      "condition": "!q.is_ridden",
+      "isTouchingWater": true,
+      "isUnderWater": false,
+      "animations": ["q.bedrock('relicanth', 'water_swim')"],
+      "transformedParts": [
+        {
+          "part": "body",
+          "position": [0, 6, 0]
+        }
+      ]
     },
     "floating": {
       "poseTypes": ["FLOAT"],

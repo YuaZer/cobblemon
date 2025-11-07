@@ -9,16 +9,16 @@
     "seat_2": [0, 0.45, 0]
   },
   "thirdPersonCameraOffset": {
-    "seat_1": [0, 0.35, 1.0],
-    "seat_1_reverse": [0, 0.35, 1.0],
-    "seat_2": [0, 0.35, 1.0],
-    "seat_2_reverse": [0, 0.35, 1.0]
+    "seat_1": [0, 1, 1],
+    "seat_1_reverse": [0, 1, 1],
+    "seat_2": [0, 1, 1],
+    "seat_2_reverse": [0, 1, 1]
   },
   "thirdPersonCameraOffsetNoViewBobbing": {
-    "seat_1": [0, 0.35, 1.0],
-    "seat_1_reverse": [0, 0.35, 1.0],
-    "seat_2": [0, 0.35, 1.0],
-    "seat_2_reverse": [0, 0.35, 1.0]
+    "seat_1": [0, 1, 1],
+    "seat_1_reverse": [0, 1, 1],
+    "seat_2": [0, 1, 1],
+    "seat_2_reverse": [0, 1, 1]
   },
   "animations": {
     "cry": "q.bedrock_stateful('salamence', 'cry')"
@@ -51,11 +51,15 @@
       "transformTicks": 5
     },
     "hover": {
-      "poseTypes": ["HOVER", "FLOAT"],
+      "poseTypes": ["HOVER"],
       "animations": [
         "q.pitch_tilt('body', 1)",
         "q.look('head')",
-        "q.bedrock('salamence', 'air_idle')"
+        "q.bedrock('salamence', 'air_idle')",
+        {
+          "condition": "q.is_ridden && q.has_entity",
+          "animation": "q.bedrock('salamence', 'ride_air_fly')"
+        }
       ],
       "quirks": [
         "q.bedrock_quirk('salamence', 'blink')"
@@ -63,7 +67,7 @@
       "transformTicks": 5
     },
     "fly": {
-      "poseTypes": ["FLY", "SWIM"],
+      "poseTypes": ["FLY"],
       "condition": "!q.is_gliding",
       "animations": [
         "q.pitch_tilt('body', 1)",
@@ -80,15 +84,16 @@
       "transformTicks": 5
     },
     "glide": {
-      "poseTypes": ["FLY", "SWIM"],
+      "poseTypes": ["FLY"],
       "condition": "q.is_gliding",
       "animations": [
         "q.pitch_tilt('body', 1)",
         "q.look('head')",
-        "q.bedrock('salamence', 'air_fly')",
+        "q.bedrock('salamence', 'air_glide')",
+        "q.bedrock('salamence', 'ride_dive')",
         {
           "condition": "q.is_ridden && q.has_entity",
-          "animation": "q.bedrock('salamence', 'ride_air_fly')"
+          "animation": "q.bedrock('salamence', 'ride_air_glide')"
         }
       ],
       "quirks": [

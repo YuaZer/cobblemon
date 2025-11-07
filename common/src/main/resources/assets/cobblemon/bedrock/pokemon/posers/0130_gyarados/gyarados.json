@@ -52,6 +52,12 @@
         "q.bedrock_quirk('gyarados', 'fin_quirk')",
         "q.bedrock_quirk('gyarados', 'mouth_quirk')"
       ],
+      "transformedParts": [
+        {
+          "part": "body",
+          "position": [0, 9, 0]
+        }
+      ],
       "namedAnimations": {
         "cry": "q.bedrock_stateful('gyarados', 'battle_cry')"
       }

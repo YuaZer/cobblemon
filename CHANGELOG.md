@@ -318,6 +318,7 @@
 - Dewgong
 - Mime Jr
 - Gyarados
+- Lapras
 
 ### Model updates for the following Pokémon
 - Cleffa

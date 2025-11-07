@@ -22,8 +22,9 @@
       "animations": ["q.bedrock('sharpedo', 'water_idle')"]
     },
     "jump": {
-      "poseTypes": ["STAND", "WALK"],
-      "condition": "q.in_air",
+      "poseTypes": ["FLOAT", "SWIM"],
+      "condition": "q.is_ridden",
+      "isTouchingWater": false,
       "animations": [
         "q.bedrock('sharpedo', 'water_swim')",
         {
@@ -45,14 +46,14 @@
       "animations": ["q.bedrock('sharpedo', 'ground_walk')"]
     },
     "surface-floating": {
-      "poseTypes": ["STAND"],
+      "poseTypes": ["STAND", "FLOAT"],
       "isTouchingWater": true,
       "isUnderWater": false,
       "condition": "!q.is_ridden",
       "animations": ["q.bedrock('sharpedo', 'surfacewater_idle')"]
     },
     "surface-swimming": {
-      "poseTypes": ["WALK"],
+      "poseTypes": ["WALK", "SWIM"],
       "isTouchingWater": true,
       "isUnderWater": false,
       "condition": "!q.is_ridden",

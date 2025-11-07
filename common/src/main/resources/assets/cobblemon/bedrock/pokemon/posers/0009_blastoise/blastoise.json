@@ -149,7 +149,7 @@
       "transformToTicks": 5
     },
     "surfacewater-float": {
-      "poseTypes": ["STAND"],
+      "poseTypes": ["STAND", "FLOAT"],
       "isTouchingWater": true,
       "isUnderWater": false,
       "animations": [
@@ -173,7 +173,7 @@
       "transformToTicks": 5
     },
     "surfacewater-swim": {
-      "poseTypes": ["WALK"],
+      "poseTypes": ["WALK", "SWIM"],
       "isTouchingWater": true,
       "isUnderWater": false,
       "animations": [

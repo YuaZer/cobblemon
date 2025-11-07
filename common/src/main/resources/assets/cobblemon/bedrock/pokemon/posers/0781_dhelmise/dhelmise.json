@@ -39,13 +39,13 @@
       "animations": ["q.bedrock('dhelmise', 'ground_walk')"]
     },
     "surface-floating": {
-      "poseTypes": ["STAND"],
+      "poseTypes": ["STAND", "FLOAT"],
       "isTouchingWater": true,
       "isUnderWater": false,
       "animations": ["q.bedrock('dhelmise', 'water_idle')"]
     },
     "surface-swimming": {
-      "poseTypes": ["WALK"],
+      "poseTypes": ["WALK", "SWIM"],
       "isTouchingWater": true,
       "isUnderWater": false,
       "animations": ["q.bedrock('dhelmise', 'water_swim')"]

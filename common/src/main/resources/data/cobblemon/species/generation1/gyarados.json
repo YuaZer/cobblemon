@@ -187,13 +187,17 @@
         }
       ]
     },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
+    },
     "moving": {
       "swim": {
         "canBreatheUnderwater": true,
         "canSwimInLava": false,
         "canSwimInWater": true,
         "canWalkOnWater": true,
-        "swimSpeed": 0.1
+        "swimSpeed": 0.25
       },
       "walk": {
         "avoidsLand": true,
