@@ -12,6 +12,7 @@
   "mixins": [
     "EntityMixin",
     "FabricBrewingStandMenuMixin",
-    "PlayerMixin"
+    "PlayerMixin",
+    "FabricSoundEngineMixin"
   ]
 }

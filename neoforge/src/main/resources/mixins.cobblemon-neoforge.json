@@ -12,6 +12,7 @@
   "mixins": [
     "EntityMixin",
     "GenericPacketSplitterMixin",
-    "NeoforgeBrewingStandMenuMixin"
+    "NeoforgeBrewingStandMenuMixin",
+    "NeoforgeSoundEngineMixin"
   ]
 }
