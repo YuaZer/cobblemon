@@ -55,9 +55,9 @@
         "key": "cobblemon:land/horse",
         "rideSounds": [],
         "stats": {
-          "ACCELERATION": "10-30",
-          "JUMP": "30-40",
-          "SKILL": "10-20",
+          "ACCELERATION": "15-50",
+          "JUMP": "20-40",
+          "SKILL": "0-25",
           "SPEED": "55-75",
           "STAMINA": "35-55"
         }
@@ -597,9 +597,9 @@
             "key": "cobblemon:land/horse",
             "rideSounds": [],
             "stats": {
-              "ACCELERATION": "15-35",
-              "JUMP": "35-45",
-              "SKILL": "10-20",
+              "ACCELERATION": "20-55",
+              "JUMP": "25-45",
+              "SKILL": "0-25",
               "SPEED": "55-75",
               "STAMINA": "30-50"
             }
@@ -832,9 +832,9 @@
             "key": "cobblemon:land/horse",
             "rideSounds": [],
             "stats": {
-              "ACCELERATION": "10-30",
-              "JUMP": "25-35",
-              "SKILL": "10-20",
+              "ACCELERATION": "15-50",
+              "JUMP": "15-35",
+              "SKILL": "0-25",
               "SPEED": "50-70",
               "STAMINA": "40-60"
             }
