@@ -1,9 +1,9 @@
 {
   "rootBone": "dragonite",
-  "portraitScale": 1.2,
-  "portraitTranslation": [-0.2, 2.6, 0],
-  "profileScale": 0.41,
-  "profileTranslation": [0, 1.1, -6],
+  "portraitScale": 1.28,
+  "portraitTranslation": [-0.21, 2.77, 0],
+  "profileScale": 0.44,
+  "profileTranslation": [0, 1.15, -6],
   "firstPersonCameraOffset": {
     "seat_1": [0, 0.45, 0],
     "seat_2": [0, 0.45, 0]

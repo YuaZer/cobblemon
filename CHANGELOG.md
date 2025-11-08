@@ -443,6 +443,9 @@
 - Shroodle
 - Grafaiai
 - Steelix
+- Dratini
+- Dragonair
+- Dragonite
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
