@@ -10,7 +10,8 @@
     "client.LocalPlayerMixin"
   ],
   "mixins": [
+    "EntityMixin",
     "GenericPacketSplitterMixin",
-    "EntityMixin"
+    "NeoforgeBrewingStandMenuMixin"
   ]
 }

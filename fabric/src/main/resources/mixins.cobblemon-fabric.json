@@ -10,7 +10,8 @@
     "pokeball.ModelLoaderMixin"
   ],
   "mixins": [
-    "PlayerMixin",
-    "EntityMixin"
+    "EntityMixin",
+    "FabricBrewingStandMenuMixin",
+    "PlayerMixin"
   ]
 }

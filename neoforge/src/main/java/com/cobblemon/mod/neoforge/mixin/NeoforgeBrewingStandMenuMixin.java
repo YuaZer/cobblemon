@@ -6,7 +6,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-package com.cobblemon.mod.common.mixin.brewing;
+package com.cobblemon.mod.neoforge.mixin;
 
 import com.cobblemon.mod.common.duck.RecipeAwareSlot;
 import com.cobblemon.mod.common.item.crafting.brewingstand.BrewingStandRecipe;
@@ -20,20 +20,16 @@ import net.minecraft.world.inventory.BrewingStandMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.PotionBrewing;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BrewingStandMenu.class)
-public abstract class BrewingStandMenuMixin {
-	@Inject(method = "<init>(ILnet/minecraft/world/entity/player/Inventory;Lnet/minecraft/world/Container;Lnet/minecraft/world/inventory/ContainerData;)V", at = @At("TAIL"))
-	private void captureLevel(int containerId, Inventory playerInventory, Container brewingStandContainer, ContainerData brewingStandData, CallbackInfo ci) {
-		var recipeManager = playerInventory.player.level().getRecipeManager();
-		for (Slot slot : ((BrewingStandMenu) (Object) this).slots) {
-			if (slot instanceof RecipeAwareSlot awareSlot) {
-				awareSlot.setRecipeManager(recipeManager);
-			}
-		}
-	}
+public abstract class NeoforgeBrewingStandMenuMixin {
+    @WrapOperation(method = "quickMoveStack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/inventory/BrewingStandMenu$PotionSlot;mayPlaceItem(Lnet/minecraft/world/item/alchemy/PotionBrewing;Lnet/minecraft/world/item/ItemStack;)Z"))
+    private boolean cobblemon$isPotionBottle(PotionBrewing potionBrewing, ItemStack itemStack, Operation<Boolean> original, @Local(argsOnly = true) Player player) {
+        return BrewingStandRecipe.Companion.isBottle(itemStack, player.level().getRecipeManager()) || original.call(itemStack);
+    }
 }
