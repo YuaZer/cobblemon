@@ -5751,5 +5751,7 @@
     "item.cobblemon.syrupy_apple": "꿀맛사과",
     "item.cobblemon.mental_herb.tooltip_2": "사용 시 소모된다",
     "item.cobblemon.mirror_herb.tooltip_2": "사용 시 소모된다",
-    "cobblemon.snapshots.warning.title": "코블몬 스냅샷 경고"
+    "cobblemon.snapshots.warning.title": "코블몬 스냅샷 경고",
+    "item.cobblemon.leftovers.tooltip": "지니게 하면 포켓몬의 HP가 배틀을 하는 동안 조금씩 회복된다",
+    "item.cobblemon.light_ball.tooltip": "피카츄에게 지니게 하면 공격과 특수공격의 위력이 올라가는 이상한 구슬"
 }
