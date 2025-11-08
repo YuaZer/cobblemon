@@ -1,8 +1,8 @@
 {
   "portraitScale": 1.26,
-  "portraitTranslation": [-0.89, 1.71, 0],
-  "profileScale": 0.38,
-  "profileTranslation": [0.03, 1.18, -10],
+  "portraitTranslation": [-0.74, 1.88, 0],
+  "profileScale": 0.32,
+  "profileTranslation": [0, 1.26, -10],
   "rootBone": "gyarados",
   "firstPersonCameraOffset": {
     "seat_1": [0, 0.45, 0]
@@ -20,6 +20,18 @@
     "recoil": "q.bedrock_stateful('gyarados', 'recoil')"
   },
   "poses": {
+    "profile": {
+      "poseTypes": ["PROFILE"],
+      "animations": [
+        "q.look('head', 1, 0.25, 10, -15, 5, -5)",
+        "q.bedrock('gyarados', 'battle_idle')"
+      ],
+      "quirks": [
+        "q.bedrock_quirk('gyarados', 'blink')",
+        "q.bedrock_quirk('gyarados', 'fin_quirk')",
+        "q.bedrock_quirk('gyarados', 'mouth_quirk')"
+      ]
+    },
     "battle-standing": {
       "poseTypes": ["STAND"],
       "isBattle": true,
@@ -116,7 +128,7 @@
       ]
     },
     "standing": {
-      "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
+      "poseTypes": ["STAND", "NONE", "PORTRAIT"],
       "isBattle": false,
       "isTouchingWater": false,
       "animations": [

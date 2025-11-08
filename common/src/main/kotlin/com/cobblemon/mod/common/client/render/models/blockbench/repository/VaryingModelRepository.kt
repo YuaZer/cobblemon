@@ -425,8 +425,6 @@ object VaryingModelRepository {
         inbuilt("flittle", ::FlittleModel)
         inbuilt("surskit", ::SurskitModel)
         inbuilt("masquerain", ::MasquerainModel)
-        inbuilt("cutiefly", ::CutieflyModel)
-        inbuilt("ribombee", ::RibombeeModel)
         inbuilt("carnivine", ::CarnivineModel)
         inbuilt("falinks", ::FalinksModel)
         inbuilt("stufful", ::StuffulModel)
