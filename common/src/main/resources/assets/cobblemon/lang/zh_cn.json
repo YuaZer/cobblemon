@@ -9049,5 +9049,7 @@
     "cobblemon.species.unown-?.desc": "身体像是古代文字的宝可梦。虽然已有人在研究先出现的是文字还是未知图腾，但至今仍是个谜。",
     "cobblemon.snapshots.warning.title": "方块宝可梦快照版警告",
     "cobblemon.snapshots.warning.dont_show_again": "不再显示",
-    "cobblemon.snapshots.warning.dont_show_again_tip": "在较新的 方块宝可梦 快照中（例如 1.7.0 与 1.8.0），此设置可能会被忽略"
+    "cobblemon.snapshots.warning.dont_show_again_tip": "在较新的 方块宝可梦 快照中（例如 1.7.0 与 1.8.0），此设置可能会被忽略",
+    "key.cobblemon.toggleridingstatsgui": "切换骑乘能力界面",
+    "item.cobblemon.moomoo_milk.tooltip": "在战斗中使用时，会清除目标的能力变化。"
 }
