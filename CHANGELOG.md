@@ -320,6 +320,7 @@
 - Dewgong
 - Mime Jr
 - Gyarados
+- Lapras
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -442,6 +443,11 @@
 - Shroodle
 - Grafaiai
 - Steelix
+- Dratini
+- Dragonair
+- Dragonite
+- Cutiefly
+- Ribombee
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked

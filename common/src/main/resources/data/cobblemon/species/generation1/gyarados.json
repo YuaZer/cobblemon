@@ -85,7 +85,15 @@
       },
       "LIQUID": {
         "key": "cobblemon:liquid/dolphin",
-        "rideSounds": [],
+        "rideSounds": [
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForNonPassengers": true,
+            "soundLocation": "cobblemon:ride.loop.water_surface",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          }
+        ],
         "stats": {
           "ACCELERATION": "40-60",
           "JUMP": "40-70",
@@ -193,12 +201,16 @@
         "canSwimInLava": false,
         "canSwimInWater": true,
         "canWalkOnWater": true,
-        "swimSpeed": 0.1
+        "swimSpeed": 0.25
       },
       "walk": {
         "avoidsLand": true,
         "walkSpeed": 0.15
       }
+    },
+    "resting": {
+      "canSleep": true,
+      "light": "0-4"
     }
   },
   "drops": {
