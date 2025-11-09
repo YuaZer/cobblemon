@@ -39,7 +39,6 @@ import com.cobblemon.mod.common.api.pokemon.stats.Stats
 import com.cobblemon.mod.common.api.reactive.SimpleObservable
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
 import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
-import com.cobblemon.mod.common.api.riding.stats.RidingStatDefinition
 import com.cobblemon.mod.common.api.spawning.TimeRange
 import com.cobblemon.mod.common.api.types.ElementalType
 import com.cobblemon.mod.common.api.types.adapters.ElementalTypeAdapter
@@ -129,7 +128,6 @@ object PokemonSpecies : JsonDataRegistry<Species> {
         .registerTypeAdapter(MobEffect::class.java, RegistryElementAdapter<MobEffect>(BuiltInRegistries::MOB_EFFECT))
         .registerTypeAdapter(ItemPredicate::class.java, LegacyItemConditionWrapperAdapter)
         .registerTypeAdapter(RidingBehaviourSettings::class.java, RidingBehaviourSettingsAdapter)
-        .registerTypeAdapter(RidingStatDefinition::class.java, RidingStatDefinitionAdapter)
         .registerTypeAdapter(RideSoundSettingsList::class.java, RideSoundSettingsListAdapter)
         .registerTypeAdapter(ObtainableItemCondition::class.java, ObtainableItemConditionAdapter)
         .disableHtmlEscaping()
