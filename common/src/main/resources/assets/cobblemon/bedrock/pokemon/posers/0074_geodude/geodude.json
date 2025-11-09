@@ -2,7 +2,7 @@
     "portraitScale": 1.9,
     "portraitTranslation": [0.0, -1.4, 0],
     "profileScale": 0.9,
-    "profileTranslation": [-0.05, 0.3, 0],
+    "profileTranslation": [0, 0.3, 0],
     "rootBone": "geodude",
     "animations": {
       "cry": "q.bedrock_stateful('geodude', 'cry')",

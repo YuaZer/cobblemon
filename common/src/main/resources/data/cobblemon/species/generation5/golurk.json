@@ -53,21 +53,7 @@
     "behaviours": {
       "AIR": {
         "key": "cobblemon:air/rocket",
-        "rideSounds": [
-          {
-            "muffleEnabled": true,
-            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
-            "playForNonPassengers": true,
-            "soundLocation": "cobblemon:ride.loop.wind"
-          },
-          {
-            "muffleEnabled": true,
-            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.driver_input() / 1.5, 1.0),2))",
-            "playForNonPassengers": true,
-            "soundLocation": "cobblemon:ride.loop.rocket",
-            "volumeExpr": "math.pow(math.min((q.driver_input() / 1.5) + (q.ride_velocity() / 1.5), 1.0),2)"
-          }
-        ],
+        "rideSounds": [],
         "stats": {
           "ACCELERATION": "0-10",
           "JUMP": "55-85",
@@ -81,10 +67,10 @@
         "rideSounds": [],
         "canJump": true,
         "stats": {
-          "ACCELERATION": "0-10",
-          "JUMP": "30-65",
-          "SKILL": "30-65",
-          "SPEED": "10-40",
+          "ACCELERATION": "65-90",
+          "JUMP": "40-60",
+          "SKILL": "50-65",
+          "SPEED": "40-50",
           "STAMINA": "55-85"
         }
       }
@@ -530,9 +516,9 @@
   ],
   "preEvolution": "golett",
   "evolutions": [],
-  "standingEyeHeight": 0.98,
   "lightingData": {
     "lightLevel": 3,
     "liquidGlowMode": "BOTH"
-  }
+  },
+  "standingEyeHeight": 0.98
 }

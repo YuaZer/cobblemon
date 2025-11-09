@@ -36,7 +36,7 @@ import com.cobblemon.mod.common.item.berry.PPRestoringBerryItem
 import com.cobblemon.mod.common.item.berry.PortionHealingBerryItem
 import com.cobblemon.mod.common.item.berry.StatusCuringBerryItem
 import com.cobblemon.mod.common.item.berry.VolatileCuringBerryItem
-import com.cobblemon.mod.common.item.food.PonigiriItem
+import com.cobblemon.mod.common.item.interactive.PonigiriItem
 import com.cobblemon.mod.common.item.food.SinisterTeaItem
 import com.cobblemon.mod.common.item.interactive.*
 import com.cobblemon.mod.common.item.interactive.ability.AbilityChangeItem
