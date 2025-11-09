@@ -446,6 +446,8 @@
 - Dratini
 - Dragonair
 - Dragonite
+- Cutiefly
+- Ribombee
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
