@@ -34,6 +34,7 @@ object AprijuiceItemColorProvider : ItemColor {
 
         if (layer == JUICE_INDEX) {
             val rideBoostsComponent = stack.get(CobblemonItemComponents.RIDE_BOOST) ?: return -1
+            if (rideBoostsComponent.boosts.isEmpty()) return -1
             val highestBoost = rideBoostsComponent.boosts.maxOf { it.value }
             val highestRidingStats = rideBoostsComponent.boosts.filter { it.value == highestBoost }.keys
             if (highestRidingStats.isEmpty()) return -1
