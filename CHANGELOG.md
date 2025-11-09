@@ -796,7 +796,6 @@ Added new/updated particles for the following moves:
 - Frustration
 - Giga Drain
 - Growl
-- Gust
 - Haze
 - Hidden Power
 - Horn Attack
