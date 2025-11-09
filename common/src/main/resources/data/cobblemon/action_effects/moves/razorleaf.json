@@ -40,7 +40,7 @@
     },
     {
       "type": "pause",
-      "pause": 1.12
+      "pause": 0.62
     },
     {
       "type": "entity_molang",
