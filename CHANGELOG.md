@@ -56,6 +56,7 @@
 - Added a new gamerule, 'healerHealsPC', when set to true a successful use of a healer will also heal all of the Pokemon in that player's PC.
 - Mooshtanks will switch between their red and brown variant when hit by lightning
 - Smeargle spawns with differing tail colour depending on its [Characteristic](https://bulbapedia.bulbagarden.net/wiki/Characteristic) stat
+- Added smooth level-up animations to the party overlay to replace chat messages.
 
 ### Pokémon Added
 
