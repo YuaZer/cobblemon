@@ -12,8 +12,8 @@
     "standing": {
       "poseTypes": ["STAND", "FLOAT", "HOVER", "NONE", "PORTRAIT", "PROFILE"],
       "animations": [
-        "q.look('head')",
-        "q.look('scarf')",
+        "q.look('head', 1, 1, 15, -25, 15, -25)",
+        "q.look('scarf', 1, 1, 15, -25, 15, -25)",
         "q.pitch_tilt('body', 0.22)",
         "q.bedrock('ribombee', 'ground_idle')"
       ]
@@ -21,8 +21,8 @@
     "walking": {
       "poseTypes": ["WALK", "SWIM", "FLY"],
       "animations": [
-        "q.look('head')",
-        "q.look('scarf')",
+        "q.look('head', 1, 1, 0, 0, 45, -45)",
+        "q.look('scarf', 1, 1, 0, 0, 45, -45)",
         "q.pitch_tilt('body', 0.22)",
         "q.bedrock('ribombee', 'ground_walk')"
       ]
