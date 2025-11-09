@@ -1,9 +1,16 @@
+/*
+ * Copyright (C) 2023 Cobblemon Contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package com.cobblemon.mod.fabric.mixin;
 
 import com.cobblemon.mod.common.api.riding.sound.RideAttenuationModel;
 import com.cobblemon.mod.common.api.riding.sound.RideLoopSound;
 import com.cobblemon.mod.common.duck.ChannelDuck;
-import com.cobblemon.mod.common.mixin.SoundEngineMixin;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.resources.sounds.TickableSoundInstance;

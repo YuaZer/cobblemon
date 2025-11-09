@@ -10,7 +10,12 @@ package com.cobblemon.mod.common.client.render.camera
 
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.OrientationControllable
+import com.cobblemon.mod.common.api.orientation.OrientationController
+import com.cobblemon.mod.common.api.orientation.OrientationController.Companion.FORWARDS
+import com.cobblemon.mod.common.api.orientation.OrientationController.Companion.LEFT
+import com.cobblemon.mod.common.api.orientation.OrientationController.Companion.UP
 import com.cobblemon.mod.common.client.MountedPokemonAnimationRenderController.setup
+import com.cobblemon.mod.common.client.RidingCameraInterface
 import com.cobblemon.mod.common.client.entity.PokemonClientDelegate
 import com.cobblemon.mod.common.client.render.models.blockbench.FloatingState
 import com.cobblemon.mod.common.client.render.models.blockbench.PosableModel
@@ -18,14 +23,20 @@ import com.cobblemon.mod.common.client.render.models.blockbench.repository.Varyi
 import com.cobblemon.mod.common.duck.RidePassenger
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.mixin.accessor.CameraAccessor
+import com.mojang.blaze3d.Blaze3D
 import net.minecraft.client.Camera
+import net.minecraft.client.Minecraft
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.level.ClipContext
 import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
+import org.joml.Matrix3f
 import org.joml.Quaternionf
 import org.joml.Vector3f
+import org.spongepowered.asm.mixin.Unique
+import kotlin.math.min
+import kotlin.math.sign
 
 object MountedCameraRenderer
 {
@@ -112,6 +123,173 @@ object MountedCameraRenderer
         val playerRotater = driver as RidePassenger
         playerRotater.`cobblemon$setRideEyePos`(Vec3(eyeOffsetDirection.mul(eyeMaxZoom).add(eyePos)).add(0.0, 2.0, 0.0))
         return Vec3(offsetDirection.mul(maxZoom).add(pos))
+    }
+
+    fun setRotation(instance: Camera): Boolean {
+        val accessor = instance as Any as CameraAccessor
+        val ridingCameraInterface = instance as Any as RidingCameraInterface
+
+        // Calculate the current frametime
+        val d = Blaze3D.getTime()
+        ridingCameraInterface.`setCobblemon$frameTime`(
+            if (ridingCameraInterface.`getCobblemon$lastHandledRotationTime`() != Double.Companion.MIN_VALUE) d - ridingCameraInterface.`getCobblemon$lastHandledRotationTime`()
+            else 0.0
+        )
+        ridingCameraInterface.`setCobblemon$lastHandledRotationTime`(d)
+
+
+        // Don't assume the camera to be attached to an entity. Ponder Scenes from create et.al. for example aren't.
+        if (accessor.entity == null) return false
+        val vehicle: Entity? = accessor.entity.vehicle
+        if (vehicle !is OrientationControllable) return false
+
+        // If the current vehicle has no orientation then return and perform
+        // vanilla camera rotations
+        val vehicleController = vehicle.getOrientationController()
+        if (vehicleController.orientation == null) return false
+
+
+        // If the controller has been deactivated but the orientation isn't null yet
+        // then perform transition from rolled ride/camera to vanilla
+        if (!vehicleController.isActive() && vehicleController.orientation != null) {
+            return applyTransitionRotation(vehicleController, instance)
+        } else { // Otherwise perform cobblemon specific camera rotation and set transition helper variables
+            applyCameraRotation(instance)
+            ridingCameraInterface.`setCobblemon$returnTimer`(0f)
+            ridingCameraInterface.`setCobblemon$rollAngleStart`(instance.rotation().getEulerAnglesYXZ(Vector3f()).z())
+            return true
+        }
+    }
+
+    fun applyCameraRotation(instance: Camera) {
+        val accessor = instance as Any as CameraAccessor
+        val ridingCameraInterface = instance as Any as RidingCameraInterface
+
+        val driver = accessor.entity ?: return
+        val vehicle = driver.vehicle ?: return
+        val controllableVehicle = vehicle as? OrientationControllable ?: return
+        if (vehicle.getOrientationController().orientation == null || !controllableVehicle.getOrientationController().active) return
+
+        // Grab the driver and vehicle orientation controllers.
+        val vehicleController: OrientationController = controllableVehicle.getOrientationController()
+
+        val isDriving = driver.controlledVehicle != null
+
+
+        // Grab the ride orientation
+        // If the player is driving then use the current orientation since the driver sets it.
+        // If not then use the smoothed render orientation for passengers otherwise the vehicle rotation will be jerky
+        var newRotation = if (isDriving) {
+             vehicleController.orientation!!.normal(Matrix3f()).getNormalizedRotation(Quaternionf())
+        } else {
+            vehicleController.getRenderOrientation(ridingCameraInterface.`getCobblemon$partialTickTime`())
+        }
+
+
+        // Unroll the current rotation if no roll is requested
+        if (Cobblemon.config.disableRoll) {
+            val eulerAngs = newRotation.getEulerAnglesYXZ(Vector3f())
+            val currAngs: Vector3f = accessor.rotation.getEulerAnglesYXZ(Vector3f())
+            val vehicle = driver.getVehicle() as PokemonEntity?
+            val vel = vehicle!!.ridingAnimationData.velocitySpring.getInterpolated(ridingCameraInterface.`getCobblemon$partialTickTime`().toDouble(), 0)
+
+            // lerp the new rotation towards this y rot at a rate proportional to the horizontal movement speed?
+            val yaw = Mth.wrapDegrees(Math.toDegrees(Mth.atan2(vel.x(), vel.z())) + 180.0f)
+
+            val degDiff = Mth.degreesDifference(Math.toDegrees(currAngs.y().toDouble()).toFloat(), yaw.toFloat())
+            val pitchDeadzoneDeg = 15.0 // x degrees of deadzone about +-90 degrees of pitch.
+            val pitchDeg = vehicleController.pitch
+            // ConsiderPitch to be already 90 if within the deadzone around it.
+            val cutoffPitch = min(1.0, (Mth.abs(pitchDeg) / (90.0f - pitchDeadzoneDeg))) * 90.0f * sign(pitchDeg)
+            val lerpRateMod = Mth.cos(Math.toRadians(cutoffPitch).toFloat())
+
+            // Apply smoothing from the cameras current yaw to the yaw of the velocity vector of the ride.
+            val k = 5.0f // Some smoothing constant k
+            val smoothingFactor: Double = lerpRateMod * ridingCameraInterface.`getCobblemon$frameTime`() * k
+            val newYaw = currAngs.y() + (Math.toRadians(degDiff.toDouble()) * smoothingFactor)
+
+            newRotation.set(Quaternionf().rotateYXZ(newYaw.toFloat(), eulerAngs.x(), 0.0f))
+        }
+
+        var rotationOffset = 0
+        if (Minecraft.getInstance().options.getCameraType().isMirrored()) {
+            newRotation.rotateY(Math.toRadians(180.0).toFloat())
+            rotationOffset = 180
+        }
+
+
+        // Get the drivers local look angle in relation to the ride and apply it.
+        if (vehicleController.active) {
+            val vehicleMatrix = Matrix3f().set(newRotation)
+            val driverMatrix = Matrix3f() // Base the driver
+            val playerRotater = driver as RidePassenger
+            newRotation = vehicleMatrix.mul(
+                driverMatrix.rotateYXZ(
+                    -Mth.DEG_TO_RAD * (playerRotater.`cobblemon$getRideYRot`()),
+                    -Mth.DEG_TO_RAD * playerRotater.`cobblemon$getRideXRot`(),
+                    0.0f
+                )
+            ).normal(Matrix3f()).getNormalizedRotation(Quaternionf())
+        }
+        accessor.rotation.set(newRotation)
+        val eulerAngs = newRotation.getEulerAnglesXYZ(Vector3f())
+        accessor.xRot = eulerAngs.x() * Mth.RAD_TO_DEG
+        accessor.yRot = eulerAngs.y() * Mth.RAD_TO_DEG
+
+        // Set the drivers rotations to match
+        val driverEulerAngs: Vector3f = Quaternionf(accessor.rotation).getEulerAnglesYXZ(Vector3f())
+        driver.xRot = -driverEulerAngs.x() * Mth.RAD_TO_DEG + rotationOffset
+        driver.yRot = 180.0f - (driverEulerAngs.y() * Mth.RAD_TO_DEG)
+
+        FORWARDS.rotate(accessor.rotation, accessor.forwards)
+        UP.rotate(accessor.rotation, accessor.up)
+        LEFT.rotate(accessor.rotation, accessor.left)
+    }
+
+    @Unique
+    private fun applyTransitionRotation(
+        vehicleController: OrientationController,
+       instance: Camera
+    ): Boolean {
+        val accessor = instance as Any as CameraAccessor
+        val ridingCameraInterface = instance as Any as RidingCameraInterface
+        // If the transition has just started then
+        if (ridingCameraInterface.`getCobblemon$returnTimer`().toDouble() == 0.0) {
+            resetDriverRotations(instance, accessor.entity)
+        }
+
+        if (ridingCameraInterface.`getCobblemon$returnTimer`() < 1) {
+            //Rotation is taken from entity since we no longer handle mouse ourselves
+            //Stops a period of time when you can't input anything.
+            val interpolatedRoll = Mth.lerp(ridingCameraInterface.`getCobblemon$returnTimer`(), ridingCameraInterface.`getCobblemon$rollAngleStart`(), 0.0f)
+            val pitch = Math.toRadians(-accessor.entity.xRot.toDouble()).toFloat()
+            val yaw = Math.toRadians((180 - accessor.entity.yRot).toDouble()).toFloat()
+
+            val interRot = Quaternionf()
+            interRot.rotationYXZ(yaw, pitch, interpolatedRoll)
+
+            accessor.rotation.set(interRot)
+            val eulerAngs = interRot.getEulerAnglesXYZ(Vector3f())
+            accessor.xRot = eulerAngs.x() * Mth.RAD_TO_DEG
+            accessor.yRot = eulerAngs.y() * Mth.RAD_TO_DEG
+            FORWARDS.rotate(accessor.rotation, accessor.forwards)
+            UP.rotate(accessor.rotation, accessor.up)
+            LEFT.rotate(accessor.rotation, accessor.left)
+
+            if (ridingCameraInterface.`getCobblemon$rollAngleStart`() == 0f) {
+                ridingCameraInterface.`setCobblemon$rollAngleStart`(1f)
+                vehicleController.reset()
+                resetDriverRotations(instance, accessor.entity)
+                return false
+            }
+            ridingCameraInterface.`setCobblemon$returnTimer`(ridingCameraInterface.`getCobblemon$returnTimer`() + (ridingCameraInterface.`getCobblemon$partialTickTime`() * (1.0f / 20.0f)))
+            return true
+        } else {
+            ridingCameraInterface.`setCobblemon$returnTimer`(1f)
+            vehicleController.reset()
+            resetDriverRotations(instance, accessor.entity)
+            return false
+        }
     }
 
     fun resetDriverRotations(
