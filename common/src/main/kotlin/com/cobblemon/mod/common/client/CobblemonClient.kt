@@ -65,7 +65,7 @@ import com.cobblemon.mod.common.client.tooltips.CobblemonTooltipGenerator
 import com.cobblemon.mod.common.client.tooltips.FishingBaitTooltipGenerator
 import com.cobblemon.mod.common.client.tooltips.FishingRodTooltipGenerator
 import com.cobblemon.mod.common.client.tooltips.PokePuffTooltipGenerator
-import com.cobblemon.mod.common.client.tooltips.RecipeSeasoningAbsorbtionTooltipGenerator
+import com.cobblemon.mod.common.client.tooltips.RecipeSeasoningAbsorptionTooltipGenerator
 import com.cobblemon.mod.common.client.tooltips.SeasoningTooltipGenerator
 import com.cobblemon.mod.common.client.tooltips.TooltipManager
 import com.cobblemon.mod.common.client.trade.ClientTrade
@@ -197,7 +197,7 @@ object CobblemonClient {
 
     private fun registerTooltipManagers() {
         TooltipManager.registerTooltipGenerator(CobblemonTooltipGenerator)
-        TooltipManager.registerTooltipGenerator(RecipeSeasoningAbsorbtionTooltipGenerator)
+        TooltipManager.registerTooltipGenerator(RecipeSeasoningAbsorptionTooltipGenerator)
         TooltipManager.registerTooltipGenerator(FishingBaitTooltipGenerator)
         TooltipManager.registerTooltipGenerator(SeasoningTooltipGenerator)
         TooltipManager.registerTooltipGenerator(FishingRodTooltipGenerator)
