@@ -8395,5 +8395,12 @@
     "cobblemon.challenge.multi.expired.receiver": "あなたのチームの %1$s からの チャレンジは タイムアウトしたようだ",
     "cobblemon.battle.types.doubles": "ダブルバトル",
     "cobblemon.battle.types.multi": "マルチバトル",
-    "cobblemon.battle.select_target": "ターゲット選択"
+    "cobblemon.battle.select_target": "ターゲット選択",
+    "item.cobblemon.moomoo_milk.tooltip": "栄養満点の ミルク。 使うと 戦闘中の ポケモンの 能力変化を 無かったことにする。",
+    "cobblemon.challenge.multi.error.insufficient_pokemon": "すべてのプレイヤーが ポケモンを持っているわけでは ないようだ",
+    "cobblemon.challenge.multi.canceled.sender": "あなたのチームは %1$sのチームへの 挑戦を 取り消した",
+    "key.cobblemon.toggleridingstatsgui": "騎乗統計GUIの表示/非表示を切り替える",
+    "cobblemon.challenge.multi.canceled.receiver": "%1$sのチームは 挑戦を 取り消した...",
+    "cobblemon.challenge.multi.error.missing_team": "すべてのプレイヤーが 有効なチームに所属しているわけでは ありません！",
+    "cobblemon.challenge.multi.error.invalid_team_size": "マルチバトルのチームは 最大%1$s人までです！"
 }
