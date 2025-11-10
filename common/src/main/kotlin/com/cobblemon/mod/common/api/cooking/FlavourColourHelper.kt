@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.api.cooking
 
+import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.util.math.geometry.toDegrees
 import com.cobblemon.mod.common.util.math.geometry.toRadians
 import net.minecraft.util.FastColor
@@ -55,6 +56,10 @@ fun getColourMixFromFlavours(dominantFlavours: List<Flavour>, forBubbles: Boolea
     if (colors.isEmpty()) return null
 
     return getColourMixFromColors(colors)
+}
+
+fun getColourMixFromRideStatBoosts(dominantBoosts: Iterable<RidingStat>, forBubbles: Boolean = false): Int? {
+    return getColourMixFromFlavours(dominantBoosts.map { it.flavour }, forBubbles)
 }
 
 // Mixing RGB colors directly often gives poor results
