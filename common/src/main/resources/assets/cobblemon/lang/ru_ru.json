@@ -7094,5 +7094,7 @@
     "item.cobblemon.rock_gem.tooltip_1": "Усиливает первый приём Каменного типа",
     "item.cobblemon.aprijuice.prefix.plain": "Простой",
     "item.cobblemon.water_gem.tooltip_1": "Усиливает первый приём Водного типа",
-    "item.cobblemon.rock_gem.tooltip_2": "Потребляется после использования"
+    "item.cobblemon.rock_gem.tooltip_2": "Потребляется после использования",
+    "cobblemon.item_class.seasonings": "Приправы",
+    "cobblemon.item_class.flavor_seasoning": "Приправа для вкуса"
 }
