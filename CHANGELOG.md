@@ -303,7 +303,6 @@
 - Tauros - Paldea Blaze
 - Tauros - Paldea Combat
 - Dewgong
-- Exeggutor - Kanto
 - Corphish (updated placeholders for crustaceous tripod gait legs)
 - Crawdaunt (updated placeholders for crustaceous bipedal legs)
 - Dragapult
