@@ -6310,7 +6310,6 @@
     "cobblemon.ui.pokedex.info.form.snake-pattern-sound": "Sonido",
     "cobblemon.ui.pokedex.info.form.snake-pattern-heart": "Corazón",
     "cobblemon.ui.pokedex.info.form.snake-pattern-elusive": "Evasión",
-    "cobblemon.ui.pokedex.info.form.shulker": "Shulker",
     "cobblemon.battle.select_target": "Selecciona el objetivo",
     "cobblemon.ui.pokedex.info.ability": "Habilidad: %1$s",
     "cobblemon.ui.pokedex.info.drops_empty": "No suelta recursos.",
