@@ -809,6 +809,8 @@
   "cobblemon.seasoning_mob_effect_info_header": "Effect Info:",
   "cobblemon.seasoning_food_info_header": "Nutrition Info:",
   "cobblemon.seasoning_flavor_info_header": "Flavor Info:",
+  "cobblemon.seasoning_ride_boosts_info_header": "Riding Stat Boosts:",
+  "cobblemon.seasoning_ride_boost_entry": "%1$s: %2$s",
   "cobblemon.seasoning_flavor.spicy": "Spicy",
   "cobblemon.seasoning_flavor.dry": "Dry",
   "cobblemon.seasoning_flavor.sweet": "Sweet",

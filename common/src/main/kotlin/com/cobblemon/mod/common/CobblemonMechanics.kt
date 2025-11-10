@@ -12,6 +12,7 @@ import com.bedrockk.molang.Expression
 import com.cobblemon.mod.common.api.data.DataRegistry
 import com.cobblemon.mod.common.api.molang.ExpressionLike
 import com.cobblemon.mod.common.api.reactive.SimpleObservable
+import com.cobblemon.mod.common.mechanics.AprijuicesMechanic
 import com.cobblemon.mod.common.mechanics.BerriesMechanic
 import com.cobblemon.mod.common.mechanics.PotionsMechanic
 import com.cobblemon.mod.common.mechanics.RemediesMechanic
@@ -37,6 +38,7 @@ object CobblemonMechanics : DataRegistry {
     var remedies = RemediesMechanic()
     var berries = BerriesMechanic()
     var potions = PotionsMechanic()
+    var aprijuices = AprijuicesMechanic()
 
     override fun sync(player: ServerPlayer) {}
 
@@ -44,6 +46,7 @@ object CobblemonMechanics : DataRegistry {
         remedies = loadMechanic(manager, "remedies", RemediesMechanic::class.java)
         berries = loadMechanic(manager, "berries", BerriesMechanic::class.java)
         potions = loadMechanic(manager, "potions", PotionsMechanic::class.java)
+        aprijuices = loadMechanic(manager, "aprijuices", AprijuicesMechanic::class.java)
     }
 
     private fun <T> loadMechanic(manager: ResourceManager, name: String, clazz: Class<T>): T {

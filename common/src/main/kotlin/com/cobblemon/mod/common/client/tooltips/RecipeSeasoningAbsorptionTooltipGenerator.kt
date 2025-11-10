@@ -9,14 +9,10 @@
 package com.cobblemon.mod.common.client.tooltips
 
 import com.cobblemon.mod.common.CobblemonItemComponents
-import com.cobblemon.mod.common.api.text.blue
-import com.cobblemon.mod.common.api.text.gray
-import com.cobblemon.mod.common.item.AprijuiceItem
-import com.cobblemon.mod.common.util.lang
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 
-object RecipeSeasoningAbsorbtionTooltipGenerator : TooltipGenerator() {
+object RecipeSeasoningAbsorptionTooltipGenerator : TooltipGenerator() {
     override fun generateCategoryTooltip(stack: ItemStack, lines: MutableList<Component>): MutableList<Component>? {
         // Skip if this is a crafting result preview. Vera wanted to be able to give extra context to things not fully crafted for added guidance in crafting UIs
         if (stack.get(CobblemonItemComponents.CRAFTED) == true) {
