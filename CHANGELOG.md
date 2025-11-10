@@ -597,6 +597,7 @@
 - Fixed some specific bag items not being dropped when used in battle.
 - The Corphish line will now sink in water.
 - Fixed the "use all berry bait" achievement not being progressed
+- Fixed bobber hook and berry sprouts texture sizes causing mipmap issues.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
