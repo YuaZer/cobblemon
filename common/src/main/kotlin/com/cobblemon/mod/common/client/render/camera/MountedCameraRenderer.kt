@@ -123,7 +123,7 @@ object MountedCameraRenderer
         val eyeMaxZoom: Float = getMaxZoom(eyeOffsetDistance, eyeOffsetDirection, eyePos, instance)
 
         val playerRotater = driver as RidePassenger
-        playerRotater.`cobblemon$setRideEyePos`(Vec3(eyeOffsetDirection.mul(eyeMaxZoom).add(eyePos)).add(0.0, 2.0, 0.0))
+        playerRotater.`cobblemon$setRideEyePos`(Vec3(eyeOffsetDirection.mul(eyeMaxZoom).add(eyePos)))
         return Vec3(offsetDirection.mul(maxZoom).add(pos))
     }
 
