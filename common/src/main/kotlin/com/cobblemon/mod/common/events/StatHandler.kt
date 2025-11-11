@@ -138,7 +138,7 @@ object StatHandler : EventHandler {
     fun getStat(resourceLocation: ResourceLocation) : ResourceLocation {
         val stat = BuiltInRegistries.CUSTOM_STAT.get(resourceLocation)
         if (stat == null) {
-            Cobblemon.LOGGER.debug("Could not find stat with id {}", resourceLocation)
+            Cobblemon.LOGGER.error("Could not find stat with id {}", resourceLocation)
         }
         return stat ?: throw NullPointerException("Could not find stat with id $resourceLocation")
     }
