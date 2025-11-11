@@ -396,7 +396,9 @@
           ]
         },
         "resting": {
-          "willSleepOnBed": true
+          "canSleep": true,
+          "willSleepOnBed": true,
+          "light": "0-4"
         }
       }
     }
