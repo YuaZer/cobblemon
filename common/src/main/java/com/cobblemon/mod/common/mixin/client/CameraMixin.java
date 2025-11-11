@@ -25,6 +25,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix3f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -61,12 +62,19 @@ public abstract class CameraMixin {
     @Unique private double cobblemon$lastHandledRotationTime = Double.MIN_VALUE;
     @Unique private double cobblemon$frameTime = 0.0;
 
+    // Used to as the render rotation for the motion sick camera.
+    @Unique @Nullable private Quaternionf cobblemon$smoothRotation = null;
+
+
     @Inject(method = "setRotation", at = @At("HEAD"), cancellable = true)
     public void cobblemon$setRotation(float f, float g, CallbackInfo ci) {
         // Calculate the current frametime
         double d = Blaze3D.getTime();
         this.cobblemon$frameTime = (this.cobblemon$lastHandledRotationTime != Double.MIN_VALUE) ? d - this.cobblemon$lastHandledRotationTime : 0.0;
         this.cobblemon$lastHandledRotationTime = d;
+
+        // Do no camera rotations if the game is paused
+        if(Minecraft.getInstance().isPaused()) return;
 
         // Don't assume the camera to be attached to an entity. Ponder Scenes from create et.al. for example aren't.
         if (this.entity == null) return;
@@ -116,6 +124,8 @@ public abstract class CameraMixin {
             }
         }
 
+        // reset the rotation values if it is now not being ridden.
+        cobblemon$smoothRotation = null;
         original.call(instance, x, y, z);
     }
 
@@ -143,17 +153,26 @@ public abstract class CameraMixin {
             newRotation = vehicleController.getRenderOrientation(this.partialTickTime);
         }
 
-        // Unroll the current rotation if no roll is requested
+        // Unroll the current rotation if no roll is requested and not currently freelooking.
         if (Cobblemon.config.getDisableRoll()) {
-            var eulerAngs = newRotation.getEulerAnglesYXZ(new Vector3f());
-            var currAngs = this.rotation.getEulerAnglesYXZ(new Vector3f());
-            var vehicle = (PokemonEntity)driver.getVehicle();
-            var vel = vehicle.getRidingAnimationData().getVelocitySpring().getInterpolated(this.partialTickTime, 0);
+            // Init the smooth rotation if it has not been set yet.
+            if (cobblemon$smoothRotation == null) {
+                cobblemon$smoothRotation = new Quaternionf().set(this.rotation);
+            }
+            var rideAngs = newRotation.getEulerAnglesYXZ(new Vector3f());
+            var cameraAngs = cobblemon$smoothRotation.getEulerAnglesYXZ(new Vector3f());
 
-            // lerp the new rotation towards this y rot at a rate proportional to the horizontal movement speed?
-            var yaw = Mth.wrapDegrees(Math.toDegrees(Mth.atan2(vel.x(), vel.z())) + 180.0f);
+//            var vehicle = (PokemonEntity)driver.getVehicle();
+//            var vel = vehicle.getRidingAnimationData().getVelocitySpring().getInterpolated(this.partialTickTime, 0);
+//            // Grab the target yaw as the current rides yaw. If the horizontal velocity is high enough to be used to
+//            // derive a yaw then use it.
+//            var targetYaw = (double) rideAngs.y();
+//            if ( vel.horizontalDistance() > 0.01) {
+//                // lerp the new rotation towards this y rot at a rate proportional to the horizontal movement speed?
+//                targetYaw = Mth.wrapDegrees(Math.toDegrees(Mth.atan2(vel.x(), vel.z())) + 180.0f);
+//            }
 
-            var degDiff = Mth.degreesDifference((float)Math.toDegrees(currAngs.y()), (float)yaw);
+            var degDiff = Mth.degreesDifference((float)Math.toDegrees(cameraAngs.y()), (float)Math.toDegrees(rideAngs.y));
             var pitchDeadzoneDeg = 15.0; // x degrees of deadzone about +-90 degrees of pitch.
             var pitchDeg = vehicleController.getPitch();
             // ConsiderPitch to be already 90 if within the deadzone around it.
@@ -161,11 +180,20 @@ public abstract class CameraMixin {
             var lerpRateMod = Mth.cos((float)Math.toRadians(cutoffPitch));
 
             // Apply smoothing from the cameras current yaw to the yaw of the velocity vector of the ride.
-            var k = 5.0f; // Some smoothing constant k
+            var k = 10.0f; // Some smoothing constant k
             var smoothingFactor = lerpRateMod * cobblemon$frameTime * k;
-            var newYaw = currAngs.y() + (Math.toRadians(degDiff) * smoothingFactor);
+            var newYaw = cameraAngs.y() + (Math.toRadians(degDiff) * smoothingFactor);
 
-            newRotation.set(new Quaternionf().rotateYXZ((float)newYaw, eulerAngs.x(), 0.0f));
+            var newPitch = (float)Mth.lerp(cobblemon$frameTime * k, cameraAngs.x(), rideAngs.x());
+            //var newYaw = (float)Mth.lerp(smoothingFactor, cameraAngs.y(), rideAngs.y());
+            var maxRoll = Math.toRadians(15.0f);
+            var newRoll = (float)Mth.lerp(cobblemon$frameTime * k / 2.0, cameraAngs.z(), Math.abs(lerpRateMod) * Math.sin(rideAngs.z()) * maxRoll);
+
+            // Set rotations
+            var smoothedRot = new Quaternionf().rotateYXZ((float)newYaw, newPitch, newRoll);
+            cobblemon$smoothRotation.set(smoothedRot);
+            newRotation.set(smoothedRot);
+
         }
 
         var rotationOffset = 0;

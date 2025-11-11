@@ -19,6 +19,8 @@ import com.cobblemon.mod.common.duck.RidePassenger
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.mixin.accessor.CameraAccessor
 import net.minecraft.client.Camera
+import net.minecraft.client.CameraType
+import net.minecraft.client.Minecraft
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.level.ClipContext
@@ -65,9 +67,10 @@ object MountedCameraRenderer
 
         // Get additional offset from poser and add to the eyeHeight offset
         val shouldFlip = !(vehicleController.active && vehicleController.orientation != null) // Do not flip the offset for 3rd person reverse unless we are using normal mc camera rotation.
+        val isFirstPerson = Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON
 
         eyeOffset.add(getFirstPersonOffset(model, locatorName))
-        if (!instance.isDetached) {
+        if (isFirstPerson) {
             offset.add(
                 getFirstPersonOffset(model, locatorName)
             )
@@ -91,7 +94,7 @@ object MountedCameraRenderer
 
         // Get the camera position. If 3rd person viewbobbing is enabled or the player is
         // in first person then base the camera position off the seat locator offset
-        val pos = if (!instance.isDetached || Cobblemon.config.thirdPersonViewBobbing) {
+        val pos = if (!isFirstPerson || Cobblemon.config.thirdPersonViewBobbing) {
                 val locatorOffset = Vec3(locator.matrix.getTranslation(Vector3f()))
                 locatorOffset.add(entityPos).toVector3f()
             } else {

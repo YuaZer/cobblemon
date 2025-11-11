@@ -34,6 +34,7 @@
     "client.ModelLoaderMixin",
     "client.ModelPartMixin",
     "client.MouseHandlerMixin",
+    "client.OptionsMixin",
     "client.PlayerRendererMixin",
     "client.RecipeBookCategoriesMixin",
     "client.RecipeBookComponentMixin",
