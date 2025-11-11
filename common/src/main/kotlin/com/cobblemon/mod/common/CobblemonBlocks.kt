@@ -593,6 +593,7 @@ object CobblemonBlocks : PlatformRegistry<Registry<Block>, ResourceKey<Registry<
     val CORNN_BERRY = this.berryBlock("cornn")
     val CUSTAP_BERRY = this.berryBlock("custap")
     val DURIN_BERRY = this.berryBlock("durin")
+    val EGGANT_BERRY = this.berryBlock("eggant")
     val ENIGMA_BERRY = this.berryBlock("enigma")
     val FIGY_BERRY = this.berryBlock("figy")
     val GANLON_BERRY = this.berryBlock("ganlon")

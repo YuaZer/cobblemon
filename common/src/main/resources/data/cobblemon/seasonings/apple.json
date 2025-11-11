@@ -1,11 +1,4 @@
 {
   "ingredient": "minecraft:apple",
-  "colour": "red",
-  "baitEffects": [
-    {
-      "type": "cobblemon:bite_time",
-      "chance": 1.0,
-      "value": 0.5
-    }
-  ]
+  "colour": "red"
 }

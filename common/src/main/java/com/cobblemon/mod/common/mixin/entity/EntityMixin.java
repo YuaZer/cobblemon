@@ -74,12 +74,11 @@ public abstract class EntityMixin {
         var vehicleController = vehicle.getOrientationController();
         if (vehicleController == null) return;
 
-        // If Orientation is currently being controlled then use the stored eye position from camera positioning.
-        if (vehicleController.getActive() && vehicleController.getOrientation() != null) {
-            // TODO: Determine if it needs partialtick involved.
-            Vec3 customEyePos = ridePassenger.cobblemon$getRideEyePos();
-            cir.setReturnValue(customEyePos);
-        }
+
+        // TODO: Determine if it needs partialtick involved.
+        Vec3 customEyePos = ridePassenger.cobblemon$getRideEyePos();
+        cir.setReturnValue(customEyePos);
+
     }
 
     @Inject(
@@ -95,12 +94,9 @@ public abstract class EntityMixin {
         var vehicleController = vehicle.getOrientationController();
         if (vehicleController == null) return;
 
-        // If Orientation is currently being controlled then use the stored eye position from camera positioning.
-        if (vehicleController.getActive() && vehicleController.getOrientation() != null) {
-            // TODO: Determine if it needs partialtick involved.
-            Vec3 customEyePos = ridePassenger.cobblemon$getRideEyePos();
-            cir.setReturnValue(customEyePos);
-        }
+        // TODO: Determine if it needs partialtick involved.
+        Vec3 customEyePos = ridePassenger.cobblemon$getRideEyePos();
+        cir.setReturnValue(customEyePos);
     }
 
 }

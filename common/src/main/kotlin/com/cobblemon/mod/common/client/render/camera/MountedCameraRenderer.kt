@@ -18,7 +18,10 @@ import com.cobblemon.mod.common.client.render.models.blockbench.repository.Varyi
 import com.cobblemon.mod.common.duck.RidePassenger
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.mixin.accessor.CameraAccessor
+import com.cobblemon.mod.common.util.math.geometry.toRadians
 import net.minecraft.client.Camera
+import net.minecraft.client.CameraType
+import net.minecraft.client.Minecraft
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.level.ClipContext
@@ -60,18 +63,24 @@ object MountedCameraRenderer
         val locator = delegate.locatorStates[locatorName] ?: return null
 
         val currEyeHeight: Double = Mth.lerp(instance.partialTickTime.toDouble(), eyeHeight, eyeHeightOld)
-        var offset = Vector3f(0f, (currEyeHeight - (driver.bbHeight / 2)).toFloat(), 0f)
-        var eyeOffset = Vector3f(0f, (currEyeHeight - (driver.bbHeight / 2)).toFloat(), 0f)
+        val offset = Vector3f(0f, (currEyeHeight - (driver.bbHeight / 2)).toFloat(), 0f)
+        val eyeOffset = Vector3f(0f, (currEyeHeight - (driver.bbHeight / 2)).toFloat(), 0f)
 
         // Get additional offset from poser and add to the eyeHeight offset
         val shouldFlip = !(vehicleController.active && vehicleController.orientation != null) // Do not flip the offset for 3rd person reverse unless we are using normal mc camera rotation.
+        val isFirstPerson = Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON
+
+        val rotMatrix = if (vehicleController.isActive()) vehicleController.getRenderOrientation(instance.partialTickTime)
+            else Quaternionf()
+                .rotateY((180f - Mth.lerp(instance.partialTickTime, vehicle.yBodyRotO, vehicle.yBodyRot).toRadians()))
+                .rotateX(-1 * Mth.lerp(instance.partialTickTime, vehicle.xRotO, vehicle.xRot).toRadians())
 
         eyeOffset.add(getFirstPersonOffset(model, locatorName))
-        if (!instance.isDetached) {
+        if (isFirstPerson) {
             offset.add(
                 getFirstPersonOffset(model, locatorName)
             )
-        } else if( Cobblemon.config.thirdPersonViewBobbing) {
+        } else if (Cobblemon.config.thirdPersonViewBobbing) {
             offset.add(
                 getThirdPersonOffset(thirdPersonReverse, model.thirdPersonCameraOffset, locatorName, shouldFlip)
             )
@@ -81,22 +90,29 @@ object MountedCameraRenderer
             )
         }
 
-        // Grab the current camera rotation to use as the offset rotation.
-        val offsetRot = instance.rotation()
-        offset = offsetRot.transform(offset)
-        eyeOffset = offsetRot.transform(eyeOffset)
+        // Grab the pokemon's orientation to use as the offset rotation.
+        rotMatrix.transform(offset)
+        rotMatrix.transform(eyeOffset)
 
         val eyeLocatorOffset = Vec3(locator.matrix.getTranslation(Vector3f()))
         val eyePos = eyeLocatorOffset.add(entityPos).toVector3f()
 
         // Get the camera position. If 3rd person viewbobbing is enabled or the player is
         // in first person then base the camera position off the seat locator offset
-        val pos = if (!instance.isDetached || Cobblemon.config.thirdPersonViewBobbing) {
+        val pos = if (!isFirstPerson || Cobblemon.config.thirdPersonViewBobbing) {
                 val locatorOffset = Vec3(locator.matrix.getTranslation(Vector3f()))
                 locatorOffset.add(entityPos).toVector3f()
             } else {
                 val pokemonCenter = Vector3f(0f, driver.bbHeight/2, 0f)
-                entityPos.toVector3f().add(pokemonCenter)
+
+                val pivotOffsets = model.thirdPersonPivotOffset
+                val pivot = Vector3f(pokemonCenter)
+                val locatorName = delegate.getSeatLocator(driver)
+                if (pivotOffsets.containsKey(locatorName)) {
+                    val orientation = vehicleController.getRenderOrientation(instance.partialTickTime)
+                    pivot.add(orientation.transform(pivotOffsets[locatorName]!!.toVector3f()))
+                }
+                entityPos.toVector3f().add(pivot)
             }
 
         val offsetDistance = offset.length()
@@ -110,7 +126,7 @@ object MountedCameraRenderer
         val eyeMaxZoom: Float = getMaxZoom(eyeOffsetDistance, eyeOffsetDirection, eyePos, instance)
 
         val playerRotater = driver as RidePassenger
-        playerRotater.`cobblemon$setRideEyePos`(Vec3(eyeOffsetDirection.mul(eyeMaxZoom).add(eyePos)).add(0.0, 2.0, 0.0))
+        playerRotater.`cobblemon$setRideEyePos`(Vec3(eyeOffsetDirection.mul(eyeMaxZoom).add(eyePos)))
         return Vec3(offsetDirection.mul(maxZoom).add(pos))
     }
 
