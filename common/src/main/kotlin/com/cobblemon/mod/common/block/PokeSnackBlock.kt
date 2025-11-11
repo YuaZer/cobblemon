@@ -185,8 +185,12 @@ class PokeSnackBlock(settings: Properties, val isLure: Boolean): BaseEntityBlock
         super.setPlacedBy(level, pos, state, placer, stack)
 
         val blockEntity = level.getBlockEntity(pos) as? PokeSnackBlockEntity ?: return
+
         blockEntity.initializeFromItemStack(stack)
         blockEntity.placedBy = placer?.uuid
+
+        blockEntity.setChanged()
+        level.sendBlockUpdated(pos, state, state, UPDATE_CLIENTS)
     }
 
     override fun getCloneItemStack(level: LevelReader, pos: BlockPos, state: BlockState): ItemStack {
