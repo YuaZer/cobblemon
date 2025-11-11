@@ -73,7 +73,7 @@
                     "#cobblemon:is_overworld"
                 ],
                 "neededNearbyBlocks": [
-                    "#minecraft:water"
+                    "#cobblemon:water"
                 ],
                 "maxY": 62
             },
@@ -348,7 +348,7 @@
                     "#aether:is_aether"
                 ],
                 "neededNearbyBlocks": [
-                    "#minecraft:water"
+                    "#cobblemon:water"
                 ]
             }
         },
@@ -372,8 +372,8 @@
             }
         },
         {
-            "id": "wooper-heart-15",
-            "pokemon": "wooper wooper_pattern=heart",
+            "id": "wooper-true-15",
+            "pokemon": "wooper wooper_heart=true",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "uncommon",
@@ -390,8 +390,8 @@
             }
         },
         {
-            "id": "wooper-heart-16",
-            "pokemon": "wooper wooper_pattern=heart",
+            "id": "wooper-true-16",
+            "pokemon": "wooper wooper_heart=true",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "uncommon",
@@ -427,8 +427,8 @@
             }
         },
         {
-            "id": "wooper-heart-17",
-            "pokemon": "wooper wooper_pattern=heart",
+            "id": "wooper-true-17",
+            "pokemon": "wooper wooper_heart=true",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "common",
@@ -445,8 +445,8 @@
             }
         },
         {
-            "id": "wooper-heart-18",
-            "pokemon": "wooper wooper_pattern=heart",
+            "id": "wooper-true-18",
+            "pokemon": "wooper wooper_heart=true",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "common",
@@ -482,8 +482,8 @@
             }
         },
         {
-            "id": "wooper-heart-19",
-            "pokemon": "wooper wooper_pattern=heart",
+            "id": "wooper-true-19",
+            "pokemon": "wooper wooper_heart=true",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "uncommon",
@@ -521,8 +521,8 @@
             }
         },
         {
-            "id": "wooper-heart-20",
-            "pokemon": "wooper wooper_pattern=heart",
+            "id": "wooper-true-20",
+            "pokemon": "wooper wooper_heart=true",
             "type": "pokemon",
             "context": "fishing",
             "bucket": "common",
@@ -614,7 +614,7 @@
                     "#cobblemon:is_savanna"
                 ],
                 "neededNearbyBlocks": [
-                    "#minecraft:water"
+                    "#cobblemon:water"
                 ]
             }
         },

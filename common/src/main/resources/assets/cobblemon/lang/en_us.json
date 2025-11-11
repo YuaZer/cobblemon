@@ -2229,6 +2229,7 @@
   "item.cobblemon.custap_berry.tooltip": "Holder moves first in its priority bracket when at 1/4 max HP or less",
   "item.cobblemon.durin_berry": "Durin Berry",
   "item.cobblemon.durin_berry.tooltip": "Cannot be eaten during battles",
+  "item.cobblemon.eggant_berry": "Eggant Berry",
   "item.cobblemon.enigma_berry": "Enigma Berry",
   "item.cobblemon.enigma_berry.tooltip": "Restores 1/4 max HP after holder is hit by a supereffective move",
   "item.cobblemon.figy_berry": "Figy Berry",

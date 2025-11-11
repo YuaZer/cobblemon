@@ -49,6 +49,7 @@
 - Berries can now be smelted into their respective dyes.
 - Added Syrupy Apples.
 - Added `/runmolang <molang> [<npc>|<player>|<pokemon>]` command that executes a MoLang expression with the provided options as environment variables, as well as the entity (as `q.entity`) that executed the command.
+- Added new 69th berry, Eggant.
 - Added bubble quirk to Kingler; like Krabby, Kingler will blows bubbles during dusk.
 - Added `.Pre` and `.Post` to the following events:
     - `PokemonRecallEvent`
@@ -604,6 +605,7 @@
 - Fixed some specific bag items not being dropped when used in battle.
 - The Corphish line will now sink in water.
 - Fixed the "use all berry bait" achievement not being progressed
+- Fixed bobber hook and berry sprouts texture sizes causing mipmap issues.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
