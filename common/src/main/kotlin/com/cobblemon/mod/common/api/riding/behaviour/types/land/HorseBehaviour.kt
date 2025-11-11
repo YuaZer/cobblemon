@@ -66,7 +66,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
 
     val poseProvider = PoseProvider<HorseSettings, HorseState>(PoseType.STAND)
         .with(PoseOption(PoseType.WALK) { _, state, vehicle ->
-            return@PoseOption abs(state.rideVelocity.get().horizontalDistance()) > 0.0
+            return@PoseOption state.walking.get()
         })
 
     override fun isActive(
@@ -116,6 +116,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
             handleSprinting(state)
             inAirCheck(state, vehicle)
             tickStamina(settings, state, vehicle)
+            state.walking.set(state.rideVelocity.get().horizontalDistance() > 0.01)
         }
     }
 
@@ -144,13 +145,15 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         if (state.stamina.get() <= 0.0f || !Minecraft.getInstance().options.keyUp.isDown()) {
             // If stamina runs out or the player is not holding forward then stop sprinting
             state.sprinting.set(false)
-        } else if (!state.sprinting.get() && !state.sprintToggleable.get() && !tryingToSprint && state.stamina.get() > 0.33f) {
+            if (state.stamina.get() <= 0.0f) {
+                state.sprintToggleable.set(false)
+            }
+        } else if (!state.sprinting.get() && !state.sprintToggleable.get() && state.stamina.get() > 0.33f) {
             // If you are not sprinting and sprint is not toggleable and you're not trying to sprint and stamina is above 0.3 then enable the toggle
             state.sprintToggleable.set(true)
         } else if (tryingToSprint && state.sprintToggleable.get()) {
             // If you are trying to sprint and the toggle allows it then start sprinting and disable toggle
             state.sprinting.set(true)
-            state.sprintToggleable.set(false)
         }
     }
 
@@ -610,13 +613,16 @@ class HorseSettings : RidingBehaviourSettings {
 
 class HorseState : RidingBehaviourState() {
     var sprinting = ridingState(false, Side.CLIENT)
+    var walking = ridingState(false, Side.BOTH)
     var sprintToggleable = ridingState(false, Side.CLIENT)
     var inAir = ridingState(false, Side.CLIENT)
     var jumpTicks = ridingState(0, Side.CLIENT)
 
     override fun encode(buffer: FriendlyByteBuf) {
         super.encode(buffer)
+        buffer.writeVec3(rideVelocity.get())
         buffer.writeBoolean(sprinting.get())
+        buffer.writeBoolean(walking.get())
         buffer.writeBoolean(sprintToggleable.get())
         buffer.writeBoolean(inAir.get())
         buffer.writeInt(jumpTicks.get())
@@ -624,7 +630,9 @@ class HorseState : RidingBehaviourState() {
 
     override fun decode(buffer: FriendlyByteBuf) {
         super.decode(buffer)
+        rideVelocity.set(buffer.readVec3(), forced = true)
         sprinting.set(buffer.readBoolean(), forced = true)
+        walking.set(buffer.readBoolean(), forced = true)
         sprintToggleable.set(buffer.readBoolean(), forced = true)
         inAir.set(buffer.readBoolean(), forced = true)
         jumpTicks.set(buffer.readInt(), forced = true)
@@ -632,7 +640,9 @@ class HorseState : RidingBehaviourState() {
 
     override fun reset() {
         super.reset()
+        rideVelocity.set(Vec3.ZERO, forced = true)
         sprinting.set(false, forced = true)
+        walking.set(false, forced = true)
         sprintToggleable.set(false, forced = true)
         inAir.set(false, forced = true)
         jumpTicks.set(0, forced = true)
@@ -642,6 +652,7 @@ class HorseState : RidingBehaviourState() {
         it.rideVelocity.set(this.rideVelocity.get(), forced = true)
         it.stamina.set(this.stamina.get(), forced = true)
         it.sprinting.set(this.sprinting.get(), forced = true)
+        it.walking.set(this.sprinting.get(), forced = true)
         it.sprintToggleable.set(this.sprintToggleable.get(), forced = true)
         it.inAir.set(this.inAir.get(), forced = true)
         it.jumpTicks.set(this.jumpTicks.get(), forced = true)
@@ -649,7 +660,9 @@ class HorseState : RidingBehaviourState() {
 
     override fun shouldSync(previous: RidingBehaviourState): Boolean {
         if (previous !is HorseState) return false
+        if (previous.rideVelocity.get() != rideVelocity.get()) return true
         if (previous.sprinting.get() != sprinting.get()) return true
+        if (previous.walking.get() != walking.get()) return true
         if (previous.sprintToggleable.get() != sprintToggleable.get()) return true
         if (previous.inAir.get() != inAir.get()) return true
         return super.shouldSync(previous)
