@@ -203,7 +203,7 @@
                     "#cobblemon:is_tropical_island"
                 ],
                 "neededNearbyBlocks": [
-                    "#minecraft:water"
+                    "#cobblemon:water"
                 ]
             }
         },
