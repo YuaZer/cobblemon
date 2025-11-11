@@ -200,7 +200,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer implements O
                 this.cobblemon$survivalJumpTriggerTime = 0;
             }
             else {
-                this.cobblemon$survivalJumpTriggerTime = 7;
+                this.cobblemon$survivalJumpTriggerTime = 12;
             }
         }
         else if (this.cobblemon$survivalJumpTriggerTime > 0) {
