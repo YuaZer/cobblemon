@@ -620,7 +620,6 @@ class HorseState : RidingBehaviourState() {
 
     override fun encode(buffer: FriendlyByteBuf) {
         super.encode(buffer)
-        buffer.writeVec3(rideVelocity.get())
         buffer.writeBoolean(sprinting.get())
         buffer.writeBoolean(walking.get())
         buffer.writeBoolean(sprintToggleable.get())
@@ -630,7 +629,6 @@ class HorseState : RidingBehaviourState() {
 
     override fun decode(buffer: FriendlyByteBuf) {
         super.decode(buffer)
-        rideVelocity.set(buffer.readVec3(), forced = true)
         sprinting.set(buffer.readBoolean(), forced = true)
         walking.set(buffer.readBoolean(), forced = true)
         sprintToggleable.set(buffer.readBoolean(), forced = true)
@@ -640,7 +638,6 @@ class HorseState : RidingBehaviourState() {
 
     override fun reset() {
         super.reset()
-        rideVelocity.set(Vec3.ZERO, forced = true)
         sprinting.set(false, forced = true)
         walking.set(false, forced = true)
         sprintToggleable.set(false, forced = true)
@@ -660,7 +657,6 @@ class HorseState : RidingBehaviourState() {
 
     override fun shouldSync(previous: RidingBehaviourState): Boolean {
         if (previous !is HorseState) return false
-        if (previous.rideVelocity.get() != rideVelocity.get()) return true
         if (previous.sprinting.get() != sprinting.get()) return true
         if (previous.walking.get() != walking.get()) return true
         if (previous.sprintToggleable.get() != sprintToggleable.get()) return true
