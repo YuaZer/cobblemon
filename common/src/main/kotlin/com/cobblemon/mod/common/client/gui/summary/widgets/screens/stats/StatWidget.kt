@@ -260,13 +260,8 @@ class StatWidget(
             val barPosX = x + 9F
             var drawY = y + 15F
 
-            val featuresList: MutableList<Any> = renderableFeatures.filter {
-                !pokemon.ignoredRenderableFeatures.contains(it.name)
-            }.toMutableList()
-
-            featuresList.addAll(0, universalFeatures.filter {
-                !pokemon.ignoredRenderableFeatures.contains(it.name)
-            })
+            val featuresList: MutableList<Any> = renderableFeatures.toMutableList()
+            featuresList.addAll(0, universalFeatures)
 
             val pageFeatures = featuresList.subList(
                 otherStatsPageIndex * OTHER_STAT_BARS_PER_PAGE,

@@ -579,16 +579,6 @@ open class Pokemon : ShowdownIdentifiable {
             onChange(MarkingsUpdatePacket({ this }, value))
         }
 
-
-    /**
-     * A set of features to be ignored when drawing the OTHER screen in the summary UI.
-     */
-    var ignoredRenderableFeatures = setOf<String>()
-        set(value) {
-            field = value
-            onChange(IgnoredRenderableFeaturesUpdatePacket({ this }, value))
-        }
-
     fun asRenderablePokemon() = RenderablePokemon(species, aspects, if (heldItemVisible) heldItem else ItemStack.EMPTY)
 
     /**
@@ -1420,7 +1410,6 @@ open class Pokemon : ShowdownIdentifiable {
         this.potentialMarks.clear()
         this.potentialMarks += other.marks
         this.markings = other.markings
-        this.ignoredRenderableFeatures = other.ignoredRenderableFeatures
         this.updateAspects()
         this.refreshOriginalTrainer()
         this.initialize()

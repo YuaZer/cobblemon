@@ -61,7 +61,6 @@ object DataKeys {
     const val POKEMON_MARKINGS = "Markings"
     const val POKEMON_RIDE_BOOSTS = "RideBoosts"
     const val POKEMON_RIDE_STAMINA = "RideStamina"
-    const val POKEMON_IGNORED_RENDERABLE_FEATURES = "IgnoredRenderableFeatures"
 
     const val POKEMON_STATE = "State"
     const val POKEMON_STATE_TYPE = "StateType"
