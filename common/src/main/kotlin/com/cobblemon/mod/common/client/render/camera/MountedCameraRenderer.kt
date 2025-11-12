@@ -43,7 +43,6 @@ object MountedCameraRenderer {
     private var returnTimer: Float = 0f
     private var lastHandledRotationTime: Double = Double.MIN_VALUE
     private var frameTime: Double = 0.0
-    private var partialTickTime: Float = 0f
     private var rollAngleStart: Float = 0f
 
     var smoothRotation: Quaternionf? = null
@@ -169,7 +168,7 @@ object MountedCameraRenderer {
         } else { // Otherwise perform cobblemon specific camera rotation and set transition helper variables
             applyCameraRotation(instance)
             returnTimer = 0f
-            rollAngleStart = instance.rotation().getEulerAnglesXYZ(Vector3f()).z()
+            rollAngleStart = instance.rotation().getEulerAnglesYXZ(Vector3f()).z()
             return true
         }
     }
@@ -194,9 +193,8 @@ object MountedCameraRenderer {
         var newRotation = if (isDriving) {
              vehicleController.orientation!!.normal(Matrix3f()).getNormalizedRotation(Quaternionf())
         } else {
-            vehicleController.getRenderOrientation(partialTickTime)
+            vehicleController.getRenderOrientation(instance.partialTickTime)
         }
-
 
         // Unroll the current rotation if no roll is requested and not currently freelooking
         if (Cobblemon.config.disableRoll) {
@@ -290,7 +288,7 @@ object MountedCameraRenderer {
             resetDriverRotations(instance, accessor.entity)
         }
 
-        if (returnTimer < 1) {
+        if (returnTimer < 1f) {
             //Rotation is taken from entity since we no longer handle mouse ourselves
             //Stops a period of time when you can't input anything.
             val interpolatedRoll = Mth.lerp(returnTimer, rollAngleStart, 0.0f)
@@ -314,7 +312,7 @@ object MountedCameraRenderer {
                 resetDriverRotations(instance, accessor.entity)
                 return false
             }
-            returnTimer += partialTickTime * (1.0f / 20.0f)
+            returnTimer += instance.partialTickTime * (1.0f / 20.0f)
             return true
         } else {
             returnTimer = 1f
