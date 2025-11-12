@@ -41,4 +41,14 @@ class RideBoostsComponent(
         val totalPoints = boosts.values.sum()
         return mechanic.cookingQualityPointThresholds.filter { totalPoints >= it.key }.maxOf { it.value }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is RideBoostsComponent) return false
+        return boosts == other.boosts
+    }
+
+    override fun hashCode(): Int {
+        return boosts.hashCode()
+    }
 }

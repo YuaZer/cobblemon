@@ -102,7 +102,7 @@
       "animations": ["q.bedrock('dondozo', 'ground_sleep')"]
     },
     "surface_idle": {
-      "poseTypes": ["STAND"],
+      "poseTypes": ["STAND", "FLOAT"],
       "isTouchingWater": true,
       "namedAnimations": {
         "sleep": "q.bedrock('dondozo', 'water_sleep', q.curve('one'))"
@@ -122,7 +122,7 @@
       ]
     },
     "surface_swim": {
-      "poseTypes": ["WALK"],
+      "poseTypes": ["WALK", "SWIM"],
       "isTouchingWater": true,
       "namedAnimations": {
         "sleep": "q.bedrock('dondozo', 'water_sleep', q.curve('one'))"

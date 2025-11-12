@@ -49,6 +49,7 @@
 - Berries can now be smelted into their respective dyes.
 - Added Syrupy Apples.
 - Added `/runmolang <molang> [<npc>|<player>|<pokemon>]` command that executes a MoLang expression with the provided options as environment variables, as well as the entity (as `q.entity`) that executed the command.
+- Added new 69th berry, Eggant.
 - Added bubble quirk to Kingler; like Krabby, Kingler will blows bubbles during dusk.
 - Added `.Pre` and `.Post` to the following events:
     - `PokemonRecallEvent`
@@ -56,6 +57,7 @@
 - Added a new gamerule, 'healerHealsPC', when set to true a successful use of a healer will also heal all of the Pokemon in that player's PC.
 - Mooshtanks will switch between their red and brown variant when hit by lightning
 - Smeargle spawns with differing tail colour depending on its [Characteristic](https://bulbapedia.bulbagarden.net/wiki/Characteristic) stat
+- Added smooth level-up animations to the party overlay to replace chat messages.
 
 ### Pokémon Added
 
@@ -320,6 +322,7 @@
 - Dewgong
 - Mime Jr
 - Gyarados
+- Lapras
 
 ### Model updates for the following Pokémon
 - Cleffa
@@ -442,6 +445,11 @@
 - Shroodle
 - Grafaiai
 - Steelix
+- Dratini
+- Dragonair
+- Dragonite
+- Cutiefly
+- Ribombee
 
 ### Changes
 - Changed pokemon caught and seen count to update based on the current pokedex being looked
@@ -604,6 +612,7 @@
 - Fixed some specific bag items not being dropped when used in battle.
 - The Corphish line will now sink in water.
 - Fixed the "use all berry bait" achievement not being progressed
+- Fixed bobber hook and berry sprouts texture sizes causing mipmap issues.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.

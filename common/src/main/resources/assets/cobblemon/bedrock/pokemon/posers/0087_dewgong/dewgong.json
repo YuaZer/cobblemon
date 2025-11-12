@@ -71,7 +71,7 @@
       "quirks": ["q.bedrock_quirk('dewgong', 'blink')"]
     },
     "surface-swim": {
-      "poseTypes": ["WALK"],
+      "poseTypes": ["WALK", "SWIM"],
       "isTouchingWater": true,
       "isUnderWater": false,
       "animations": [
@@ -85,7 +85,7 @@
       "quirks": ["q.bedrock_quirk('dewgong', 'blink')"]
     },
     "surface-float": {
-      "poseTypes": ["STAND"],
+      "poseTypes": ["STAND", "FLOAT"],
       "isTouchingWater": true,
       "isUnderWater": false,
       "animations": [

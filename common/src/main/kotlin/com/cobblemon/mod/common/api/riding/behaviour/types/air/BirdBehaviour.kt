@@ -291,10 +291,10 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         val handling = vehicle.runtime.resolveDouble(settings.handlingExpr ?: globalBird.handlingExpr!!)
 
         val yawDeltaDeg =  deltaTime * handling * sin(Math.toRadians(controller.roll.toDouble()))
-        val trueYawDelt = yawDeltaDeg * abs(cos(Math.toRadians(controller.pitch.toDouble()))*2).coerceIn(-1.0, 1.0)
+        val trueYawDelt = yawDeltaDeg * abs(cos(Math.toRadians(controller.pitch.toDouble()))).coerceIn(-1.0, 1.0)
 
         // Dampen yaw when upside down
-        val yawDampen = (1 - abs(min(cos(controller.roll.toRadians()),0.0f)).pow(2))
+        val yawDampen = (1 - abs(min(cos(controller.roll.toRadians()),0.0f)))
         controller.applyGlobalYaw(trueYawDelt.toFloat() * yawDampen)
 
         // Correct orientation when at low speeds
@@ -591,7 +591,7 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         state: BirdState,
         vehicle: PokemonEntity
     ): Boolean {
-        return false
+        return true
     }
 
     override fun damageOnCollision(
