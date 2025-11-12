@@ -177,6 +177,9 @@
       "maxSize": "9"
     },
     "moving": {
+      "walk": {
+        "walkSpeed": 0.2
+      },
       "fly": {
         "canFly": true
       }
