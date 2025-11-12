@@ -38,7 +38,7 @@
 - Lightning is now affected by a Pokemon's ability/typing
   - Pokémon with the ability Lightning Rod draw in lightning similar to a lightning rod block albeit with a lower priority and range, gain immunity to lightning damage, and receive a temporary damage buff.
   - Pokémon with the ability Motor Drive are immune to lightning damage and receive a temporary speed buff when struck by lightning
-  - Pokémon with the ability Volt Absorb are immune to lightning damage and receive Regeneration II for a short duration
+  - Pokémon with the ability Volt Absorb are immune to lightning damage and receive Instant Health II for a short duration
   - Ground type Pokémon are immune to lightning damage
 - Added functionality to Everstone when held by a Pokémon; suppresses evolution notification and hides evolve button in summary interface.
 - Added optional `filePath` parameter to MoLang functions to allow for global stores (ex. `../global/`). Path must end in a forward slash.
