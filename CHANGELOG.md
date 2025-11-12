@@ -662,6 +662,14 @@
   }
   ```
   This will change the value of `mooshtank` from `red` to `brown` and vice versa when a lightning strikes this Pokémon. Only chains of which a value is the current value will be considered, so multiple entries for the same key with different chains can be added.
+- Removed Npc interface from NPCEntity, the interface is unused and in vanilla is only implemented by VillagerEntity as a means to disable villagers with the `spawn-npcs` server property.
+- Added new `Observable#subscribe` methods that take Java Consumers to make usage in Java a little cleaner.
+- Annotated a bunch of Kotlin methods and fields for cleaner Java names.
+- Added `PartyStore#isEmpty()`.
+- Added `ElementalTypes#getRandomType()`.
+- Added `IVs#getEffectiveBattleTotal()`.
+- Added `IVs.MAX_TOTAL` constant.
+- Added `PokemonStats#total()`.
 
 ### MoLang & Datapacks
 - The following usages for item predicates can now use item conditions like advancements do, you can learn about them in the [Minecraft wiki](https://minecraft.wiki/w/Advancement_definition#minecraft:filled_bucket)
@@ -769,6 +777,8 @@
   - Also changed the default from `cobblemon:empty_bait` to `any`
   - The previous default is still available by using the above as baitId
 - Added support for species-specific move action effects, using the format `{move_id}_{species}.json`.
+- Added `look_at_entity_types` variable for look_at_entities to specify what entity type or entity tag to look at.
+- Added `Looks At Players` behaviour preset that only sets the look target to players.
 
 ### Particles
 Added new/updated particles for the following moves:
