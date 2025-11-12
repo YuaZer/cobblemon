@@ -557,7 +557,7 @@ open class PokemonEntity(
                 true
             }
             "motordrive" -> {
-                this.addEffect(MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1200, 0))
+                this.addEffect(MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1200, 1))
                 true
             }
             "voltabsorb" -> {
