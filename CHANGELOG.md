@@ -606,6 +606,7 @@
 - The Corphish line will now sink in water.
 - Fixed the "use all berry bait" achievement not being progressed
 - Fixed bobber hook and berry sprouts texture sizes causing mipmap issues.
+- Fixed Ally Switch not updating party positions. 
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
