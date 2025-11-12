@@ -54,11 +54,11 @@
         "key": "cobblemon:land/horse",
         "rideSounds": [],
         "stats": {
-          "ACCELERATION": "55-65",
-          "JUMP": "25-35",
-          "SKILL": "40-60",
-          "SPEED": "35-55",
-          "STAMINA": "65-85"
+          "ACCELERATION": "50-90",
+          "JUMP": "20-45",
+          "SKILL": "30-60",
+          "SPEED": "30-55",
+          "STAMINA": "40-85"
         }
       }
     },

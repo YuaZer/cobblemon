@@ -57,7 +57,10 @@
       "rotateFeatures": [
         {
           "key": "mooshtank",
-          "chain": ["red", "brown"]
+          "chain": [
+            "red",
+            "brown"
+          ]
         }
       ]
     },

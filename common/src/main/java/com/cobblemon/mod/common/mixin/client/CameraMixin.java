@@ -21,6 +21,9 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.Camera;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.joml.Quaternionf;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -43,6 +46,9 @@ public abstract class CameraMixin implements CameraAccessor, RidingCameraInterfa
     // from rolled to unrolled.
     @Unique public float cobblemon$returnTimer = 0;
     @Unique private float cobblemon$rollAngleStart = 0;
+
+    // Used to as the render rotation for the motion sick camera.
+    @Unique @Nullable private Quaternionf cobblemon$smoothRotation = null;
 
     // Used to help in camera rotation rendering when transitioning
     // from rolled to unrolled.
@@ -96,6 +102,16 @@ public abstract class CameraMixin implements CameraAccessor, RidingCameraInterfa
         cobblemon$rollAngleStart = angle;
     }
 
+    @Override
+    public @Nullable Quaternionf getCobblemon$smoothRotation() {
+        return cobblemon$smoothRotation;
+    }
+
+    @Override
+    public void setCobblemon$smoothRotation(@NotNull Quaternionf smoothRotation) {
+        this.cobblemon$smoothRotation = smoothRotation;
+    }
+
     @WrapOperation(method = "setup", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Camera;setPosition(DDD)V"))
     public void cobblemon$positionCamera(Camera instance, double x, double y, double z, Operation<Void> original, @Local(ordinal = 1, argsOnly = true) boolean thirdPersonReverse) {
         Entity entity = instance.getEntity();
@@ -121,6 +137,8 @@ public abstract class CameraMixin implements CameraAccessor, RidingCameraInterfa
             }
         }
 
+        // reset the rotation values if it is now not being ridden.
+        cobblemon$smoothRotation = null;
         original.call(instance, x, y, z);
     }
 

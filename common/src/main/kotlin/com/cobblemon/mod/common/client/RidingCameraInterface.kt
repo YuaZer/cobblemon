@@ -1,5 +1,6 @@
 package com.cobblemon.mod.common.client
 
+import org.joml.Quaternionf
 import org.spongepowered.asm.mixin.Unique
 
 interface RidingCameraInterface {
@@ -34,4 +35,8 @@ interface RidingCameraInterface {
 
     @Unique
     fun `setCobblemon$rollAngleStart`(angle: Float)
+
+    fun `getCobblemon$smoothRotation`(): Quaternionf?
+
+    fun `setCobblemon$smoothRotation`(smoothRotation: Quaternionf)
 }
