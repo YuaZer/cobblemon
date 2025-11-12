@@ -23,7 +23,7 @@
     },
     {
       "type": "pause",
-      "pause": 0.75
+      "pause": 0.6
     },
     {
       "type": "entity_particles",
@@ -33,7 +33,7 @@
     },
     {
       "type": "pause",
-      "pause": 0.8
+      "pause": 0.85
     },
     {
       "type": "entity_molang",

@@ -10,6 +10,15 @@
       "delay": 0.01
     },
     {
+      "type": "entity_particles",
+      "effect": "cobblemon:shadowball_actorcharge",
+      "locators": ["target"]
+    },
+    {
+      "type": "pause",
+      "pause": 0.58
+    },
+    {
       "type": "entity_molang",
       "entityCondition": "q.entity.is_user == true",
       "expressions": [
@@ -17,13 +26,8 @@
       ]
     },
     {
-      "type": "entity_particles",
-      "effect": "cobblemon:shadowball_actorcharge",
-      "locators": ["target"]
-    },
-    {
       "type": "pause",
-      "pause": 0.7
+      "pause": 0.12
     },
     {
       "type": "entity_particles",
@@ -37,7 +41,7 @@
     },
     {
       "type": "pause",
-      "pause": 1
+      "pause": 0.95
     },
     {
       "type": "entity_particles",
@@ -46,14 +50,7 @@
     },
     {
       "type": "pause",
-      "pause": 0.05
-    },
-    {
-      "type": "entity_molang",
-      "entityCondition": "q.entity.is_user == false && q.missed(q.entity.uuid) == false",
-      "expressions": [
-        "q.sound('move.shadowball.target');"
-      ]
+      "pause": 0.02
     },
     {
       "type": "entity_particles",
@@ -88,6 +85,13 @@
       "entityCondition": "q.entity.is_user == false && q.missed(q.entity.uuid) == false",
       "effect": "cobblemon:impact_ghost",
       "locators": ["target"]
+    },
+    {
+      "type": "entity_molang",
+      "entityCondition": "q.entity.is_user == false && q.missed(q.entity.uuid) == false",
+      "expressions": [
+        "q.sound('move.shadowball.target');"
+      ]
     },
     {
       "type": "remove_holds",

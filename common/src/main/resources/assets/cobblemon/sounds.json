@@ -1022,8 +1022,11 @@
   "move.icebeam.actor": {
     "sounds": [ { "name": "cobblemon:move/icebeam/icebeam_actor", "volume": 0.8 } ]
   },
-  "move.icebeam.target": {
-    "sounds": [ { "name": "cobblemon:move/icebeam/icebeam_target", "volume": 0.8 } ]
+  "move.icebeam.target_1": {
+    "sounds": [ { "name": "cobblemon:move/icebeam/icebeam_target_1", "volume": 0.8 } ]
+  },
+  "move.icebeam.target_2": {
+    "sounds": [ { "name": "cobblemon:move/icebeam/icebeam_target_2", "volume": 0.8 } ]
   },
   "move.infestation.actor": {
     "sounds": [ { "name": "cobblemon:move/infestation/infestation_actor", "volume": 0.8 } ]

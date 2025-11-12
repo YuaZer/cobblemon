@@ -73,12 +73,7 @@
     },
     {
       "type": "pause",
-      "pause": 0.75
-    },
-    {
-      "type": "animation",
-      "entityCondition": "q.entity.is_user == false && q.missed(q.entity.uuid) == false",
-      "animation": ["recoil"]
+      "pause": 0.7
     },
     {
       "type": "entity_molang",
@@ -86,6 +81,15 @@
       "expressions": [
         "q.sound('move.closecombat.actor_2');"
       ]
+    },
+    {
+      "type": "pause",
+      "pause": 0.05
+    },
+    {
+      "type": "animation",
+      "entityCondition": "q.entity.is_user == false && q.missed(q.entity.uuid) == false",
+      "animation": ["recoil"]
     },
     {
       "type": "remove_holds",

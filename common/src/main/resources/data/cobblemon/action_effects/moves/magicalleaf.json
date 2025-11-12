@@ -10,13 +10,6 @@
       "delay": 0.375
     },
     {
-      "type": "entity_molang",
-      "entityCondition": "q.entity.is_user == true",
-      "expressions": [
-        "q.sound('move.magicalleaf.actor_1');"
-      ]
-    },
-    {
       "type": "entity_particles",
       "effect": "cobblemon:magicalleaf_actor",
       "locators": ["root"],
@@ -29,7 +22,18 @@
     },
     {
       "type": "pause",
-      "pause": 0.5
+      "pause": 0.05
+    },
+    {
+      "type": "entity_molang",
+      "entityCondition": "q.entity.is_user == true",
+      "expressions": [
+        "q.sound('move.magicalleaf.actor_1');"
+      ]
+    },
+    {
+      "type": "pause",
+      "pause": 0.67
     },
     {
       "type": "entity_molang",
@@ -40,7 +44,7 @@
     },
     {
       "type": "pause",
-      "pause": 0.62
+      "pause": 0.4
     },
     {
       "type": "entity_molang",
@@ -54,10 +58,6 @@
       "entityCondition": "q.entity.is_user == false && q.missed(q.entity.uuid) == false",
       "effect": "cobblemon:magicalleaf_target",
       "locators": ["target"]
-    },
-    {
-      "type": "pause",
-      "pause": 0.5
     },
     {
       "type": "remove_holds",

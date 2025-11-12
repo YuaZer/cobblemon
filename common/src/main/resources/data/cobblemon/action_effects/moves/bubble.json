@@ -37,29 +37,21 @@
       "pause": 0.425
     },
     {
-      "type": "sequence",
-      
-      "keyframes": [
-        {
-          "type": "entity_particles",
-          "entityCondition": "q.entity.is_user == false && q.missed(q.entity.uuid) == false",
-          "effect": "cobblemon:bubble_target",
-          "locators": [
-            "target"
-          ]
-        },
-        {
-          "type": "entity_molang",
-          "entityCondition": "q.entity.is_user == false && q.missed(q.entity.uuid) == false",
-          "expressions": [
-            "q.sound('move.bubble.target');"
-          ]
-        }
-      ]
+      "type": "entity_particles",
+      "entityCondition": "q.entity.is_user == false && q.missed(q.entity.uuid) == false",
+      "effect": "cobblemon:bubble_target",
+      "locators": ["target"]
     },
     {
       "type": "pause",
       "pause": 0.65
+    },
+    {
+      "type": "entity_molang",
+      "entityCondition": "q.entity.is_user == false && q.missed(q.entity.uuid) == false",
+      "expressions": [
+        "q.sound('move.bubble.target');"
+      ]
     },
     {
       "type": "remove_holds",
