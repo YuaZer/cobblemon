@@ -68,9 +68,9 @@ object MountedCameraRenderer
 
         // Get additional offset from poser and add to the eyeHeight offset
         val shouldFlip = !(vehicleController.active && vehicleController.orientation != null) // Do not flip the offset for 3rd person reverse unless we are using normal mc camera rotation.
-        val isFirstPerson = Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON
+        val isFirstPerson = Minecraft.getInstance().options.cameraType == CameraType.FIRST_PERSON
 
-        val offsetRotationMatrix = if (vehicleController.isActive()) vehicleController.getRenderOrientation(instance.partialTickTime)
+        val offsetQuat = if (vehicleController.isActive()) vehicleController.getRenderOrientation(instance.partialTickTime)
             else Quaternionf()
                 .rotateY((- Mth.lerp(instance.partialTickTime, vehicle.yRotO, vehicle.yRot).toRadians()))
 
@@ -86,8 +86,8 @@ object MountedCameraRenderer
         )
 
         // Grab the pokemon's orientation to use as the offset rotation.
-        offsetRotationMatrix.transform(offset)
-        offsetRotationMatrix.transform(eyeOffset)
+        offsetQuat.transform(offset)
+        offsetQuat.transform(eyeOffset)
 
         val eyeLocatorOffset = Vec3(locator.matrix.getTranslation(Vector3f()))
         val eyePos = eyeLocatorOffset.add(entityPos).toVector3f()
@@ -104,10 +104,9 @@ object MountedCameraRenderer
                 val pivot = Vector3f(pokemonCenter)
                 val locatorName = delegate.getSeatLocator(driver)
                 if (pivotOffsets.containsKey(locatorName)) {
-                    val orientation = vehicleController.getRenderOrientation(instance.partialTickTime)
-                    pivot.add(orientation.transform(pivotOffsets[locatorName]!!.toVector3f()))
+                    pivot.add(offsetQuat.transform(pivotOffsets[locatorName]!!.toVector3f()))
                 }
-                entityPos.toVector3f().add(pivot)
+                pivot.add(entityPos.toVector3f())
             }
 
         val offsetDistance = offset.length()
@@ -148,7 +147,7 @@ object MountedCameraRenderer
         } else if (cameraOffsets.containsKey(locatorName)) {
             cameraOffsets[locatorName]!!.toVector3f()
         } else {
-            Vector3f(0f, 0f, 4f)
+            Vector3f(0f, 0f, 0f)
         }
 
         // Don't need to account for this since orientation is derived from camera rotation and that z is already flipped.

@@ -15,7 +15,6 @@ import com.cobblemon.mod.common.api.riding.Rideable;
 import com.cobblemon.mod.common.client.MountedPokemonAnimationRenderController;
 import com.cobblemon.mod.common.client.render.camera.MountedCameraRenderer;
 import com.cobblemon.mod.common.duck.RidePassenger;
-import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -268,16 +267,6 @@ public abstract class CameraMixin {
             this.cobblemon$returnTimer = 1;
             vehicleController.reset();
             MountedCameraRenderer.INSTANCE.resetDriverRotations((Camera)(Object)this, this.entity);
-        }
-    }
-
-    @WrapOperation(method = "setup", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Camera;move(FFF)V", ordinal = 0))
-    public void stopMoveIfRolling(Camera instance, float zoom, float dy, float dx, Operation<Void> original) {
-        Entity entity = instance.getEntity();
-        Entity vehicle = entity.getVehicle();
-
-        if (!(vehicle instanceof PokemonEntity) || Cobblemon.config.getThirdPersonViewBobbing()) {
-            original.call(instance, zoom, dy, dx);
         }
     }
 }
