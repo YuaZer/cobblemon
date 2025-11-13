@@ -186,17 +186,15 @@ fun generateAdditionalBaitEffectTooltip(stack: ItemStack): MutableList<Component
     val resultLines = mutableListOf<Component>()
 
     val rawEffects = mutableListOf<SpawnBait.Effect>().apply {
-        if (stack.item is PokerodItem) {
-            addAll(SpawnBaitEffects.getEffectsFromRodItemStack(stack))
-        } else {
-            addAll(SpawnBaitEffects.getEffectsFromItemStack(stack))
-        }
-
         if (Seasonings.isSeasoning(stack)) {
             val seasoningEffects = Seasonings.getBaitEffectsFromItemStack(stack)
             if (seasoningEffects.isNotEmpty()) {
                 addAll(seasoningEffects)
             }
+        } else if (stack.item is PokerodItem) {
+            addAll(SpawnBaitEffects.getEffectsFromRodItemStack(stack))
+        } else {
+            addAll(SpawnBaitEffects.getEffectsFromItemStack(stack))
         }
     }
 
@@ -219,6 +217,7 @@ fun generateAdditionalBaitEffectTooltip(stack: ItemStack): MutableList<Component
             val effectChance = effect.chance * 100
             var effectValue = when (effectType) {
                 "bite_time" -> (effect.value * 100).toInt()
+                "shiny_reroll" -> (effect.value + 1).toInt()
                 else -> effect.value.toInt()
             }
 
@@ -244,18 +243,12 @@ fun generateAdditionalBaitEffectTooltip(stack: ItemStack): MutableList<Component
                 } ?: Component.literal("cursed").obfuscate()
             } else Component.literal("cursed").obfuscate()
 
-            if (effectType == "shiny_reroll") {
-                effectValue++
-            }
-
-            resultLines.add(
-                    lang(
-                            "fishing_bait_effects.$effectType.tooltip",
-                            Component.literal(formatter.format(effectChance)).yellow(),
-                            subcategoryString.copy().gold(),
-                            Component.literal(formatter.format(effectValue)).green()
-                    )
-            )
+            resultLines.add(lang(
+                "fishing_bait_effects.$effectType.tooltip",
+                Component.literal(formatter.format(effectChance)).yellow(),
+                subcategoryString.copy().gold(),
+                Component.literal(formatter.format(effectValue)).green()
+            ))
         }
     }
 
