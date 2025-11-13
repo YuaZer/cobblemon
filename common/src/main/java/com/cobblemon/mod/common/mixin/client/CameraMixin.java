@@ -57,14 +57,4 @@ public abstract class CameraMixin implements CameraAccessor {
         MountedCameraRenderer.INSTANCE.setSmoothRotation(null);
         original.call(instance, x, y, z);
     }
-
-    @WrapOperation(method = "setup", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Camera;move(FFF)V", ordinal = 0))
-    public void stopMoveIfRolling(Camera instance, float zoom, float dy, float dx, Operation<Void> original) {
-        Entity entity = instance.getEntity();
-        Entity vehicle = entity.getVehicle();
-
-        if (!(vehicle instanceof PokemonEntity) || Cobblemon.config.getThirdPersonViewBobbing()) {
-            original.call(instance, zoom, dy, dx);
-        }
-    }
 }

@@ -523,6 +523,8 @@
 - Shulker Boxes and Traveler's Backpacks can no longer be held by Pokémon. Thanks Monocle ;) You could re-enable this with a datapack but you'd be crazy.
 - Shulker Boxes and Traveler's Backpacks AND Packed Up backpacks can no longer be held by Pokémon. Thanks Monocle ;) You could re-enable this with our datapack (but you'd be crazy).
 - Moomoo Milk now clears Pokémon stat changes when used in battle.
+- Updated Evolution Stone Block light levels
+- Added light levels to Evolution Stone Ores. These levels are reduced versions of the full blocks light levels
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
