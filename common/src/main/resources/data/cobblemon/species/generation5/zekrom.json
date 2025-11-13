@@ -50,7 +50,21 @@
     "fixed": false
   },
   "behaviour": {
-    "fireImmune": true
+    "fireImmune": true,
+    "moving": {
+      "swim": {
+        "avoidsWater": true,
+        "canSwimInWater": false
+      },
+      "fly": {
+        "canFly": true
+      }
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
+    }
   },
   "moves": [
     "1:thunderfang",

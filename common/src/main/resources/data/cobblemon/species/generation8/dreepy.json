@@ -60,9 +60,6 @@
       },
       "fly": {
         "canFly": true
-      },
-      "walk": {
-        "canWalk": false
       }
     },
     "resting": {
@@ -86,7 +83,12 @@
           "tier": 3
         }
       ]
-    }
+    },
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
   },
   "drops": {
     "amount": 2,

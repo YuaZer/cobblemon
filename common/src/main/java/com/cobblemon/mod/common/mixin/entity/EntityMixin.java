@@ -13,6 +13,7 @@ import com.cobblemon.mod.common.duck.RidePassenger;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
@@ -68,7 +69,7 @@ public abstract class EntityMixin {
     )
     private void cobblemon$modifyEyePosition_partial(float partialTicks, CallbackInfoReturnable<Vec3> cir) {
         var entity = (Entity)(Object)this;
-        if (!(entity instanceof Player player)) return;
+        if (!(entity instanceof LocalPlayer player)) return;
         if (!(player instanceof RidePassenger ridePassenger)) return;
         if (!(player.getVehicle() instanceof OrientationControllable vehicle)) return;
         var vehicleController = vehicle.getOrientationController();
@@ -88,7 +89,7 @@ public abstract class EntityMixin {
     )
     private void cobblemon$modifyEyePosition_noPartial(CallbackInfoReturnable<Vec3> cir) {
         var entity = (Entity)(Object)this;
-        if (!(entity instanceof Player player)) return;
+        if (!(entity instanceof LocalPlayer player)) return;
         if (!(player instanceof RidePassenger ridePassenger)) return;
         if (!(player.getVehicle() instanceof OrientationControllable vehicle)) return;
         var vehicleController = vehicle.getOrientationController();

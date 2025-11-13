@@ -152,7 +152,7 @@ object DataKeys {
 
     // Cooking
     const val AMOUNT_SPAWNED = "AmountSpawned"
-    const val FLAVOUR = "Flavour"
+    const val FOOD_COLOUR = "FoodColour"
     const val BAIT_EFFECTS = "BaitEffects"
     const val INGREDIENTS = "Ingredients"
 

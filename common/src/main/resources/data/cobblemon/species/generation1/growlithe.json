@@ -61,6 +61,16 @@
     "entityInteract": {
       "avoidedBySkeleton": true,
       "avoidedByFox": true
+    },
+    "moving": {
+      "swim": {
+        "avoidsWater": true,
+        "canSwimInWater": false
+      }
+    },
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
     }
   },
   "drops": {
@@ -333,6 +343,19 @@
       "behaviour": {
         "resting": {
           "willSleepOnBed": true
+        },
+        "moving": {
+          "swim": {
+            "avoidsWater": true,
+            "canSwimInWater": false
+          }
+        },
+        "entityInteract": {
+          "avoidedBySkeleton": true
+        },
+        "combat": {
+          "willDefendOwner": true,
+          "willFlee": false
         }
       }
     }

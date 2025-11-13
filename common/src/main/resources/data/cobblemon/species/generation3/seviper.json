@@ -50,8 +50,22 @@
   "behaviour": {
     "combat": {
       "fightsMelee": true,
-      "willDefendSelf": true
-    }
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "resting": {
+      "times": [
+        "day"
+      ]
+    },
+    "moving": {
+      "swim": {
+        "avoidsWater": true,
+        "canSwimInWater": false
+      }
+    },
+    "fireImmune": true
   },
   "ai": [
     {

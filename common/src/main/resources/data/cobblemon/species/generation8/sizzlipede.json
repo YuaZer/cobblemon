@@ -59,8 +59,13 @@
     "moving": {
       "swim": {
         "canBreatheUnderlava": true,
-        "canSwimInLava": true
+        "avoidsWater": true,
+        "canSwimInWater": false
       }
+    },
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
     }
   },
   "drops": {
@@ -148,7 +153,7 @@
     }
   ],
   "lightingData": {
-    "lightLevel": 2,
+    "lightLevel": 6,
     "liquidGlowMode": "BOTH"
   }
 }

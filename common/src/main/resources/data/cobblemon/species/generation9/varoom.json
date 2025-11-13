@@ -56,7 +56,11 @@
     "moving": {
       "swim": {
         "avoidsWater": true,
-        "canSwimInWater": false
+        "canSwimInWater": false,
+        "canWalkOnWater": true
+      },
+      "fly": {
+        "canFly": true
       }
     },
     "herd": {
@@ -71,7 +75,12 @@
           "tier": 2
         }
       ]
-    }
+    },
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
   },
   "drops": {
     "amount": 3,

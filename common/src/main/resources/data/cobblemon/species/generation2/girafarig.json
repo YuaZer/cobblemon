@@ -161,12 +161,21 @@
     },
     "moving": {
       "canWalk": true,
-      "walkSpeed": "0.2"
+      "walkSpeed": "0.2",
+      "swim": {
+        "avoidsWater": true,
+        "canSwimInWater": false
+      }
     },
     "resting": {
       "canSleep": true,
       "light": "0-4"
-    }
+    },
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
   },
   "drops": {
     "amount": 3,
