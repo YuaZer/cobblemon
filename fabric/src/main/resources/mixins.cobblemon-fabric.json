@@ -7,10 +7,13 @@
   "client": [
     "GameRendererMixin",
     "GuiMixin",
-    "pokeball.ModelLoaderMixin"
+    "pokeball.ModelLoaderMixin",
+    "FabricCameraMixin"
   ],
   "mixins": [
+    "EntityMixin",
+    "FabricBrewingStandMenuMixin",
     "PlayerMixin",
-    "EntityMixin"
+    "FabricSoundEngineMixin"
   ]
 }
