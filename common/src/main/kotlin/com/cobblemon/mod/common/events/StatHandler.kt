@@ -21,12 +21,14 @@ import com.cobblemon.mod.common.api.events.CobblemonEvents.LEVEL_UP_EVENT
 import com.cobblemon.mod.common.api.events.CobblemonEvents.POKEMON_CAPTURED
 import com.cobblemon.mod.common.api.events.CobblemonEvents.POKEMON_GAINED
 import com.cobblemon.mod.common.api.events.CobblemonEvents.POKEMON_RELEASED_EVENT_POST
+import com.cobblemon.mod.common.api.events.CobblemonEvents.POKEROD_CAST_POST
 import com.cobblemon.mod.common.api.events.CobblemonEvents.POKEROD_REEL
 import com.cobblemon.mod.common.api.events.CobblemonEvents.RIDE_EVENT_POST
 import com.cobblemon.mod.common.api.events.CobblemonEvents.TRADE_EVENT_POST
 import com.cobblemon.mod.common.api.events.battles.BattleFledEvent
 import com.cobblemon.mod.common.api.events.battles.BattleStartedEvent
 import com.cobblemon.mod.common.api.events.battles.BattleVictoryEvent
+import com.cobblemon.mod.common.api.events.fishing.PokerodCastEvent
 import com.cobblemon.mod.common.api.events.fishing.PokerodReelEvent
 import com.cobblemon.mod.common.api.events.pokemon.CollectEggEvent
 import com.cobblemon.mod.common.api.events.pokemon.FossilRevivedEvent
@@ -41,6 +43,7 @@ import com.cobblemon.mod.common.api.events.storage.ReleasePokemonEvent
 import com.cobblemon.mod.common.util.getPlayer
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.server.level.ServerPlayer
 import java.util.UUID
 
 object StatHandler : EventHandler {
@@ -58,6 +61,7 @@ object StatHandler : EventHandler {
         TRADE_EVENT_POST.subscribe(Priority.NORMAL, ::onTradeCompleted)
         FOSSIL_REVIVED.subscribe(Priority.NORMAL, ::onFossilRevived)
         RIDE_EVENT_POST.subscribe(Priority.NORMAL, ::onRide)
+        POKEROD_CAST_POST.subscribe(Priority.NORMAL, ::onPokeRodCast)
         POKEROD_REEL.subscribe(Priority.NORMAL, ::onReelIn)
     }
 
@@ -126,10 +130,11 @@ object StatHandler : EventHandler {
         event.player.awardStat(getStat(Cobblemon.statistics.TIMES_RIDDEN))
     }
 
-    //TODO: figure out item interact event or add one for rod casting
-    /*fun onPokeRodCast() {
-
-    }*/
+    fun onPokeRodCast(event : PokerodCastEvent.Post) {
+        if (event.bobber.owner is ServerPlayer) {
+            (event.bobber.owner as ServerPlayer).awardStat(getStat(Cobblemon.statistics.ROD_CASTS))
+        }
+    }
 
     fun onReelIn(event : PokerodReelEvent) {
         event.player.awardStat(getStat(Cobblemon.statistics.REEL_INS))

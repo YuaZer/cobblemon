@@ -44,7 +44,7 @@
 - Added optional `filePath` parameter to MoLang functions to allow for global stores (ex. `../global/`). Path must end in a forward slash.
 - Added new optional property `attachment_options` for most EmitterShapes to be attached to the locator/entities scale, rotation, and/or position. Position is true by default.
 - Galarica Nut bushes now generate on beaches
-- Added Statistics for battles won, fled, and total, Pokémon captured, dex entries added, trades completed, Pokémon levels gained, Pokémon evolved and fossils revived.
+- Added Statistics for battles won, fled, and total, Pokémon captured (shiny and total), Pokémon released, dex entries added, trades completed, Pokémon levels gained, Pokémon evolved, fossils revived, PokéRod casts and reel-ins and Pokémon times ridden.
 - Galarica Nut bushes now generate on beaches.
 - Some Pokémon now pitch their bodies in the direction they're moving.
 - Added new advancements Didn't Stop To Think, We Need To Cook, and Pokémon Jockey!.
