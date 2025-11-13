@@ -69,7 +69,8 @@ public abstract class EntityMixin {
     )
     private void cobblemon$modifyEyePosition_partial(float partialTicks, CallbackInfoReturnable<Vec3> cir) {
         var entity = (Entity)(Object)this;
-        if (!(entity instanceof LocalPlayer player)) return;
+        if (entity.level().isClientSide) return;
+        if (!(entity instanceof Player player)) return;
         if (!(player instanceof RidePassenger ridePassenger)) return;
         if (!(player.getVehicle() instanceof OrientationControllable vehicle)) return;
         var vehicleController = vehicle.getOrientationController();
@@ -79,7 +80,6 @@ public abstract class EntityMixin {
         // TODO: Determine if it needs partialtick involved.
         Vec3 customEyePos = ridePassenger.cobblemon$getRideEyePos();
         cir.setReturnValue(customEyePos);
-
     }
 
     @Inject(
@@ -89,7 +89,8 @@ public abstract class EntityMixin {
     )
     private void cobblemon$modifyEyePosition_noPartial(CallbackInfoReturnable<Vec3> cir) {
         var entity = (Entity)(Object)this;
-        if (!(entity instanceof LocalPlayer player)) return;
+        if (entity.level().isClientSide) return;
+        if (!(entity instanceof Player player)) return;
         if (!(player instanceof RidePassenger ridePassenger)) return;
         if (!(player.getVehicle() instanceof OrientationControllable vehicle)) return;
         var vehicleController = vehicle.getOrientationController();
