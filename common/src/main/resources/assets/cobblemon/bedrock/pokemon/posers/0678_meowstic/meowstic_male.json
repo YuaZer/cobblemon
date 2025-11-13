@@ -4,6 +4,9 @@
   "profileScale": 0.68,
   "profileTranslation": [ 0, 0.75, 0],
   "rootBone": "meowstic_male",
+  "animations": {
+    "cry": "q.bedrock_stateful('meowstic_male', 'cry')"
+  },
   "poses": {
     "standing": {
       "poseTypes": [

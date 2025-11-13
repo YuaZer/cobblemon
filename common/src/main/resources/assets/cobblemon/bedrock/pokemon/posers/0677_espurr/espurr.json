@@ -4,15 +4,12 @@
   "profileScale": 0.65,
   "profileTranslation": [ 0, 0.77, 0],
   "rootBone": "espurr",
+  "animations": {
+    "cry": "q.bedrock_stateful('espurr', 'cry')"
+  },
   "poses": {
     "standing": {
-      "poseTypes": [
-        "STAND",
-        "NONE",
-        "FLOAT",
-        "PORTRAIT",
-        "PROFILE"
-      ],
+      "poseTypes": ["STAND", "NONE", "FLOAT", "PORTRAIT", "PROFILE"],
       "isBattle": true,
       "animations": [
         "q.look('head')",
@@ -23,10 +20,7 @@
       ]
     },
     "walking": {
-      "poseTypes": [
-        "WALK",
-        "SWIM"
-      ],
+      "poseTypes": ["WALK", "SWIM"],
       "animations": [
         "q.look('head')",
         "q.bedrock('espurr', 'ground_idle')",

@@ -4,7 +4,9 @@
   "profileScale": 0.67,
   "profileTranslation": [0, 0.8, 0],
   "rootBone": "eelektrik",
-  "animations": {},
+  "animations": {
+    "cry": "q.bedrock_stateful('eelektrik', 'cry')"
+  },
   "poses": {
     "standing": {
       "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
