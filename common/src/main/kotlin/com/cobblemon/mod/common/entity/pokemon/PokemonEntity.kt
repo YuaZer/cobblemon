@@ -221,6 +221,7 @@ open class PokemonEntity(
         @JvmStatic var SHOWN_HELD_ITEM = SynchedEntityData.defineId(PokemonEntity::class.java, EntityDataSerializers.ITEM_STACK)
         @JvmStatic var RIDE_BOOSTS = SynchedEntityData.defineId(PokemonEntity::class.java, RideBoostsDataSerializer)
         @JvmStatic var RIDE_STAMINA = SynchedEntityData.defineId(PokemonEntity::class.java, EntityDataSerializers.FLOAT)
+        @JvmStatic var SCALE_MODIFIER = SynchedEntityData.defineId(PokemonEntity::class.java, EntityDataSerializers.FLOAT)
 
         const val BATTLE_LOCK = "battle"
         const val EVOLUTION_LOCK = "evolving"
@@ -468,6 +469,7 @@ open class PokemonEntity(
         builder.define(SHOWN_HELD_ITEM, ItemStack.EMPTY)
         builder.define(RIDE_BOOSTS, emptyMap())
         builder.define(RIDE_STAMINA, 1F)
+        builder.define(SCALE_MODIFIER, 1F)
     }
 
     override fun onSyncedDataUpdated(data: EntityDataAccessor<*>) {
@@ -504,6 +506,8 @@ open class PokemonEntity(
                     busyLocks.remove(EVOLUTION_LOCK)
                 }
             }
+
+            SCALE_MODIFIER -> refreshDimensions()
         }
     }
 
@@ -877,6 +881,7 @@ open class PokemonEntity(
         dataResult.resultOrPartial(::error).ifPresent { brain ->
             nbt.put("Brain", brain)
         }
+        nbt.putFloat(DataKeys.POKEMON_SCALE_MODIFIER, entityData.get(SCALE_MODIFIER))
 
         // save active effects
         nbt.put(DataKeys.ENTITY_EFFECTS, effects.saveToNbt(this.level().registryAccess()))
@@ -978,6 +983,10 @@ open class PokemonEntity(
         }
 
         remakeBrain()
+
+        if (nbt.contains(DataKeys.POKEMON_SCALE_MODIFIER)) {
+            entityData.set(SCALE_MODIFIER, nbt.getFloat(DataKeys.POKEMON_SCALE_MODIFIER))
+        }
 
         CobblemonEvents.POKEMON_ENTITY_LOAD.postThen(
             event = PokemonEntityLoadEvent(this, nbt),

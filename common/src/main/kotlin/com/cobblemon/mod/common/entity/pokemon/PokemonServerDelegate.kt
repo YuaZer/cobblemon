@@ -214,6 +214,7 @@ class PokemonServerDelegate : PokemonSideDelegate {
         val trackedMark = entity.pokemon.activeMark?.identifier.toString()
         val trackedAspects = mock?.aspects ?: entity.pokemon.aspects
         val trackedBall = mock?.pokeball ?: entity.pokemon.caughtBall.name.toString()
+        val trackedScaleModifier = mock?.scaleModifier ?: entity.pokemon.scaleModifier
 
         entity.ownerUUID = entity.pokemon.getOwnerUUID()
         entity.entityData.set(PokemonEntity.SPECIES, trackedSpecies)
@@ -235,6 +236,7 @@ class PokemonServerDelegate : PokemonSideDelegate {
 
         entity.entityData.set(PokemonEntity.FRIENDSHIP, entity.pokemon.friendship)
         entity.entityData.set(PokemonEntity.CAUGHT_BALL, trackedBall)
+        entity.entityData.set(PokemonEntity.SCALE_MODIFIER, trackedScaleModifier)
         if (entity.pokemon.rideStamina != entity.entityData.get(PokemonEntity.RIDE_STAMINA) && entity.passengers.isEmpty()) {
             entity.entityData.set(PokemonEntity.RIDE_STAMINA, entity.pokemon.rideStamina)
         }
