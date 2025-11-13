@@ -8509,5 +8509,6 @@
     "cobblemon.config.ui.minimum_level_range_max.tooltip": "プレイヤーの手持ちが空であるか、極端に低レベルの場合に想定される最高パーティポケモンレベル。この値が高いほど、手持ちが空であるか、極端に低レベルプレイヤーの周りに湧くポケモンのレベルが高くなります。",
     "cobblemon.config.ui.minimum_level_range_max": "最小レベル範囲の最大値",
     "cobblemon.config.ui.enable_spawning": "スポーンを有効にする",
-    "cobblemon.config.ui.enable_spawning.tooltip": "ポケモンの出現を許可するか否か。"
+    "cobblemon.config.ui.enable_spawning.tooltip": "ポケモンの出現を許可するか否か。",
+    "cobblemon.battle.prepare.electroshot": "%1$sは 電気を 吸収した！"
 }
