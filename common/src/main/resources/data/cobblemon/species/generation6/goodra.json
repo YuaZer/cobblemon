@@ -373,5 +373,17 @@
       "battleOnly": false
     }
   ],
-  "behaviour": {}
+  "behaviour": {
+    "moving": {
+      "swim": {
+        "canSwimInWater": false
+      }
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
+  }
 }

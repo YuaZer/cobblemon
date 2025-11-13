@@ -175,5 +175,18 @@
     "special:aquaring"
   ],
   "evolutions": [],
-  "behaviour": {}
+  "behaviour": {
+    "moving": {
+      "swim": {
+        "canSwimInWater": false,
+        "canWalkOnWater": true
+      }
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
+  }
 }

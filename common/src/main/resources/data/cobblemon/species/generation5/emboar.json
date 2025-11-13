@@ -55,7 +55,8 @@
         "walkSpeed": 0.2
       },
       "swim": {
-        "avoidsWater": true
+        "avoidsWater": true,
+        "canSwimInWater": false
       }
     },
     "resting": {
@@ -70,6 +71,11 @@
           "tier": 1
         }
       ]
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
     }
   },
   "drops": {
@@ -241,7 +247,7 @@
   "preEvolution": "pignite",
   "evolutions": [],
   "lightingData": {
-    "lightLevel": 6,
+    "lightLevel": 15,
     "liquidGlowMode": "LAND"
   }
 }

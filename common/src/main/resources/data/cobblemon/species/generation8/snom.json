@@ -50,7 +50,8 @@
   "behaviour": {
     "moving": {
       "swim": {
-        "canBreatheUnderwater": true
+        "avoidsWater": true,
+        "canSwimInWater": false
       }
     },
     "herd": {
@@ -64,7 +65,8 @@
     },
     "resting": {
       "willSleepOnBed": true
-    }
+    },
+    "fireImmune": true
   },
   "drops": {
     "amount": 3,

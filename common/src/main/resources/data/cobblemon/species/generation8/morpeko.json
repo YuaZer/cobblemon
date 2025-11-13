@@ -191,7 +191,19 @@
       "behaviour": {
         "resting": {
           "willSleepOnBed": true
-        }
+        },
+        "moving": {
+          "swim": {
+            "avoidsWater": true,
+            "canSwimInWater": false
+          }
+        },
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
+        },
+        "fireImmune": true
       }
     }
   ],
@@ -214,6 +226,17 @@
     },
     "resting": {
       "willSleepOnBed": true
-    }
+    },
+    "moving": {
+      "swim": {
+        "avoidsWater": true,
+        "canSwimInWater": false
+      }
+    },
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
   }
 }

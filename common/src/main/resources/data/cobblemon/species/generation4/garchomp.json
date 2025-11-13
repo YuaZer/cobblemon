@@ -207,7 +207,9 @@
         "canFly": true
       },
       "swim": {
-        "canSwim": true
+        "canSwim": true,
+        "avoidsWater": true,
+        "canSwimInWater": false
       },
       "walk": {
         "walkSpeed": 0.55
@@ -216,7 +218,13 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
-    }
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
   },
   "drops": {
     "amount": 2,
@@ -407,7 +415,22 @@
       "behaviour": {
         "herd": {
           "maxSize": "8"
-        }
+        },
+        "moving": {
+          "swim": {
+            "avoidsWater": true,
+            "canSwimInWater": false
+          },
+          "fly": {
+            "canFly": true
+          }
+        },
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
+        },
+        "fireImmune": true
       },
       "evolutions": [],
       "battleOnly": true,

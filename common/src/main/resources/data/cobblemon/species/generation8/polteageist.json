@@ -168,6 +168,11 @@
     "moving": {
       "fly": {
         "canFly": true
+      },
+      "swim": {
+        "avoidsWater": true,
+        "canSwimInWater": false,
+        "canWalkOnWater": true
       }
     },
     "herd": {
@@ -181,6 +186,12 @@
     },
     "resting": {
       "willSleepOnBed": true
-    }
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
   }
 }

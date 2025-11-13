@@ -169,5 +169,17 @@
     "legacy:toxic"
   ],
   "evolutions": [],
-  "behaviour": {}
+  "behaviour": {
+    "moving": {
+      "swim": {
+        "avoidsWater": true,
+        "canSwimInWater": false
+      }
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
+    }
+  }
 }

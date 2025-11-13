@@ -59,10 +59,20 @@
       },
       "swim": {
         "canWalkOnWater": true,
-        "canBreatheUnderwater": true,
-        "swimSpeed": 0.35
+        "swimSpeed": 0.35,
+        "avoidsWater": true,
+        "canSwimInWater": false
+      },
+      "fly": {
+        "canFly": true
       }
-    }
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
   },
   "drops": {
     "amount": 48,

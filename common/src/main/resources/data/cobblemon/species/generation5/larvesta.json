@@ -57,6 +57,21 @@
           "tier": 1
         }
       ]
+    },
+    "resting": {
+      "times": [
+        "any"
+      ]
+    },
+    "moving": {
+      "swim": {
+        "avoidsWater": true,
+        "canSwimInWater": false
+      }
+    },
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
     }
   },
   "drops": {

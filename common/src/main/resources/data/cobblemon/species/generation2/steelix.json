@@ -52,13 +52,21 @@
   "behaviour": {
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "times": [
+        "any"
+      ]
     },
     "moving": {
       "swim": {
         "avoidsWater": true,
         "canSwimInWater": false
       }
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
     }
   },
   "drops": {
@@ -284,7 +292,24 @@
       "dynamaxBlocked": true,
       "evolutions": [],
       "battleOnly": true,
-      "behaviour": {}
+      "behaviour": {
+        "resting": {
+          "times": [
+            "any"
+          ]
+        },
+        "moving": {
+          "swim": {
+            "avoidsWater": true,
+            "canSwimInWater": false
+          }
+        },
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
+        }
+      }
     }
   ]
 }

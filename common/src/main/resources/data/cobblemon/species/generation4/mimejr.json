@@ -303,6 +303,13 @@
     },
     "resting": {
       "willSleepOnBed": true
-    }
+    },
+    "moving": {
+      "swim": {
+        "avoidsWater": true,
+        "canSwimInWater": false
+      }
+    },
+    "fireImmune": true
   }
 }

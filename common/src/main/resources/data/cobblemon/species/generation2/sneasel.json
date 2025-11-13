@@ -56,8 +56,11 @@
   "behaviour": {
     "moving": {
       "walk": {
-        "canWalk": true,
         "walkSpeed": 0.15
+      },
+      "swim": {
+        "avoidsWater": true,
+        "canSwimInWater": false
       }
     },
     "entityInteract": {
@@ -78,8 +81,17 @@
       ]
     },
     "resting": {
-      "willSleepOnBed": true
-    }
+      "willSleepOnBed": true,
+      "times": [
+        "day"
+      ]
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
   },
   "drops": {
     "amount": 4,
@@ -452,7 +464,22 @@
         },
         "resting": {
           "willSleepOnBed": true
-        }
+        },
+        "moving": {
+          "swim": {
+            "avoidsWater": true,
+            "canSwimInWater": false
+          }
+        },
+        "entityInteract": {
+          "avoidedByCreeper": true
+        },
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
+        },
+        "fireImmune": true
       }
     }
   ]

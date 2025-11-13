@@ -57,7 +57,11 @@
     "resting": {
       "canSleep": true,
       "light": "0-4",
-      "willSleepOnBed": true
+      "willSleepOnBed": true,
+      "depth": "comatose",
+      "times": [
+        "any"
+      ]
     },
     "moving": {
       "swim": {
@@ -67,6 +71,10 @@
     },
     "herd": {
       "maxSize": "2"
+    },
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
     }
   },
   "drops": {
@@ -417,6 +425,23 @@
       "behaviour": {
         "herd": {
           "maxSize": "2"
+        },
+        "resting": {
+          "depth": "comatose",
+          "times": [
+            "any"
+          ],
+          "willSleepOnBed": true
+        },
+        "moving": {
+          "swim": {
+            "avoidsWater": true,
+            "canSwimInWater": false
+          }
+        },
+        "combat": {
+          "willDefendOwner": true,
+          "willFlee": false
         }
       }
     }

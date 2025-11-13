@@ -60,6 +60,10 @@
     "moving": {
       "walk": {
         "walkSpeed": 0.35
+      },
+      "swim": {
+        "avoidsWater": true,
+        "canSwimInWater": false
       }
     },
     "herd": {
@@ -86,6 +90,10 @@
           "tier": 3
         }
       ]
+    },
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
     }
   },
   "drops": {
@@ -404,10 +412,21 @@
               "tier": 3
             }
           ]
-        }
+        },
+        "moving": {
+          "swim": {
+            "avoidsWater": true,
+            "canSwimInWater": false
+          }
+        },
+        "combat": {
+          "willDefendOwner": true,
+          "willFlee": false
+        },
+        "fireImmune": true
       },
       "lightingData": {
-        "lightLevel": 5,
+        "lightLevel": 11,
         "liquidGlowMode": "LAND"
       }
     }
@@ -436,7 +455,7 @@
     }
   },
   "lightingData": {
-    "lightLevel": 7,
+    "lightLevel": 15,
     "liquidGlowMode": "LAND"
   }
 }

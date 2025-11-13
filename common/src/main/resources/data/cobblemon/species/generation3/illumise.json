@@ -55,13 +55,18 @@
         "canFly": true
       },
       "swim": {
-        "canWalkOnWater": true
+        "canWalkOnWater": true,
+        "avoidsWater": true,
+        "canSwimInWater": false
       }
     },
     "resting": {
       "canSleep": true,
       "light": "0-4",
-      "willSleepOnBed": true
+      "willSleepOnBed": true,
+      "times": [
+        "day"
+      ]
     },
     "herd": {
       "maxSize": "2",
@@ -75,7 +80,12 @@
           "tier": 1
         }
       ]
-    }
+    },
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
   },
   "drops": {
     "amount": 2,
@@ -227,7 +237,7 @@
   ],
   "evolutions": [],
   "lightingData": {
-    "lightLevel": 3,
+    "lightLevel": 7,
     "liquidGlowMode": "BOTH"
   }
 }
