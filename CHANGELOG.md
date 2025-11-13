@@ -58,6 +58,9 @@
 - Mooshtanks will switch between their red and brown variant when hit by lightning
 - Smeargle spawns with differing tail colour depending on its [Characteristic](https://bulbapedia.bulbagarden.net/wiki/Characteristic) stat
 - Added smooth level-up animations to the party overlay to replace chat messages.
+- Added `min_perfect_ivs` property to PokemonProperties to specify the minimum number of perfect IVs of the Pokemon.
+- Added `defaultKeyItems` config option to specify which key items players always have.
+- Added `scale_modifier` property to PokemonProperties to modify the scale of the Pokemon.
 
 ### Pokémon Added
 
@@ -608,6 +611,7 @@
 - The Corphish line will now sink in water.
 - Fixed the "use all berry bait" achievement not being progressed
 - Fixed bobber hook and berry sprouts texture sizes causing mipmap issues.
+- Fixed head locator not taking into account scale for positioning.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -672,6 +676,7 @@
 - Added `IVs#getEffectiveBattleTotal()`.
 - Added `IVs.MAX_TOTAL` constant.
 - Added `PokemonStats#total()`.
+- Add `NatureAdapter` for serializing and deserializing Natures using Gson.
 
 ### MoLang & Datapacks
 - The following usages for item predicates can now use item conditions like advancements do, you can learn about them in the [Minecraft wiki](https://minecraft.wiki/w/Advancement_definition#minecraft:filled_bucket)

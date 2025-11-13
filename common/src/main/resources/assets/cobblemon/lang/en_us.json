@@ -2425,6 +2425,8 @@
   "cobblemon.config.ui.drops_after_death_animation.tooltip": "Whether Pokémon drop loot and Minecraft XP after their death animations are finished playing, or instantly upon death like vanilla mobs.",
   "cobblemon.config.ui.ambient_pokemon_cry_ticks": "Ambient Pokémon Cry Ticks",
   "cobblemon.config.ui.ambient_pokemon_cry_ticks.tooltip": "Ticks between Pokémon cries. (Currently unused)",
+  "cobblemon.config.ui.default_key_items": "Default Key Items",
+  "cobblemon.config.ui.default_key_items.tooltip": "The key items that players start with by default.",
   "cobblemon.config.ui.default_box_count": "Default Box Count",
   "cobblemon.config.ui.default_box_count.tooltip": "The number of boxes available in the PC.",
   "cobblemon.config.ui.pokemon_save_interval_seconds": "Pokémon Save Interval Seconds",
