@@ -161,10 +161,10 @@ class SaccharineTreeFeature : Feature<BlockStateConfiguration>(BlockStateConfigu
         // Place bee nest logic
         if (isGenerating) {
             // world gen
-            if (worldGenLevel.random.nextInt(5) == 0) {
+            if (worldGenLevel.random.nextInt(2) == 0) {
                 placeBeeNest(worldGenLevel, potentialBeeNestPositions)
             }
-        } else if (isFlowerNearby(worldGenLevel, origin) && worldGenLevel.random.nextInt(20) == 0) {
+        } else if (isFlowerNearby(worldGenLevel, origin) && worldGenLevel.random.nextInt(10) == 0) {
             // post world gen
             placeBeeNest(worldGenLevel, potentialBeeNestPositions)
         }

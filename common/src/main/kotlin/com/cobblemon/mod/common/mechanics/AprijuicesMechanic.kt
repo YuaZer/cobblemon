@@ -11,6 +11,7 @@ package com.cobblemon.mod.common.mechanics
 import com.cobblemon.mod.common.api.apricorn.Apricorn
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.client.pot.CookingQuality
+import net.minecraft.network.RegistryFriendlyByteBuf
 
 /**
  * Mechanic to hold various properties that motivate aprijuice as a mechanic.
@@ -25,4 +26,61 @@ class AprijuicesMechanic {
     val statPointFlavourThresholds = mutableMapOf<Int, Int>()
     /** Maps stat points for riding stats to what cooking quality that represents. It's for tooltips. */
     val cookingQualityPointThresholds = mutableMapOf<Int, CookingQuality>()
+
+    internal fun encode(buffer: RegistryFriendlyByteBuf) {
+        buffer.writeMap(this.apricornStatEffects,
+            { _, apricorn -> buffer.writeEnum(apricorn) },
+            { _, ridingStats ->
+                buffer.writeMap(ridingStats,
+                    { _, ridingStat -> buffer.writeEnum(ridingStat) },
+                    { _, value -> buffer.writeVarInt(value) }
+                )
+            }
+        )
+
+        buffer.writeMap(this.statPointFlavourThresholds,
+            { _, key -> buffer.writeVarInt(key) },
+            { _, value -> buffer.writeVarInt(value) }
+        )
+
+        buffer.writeMap(this.cookingQualityPointThresholds,
+            { _, key -> buffer.writeVarInt(key) },
+            { _, cookingQuality -> buffer.writeEnum(cookingQuality) }
+        )
+    }
+
+    companion object {
+        internal fun decode(buffer: RegistryFriendlyByteBuf): AprijuicesMechanic {
+            val mechanic = AprijuicesMechanic()
+
+            val decodedApricornStatEffects = buffer.readMap(
+                { buffer.readEnum<Apricorn>(Apricorn::class.java) },
+                {
+                    buffer.readMap(
+                        { buffer.readEnum<RidingStat>(RidingStat::class.java) },
+                        { buffer.readVarInt() }
+                    ).toMutableMap()
+                }
+            ).toMutableMap()
+
+            mechanic.apricornStatEffects.clear()
+            mechanic.apricornStatEffects.putAll(decodedApricornStatEffects)
+
+            val decodedStatPointFlavourThresholds = buffer.readMap(
+                { buffer.readVarInt() },
+                { buffer.readVarInt() }
+            )
+            mechanic.statPointFlavourThresholds.clear()
+            mechanic.statPointFlavourThresholds.putAll(decodedStatPointFlavourThresholds)
+
+            val decodedCookingQualityPointThresholds = buffer.readMap(
+                { buffer.readVarInt() },
+                { buffer.readEnum(CookingQuality::class.java) }
+            )
+            mechanic.cookingQualityPointThresholds.clear()
+            mechanic.cookingQualityPointThresholds.putAll(decodedCookingQualityPointThresholds)
+
+            return mechanic
+        }
+    }
 }
