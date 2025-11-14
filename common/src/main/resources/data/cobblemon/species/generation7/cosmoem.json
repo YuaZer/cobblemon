@@ -100,12 +100,14 @@
       "maxSize": "5"
     },
     "resting": {
-      "depth": "comatose"
+      "depth": "comatose",
+      "times": [
+        "any"
+      ]
     },
     "moving": {
       "swim": {
         "avoidsWater": true,
-        "canSwimInWater": false,
         "canWalkOnWater": true
       },
       "canLook": false

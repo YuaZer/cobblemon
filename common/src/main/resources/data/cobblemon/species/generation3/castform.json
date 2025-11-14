@@ -52,7 +52,6 @@
   "behaviour": {
     "moving": {
       "swim": {
-        "canSwimInWater": false,
         "avoidsWater": true,
         "canWalkOnWater": true
       },
@@ -208,7 +207,6 @@
         "moving": {
           "swim": {
             "avoidsWater": true,
-            "canSwimInWater": false,
             "canWalkOnWater": true
           },
           "fly": {

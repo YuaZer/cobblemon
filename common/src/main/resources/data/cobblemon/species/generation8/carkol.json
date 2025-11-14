@@ -51,8 +51,7 @@
   "behaviour": {
     "moving": {
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
     "herd": {
@@ -71,6 +70,11 @@
     "combat": {
       "willDefendOwner": true,
       "willFlee": false
+    },
+    "resting": {
+      "times": [
+        "any"
+      ]
     }
   },
   "drops": {

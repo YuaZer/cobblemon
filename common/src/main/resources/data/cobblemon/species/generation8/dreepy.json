@@ -65,7 +65,10 @@
     "resting": {
       "canSleep": true,
       "light": "0-4",
-      "willSleepOnBed": true
+      "willSleepOnBed": true,
+      "times": [
+        "167-11833,13702-22299"
+      ]
     },
     "herd": {
       "maxSize": "4",
