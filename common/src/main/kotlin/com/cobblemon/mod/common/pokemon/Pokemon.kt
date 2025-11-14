@@ -1847,6 +1847,11 @@ open class Pokemon : ShowdownIdentifiable {
         moveSet.update()
     }
 
+    fun getBaseRideStat(stat: RidingStat): Float {
+        val behaviours = form.riding.behaviours ?: return 0F
+        return behaviours.values.maxOf { behaviour -> behaviour.stats[stat]?.first?.toFloat() ?: 0F }
+    }
+
     fun getMaxRideBoost(stat: RidingStat): Float {
         val behaviours = form.riding.behaviours ?: return 0F
         // Get the widest range for this stat, max - min, since that's how far it can be boosted in theory.

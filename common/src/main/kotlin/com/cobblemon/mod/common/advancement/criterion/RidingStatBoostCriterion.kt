@@ -23,14 +23,16 @@ class RidingStatBoostContext(val pokemon: PokemonEntity)
 class RidingStatBoostCriterion(
     playerCtx: Optional<ContextAwarePredicate>,
     val rideStat: String,
-    val statValue : Double
+    val statValue : Double,
+    val isMax : Boolean
 ) : SimpleCriterionCondition<RidingStatBoostContext>(playerCtx) {
 
     companion object {
         val CODEC: Codec<RidingStatBoostCriterion> = RecordCodecBuilder.create { it.group(
             EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter { it.playerCtx },
             Codec.STRING.optionalFieldOf("ride_stat", "any").forGetter { it.rideStat },
-            Codec.DOUBLE.optionalFieldOf("stat_value", 0.0).forGetter { it.statValue }
+            Codec.DOUBLE.optionalFieldOf("stat_value", 0.0).forGetter { it.statValue },
+            Codec.BOOL.optionalFieldOf("is_max", false).forGetter { it.isMax }
         ).apply(it, ::RidingStatBoostCriterion) }
     }
 
@@ -38,8 +40,10 @@ class RidingStatBoostCriterion(
         RidingStyle.entries.forEach { ridingStyle ->
             RidingStat.entries.forEach { rideStat ->
                 if (rideStat.name.equals(this.rideStat, true) || this.rideStat == "any") {
-                    val value = context.pokemon.getRideStat(rideStat, ridingStyle, 0.0, 100.0)
-                    if (value >= this.statValue) {
+                    val max = context.pokemon.pokemon.getMaxRideBoost(rideStat).toDouble()
+                    val min = context.pokemon.pokemon.getBaseRideStat(rideStat).toDouble()
+                    val value = context.pokemon.getRideStat(rideStat, ridingStyle, min, max)
+                    if ((value >= this.statValue && this.statValue > 0.0) || value == max || !context.pokemon.pokemon.canAddRideBoost(rideStat)) {
                         return true
                     }
                 }

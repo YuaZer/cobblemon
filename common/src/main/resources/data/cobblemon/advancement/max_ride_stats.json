@@ -21,35 +21,35 @@
       "trigger": "cobblemon:riding_stat_boost",
       "conditions": {
         "ride_stat": "speed",
-        "stat_value": 100.0
+        "is_max": true
       }
     },
 	"max_accel": {
       "trigger": "cobblemon:riding_stat_boost",
       "conditions": {
         "ride_stat": "acceleration",
-        "stat_value": 100.0
+        "is_max": true
       }
     },
 	"max_skill": {
       "trigger": "cobblemon:riding_stat_boost",
       "conditions": {
         "ride_stat": "skill",
-        "stat_value": 100.0
+        "is_max": true
       }
     },
 	"max_jump": {
       "trigger": "cobblemon:riding_stat_boost",
       "conditions": {
         "ride_stat": "jump",
-        "stat_value": 100.0
+        "is_max": true
       }
     },
 	"max_stamina": {
       "trigger": "cobblemon:riding_stat_boost",
       "conditions": {
         "ride_stat": "stamina",
-        "stat_value": 100.0
+        "is_max": true
       }
     }
   },
