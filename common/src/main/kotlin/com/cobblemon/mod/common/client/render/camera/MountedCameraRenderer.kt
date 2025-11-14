@@ -85,7 +85,7 @@ object MountedCameraRenderer {
 
         val offsetQuat = if (vehicleController.isActive()) vehicleController.getRenderOrientation(instance.partialTickTime)
             else Quaternionf()
-                .rotateY((- Mth.lerp(instance.partialTickTime, vehicle.yRotO, vehicle.yRot).toRadians()))
+                .rotateY((Math.PI.toFloat() - Mth.lerp(instance.partialTickTime, vehicle.yRotO, vehicle.yRot).toRadians()))
 
         eyeOffset.add(getFirstPersonOffset(model, locatorName))
         offset.add(
@@ -196,7 +196,7 @@ object MountedCameraRenderer {
         if (Cobblemon.config.disableRoll) {
             // Init the smooth rotation if it has not been set yet.
             if (smoothRotation == null) {
-                smoothRotation = Quaternionf().set(accessor.rotation);
+                smoothRotation = Quaternionf().set(accessor.rotation)
             }
             val rideAngs = newRotation.getEulerAnglesYXZ(Vector3f())
             val cameraAngs = smoothRotation!!.getEulerAnglesYXZ(Vector3f())
