@@ -370,14 +370,20 @@
       ],
       "preEvolution": "sliggoo hisuian",
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
+        },
+        "fireImmune": true
+      }
     }
   ],
   "behaviour": {
     "moving": {
-      "swim": {
-        "canSwimInWater": false
-      }
+      "swim": {}
     },
     "combat": {
       "willDefendSelf": true,

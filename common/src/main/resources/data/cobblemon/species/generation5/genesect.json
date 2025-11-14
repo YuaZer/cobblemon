@@ -272,8 +272,7 @@
     },
     "moving": {
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       },
       "fly": {
         "canFly": true

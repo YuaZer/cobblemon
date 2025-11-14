@@ -60,8 +60,7 @@
     },
     "moving": {
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
     "combat": {
@@ -69,7 +68,12 @@
       "willDefendOwner": true,
       "willFlee": false
     },
-    "fireImmune": true
+    "fireImmune": true,
+    "resting": {
+      "times": [
+        "167-11833,13702-22299"
+      ]
+    }
   },
   "drops": {
     "amount": 1,

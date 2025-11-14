@@ -162,7 +162,6 @@
     "moving": {
       "swim": {
         "avoidsWater": true,
-        "canSwimInWater": false,
         "canWalkOnWater": true
       },
       "fly": {
@@ -174,6 +173,11 @@
       "willDefendOwner": true,
       "willFlee": false
     },
-    "fireImmune": true
+    "fireImmune": true,
+    "resting": {
+      "times": [
+        "any"
+      ]
+    }
   }
 }

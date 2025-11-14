@@ -52,8 +52,7 @@
     "moving": {
       "swim": {
         "avoidsWater": true,
-        "swimSpeed": "0.2",
-        "canSwimInWater": false
+        "swimSpeed": "0.2"
       }
     },
     "combat": {

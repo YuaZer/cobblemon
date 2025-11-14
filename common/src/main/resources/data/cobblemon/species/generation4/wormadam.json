@@ -443,8 +443,7 @@
         "canWalk": false
       },
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
     "fireImmune": true

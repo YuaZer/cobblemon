@@ -332,14 +332,19 @@
           ]
         }
       ],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "combat": {
+          "willDefendOwner": true,
+          "willFlee": false
+        },
+        "fireImmune": true
+      }
     }
   ],
   "behaviour": {
     "moving": {
-      "swim": {
-        "canSwimInWater": false
-      }
+      "swim": {}
     },
     "combat": {
       "willDefendOwner": true,

@@ -59,8 +59,7 @@
     },
     "moving": {
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
     "herd": {
@@ -342,8 +341,7 @@
         },
         "moving": {
           "swim": {
-            "avoidsWater": true,
-            "canSwimInWater": false
+            "avoidsWater": true
           }
         },
         "combat": {

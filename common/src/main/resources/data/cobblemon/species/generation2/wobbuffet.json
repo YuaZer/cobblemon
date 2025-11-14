@@ -59,8 +59,7 @@
         "light": "0-4"
       },
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
     "herd": {

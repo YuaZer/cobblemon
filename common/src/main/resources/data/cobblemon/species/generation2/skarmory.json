@@ -59,8 +59,7 @@
         "canFly": true
       },
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
     "herd": {

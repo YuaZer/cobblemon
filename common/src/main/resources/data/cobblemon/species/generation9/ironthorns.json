@@ -178,7 +178,8 @@
     "moving": {
       "swim": {
         "avoidsWater": true,
-        "canSwimInWater": false
+        "canSwimInWater": false,
+        "canBreatheUnderwater": true
       }
     },
     "combat": {

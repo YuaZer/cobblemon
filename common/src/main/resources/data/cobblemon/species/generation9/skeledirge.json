@@ -59,7 +59,6 @@
     "moving": {
       "swim": {
         "avoidsWater": true,
-        "canSwimInWater": false,
         "canSwimInLava": true
       }
     },

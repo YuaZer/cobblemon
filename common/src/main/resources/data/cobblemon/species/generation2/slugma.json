@@ -60,7 +60,6 @@
       "swim": {
         "canBreatheUnderlava": true,
         "avoidsWater": true,
-        "canSwimInWater": false,
         "canSwimInLava": true
       },
       "walk": {
