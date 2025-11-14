@@ -61,13 +61,15 @@
       },
       "swim": {
         "avoidsWater": true,
-        "canSwimInWater": false,
         "canWalkOnWater": true
       }
     },
     "resting": {
       "canSleep": true,
-      "light": "11-15"
+      "light": "11-15",
+      "times": [
+        "day"
+      ]
     },
     "herd": {
       "maxSize": "7",

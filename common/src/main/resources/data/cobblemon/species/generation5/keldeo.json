@@ -209,7 +209,6 @@
         },
         "moving": {
           "swim": {
-            "canSwimInWater": false,
             "canWalkOnWater": true
           }
         },
@@ -270,7 +269,6 @@
     },
     "moving": {
       "swim": {
-        "canSwimInWater": false,
         "canWalkOnWater": true
       }
     },

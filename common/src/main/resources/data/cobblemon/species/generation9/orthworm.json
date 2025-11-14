@@ -146,8 +146,7 @@
   "behaviour": {
     "moving": {
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
     "combat": {
@@ -155,7 +154,12 @@
       "willDefendOwner": true,
       "willFlee": false
     },
-    "fireImmune": true
+    "fireImmune": true,
+    "resting": {
+      "times": [
+        "any"
+      ]
+    }
   },
   "drops": {
     "amount": 3,

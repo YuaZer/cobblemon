@@ -178,7 +178,6 @@
   "behaviour": {
     "moving": {
       "swim": {
-        "canSwimInWater": false,
         "canWalkOnWater": true
       }
     },

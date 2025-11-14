@@ -62,8 +62,7 @@
     },
     "moving": {
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
     "combat": {
@@ -409,8 +408,7 @@
         },
         "moving": {
           "swim": {
-            "avoidsWater": true,
-            "canSwimInWater": false
+            "avoidsWater": true
           }
         },
         "entityInteract": {
@@ -594,8 +592,7 @@
         },
         "moving": {
           "swim": {
-            "avoidsWater": true,
-            "canSwimInWater": false
+            "avoidsWater": true
           }
         },
         "entityInteract": {
@@ -606,7 +603,12 @@
           "willDefendOwner": true,
           "willFlee": false
         },
-        "fireImmune": true
+        "fireImmune": true,
+        "resting": {
+          "times": [
+            "167-11833,13702-22299"
+          ]
+        }
       }
     }
   ]

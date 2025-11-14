@@ -138,6 +138,11 @@
       "willDefendSelf": true,
       "willDefendOwner": true,
       "willFlee": false
+    },
+    "resting": {
+      "times": [
+        "any"
+      ]
     }
   },
   "lightingData": {

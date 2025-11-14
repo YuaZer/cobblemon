@@ -135,8 +135,8 @@
     "moving": {
       "swim": {
         "avoidsWater": true,
-        "canSwimInWater": false,
-        "canWalkOnWater": true
+        "canWalkOnWater": true,
+        "canBreatheUnderwater": true
       },
       "fly": {
         "canFly": true

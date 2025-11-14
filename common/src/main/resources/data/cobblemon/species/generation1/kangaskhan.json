@@ -55,8 +55,7 @@
         "walkSpeed": 0.23
       },
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
     "resting": {
@@ -349,8 +348,7 @@
         },
         "moving": {
           "swim": {
-            "avoidsWater": true,
-            "canSwimInWater": false
+            "avoidsWater": true
           }
         },
         "combat": {
