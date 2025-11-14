@@ -11,7 +11,9 @@ package com.cobblemon.mod.common.battles
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.api.battles.model.PokemonBattle
 import com.cobblemon.mod.common.api.battles.model.actor.BattleActor
+import com.cobblemon.mod.common.api.storage.StoreCoordinates
 import com.cobblemon.mod.common.api.storage.party.NPCPartyStore
+import com.cobblemon.mod.common.api.storage.party.PartyPosition
 import com.cobblemon.mod.common.api.storage.party.PartyStore
 import com.cobblemon.mod.common.api.storage.party.PlayerPartyStore
 import com.cobblemon.mod.common.battles.actor.PlayerBattleActor
@@ -360,6 +362,12 @@ object BattleBuilder {
         if (npcParty == null) {
             errors.generalErrors += BattleStartError.noParty(npcEntity)
             return errors
+        }
+
+        // Not exactly sure why this is it. For some reason the pokémon's storeCoordinates are never set when dealing with an NPC.
+        // I don't know further along the line to get into why, all I know is that this fixes it.
+        npcParty.forEachIndexed { index, pokemon ->
+            pokemon.storeCoordinates.set(StoreCoordinates(npcParty, PartyPosition(index)))
         }
 
         val npcActor = NPCBattleActor(npcEntity, npcParty, npcEntity.skill ?: npcEntity.npc.skill)
