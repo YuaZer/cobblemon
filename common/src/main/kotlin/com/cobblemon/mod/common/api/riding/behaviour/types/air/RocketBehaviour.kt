@@ -465,7 +465,7 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
         state: RocketState,
         vehicle: PokemonEntity
     ): Boolean {
-        return false
+        return true
     }
 
 

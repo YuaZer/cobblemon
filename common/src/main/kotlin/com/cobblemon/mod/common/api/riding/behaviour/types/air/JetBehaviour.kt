@@ -432,7 +432,7 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         state: JetState,
         vehicle: PokemonEntity
     ): Boolean {
-        return false
+        return true
     }
 
     override fun getRideSounds(
