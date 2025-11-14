@@ -56,7 +56,18 @@
     "entityInteract": {
       "avoidedBySkeleton": true
     },
-    "characteristicRainbow": true
+    "characteristicRainbow": true,
+    "moving": {
+      "swim": {
+        "avoidsWater": true,
+        "canSwimInWater": false
+      }
+    },
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
   },
   "moves": [
     "1:sketch",

@@ -105,10 +105,13 @@
     ]
   },
   "behaviour": {
-    "fireImmune": true,
     "moving": {
       "fly": {
         "canFly": true
+      },
+      "swim": {
+        "avoidsWater": true,
+        "canSwimInWater": false
       }
     },
     "herd": {
@@ -119,6 +122,11 @@
           "tier": 1
         }
       ]
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
     }
   },
   "drops": {
@@ -411,16 +419,30 @@
               "tier": 1
             }
           ]
+        },
+        "moving": {
+          "swim": {
+            "avoidsWater": true,
+            "canSwimInWater": false
+          },
+          "fly": {
+            "canFly": true
+          }
+        },
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
         }
       },
       "lightingData": {
-        "lightLevel": 6,
+        "lightLevel": 12,
         "liquidGlowMode": "LAND"
       }
     }
   ],
   "lightingData": {
-    "lightLevel": 8,
+    "lightLevel": 15,
     "liquidGlowMode": "LAND"
   }
 }

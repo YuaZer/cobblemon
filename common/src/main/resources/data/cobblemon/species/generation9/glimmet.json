@@ -56,10 +56,8 @@
       },
       "swim": {
         "avoidsWater": true,
-        "canSwimInWater": false
-      },
-      "walk": {
-        "canWalk": false
+        "canSwimInWater": false,
+        "canWalkOnWater": true
       }
     },
     "resting": {
@@ -79,7 +77,12 @@
           "tier": 2
         }
       ]
-    }
+    },
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
   },
   "drops": {
     "amount": 3,

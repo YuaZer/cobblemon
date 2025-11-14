@@ -61,6 +61,17 @@
           "tier": 1
         }
       ]
+    },
+    "moving": {
+      "swim": {
+        "avoidsWater": true,
+        "canSwimInWater": false
+      }
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
     }
   },
   "drops": {
@@ -265,7 +276,7 @@
   "preEvolution": "monferno",
   "evolutions": [],
   "lightingData": {
-    "lightLevel": 6,
+    "lightLevel": 14,
     "liquidGlowMode": "LAND"
   }
 }

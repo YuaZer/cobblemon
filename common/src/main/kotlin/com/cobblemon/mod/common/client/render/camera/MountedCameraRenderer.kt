@@ -146,10 +146,6 @@ object MountedCameraRenderer {
         frameTime = if (lastHandledRotationTime != Double.Companion.MIN_VALUE) d - lastHandledRotationTime else 0.0
         lastHandledRotationTime = d
 
-        // Do no camera rotations if the game is paused
-        if(Minecraft.getInstance().isPaused) return false;
-
-
         // Don't assume the camera to be attached to an entity. Ponder Scenes from create et.al. for example aren't.
         if (accessor.entity == null) return false
         val vehicle: Entity? = accessor.entity.vehicle
@@ -216,8 +212,11 @@ object MountedCameraRenderer {
             val cutoffPitch = min(1.0, (Mth.abs(pitchDeg) / (90.0f - pitchDeadzoneDeg))) * 90.0f * sign(pitchDeg)
             val lerpRateMod = Mth.cos(Math.toRadians(cutoffPitch).toFloat())
 
-            // Apply smoothing from the cameras current yaw to the yaw of the velocity vector of the ride.
-            val k = 10.0f // Some smoothing constant k
+            // Apply smoothing from the cameras current yaw to the yaw of the velocity
+            // vector of the ride
+
+            // Some smoothing constant k. 0.0 when game is paused to prevent lerping when game isn't running.
+            val k = if(Minecraft.getInstance().isPaused) 0.0f else 10.0f
             val smoothingFactor: Double = lerpRateMod * frameTime * k
             val newYaw = cameraAngs.y() + (Math.toRadians(degDiff.toDouble()) * smoothingFactor)
 
@@ -234,7 +233,6 @@ object MountedCameraRenderer {
                 cameraAngs.z().toDouble(),
                 Math.abs(lerpRateMod) * sin(rideAngs.z()) * maxRoll
             ).toFloat()
-
 
             // Set rotations
             val smoothedRot = Quaternionf().rotateYXZ(newYaw.toFloat(), newPitch.toFloat(), newRoll)
@@ -289,8 +287,8 @@ object MountedCameraRenderer {
         }
 
         if (returnTimer < 1f) {
-            //Rotation is taken from entity since we no longer handle mouse ourselves
-            //Stops a period of time when you can't input anything.
+            // Rotation is taken from entity since we no longer handle mouse ourselves
+            // Stops a period of time when you can't input anything.
             val interpolatedRoll = Mth.lerp(returnTimer, rollAngleStart, 0.0f)
             val pitch = Math.toRadians(-accessor.entity.xRot.toDouble()).toFloat()
             val yaw = Math.toRadians((180 - accessor.entity.yRot).toDouble()).toFloat()

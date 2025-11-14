@@ -52,7 +52,12 @@
   "behaviour": {
     "moving": {
       "swim": {
-        "canSwimInWater": true
+        "canSwimInWater": false,
+        "avoidsWater": true,
+        "canWalkOnWater": true
+      },
+      "fly": {
+        "canFly": true
       }
     },
     "herd": {
@@ -78,7 +83,12 @@
     },
     "resting": {
       "willSleepOnBed": true
-    }
+    },
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
   },
   "drops": {
     "amount": 1,

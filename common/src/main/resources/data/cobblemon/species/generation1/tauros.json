@@ -177,11 +177,17 @@
     },
     "moving": {
       "swim": {
-        "canSwimInLava": false,
-        "canSwimInWater": true,
-        "swimSpeed": "0.25"
+        "canSwimInWater": false,
+        "swimSpeed": "0.25",
+        "avoidsWater": true
       }
-    }
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
   },
   "drops": {
     "amount": 5,
@@ -467,7 +473,49 @@
           }
         ]
       },
-      "behaviour": {},
+      "behaviour": {
+        "moving": {
+          "swim": {
+            "avoidsWater": true,
+            "canSwimInWater": false
+          }
+        },
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
+        },
+        "herd": {
+          "maxSize": "9",
+          "toleratedLeaders": [
+            {
+              "pokemon": "bouffalant",
+              "tier": 1
+            },
+            {
+              "pokemon": "miltank",
+              "tier": 2
+            },
+            {
+              "pokemon": "tauros",
+              "tier": 3
+            },
+            {
+              "pokemon": "tauros bull_breed=combat",
+              "tier": 3
+            },
+            {
+              "pokemon": "tauros bull_breed=aqua",
+              "tier": 4
+            },
+            {
+              "pokemon": "tauros bull_breed=blaze",
+              "tier": 4
+            }
+          ]
+        },
+        "fireImmune": true
+      },
       "moves": [
         "1:tackle",
         "1:tailwhip",
@@ -696,6 +744,17 @@
               "tier": 1
             }
           ]
+        },
+        "moving": {
+          "swim": {
+            "avoidsWater": true,
+            "canSwimInWater": false
+          }
+        },
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
         }
       },
       "moves": [
@@ -950,7 +1009,13 @@
               "tier": 1
             }
           ]
-        }
+        },
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
+        },
+        "fireImmune": true
       },
       "moves": [
         "1:tackle",

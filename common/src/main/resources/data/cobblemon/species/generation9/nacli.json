@@ -62,6 +62,10 @@
       "canSleep": true,
       "light": "0-4",
       "willSleepOnBed": true
+    },
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
     }
   },
   "drops": {

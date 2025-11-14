@@ -57,9 +57,15 @@
     "moving": {
       "swim": {
         "canWalkOnWater": true,
-        "canBreatheUnderwater": true
+        "canSwimInWater": false
       }
-    }
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
   },
   "moves": [
     "1:leer",

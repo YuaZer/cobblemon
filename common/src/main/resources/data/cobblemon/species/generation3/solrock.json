@@ -49,17 +49,14 @@
     "fixed": false
   },
   "behaviour": {
-    "fireImmune": true,
     "moving": {
-      "walk": {
-        "canWalk": false
-      },
       "fly": {
         "canFly": true
       },
       "swim": {
         "avoidsWater": true,
-        "canSwimInWater": false
+        "canSwimInWater": false,
+        "canWalkOnWater": true
       }
     },
     "resting": {
@@ -77,6 +74,11 @@
           "tier": 1
         }
       ]
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
     }
   },
   "drops": {

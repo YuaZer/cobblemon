@@ -55,6 +55,18 @@
     },
     "herd": {
       "maxSize": "7"
+    },
+    "moving": {
+      "swim": {
+        "avoidsWater": true,
+        "canSwimInWater": false,
+        "canSwimInLava": true
+      }
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
     }
   },
   "drops": {
@@ -172,7 +184,7 @@
   "preEvolution": "crocalor",
   "evolutions": [],
   "lightingData": {
-    "lightLevel": 8,
+    "lightLevel": 15,
     "liquidGlowMode": "LAND"
   }
 }

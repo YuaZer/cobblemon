@@ -56,10 +56,9 @@
         "canFly": true
       },
       "swim": {
-        "canSwimInWater": true,
-        "canSwimInLava": false,
-        "canBreatheUnderwater": true,
-        "swimSpeed": "0.2"
+        "canSwimInWater": false,
+        "swimSpeed": "0.2",
+        "avoidsWater": true
       }
     },
     "walk": {
@@ -73,7 +72,13 @@
           "tier": 1
         }
       ]
-    }
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true
   },
   "drops": {
     "amount": 3,
