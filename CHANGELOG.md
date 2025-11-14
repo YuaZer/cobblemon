@@ -61,6 +61,7 @@
 - Added `min_perfect_ivs` property to PokemonProperties to specify the minimum number of perfect IVs of the Pokemon.
 - Added `defaultKeyItems` config option to specify which key items players always have.
 - Added `scale_modifier` property to PokemonProperties to modify the scale of the Pokemon.
+- Added advancement trigger to check riding stat boosts.
 
 ### Pokémon Added
 
@@ -684,6 +685,7 @@
 - Added `IVs.MAX_TOTAL` constant.
 - Added `PokemonStats#total()`.
 - Add `NatureAdapter` for serializing and deserializing Natures using Gson.
+- Added `Pokemon.getBaseRideStat(RidingStat)` for getting the base value of the given stat.
 
 ### MoLang & Datapacks
 - The following usages for item predicates can now use item conditions like advancements do, you can learn about them in the [Minecraft wiki](https://minecraft.wiki/w/Advancement_definition#minecraft:filled_bucket)
