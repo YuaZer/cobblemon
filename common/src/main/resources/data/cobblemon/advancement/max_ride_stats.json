@@ -3,7 +3,7 @@
     "icon": {
       "id": "cobblemon:aprijuice_white",
       "components": {
-        "cobblemon:flavour": { "flavours": { "SOUR":69} }
+        "cobblemon:ride_boosts": {"boosts":{"STAMINA":69}}
       }
     },
     "title": {
