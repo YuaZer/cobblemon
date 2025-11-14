@@ -324,7 +324,7 @@ class CobblemonConfig {
     var infiniteRideStamina = false
 
     @CobblemonConfigField(Category.Riding, lang = "remember_riding_camera", CLIENT)
-    var rememberRidingCamera = true
+    var rememberRidingCamera = false
 
     @CobblemonConfigField(Category.Debug, lang = "enable_debug_keys", CLIENT)
     var enableDebugKeys = true
