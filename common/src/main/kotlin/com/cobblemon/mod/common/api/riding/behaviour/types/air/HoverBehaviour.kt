@@ -207,6 +207,7 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         input: Vec3
     ): Vec3 {
         val retVel = calculateRideSpaceVel(settings, state, vehicle, driver)
+        state.rideVelocity.set(retVel)
         return retVel
     }
 
@@ -228,8 +229,8 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         }
 
         // align the velocity vector to be in local vehicle space
-        val yawAligned = Matrix3f().rotateY(vehicle.yRot.toRadians())
-        newVelocity = (newVelocity.toVector3f().mul(yawAligned)).toVec3d()
+//        val yawAligned = Matrix3f().rotateY(vehicle.yRot.toRadians())
+//        newVelocity = (newVelocity.toVector3f().mul(yawAligned)).toVec3d()
 
         // Vertical movement based on driver input.
         val vertInput = when {
@@ -274,9 +275,6 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
 
         // Check to see if this new velocity will exceed top speed and if it will then cap it
         newVelocity = if (newVelocity.length() > topSpeed) newVelocity.normalize().scale(topSpeed) else newVelocity
-
-        val revertYawAligned = Matrix3f().rotateY(-vehicle.yRot.toRadians())
-        state.rideVelocity.set((newVelocity.toVector3f().mul(revertYawAligned)).toVec3d())
 
         return newVelocity
     }
