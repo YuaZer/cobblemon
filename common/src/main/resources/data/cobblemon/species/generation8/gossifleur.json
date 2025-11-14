@@ -55,8 +55,7 @@
         "walkSpeed": 0.28
       },
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       },
       "fly": {
         "canFly": true

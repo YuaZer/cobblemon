@@ -54,8 +54,7 @@
     "moving": {
       "swim": {
         "canWalkOnWater": true,
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       },
       "fly": {
         "canFly": true

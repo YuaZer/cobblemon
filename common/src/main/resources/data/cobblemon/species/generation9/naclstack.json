@@ -60,7 +60,10 @@
     },
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "times": [
+        "any"
+      ]
     },
     "combat": {
       "willDefendOwner": true,

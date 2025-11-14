@@ -54,7 +54,6 @@
         "walkSpeed": "0.2"
       },
       "swim": {
-        "canSwimInWater": false,
         "swimSpeed": "0.2",
         "avoidsWater": true
       }
@@ -66,7 +65,12 @@
       "willDefendOwner": true,
       "willFlee": false
     },
-    "fireImmune": true
+    "fireImmune": true,
+    "resting": {
+      "times": [
+        "day"
+      ]
+    }
   },
   "drops": {
     "amount": 2,

@@ -56,8 +56,8 @@
         "rideSounds": [],
         "stats": {
           "ACCELERATION": "15-50",
-          "JUMP": "20-40",
-          "SKILL": "10-25",
+          "JUMP": "25-35",
+          "SKILL": "10-30",
           "SPEED": "55-75",
           "STAMINA": "35-55"
         }
@@ -177,7 +177,6 @@
     },
     "moving": {
       "swim": {
-        "canSwimInWater": false,
         "swimSpeed": "0.25",
         "avoidsWater": true
       }
@@ -384,8 +383,8 @@
             "rideSounds": [],
             "stats": {
               "ACCELERATION": "15-50",
-              "JUMP": "20-40",
-              "SKILL": "10-25",
+              "JUMP": "25-35",
+              "SKILL": "10-30",
               "SPEED": "55-75",
               "STAMINA": "35-55"
             }
@@ -476,8 +475,7 @@
       "behaviour": {
         "moving": {
           "swim": {
-            "avoidsWater": true,
-            "canSwimInWater": false
+            "avoidsWater": true
           }
         },
         "combat": {
@@ -646,8 +644,8 @@
             "rideSounds": [],
             "stats": {
               "ACCELERATION": "20-55",
-              "JUMP": "20-45",
-              "SKILL": "10-25",
+              "JUMP": "25-40",
+              "SKILL": "10-30",
               "SPEED": "55-75",
               "STAMINA": "30-50"
             }
@@ -747,8 +745,7 @@
         },
         "moving": {
           "swim": {
-            "avoidsWater": true,
-            "canSwimInWater": false
+            "avoidsWater": true
           }
         },
         "combat": {
@@ -892,8 +889,8 @@
             "rideSounds": [],
             "stats": {
               "ACCELERATION": "15-50",
-              "JUMP": "20-35",
-              "SKILL": "10-25",
+              "JUMP": "25-30",
+              "SKILL": "10-30",
               "SPEED": "50-70",
               "STAMINA": "40-60"
             }
@@ -914,7 +911,7 @@
               "JUMP": "20-30",
               "SKILL": "40-55",
               "SPEED": "30-40",
-              "STAMINA": "30-60"
+              "STAMINA": "30-65"
             }
           }
         },

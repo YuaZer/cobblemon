@@ -113,7 +113,7 @@
       "animations": [
         "q.look('neck', 0.5, 1, 10, -10, 20, -20)",
         "q.look('head', 1, 0.25, 10, -15, 5, -5)",
-        "q.bedrock('dragonite', 'water_swim')",
+        "q.bedrock('dragonite', 'air_glide')",
         {
           "condition": "q.is_ridden && q.has_entity",
           "animation": "q.bedrock('dragonite', 'ride_air_fly')"

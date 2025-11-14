@@ -175,8 +175,7 @@
         "walkSpeed": 0.27
       },
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
     "resting": {

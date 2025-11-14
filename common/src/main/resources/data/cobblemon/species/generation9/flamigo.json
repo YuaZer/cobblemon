@@ -58,8 +58,7 @@
         "canFly": true
       },
       "swim": {
-        "swimSpeed": 0.16,
-        "canSwimInWater": false
+        "swimSpeed": 0.16
       }
     },
     "resting": {

@@ -147,10 +147,14 @@
   "behaviour": {
     "moving": {
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
-    "fireImmune": true
+    "fireImmune": true,
+    "resting": {
+      "times": [
+        "day"
+      ]
+    }
   }
 }

@@ -56,7 +56,6 @@
       },
       "swim": {
         "canWalkOnWater": true,
-        "canSwimInWater": false,
         "swimSpeed": "0.2",
         "avoidsWater": true
       },

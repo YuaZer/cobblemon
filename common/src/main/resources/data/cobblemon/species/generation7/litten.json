@@ -58,13 +58,15 @@
         "walkSpeed": 0.13
       },
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
     "resting": {
       "canSleep": true,
-      "willSleepOnBed": true
+      "willSleepOnBed": true,
+      "times": [
+        "167-11833,13702-22299"
+      ]
     },
     "entityInteract": {
       "avoidedByCreeper": true,

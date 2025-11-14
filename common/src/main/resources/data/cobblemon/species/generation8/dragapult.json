@@ -91,6 +91,17 @@
           "SPEED": "10-40",
           "STAMINA": "10-40"
         }
+      },
+      "LIQUID": {
+        "key": "cobblemon:liquid/dolphin",
+        "rideSounds": [],
+        "stats": {
+          "ACCELERATION": "50-75",
+          "JUMP": "25-50",
+          "SKILL": "30-65",
+          "SPEED": "25-45",
+          "STAMINA": "25-50"
+        }
       }
     },
     "seats": [
@@ -189,6 +200,9 @@
       "fly": {
         "canFly": true
       },
+      "walk": {
+        "canWalk": true
+      },
       "swim": {
         "canBreatheUnderwater": true,
         "canWalkOnWater": true,
@@ -197,7 +211,10 @@
     },
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "times": [
+        "167-11833,13702-22299"
+      ]
     },
     "combat": {
       "willDefendSelf": true,
