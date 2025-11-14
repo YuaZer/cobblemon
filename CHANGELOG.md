@@ -61,6 +61,7 @@
 - Added `min_perfect_ivs` property to PokemonProperties to specify the minimum number of perfect IVs of the Pokemon.
 - Added `defaultKeyItems` config option to specify which key items players always have.
 - Added `scale_modifier` property to PokemonProperties to modify the scale of the Pokemon.
+- Added Tasty Tail which you can get from Slowpokes if you happen to have a pair of shears. They don't mind, we asked.
 
 ### Pokémon Added
 
