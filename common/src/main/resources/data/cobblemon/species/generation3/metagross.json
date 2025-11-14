@@ -418,7 +418,6 @@
       },
       "swim": {
         "avoidsWater": true,
-        "canSwimInWater": false,
         "canWalkOnWater": true
       },
       "walk": {
@@ -656,7 +655,6 @@
         "moving": {
           "swim": {
             "avoidsWater": true,
-            "canSwimInWater": false,
             "canWalkOnWater": true
           },
           "fly": {

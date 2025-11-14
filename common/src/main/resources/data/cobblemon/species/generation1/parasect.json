@@ -163,8 +163,7 @@
       },
       "wanderChance": 20,
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
     "resting": {

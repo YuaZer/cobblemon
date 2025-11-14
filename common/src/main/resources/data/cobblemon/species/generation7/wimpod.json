@@ -53,11 +53,13 @@
     "resting": {
       "canSleep": true,
       "light": "0-4",
-      "willSleepOnBed": true
+      "willSleepOnBed": true,
+      "times": [
+        "any"
+      ]
     },
     "moving": {
       "swim": {
-        "canSwimInWater": false,
         "canBreatheUnderwater": true,
         "swimSpeed": "0.2"
       }

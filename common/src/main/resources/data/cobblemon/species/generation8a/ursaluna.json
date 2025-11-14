@@ -230,8 +230,7 @@
         "walkSpeed": 0.28
       },
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
     "resting": {
@@ -479,7 +478,12 @@
         "herd": {
           "maxSize": "5"
         },
-        "fireImmune": true
+        "fireImmune": true,
+        "resting": {
+          "times": [
+            "day"
+          ]
+        }
       },
       "moves": [
         "1:scratch",

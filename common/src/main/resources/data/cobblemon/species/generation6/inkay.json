@@ -74,7 +74,10 @@
       ]
     },
     "resting": {
-      "willSleepOnBed": true
+      "willSleepOnBed": true,
+      "times": [
+        "day"
+      ]
     },
     "combat": {
       "willDefendOwner": true,

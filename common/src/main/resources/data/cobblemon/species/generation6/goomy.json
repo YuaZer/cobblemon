@@ -238,9 +238,7 @@
       "willSleepOnBed": true
     },
     "moving": {
-      "swim": {
-        "canSwimInWater": false
-      }
+      "swim": {}
     },
     "combat": {
       "willDefendOwner": true,

@@ -61,8 +61,7 @@
       },
       "swim": {
         "swimSpeed": 0.15,
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
     "resting": {

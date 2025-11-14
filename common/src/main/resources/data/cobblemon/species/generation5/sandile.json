@@ -60,8 +60,7 @@
         "walkSpeed": "q.is_standing_on_blocks(2, 'minecraft:sand', 'minecraft:red_sand') ? 0.30 : 0.15"
       },
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
     "herd": {

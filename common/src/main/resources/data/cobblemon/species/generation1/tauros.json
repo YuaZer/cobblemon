@@ -177,7 +177,6 @@
     },
     "moving": {
       "swim": {
-        "canSwimInWater": false,
         "swimSpeed": "0.25",
         "avoidsWater": true
       }
@@ -476,8 +475,7 @@
       "behaviour": {
         "moving": {
           "swim": {
-            "avoidsWater": true,
-            "canSwimInWater": false
+            "avoidsWater": true
           }
         },
         "combat": {
@@ -747,8 +745,7 @@
         },
         "moving": {
           "swim": {
-            "avoidsWater": true,
-            "canSwimInWater": false
+            "avoidsWater": true
           }
         },
         "combat": {

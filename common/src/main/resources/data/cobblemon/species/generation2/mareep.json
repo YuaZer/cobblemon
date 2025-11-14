@@ -57,8 +57,7 @@
         "walkSpeed": "q.has_aspect('sheared') ? 0.25 : 0.2"
       },
       "swim": {
-        "avoidsWater": true,
-        "canSwimInWater": false
+        "avoidsWater": true
       }
     },
     "resting": {

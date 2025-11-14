@@ -50,7 +50,6 @@
   "behaviour": {
     "moving": {
       "swim": {
-        "canSwimInWater": false,
         "avoidsWater": true
       },
       "canLook": false

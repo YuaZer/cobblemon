@@ -56,8 +56,7 @@
     },
     "moving": {
       "swim": {
-        "canWalkOnWater": true,
-        "canSwimInWater": false
+        "canWalkOnWater": true
       }
     },
     "combat": {
