@@ -807,7 +807,6 @@
   "cobblemon.seasoning_flavor_header": "Flavor",
   "cobblemon.seasoning_bait_effect_info_header": "Bait Info:",
   "cobblemon.seasoning_mob_effect_info_header": "Effect Info:",
-  "cobblemon.seasoning_food_info_header": "Nutrition Info:",
   "cobblemon.seasoning_flavor_info_header": "Flavor Info:",
   "cobblemon.seasoning_ride_boosts_info_header": "Riding Stat Boosts:",
   "cobblemon.seasoning_ride_boost_entry": "%1$s: %2$s",
@@ -821,8 +820,6 @@
   "cobblemon.cooking.cooking_quality.low": "Low",
   "cobblemon.cooking.cooking_quality.medium": "Medium",
   "cobblemon.cooking.cooking_quality.high": "High",
-  "cobblemon.tooltip.food.hunger": "Hunger: %s",
-  "cobblemon.tooltip.food.saturation": "Saturation: %s",
   "cobblemon.tooltip.mob_effect_entry": "%1$s %2$s (%3$s)",
 
   "cobblemon.fossil.armor": "Armor",
