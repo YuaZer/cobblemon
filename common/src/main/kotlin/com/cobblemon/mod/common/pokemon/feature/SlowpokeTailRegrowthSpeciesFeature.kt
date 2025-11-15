@@ -83,7 +83,6 @@ class SlowpokeTailRegrowthSpeciesFeature(var regrowthSeconds: Int = 0) : Species
         pokemon: Pokemon,
         entity: PokemonEntity?
     ) {
-        if (world.gameTime % 20 != 0L) return // Only tick every second
         if (regrowthSeconds <= 0) return
         if (CobblemonMechanics.slowpokeTails.onlyRegrowWhenSentOut && entity == null) return
         // if they're sent out and parameter entity is null, the party ticker is running this - leave it for the entity delegate ticker
