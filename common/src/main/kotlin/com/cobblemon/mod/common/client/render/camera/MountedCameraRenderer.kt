@@ -65,6 +65,8 @@ object MountedCameraRenderer {
             Mth.lerp(instance.partialTickTime.toDouble(), vehicle.yOld, vehicle.y),
             Mth.lerp(instance.partialTickTime.toDouble(), vehicle.zOld, vehicle.z)
         )
+
+        // Sets up the pokemon's locators so when the camera and pokemon are calculated for rendering they use the same partialTickTime.
         MountedPokemonAnimationRenderController.setup(vehicle, instance.partialTickTime)
         val rollable = vehicle as OrientationControllable
         val vehicleController = rollable.getOrientationController()
@@ -79,15 +81,11 @@ object MountedCameraRenderer {
         val offset = Vector3f(0f, (currEyeHeight - (driver.bbHeight / 2)).toFloat(), 0f)
         val eyeOffset = Vector3f(0f, (currEyeHeight - (driver.bbHeight / 2)).toFloat(), 0f)
 
-        // Get additional offset from poser and add to the eyeHeight offset
         val shouldFlip = !(vehicleController.active && vehicleController.orientation != null) // Do not flip the offset for 3rd person reverse unless we are using normal mc camera rotation.
         val isFirstPerson = Minecraft.getInstance().options.cameraType == CameraType.FIRST_PERSON
 
-        val offsetQuat = if (vehicleController.isActive()) vehicleController.getRenderOrientation(instance.partialTickTime)
-            else Quaternionf()
-                .rotateY((Math.PI.toFloat() - Mth.lerp(instance.partialTickTime, vehicle.yRotO, vehicle.yRot).toRadians()))
-
         eyeOffset.add(getFirstPersonOffset(model, locatorName))
+        // Get the offset based on first person, third person, or third person with view bobbing enabled from the posers.
         offset.add(
             if (isFirstPerson) {
                 getFirstPersonOffset(model, locatorName)
@@ -98,14 +96,18 @@ object MountedCameraRenderer {
             }
         )
 
-        // Grab the pokemon's orientation to use as the offset rotation.
-        offsetQuat.transform(offset)
-        offsetQuat.transform(eyeOffset)
+        val rotation =
+            if (vehicleController.isActive()) vehicleController.getRenderOrientation(instance.partialTickTime)
+            else Quaternionf()
+                .rotateY((Math.PI.toFloat() - Mth.lerp(instance.partialTickTime, vehicle.yRotO, vehicle.yRot).toRadians()))
+
+        rotation.transform(offset)
+        rotation.transform(eyeOffset)
 
         val eyeLocatorOffset = Vec3(locator.matrix.getTranslation(Vector3f()))
         val eyePos = eyeLocatorOffset.add(entityPos).toVector3f()
 
-        // Get the camera position. If 3rd person viewbobbing is enabled or the player is
+        // Get the camera position before offsets are applied (which are done with maxZoom to account for clipping). If 3rd person viewbobbing is enabled or the player is
         // in first person then base the camera position off the seat locator offset
         val pos = if (isFirstPerson || Cobblemon.config.thirdPersonViewBobbing) {
                 val locatorOffset = Vec3(locator.matrix.getTranslation(Vector3f()))
@@ -117,7 +119,7 @@ object MountedCameraRenderer {
                 val pivot = Vector3f(pokemonCenter)
                 val locatorName = delegate.getSeatLocator(driver)
                 if (pivotOffsets.containsKey(locatorName)) {
-                    pivot.add(offsetQuat.transform(pivotOffsets[locatorName]!!.toVector3f()))
+                    pivot.add(rotation.transform(pivotOffsets[locatorName]!!.toVector3f()))
                 }
                 pivot.add(entityPos.toVector3f())
             }
@@ -137,7 +139,7 @@ object MountedCameraRenderer {
         return Vec3(offsetDirection.mul(maxZoom).add(pos))
     }
 
-    // Return value determines whether vanilla rotations are applied
+    // Return value is false if the vanilla camera rotations should be applied.
     fun setRotation(instance: Camera): Boolean {
         val cameraDuck = instance as CameraDuck
 
@@ -154,7 +156,6 @@ object MountedCameraRenderer {
         // vanilla camera rotations
         val vehicleController = vehicle.getOrientationController()
         if (vehicleController.orientation == null) return false
-
 
         // If the controller has been deactivated but the orientation isn't null yet
         // then perform transition from rolled ride/camera to vanilla
@@ -195,7 +196,7 @@ object MountedCameraRenderer {
         if (Cobblemon.config.disableRoll) {
             // Init the smooth rotation if it has not been set yet.
             if (smoothRotation == null) {
-                smoothRotation = Quaternionf().set(cameraDuck.`cobblemon$getRotation`())
+                smoothRotation = Quaternionf().set(instance.rotation())
             }
             val rideAngs = newRotation.getEulerAnglesYXZ(Vector3f())
             val cameraAngs = smoothRotation!!.getEulerAnglesYXZ(Vector3f())
@@ -241,7 +242,7 @@ object MountedCameraRenderer {
         }
 
         var rotationOffset = 0
-        if (Minecraft.getInstance().options.getCameraType().isMirrored()) {
+        if (Minecraft.getInstance().options.cameraType.isMirrored) {
             newRotation.rotateY(Math.toRadians(180.0).toFloat())
             rotationOffset = 180
         }
@@ -260,20 +261,12 @@ object MountedCameraRenderer {
                 )
             ).normal(Matrix3f()).getNormalizedRotation(Quaternionf())
         }
-        cameraDuck.`cobblemon$getRotation`().set(newRotation)
         val eulerAngs = newRotation.getEulerAnglesYXZ(Vector3f())
-        cameraDuck.`cobblemon$setXRot`(eulerAngs.x() * Mth.RAD_TO_DEG)
-        cameraDuck.`cobblemon$setYRot`(eulerAngs.y() * Mth.RAD_TO_DEG)
+        setCameraRotations(newRotation, instance, cameraDuck)
 
         // Set the drivers rotations to match
-        val driverEulerAngs: Vector3f = Quaternionf(cameraDuck.`cobblemon$getRotation`()).getEulerAnglesYXZ(Vector3f())
-        driver.xRot = -driverEulerAngs.x() * Mth.RAD_TO_DEG + rotationOffset
-        driver.yRot = 180.0f - (driverEulerAngs.y() * Mth.RAD_TO_DEG)
-
-        val cameraRotation = cameraDuck.`cobblemon$getRotation`()
-        FORWARDS.rotate(cameraRotation, cameraDuck.`cobblemon$getForwards`())
-        UP.rotate(cameraRotation, cameraDuck.`cobblemon$getUp`())
-        LEFT.rotate(cameraRotation, cameraDuck.`cobblemon$getLeft`())
+        driver.xRot = -eulerAngs.x() * Mth.RAD_TO_DEG + rotationOffset
+        driver.yRot = 180.0f - (eulerAngs.y() * Mth.RAD_TO_DEG)
     }
 
     private fun applyTransitionRotation(
@@ -297,15 +290,7 @@ object MountedCameraRenderer {
             val interRot = Quaternionf()
             interRot.rotationYXZ(yaw, pitch, interpolatedRoll)
 
-            cameraDuck.`cobblemon$getRotation`().set(interRot)
-            val eulerAngs = interRot.getEulerAnglesYXZ(Vector3f())
-            cameraDuck.`cobblemon$setXRot`(eulerAngs.x() * Mth.RAD_TO_DEG)
-            cameraDuck.`cobblemon$setYRot`(eulerAngs.y() * Mth.RAD_TO_DEG)
-
-            val cameraRotation = cameraDuck.`cobblemon$getRotation`()
-            FORWARDS.rotate(cameraRotation, cameraDuck.`cobblemon$getForwards`())
-            UP.rotate(cameraRotation, cameraDuck.`cobblemon$getUp`())
-            LEFT.rotate(cameraRotation, cameraDuck.`cobblemon$getLeft`())
+            setCameraRotations(interRot, instance, cameraDuck)
 
             if (rollAngleStart == 0f) {
                 rollAngleStart = 1f
@@ -394,5 +379,17 @@ object MountedCameraRenderer {
         }
 
         return maxZoom
+    }
+
+    private fun setCameraRotations(rotation: Quaternionf, instance: Camera, duck: CameraDuck) {
+        val eulerAngs = rotation.getEulerAnglesYXZ(Vector3f())
+        val cameraRotation = instance.rotation()
+        cameraRotation.rotationYXZ(eulerAngs.y, eulerAngs.x, eulerAngs.z)
+        duck.`cobblemon$setXRot`(eulerAngs.x() * Mth.RAD_TO_DEG)
+        duck.`cobblemon$setYRot`(eulerAngs.y() * Mth.RAD_TO_DEG)
+
+        FORWARDS.rotate(rotation, duck.`cobblemon$getForwards`())
+        UP.rotate(rotation, duck.`cobblemon$getUp`())
+        LEFT.rotate(cameraRotation, duck.`cobblemon$getLeft`())
     }
 }
