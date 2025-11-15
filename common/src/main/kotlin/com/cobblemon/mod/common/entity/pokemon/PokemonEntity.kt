@@ -1218,13 +1218,13 @@ open class PokemonEntity(
     }
 
     private fun showInteractionWheel(player: ServerPlayer, itemStack: ItemStack) {
-        val canRide = ifRidingAvailableSupply(false) { behaviour, settings, state ->
-            if (!this.canRide(player)) return@ifRidingAvailableSupply false
-            if (tethering != null) return@ifRidingAvailableSupply false
-            if (seats.isEmpty()) return@ifRidingAvailableSupply false
-            if ((owner as? ServerPlayer)?.isInBattle() == true) return@ifRidingAvailableSupply false
-            if (this.owner != player && this.passengers.isEmpty()) return@ifRidingAvailableSupply false
-            return@ifRidingAvailableSupply behaviour.isActive(settings, state, this)
+        val canRide = ifRidingAvailableSupply(false) { behaviour, settings, state ->;
+            if (!this.canRide(player)) return@ifRidingAvailableSupply false;
+            if (tethering != null) return@ifRidingAvailableSupply false;
+            if (seats.isEmpty()) return@ifRidingAvailableSupply false;
+            if ((owner as? ServerPlayer)?.isInBattle() == true) return@ifRidingAvailableSupply false;
+            if (this.owner != player && this.passengers.isEmpty()) return@ifRidingAvailableSupply false;
+            return@ifRidingAvailableSupply behaviour.isActive(settings, state, this);
         }
         if (pokemon.getOwnerPlayer() == player) {
             val cosmeticItemDefinition = CobblemonCosmeticItems.findValidCosmeticForPokemonAndItem(
@@ -2199,9 +2199,9 @@ open class PokemonEntity(
         block(behaviour, settings, state)
     }
 
-    fun <T> ifRidingAvailableSupply(
-        fallback: T,
-        block: (RidingBehaviour<RidingBehaviourSettings, RidingBehaviourState>, RidingBehaviourSettings, RidingBehaviourState) -> T
+        fun <T> ifRidingAvailableSupply(
+            fallback: T,
+            block: (RidingBehaviour<RidingBehaviourSettings, RidingBehaviourState>, RidingBehaviourSettings, RidingBehaviourState) -> T
     ): T {
         var result = fallback
         ifRidingAvailable { behaviour, settings, state ->

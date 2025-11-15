@@ -55,7 +55,7 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         get() = CobblemonRideSettings.bird
 
     override fun isActive(settings: BirdSettings, state: BirdState, vehicle: PokemonEntity): Boolean {
-        return !(vehicle.isInWater || vehicle.isUnderWater)
+        return !(vehicle.isUnderWater)
     }
 
     override fun pose(settings: BirdSettings, state: BirdState, vehicle: PokemonEntity): PoseType {

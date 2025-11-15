@@ -59,18 +59,8 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         state: HoverState,
         vehicle: PokemonEntity
     ): Boolean {
-        return Shapes.create(vehicle.boundingBox).blockPositionsAsListRounded().any {
-            //Need to check other fluids
-            if (vehicle.isInWater || vehicle.isUnderWater) {
-                return@any false
-            }
-            //This might not actually work, depending on what the yPos actually is. yPos of the middle of the entity? the feet?
-            if (it.y.toDouble() == (vehicle.position().y)) {
-                val blockState = vehicle.level().getBlockState(it.below())
-                return@any !blockState.isAir && blockState.fluidState.isEmpty
-            }
-            true
-        }
+        // Hover mounts should be able to go just about anywhere but underwater
+        return !vehicle.isUnderWater
     }
 
     override fun pose(
