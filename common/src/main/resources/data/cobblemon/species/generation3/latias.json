@@ -163,9 +163,23 @@
     ]
   },
   "behaviour": {
+    "resting": {
+      "canSleep": true,
+      "light": "0-4",
+      "drowsyChance": 0.0333,
+      "rouseChance": 0.0042
+    },
     "moving": {
+      "walk": {
+        "walkSpeed": 0.3
+      },
       "fly": {
         "canFly": true
+      },
+      "swim": {
+        "canSwim": true,
+        "canBreatheUnderwater": true,
+        "canWalkOnWater": true
       }
     },
     "herd": {
@@ -188,6 +202,11 @@
           "tier": 3
         }
       ]
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
     }
   },
   "baseExperienceYield": 300,
