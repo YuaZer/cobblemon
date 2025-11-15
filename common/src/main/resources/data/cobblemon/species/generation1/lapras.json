@@ -67,6 +67,7 @@
       },
       "LIQUID": {
         "key": "cobblemon:liquid/boat",
+        "surfaceLevelOffset": -1.6,
         "rideSounds": [
           {
             "muffleEnabled": true,
@@ -78,9 +79,9 @@
         ],
         "stats": {
           "ACCELERATION": "30-55",
-          "JUMP": "20-45",
+          "JUMP": "20-30",
           "SKILL": "50-75",
-          "SPEED": "35-50",
+          "SPEED": "25-40",
           "STAMINA": "45-75"
         }
       }

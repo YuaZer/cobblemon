@@ -54,10 +54,11 @@
     "behaviours": {
       "LIQUID": {
         "key": "cobblemon:liquid/submarine",
+        "hitboxBreachPercentage": 0.9,
         "rideSounds": [],
         "stats": {
           "ACCELERATION": "25-40",
-          "JUMP": "20-40",
+          "JUMP": "50-75",
           "SKILL": "40-80",
           "SPEED": "15-35",
           "STAMINA": "50-90"

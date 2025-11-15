@@ -67,7 +67,7 @@
           "JUMP": "0-5",
           "SKILL": "55-85",
           "SPEED": "35-50",
-          "STAMINA": "20-45"
+          "STAMINA": "15-40"
         }
       },
       "LAND": {
@@ -75,7 +75,7 @@
         "rideSounds": [],
         "stats": {
           "ACCELERATION": "55-70",
-          "JUMP": "20-30",
+          "JUMP": "35-50",
           "SKILL": "40-65",
           "SPEED": "15-30",
           "STAMINA": "35-50"

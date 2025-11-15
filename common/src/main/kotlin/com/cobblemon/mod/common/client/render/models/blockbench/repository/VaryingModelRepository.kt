@@ -297,7 +297,6 @@ object VaryingModelRepository {
         inbuilt("tentacool", ::TentacoolModel)
         inbuilt("venomoth", ::VenomothModel)
         inbuilt("venonat", ::VenonatModel)
-        inbuilt("weezing", ::WeezingModel)
         inbuilt("elekid", ::ElekidModel)
         inbuilt("smoochum", ::SmoochumModel)
         inbuilt("hitmontop", ::HitmontopModel)
