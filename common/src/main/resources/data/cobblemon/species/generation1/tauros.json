@@ -57,7 +57,7 @@
         "stats": {
           "ACCELERATION": "15-50",
           "JUMP": "25-35",
-          "SKILL": "10-30",
+          "SKILL": "15-30",
           "SPEED": "55-75",
           "STAMINA": "35-55"
         }
@@ -645,7 +645,7 @@
             "stats": {
               "ACCELERATION": "20-55",
               "JUMP": "25-40",
-              "SKILL": "10-30",
+              "SKILL": "15-30",
               "SPEED": "55-75",
               "STAMINA": "30-50"
             }
@@ -890,13 +890,14 @@
             "stats": {
               "ACCELERATION": "15-50",
               "JUMP": "25-30",
-              "SKILL": "10-30",
+              "SKILL": "15-30",
               "SPEED": "50-70",
               "STAMINA": "40-60"
             }
           },
           "LIQUID": {
             "key": "cobblemon:liquid/boat",
+            "surfaceLevelOffset": -0.9,
             "rideSounds": [
               {
                 "muffleEnabled": true,

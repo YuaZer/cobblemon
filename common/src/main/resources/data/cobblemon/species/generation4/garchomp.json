@@ -98,6 +98,7 @@
       },
       "LIQUID": {
         "key": "cobblemon:liquid/boat",
+        "surfaceLevelOffset": -1.7,
         "rideSounds": [
           {
             "muffleEnabled": true,
