@@ -71,12 +71,13 @@
       "depth": "comatose",
       "times": [
         "any"
-      ]
+      ],
+      "drowsyChance": 0.0028,
+      "rouseChance": 0.0042
     },
     "combat": {
       "willFlee": false
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 4,
@@ -324,12 +325,13 @@
           "depth": "comatose",
           "times": [
             "any"
-          ]
+          ],
+          "drowsyChance": 0.0028,
+          "rouseChance": 0.0042
         },
         "combat": {
           "willFlee": false
-        },
-        "fireImmune": true
+        }
       },
       "moves": [
         "1:tackle",

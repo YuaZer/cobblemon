@@ -144,10 +144,6 @@
     ]
   },
   "behaviour": {
-    "combat": {
-      "willFlee": false
-    },
-    "fireImmune": true,
     "herd": {
       "maxSize": "8"
     },
@@ -163,12 +159,17 @@
     },
     "resting": {
       "canSleep": true,
-      "depth": "comatose",
       "light": "0-14",
       "sleepChance": "0.0023",
+      "depth": "comatose",
       "times": [
         "any"
-      ]
+      ],
+      "drowsyChance": 0.0028,
+      "rouseChance": 0.0028
+    },
+    "combat": {
+      "willFlee": false
     }
   },
   "drops": {

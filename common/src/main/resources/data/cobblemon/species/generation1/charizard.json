@@ -185,8 +185,8 @@
         "canFly": true
       },
       "swim": {
-        "avoidsWater": true,
-        "swimSpeed": 0.1
+        "swimSpeed": 0.1,
+        "avoidsWater": true
       },
       "walk": {
         "walkSpeed": 0.147
@@ -194,8 +194,11 @@
     },
     "resting": {
       "canSleep": true,
-      "light": "0-4"
-    }
+      "light": "0-4",
+      "drowsyChance": 0.0333,
+      "rouseChance": 0.0042
+    },
+    "fireImmune": true
   },
   "drops": {
     "amount": 4,
@@ -485,22 +488,27 @@
         }
       },
       "behaviour": {
-        "combat": {
-          "willDefendOwner": true,
-          "willDefendSelf": true,
-          "willFlee": false
-        },
         "herd": {
           "maxSize": "6"
         },
         "moving": {
-          "fly": {
-            "canFly": true
-          },
           "swim": {
             "avoidsWater": true
+          },
+          "fly": {
+            "canFly": true
           }
-        }
+        },
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
+        },
+        "resting": {
+          "drowsyChance": 0.0333,
+          "rouseChance": 0.0042
+        },
+        "fireImmune": true
       },
       "evolutions": [],
       "battleOnly": true,
@@ -600,22 +608,27 @@
         }
       },
       "behaviour": {
-        "combat": {
-          "willDefendOwner": true,
-          "willDefendSelf": true,
-          "willFlee": false
-        },
         "herd": {
           "maxSize": "6"
         },
         "moving": {
-          "fly": {
-            "canFly": true
-          },
           "swim": {
             "avoidsWater": true
+          },
+          "fly": {
+            "canFly": true
           }
-        }
+        },
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
+        },
+        "resting": {
+          "drowsyChance": 0.0333,
+          "rouseChance": 0.0042
+        },
+        "fireImmune": true
       },
       "evolutions": [],
       "battleOnly": true,

@@ -146,12 +146,6 @@
     ]
   },
   "behaviour": {
-    "combat": {
-      "willDefendOwner": true,
-      "willDefendSelf": true,
-      "willFlee": false
-    },
-    "fireImmune": true,
     "herd": {
       "maxSize": "9",
       "toleratedLeaders": [
@@ -183,9 +177,18 @@
     },
     "moving": {
       "swim": {
-        "avoidsWater": true,
-        "swimSpeed": "0.25"
+        "swimSpeed": "0.25",
+        "avoidsWater": true
       }
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "resting": {
+      "drowsyChance": 0.0333,
+      "rouseChance": 0.0042
     }
   },
   "drops": {
@@ -473,12 +476,16 @@
         ]
       },
       "behaviour": {
+        "moving": {
+          "swim": {
+            "avoidsWater": true
+          }
+        },
         "combat": {
-          "willDefendOwner": true,
           "willDefendSelf": true,
+          "willDefendOwner": true,
           "willFlee": false
         },
-        "fireImmune": true,
         "herd": {
           "maxSize": "9",
           "toleratedLeaders": [
@@ -508,10 +515,9 @@
             }
           ]
         },
-        "moving": {
-          "swim": {
-            "avoidsWater": true
-          }
+        "resting": {
+          "drowsyChance": 0.0333,
+          "rouseChance": 0.0042
         }
       },
       "moves": [
@@ -734,11 +740,6 @@
         ]
       },
       "behaviour": {
-        "combat": {
-          "willDefendOwner": true,
-          "willDefendSelf": true,
-          "willFlee": false
-        },
         "herd": {
           "maxSize": "9",
           "toleratedLeaders": [
@@ -752,7 +753,17 @@
           "swim": {
             "avoidsWater": true
           }
-        }
+        },
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
+        },
+        "resting": {
+          "drowsyChance": 0.0333,
+          "rouseChance": 0.0042
+        },
+        "fireImmune": true
       },
       "moves": [
         "1:tackle",
@@ -999,12 +1010,6 @@
         ]
       },
       "behaviour": {
-        "combat": {
-          "willDefendOwner": true,
-          "willDefendSelf": true,
-          "willFlee": false
-        },
-        "fireImmune": true,
         "herd": {
           "maxSize": "9",
           "toleratedLeaders": [
@@ -1013,6 +1018,15 @@
               "tier": 1
             }
           ]
+        },
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
+        },
+        "resting": {
+          "drowsyChance": 0.0333,
+          "rouseChance": 0.0042
         }
       },
       "moves": [

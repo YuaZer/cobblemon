@@ -541,10 +541,6 @@
     ]
   },
   "behaviour": {
-    "combat": {
-      "willDefendOwner": true,
-      "willFlee": false
-    },
     "herd": {
       "maxSize": "9",
       "toleratedLeaders": [
@@ -562,7 +558,16 @@
       "swim": {
         "avoidsWater": true
       }
-    }
+    },
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "resting": {
+      "drowsyChance": 0.0333,
+      "rouseChance": 0.0042
+    },
+    "fireImmune": true
   },
   "drops": {
     "amount": 2,
@@ -755,11 +760,6 @@
       },
       "baseExperienceYield": 196,
       "behaviour": {
-        "combat": {
-          "willDefendOwner": true,
-          "willDefendSelf": true,
-          "willFlee": false
-        },
         "herd": {
           "maxSize": "9",
           "toleratedLeaders": [
@@ -773,7 +773,17 @@
           "swim": {
             "avoidsWater": true
           }
-        }
+        },
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
+        },
+        "resting": {
+          "drowsyChance": 0.0333,
+          "rouseChance": 0.0042
+        },
+        "fireImmune": true
       },
       "evolutions": [],
       "battleOnly": true,
