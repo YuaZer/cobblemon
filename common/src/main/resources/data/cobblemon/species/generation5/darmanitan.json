@@ -166,13 +166,16 @@
     },
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "drowsyChance": 0.0333,
+      "rouseChance": 0.0042
     },
     "combat": {
       "willDefendSelf": true,
       "willDefendOwner": true,
       "willFlee": false
-    }
+    },
+    "fireImmune": true
   },
   "drops": {
     "amount": 1,
@@ -374,7 +377,9 @@
           ]
         },
         "resting": {
-          "depth": "comatose"
+          "depth": "comatose",
+          "drowsyChance": 0.0333,
+          "rouseChance": 0.0042
         },
         "moving": {
           "walk": {
@@ -388,7 +393,8 @@
         "combat": {
           "willDefendOwner": true,
           "willFlee": false
-        }
+        },
+        "fireImmune": true
       },
       "moves": [
         "1:tackle",
@@ -560,7 +566,10 @@
           "willDefendOwner": true,
           "willFlee": false
         },
-        "fireImmune": true
+        "resting": {
+          "drowsyChance": 0.0333,
+          "rouseChance": 0.0042
+        }
       },
       "drops": {
         "amount": 2,
@@ -752,7 +761,12 @@
           "willDefendSelf": true,
           "willDefendOwner": true,
           "willFlee": false
-        }
+        },
+        "resting": {
+          "drowsyChance": 0.0333,
+          "rouseChance": 0.0042
+        },
+        "fireImmune": true
       },
       "drops": {
         "amount": 2,

@@ -62,7 +62,9 @@
     "resting": {
       "canSleep": true,
       "light": "0-4",
-      "willSleepOnBed": true
+      "willSleepOnBed": true,
+      "drowsyChance": 0.0333,
+      "rouseChance": 0.0042
     },
     "combat": {
       "willDefendOwner": true,
@@ -118,8 +120,7 @@
           "tier": 7
         }
       ]
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 3,

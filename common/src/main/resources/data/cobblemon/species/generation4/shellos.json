@@ -64,13 +64,14 @@
       }
     },
     "resting": {
-      "willSleepOnBed": true
+      "willSleepOnBed": true,
+      "drowsyChance": 0.0333,
+      "rouseChance": 0.0042
     },
     "combat": {
       "willDefendOwner": true,
       "willFlee": false
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 2,
@@ -237,7 +238,9 @@
       "battleOnly": false,
       "behaviour": {
         "resting": {
-          "willSleepOnBed": true
+          "willSleepOnBed": true,
+          "drowsyChance": 0.0333,
+          "rouseChance": 0.0042
         },
         "moving": {
           "walk": {
@@ -251,8 +254,7 @@
         "combat": {
           "willDefendOwner": true,
           "willFlee": false
-        },
-        "fireImmune": true
+        }
       }
     }
   ]

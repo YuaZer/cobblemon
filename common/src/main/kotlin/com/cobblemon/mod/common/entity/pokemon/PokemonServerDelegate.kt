@@ -21,6 +21,7 @@ import com.cobblemon.mod.common.api.molang.MoLangFunctions.addPokemonEntityFunct
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.addPokemonFunctions
 import com.cobblemon.mod.common.api.molang.ObjectValue
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties
+import com.cobblemon.mod.common.api.pokemon.feature.TickingSpeciesFeature
 import com.cobblemon.mod.common.api.pokemon.status.Statuses
 import com.cobblemon.mod.common.api.spawning.fishing.FishingSpawnCause.Companion.DROPS_REROLL_ASPECT
 import com.cobblemon.mod.common.api.tags.CobblemonItemTags
@@ -272,10 +273,9 @@ class PokemonServerDelegate : PokemonSideDelegate {
 
         if (entity.ownerUUID != null && entity.pokemon.storeCoordinates.get() == null) {
             return entity.discard()
-        } else if (entity.pokemon.isNPCOwned() && entity.owner?.isAlive != true) {
-            return entity.discard()
-        } else if (entity.pokemon.isNPCOwned() && entity.ownerUUID == null) {
-            entity.ownerUUID = entity.pokemon.getOwnerUUID()
+        } else if (entity.pokemon.isNPCOwned()) {
+            if (entity.owner?.isAlive != true && entity.battleId == null) return entity.discard()
+            if (entity.ownerUUID == null) entity.ownerUUID = entity.pokemon.getOwnerUUID()
         }
 
         val tethering = entity.tethering
@@ -320,6 +320,14 @@ class PokemonServerDelegate : PokemonSideDelegate {
 
         if (entity.ownerUUID != null && entity.owner == null && entity.tethering == null) {
             entity.remove(Entity.RemovalReason.DISCARDED)
+        }
+
+        if (entity.level().gameTime % 20 == 0L) {
+            for (feature in entity.pokemon.features) {
+                if (feature is TickingSpeciesFeature) {
+                    feature.onSecondPassed(entity.level() as ServerLevel, entity.pokemon, entity)
+                }
+            }
         }
 
         updateTrackedValues()

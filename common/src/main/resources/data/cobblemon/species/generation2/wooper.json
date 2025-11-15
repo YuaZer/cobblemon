@@ -68,7 +68,9 @@
       "light": "0-4",
       "times": [
         "any"
-      ]
+      ],
+      "drowsyChance": 0.0014,
+      "rouseChance": 0.0042
     },
     "herd": {
       "maxSize": "6",
@@ -90,8 +92,7 @@
     "combat": {
       "willDefendOwner": true,
       "willFlee": false
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 2,
@@ -420,7 +421,9 @@
           "willSleepOnBed": true,
           "times": [
             "any"
-          ]
+          ],
+          "drowsyChance": 0.0014,
+          "rouseChance": 0.0042
         },
         "moving": {
           "swim": {
@@ -430,8 +433,7 @@
         "combat": {
           "willDefendOwner": true,
           "willFlee": false
-        },
-        "fireImmune": true
+        }
       }
     }
   ]
