@@ -185,8 +185,8 @@
         "canFly": true
       },
       "swim": {
-        "swimSpeed": 0.1,
-        "avoidsWater": true
+        "avoidsWater": true,
+        "swimSpeed": 0.1
       },
       "walk": {
         "walkSpeed": 0.147
@@ -485,21 +485,21 @@
         }
       },
       "behaviour": {
+        "combat": {
+          "willDefendOwner": true,
+          "willDefendSelf": true,
+          "willFlee": false
+        },
         "herd": {
           "maxSize": "6"
         },
         "moving": {
-          "swim": {
-            "avoidsWater": true
-          },
           "fly": {
             "canFly": true
+          },
+          "swim": {
+            "avoidsWater": true
           }
-        },
-        "combat": {
-          "willDefendSelf": true,
-          "willDefendOwner": true,
-          "willFlee": false
         }
       },
       "evolutions": [],
@@ -600,21 +600,21 @@
         }
       },
       "behaviour": {
+        "combat": {
+          "willDefendOwner": true,
+          "willDefendSelf": true,
+          "willFlee": false
+        },
         "herd": {
           "maxSize": "6"
         },
         "moving": {
-          "swim": {
-            "avoidsWater": true
-          },
           "fly": {
             "canFly": true
+          },
+          "swim": {
+            "avoidsWater": true
           }
-        },
-        "combat": {
-          "willDefendSelf": true,
-          "willDefendOwner": true,
-          "willFlee": false
         }
       },
       "evolutions": [],

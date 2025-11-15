@@ -57,7 +57,7 @@
         "rideSounds": [],
         "stats": {
           "ACCELERATION": "25-40",
-          "JUMP": "20-40",
+          "JUMP": "50-75",
           "SKILL": "40-80",
           "SPEED": "15-35",
           "STAMINA": "50-90"
@@ -147,6 +147,11 @@
     ]
   },
   "behaviour": {
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true,
     "herd": {
       "maxSize": "9",
       "toleratedLeaders": [
@@ -174,12 +179,7 @@
       "times": [
         "any"
       ]
-    },
-    "combat": {
-      "willDefendOwner": true,
-      "willFlee": false
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 2,

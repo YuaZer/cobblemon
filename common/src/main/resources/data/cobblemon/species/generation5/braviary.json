@@ -168,6 +168,12 @@
     ]
   },
   "behaviour": {
+    "combat": {
+      "willDefendOwner": true,
+      "willDefendSelf": true,
+      "willFlee": false
+    },
+    "fireImmune": true,
     "herd": {
       "maxSize": "9",
       "toleratedLeaders": [
@@ -181,23 +187,17 @@
       "fly": {
         "canFly": true
       },
-      "walk": {
-        "walkSpeed": 0.2
-      },
       "swim": {
         "avoidsWater": true
+      },
+      "walk": {
+        "walkSpeed": 0.2
       }
     },
     "resting": {
       "canSleep": true,
       "light": "0-4"
-    },
-    "combat": {
-      "willDefendSelf": true,
-      "willDefendOwner": true,
-      "willFlee": false
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 5,
@@ -492,6 +492,12 @@
         ]
       },
       "behaviour": {
+        "combat": {
+          "willDefendOwner": true,
+          "willDefendSelf": true,
+          "willFlee": false
+        },
+        "fireImmune": true,
         "herd": {
           "maxSize": "9",
           "toleratedLeaders": [
@@ -502,19 +508,13 @@
           ]
         },
         "moving": {
-          "swim": {
-            "avoidsWater": true
-          },
           "fly": {
             "canFly": true
+          },
+          "swim": {
+            "avoidsWater": true
           }
-        },
-        "combat": {
-          "willDefendSelf": true,
-          "willDefendOwner": true,
-          "willFlee": false
-        },
-        "fireImmune": true
+        }
       },
       "drops": {
         "amount": 5,

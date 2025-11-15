@@ -244,23 +244,23 @@
     ]
   },
   "behaviour": {
+    "combat": {
+      "willDefendOwner": true,
+      "willDefendSelf": true,
+      "willFlee": false
+    },
+    "fireImmune": true,
     "moving": {
       "fly": {
         "canFly": true
       },
-      "walk": {
-        "walkSpeed": 0.2
-      },
       "swim": {
         "avoidsWater": true
+      },
+      "walk": {
+        "walkSpeed": 0.2
       }
-    },
-    "combat": {
-      "willDefendSelf": true,
-      "willDefendOwner": true,
-      "willFlee": false
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 3,
@@ -462,20 +462,20 @@
       },
       "baseExperienceYield": 350,
       "behaviour": {
-        "moving": {
-          "swim": {
-            "avoidsWater": true
-          },
-          "fly": {
-            "canFly": true
-          }
-        },
         "combat": {
-          "willDefendSelf": true,
           "willDefendOwner": true,
+          "willDefendSelf": true,
           "willFlee": false
         },
-        "fireImmune": true
+        "fireImmune": true,
+        "moving": {
+          "fly": {
+            "canFly": true
+          },
+          "swim": {
+            "avoidsWater": true
+          }
+        }
       },
       "evolutions": [],
       "battleOnly": true,

@@ -54,10 +54,10 @@
         "rideSounds": [],
         "stats": {
           "ACCELERATION": "0-20",
-          "JUMP": "10-40",
+          "JUMP": "25-40",
           "SKILL": "0-20",
-          "SPEED": "45-85",
-          "STAMINA": "30-65"
+          "SPEED": "25-65",
+          "STAMINA": "60-90"
         }
       }
     },
@@ -144,6 +144,10 @@
     ]
   },
   "behaviour": {
+    "combat": {
+      "willFlee": false
+    },
+    "fireImmune": true,
     "herd": {
       "maxSize": "8"
     },
@@ -159,17 +163,13 @@
     },
     "resting": {
       "canSleep": true,
+      "depth": "comatose",
       "light": "0-14",
       "sleepChance": "0.0023",
-      "depth": "comatose",
       "times": [
         "any"
       ]
-    },
-    "combat": {
-      "willFlee": false
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 1,

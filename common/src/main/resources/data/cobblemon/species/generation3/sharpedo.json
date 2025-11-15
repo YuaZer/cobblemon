@@ -145,6 +145,12 @@
     ]
   },
   "behaviour": {
+    "combat": {
+      "willDefendOwner": true,
+      "willDefendSelf": true,
+      "willFlee": false
+    },
+    "fireImmune": true,
     "herd": {
       "maxSize": "9",
       "toleratedLeaders": [
@@ -171,13 +177,7 @@
         "avoidsLand": true,
         "walkSpeed": 0.7
       }
-    },
-    "combat": {
-      "willDefendSelf": true,
-      "willDefendOwner": true,
-      "willFlee": false
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 2,
@@ -353,6 +353,12 @@
       },
       "baseExperienceYield": 196,
       "behaviour": {
+        "combat": {
+          "willDefendOwner": true,
+          "willDefendSelf": true,
+          "willFlee": false
+        },
+        "fireImmune": true,
         "herd": {
           "maxSize": "9",
           "toleratedLeaders": [
@@ -374,13 +380,7 @@
           "walk": {
             "avoidsLand": true
           }
-        },
-        "combat": {
-          "willDefendSelf": true,
-          "willDefendOwner": true,
-          "willFlee": false
-        },
-        "fireImmune": true
+        }
       },
       "evolutions": [],
       "battleOnly": true,

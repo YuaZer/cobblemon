@@ -59,7 +59,7 @@
           "JUMP": "0-5",
           "SKILL": "0-5",
           "SPEED": "15-35",
-          "STAMINA": "50-85"
+          "STAMINA": "50-90"
         }
       }
     },
@@ -225,6 +225,10 @@
     ]
   },
   "behaviour": {
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
+    },
     "herd": {
       "maxSize": "9",
       "toleratedLeaders": [
@@ -245,10 +249,6 @@
     "resting": {
       "canSleep": true,
       "light": "0-4"
-    },
-    "combat": {
-      "willDefendOwner": true,
-      "willFlee": false
     }
   },
   "drops": {

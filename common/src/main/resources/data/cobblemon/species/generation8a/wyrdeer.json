@@ -56,10 +56,10 @@
         "rideSounds": [],
         "stats": {
           "ACCELERATION": "60-80",
-          "JUMP": "35-45",
-          "SKILL": "35-55",
+          "JUMP": "45-55",
+          "SKILL": "40-60",
           "SPEED": "45-65",
-          "STAMINA": "45-70"
+          "STAMINA": "55-70"
         }
       }
     },
@@ -146,6 +146,12 @@
     ]
   },
   "behaviour": {
+    "combat": {
+      "willDefendOwner": true,
+      "willDefendSelf": true,
+      "willFlee": false
+    },
+    "fireImmune": true,
     "herd": {
       "maxSize": "9",
       "toleratedLeaders": [
@@ -155,24 +161,18 @@
         }
       ]
     },
+    "moving": {
+      "swim": {
+        "avoidsWater": true
+      }
+    },
     "resting": {
       "canSleep": true,
       "light": "0-4"
     },
     "walking": {
       "walkSpeed": 0.24
-    },
-    "moving": {
-      "swim": {
-        "avoidsWater": true
-      }
-    },
-    "combat": {
-      "willDefendSelf": true,
-      "willDefendOwner": true,
-      "willFlee": false
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 3,

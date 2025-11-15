@@ -67,7 +67,7 @@
           "JUMP": "20-45",
           "SKILL": "45-65",
           "SPEED": "15-50",
-          "STAMINA": "15-40"
+          "STAMINA": "15-55"
         }
       },
       "LAND": {
@@ -186,6 +186,12 @@
     ]
   },
   "behaviour": {
+    "combat": {
+      "willDefendOwner": true,
+      "willDefendSelf": true,
+      "willFlee": false
+    },
+    "fireImmune": true,
     "herd": {
       "maxSize": "9",
       "toleratedLeaders": [
@@ -211,13 +217,7 @@
       "times": [
         "any"
       ]
-    },
-    "combat": {
-      "willDefendSelf": true,
-      "willDefendOwner": true,
-      "willFlee": false
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 3,

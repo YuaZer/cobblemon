@@ -239,6 +239,11 @@
     ]
   },
   "behaviour": {
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true,
     "herd": {
       "maxSize": "5",
       "toleratedLeaders": [
@@ -274,12 +279,7 @@
       "times": [
         "day"
       ]
-    },
-    "combat": {
-      "willDefendOwner": true,
-      "willFlee": false
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 4,
