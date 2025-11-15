@@ -10,7 +10,6 @@
   "poses": {
     "standing": {
       "poseTypes": ["STAND", "NONE", "FLOAT", "PORTRAIT", "PROFILE"],
-      "isBattle": true,
       "animations": [
         "q.look('head')",
         "q.bedrock('espurr', 'ground_idle')"
@@ -24,6 +23,7 @@
       "animations": [
         "q.look('head')",
         "q.bedrock('espurr', 'ground_idle')",
+        "q.bimanual_swing(0.66, 1.4, 'arm_left', 'arm_right')",
         "q.biped_walk(1, 1, 'leg_left', 'leg_right')"
       ],
       "quirks": [
