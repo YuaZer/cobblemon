@@ -122,8 +122,9 @@ public abstract class MouseHandlerMixin {
         double cursorDeltaY,
         @Local(argsOnly = true) double d,
         @Local(argsOnly = true) double movementTime
-        ) {
+    ) {
         PokedexUsageContext usageContext = CobblemonClient.INSTANCE.getPokedexUsageContext();
+        boolean returnValue = true;
         if (usageContext.getScanningGuiOpen()) {
             this.smoothTurnY.reset();
             this.smoothTurnX.reset();
@@ -133,10 +134,11 @@ public abstract class MouseHandlerMixin {
             var sensitivity = lerp(usageContext.getFovMultiplier(), spyglassSensitivity, lookSensitivity);
             var yRotationFlip = this.minecraft.options.invertYMouse().get() ? -1 : 1;
             player.turn(this.accumulatedDX * sensitivity, (this.accumulatedDY * sensitivity * yRotationFlip));
+            returnValue = false;
         }
 
         var vehicle = player.getVehicle();
-        if (!(vehicle instanceof PokemonEntity)) return true;
+        if (!(vehicle instanceof PokemonEntity)) return returnValue;
 
         // Clamp player rotation if riding and the vehicle demands it
         if (player.isPassenger() && vehicle instanceof PokemonEntity pokeVehicle) {
@@ -150,7 +152,7 @@ public abstract class MouseHandlerMixin {
             pitchSmoother.reset();
             rollSmoother.reset();
             yawSmoother.reset();
-            return true;
+            return returnValue;
         }
 
         var vehicleController = controllableVehicle.getOrientationController();
@@ -221,7 +223,7 @@ public abstract class MouseHandlerMixin {
             vehicleController.rotate((float) (angRot.x * 10 * d), (float) (angRot.y * 10 * d), (float) (angRot.z * 10 * d));
         }
 
-        return false;
+        return returnValue;
     }
 
     @Inject(method = "handleAccumulatedMovement", at = @At("HEAD"))
