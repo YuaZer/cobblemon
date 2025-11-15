@@ -55,11 +55,11 @@
         "key": "cobblemon:land/horse",
         "rideSounds": [],
         "stats": {
-          "ACCELERATION": "5-35",
-          "JUMP": "10-25",
-          "SKILL": "5-25",
-          "SPEED": "40-80",
-          "STAMINA": "35-65"
+          "ACCELERATION": "30-40",
+          "JUMP": "25-35",
+          "SKILL": "10-25",
+          "SPEED": "40-65",
+          "STAMINA": "65-85"
         }
       }
     },
@@ -225,27 +225,27 @@
     ]
   },
   "behaviour": {
+    "combat": {
+      "willDefendOwner": true,
+      "willDefendSelf": true,
+      "willFlee": false
+    },
+    "fireImmune": true,
+    "herd": {
+      "maxSize": "4"
+    },
     "moving": {
-      "walk": {
-        "walkSpeed": 0.28
-      },
       "swim": {
         "avoidsWater": true
+      },
+      "walk": {
+        "walkSpeed": 0.28
       }
     },
     "resting": {
       "canSleep": true,
       "light": "0-4"
-    },
-    "combat": {
-      "willDefendSelf": true,
-      "willDefendOwner": true,
-      "willFlee": false
-    },
-    "herd": {
-      "maxSize": "4"
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 8,
@@ -465,20 +465,20 @@
       "baseExperienceYield": 278,
       "catchRate": 5,
       "behaviour": {
+        "combat": {
+          "willDefendOwner": true,
+          "willDefendSelf": true,
+          "willFlee": false
+        },
+        "fireImmune": true,
+        "herd": {
+          "maxSize": "5"
+        },
         "moving": {
           "swim": {
             "avoidsWater": true
           }
         },
-        "combat": {
-          "willDefendSelf": true,
-          "willDefendOwner": true,
-          "willFlee": false
-        },
-        "herd": {
-          "maxSize": "5"
-        },
-        "fireImmune": true,
         "resting": {
           "times": [
             "day"

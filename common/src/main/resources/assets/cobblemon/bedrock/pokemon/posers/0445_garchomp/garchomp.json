@@ -72,6 +72,10 @@
         {
           "condition": "q.is_holding_item",
           "animation": "q.bedrock('garchomp', 'hold_item')"
+        },
+        {
+          "condition": "q.is_ridden",
+          "animation": "q.bedrock('garchomp', 'ride_ground_walk')"
         }
       ],
       "quirks": ["q.bedrock_quirk('garchomp', 'blink')"],

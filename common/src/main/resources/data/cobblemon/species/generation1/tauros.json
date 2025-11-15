@@ -57,7 +57,7 @@
         "stats": {
           "ACCELERATION": "15-50",
           "JUMP": "25-35",
-          "SKILL": "10-30",
+          "SKILL": "15-30",
           "SPEED": "55-75",
           "STAMINA": "35-55"
         }
@@ -146,6 +146,12 @@
     ]
   },
   "behaviour": {
+    "combat": {
+      "willDefendOwner": true,
+      "willDefendSelf": true,
+      "willFlee": false
+    },
+    "fireImmune": true,
     "herd": {
       "maxSize": "9",
       "toleratedLeaders": [
@@ -177,16 +183,10 @@
     },
     "moving": {
       "swim": {
-        "swimSpeed": "0.25",
-        "avoidsWater": true
+        "avoidsWater": true,
+        "swimSpeed": "0.25"
       }
-    },
-    "combat": {
-      "willDefendSelf": true,
-      "willDefendOwner": true,
-      "willFlee": false
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 5,
@@ -384,7 +384,7 @@
             "stats": {
               "ACCELERATION": "15-50",
               "JUMP": "25-35",
-              "SKILL": "10-30",
+              "SKILL": "15-30",
               "SPEED": "55-75",
               "STAMINA": "35-55"
             }
@@ -473,16 +473,12 @@
         ]
       },
       "behaviour": {
-        "moving": {
-          "swim": {
-            "avoidsWater": true
-          }
-        },
         "combat": {
-          "willDefendSelf": true,
           "willDefendOwner": true,
+          "willDefendSelf": true,
           "willFlee": false
         },
+        "fireImmune": true,
         "herd": {
           "maxSize": "9",
           "toleratedLeaders": [
@@ -512,7 +508,11 @@
             }
           ]
         },
-        "fireImmune": true
+        "moving": {
+          "swim": {
+            "avoidsWater": true
+          }
+        }
       },
       "moves": [
         "1:tackle",
@@ -645,7 +645,7 @@
             "stats": {
               "ACCELERATION": "20-55",
               "JUMP": "25-40",
-              "SKILL": "10-30",
+              "SKILL": "15-30",
               "SPEED": "55-75",
               "STAMINA": "30-50"
             }
@@ -734,6 +734,11 @@
         ]
       },
       "behaviour": {
+        "combat": {
+          "willDefendOwner": true,
+          "willDefendSelf": true,
+          "willFlee": false
+        },
         "herd": {
           "maxSize": "9",
           "toleratedLeaders": [
@@ -747,11 +752,6 @@
           "swim": {
             "avoidsWater": true
           }
-        },
-        "combat": {
-          "willDefendSelf": true,
-          "willDefendOwner": true,
-          "willFlee": false
         }
       },
       "moves": [
@@ -890,13 +890,14 @@
             "stats": {
               "ACCELERATION": "15-50",
               "JUMP": "25-30",
-              "SKILL": "10-30",
+              "SKILL": "15-30",
               "SPEED": "50-70",
               "STAMINA": "40-60"
             }
           },
           "LIQUID": {
             "key": "cobblemon:liquid/boat",
+            "surfaceLevelOffset": -0.9,
             "rideSounds": [
               {
                 "muffleEnabled": true,
@@ -998,6 +999,12 @@
         ]
       },
       "behaviour": {
+        "combat": {
+          "willDefendOwner": true,
+          "willDefendSelf": true,
+          "willFlee": false
+        },
+        "fireImmune": true,
         "herd": {
           "maxSize": "9",
           "toleratedLeaders": [
@@ -1006,13 +1013,7 @@
               "tier": 1
             }
           ]
-        },
-        "combat": {
-          "willDefendSelf": true,
-          "willDefendOwner": true,
-          "willFlee": false
-        },
-        "fireImmune": true
+        }
       },
       "moves": [
         "1:tackle",

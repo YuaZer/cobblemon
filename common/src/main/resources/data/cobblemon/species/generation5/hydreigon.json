@@ -71,10 +71,10 @@
         ],
         "stats": {
           "ACCELERATION": "35-55",
-          "JUMP": "30-50",
+          "JUMP": "5-10",
           "SKILL": "30-60",
-          "SPEED": "35-60",
-          "STAMINA": "50-75"
+          "SPEED": "45-60",
+          "STAMINA": "70-100"
         }
       },
       "LAND": {
@@ -101,7 +101,7 @@
         "poseOffsets": [
           {
             "offset": {
-              "x": 8.215185e-05,
+              "x": 8.215185E-5,
               "y": -2.4957511,
               "z": 0.10059106
             },
@@ -121,7 +121,7 @@
           },
           {
             "offset": {
-              "x": 8.215185e-05,
+              "x": 8.215185E-5,
               "y": -2.4957511,
               "z": 0.10059106
             },
@@ -253,6 +253,12 @@
     ]
   },
   "behaviour": {
+    "combat": {
+      "willDefendOwner": true,
+      "willDefendSelf": true,
+      "willFlee": false
+    },
+    "fireImmune": true,
     "herd": {
       "maxSize": "5"
     },
@@ -260,12 +266,12 @@
       "fly": {
         "canFly": true
       },
-      "walk": {
-        "canWalk": true
-      },
       "swim": {
         "avoidsWater": true,
         "canWalkOnWater": true
+      },
+      "walk": {
+        "canWalk": true
       }
     },
     "resting": {
@@ -274,13 +280,7 @@
       "times": [
         "any"
       ]
-    },
-    "combat": {
-      "willDefendSelf": true,
-      "willDefendOwner": true,
-      "willFlee": false
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 4,

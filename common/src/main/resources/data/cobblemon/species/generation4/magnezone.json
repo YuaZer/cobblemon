@@ -70,11 +70,11 @@
           }
         ],
         "stats": {
-          "ACCELERATION": "30-45",
-          "JUMP": "40-77",
+          "ACCELERATION": "45-65",
+          "JUMP": "45-65",
           "SKILL": "35-50",
-          "SPEED": "15-25",
-          "STAMINA": "10-20"
+          "SPEED": "15-30",
+          "STAMINA": "5-15"
         }
       }
     },
@@ -161,6 +161,12 @@
     ]
   },
   "behaviour": {
+    "combat": {
+      "willDefendOwner": true,
+      "willDefendSelf": true,
+      "willFlee": false
+    },
+    "fireImmune": true,
     "herd": {
       "maxSize": "9"
     },
@@ -179,13 +185,7 @@
       "times": [
         "any"
       ]
-    },
-    "combat": {
-      "willDefendSelf": true,
-      "willDefendOwner": true,
-      "willFlee": false
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 6,

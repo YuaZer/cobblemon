@@ -149,6 +149,11 @@
     ]
   },
   "behaviour": {
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "fireImmune": true,
     "moving": {
       "swim": {
         "canBreatheUnderwater": true,
@@ -159,12 +164,7 @@
         "avoidsLand": true,
         "walkSpeed": "0.2"
       }
-    },
-    "combat": {
-      "willDefendOwner": true,
-      "willFlee": false
-    },
-    "fireImmune": true
+    }
   },
   "drops": {
     "amount": 3,
@@ -325,20 +325,20 @@
         "east-sea"
       ],
       "behaviour": {
-        "moving": {
-          "walk": {
-            "avoidsLand": true
-          },
-          "swim": {
-            "canSwimInWater": false,
-            "canBreatheUnderwater": true
-          }
-        },
         "combat": {
           "willDefendOwner": true,
           "willFlee": false
         },
-        "fireImmune": true
+        "fireImmune": true,
+        "moving": {
+          "swim": {
+            "canBreatheUnderwater": true,
+            "canSwimInWater": false
+          },
+          "walk": {
+            "avoidsLand": true
+          }
+        }
       },
       "preEvolution": "shellos",
       "evolutions": [],

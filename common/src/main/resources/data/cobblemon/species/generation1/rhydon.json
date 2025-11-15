@@ -57,9 +57,9 @@
         "rideSounds": [],
         "stats": {
           "ACCELERATION": "55-75",
-          "JUMP": "10-20",
+          "JUMP": "20-30",
           "SKILL": "30-60",
-          "SPEED": "2-10",
+          "SPEED": "5-15",
           "STAMINA": "55-90"
         }
       }
@@ -147,6 +147,11 @@
     ]
   },
   "behaviour": {
+    "combat": {
+      "willDefendOwner": true,
+      "willDefendSelf": true,
+      "willFlee": false
+    },
     "herd": {
       "maxSize": "4"
     },
@@ -157,11 +162,6 @@
       "walk": {
         "walkSpeed": 0.15
       }
-    },
-    "combat": {
-      "willDefendSelf": true,
-      "willDefendOwner": true,
-      "willFlee": false
     }
   },
   "drops": {
