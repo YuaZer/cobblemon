@@ -364,12 +364,6 @@ object BattleBuilder {
             return errors
         }
 
-        // Not exactly sure why this is it. For some reason the pokémon's storeCoordinates are never set when dealing with an NPC.
-        // I don't know further along the line to get into why, all I know is that this fixes it.
-        npcParty.forEachIndexed { index, pokemon ->
-            pokemon.storeCoordinates.set(StoreCoordinates(npcParty, PartyPosition(index)))
-        }
-
         val npcActor = NPCBattleActor(npcEntity, npcParty, npcEntity.skill ?: npcEntity.npc.skill)
 //        if (npcEntity.battleIds.get().isPresent) {
 //            errors.participantErrors[npcActor] += BattleStartError.alreadyInBattle(npcActor)
