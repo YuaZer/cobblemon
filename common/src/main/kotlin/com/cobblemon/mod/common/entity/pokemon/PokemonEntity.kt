@@ -102,6 +102,7 @@ import com.cobblemon.mod.common.pokemon.ai.FormPokemonBehaviour
 import com.cobblemon.mod.common.pokemon.ai.ObtainableItem
 import com.cobblemon.mod.common.pokemon.ai.PokemonBrain
 import com.cobblemon.mod.common.pokemon.evolution.variants.ItemInteractionEvolution
+import com.cobblemon.mod.common.pokemon.feature.SlowpokeTailRegrowthSpeciesFeatureProvider
 import com.cobblemon.mod.common.pokemon.feature.StashHandler
 import com.cobblemon.mod.common.pokemon.properties.UncatchableProperty
 import com.cobblemon.mod.common.util.*
@@ -2037,8 +2038,15 @@ open class PokemonEntity(
     override fun dampensVibrations(): Boolean = pokemon.dampensVibrations()
 
     override fun shear(shearedSoundCategory: SoundSource) {
-        this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, shearedSoundCategory, 1.0F, 1.0F)
+        val slowpokeTailFeature = SlowpokeTailRegrowthSpeciesFeatureProvider.getFromPokemon(pokemon)
+        if (slowpokeTailFeature != null && slowpokeTailFeature.regrowthSeconds <= 0) {
+            this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, shearedSoundCategory, 1.0F, 1.0F)
+            slowpokeTailFeature.onShear(this)
+            return
+        }
+
         val feature = this.pokemon.getFeature<FlagSpeciesFeature>(DataKeys.HAS_BEEN_SHEARED) ?: return
+        this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, shearedSoundCategory, 1.0F, 1.0F)
         feature.enabled = true
         this.pokemon.markFeatureDirty(feature)
         this.pokemon.updateAspects()
@@ -2064,17 +2072,22 @@ open class PokemonEntity(
                 else -> Items.WHITE_WOOL
             }
             val itemEntity = this.spawnAtLocation(woolItem, 1) ?: return
-            itemEntity.deltaMovement = itemEntity.deltaMovement.add(
-                ((this.random.nextFloat() - this.random.nextFloat()) * 0.1f).toDouble(),
-                (this.random.nextFloat() * 0.05f).toDouble(),
-                ((this.random.nextFloat() - this.random.nextFloat()) * 0.1f).toDouble()
-            )
+            jitterDropItem(itemEntity)
         }
     }
 
     override fun readyForShearing(): Boolean {
-        val feature = this.pokemon.getFeature<FlagSpeciesFeature>(DataKeys.HAS_BEEN_SHEARED) ?: return false
-        return !this.isBusy && !this.pokemon.isFainted() && !feature.enabled
+        if (this.isBusy || this.pokemon.isFainted()) {
+            return false
+        }
+        val slowpokeRegrowthFeature = SlowpokeTailRegrowthSpeciesFeatureProvider.getFromPokemon(pokemon)
+        return if (slowpokeRegrowthFeature != null && slowpokeRegrowthFeature.regrowthSeconds > 0) {
+            false
+        } else if (slowpokeRegrowthFeature != null) {
+            true
+        } else {
+            this.pokemon.getFeature<FlagSpeciesFeature>(DataKeys.HAS_BEEN_SHEARED)?.enabled == true
+        }
     }
 
     override fun canUsePortal(allowsVehicles: Boolean) = false

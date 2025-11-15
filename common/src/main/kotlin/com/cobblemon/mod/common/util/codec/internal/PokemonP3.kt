@@ -57,7 +57,6 @@ internal data class PokemonP3(
                 return@forEach
             }
             val speciesFeatureProviders = SpeciesFeatures.getFeaturesFor(other.species)
-                .filterIsInstance<SynchronizedSpeciesFeatureProvider<*>>()
             val feature = speciesFeatureProviders.firstNotNullOfOrNull { provider -> provider(featureNbt) } ?: return@forEach
             if (
                 featureNbt.contains("keys", Tag.TAG_STRING.toInt()) &&
