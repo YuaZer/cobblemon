@@ -4,7 +4,9 @@
   "profileScale": 0.66,
   "profileTranslation": [0, 0.75, 0],
   "rootBone": "tynamo",
-  "animations": {},
+  "animations": {
+    "cry": "q.bedrock_stateful('tynamo', 'cry')"
+  },
   "poses": {
     "standing": {
       "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],

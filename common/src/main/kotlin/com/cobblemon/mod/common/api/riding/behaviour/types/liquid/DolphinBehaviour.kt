@@ -514,7 +514,7 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         state: DolphinState,
         vehicle: PokemonEntity
     ): Boolean {
-        return false
+        return true
     }
 
     override fun getRideSounds(

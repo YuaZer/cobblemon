@@ -478,7 +478,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         driver: Player
     ): ResourceLocation {
         when {
-            state.inAir.get() -> return cobblemonResource("in_air")
+            state.inAir.get() || (state.rideVelocity.get().y >= 0.0 && driver.jumping) || (state.rideVelocity.get().y > 0.0) -> return cobblemonResource("in_air")
             state.sprinting.get() -> return cobblemonResource("sprinting")
         }
         return cobblemonResource("no_pose")

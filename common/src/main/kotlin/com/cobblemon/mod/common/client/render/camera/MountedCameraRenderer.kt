@@ -227,11 +227,11 @@ object MountedCameraRenderer {
             )
 
             //var newYaw = (float)Mth.lerp(smoothingFactor, cameraAngs.y(), rideAngs.y());
-            val maxRoll = Math.toRadians(15.0)
+            val maxRoll = Math.toRadians(0.0) // idk wat possessed me to give this roll as a 'no roll camera'
             val newRoll = Mth.lerp(
                 frameTime * k / 2.0,
                 cameraAngs.z().toDouble(),
-                Math.abs(lerpRateMod) * sin(rideAngs.z()) * maxRoll
+                0.0
             ).toFloat()
 
             // Set rotations

@@ -59,18 +59,8 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         state: HoverState,
         vehicle: PokemonEntity
     ): Boolean {
-        return Shapes.create(vehicle.boundingBox).blockPositionsAsListRounded().any {
-            //Need to check other fluids
-            if (vehicle.isInWater || vehicle.isUnderWater) {
-                return@any false
-            }
-            //This might not actually work, depending on what the yPos actually is. yPos of the middle of the entity? the feet?
-            if (it.y.toDouble() == (vehicle.position().y)) {
-                val blockState = vehicle.level().getBlockState(it.below())
-                return@any !blockState.isAir && blockState.fluidState.isEmpty
-            }
-            true
-        }
+        // Hover mounts should be able to go just about anywhere but underwater
+        return !vehicle.isUnderWater
     }
 
     override fun pose(
@@ -207,6 +197,7 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         input: Vec3
     ): Vec3 {
         val retVel = calculateRideSpaceVel(settings, state, vehicle, driver)
+        state.rideVelocity.set(retVel)
         return retVel
     }
 
@@ -228,8 +219,8 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         }
 
         // align the velocity vector to be in local vehicle space
-        val yawAligned = Matrix3f().rotateY(vehicle.yRot.toRadians())
-        newVelocity = (newVelocity.toVector3f().mul(yawAligned)).toVec3d()
+//        val yawAligned = Matrix3f().rotateY(vehicle.yRot.toRadians())
+//        newVelocity = (newVelocity.toVector3f().mul(yawAligned)).toVec3d()
 
         // Vertical movement based on driver input.
         val vertInput = when {
@@ -274,9 +265,6 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
 
         // Check to see if this new velocity will exceed top speed and if it will then cap it
         newVelocity = if (newVelocity.length() > topSpeed) newVelocity.normalize().scale(topSpeed) else newVelocity
-
-        val revertYawAligned = Matrix3f().rotateY(-vehicle.yRot.toRadians())
-        state.rideVelocity.set((newVelocity.toVector3f().mul(revertYawAligned)).toVec3d())
 
         return newVelocity
     }
@@ -415,7 +403,7 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         state: HoverState,
         vehicle: PokemonEntity
     ): Boolean {
-        return false
+        return true
     }
 
     override fun getRideSounds(
