@@ -10,7 +10,6 @@ package com.cobblemon.mod.common.api.riding.behaviour.types.air
 
 import com.bedrockk.molang.Expression
 import com.bedrockk.molang.runtime.MoLangMath.lerp
-import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.CobblemonRideSettings
 import com.cobblemon.mod.common.OrientationControllable
 import com.cobblemon.mod.common.api.riding.RidingStyle
@@ -168,8 +167,8 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         calculateRideSpaceVel(settings, state, vehicle, driver)
 
         // The downward force used to encourage players to stop flying upside down.
-        val maxDownwardForceTickCnt = 20.0
-        val extraDownwardForce = if(state.stamina.get() == 0.0f) -0.3 * (state.noStamTickCnt.get() / maxDownwardForceTickCnt).coerceIn(0.0, 1.0) else 0.0 // 6 blocks a second downward
+        val penaltyDeccel = vehicle.runtime.resolveDouble(settings.maxDownwardForceSeconds ?: globalJet.maxDownwardForceSeconds!!).toFloat() * 20.0f
+        val extraDownwardForce = if(state.stamina.get() == 0.0f) -0.3 * (state.noStamTickCnt.get() / penaltyDeccel).coerceIn(0.0f, 1.0f) else 0.0 // 6 blocks a second downward
 
         // Convert the local velocity vector into a world vector
         val localVelVec = Vector3f(
@@ -178,7 +177,10 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
             state.rideVelocity.get().z.toFloat() * -1.0f // Flip the z axis to make this left handed? orr.. right handed? idk, flip it though
         )
         var worldVelVec = localVelVec.mul(controller.orientation).toVec3d().yRot(vehicle.yRot.toRadians()) // Unrotate preemptively as this vector gets rotate later down the line in MC logic.
-        worldVelVec =  worldVelVec.add(0.0, extraDownwardForce, 0.0) // Add the stamina depletion force to bring the ride down.
+        worldVelVec =  Vec3(
+            worldVelVec.x,
+            worldVelVec.y * (1 - (state.noStamTickCnt.get() / penaltyDeccel).coerceIn(0.0f, 1.0f)), // Dampen the upwards movement depending on stamina depletion time
+            worldVelVec.z).add(0.0, extraDownwardForce, 0.0) // Add the stamina depletion force to bring the ride down.
 
         return worldVelVec
     }
@@ -198,6 +200,8 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         val minSpeed = topSpeed * vehicle.runtime.resolveDouble(settings.minSpeedFactor ?: globalJet.minSpeedFactor!!)
         val speed = state.rideVelocity.get().z
         val boostMult = vehicle.runtime.resolveDouble(settings.jumpExpr ?: globalJet.jumpExpr!!)
+        val maxNoStamickCnt = vehicle.runtime.resolveDouble(settings.maxDownwardForceSeconds ?: globalJet.maxDownwardForceSeconds!!).toFloat() * 20.0f
+
 
         val boostTopSpeed = topSpeed * boostMult
         val boostAccel = accel * boostMult
@@ -205,11 +209,15 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         //speed up and slow down based on input
         if (state.stamina.get() == 0.0f) {
             // Decelerate currently always a constant half of max acceleration.
+
+            // Increase penalty deccel when stamina has been depleted for a while.
+            val penaltyDeccel = deccel * (state.noStamTickCnt.get() / maxNoStamickCnt).coerceIn(0.0f, 1.0f)
+            val minPenaltySpeed = minSpeed
             state.rideVelocity.set(
                 Vec3(
                     state.rideVelocity.get().x,
                     state.rideVelocity.get().y,
-                    max(state.rideVelocity.get().z - (deccel * 1.3), 0.3 * 0.5)
+                    max(state.rideVelocity.get().z - (penaltyDeccel), minPenaltySpeed)
                 )
             )
         }
@@ -374,9 +382,9 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         vehicle: PokemonEntity,
         driver: Player
     ): Float {
-        val maxDownwardForceTickCnt = 20.0f
+        val penaltyDeccel = vehicle.runtime.resolveDouble(settings.maxDownwardForceSeconds ?: globalJet.maxDownwardForceSeconds!!).toFloat() * 20.0f
         return when {
-            state.noStamTickCnt.get() != 0 -> 1f - 0.2f*(state.noStamTickCnt.get() / maxDownwardForceTickCnt).coerceIn(0.0f,1.0f)
+            state.noStamTickCnt.get() != 0 -> 1f - 0.2f*(state.noStamTickCnt.get() / penaltyDeccel).coerceIn(0.0f,1.0f)
             state.boosting.get() -> 1.2f
             else -> 1.0f
         }
@@ -424,7 +432,7 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         state: JetState,
         vehicle: PokemonEntity
     ): Boolean {
-        return false
+        return true
     }
 
     override fun getRideSounds(
@@ -486,6 +494,9 @@ class JetSettings : RidingBehaviourSettings {
     var staminaExpr: Expression? = null
         private set
 
+    var maxDownwardForceSeconds: Expression? = null
+        private set
+
     var rideSounds: RideSoundSettingsList = RideSoundSettingsList()
 
     override fun encode(buffer: RegistryFriendlyByteBuf) {
@@ -501,6 +512,7 @@ class JetSettings : RidingBehaviourSettings {
         buffer.writeNullableExpression(speedExpr)
         buffer.writeNullableExpression(accelerationExpr)
         buffer.writeNullableExpression(staminaExpr)
+        buffer.writeNullableExpression(maxDownwardForceSeconds)
     }
 
     override fun decode(buffer: RegistryFriendlyByteBuf) {
@@ -516,6 +528,7 @@ class JetSettings : RidingBehaviourSettings {
         speedExpr = buffer.readNullableExpression()
         accelerationExpr = buffer.readNullableExpression()
         staminaExpr = buffer.readNullableExpression()
+        maxDownwardForceSeconds = buffer.readNullableExpression()
     }
 }
 
