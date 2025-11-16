@@ -2086,7 +2086,7 @@ open class PokemonEntity(
         } else if (slowpokeRegrowthFeature != null) {
             true
         } else {
-            this.pokemon.getFeature<FlagSpeciesFeature>(DataKeys.HAS_BEEN_SHEARED)?.enabled == true
+            this.pokemon.getFeature<FlagSpeciesFeature>(DataKeys.HAS_BEEN_SHEARED)?.enabled == false
         }
     }
 
