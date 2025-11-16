@@ -13,6 +13,7 @@ import com.cobblemon.mod.common.api.net.ServerNetworkPacketHandler
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.net.messages.server.debug.ServerboundUpdateRidingStatsPacket
+import com.cobblemon.mod.common.util.isOp
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.level.ServerPlayer
 
@@ -20,10 +21,12 @@ object ServerboundUpdateRidingStatsHandler : ServerNetworkPacketHandler<Serverbo
 
     override fun handle(packet: ServerboundUpdateRidingStatsPacket, server: MinecraftServer, player: ServerPlayer) {
         if (!Cobblemon.config.enableDebugKeys) return
+        if (!player.isOp()) return
 
         val entity = player.level().getEntity(packet.entity) ?: return
         if (entity !is PokemonEntity) return
         if (entity.controllingPassenger != player) return
+
         entity.overrideRideStat(packet.ridingStyle, RidingStat.SPEED, packet.speed)
         entity.overrideRideStat(packet.ridingStyle, RidingStat.ACCELERATION, packet.acceleration)
         entity.overrideRideStat(packet.ridingStyle, RidingStat.SKILL, packet.skill)

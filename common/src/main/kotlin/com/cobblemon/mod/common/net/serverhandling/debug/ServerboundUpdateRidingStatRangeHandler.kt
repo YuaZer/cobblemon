@@ -13,6 +13,7 @@ import com.cobblemon.mod.common.api.net.ServerNetworkPacketHandler
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.net.messages.server.debug.ServerboundUpdateRidingStatRangePacket
+import com.cobblemon.mod.common.util.isOp
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.level.ServerPlayer
 
@@ -20,6 +21,7 @@ object ServerboundUpdateRidingStatRangeHandler : ServerNetworkPacketHandler<Serv
 
     override fun handle(packet: ServerboundUpdateRidingStatRangePacket, server: MinecraftServer, player: ServerPlayer) {
         if (!Cobblemon.config.enableDebugKeys) return
+        if (!player.isOp()) return
 
         val entity = player.level().getEntity(packet.entity) ?: return
         if (entity !is PokemonEntity) return
