@@ -62,6 +62,7 @@
 - Added `defaultKeyItems` config option to specify which key items players always have.
 - Added `scale_modifier` property to PokemonProperties to modify the scale of the Pokemon.
 - Added Tasty Tail which you can get from Slowpokes if you happen to have a pair of shears. They don't mind, we asked.
+- Added `label` as an alternate key to the `tag` property.
 
 ### Pokémon Added
 
