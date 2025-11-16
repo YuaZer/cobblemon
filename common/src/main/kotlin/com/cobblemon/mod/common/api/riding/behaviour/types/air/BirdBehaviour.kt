@@ -10,9 +10,10 @@ package com.cobblemon.mod.common.api.riding.behaviour.types.air
 
 import com.bedrockk.molang.Expression
 import com.bedrockk.molang.runtime.MoLangMath.lerp
-import com.cobblemon.mod.common.Cobblemon
+import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.CobblemonRideSettings
 import com.cobblemon.mod.common.OrientationControllable
+import com.cobblemon.mod.common.api.molang.ObjectValue
 import com.cobblemon.mod.common.api.orientation.OrientationController
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
@@ -33,7 +34,6 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec2
 import net.minecraft.world.phys.Vec3
-import net.minecraft.world.phys.shapes.Shapes
 import org.joml.Vector3f
 import kotlin.math.*
 
@@ -550,18 +550,6 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
         return false
     }
 
-    override fun useRidingAltPose(
-        settings: BirdSettings,
-        state: BirdState,
-        vehicle: PokemonEntity,
-        driver: Player
-    ): ResourceLocation {
-        if (state.gliding.get()) {
-            return cobblemonResource("gliding")
-        }
-        return cobblemonResource("no_pose")
-    }
-
     override fun inertia(settings: BirdSettings, state: BirdState, vehicle: PokemonEntity): Double {
         return 0.5
     }
@@ -743,6 +731,13 @@ class BirdState : RidingBehaviourState() {
         if (previous !is BirdState) return false
         if (previous.gliding.get() != gliding.get()) return true
         return super.shouldSync(previous)
+    }
+
+    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
+        val value = super.asMoLangValue()
+        value.functions.put("gliding") { DoubleValue(gliding) }
+        value.functions.put("last_glide") { DoubleValue(lastGlide) }
+        return value
     }
 }
 

@@ -10,8 +10,10 @@ package com.cobblemon.mod.common.api.riding.behaviour.types.land
 
 import com.bedrockk.molang.Expression
 import com.bedrockk.molang.runtime.MoLangMath.lerp
+import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.CobblemonRideSettings
 import com.cobblemon.mod.common.OrientationControllable
+import com.cobblemon.mod.common.api.molang.ObjectValue
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviour
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
@@ -42,7 +44,6 @@ import kotlin.math.sign
 import net.minecraft.core.Direction
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
@@ -359,19 +360,6 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
         return false
     }
 
-    override fun useRidingAltPose(
-        settings: VehicleSettings,
-        state: VehicleState,
-        vehicle: PokemonEntity,
-        driver: Player
-    ): ResourceLocation {
-        when {
-            state.poweredDrifting.get() -> return cobblemonResource("powered_drifting")
-            state.drifting.get() -> return cobblemonResource("drifting")
-        }
-        return cobblemonResource("no_pose")
-    }
-
     override fun inertia(settings: VehicleSettings, state: VehicleState, vehicle: PokemonEntity): Double {
         return 1.0
     }
@@ -560,5 +548,13 @@ class VehicleState : RidingBehaviourState() {
         if (previous.turnMomentum.get() != turnMomentum.get()) return true
         if (previous.inAir.get() != inAir.get()) return true
         return super.shouldSync(previous)
+    }
+
+    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
+        val value = super.asMoLangValue()
+        value.functions.put("drifting") { DoubleValue(drifting) }
+        value.functions.put("powered_drifting") { DoubleValue(poweredDrifting) }
+        value.functions.put("in_air") { DoubleValue(inAir) }
+        return value
     }
 }
