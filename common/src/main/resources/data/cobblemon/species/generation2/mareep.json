@@ -103,7 +103,9 @@
   "ai": [
     {
       "type": "apply_behaviours",
-      "preset": "behaviours:pokemon_eats_grass"
+      "behaviours": [
+        "cobblemon:pokemon_eats_grass"
+      ]
     }
   ],
   "drops": {
