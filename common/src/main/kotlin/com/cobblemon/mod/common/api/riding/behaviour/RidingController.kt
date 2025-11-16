@@ -146,7 +146,7 @@ class RidingController(
             return (driver as DoubleJump).isDoubleJumping
         }
         else {
-            return !(entity.isUnderWater)
+            return !entity.onGround() && !(entity.isInLiquid || entity.isUnderWater)
         }
     }
 }
