@@ -614,6 +614,7 @@
 - Fixed NPC pokémon not being linked to their NPC, which previously caused NPC pokémon to be catchable.
 - Fixed an uncommon error caused by scanning a pokémon on a player's shoulder.
 - Fixed Alcremie and Eevee clipping into the player head when shoulder mounted
+- Fixed a case where spawning could fail and log warnings when nothing wrong was happening.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
