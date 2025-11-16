@@ -8,9 +8,6 @@
 
 package com.cobblemon.mod.common.api.riding.behaviour
 
-import com.bedrockk.molang.runtime.value.DoubleValue
-import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMoLangValue
-import com.cobblemon.mod.common.api.molang.ObjectValue
 import com.cobblemon.mod.common.util.ifClient
 import com.cobblemon.mod.common.util.ifServer
 import net.minecraft.network.FriendlyByteBuf
@@ -55,15 +52,6 @@ open class RidingBehaviourState {
     open fun decode(buffer: FriendlyByteBuf) {
         rideVelocity.set(buffer.readVec3(), true)
         stamina.set(buffer.readFloat(), true)
-    }
-
-    open fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
-        val value = ObjectValue(
-            this
-        )
-        value.functions.put("ride_velocity") { rideVelocity.get().asMoLangValue() }
-        value.functions.put("stamina") { DoubleValue(stamina.get()) }
-        return value
     }
 }
 

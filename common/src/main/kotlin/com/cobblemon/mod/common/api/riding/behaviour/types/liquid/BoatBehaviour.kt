@@ -382,6 +382,25 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
 
     override fun createDefaultState(settings: BoatSettings) = BoatState()
 
+    override fun asMoLangValue(
+        settings: BoatSettings,
+        state: BoatState,
+        vehicle: PokemonEntity
+    ): ObjectValue<RidingBehaviour<BoatSettings, BoatState>> {
+        val value = super.asMoLangValue(settings, state, vehicle)
+        value.functions.put("sprinting") { DoubleValue(state.isVehicleSprinting.get()) }
+        value.functions.put("in_air") {
+            val isInWater = Shapes.create(vehicle.boundingBox).blockPositionsAsListRounded().any {
+                       if (vehicle.isInWater || vehicle.isUnderWater) {
+                           return@any true
+                       }
+                       val blockState = vehicle.level().getBlockState(it)
+                       return@any !blockState.fluidState.isEmpty
+                   }
+            DoubleValue(isInWater)
+        }
+        return value
+    }
 }
 
 class BoatSettings : RidingBehaviourSettings {
@@ -476,11 +495,5 @@ class BoatState : RidingBehaviourState() {
     override fun shouldSync(previous: RidingBehaviourState): Boolean {
         if (previous !is BoatState) return false
         return super.shouldSync(previous)
-    }
-
-    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
-        val value = super.asMoLangValue()
-        value.functions.put("sprinting") { DoubleValue(isVehicleSprinting) }
-        return value
     }
 }

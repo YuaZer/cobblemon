@@ -446,6 +446,17 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         val impactSpeed = impactVec.horizontalDistance().toFloat() * 10f
         return vehicle.causeFallDamage(impactSpeed, 1f, vehicle.damageSources().flyIntoWall())
     }
+
+    override fun asMoLangValue(
+        settings: JetSettings,
+        state: JetState,
+        vehicle: PokemonEntity
+    ): ObjectValue<RidingBehaviour<JetSettings, JetState>> {
+        val value = super.asMoLangValue(settings, state, vehicle)
+        value.functions.put("boosting") { DoubleValue(state.boosting.get()) }
+        value.functions.put("can_speed_burst") { DoubleValue(state.canSpeedBurst.get()) }
+        return value
+    }
 }
 
 class JetSettings : RidingBehaviourSettings {
@@ -574,12 +585,5 @@ class JetState : RidingBehaviourState() {
         if (previous !is JetState) return false
         if (previous.currSpeed != currSpeed) return true
         return super.shouldSync(previous)
-    }
-
-    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
-        val value = super.asMoLangValue()
-        value.functions.put("boosting") { DoubleValue(boosting) }
-        value.functions.put("can_speed_burst") { DoubleValue(canSpeedBurst) }
-        return value
     }
 }

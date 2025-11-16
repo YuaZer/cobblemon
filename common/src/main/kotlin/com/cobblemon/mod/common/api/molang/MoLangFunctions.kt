@@ -1889,37 +1889,37 @@ object MoLangFunctions {
             map.put("get_riding_state") { params ->
                 val name = params.getStringOrNull(0)
                 pokemonEntity.ifRidingAvailableSupply(DoubleValue.ZERO) { behaviour, settings, state ->
-                    val moValue = state.asMoLangValue()
-                    return@ifRidingAvailableSupply moValue.functions.get(name)?.apply(MoParams.EMPTY) as? MoValue ?: moValue
+                    val moValue = behaviour.asMoLangValue(settings, state, pokemonEntity)
+                    return@ifRidingAvailableSupply moValue.functions[name]?.apply(MoParams.EMPTY) as? MoValue ?: moValue
                 }
             }
             map.put("is_gliding") {
                 pokemonEntity.ifRidingAvailableSupply(DoubleValue.ZERO) { behaviour, settings, state ->
-                    val moValue = state.asMoLangValue()
+                    val moValue = behaviour.asMoLangValue(settings, state, pokemonEntity)
                     return@ifRidingAvailableSupply moValue.functions.get("gliding")?.apply(MoParams.EMPTY) as? MoValue ?: moValue
                 }
             }
             map.put("is_sprinting") {
                 pokemonEntity.ifRidingAvailableSupply(DoubleValue.ZERO) { behaviour, settings, state ->
-                    val moValue = state.asMoLangValue()
+                    val moValue = behaviour.asMoLangValue(settings, state, pokemonEntity)
                     return@ifRidingAvailableSupply moValue.functions.get("sprinting")?.apply(MoParams.EMPTY) as? MoValue ?: moValue
                 }
             }
             map.put("is_drifting") {
                 pokemonEntity.ifRidingAvailableSupply(DoubleValue.ZERO) { behaviour, settings, state ->
-                    val moValue = state.asMoLangValue()
-                    return@ifRidingAvailableSupply moValue.functions.get("is_drifting")?.apply(MoParams.EMPTY) as? MoValue ?: moValue
+                    val moValue = behaviour.asMoLangValue(settings, state, pokemonEntity)
+                    return@ifRidingAvailableSupply moValue.functions.get("drifting")?.apply(MoParams.EMPTY) as? MoValue ?: moValue
                 }
             }
             map.put("is_powered_drifting") {
                 pokemonEntity.ifRidingAvailableSupply(DoubleValue.ZERO) { behaviour, settings, state ->
-                    val moValue = state.asMoLangValue()
-                    return@ifRidingAvailableSupply moValue.functions.get("is_powered_drifting")?.apply(MoParams.EMPTY) as? MoValue ?: moValue
+                    val moValue = behaviour.asMoLangValue(settings, state, pokemonEntity)
+                    return@ifRidingAvailableSupply moValue.functions.get("powered_drifting")?.apply(MoParams.EMPTY) as? MoValue ?: moValue
                 }
             }
             map.put("in_air") {
                 pokemonEntity.ifRidingAvailableSupply(DoubleValue.ZERO) { behaviour, settings, state ->
-                    val moValue = state.asMoLangValue()
+                    val moValue = behaviour.asMoLangValue(settings, state, pokemonEntity)
                     return@ifRidingAvailableSupply moValue.functions.get("in_air")?.apply(MoParams.EMPTY) as? MoValue ?: moValue
                 }
             }
