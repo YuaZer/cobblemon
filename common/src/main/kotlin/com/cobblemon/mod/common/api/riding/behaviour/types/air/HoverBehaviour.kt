@@ -404,6 +404,18 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
     }
 
     override fun createDefaultState(settings: HoverSettings) = HoverState()
+
+    override fun asMoLangValue(
+        settings: HoverSettings,
+        state: HoverState,
+        vehicle: PokemonEntity
+    ): ObjectValue<RidingBehaviour<HoverSettings, HoverState>> {
+        val value = super.asMoLangValue(settings, state, vehicle)
+        value.functions.put("boosting") { DoubleValue(state.isBoosting) }
+        value.functions.put("boost_ticks") { DoubleValue(state.boostTicks) }
+        value.functions.put("too_high") { DoubleValue(state.tooHigh) }
+        return value
+    }
 }
 
 class HoverSettings : RidingBehaviourSettings {
@@ -512,13 +524,5 @@ class HoverState : RidingBehaviourState() {
         if (previous !is HoverState) return false
         if (previous.isBoosting.get() != isBoosting.get()) return true
         return super.shouldSync(previous)
-    }
-
-    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
-        val value = super.asMoLangValue()
-        value.functions.put("is_boosting") { DoubleValue(isBoosting) }
-        value.functions.put("boost_ticks") { DoubleValue(boostTicks) }
-        value.functions.put("too_high") { DoubleValue(tooHigh) }
-        return value
     }
 }

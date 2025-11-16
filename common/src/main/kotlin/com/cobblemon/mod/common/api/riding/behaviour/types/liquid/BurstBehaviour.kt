@@ -231,6 +231,16 @@ class BurstBehaviour : RidingBehaviour<BurstSettings, BurstState> {
     }
 
     override fun createDefaultState(settings: BurstSettings) = BurstState()
+
+    override fun asMoLangValue(
+        settings: BurstSettings,
+        state: BurstState,
+        vehicle: PokemonEntity
+    ): ObjectValue<RidingBehaviour<BurstSettings, BurstState>> {
+        val value = super.asMoLangValue(settings, state, vehicle)
+        value.functions.put("dashing") { DoubleValue(state.dashing) }
+        return value
+    }
 }
 
 class BurstSettings : RidingBehaviourSettings {
@@ -274,11 +284,5 @@ class BurstState : RidingBehaviourState() {
         it.stamina.set(stamina.get(), forced = true)
         it.dashing.set(dashing.get(), forced = true)
         it.ticks.set(ticks. get(), forced = true)
-    }
-
-    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
-        val value = super.asMoLangValue()
-        value.functions.put("dashing") { DoubleValue(dashing) }
-        return value
     }
 }

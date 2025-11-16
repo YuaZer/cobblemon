@@ -517,6 +517,16 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
 
     override fun createDefaultState(settings: DolphinSettings) = DolphinState()
 
+    override fun asMoLangValue(
+        settings: DolphinSettings,
+        state: DolphinState,
+        vehicle: PokemonEntity
+    ): ObjectValue<RidingBehaviour<DolphinSettings, DolphinState>> {
+        val value = super.asMoLangValue(settings, state, vehicle)
+        value.functions.put("boosting") { DoubleValue(state.boosting) }
+        value.functions.put("has_breached") { DoubleValue(state.hasBreached) }
+        return value
+    }
 }
 
 class DolphinSettings : RidingBehaviourSettings {
@@ -644,12 +654,5 @@ class DolphinState : RidingBehaviourState() {
         if (previous !is DolphinState) return false
         if (previous.boosting.get() != boosting.get()) return true
         return super.shouldSync(previous)
-    }
-
-    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
-        val value = super.asMoLangValue()
-        value.functions.put("boosting") { DoubleValue(boosting) }
-        value.functions.put("has_breached") { DoubleValue(hasBreached) }
-        return value
     }
 }

@@ -529,6 +529,18 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
     }
 
     override fun createDefaultState(settings: HorseSettings) = HorseState()
+
+    override fun asMoLangValue(
+        settings: HorseSettings,
+        state: HorseState,
+        vehicle: PokemonEntity
+    ): ObjectValue<RidingBehaviour<HorseSettings, HorseState>> {
+        val value = super.asMoLangValue(settings, state, vehicle)
+        value.functions.put("sprinting") { DoubleValue(state.sprinting) }
+        value.functions.put("walking") { DoubleValue(state.walking) }
+        value.functions.put("in_air") { DoubleValue(state.inAir.get() || (state.rideVelocity.get().y >= 0.0 && (vehicle.controllingPassenger as? Player)?.jumping == true) || (state.rideVelocity.get().y > 0.0)) }
+        return value
+    }
 }
 
 class HorseSettings : RidingBehaviourSettings {
@@ -650,13 +662,5 @@ class HorseState : RidingBehaviourState() {
         if (previous.sprintToggleable.get() != sprintToggleable.get()) return true
         if (previous.inAir.get() != inAir.get()) return true
         return super.shouldSync(previous)
-    }
-
-    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
-        val value = super.asMoLangValue()
-        value.functions.put("sprinting") { DoubleValue(sprinting) }
-        value.functions.put("walking") { DoubleValue(walking) }
-        value.functions.put("in_air") { DoubleValue(inAir) }
-        return value
     }
 }

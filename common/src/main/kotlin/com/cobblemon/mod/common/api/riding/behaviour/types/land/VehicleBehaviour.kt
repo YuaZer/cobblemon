@@ -409,6 +409,17 @@ class VehicleBehaviour : RidingBehaviour<VehicleSettings, VehicleState> {
     }
 
     override fun createDefaultState(settings: VehicleSettings) = VehicleState()
+    override fun asMoLangValue(
+        settings: VehicleSettings,
+        state: VehicleState,
+        vehicle: PokemonEntity
+    ): ObjectValue<RidingBehaviour<VehicleSettings, VehicleState>> {
+        val value = super.asMoLangValue(settings, state, vehicle)
+        value.functions.put("drifting") { DoubleValue(state.drifting) }
+        value.functions.put("powered_drifting") { DoubleValue(state.poweredDrifting) }
+        value.functions.put("in_air") { DoubleValue(state.inAir) }
+        return value
+    }
 }
 
 class VehicleSettings : RidingBehaviourSettings {
@@ -548,13 +559,5 @@ class VehicleState : RidingBehaviourState() {
         if (previous.turnMomentum.get() != turnMomentum.get()) return true
         if (previous.inAir.get() != inAir.get()) return true
         return super.shouldSync(previous)
-    }
-
-    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
-        val value = super.asMoLangValue()
-        value.functions.put("drifting") { DoubleValue(drifting) }
-        value.functions.put("powered_drifting") { DoubleValue(poweredDrifting) }
-        value.functions.put("in_air") { DoubleValue(inAir) }
-        return value
     }
 }
