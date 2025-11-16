@@ -10,8 +10,10 @@ package com.cobblemon.mod.common.api.riding.behaviour.types.land
 
 import com.bedrockk.molang.Expression
 import com.bedrockk.molang.runtime.MoLangMath.lerp
+import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.CobblemonRideSettings
 import com.cobblemon.mod.common.OrientationControllable
+import com.cobblemon.mod.common.api.molang.ObjectValue
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviour
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
@@ -43,7 +45,6 @@ import kotlin.math.sign
 import net.minecraft.core.Direction
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
@@ -394,18 +395,6 @@ class MinekartBehaviour : RidingBehaviour<MinekartSettings, MinekartState> {
         return false
     }
 
-    override fun useRidingAltPose(
-        settings: MinekartSettings,
-        state: MinekartState,
-        vehicle: PokemonEntity,
-        driver: Player
-    ): ResourceLocation {
-        when {
-            state.drifting.get() -> return cobblemonResource("drifting")
-        }
-        return cobblemonResource("no_pose")
-    }
-
     override fun inertia(settings: MinekartSettings, state: MinekartState, vehicle: PokemonEntity): Double {
         return 1.0
     }
@@ -578,5 +567,14 @@ class MinekartState : RidingBehaviourState() {
         if (previous.turnMomentum.get() != turnMomentum.get()) return true
         if (previous.inAir.get() != inAir.get()) return true
         return super.shouldSync(previous)
+    }
+
+    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
+        val value = super.asMoLangValue()
+        value.functions.put("drifiting") { DoubleValue(drifting) }
+        value.functions.put("clockwiseDrift") { DoubleValue(clockwiseDrift) }
+        value.functions.put("boost") { DoubleValue(boost) }
+        value.functions.put("in_air") { DoubleValue(inAir) }
+        return value
     }
 }

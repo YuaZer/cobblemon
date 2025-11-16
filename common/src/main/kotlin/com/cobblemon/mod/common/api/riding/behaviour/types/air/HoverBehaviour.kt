@@ -9,7 +9,9 @@
 package com.cobblemon.mod.common.api.riding.behaviour.types.air
 
 import com.bedrockk.molang.Expression
+import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.CobblemonRideSettings
+import com.cobblemon.mod.common.api.molang.ObjectValue
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
 import com.cobblemon.mod.common.api.riding.posing.PoseOption
@@ -19,11 +21,9 @@ import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
-import com.cobblemon.mod.common.util.math.geometry.toRadians
 import net.minecraft.client.Minecraft
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
@@ -32,8 +32,6 @@ import net.minecraft.world.level.ClipContext
 import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec2
 import net.minecraft.world.phys.Vec3
-import net.minecraft.world.phys.shapes.Shapes
-import org.joml.Matrix3f
 import kotlin.math.*
 
 class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
@@ -349,15 +347,6 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         return false
     }
 
-    override fun useRidingAltPose(
-        settings: HoverSettings,
-        state: HoverState,
-        vehicle: PokemonEntity,
-        driver: Player
-    ): ResourceLocation {
-        return cobblemonResource("no_pose")
-    }
-
     override fun inertia(
         settings: HoverSettings,
         state: HoverState,
@@ -523,5 +512,13 @@ class HoverState : RidingBehaviourState() {
         if (previous !is HoverState) return false
         if (previous.isBoosting.get() != isBoosting.get()) return true
         return super.shouldSync(previous)
+    }
+
+    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
+        val value = super.asMoLangValue()
+        value.functions.put("is_boosting") { DoubleValue(isBoosting) }
+        value.functions.put("boost_ticks") { DoubleValue(boostTicks) }
+        value.functions.put("too_high") { DoubleValue(tooHigh) }
+        return value
     }
 }

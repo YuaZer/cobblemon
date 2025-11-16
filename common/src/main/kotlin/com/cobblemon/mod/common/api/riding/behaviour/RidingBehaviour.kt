@@ -18,7 +18,6 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec2
 import net.minecraft.world.phys.Vec3
-import kotlin.math.abs
 
 /**
  * Represents the behaviour of a Pokemon when being ridden.
@@ -75,8 +74,6 @@ interface RidingBehaviour<Settings : RidingBehaviourSettings, State : RidingBeha
     fun rideFovMultiplier(settings: Settings, state: State, vehicle: PokemonEntity, driver: Player): Float
 
     fun useAngVelSmoothing(settings: Settings, state: State, vehicle: PokemonEntity): Boolean
-
-    fun useRidingAltPose(settings: Settings, state: State, vehicle: PokemonEntity, driver: Player): ResourceLocation
 
     fun inertia(settings: Settings, state: State, vehicle: PokemonEntity): Double
 
