@@ -9101,5 +9101,7 @@
     "cobblemon.behaviour.dialogue_selection.name": "对话选择",
     "cobblemon.behaviour.dialogue_selection.desc": "允许配置 NPC 互动以打开特定对话。",
     "cobblemon.entity.variable.dialogue_selection.name": "对话",
-    "cobblemon.entity.variable.dialogue_selection.desc": "在交互时要打开的对话的资源标识符，例 cobblemon:your_dialogue"
+    "cobblemon.entity.variable.dialogue_selection.desc": "在交互时要打开的对话的资源标识符，例 cobblemon:your_dialogue",
+    "cobblemon.seasoning_ride_boost_entry": "%1$s：%2$s",
+    "cobblemon.seasoning_ride_boosts_info_header": "骑乘属性提升："
 }
