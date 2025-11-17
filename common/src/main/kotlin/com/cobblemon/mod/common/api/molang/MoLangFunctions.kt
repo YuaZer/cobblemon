@@ -12,6 +12,7 @@ import com.bedrockk.molang.runtime.MoLangEnvironment
 import com.bedrockk.molang.runtime.MoLangRuntime
 import com.bedrockk.molang.runtime.MoParams
 import com.bedrockk.molang.runtime.struct.ArrayStruct
+import com.bedrockk.molang.runtime.struct.ContextStruct
 import com.bedrockk.molang.runtime.struct.QueryStruct
 import com.bedrockk.molang.runtime.struct.VariableStruct
 import com.bedrockk.molang.runtime.value.DoubleValue
@@ -179,6 +180,18 @@ object MoLangFunctions {
             struct.map.clear()
             DoubleValue.ONE
         },
+        "get_variable" to java.util.function.Function { params ->
+            val struct = params.get<VariableStruct>(0)
+            val variable = params.getString(1)
+            return@Function struct.map[variable] ?: DoubleValue.ZERO
+        },
+        "set_variable" to java.util.function.Function { params ->
+            val struct = params.get<VariableStruct>(0)
+            val variable = params.getString(1)
+            val value = params.get<MoValue>(2)
+            struct.map[variable] = value
+            return@Function value
+        },
         "set_query" to java.util.function.Function { params ->
             val variable = params.getString(0)
             val value = params.get<MoValue>(1)
@@ -296,8 +309,12 @@ object MoLangFunctions {
             val runtime = MoLangRuntime()
             runtime.environment.query = params.environment.query
             runtime.environment.variable = params.environment.variable
-            runtime.environment.context = params.environment.context
+            val args = params.params.subList(1, params.params.size)
+            runtime.environment.context = ContextStruct(
+                params.environment.context.map + args.mapIndexed { index, value -> "arg_${index + 1}" to value }.toMap()
+            )
             val script = params.getString(0).asIdentifierDefaultingNamespace()
+            // store the args in the
             CobblemonScripts.run(script, runtime) ?: DoubleValue.ZERO
         },
         "run_molang" to java.util.function.Function { params ->
@@ -349,7 +366,8 @@ object MoLangFunctions {
             val pickupPriority = params.getIntOrNull(1) ?: 0
             val pickupItem = ObtainableItem(item = item, pickupPriority = pickupPriority)
             return@Function pickupItem.struct
-        }
+        },
+        "file" to java.util.function.Function { MoLangLoadedFilesCache.struct }
     )
     val biomeFunctions = mutableListOf<(Holder<Biome>) -> HashMap<String, java.util.function.Function<MoParams, Any>>>()
     val worldFunctions = mutableListOf<(Holder<Level>) -> HashMap<String, java.util.function.Function<MoParams, Any>>>(
