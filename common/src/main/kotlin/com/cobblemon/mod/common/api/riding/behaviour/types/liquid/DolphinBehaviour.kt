@@ -10,9 +10,10 @@ package com.cobblemon.mod.common.api.riding.behaviour.types.liquid
 
 import com.bedrockk.molang.Expression
 import com.bedrockk.molang.runtime.MoLangMath.lerp
-import com.cobblemon.mod.common.Cobblemon
+import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.CobblemonRideSettings
 import com.cobblemon.mod.common.OrientationControllable
+import com.cobblemon.mod.common.api.molang.ObjectValue
 import com.cobblemon.mod.common.api.orientation.OrientationController
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviour
@@ -28,7 +29,6 @@ import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.cobblemonResource
-import com.cobblemon.mod.common.util.math.geometry.toDegrees
 import com.cobblemon.mod.common.util.math.geometry.toRadians
 import com.cobblemon.mod.common.util.readNullableExpression
 import com.cobblemon.mod.common.util.readRidingStats
@@ -41,7 +41,6 @@ import kotlin.math.*
 import net.minecraft.client.Minecraft
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
@@ -476,15 +475,6 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         return false
     }
 
-    override fun useRidingAltPose(
-        settings: DolphinSettings,
-        state: DolphinState,
-        vehicle: PokemonEntity,
-        driver: Player
-    ): ResourceLocation {
-        return cobblemonResource("no_pose")
-    }
-
     override fun inertia(settings: DolphinSettings, state: DolphinState, vehicle: PokemonEntity): Double {
         return if (!vehicle.isInWater && !vehicle.isUnderWater) 1.0 else 0.1
     }
@@ -514,7 +504,7 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         state: DolphinState,
         vehicle: PokemonEntity
     ): Boolean {
-        return false
+        return true
     }
 
     override fun getRideSounds(
@@ -527,6 +517,16 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
 
     override fun createDefaultState(settings: DolphinSettings) = DolphinState()
 
+    override fun asMoLangValue(
+        settings: DolphinSettings,
+        state: DolphinState,
+        vehicle: PokemonEntity
+    ): ObjectValue<RidingBehaviour<DolphinSettings, DolphinState>> {
+        val value = super.asMoLangValue(settings, state, vehicle)
+        value.functions.put("boosting") { DoubleValue(state.boosting.get()) }
+        value.functions.put("has_breached") { DoubleValue(state.hasBreached.get()) }
+        return value
+    }
 }
 
 class DolphinSettings : RidingBehaviourSettings {

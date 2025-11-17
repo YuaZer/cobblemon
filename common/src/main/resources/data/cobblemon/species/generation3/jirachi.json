@@ -220,7 +220,9 @@
       "willSleepOnBed": true,
       "times": [
         "day"
-      ]
+      ],
+      "drowsyChance": 0.0033,
+      "rouseChance": 0.0042
     },
     "moving": {
       "swim": {
@@ -234,7 +236,6 @@
     "combat": {
       "willDefendOwner": true,
       "willFlee": false
-    },
-    "fireImmune": true
+    }
   }
 }

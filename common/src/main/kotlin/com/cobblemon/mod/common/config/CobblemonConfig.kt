@@ -290,7 +290,8 @@ class CobblemonConfig {
     @CobblemonConfigField(Category.Interface, lang = "animate_battle_tiles", CLIENT)
     var animateBattleTiles = false
 
-    @CobblemonConfigField(Category.Riding, lang = "third_person_view_bobbing", CLIENT)
+    // Disabled as non-tenable for 1.7 until all the posers catch up with this property.
+    // @CobblemonConfigField(Category.Riding, lang = "third_person_view_bobbing", CLIENT)
     var thirdPersonViewBobbing = true
 
     @CobblemonConfigField(Category.Riding, lang = "invert_roll", CLIENT)
@@ -324,7 +325,7 @@ class CobblemonConfig {
     var infiniteRideStamina = false
 
     @CobblemonConfigField(Category.Riding, lang = "remember_riding_camera", CLIENT)
-    var rememberRidingCamera = true
+    var rememberRidingCamera = false
 
     @CobblemonConfigField(Category.Debug, lang = "enable_debug_keys", CLIENT)
     var enableDebugKeys = true

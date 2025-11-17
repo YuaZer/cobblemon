@@ -62,6 +62,7 @@
 - Added `defaultKeyItems` config option to specify which key items players always have.
 - Added `scale_modifier` property to PokemonProperties to modify the scale of the Pokemon.
 - Added advancement trigger to check riding stat boosts.
+- Added Tasty Tail which you can get from Slowpokes if you happen to have a pair of shears. They don't mind, we asked.
 
 ### Pokémon Added
 
@@ -309,7 +310,6 @@
 - Tauros - Paldea Blaze
 - Tauros - Paldea Combat
 - Dewgong
-- Exeggutor - Kanto
 - Corphish (updated placeholders for crustaceous tripod gait legs)
 - Crawdaunt (updated placeholders for crustaceous bipedal legs)
 - Dragapult
@@ -475,8 +475,7 @@
 - When using the `cobblemon` or `generation_9` capture calculators a critical capture with a single shake will always play for successful captures when you've already registered the Pokémon as caught in your Pokédex.
 - Improved the performance of saving Pokédex and player data.
 - Pokémon hitbox now scales with entity attribute `generic.scale`.
-- Removed Shulker aspect and replaced it with cosmetic_item-shulker_shell.
-- Shulker shell Forretress is now a cosmetic rather than a special evo and thus all shulker Forretress will revert back to normal until a shulker shell is put in their cosmetic slot.
+- Removed Shulker shell Forretress.
 - Updated `doPokemonSpawning` gamerule to support per-dimension configurations.
 - The Pokedex now displays a form name of a "normal" Pokémon for when the base form is still a named form.
 - Improved the zoom functionality of the Pokédex Scanner by giving the levels logarithmic scaling.
@@ -620,6 +619,9 @@
 - Fixed the "use all berry bait" achievement not being progressed
 - Fixed bobber hook and berry sprouts texture sizes causing mipmap issues.
 - Fixed head locator not taking into account scale for positioning.
+- Fixed NPC pokémon not being linked to their NPC, which previously caused NPC pokémon to be catchable.
+- Fixed an uncommon error caused by scanning a pokémon on a player's shoulder.
+- Fixed a case where spawning could fail and log warnings when nothing wrong was happening.
 
 ### Developer
 - A finished battle now has winners and losers set inside of `PokemonBattle` instead of them always being empty.
@@ -686,6 +688,7 @@
 - Added `PokemonStats#total()`.
 - Add `NatureAdapter` for serializing and deserializing Natures using Gson.
 - Added `Pokemon.getBaseRideStat(RidingStat)` for getting the base value of the given stat.
+- Fixed `Species#create` using the species name instead of identifier, which had led to certain mismatches generating random pokémon.
 
 ### MoLang & Datapacks
 - The following usages for item predicates can now use item conditions like advancements do, you can learn about them in the [Minecraft wiki](https://minecraft.wiki/w/Advancement_definition#minecraft:filled_bucket)
