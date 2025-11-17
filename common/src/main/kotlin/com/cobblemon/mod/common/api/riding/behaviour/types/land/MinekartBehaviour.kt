@@ -444,6 +444,19 @@ class MinekartBehaviour : RidingBehaviour<MinekartSettings, MinekartState> {
     }
 
     override fun createDefaultState(settings: MinekartSettings) = MinekartState()
+
+    override fun asMoLangValue(
+        settings: MinekartSettings,
+        state: MinekartState,
+        vehicle: PokemonEntity
+    ): ObjectValue<RidingBehaviour<MinekartSettings, MinekartState>> {
+        val value = super.asMoLangValue(settings, state, vehicle)
+        value.functions.put("drifiting") { DoubleValue(state.drifting.get()) }
+        value.functions.put("clockwise_drift") { DoubleValue(state.clockwiseDrift.get()) }
+        value.functions.put("boosting") { DoubleValue(state.boost.get()) }
+        value.functions.put("in_air") { DoubleValue(state.inAir.get()) }
+        return value
+    }
 }
 
 class MinekartSettings : RidingBehaviourSettings {
@@ -567,14 +580,5 @@ class MinekartState : RidingBehaviourState() {
         if (previous.turnMomentum.get() != turnMomentum.get()) return true
         if (previous.inAir.get() != inAir.get()) return true
         return super.shouldSync(previous)
-    }
-
-    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
-        val value = super.asMoLangValue()
-        value.functions.put("drifiting") { DoubleValue(drifting) }
-        value.functions.put("clockwiseDrift") { DoubleValue(clockwiseDrift) }
-        value.functions.put("boost") { DoubleValue(boost) }
-        value.functions.put("in_air") { DoubleValue(inAir) }
-        return value
     }
 }

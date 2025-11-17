@@ -37,7 +37,6 @@ import org.joml.Quaternionf
 import org.joml.Vector3f
 import kotlin.math.min
 import kotlin.math.sign
-import kotlin.math.sin
 
 object MountedCameraRenderer {
     private var returnTimer: Float = 0f
@@ -89,11 +88,11 @@ object MountedCameraRenderer {
         offset.add(
             if (isFirstPerson) {
                 getFirstPersonOffset(model, locatorName)
-            } else if (Cobblemon.config.thirdPersonViewBobbing) {
+            } else /* if (Cobblemon.config.thirdPersonViewBobbing) */ {
                 getThirdPersonOffset(thirdPersonReverse, model.thirdPersonCameraOffset, locatorName, shouldFlip)
-            } else {
+            } /* else {
                 getThirdPersonOffset(thirdPersonReverse, model.thirdPersonCameraOffsetNoViewBobbing, locatorName, shouldFlip)
-            }
+            } */
         )
 
         val rotation =
@@ -109,20 +108,20 @@ object MountedCameraRenderer {
 
         // Get the camera position before offsets are applied (which are done with maxZoom to account for clipping). If 3rd person viewbobbing is enabled or the player is
         // in first person then base the camera position off the seat locator offset
-        val pos = if (isFirstPerson || Cobblemon.config.thirdPersonViewBobbing) {
-                val locatorOffset = Vec3(locator.matrix.getTranslation(Vector3f()))
-                locatorOffset.add(entityPos).toVector3f()
-            } else {
-                val pokemonCenter = Vector3f(0f, driver.bbHeight/2, 0f)
+        val pos = /* if (isFirstPerson || Cobblemon.config.thirdPersonViewBobbing)  { */
+                Vec3(locator.matrix.getTranslation(Vector3f()))
+                    .add(entityPos).toVector3f()
+        /* } else {
+            val pokemonCenter = Vector3f(0f, driver.bbHeight/2, 0f)
 
-                val pivotOffsets = model.thirdPersonPivotOffset
-                val pivot = Vector3f(pokemonCenter)
-                val locatorName = delegate.getSeatLocator(driver)
-                if (pivotOffsets.containsKey(locatorName)) {
-                    pivot.add(rotation.transform(pivotOffsets[locatorName]!!.toVector3f()))
-                }
-                pivot.add(entityPos.toVector3f())
+            val pivotOffsets = model.thirdPersonPivotOffset
+            val pivot = Vector3f(pokemonCenter)
+            val locatorName = delegate.getSeatLocator(driver)
+            if (pivotOffsets.containsKey(locatorName)) {
+                pivot.add(rotation.transform(pivotOffsets[locatorName]!!.toVector3f()))
             }
+            pivot.add(entityPos.toVector3f())
+        } */
 
         val offsetDistance = offset.length()
         val offsetDirection = offset.mul(1 / offsetDistance)
