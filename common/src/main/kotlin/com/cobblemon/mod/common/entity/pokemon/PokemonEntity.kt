@@ -2407,22 +2407,6 @@ open class PokemonEntity(
         }
     }
 
-    fun getAltPose(): String {
-        val driver = this.controllingPassenger as? Player ?: return "cobblemon:no_pose"
-        val str =  ifRidingAvailableSupply(fallback = "cobblemon:no_pose") { behaviour, settings, state ->
-            behaviour.useRidingAltPose(settings, state, this, driver).toString()
-        }
-        return str
-    }
-
-    fun isUsingAltPose(resourceLocation: ResourceLocation): Boolean {
-        val driver = this.controllingPassenger as? Player ?: return false
-        val loc =  ifRidingAvailableSupply(fallback = cobblemonResource("no_pose")) { behaviour, settings, state ->
-            behaviour.useRidingAltPose(settings, state, this, driver)
-        }
-        return loc.compareTo(resourceLocation) == 0
-    }
-
     var jumpInputStrength: Int = 0 // move this
     override fun onPlayerJump(strength: Int) {
         // See if this controls the hot bar element

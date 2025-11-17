@@ -41,7 +41,7 @@
                     "#cobblemon:is_taiga"
                 ],
                 "neededNearbyBlocks": [
-                    "#cobblemon:water"
+                    "minecraft:water"
                 ]
             }
         },

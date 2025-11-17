@@ -1886,12 +1886,43 @@ object MoLangFunctions {
             map.put("in_battle") { DoubleValue(pokemonEntity.isBattling) }
             map.put("is_moving") { DoubleValue((pokemonEntity.moveControl as? PokemonMoveControl)?.hasWanted() == true) }
             map.put("is_flying") { DoubleValue(pokemonEntity.getBehaviourFlag(PokemonBehaviourFlag.FLYING)) }
-            map.put("get_alt_pose") { StringValue(pokemonEntity.getAltPose()) }
-            map.put("is_gliding") { DoubleValue(pokemonEntity.isUsingAltPose(cobblemonResource("gliding"))) }
-            map.put("is_sprinting") { DoubleValue(pokemonEntity.isUsingAltPose(cobblemonResource("sprinting"))) }
-            map.put("is_drifting") { DoubleValue(pokemonEntity.isUsingAltPose(cobblemonResource("drifting"))) }
-            map.put("is_powered_drifting") { DoubleValue(pokemonEntity.isUsingAltPose(cobblemonResource("powered_drifting"))) }
-            map.put("in_air") { DoubleValue(pokemonEntity.isUsingAltPose(cobblemonResource("in_air"))) }
+            map.put("get_riding_state") { params ->
+                val name = params.getStringOrNull(0)
+                pokemonEntity.ifRidingAvailableSupply(DoubleValue.ZERO) { behaviour, settings, state ->
+                    val moValue = state.asMoLangValue()
+                    return@ifRidingAvailableSupply moValue.functions.get(name)?.apply(MoParams.EMPTY) as? MoValue ?: moValue
+                }
+            }
+            map.put("is_gliding") {
+                pokemonEntity.ifRidingAvailableSupply(DoubleValue.ZERO) { behaviour, settings, state ->
+                    val moValue = state.asMoLangValue()
+                    return@ifRidingAvailableSupply moValue.functions.get("gliding")?.apply(MoParams.EMPTY) as? MoValue ?: moValue
+                }
+            }
+            map.put("is_sprinting") {
+                pokemonEntity.ifRidingAvailableSupply(DoubleValue.ZERO) { behaviour, settings, state ->
+                    val moValue = state.asMoLangValue()
+                    return@ifRidingAvailableSupply moValue.functions.get("sprinting")?.apply(MoParams.EMPTY) as? MoValue ?: moValue
+                }
+            }
+            map.put("is_drifting") {
+                pokemonEntity.ifRidingAvailableSupply(DoubleValue.ZERO) { behaviour, settings, state ->
+                    val moValue = state.asMoLangValue()
+                    return@ifRidingAvailableSupply moValue.functions.get("is_drifting")?.apply(MoParams.EMPTY) as? MoValue ?: moValue
+                }
+            }
+            map.put("is_powered_drifting") {
+                pokemonEntity.ifRidingAvailableSupply(DoubleValue.ZERO) { behaviour, settings, state ->
+                    val moValue = state.asMoLangValue()
+                    return@ifRidingAvailableSupply moValue.functions.get("is_powered_drifting")?.apply(MoParams.EMPTY) as? MoValue ?: moValue
+                }
+            }
+            map.put("in_air") {
+                pokemonEntity.ifRidingAvailableSupply(DoubleValue.ZERO) { behaviour, settings, state ->
+                    val moValue = state.asMoLangValue()
+                    return@ifRidingAvailableSupply moValue.functions.get("in_air")?.apply(MoParams.EMPTY) as? MoValue ?: moValue
+                }
+            }
             map.put("is_wild") { DoubleValue(pokemonEntity.ownerUUID == null) }
             map.put("is_in_party") { DoubleValue(pokemonEntity.pokemon.storeCoordinates.get()?.store is PartyStore) }
             map.put("is_ridden") { DoubleValue(pokemonEntity.hasControllingPassenger()) }
@@ -2466,6 +2497,17 @@ object MoLangFunctions {
             stringify = { it.toString() }
         )
         value.addFunctions(spawningContextFunctions.flatMap { it(this).entries.map { it.key to it.value } }.toMap())
+        return value
+    }
+
+    fun Vec3.asMoLangValue(): ObjectValue<Vec3> {
+        val value = ObjectValue(
+            obj = this
+        )
+        value.addFunction("x") { this.x }
+        value.addFunction("y") { this.y }
+        value.addFunction("z") { this.z }
+
         return value
     }
 

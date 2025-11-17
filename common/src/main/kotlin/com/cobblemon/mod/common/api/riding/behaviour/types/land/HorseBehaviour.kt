@@ -9,7 +9,9 @@
 package com.cobblemon.mod.common.api.riding.behaviour.types.land
 
 import com.bedrockk.molang.Expression
+import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.CobblemonRideSettings
+import com.cobblemon.mod.common.api.molang.ObjectValue
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviour
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
@@ -41,7 +43,6 @@ import kotlin.math.sqrt
 import net.minecraft.core.Direction
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
@@ -471,19 +472,6 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         return false
     }
 
-    override fun useRidingAltPose(
-        settings: HorseSettings,
-        state: HorseState,
-        vehicle: PokemonEntity,
-        driver: Player
-    ): ResourceLocation {
-        when {
-            state.inAir.get() || (state.rideVelocity.get().y >= 0.0 && driver.jumping) || (state.rideVelocity.get().y > 0.0) -> return cobblemonResource("in_air")
-            state.sprinting.get() -> return cobblemonResource("sprinting")
-        }
-        return cobblemonResource("no_pose")
-    }
-
     override fun inertia(
         settings: HorseSettings,
         state: HorseState,
@@ -662,5 +650,13 @@ class HorseState : RidingBehaviourState() {
         if (previous.sprintToggleable.get() != sprintToggleable.get()) return true
         if (previous.inAir.get() != inAir.get()) return true
         return super.shouldSync(previous)
+    }
+
+    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
+        val value = super.asMoLangValue()
+        value.functions.put("sprinting") { DoubleValue(sprinting) }
+        value.functions.put("walking") { DoubleValue(walking) }
+        value.functions.put("in_air") { DoubleValue(inAir) }
+        return value
     }
 }

@@ -10,8 +10,10 @@ package com.cobblemon.mod.common.api.riding.behaviour.types.liquid
 
 import com.bedrockk.molang.Expression
 import com.bedrockk.molang.runtime.MoLangMath.lerp
+import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.CobblemonRideSettings
 import com.cobblemon.mod.common.OrientationControllable
+import com.cobblemon.mod.common.api.molang.ObjectValue
 import com.cobblemon.mod.common.api.orientation.OrientationController
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.*
@@ -33,7 +35,6 @@ import com.cobblemon.mod.common.util.writeRidingStats
 import net.minecraft.core.BlockPos
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.FluidTags
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
@@ -492,15 +493,6 @@ class SubmarineBehaviour : RidingBehaviour<SubmarineSettings, SubmarineState> {
         return false
     }
 
-    override fun useRidingAltPose(
-        settings: SubmarineSettings,
-        state: SubmarineState,
-        vehicle: PokemonEntity,
-        driver: Player
-    ): ResourceLocation {
-        return cobblemonResource("no_pose")
-    }
-
     override fun inertia(settings: SubmarineSettings, state: SubmarineState, vehicle: PokemonEntity): Double {
         return if (!vehicle.isUnderWater) 1.0 else 0.1
     }
@@ -643,5 +635,11 @@ class SubmarineState : RidingBehaviourState() {
         if (previous !is SubmarineState) return false
         if (previous.onSurface.get() != onSurface.get()) return true
         return super.shouldSync(previous)
+    }
+
+    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
+        val value = super.asMoLangValue()
+        value.functions.put("on_surface") { DoubleValue(onSurface) }
+        return value
     }
 }
