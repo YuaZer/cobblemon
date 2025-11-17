@@ -105,13 +105,13 @@ open class ChoiceSpeciesFeatureProvider(
     override fun invoke(nbt: CompoundTag): StringSpeciesFeature? {
         val key = keys.find { nbt.contains(it) }
         if (key == null) return null
-        return StringSpeciesFeature(keys.first(), "").also { it.loadFromNBT(nbt) }
+        return StringSpeciesFeature(key, "").also { it.loadFromNBT(nbt) }
     }
 
     override fun invoke(json: JsonObject): StringSpeciesFeature? {
         val key = keys.find { json.has(it) }
         if (key == null) return null
-        return StringSpeciesFeature(keys.first(), "").also { it.loadFromJSON(json) }
+        return StringSpeciesFeature(key, "").also { it.loadFromJSON(json) }
     }
 
     override fun fromString(value: String?): StringSpeciesFeature? {

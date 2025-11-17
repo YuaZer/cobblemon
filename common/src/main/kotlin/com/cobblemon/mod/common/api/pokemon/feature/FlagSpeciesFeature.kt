@@ -148,13 +148,13 @@ class FlagSpeciesFeatureProvider : SynchronizedSpeciesFeatureProvider<FlagSpecie
     override fun invoke(nbt: CompoundTag): FlagSpeciesFeature? {
         val key = keys.find { nbt.contains(it) }
         if (key == null) return null
-        return FlagSpeciesFeature(keys.first(), false).also { it.loadFromNBT(nbt) }
+        return FlagSpeciesFeature(key, false).also { it.loadFromNBT(nbt) }
     }
 
     override fun invoke(json: JsonObject): FlagSpeciesFeature? {
         val key = keys.find { json.has(it) }
         if (key == null) return null
-        return FlagSpeciesFeature(keys.first(), false).also { it.loadFromJSON(json) }
+        return FlagSpeciesFeature(key, false).also { it.loadFromJSON(json) }
     }
 
     override fun fromString(value: String?): FlagSpeciesFeature? {
