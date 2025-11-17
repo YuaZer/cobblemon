@@ -10,8 +10,10 @@ package com.cobblemon.mod.common.api.riding.behaviour.types.air
 
 import com.bedrockk.molang.Expression
 import com.bedrockk.molang.runtime.MoLangMath.lerp
+import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.CobblemonRideSettings
 import com.cobblemon.mod.common.OrientationControllable
+import com.cobblemon.mod.common.api.molang.ObjectValue
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviour
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
@@ -39,7 +41,6 @@ import kotlin.math.min
 import net.minecraft.client.Minecraft
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
@@ -394,15 +395,6 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         return true
     }
 
-    override fun useRidingAltPose(
-        settings: JetSettings,
-        state: JetState,
-        vehicle: PokemonEntity,
-        driver: Player
-    ): ResourceLocation {
-        return cobblemonResource("no_pose")
-    }
-
     override fun inertia(settings: JetSettings, state: JetState, vehicle: PokemonEntity): Double {
         return 1.0
     }
@@ -582,5 +574,12 @@ class JetState : RidingBehaviourState() {
         if (previous !is JetState) return false
         if (previous.currSpeed != currSpeed) return true
         return super.shouldSync(previous)
+    }
+
+    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
+        val value = super.asMoLangValue()
+        value.functions.put("boosting") { DoubleValue(boosting) }
+        value.functions.put("can_speed_burst") { DoubleValue(canSpeedBurst) }
+        return value
     }
 }

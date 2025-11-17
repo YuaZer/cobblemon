@@ -8,8 +8,10 @@
 
 package com.cobblemon.mod.common.api.riding.behaviour.types.liquid
 
+import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.CobblemonRideSettings
 import com.cobblemon.mod.common.OrientationControllable
+import com.cobblemon.mod.common.api.molang.ObjectValue
 import com.cobblemon.mod.common.api.riding.RidingStyle
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviour
 import com.cobblemon.mod.common.api.riding.behaviour.RidingBehaviourSettings
@@ -25,10 +27,8 @@ import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.blockPositionsAsListRounded
 import com.cobblemon.mod.common.util.cobblemonResource
 import com.cobblemon.mod.common.util.readRidingStats
-import com.cobblemon.mod.common.util.writeNullable
 import com.cobblemon.mod.common.util.writeRidingStats
 import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
@@ -190,15 +190,6 @@ class BurstBehaviour : RidingBehaviour<BurstSettings, BurstState> {
         return false
     }
 
-    override fun useRidingAltPose(
-        settings: BurstSettings,
-        state: BurstState,
-        vehicle: PokemonEntity,
-        driver: Player
-    ): ResourceLocation {
-        return cobblemonResource("no_pose")
-    }
-
     override fun inertia(settings: BurstSettings, state: BurstState, vehicle: PokemonEntity): Double {
         return 0.5
     }
@@ -283,5 +274,11 @@ class BurstState : RidingBehaviourState() {
         it.stamina.set(stamina.get(), forced = true)
         it.dashing.set(dashing.get(), forced = true)
         it.ticks.set(ticks. get(), forced = true)
+    }
+
+    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
+        val value = super.asMoLangValue()
+        value.functions.put("dashing") { DoubleValue(dashing) }
+        return value
     }
 }
