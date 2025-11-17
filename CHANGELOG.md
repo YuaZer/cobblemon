@@ -528,6 +528,7 @@
 - Moomoo Milk now clears Pokémon stat changes when used in battle.
 - Updated Evolution Stone Block light levels
 - Added light levels to Evolution Stone Ores. These levels are reduced versions of the full blocks light levels
+- Added a steps counter to the summary screen for Pokémon that require walking a certain number of steps to evolve.
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
@@ -619,6 +620,7 @@
 - Fixed the "use all berry bait" achievement not being progressed
 - Fixed bobber hook and berry sprouts texture sizes causing mipmap issues.
 - Fixed head locator not taking into account scale for positioning.
+- Fixed Pokémon step counts not being saved when recalling them to a Pokéball or reentering the world.
 - Fixed NPC pokémon not being linked to their NPC, which previously caused NPC pokémon to be catchable.
 - Fixed an uncommon error caused by scanning a pokémon on a player's shoulder.
 - Fixed a case where spawning could fail and log warnings when nothing wrong was happening.

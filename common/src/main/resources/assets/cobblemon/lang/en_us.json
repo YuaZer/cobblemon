@@ -1150,6 +1150,7 @@
   "cobblemon.ui.stats.other": "Other",
   "cobblemon.ui.stats.friendship": "Friendship",
   "cobblemon.ui.stats.fullness": "Fullness",
+  "cobblemon.ui.stats.blocks_traveled": "Steps",
   "cobblemon.ui.stats.hp": "HP",
   "cobblemon.ui.stats.atk": "Atk",
   "cobblemon.ui.stats.def": "Def",
