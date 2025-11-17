@@ -23,6 +23,30 @@
         "q.bedrock('cutiefly', 'ground_walk')"
       ]
     },
+    "shoulder-left": {
+      "poseTypes": ["SHOULDER_LEFT"],
+      "animations": [
+        "q.bedrock('cutiefly', 'ground_idle')"
+      ],
+      "transformedParts": [
+        {
+          "part": "body",
+          "position": [6, 0, 0]
+        }
+      ]
+    },
+    "shoulder-right": {
+      "poseTypes": ["SHOULDER_RIGHT"],
+      "animations": [
+        "q.bedrock('cutiefly', 'ground_idle')"
+      ],
+      "transformedParts": [
+        {
+          "part": "body",
+          "position": [-6, 0, 0]
+        }
+      ]
+    },
     "sleep": {
       "poseTypes": ["SLEEP"],
       "namedAnimations": {

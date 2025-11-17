@@ -90,6 +90,8 @@ import com.cobblemon.mod.common.pokemon.aspects.COSMETIC_SLOT_ASPECT
 import com.cobblemon.mod.common.pokemon.aspects.GENDER_ASPECT
 import com.cobblemon.mod.common.pokemon.aspects.SHINY_ASPECT
 import com.cobblemon.mod.common.pokemon.evolution.variants.BlockClickEvolution
+import com.cobblemon.mod.common.pokemon.feature.SlowpokeTailRegrowthSpeciesFeature
+import com.cobblemon.mod.common.pokemon.feature.SlowpokeTailRegrowthSpeciesFeatureProvider
 import com.cobblemon.mod.common.pokemon.feature.TagSeasonResolver
 import com.cobblemon.mod.common.pokemon.helditem.CobblemonHeldItemManager
 import com.cobblemon.mod.common.pokemon.properties.*
@@ -306,7 +308,13 @@ object Cobblemon {
 
         SpeciesFeatures.register(
             DataKeys.HAS_BEEN_SHEARED,
-            FlagSpeciesFeatureProvider(keys = listOf(DataKeys.HAS_BEEN_SHEARED), default = false))
+            FlagSpeciesFeatureProvider(keys = listOf(DataKeys.HAS_BEEN_SHEARED), default = false)
+        )
+
+        SpeciesFeatures.register(
+            SlowpokeTailRegrowthSpeciesFeature.NAME,
+            SlowpokeTailRegrowthSpeciesFeatureProvider
+        )
 
         CustomPokemonProperty.register(UncatchableProperty)
         CustomPokemonProperty.register(BattleCloneProperty)

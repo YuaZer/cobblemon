@@ -61,7 +61,9 @@
       "depth": "comatose",
       "times": [
         "any"
-      ]
+      ],
+      "drowsyChance": 0.0014,
+      "rouseChance": 0.0042
     },
     "moving": {
       "swim": {
@@ -74,7 +76,8 @@
     "combat": {
       "willDefendOwner": true,
       "willFlee": false
-    }
+    },
+    "fireImmune": true
   },
   "drops": {
     "amount": 4,
@@ -430,7 +433,9 @@
           "times": [
             "any"
           ],
-          "willSleepOnBed": true
+          "willSleepOnBed": true,
+          "drowsyChance": 0.0014,
+          "rouseChance": 0.0042
         },
         "moving": {
           "swim": {
@@ -440,7 +445,8 @@
         "combat": {
           "willDefendOwner": true,
           "willFlee": false
-        }
+        },
+        "fireImmune": true
       }
     }
   ]

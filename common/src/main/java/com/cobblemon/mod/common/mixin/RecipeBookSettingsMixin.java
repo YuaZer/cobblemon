@@ -15,10 +15,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Arrays;
 import java.util.Map;
 
 @Mixin(RecipeBookSettings.class)
@@ -31,15 +29,4 @@ public class RecipeBookSettingsMixin {
     private void cobblemon$init(CallbackInfo ci) {
         states.put(RecipeBookType.valueOf("COOKING_POT"), new RecipeBookSettings.TypeSettings(true, true));
     }
-
-    @Redirect( method = "read(Lnet/minecraft/network/FriendlyByteBuf;)Lnet/minecraft/stats/RecipeBookSettings;", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/inventory/RecipeBookType;values()[Lnet/minecraft/world/inventory/RecipeBookType;"))
-    private static RecipeBookType[] cobblemon$valuesReadRedirect() {
-        return Arrays.stream(RecipeBookType.values()).filter( recipeBookType -> !RecipeBookType.valueOf("COOKING_POT").equals(recipeBookType) ).toArray(RecipeBookType[]::new);
-    }
-
-    @Redirect( method = "write(Lnet/minecraft/network/FriendlyByteBuf;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/inventory/RecipeBookType;values()[Lnet/minecraft/world/inventory/RecipeBookType;"))
-    private RecipeBookType[] cobblemon$valuesWriteRedirect() {
-        return Arrays.stream(RecipeBookType.values()).filter( recipeBookType -> !RecipeBookType.valueOf("COOKING_POT").equals(recipeBookType) ).toArray(RecipeBookType[]::new);
-    }
-
 }
