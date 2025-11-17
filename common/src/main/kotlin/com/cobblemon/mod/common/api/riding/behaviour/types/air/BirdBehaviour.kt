@@ -602,6 +602,17 @@ class BirdBehaviour : RidingBehaviour<BirdSettings, BirdState> {
     }
 
     override fun createDefaultState(settings: BirdSettings) = BirdState()
+
+    override fun asMoLangValue(
+        settings: BirdSettings,
+        state: BirdState,
+        vehicle: PokemonEntity
+    ): ObjectValue<RidingBehaviour<BirdSettings, BirdState>> {
+        val value = super.asMoLangValue(settings, state, vehicle)
+        value.functions.put("gliding") { DoubleValue(state.gliding.get()) }
+        value.functions.put("last_glide") { DoubleValue(state.lastGlide.get()) }
+        return value
+    }
 }
 
 class BirdSettings : RidingBehaviourSettings {
@@ -731,13 +742,6 @@ class BirdState : RidingBehaviourState() {
         if (previous !is BirdState) return false
         if (previous.gliding.get() != gliding.get()) return true
         return super.shouldSync(previous)
-    }
-
-    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
-        val value = super.asMoLangValue()
-        value.functions.put("gliding") { DoubleValue(gliding) }
-        value.functions.put("last_glide") { DoubleValue(lastGlide) }
-        return value
     }
 }
 

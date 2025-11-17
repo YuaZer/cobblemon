@@ -539,6 +539,15 @@ class SubmarineBehaviour : RidingBehaviour<SubmarineSettings, SubmarineState> {
 
     override fun createDefaultState(settings: SubmarineSettings) = SubmarineState()
 
+    override fun asMoLangValue(
+        settings: SubmarineSettings,
+        state: SubmarineState,
+        vehicle: PokemonEntity
+    ): ObjectValue<RidingBehaviour<SubmarineSettings, SubmarineState>> {
+        val value = super.asMoLangValue(settings, state, vehicle)
+        value.functions.put("on_surface") { DoubleValue(state.onSurface.get()) }
+        return value
+    }
 }
 
 class SubmarineSettings : RidingBehaviourSettings {
@@ -635,11 +644,5 @@ class SubmarineState : RidingBehaviourState() {
         if (previous !is SubmarineState) return false
         if (previous.onSurface.get() != onSurface.get()) return true
         return super.shouldSync(previous)
-    }
-
-    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
-        val value = super.asMoLangValue()
-        value.functions.put("on_surface") { DoubleValue(onSurface) }
-        return value
     }
 }

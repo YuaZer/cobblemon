@@ -480,6 +480,17 @@ class RocketBehaviour : RidingBehaviour<RocketSettings, RocketState> {
     }
 
     override fun createDefaultState(settings: RocketSettings) = RocketState()
+
+    override fun asMoLangValue(
+        settings: RocketSettings,
+        state: RocketState,
+        vehicle: PokemonEntity
+    ): ObjectValue<RidingBehaviour<RocketSettings, RocketState>> {
+        val value = super.asMoLangValue(settings, state, vehicle)
+        value.functions.put("boosting") { DoubleValue(state.boosting.get()) }
+        value.functions.put("can_speed_burst") { DoubleValue(state.canSpeedBurst.get()) }
+        return value
+    }
 }
 
 class RocketSettings : RidingBehaviourSettings {
@@ -607,12 +618,5 @@ class RocketState : RidingBehaviourState() {
         if (previous.ticksNoInput.get() != ticksNoInput.get()) return true
         if (previous.turnMomentum.get() != turnMomentum.get()) return true
         return super.shouldSync(previous)
-    }
-
-    override fun asMoLangValue(): ObjectValue<RidingBehaviourState> {
-        val value = super.asMoLangValue()
-        value.functions.put("boosting") { DoubleValue(boosting) }
-        value.functions.put("can_speed_burst") { DoubleValue(canSpeedBurst) }
-        return value
     }
 }
