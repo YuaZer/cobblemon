@@ -19,6 +19,7 @@ import com.cobblemon.mod.common.api.events.CobblemonEvents.EVOLUTION_COMPLETE
 import com.cobblemon.mod.common.api.events.CobblemonEvents.HATCH_EGG_POST
 import com.cobblemon.mod.common.api.events.CobblemonEvents.LEVEL_UP_EVENT
 import com.cobblemon.mod.common.api.events.CobblemonEvents.POKEMON_CAPTURED
+import com.cobblemon.mod.common.api.events.CobblemonEvents.RIDE_EVENT_POST
 import com.cobblemon.mod.common.api.events.CobblemonEvents.TRADE_EVENT_POST
 import com.cobblemon.mod.common.api.events.battles.BattleVictoryEvent
 import com.cobblemon.mod.common.api.events.pokemon.*
@@ -40,6 +41,7 @@ object AdvancementHandler : EventHandler {
         EVOLUTION_COMPLETE.subscribe(Priority.LOWEST, ::onEvolve)
         LEVEL_UP_EVENT.subscribe(Priority.LOWEST, ::onLevelUp)
         TRADE_EVENT_POST.subscribe(Priority.LOWEST, ::onTradeCompleted)
+        RIDE_EVENT_POST.subscribe(Priority.LOWEST, ::startRiding)
         HATCH_EGG_POST.subscribe(Priority.LOWEST, ::onHatch)
         COLLECT_EGG.subscribe(Priority.LOWEST, ::onEggCollect)
     }
@@ -183,5 +185,9 @@ object AdvancementHandler : EventHandler {
             val block = ((event.player.getItemInHand(event.hand).item as TumblestoneItem).block as TumblestoneBlock)
             CobblemonCriteria.PLANT_TUMBLESTONE.trigger(event.player, PlantTumblestoneContext(event.pos, block))
         }
+    }
+
+    fun startRiding(event: RidePokemonEvent.Post) {
+        CobblemonCriteria.RIDING_STAT_BOOST.trigger(event.player, RidingStatBoostContext(event.pokemon))
     }
 }

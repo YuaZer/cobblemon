@@ -45,7 +45,7 @@
 - Added new optional property `attachment_options` for most EmitterShapes to be attached to the locator/entities scale, rotation, and/or position. Position is true by default.
 - Galarica Nut bushes now generate on beaches.
 - Some Pokémon now pitch their bodies in the direction they're moving.
-- Added new advancements Didn't Stop To Think, We Need To Cook, and Pokémon Jockey!.
+- Added new advancements Didn't Stop To Think, We Need To Cook, Pokémon Jockey!, Souped-Up Stats, Culinary World Tour, Mochi Mochi!, A Luring Aroma, That's Bait, Star Pokéathlete, Home on the Range, and Just a Smackerel.
 - Berries can now be smelted into their respective dyes.
 - Added Syrupy Apples.
 - Added `/runmolang <molang> [<npc>|<player>|<pokemon>]` command that executes a MoLang expression with the provided options as environment variables, as well as the entity (as `q.entity`) that executed the command.
@@ -61,6 +61,7 @@
 - Added `min_perfect_ivs` property to PokemonProperties to specify the minimum number of perfect IVs of the Pokemon.
 - Added `defaultKeyItems` config option to specify which key items players always have.
 - Added `scale_modifier` property to PokemonProperties to modify the scale of the Pokemon.
+- Added advancement trigger to check riding stat boosts.
 - Added Tasty Tail which you can get from Slowpokes if you happen to have a pair of shears. They don't mind, we asked.
 
 ### Pokémon Added
@@ -518,6 +519,11 @@
 - Updated `HatchEggEvent.Post` to include the Pokemon that hatched.
 - Roseli Berry Trees now naturally generate in their preferred biomes.
 - Refactored dynamic lights compat to be more future proof. The dynamic light support is only tested with LambDynamicLights, on NeoForged use that mod in combination with Sinytra Connector
+- Renamed Masterful Dedication advancement to This will affect the Whiscash Population
+- Changed icon for the following advancements: New Angles for Angling, Researcher Recruit, Doing my Part, Reapriforestation
+- Disabled advancement Mother Nature's Bounty from appearing in chat when obtained, now only appears as a toast and in the advancements menu
+- Removed Oki-Doki Vivichokey advancement
+- Shulker Boxes and Traveler's Backpacks can no longer be held by Pokémon. Thanks Monocle ;) You could re-enable this with a datapack but you'd be crazy.
 - Shulker Boxes and Traveler's Backpacks AND Packed Up backpacks can no longer be held by Pokémon. Thanks Monocle ;) You could re-enable this with our datapack (but you'd be crazy).
 - Moomoo Milk now clears Pokémon stat changes when used in battle.
 - Updated Evolution Stone Block light levels
@@ -606,6 +612,8 @@
 - Fixed singular Pokémon corruption causing entire storage corruption. Storages will now skip corrupted Pokémon and print an error to console.
 - Fixed species additions not being able to properly mark a species as implemented.
 - Fixed Pokémon item models not showing a glint when enchanted.
+- Fixed the missing Terracotta Sun Stone Ore smelting and blasting recipes
+- Improved experience gain from smelting evolution stone ores to better match other ore types
 - Fixed some specific bag items not being dropped when used in battle.
 - The Corphish line will now sink in water.
 - Fixed the "use all berry bait" achievement not being progressed
@@ -679,6 +687,7 @@
 - Added `IVs.MAX_TOTAL` constant.
 - Added `PokemonStats#total()`.
 - Add `NatureAdapter` for serializing and deserializing Natures using Gson.
+- Added `Pokemon.getBaseRideStat(RidingStat)` for getting the base value of the given stat.
 - Fixed `Species#create` using the species name instead of identifier, which had led to certain mismatches generating random pokémon.
 
 ### MoLang & Datapacks
