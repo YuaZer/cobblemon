@@ -10,10 +10,10 @@ package com.cobblemon.mod.common.net.serverhandling.debug
 
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.api.net.ServerNetworkPacketHandler
+import com.cobblemon.mod.common.api.permission.CobblemonPermissions.USE_RIDING_STATS_DEBUG
 import com.cobblemon.mod.common.api.text.red
 import com.cobblemon.mod.common.net.messages.client.debug.RequestOpenRidingStatsDebugGUIPacket
 import com.cobblemon.mod.common.net.messages.server.debug.OpenRidingStatsDebugGUIPacket
-import com.cobblemon.mod.common.util.isOp
 import com.cobblemon.mod.common.util.lang
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.level.ServerPlayer
@@ -29,8 +29,8 @@ object RequestOpenRidingStatsDebugGUIHandler : ServerNetworkPacketHandler<Reques
             return
         }
 
-        if (!player.isOp()) {
-            player.sendSystemMessage(lang("requires_op").red())
+        if (!Cobblemon.permissionValidator.hasPermission(player, USE_RIDING_STATS_DEBUG)) {
+            player.sendSystemMessage(lang("requires_permission").red())
             return
         }
 

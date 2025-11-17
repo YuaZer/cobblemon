@@ -126,8 +126,6 @@ fun ServerPlayer.canInteractWith(target: LivingEntity, maxDistance: Float) = tar
         collideBlock = ClipContext.Fluid.NONE
     ) == target
 
-fun ServerPlayer.isOp() = hasPermissions(2)
-
 // TODO Player extension for queueing next login?
 class TraceResult(
     val location: Vec3,
