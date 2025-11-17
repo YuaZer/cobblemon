@@ -343,7 +343,6 @@ open class PokemonEntity(
     /**
      * The amount of steps this entity has traveled.
      */
-    var blocksTraveled: Double = 0.0
     var countsTowardsSpawnCap = true
 
     /**
@@ -1860,7 +1859,9 @@ open class PokemonEntity(
                 }
             }
 
-            this.updateBlocksTraveled(prevBlockPos)
+            if (this.pokemon.hasBlocksTraveledRequirement()) {
+                this.updateBlocksTraveled(prevBlockPos)
+            }
         }
         if (isBattling && this.isInWater) {
             // Prevent swimmers from sinking in battle
@@ -1875,7 +1876,7 @@ open class PokemonEntity(
         }
         val blocksTaken = this.blockPosition().distSqr(fromBp)
         if (blocksTaken > 0) {
-            this.blocksTraveled += blocksTaken
+            this.pokemon.addBlocksTraveled(blocksTaken.toInt())
         }
     }
 

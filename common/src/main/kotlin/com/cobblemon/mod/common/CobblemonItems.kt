@@ -382,8 +382,8 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
     @JvmField
     val SINISTER_TEA = create("sinister_tea", SinisterTeaItem())
 
-    @JvmField
-    val POKE_PUFF = pokepuffItem("poke_puff")
+    // @JvmField
+    // val POKE_PUFF = pokepuffItem("poke_puff")
 
     // FOODS
     @JvmField
