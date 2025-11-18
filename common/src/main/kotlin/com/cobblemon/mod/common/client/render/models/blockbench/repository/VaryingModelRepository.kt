@@ -337,7 +337,6 @@ object VaryingModelRepository {
         inbuilt("nacli", :: NacliModel)
         inbuilt("naclstack", :: NaclstackModel)
         inbuilt("garganacl", ::GarganaclModel)
-        inbuilt("alcremie", :: AlcremieModel)
         inbuilt("milcery", :: MilceryModel)
         inbuilt("turtwig", :: TurtwigModel)
         inbuilt("grotle", :: GrotleModel)

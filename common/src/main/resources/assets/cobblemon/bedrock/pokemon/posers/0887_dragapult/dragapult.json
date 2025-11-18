@@ -18,7 +18,7 @@
   "animations": {
     "cry": "q.bedrock_stateful('dragapult', 'cry')",
     "recoil": "q.bedrock_stateful('dragapult', 'recoil')",
-    "physical": "q.bedrock_primary('dragapult', 'physical', q.curve('symmetrical_wide'))",
+    "physical": "q.bedrock_primary('dragapult', 'physical', q.curve('symmetrical'))",
     "special": "q.bedrock_primary('dragapult', 'special', q.curve('symmetrical_wide'))"
   },
   "poses": {

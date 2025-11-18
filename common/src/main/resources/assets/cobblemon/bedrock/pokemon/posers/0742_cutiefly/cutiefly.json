@@ -10,14 +10,26 @@
   },
   "poses": {
     "standing": {
-      "poseTypes": ["STAND", "FLOAT", "HOVER", "NONE", "PORTRAIT", "PROFILE"],
+      "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
+      "animations": [
+        "q.bedrock('cutiefly', 'ground_idle')"
+      ]
+    },
+    "walking": {
+      "poseTypes": ["WALK"],
+      "animations": [
+        "q.bedrock('cutiefly', 'ground_walk')"
+      ]
+    },
+    "hover": {
+      "poseTypes": ["HOVER", "FLOAT"],
       "animations": [
         "q.pitch_tilt('body', 0.22)",
         "q.bedrock('cutiefly', 'ground_idle')"
       ]
     },
-    "walking": {
-      "poseTypes": ["WALK", "SWIM", "FLY"],
+    "fly": {
+      "poseTypes": ["FLY", "SWIM"],
       "animations": [
         "q.pitch_tilt('body', 0.22)",
         "q.bedrock('cutiefly', 'ground_walk')"
