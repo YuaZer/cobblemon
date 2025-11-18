@@ -8,6 +8,7 @@
 
 package com.cobblemon.mod.common.api.item
 
+import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.advancement.CobblemonCriteria
 import com.cobblemon.mod.common.advancement.criterion.PokemonInteractContext
 import com.cobblemon.mod.common.api.battles.model.actor.BattleActor
@@ -107,15 +108,22 @@ interface PokemonSelectingItem {
     }
 
     fun canUseOnPokemon(stack: ItemStack, pokemon: Pokemon): Boolean {
+        Cobblemon.LOGGER.error("pokemonselectingitem canUseOnPokemon")
         if (stack.`is`(CobblemonItemTags.POKE_FOOD)) {
             return !pokemon.isFull()
         }
         return true
     }
 
-    fun canUseOnBattlePokemon(stack: ItemStack, battlePokemon: BattlePokemon): Boolean = bagItem!!.canUse(stack, battlePokemon.actor.battle, battlePokemon)
+    fun canUseOnBattlePokemon(stack: ItemStack, battlePokemon: BattlePokemon): Boolean {
+        Cobblemon.LOGGER.error("super " + battlePokemon.effectedPokemon.species.name)
+        return bagItem!!.canUse(stack, battlePokemon.actor.battle, battlePokemon)
+    }
 
     fun interactWithSpecificBattle(player: ServerPlayer, stack: ItemStack, battlePokemon: BattlePokemon): InteractionResultHolder<ItemStack> {
+
+        Cobblemon.LOGGER.error("interactWithSpecificBattle")
+
         return if (canUseOnBattlePokemon(stack, battlePokemon)) {
             applyToBattlePokemon(player, stack, battlePokemon)
             InteractionResultHolder.success(stack)
@@ -126,6 +134,9 @@ interface PokemonSelectingItem {
     }
 
     fun interactGeneral(player: ServerPlayer, stack: ItemStack): InteractionResultHolder<ItemStack> {
+
+        Cobblemon.LOGGER.error("interactGeneral")
+
         val party = player.party().toList()
         if (party.isEmpty()) {
             return InteractionResultHolder.fail(stack)
@@ -148,6 +159,9 @@ interface PokemonSelectingItem {
     }
 
     fun interactGeneralBattle(player: ServerPlayer, stack: ItemStack, actor: BattleActor): InteractionResultHolder<ItemStack> {
+
+        Cobblemon.LOGGER.error("interactGeneralBattle")
+
         PartySelectCallbacks.createBattleSelect(
             player = player,
             pokemon = actor.pokemonList,
