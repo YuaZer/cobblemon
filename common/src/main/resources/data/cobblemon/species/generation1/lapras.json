@@ -185,7 +185,8 @@
     "moving": {
       "swim": {
         "canBreatheUnderwater": true,
-        "swimSpeed": 0.3
+        "swimSpeed": 0.3,
+        "canWalkOnWater": true
       },
       "walk": {
         "walkSpeed": 0.15,

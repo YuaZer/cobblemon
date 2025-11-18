@@ -52,8 +52,10 @@
     "moving": {
       "swim": {
         "swimSpeed": "0.2",
-        "avoidsWater": true,
-        "canWalkOnWater": true
+        "avoidsWater": true
+      },
+      "walk": {
+        "canWalk": false
       }
     },
     "herd": {

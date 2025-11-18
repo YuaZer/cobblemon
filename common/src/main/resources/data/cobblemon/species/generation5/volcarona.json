@@ -175,10 +175,7 @@
       },
       "swim": {
         "avoidsWater": true,
-        "canWalkOnWater": true
-      },
-      "walk": {
-        "canWalk": true
+        "canSwimInLava": true
       }
     },
     "resting": {
