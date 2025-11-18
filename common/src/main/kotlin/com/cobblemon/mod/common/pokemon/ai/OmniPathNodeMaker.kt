@@ -35,6 +35,7 @@ import net.minecraft.world.phys.Vec3
 import java.util.*
 import java.util.function.Predicate
 import kotlin.math.max
+import net.minecraft.world.level.block.state.BlockState
 
 
 /**
@@ -47,6 +48,7 @@ import kotlin.math.max
  */
 class OmniPathNodeMaker : NodeEvaluator() {
     private val nodePosToType: Long2ObjectMap<PathType> = Long2ObjectOpenHashMap()
+    private val nodePosToState: Long2ObjectMap<BlockState> = Long2ObjectOpenHashMap()
 
     var canPathThroughFire: Boolean = false
 
@@ -55,11 +57,17 @@ class OmniPathNodeMaker : NodeEvaluator() {
     override fun prepare(cachedWorld: PathNavigationRegion, entity: Mob) {
         super.prepare(cachedWorld, entity)
         nodePosToType.clear()
+        nodePosToState.clear()
     }
 
     override fun done() {
         super.done()
         nodePosToType.clear()
+        nodePosToState.clear()
+    }
+
+    fun PathfindingContext.getCachedBlockState(pos: BlockPos): BlockState {
+        return nodePosToState.computeIfAbsent(pos.asLong()) { getBlockState(pos) }
     }
 
     override fun getTarget(x: Double, y: Double, z: Double): Target {
@@ -389,7 +397,7 @@ class OmniPathNodeMaker : NodeEvaluator() {
             // Downward non-diagonals
             for (direction in Direction.Plane.HORIZONTAL.iterator()) {
                 connectingBlockPos.set(node.asBlockPos().offset(direction.normal))
-                val blockState = currentContext.getBlockState(connectingBlockPos)
+                val blockState = currentContext.getCachedBlockState(connectingBlockPos)
                 val traversableByTangent = blockState.isPathfindable(PathComputationType.AIR)
                 val pathNode2 = getNode(node.x + direction.stepX, node.y - 1, node.z + direction.stepZ) ?: continue
                 if (hasNotVisited(pathNode2, node) && traversableByTangent) {
@@ -494,8 +502,8 @@ class OmniPathNodeMaker : NodeEvaluator() {
     override fun getPathType(pfContext: PathfindingContext, x: Int, y: Int, z: Int): PathType {
         val pos = BlockPos(x, y, z)
         val below = BlockPos(x, y - 1, z)
-        val blockState = pfContext.getBlockState(pos)
-        val blockStateBelow = pfContext.getBlockState(below)
+        val blockState = pfContext.getCachedBlockState(pos)
+        val blockStateBelow = pfContext.getCachedBlockState(below)
         val isWater = blockState.fluidState.`is`(FluidTags.WATER)
         val isLava = blockState.fluidState.`is`(FluidTags.LAVA)
         val canBreatheUnderFluid = canSwimUnderFluid(blockState.fluidState)
@@ -662,7 +670,7 @@ class OmniPathNodeMaker : NodeEvaluator() {
         pos: BlockPos,
         type: PathType
     ): PathType {
-        val blockState = pfContext.getBlockState(pos)
+        val blockState = pfContext.getCachedBlockState(pos)
         val block = blockState.block
 
         if (blockState.`is`(Blocks.CACTUS) || blockState.`is`(Blocks.SWEET_BERRY_BUSH)) {
@@ -681,7 +689,7 @@ class OmniPathNodeMaker : NodeEvaluator() {
             PathType.WALKABLE_DOOR
         } else if (type == PathType.DOOR_OPEN && !canEnterOpenDoors) {
             PathType.BLOCKED
-        } else if (type == PathType.RAIL && block !is BaseRailBlock && pfContext.getBlockState(pos.below()).block !is BaseRailBlock) {
+        } else if (type == PathType.RAIL && block !is BaseRailBlock && pfContext.getCachedBlockState(pos.below()).block !is BaseRailBlock) {
             PathType.UNPASSABLE_RAIL
         } else if (type == PathType.LEAVES) {
             if (blockState.block === CobblemonBlocks.SACCHARINE_LEAVES && canPathThroughLeaves()) {
