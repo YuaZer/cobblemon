@@ -535,10 +535,11 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         state: HorseState,
         vehicle: PokemonEntity
     ): ObjectValue<RidingBehaviour<HorseSettings, HorseState>> {
+        val canJump = vehicle.runtime.resolveBoolean(settings.canJump ?: globalHorse.canJump!!)
         val value = super.asMoLangValue(settings, state, vehicle)
         value.functions.put("sprinting") { DoubleValue(state.sprinting.get()) }
         value.functions.put("walking") { DoubleValue(state.walking.get()) }
-        value.functions.put("in_air") { DoubleValue(state.inAir.get() || (state.rideVelocity.get().y >= 0.0 && (vehicle.controllingPassenger as? Player)?.jumping == true) || (state.rideVelocity.get().y > 0.0)) }
+        value.functions.put("in_air") { DoubleValue(state.inAir.get() || (state.rideVelocity.get().y >= 0.0 && (vehicle.controllingPassenger as? Player)?.jumping == true && canJump) || (state.rideVelocity.get().y > 0.0)) }
         return value
     }
 }

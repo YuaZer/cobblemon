@@ -72,7 +72,6 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
             if (vehicle.isInWater || vehicle.isUnderWater) {
                 return@any false
             }
-            //This might not actually work, depending on what the yPos actually is. yPos of the middle of the entity? the feet?
             if (it.y.toDouble() == (vehicle.position().y)) {
                 val blockState = vehicle.level().getBlockState(it.below())
                 return@any !(!blockState.isAir && blockState.fluidState.isEmpty)
@@ -330,7 +329,7 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         // Have accumulated input begin decay when no input detected
         if (abs(mouseX) == 0.0) {
             // Have decay on roll be much stronger.
-            state.currMouseXForce.set(lerp(state.currMouseXForce.get(), 0.0, 0.08))
+            state.currMouseXForce.set(lerp(state.currMouseXForce.get(), 0.0, 0.02))
         }
         if (mouseY == 0.0) {
             state.currMouseYForce.set(lerp(state.currMouseYForce.get(), 0.0, 0.02))
@@ -424,7 +423,7 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         state: JetState,
         vehicle: PokemonEntity
     ): Boolean {
-        return true
+        return false
     }
 
     override fun getRideSounds(
