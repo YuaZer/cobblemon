@@ -21,6 +21,7 @@ import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.*
+import com.cobblemon.mod.common.util.math.geometry.toRadians
 import net.minecraft.client.Minecraft
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.RegistryFriendlyByteBuf
@@ -32,6 +33,7 @@ import net.minecraft.world.level.ClipContext
 import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec2
 import net.minecraft.world.phys.Vec3
+import org.joml.Matrix3f
 import kotlin.math.*
 
 class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
@@ -154,6 +156,7 @@ class HoverBehaviour : RidingBehaviour<HoverSettings, HoverState> {
         driver: LivingEntity
     ): Vec2 {
         val turnAmount =  calcRotAmount(settings, state, vehicle, driver)
+        state.rideVelocity.set( state.rideVelocity.get().yRot(turnAmount.toRadians()))
         return Vec2(driver.xRot, vehicle.yRot + turnAmount )
     }
 

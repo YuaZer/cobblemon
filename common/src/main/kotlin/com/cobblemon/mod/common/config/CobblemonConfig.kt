@@ -328,7 +328,7 @@ class CobblemonConfig {
     var rememberRidingCamera = false
 
     @CobblemonConfigField(Category.Debug, lang = "enable_debug_keys", CLIENT)
-    var enableDebugKeys = true
+    var enableDebugKeys = false
 
     @CobblemonConfigField(Category.Spawning, lang = "despawner_near_distance", SERVER)
     var despawnerNearDistance = 32f

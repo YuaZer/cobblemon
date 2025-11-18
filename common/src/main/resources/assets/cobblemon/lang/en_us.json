@@ -1102,6 +1102,8 @@
   "cobblemon.overflow_no_space": "Your party was full and so was %1$s!",
   "cobblemon.overflow_to_pc": "Your party was full! %1$s has been added to %2$s.",
   "cobblemon.your_pc": "Your PC",
+  "cobblemon.requires_debug_keys": "Debug Keys must be enabled on the server to use this feature.",
+  "cobblemon.requires_permission": "You don't have the required permission to do this action.",
   "cobblemon.command.pokespawn.invalid-pokemon": "Invalid Pokémon name",
   "cobblemon.command.pokespawn.invalid-move": "Invalid move name",
   "cobblemon.command.clearparty.nonethere": "There are no Pokémon in %1$s's party.",

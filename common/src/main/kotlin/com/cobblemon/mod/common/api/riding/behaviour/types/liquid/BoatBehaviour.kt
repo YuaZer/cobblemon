@@ -397,7 +397,7 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
                        val blockState = vehicle.level().getBlockState(it)
                        return@any !blockState.fluidState.isEmpty
                    }
-            DoubleValue(isInWater)
+            DoubleValue(!isInWater)
         }
         return value
     }
