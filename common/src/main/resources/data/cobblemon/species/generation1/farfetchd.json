@@ -68,6 +68,9 @@
       },
       "walk": {
         "walkSpeed": 0.3
+      },
+      "swim": {
+        "canWalkOnWater": true
       }
     },
     "herd": {

@@ -64,7 +64,8 @@
         "canWalk": false
       },
       "swim": {
-        "avoidsWater": true
+        "avoidsWater": true,
+        "canSwimInWater": false
       }
     },
     "combat": {

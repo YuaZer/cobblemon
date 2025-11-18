@@ -63,7 +63,8 @@
       },
       "swim": {
         "swimSpeed": 0.1,
-        "avoidsWater": true
+        "avoidsWater": true,
+        "canSwimInLava": true
       }
     },
     "resting": {

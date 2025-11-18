@@ -64,7 +64,8 @@
       },
       "swim": {
         "avoidsWater": true,
-        "canSwimInWater": false
+        "canSwimInWater": false,
+        "canSwimInLava": true
       },
       "canLook": false
     },
