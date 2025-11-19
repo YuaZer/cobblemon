@@ -9103,5 +9103,8 @@
     "cobblemon.entity.variable.dialogue_selection.name": "对话",
     "cobblemon.entity.variable.dialogue_selection.desc": "在交互时要打开的对话的资源标识符，例 cobblemon:your_dialogue",
     "cobblemon.seasoning_ride_boost_entry": "%1$s：%2$s",
-    "cobblemon.seasoning_ride_boosts_info_header": "骑乘属性提升："
+    "cobblemon.seasoning_ride_boosts_info_header": "骑乘属性提升：",
+    "item.cobblemon.eggant_berry": "子茄果",
+    "cobblemon.entity.variable.look_at_entity_types.desc": "该实体将看向的实体类型。",
+    "cobblemon.entity.variable.look_at_entity_types.name": "看向实体类型"
 }
