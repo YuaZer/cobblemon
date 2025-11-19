@@ -19,8 +19,10 @@ import com.cobblemon.mod.common.client.net.callback.move.OpenMoveCallbackHandler
 import com.cobblemon.mod.common.client.net.callback.party.OpenPartyCallbackHandler
 import com.cobblemon.mod.common.client.net.callback.partymove.OpenPartyMoveCallbackHandler
 import com.cobblemon.mod.common.client.net.cooking.ToggleCookingPotLidHandler
+import com.cobblemon.mod.common.client.net.data.CobblemonMechanicsSyncHandler
 import com.cobblemon.mod.common.client.net.data.DataRegistrySyncPacketHandler
 import com.cobblemon.mod.common.client.net.data.RideSettingsSyncHandler
+import com.cobblemon.mod.common.client.net.debug.OpenRidingStatsDebugGUIHandler
 import com.cobblemon.mod.common.client.net.dialogue.DialogueClosedHandler
 import com.cobblemon.mod.common.client.net.dialogue.DialogueOpenedHandler
 import com.cobblemon.mod.common.client.net.effect.PokeSnackBlockParticlesHandler
@@ -78,6 +80,7 @@ import com.cobblemon.mod.common.net.messages.client.callback.OpenPartyMoveCallba
 import com.cobblemon.mod.common.net.messages.client.cooking.SeasoningRegistrySyncPacket
 import com.cobblemon.mod.common.net.messages.client.cooking.ToggleCookingPotLidPacket
 import com.cobblemon.mod.common.net.messages.client.data.*
+import com.cobblemon.mod.common.net.messages.client.debug.RequestOpenRidingStatsDebugGUIPacket
 import com.cobblemon.mod.common.net.messages.client.dialogue.DialogueClosedPacket
 import com.cobblemon.mod.common.net.messages.client.dialogue.DialogueOpenedPacket
 import com.cobblemon.mod.common.net.messages.client.effect.PokeSnackBlockParticlesPacket
@@ -159,6 +162,7 @@ import com.cobblemon.mod.common.net.messages.server.callback.party.PartyPokemonS
 import com.cobblemon.mod.common.net.messages.server.callback.party.PartySelectCancelledPacket
 import com.cobblemon.mod.common.net.messages.server.callback.partymove.PartyMoveSelectCancelledPacket
 import com.cobblemon.mod.common.net.messages.server.callback.partymove.PartyPokemonMoveSelectedPacket
+import com.cobblemon.mod.common.net.messages.server.debug.OpenRidingStatsDebugGUIPacket
 import com.cobblemon.mod.common.net.messages.server.debug.ServerboundUpdateRidingSettingsPacket
 import com.cobblemon.mod.common.net.messages.server.debug.ServerboundUpdateRidingStatRangePacket
 import com.cobblemon.mod.common.net.messages.server.debug.ServerboundUpdateRidingStatsPacket
@@ -212,6 +216,7 @@ import com.cobblemon.mod.common.net.serverhandling.callback.party.PartyPokemonSe
 import com.cobblemon.mod.common.net.serverhandling.callback.party.PartySelectCancelledHandler
 import com.cobblemon.mod.common.net.serverhandling.callback.partymove.PartyMoveSelectCancelledHandler
 import com.cobblemon.mod.common.net.serverhandling.callback.partymove.PartyPokemonMoveSelectedHandler
+import com.cobblemon.mod.common.net.serverhandling.debug.RequestOpenRidingStatsDebugGUIHandler
 import com.cobblemon.mod.common.net.serverhandling.debug.ServerboundUpdateRidingSettingsHandler
 import com.cobblemon.mod.common.net.serverhandling.debug.ServerboundUpdateRidingStatRangeHandler
 import com.cobblemon.mod.common.net.serverhandling.debug.ServerboundUpdateRidingStatsHandler
@@ -267,10 +272,13 @@ object CobblemonNetwork {
     fun ServerPlayer.sendPacket(packet: NetworkPacket<*>) {
         sendPacketToPlayer(this, packet)
     }
+    @JvmStatic
     fun sendToServer(packet: NetworkPacket<*>) {
         Cobblemon.implementation.networkManager.sendToServer(packet)
     }
+    @JvmStatic
     fun sendToAllPlayers(packet: NetworkPacket<*>) = sendPacketToPlayers(server()!!.playerList.players, packet)
+    @JvmStatic
     fun sendPacketToPlayers(players: Iterable<ServerPlayer>, packet: NetworkPacket<*>) = players.forEach { sendPacketToPlayer(it, packet) }
 
     val s2cPayloads = generateS2CPacketInfoList()
@@ -392,6 +400,7 @@ object CobblemonNetwork {
 
         // Data registries
         list.add(PacketRegisterInfo(AbilityRegistrySyncPacket.ID, AbilityRegistrySyncPacket::decode, DataRegistrySyncPacketHandler()))
+        list.add(PacketRegisterInfo(CobblemonMechanicsSyncPacket.ID, CobblemonMechanicsSyncPacket::decode, CobblemonMechanicsSyncHandler))
         list.add(PacketRegisterInfo(MovesRegistrySyncPacket.ID, MovesRegistrySyncPacket::decode, DataRegistrySyncPacketHandler()))
         list.add(PacketRegisterInfo(BerryRegistrySyncPacket.ID, BerryRegistrySyncPacket::decode, DataRegistrySyncPacketHandler()))
         list.add(PacketRegisterInfo(SpeciesRegistrySyncPacket.ID, SpeciesRegistrySyncPacket::decode, DataRegistrySyncPacketHandler()))
@@ -481,6 +490,9 @@ object CobblemonNetwork {
         // Riding
         list.add(PacketRegisterInfo(ClientboundUpdateRidingStatePacket.ID, ClientboundUpdateRidingStatePacket::decode, ClientboundUpdateRidingStateHandler))
         list.add(PacketRegisterInfo(ClientboundUpdateDriverInputPacket.ID, ClientboundUpdateDriverInputPacket::decode, ClientboundUpdateDriverInputHandler))
+
+        // Debug
+        list.add(PacketRegisterInfo(OpenRidingStatsDebugGUIPacket.ID, OpenRidingStatsDebugGUIPacket::decode, OpenRidingStatsDebugGUIHandler))
 
         return list
     }
@@ -597,6 +609,9 @@ object CobblemonNetwork {
         // Behaviour Packets
         list.add(PacketRegisterInfo(SetEntityBehaviourPacket.ID, SetEntityBehaviourPacket::decode, SetEntityBehaviourHandler))
         list.add(PacketRegisterInfo(DamageOnCollisionPacket.ID, DamageOnCollisionPacket::decode, DamageOnCollisionPacketHandler))
+
+        // Debug
+        list.add(PacketRegisterInfo(RequestOpenRidingStatsDebugGUIPacket.ID, RequestOpenRidingStatsDebugGUIPacket::decode, RequestOpenRidingStatsDebugGUIHandler))
 
         return list
     }

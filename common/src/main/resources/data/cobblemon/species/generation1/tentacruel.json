@@ -70,9 +70,8 @@
     "moving": {
       "swim": {
         "canBreatheUnderwater": true,
-        "canSwimInLava": false,
-        "canSwimInWater": true,
-        "swimSpeed": 0.2
+        "swimSpeed": 0.2,
+        "canWalkOnWater": true
       },
       "walk": {
         "avoidsLand": true
@@ -80,7 +79,17 @@
     },
     "resting": {
       "canSleep": true,
-      "light": "0-4"
+      "light": "0-4",
+      "times": [
+        "any"
+      ],
+      "drowsyChance": 0.0014,
+      "rouseChance": 0.0042
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
     }
   },
   "drops": {
@@ -92,8 +101,8 @@
       },
       {
         "item": "minecraft:glow_ink_sac",
-        "percentage": 10.0,
-        "quantityRange": "2-4"
+        "quantityRange": "2-4",
+        "percentage": 10.0
       },
       {
         "item": "cobblemon:poison_barb",
@@ -240,7 +249,7 @@
   "preEvolution": "tentacool",
   "evolutions": [],
   "lightingData": {
-    "lightLevel": 6,
+    "lightLevel": 8,
     "liquidGlowMode": "BOTH"
   }
 }

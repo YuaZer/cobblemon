@@ -190,6 +190,15 @@
     "walk": {
       "walkSpeed": 0.13,
       "canWalk": true
+    },
+    "moving": {
+      "swim": {
+        "avoidsWater": true
+      }
+    },
+    "resting": {
+      "drowsyChance": 0.0333,
+      "rouseChance": 0.0042
     }
   }
 }

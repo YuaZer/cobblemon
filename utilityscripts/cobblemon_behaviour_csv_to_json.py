@@ -175,6 +175,13 @@ def assign(object, key, value, default):
     elif key in object:
         del object[key]
 
+# Convert a fraction string to a decimal float, with 4 decimal places of precision
+def fraction_to_decimal(value):
+    if '/' in str(value):
+        numerator, denominator = str(value).split('/')
+        return round(float(numerator) / float(denominator), 4)
+    return round(float(value), 4)
+
 ################################################################################
 # All of the functions below for building out parts of the behaviour data are
 # designed against the defaults for all of the fields, hoping to minimise how
@@ -199,20 +206,31 @@ def apply_behaviour(pokemon_form, behaviour_row):
     moving = build_moving(behaviour_row, behaviour.get('moving', {}))
     if moving:
         behaviour['moving'] = moving
+    elif 'moving' in behaviour:
+        del behaviour['moving']
+
     idle = build_idle(behaviour_row, behaviour.get('idle', {}))
     if idle:
         behaviour['idle'] = idle
+    elif 'idle' in behaviour:
+        del behaviour['idle']
     entity_interact = build_entity_interact(behaviour_row, behaviour.get('entityInteract', {}))
     if entity_interact:
         behaviour['entityInteract'] = entity_interact
+    elif 'entityInteract' in behaviour:
+        del behaviour['entityInteract']
     combat = build_combat(behaviour_row, behaviour.get('combat', {}))
     if combat:
         behaviour['combat'] = combat
+    elif 'combat' in behaviour:
+        del behaviour['combat']
     herd = build_herd(behaviour_row, behaviour.get('herd', {}))
     if herd:
         behaviour['herd'] = herd
+    elif 'herd' in behaviour:
+        del behaviour['herd']
 
-    assign(behaviour, 'fireImmune', behaviour_row['Hurt by Lava'], False)
+    assign(behaviour, 'fireImmune', behaviour_row['Fire Immune'] == True, False)
 
 def build_lighting_data(behaviour_row, lighting_data):
     light_level = behaviour_row['Light Level']
@@ -285,9 +303,9 @@ def build_resting(behaviour_row, resting):
     #if behaviour_row['S. Skylight'] != '':
     #    resting['skyLight'] = behaviour_row['S. Skylight']
     if behaviour_row['Drowsy Rate'] != '':
-        resting['drowsyRate'] = behaviour_row['Drowsy Rate']
+        resting['drowsyChance'] = fraction_to_decimal(behaviour_row['Drowsy Rate'])
     if behaviour_row['Rouse Rate'] != '':
-        resting['rouseRate'] = behaviour_row['Rouse Rate']
+        resting['rouseChance'] = fraction_to_decimal(behaviour_row['Rouse Rate'])
     if behaviour_row['Sleep Conditions'] != '':
         conditions = behaviour_row['Sleep Conditions'].lower().split(',')
         for i in range(len(conditions)):
@@ -314,7 +332,7 @@ def build_entity_interact(behaviour_row, entity_interact):
 def build_combat(behaviour_row, combat):
     assign(combat, 'willDefendSelf', behaviour_row['Defends Self'], False)
     assign(combat, 'willDefendOwner', behaviour_row['Defends Owner'], False)
-    could_flee = 'willDefendSelf' in combat or 'willDefendOwner' in combat
+    could_flee = 'willDefendSelf' not in combat and 'willDefendOwner' not in combat
     assign(combat, 'willFlee', behaviour_row['Will Flee'] and could_flee, True)
     return combat
 

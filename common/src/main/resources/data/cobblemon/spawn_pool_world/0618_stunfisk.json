@@ -7,7 +7,7 @@
             "id": "stunfisk-2",
             "pokemon": "stunfisk",
             "type": "pokemon",
-            "context": "fishing",
+            "spawnablePositionType": "fishing",
             "bucket": "common",
             "level": "22-47",
             "weight": 2.0,
@@ -15,14 +15,14 @@
                 {
                     "multiplier": 3.0,
                     "condition": {
-                        "minLureLevel": "2",
-                        "maxLureLevel": "2"
+                        "minLureLevel": 2,
+                        "maxLureLevel": 2
                     }
                 },
                 {
                     "multiplier": 5.0,
                     "condition": {
-                        "minLureLevel": "3"
+                        "minLureLevel": 3
                     }
                 }
             ],
@@ -39,7 +39,7 @@
             "id": "stunfisk-3",
             "pokemon": "stunfisk",
             "type": "pokemon",
-            "context": "fishing",
+            "spawnablePositionType": "fishing",
             "bucket": "common",
             "level": "22-47",
             "weight": 2.0,
@@ -47,14 +47,14 @@
                 {
                     "multiplier": 3.0,
                     "condition": {
-                        "minLureLevel": "2",
-                        "maxLureLevel": "2"
+                        "minLureLevel": 2,
+                        "maxLureLevel": 2
                     }
                 },
                 {
                     "multiplier": 5.0,
                     "condition": {
-                        "minLureLevel": "3"
+                        "minLureLevel": 3
                     }
                 }
             ],
@@ -76,7 +76,7 @@
                 "water"
             ],
             "type": "pokemon",
-            "context": "seafloor",
+            "spawnablePositionType": "seafloor",
             "bucket": "common",
             "level": "22-47",
             "weight": 2.0,
@@ -94,7 +94,7 @@
                 "natural"
             ],
             "type": "pokemon",
-            "context": "grounded",
+            "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "22-47",
             "weight": 2.0,

@@ -149,6 +149,19 @@
   "behaviour": {
     "herd": {
       "maxSize": "3"
+    },
+    "moving": {
+      "swim": {
+        "avoidsWater": true
+      }
+    },
+    "combat": {
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "resting": {
+      "drowsyChance": 0.0333,
+      "rouseChance": 0.0042
     }
   },
   "drops": {
@@ -404,7 +417,6 @@
         "fixed": false,
         "width": 0.8
       },
-      "behaviour": {},
       "drops": {
         "amount": 1,
         "entries": [

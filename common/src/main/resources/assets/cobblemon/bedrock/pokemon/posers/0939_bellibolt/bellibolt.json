@@ -17,7 +17,8 @@
       "poseTypes": ["STAND"],
       "isBattle": true,
       "animations": [
-        "q.look('head')",
+        "q.look('head_ai', 1, 1, 13, -25, 7, -7)",
+        "q.look('torso', 1, 1, 10, -5, 0, 0)",
         "q.bedrock('bellibolt', 'battle_idle')"
       ],
       "quirks": [
@@ -31,7 +32,8 @@
       "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
       "isBattle": false,
       "animations": [
-        "q.look('head')",
+        "q.look('head_ai', 1, 1, 13, -25, 7, -7)",
+        "q.look('torso', 1, 1, 10, -5, 0, 0)",
         "q.bedrock('bellibolt', 'ground_idle')"
       ],
       "quirks": [
@@ -44,7 +46,8 @@
       "isBattle": false,
       "condition": "!q.is_sprinting",
       "animations": [
-        "q.look('head')",
+        "q.look('head_ai', 1, 1, 13, -25, 7, -7)",
+        "q.look('torso', 1, 1, 10, -5, 0, 0)",
         "q.bedrock('bellibolt', 'ground_walk')"
       ],
       "quirks": ["q.bedrock_quirk('bellibolt', 'blink')"]
@@ -54,7 +57,8 @@
       "isBattle": false,
       "condition": "q.is_sprinting",
       "animations": [
-        "q.look('head')",
+        "q.look('head_ai', 1, 1, 13, -25, 7, -7)",
+        "q.look('torso', 1, 1, 10, -5, 0, 0)",
         "q.bedrock('bellibolt', 'ground_run')"
       ],
       "quirks": ["q.bedrock_quirk('bellibolt', 'blink')"]

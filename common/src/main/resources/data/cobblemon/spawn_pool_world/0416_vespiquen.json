@@ -10,7 +10,7 @@
                 "natural"
             ],
             "type": "pokemon",
-            "context": "grounded",
+            "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "21-47",
             "weight": 0.1,
@@ -45,7 +45,7 @@
                 "natural"
             ],
             "type": "pokemon",
-            "context": "grounded",
+            "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "21-47",
             "weight": 0.1,
@@ -83,7 +83,7 @@
                 "natural"
             ],
             "type": "pokemon",
-            "context": "grounded",
+            "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "21-47",
             "weight": 0.1,
@@ -107,7 +107,7 @@
             "id": "vespiquen-4",
             "pokemon": "vespiquen",
             "type": "pokemon",
-            "context": "grounded",
+            "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "21-47",
             "weight": 1.0,

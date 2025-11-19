@@ -250,7 +250,19 @@
       },
       "walking": {
         "walkSpeed": 0.2
+      },
+      "swim": {
+        "avoidsWater": true
       }
+    },
+    "combat": {
+      "willDefendSelf": true,
+      "willDefendOwner": true,
+      "willFlee": false
+    },
+    "resting": {
+      "drowsyChance": 0.0333,
+      "rouseChance": 0.0042
     }
   },
   "drops": {
@@ -452,7 +464,25 @@
         "speed": 120
       },
       "baseExperienceYield": 350,
-      "behaviour": {},
+      "behaviour": {
+        "moving": {
+          "swim": {
+            "avoidsWater": true
+          },
+          "fly": {
+            "canFly": true
+          }
+        },
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
+        },
+        "resting": {
+          "drowsyChance": 0.0333,
+          "rouseChance": 0.0042
+        }
+      },
       "evolutions": [],
       "battleOnly": true,
       "dynamaxBlocked": true

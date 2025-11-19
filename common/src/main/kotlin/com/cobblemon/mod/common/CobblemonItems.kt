@@ -381,8 +381,8 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
     @JvmField
     val SINISTER_TEA = create("sinister_tea", SinisterTeaItem())
 
-    @JvmField
-    val POKE_PUFF = pokepuffItem("poke_puff")
+    // @JvmField
+    // val POKE_PUFF = pokepuffItem("poke_puff")
 
     // FOODS
     @JvmField
@@ -682,7 +682,7 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
         }
     })
     @JvmField
-    val ENERGY_ROOT = compostableItem("energy_root", EnergyRootItem(CobblemonBlocks.ENERGY_ROOT, Properties()), 0.60f)
+    val ENERGY_ROOT = compostableItem("energy_root", EnergyRootItem(CobblemonBlocks.ENERGY_ROOT, Properties()), 0.65f)
     @JvmField
     val REVIVAL_HERB = compostableItem("revival_herb", RevivalHerbItem(CobblemonBlocks.REVIVAL_HERB))
     @JvmField
@@ -692,9 +692,9 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
     @JvmField
     val REMEDY = compostableItem("remedy", RemedyItem(RemedyItem.NORMAL), 0.65f)
     @JvmField
-    val FINE_REMEDY = compostableItem("fine_remedy", RemedyItem(RemedyItem.FINE), 0.75f)
+    val FINE_REMEDY = compostableItem("fine_remedy", RemedyItem(RemedyItem.FINE), 0.85f)
     @JvmField
-    val SUPERB_REMEDY = compostableItem("superb_remedy", RemedyItem(RemedyItem.SUPERB), 0.85f)
+    val SUPERB_REMEDY = compostableItem("superb_remedy", RemedyItem(RemedyItem.SUPERB), 1f)
     @JvmField
     val MOOMOO_MILK = create("moomoo_milk", MoomooMilk(Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo((16))))
 
@@ -914,7 +914,7 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
     @JvmField
     val ASSAULT_VEST = heldItem("assault_vest")
     @JvmField
-    val BIG_ROOT = compostableBlockItem("big_root", CobblemonBlocks.BIG_ROOT, 0.40f)
+    val BIG_ROOT = compostableBlockItem("big_root", CobblemonBlocks.BIG_ROOT, 0.30f)
     @JvmField
     val BINDING_BAND = heldItem("binding_band")
     @JvmField
@@ -1062,15 +1062,15 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
     @JvmField
     val ZOOM_LENS = heldItem("zoom_lens")
     @JvmField
-    val MENTAL_HERB = compostableHeldItem("mental_herb", null, 1F)
+    val MENTAL_HERB = compostableHeldItem("mental_herb", null, 0.85F)
     @JvmField
-    val MIRROR_HERB = compostableHeldItem("mirror_herb", null, 1F)
+    val MIRROR_HERB = compostableHeldItem("mirror_herb", null, 0.85F)
     @JvmField
     val MISTY_SEED = heldItem("misty_seed")
     @JvmField
-    val POWER_HERB = compostableHeldItem("power_herb", null, 1F)
+    val POWER_HERB = compostableHeldItem("power_herb", null, 0.85F)
     @JvmField
-    val WHITE_HERB = compostableHeldItem("white_herb", null, 1F)
+    val WHITE_HERB = compostableHeldItem("white_herb", null, 0.85F)
     @JvmField
     val BRIGHT_POWDER = heldItem("bright_powder")
     @JvmField
