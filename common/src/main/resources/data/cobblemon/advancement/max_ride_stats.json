@@ -20,7 +20,7 @@
     "max_stats": {
       "trigger": "cobblemon:riding_stat_boost",
       "conditions": {
-        "requires_owner": true
+        "requires_owner": true,
         "ride_stat": "all",
         "is_max": true
       }
