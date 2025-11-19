@@ -530,6 +530,7 @@
 - Updated Evolution Stone Block light levels
 - Added light levels to Evolution Stone Ores. These levels are reduced versions of the full blocks light levels
 - Added a steps counter to the summary screen for Pokémon that require walking a certain number of steps to evolve.
+- Reordered berries in the creative tab
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks

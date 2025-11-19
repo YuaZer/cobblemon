@@ -277,7 +277,9 @@ class OmniPathNodeMaker : NodeEvaluator() {
     // Borrowed from WalkNodeEvaluator, specifically here for things that don't use the
     // PokemonMoveControl such as NPCs, to prevent them from being caught on upward diagonals
     private fun isDiagonalValidForNonPokemon(root: Node, xNode: Node?, zNode: Node?): Boolean {
-        if (this.mob.moveControl == PokemonMoveControl) return true
+        if (this.mob.moveControl is PokemonMoveControl) {
+            return true
+        }
         if (zNode != null && xNode != null && zNode.y <= root.y && xNode.y <= root.y) {
             if (xNode.type != PathType.WALKABLE_DOOR && zNode.type != PathType.WALKABLE_DOOR) {
                 val bl = zNode.type == PathType.FENCE && xNode.type == PathType.FENCE && this.mob.bbWidth
