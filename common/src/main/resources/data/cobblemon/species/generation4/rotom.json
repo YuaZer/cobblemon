@@ -282,10 +282,13 @@
         "moving": {
           "swim": {
             "avoidsWater": true,
-            "canWalkOnWater": true
+            "canSwimInLava": true
           },
           "fly": {
             "canFly": true
+          },
+          "walk": {
+            "canWalk": false
           }
         },
         "combat": {
@@ -430,11 +433,13 @@
         },
         "moving": {
           "swim": {
-            "avoidsWater": true,
-            "canWalkOnWater": true
+            "avoidsWater": true
           },
           "fly": {
             "canFly": true
+          },
+          "walk": {
+            "canWalk": false
           }
         },
         "combat": {
@@ -578,11 +583,13 @@
         },
         "moving": {
           "swim": {
-            "avoidsWater": true,
-            "canWalkOnWater": true
+            "avoidsWater": true
           },
           "fly": {
             "canFly": true
+          },
+          "walk": {
+            "canWalk": false
           }
         },
         "combat": {
@@ -726,11 +733,13 @@
         },
         "moving": {
           "swim": {
-            "avoidsWater": true,
-            "canWalkOnWater": true
+            "avoidsWater": true
           },
           "fly": {
             "canFly": true
+          },
+          "walk": {
+            "canWalk": false
           }
         },
         "combat": {
@@ -874,11 +883,13 @@
         },
         "moving": {
           "swim": {
-            "avoidsWater": true,
-            "canWalkOnWater": true
+            "avoidsWater": true
           },
           "fly": {
             "canFly": true
+          },
+          "walk": {
+            "canWalk": false
           }
         },
         "combat": {
@@ -909,11 +920,13 @@
     },
     "moving": {
       "swim": {
-        "avoidsWater": true,
-        "canWalkOnWater": true
+        "avoidsWater": true
       },
       "fly": {
         "canFly": true
+      },
+      "walk": {
+        "canWalk": false
       }
     },
     "combat": {

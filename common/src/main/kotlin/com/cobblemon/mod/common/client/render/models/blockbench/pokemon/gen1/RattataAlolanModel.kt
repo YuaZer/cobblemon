@@ -36,7 +36,7 @@ class RattataAlolanModel(root: ModelPart) : PokemonPosableModel(root), HeadedFra
     lateinit var standing: Pose
     lateinit var walk: Pose
 
-    override val cryAnimation = CryProvider { bedrockStateful("rattata", "cry") }
+//    override val cryAnimation = CryProvider { bedrockStateful("rattata", "cry") }
 
     override fun registerPoses() {
         val blink = quirk { bedrockStateful("rattata", "blink")}

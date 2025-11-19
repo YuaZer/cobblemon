@@ -230,7 +230,7 @@ def apply_behaviour(pokemon_form, behaviour_row):
     elif 'herd' in behaviour:
         del behaviour['herd']
 
-    assign(behaviour, 'fireImmune', behaviour_row['Hurt by Lava'] == False, False)
+    assign(behaviour, 'fireImmune', behaviour_row['Fire Immune'] == True, False)
 
 def build_lighting_data(behaviour_row, lighting_data):
     light_level = behaviour_row['Light Level']

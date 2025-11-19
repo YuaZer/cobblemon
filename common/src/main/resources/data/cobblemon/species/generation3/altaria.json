@@ -198,7 +198,6 @@
       "rouseChance": 0.0042
     },
     "combat": {
-      "willDefendSelf": true,
       "willDefendOwner": true,
       "willFlee": false
     }

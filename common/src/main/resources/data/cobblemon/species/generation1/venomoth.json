@@ -52,11 +52,13 @@
   "behaviour": {
     "moving": {
       "swim": {
-        "canWalkOnWater": true,
         "avoidsWater": true
       },
       "fly": {
         "canFly": true
+      },
+      "walk": {
+        "canWalk": false
       }
     },
     "resting": {
