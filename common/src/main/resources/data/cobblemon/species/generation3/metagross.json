@@ -421,7 +421,7 @@
       },
       "walk": {
         "walkSpeed": 0.25,
-        "canWalk": false
+        "canWalk": true
       }
     },
     "resting": {
