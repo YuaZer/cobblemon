@@ -312,10 +312,14 @@ class OmniPathNodeMaker : NodeEvaluator() {
         val upIsOpen = mob.canFit(node.asBlockPos().above())
         val d = getFloorLevel(BlockPos(node.x, node.y, node.z))
 
+        // Hitbox thing looks confusing but if the hitbox volume is more than like, 5, it starts getting pretty
+        // fucking slow to use the findAcceptedNodeWalk function
+        val strictlyWalkPathing = !canFly() && !mob.isInWater && mob.boundingBox.size < 1.6F
+
         // Non-diagonal surroundings in 3d space
         for (direction in Direction.entries) {
             var pathNode: Node?
-            if (mob.isInWater || canFly()) {
+            if (!strictlyWalkPathing) {
                 pathNode = this.getNode(node.x + direction.stepX, node.y + direction.stepY, node.z + direction.stepZ)
                     ?: continue
             } else {
@@ -342,7 +346,7 @@ class OmniPathNodeMaker : NodeEvaluator() {
             val x = node.x + direction.stepX + direction2.stepX
             val z = node.z + direction.stepZ + direction2.stepZ
             var pathNode2: Node?
-            if (mob.isInWater || canFly()) {
+            if (!strictlyWalkPathing) {
                 pathNode2 = this.getNode(x, node.y, z) ?: continue
             } else {
                 pathNode2 = findAcceptedNodeWalk(
@@ -367,7 +371,7 @@ class OmniPathNodeMaker : NodeEvaluator() {
                 successors[i++] = pathNode2
             }
         }
-        if (canFly() || mob.isInWater) {
+        if (!strictlyWalkPathing) {
             // Upward non-diagonals
             for (direction in Direction.Plane.HORIZONTAL.iterator()) {
                 var pathNode2: Node? = null
