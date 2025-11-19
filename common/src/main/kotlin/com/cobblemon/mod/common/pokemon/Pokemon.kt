@@ -964,13 +964,7 @@ open class Pokemon : ShowdownIdentifiable {
     }
 
     fun feedPokemon(feedCount: Int, playSound: Boolean = true) {
-        // if it is already full we don't need to do anything (this will likely only ever happen when feeding in battle since we check for fullness already anyways elsewhere)
-        if (isFull()) {
-            return
-        }
-
-        this.currentFullness = (this.currentFullness + feedCount).coerceIn(0, this.getMaxFullness())
-        // play sounds from the entity
+        // play sounds from the entity first (itemstack is consumed outside of this function)
         if (this.entity != null && playSound) {
             val fullnessPercent = ((this.currentFullness).toFloat() / (this.getMaxFullness()).toFloat()) * (.5f)
 
@@ -981,6 +975,14 @@ open class Pokemon : ShowdownIdentifiable {
                 this.entity?.playSound(CobblemonSounds.BERRY_EAT, 1F, 1F + fullnessPercent)
             }
         }
+
+        // if it is already full we don't need to do anything
+        // TODO this can happen when feeding in battle since we are temporarily ignoring fullness checks for pp/hp/status berries
+        if (isFull()) {
+            return
+        }
+
+        this.currentFullness = (this.currentFullness + feedCount).coerceIn(0, this.getMaxFullness())
 
         // pokemon was fed the first berry so we should reset their metabolism cycle so there is no inconsistencies
         if (this.currentFullness == 1) {

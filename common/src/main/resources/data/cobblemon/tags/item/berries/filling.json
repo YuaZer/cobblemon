@@ -1,8 +1,9 @@
 {
   "replace": false,
   "values": [
-    "#cobblemon:item/berries/damage_reduction",
-    "#cobblemon:item/berries/damaging",
-    "#cobblemon:item/berries/non_battle"
+    "#cobblemon:berries/damage_reduction",
+    "#cobblemon:berries/damaging",
+    "#cobblemon:berries/non_battle",
+    "cobblemon:berry_juice"
   ]
 }

@@ -8,7 +8,6 @@
 
 package com.cobblemon.mod.common.item.berry
 
-import com.cobblemon.mod.common.CobblemonSounds
 import com.cobblemon.mod.common.api.battles.interpreter.BattleContext
 import com.cobblemon.mod.common.api.battles.model.PokemonBattle
 import com.cobblemon.mod.common.api.battles.model.actor.BattleActor
@@ -62,8 +61,6 @@ class StatusCuringBerryItem(block: BerryBlock, vararg val status: Status): Berry
         return if (canUseOnPokemon(stack, pokemon)) {
             pokemon.feedPokemon(1)
             pokemon.status = null
-
-            pokemon.entity?.playSound(CobblemonSounds.BERRY_EAT, 1F, 1F)
             stack.consume(1, player)
             InteractionResultHolder.success(stack)
         } else {

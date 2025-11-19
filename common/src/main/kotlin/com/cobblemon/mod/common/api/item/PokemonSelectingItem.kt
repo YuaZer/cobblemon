@@ -113,9 +113,7 @@ interface PokemonSelectingItem {
         return true
     }
 
-    fun canUseOnBattlePokemon(stack: ItemStack, battlePokemon: BattlePokemon): Boolean {
-        return bagItem!!.canUse(stack, battlePokemon.actor.battle, battlePokemon)
-    }
+    fun canUseOnBattlePokemon(stack: ItemStack, battlePokemon: BattlePokemon): Boolean = bagItem!!.canUse(stack, battlePokemon.actor.battle, battlePokemon)
 
     fun interactWithSpecificBattle(player: ServerPlayer, stack: ItemStack, battlePokemon: BattlePokemon): InteractionResultHolder<ItemStack> {
         return if (canUseOnBattlePokemon(stack, battlePokemon)) {
