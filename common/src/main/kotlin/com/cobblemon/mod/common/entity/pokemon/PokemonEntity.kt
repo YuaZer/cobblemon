@@ -1257,6 +1257,11 @@ open class PokemonEntity(
 
     override fun canBeSeenAsEnemy() = super.canBeSeenAsEnemy() && !isBusy
 
+    override fun doHurtTarget(target: Entity): Boolean {
+        if (beamMode != 0) return false
+        return super.doHurtTarget(target)
+    }
+
     override fun hurt(source: DamageSource, amount: Float): Boolean {
         return if (super.hurt(source, amount)) {
             effects.mockEffect?.takeIf { it is IllusionEffect && this.battleId == null }?.end(this)
