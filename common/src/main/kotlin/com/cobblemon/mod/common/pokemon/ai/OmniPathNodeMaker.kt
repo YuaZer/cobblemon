@@ -598,9 +598,11 @@ class OmniPathNodeMaker : NodeEvaluator() {
         val sizeX = (mob.boundingBox.maxX - mob.boundingBox.minX).toInt() + 1
         val sizeY = (mob.boundingBox.maxY - mob.boundingBox.minY).toInt() + 1
         val sizeZ = (mob.boundingBox.maxZ - mob.boundingBox.minZ).toInt() + 1
+
+        // TODO -- This is experimental code to see if this is meaningful. We should clean this up later when time permits.
+        val returnedEarlyPathType = mutableListOf<PathType>()
         val type = findNearbyNodeTypes(
-            pfContext, x, y, z, sizeX, sizeY, sizeZ, canOpenDoors, canPassDoors, set, PathType.BLOCKED,
-            BlockPos(x, y, z)
+            pfContext, x, y, z, sizeX, sizeY, sizeZ, canOpenDoors, canPassDoors, set, PathType.BLOCKED, BlockPos(x, y, z), returnedEarlyPathType
         )
 
         if (PathType.LEAVES in set) {
@@ -615,20 +617,20 @@ class OmniPathNodeMaker : NodeEvaluator() {
         } else if (PathType.DANGER_OTHER in set) {
             return PathType.DANGER_OTHER
         }
-        return if (PathType.FENCE in set) {
-            PathType.FENCE
-        } else if (PathType.UNPASSABLE_RAIL in set) {
+
+        return if (PathType.UNPASSABLE_RAIL in set) {
             PathType.UNPASSABLE_RAIL
         } else if (PathType.DAMAGE_OTHER in set) {
             PathType.DAMAGE_OTHER
         } else {
+            val result = returnedEarlyPathType.firstOrNull()
+            if (result != null) {
+                return result
+            }
             var pathType2: PathType = PathType.BLOCKED
             val nearbyTypeIterator = set.iterator()
             while (nearbyTypeIterator.hasNext()) {
                 val nearbyType = nearbyTypeIterator.next()
-                if (mob.getPathfindingMalus(nearbyType) < 0) {
-                    return nearbyType
-                }
                 // The || is because we prefer WALKABLE where possible - OPEN is legit but if there's either OPEN or WALKABLE then WALKABLE is better since land pokes can read that.
                 if (mob.getPathfindingMalus(nearbyType) > mob.getPathfindingMalus(pathType2) || nearbyType == PathType.WALKABLE) {
                     pathType2 = nearbyType
@@ -656,7 +658,8 @@ class OmniPathNodeMaker : NodeEvaluator() {
         canEnterOpenDoors: Boolean,
         nearbyTypes: EnumSet<PathType>,
         type: PathType,
-        pos: BlockPos
+        pos: BlockPos,
+        returnedEarlyPathType: MutableList<PathType>
     ): PathType {
         var type = type
         for (i in 0 until sizeX) {
@@ -672,6 +675,18 @@ class OmniPathNodeMaker : NodeEvaluator() {
                         }
                     }
                     nearbyTypes.add(currentType)
+                    when (currentType) {
+                        PathType.FENCE -> return type
+                        PathType.LEAVES -> return type
+                        PathType.DAMAGE_CAUTIOUS -> return type
+                        PathType.UNPASSABLE_RAIL -> return type
+                        PathType.DAMAGE_OTHER -> return type
+                        else -> {}
+                    }
+                    if (mob.getPathfindingMalus(currentType) < 0) {
+                        returnedEarlyPathType.add(currentType)
+                        return currentType
+                    }
                 }
             }
         }
