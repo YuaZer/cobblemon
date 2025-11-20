@@ -226,8 +226,12 @@ open class PCStore(
 
         removeDuplicates()
 
-        unlockedWallpapers.addAll(json.getAsJsonArray(DataKeys.STORE_UNLOCKED_WALLPAPERS).map { ResourceLocation.parse(it.asString) })
-        unseenWallpapers.addAll(json.getAsJsonArray(DataKeys.STORE_UNSEEN_WALLPAPERS).map { ResourceLocation.parse(it.asString) })
+        if (json.has(DataKeys.STORE_UNLOCKED_WALLPAPERS)) {
+            unlockedWallpapers.addAll(json.getAsJsonArray(DataKeys.STORE_UNLOCKED_WALLPAPERS).map { ResourceLocation.parse(it.asString) })
+        }
+        if (json.has(DataKeys.STORE_UNSEEN_WALLPAPERS)) {
+            unseenWallpapers.addAll(json.getAsJsonArray(DataKeys.STORE_UNSEEN_WALLPAPERS).map { ResourceLocation.parse(it.asString) })
+        }
 
         return this
     }
