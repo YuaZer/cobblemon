@@ -314,12 +314,12 @@ class OmniPathNodeMaker : NodeEvaluator() {
         val upperMap = Maps.newEnumMap<Direction, Node?>(Direction::class.java)
         val lowerMap = Maps.newEnumMap<Direction, Node?>(Direction::class.java)
 
-        val upIsOpen = mob.canFit(node.asBlockPos().above())
         val d = getFloorLevel(BlockPos(node.x, node.y, node.z))
 
         // Hitbox thing looks confusing but if the hitbox volume is more than like, 5, it starts getting pretty
         // fucking slow to use the findAcceptedNodeWalk function
         val strictlyWalkPathing = !canFly() && !mob.isInWater && mob.boundingBox.size < MAX_HITBOX_SIZE_FOR_WALKING
+        val doVerticalNeighbourChecks = (canFly() || mob.isInWater) && mob.boundingBox.size < MAX_HITBOX_FOR_VERTICAL_NEIGHBOURS
 
         // Non-diagonal surroundings in 3d space
         for (direction in Direction.entries) {
@@ -371,7 +371,9 @@ class OmniPathNodeMaker : NodeEvaluator() {
                 successors[i++] = pathNode2
             }
         }
-        if (!strictlyWalkPathing) {
+        if (doVerticalNeighbourChecks) {
+            val upIsOpen = mob.canFit(node.asBlockPos().above())
+
             // Upward non-diagonals
             for (direction in Direction.Plane.HORIZONTAL.iterator()) {
                 var pathNode2: Node? = null
@@ -393,8 +395,7 @@ class OmniPathNodeMaker : NodeEvaluator() {
                     node.z + direction.stepZ + direction2.stepZ
                 ) ?: continue
 
-                if (isAccessibleDiagonal(pathNode2, upperMap[direction], upperMap[direction2])
-                  ) {
+                if (isAccessibleDiagonal(pathNode2, upperMap[direction], upperMap[direction2])) {
                     successors[i++] = pathNode2
                 }
             }
@@ -764,6 +765,7 @@ class OmniPathNodeMaker : NodeEvaluator() {
 
     companion object {
         const val MAX_HITBOX_SIZE_FOR_WALKING = 1.6F
+        const val MAX_HITBOX_FOR_VERTICAL_NEIGHBOURS = 2F
     }
 
     fun canWalk(): Boolean {
