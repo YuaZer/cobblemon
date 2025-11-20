@@ -8959,5 +8959,6 @@
     "cobblemon.entity.variable.dialogue_selection.desc": "インタラクション時に開くダイアログのリソース識別子。例：cobblemon:your_dialogue",
     "entity.cobblemon.chest_boat": "チェスト付きのボート",
     "entity.cobblemon.npc": "NPC",
-    "entity.cobblemon.empty_pokeball": "空のモンスターボール"
+    "entity.cobblemon.empty_pokeball": "空のモンスターボール",
+    "cobblemon.battle.activate.insomnia": "このポケモンは ふみんのため 眠ることができない！"
 }
