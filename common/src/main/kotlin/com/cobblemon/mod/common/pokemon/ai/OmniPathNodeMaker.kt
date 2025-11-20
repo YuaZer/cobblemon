@@ -314,7 +314,7 @@ class OmniPathNodeMaker : NodeEvaluator() {
 
         // Hitbox thing looks confusing but if the hitbox volume is more than like, 5, it starts getting pretty
         // fucking slow to use the findAcceptedNodeWalk function
-        val strictlyWalkPathing = !canFly() && !mob.isInWater && mob.boundingBox.size < 1.6F
+        val strictlyWalkPathing = !canFly() && !mob.isInWater && mob.boundingBox.size < MAX_HITBOX_SIZE_FOR_WALKING
 
         // Non-diagonal surroundings in 3d space
         for (direction in Direction.entries) {
@@ -573,10 +573,19 @@ class OmniPathNodeMaker : NodeEvaluator() {
                 PathType.FENCE -> {
                     if (canFly())
                         PathType.BLOCKED
-                    else
-                        WalkNodeEvaluator.checkNeighbourBlocks(pfContext, pos.x, pos.y, pos.z, PathType.WALKABLE)
+                    else {
+                        if (mob.boundingBox.size < MAX_HITBOX_SIZE_FOR_WALKING)
+                            WalkNodeEvaluator.checkNeighbourBlocks(pfContext, pos.x, pos.y, pos.z, PathType.WALKABLE)
+                        else
+                            PathType.WALKABLE
+                    }
                 }
-                else -> WalkNodeEvaluator.checkNeighbourBlocks(pfContext, pos.x, pos.y, pos.z, PathType.WALKABLE)
+                else -> {
+                    if (mob.boundingBox.size < MAX_HITBOX_SIZE_FOR_WALKING)
+                        WalkNodeEvaluator.checkNeighbourBlocks(pfContext, pos.x, pos.y, pos.z, PathType.WALKABLE)
+                    else
+                        PathType.WALKABLE
+                }
             }
             figuredNode = var10000
         }
@@ -704,6 +713,10 @@ class OmniPathNodeMaker : NodeEvaluator() {
                 PathType.BLOCKED
             }
         } else type
+    }
+
+    companion object {
+        const val MAX_HITBOX_SIZE_FOR_WALKING = 1.6F
     }
 
     fun canWalk(): Boolean {
