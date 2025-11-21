@@ -1,5 +1,5 @@
 # Changelog
-## [1.7.0 - The Set Course Update (November xth, 2025)](#1-7-0)
+## [1.7.0 - The Set Course Update (November 22nd, 2025)](#1-7-0)
 #### "We're now a cooking mod. No wait, a riding mod. No wait, a Noivern mod."
 
 ### Additions
