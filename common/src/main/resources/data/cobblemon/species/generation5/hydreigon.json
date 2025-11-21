@@ -101,7 +101,7 @@
         "poseOffsets": [
           {
             "offset": {
-              "x": 8.215185E-5,
+              "x": 8.215185e-05,
               "y": -2.4957511,
               "z": 0.10059106
             },
@@ -121,7 +121,7 @@
           },
           {
             "offset": {
-              "x": 8.215185E-5,
+              "x": 8.215185e-05,
               "y": -2.4957511,
               "z": 0.10059106
             },
@@ -261,11 +261,7 @@
         "canFly": true
       },
       "swim": {
-        "avoidsWater": true,
-        "canWalkOnWater": true
-      },
-      "walk": {
-        "canWalk": true
+        "avoidsWater": true
       }
     },
     "resting": {

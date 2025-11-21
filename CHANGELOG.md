@@ -530,6 +530,7 @@
 - Updated Evolution Stone Block light levels
 - Added light levels to Evolution Stone Ores. These levels are reduced versions of the full blocks light levels
 - Added a steps counter to the summary screen for Pokémon that require walking a certain number of steps to evolve.
+- Reordered berries in the creative tab
 
 ### Fixes
 - Fixed game crashing when removing national pokedex using datapacks
@@ -620,6 +621,7 @@
 - The Corphish line will now sink in water.
 - Fixed the "use all berry bait" achievement not being progressed
 - Fixed bobber hook and berry sprouts texture sizes causing mipmap issues.
+- Fixed Ally Switch not updating party positions. 
 - Fixed head locator not taking into account scale for positioning.
 - Fixed Pokémon step counts not being saved when recalling them to a Pokéball or reentering the world.
 - Fixed NPC pokémon not being linked to their NPC, which previously caused NPC pokémon to be catchable.

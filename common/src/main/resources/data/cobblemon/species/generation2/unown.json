@@ -65,8 +65,7 @@
         "canFly": true
       },
       "swim": {
-        "avoidsWater": true,
-        "canWalkOnWater": true
+        "avoidsWater": true
       },
       "walk": {
         "canWalk": false
@@ -81,8 +80,7 @@
       "rouseChance": 0.0042
     },
     "combat": {
-      "willDefendOwner": true,
-      "willFlee": false
+      "willDefendOwner": true
     }
   },
   "drops": {

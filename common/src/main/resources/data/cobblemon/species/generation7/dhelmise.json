@@ -165,7 +165,11 @@
         "swimSpeed": 0.2
       },
       "walk": {
-        "avoidsLand": true
+        "avoidsLand": true,
+        "canWalk": false
+      },
+      "fly": {
+        "canFly": true
       }
     },
     "resting": {

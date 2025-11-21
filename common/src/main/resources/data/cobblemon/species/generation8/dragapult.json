@@ -202,11 +202,7 @@
       },
       "swim": {
         "canBreatheUnderwater": true,
-        "canWalkOnWater": true,
         "swimSpeed": 0.3
-      },
-      "walk": {
-        "canWalk": true
       }
     },
     "resting": {
