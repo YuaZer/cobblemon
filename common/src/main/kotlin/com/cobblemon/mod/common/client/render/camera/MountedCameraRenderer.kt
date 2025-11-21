@@ -336,8 +336,7 @@ object MountedCameraRenderer {
 
         // Don't need to account for this since orientation is derived from camera rotation and that z is already flipped.
         // Flip only when not on a rollable.
-        if (thirdPersonReverse && shouldFlip) offset.z *= -1
-        return offset
+        return if (thirdPersonReverse && shouldFlip) offset.multiply(1.0, 1.0, -1.0) else offset
     }
 
     private fun getFirstPersonOffset(model: PosableModel, locatorName: String): Vec3 {
