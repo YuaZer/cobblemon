@@ -52,8 +52,6 @@
     "moving": {
       "swim": {
         "canSwimInWater": false,
-        "canBreatheUnderwater": true,
-        "canSwimInLava": false,
         "swimSpeed": "0.2"
       }
     },
@@ -71,8 +69,7 @@
       ]
     },
     "combat": {
-      "willDefendOwner": true,
-      "willFlee": false
+      "willDefendOwner": true
     },
     "resting": {
       "drowsyChance": 0.0333,

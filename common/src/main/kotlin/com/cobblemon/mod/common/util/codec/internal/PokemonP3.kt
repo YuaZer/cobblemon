@@ -79,6 +79,8 @@ internal data class PokemonP3(
         other.rideStamina = this.rideStamina
         other.currentFullness = this.currentFullness
         other.interactionCooldowns = this.interactionCooldowns.toMutableMap()
+        other.recalculateCharacteristic()
+        other.updateAspects()
         return other
     }
 

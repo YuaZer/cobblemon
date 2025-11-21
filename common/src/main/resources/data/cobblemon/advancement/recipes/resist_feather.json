@@ -3,15 +3,25 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "cobblemon:campfire_pot/pp_max_in_campfire_pot"
+        "recipe": "cobblemon:resist_feather"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_berry": {
+    "has_feather": {
       "conditions": {
         "items": [
           {
-            "items": "cobblemon:hopo_berry"
+            "items": "minecraft:feather"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_mint": {
+      "conditions": {
+        "items": [
+          {
+            "items": "cobblemon:blue_mint_leaf"
           }
         ]
       },
@@ -21,12 +31,16 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_berry"
+	  "has_feather"
+    ],
+	[
+      "has_the_recipe",
+	  "has_mint"
     ]
   ],
   "rewards": {
     "recipes": [
-      "cobblemon:campfire_pot/pp_max_in_campfire_pot"
+      "cobblemon:resist_feather"
     ]
   }
 }

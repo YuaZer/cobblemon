@@ -185,8 +185,7 @@
         "walkSpeed": 0.14
       },
       "swim": {
-        "avoidsWater": true,
-        "canWalkOnWater": true
+        "avoidsWater": true
       }
     },
     "resting": {
@@ -196,8 +195,7 @@
       "rouseChance": 0.0042
     },
     "combat": {
-      "willDefendOwner": true,
-      "willFlee": false
+      "willDefendOwner": true
     }
   },
   "drops": {

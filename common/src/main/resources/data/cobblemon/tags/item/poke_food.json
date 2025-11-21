@@ -1,8 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#cobblemon:berries",
-    "cobblemon:berry_juice",
+    "#cobblemon:berries/filling",
     "#cobblemon:mochis",
     "#cobblemon:aprijuices",
     "cobblemon:poke_snack"

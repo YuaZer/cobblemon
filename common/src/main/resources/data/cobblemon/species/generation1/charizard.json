@@ -186,7 +186,8 @@
       },
       "swim": {
         "swimSpeed": 0.1,
-        "avoidsWater": true
+        "avoidsWater": true,
+        "canSwimInLava": true
       },
       "walk": {
         "walkSpeed": 0.147
@@ -493,7 +494,8 @@
         },
         "moving": {
           "swim": {
-            "avoidsWater": true
+            "avoidsWater": true,
+            "canSwimInLava": true
           },
           "fly": {
             "canFly": true
@@ -613,7 +615,8 @@
         },
         "moving": {
           "swim": {
-            "avoidsWater": true
+            "avoidsWater": true,
+            "canSwimInLava": true
           },
           "fly": {
             "canFly": true
