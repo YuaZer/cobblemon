@@ -1364,6 +1364,10 @@ open class Pokemon : ShowdownIdentifiable {
         return result
     }
 
+    fun recalculateCharacteristic() {
+        this.characteristic = Characteristic.calculate(this.ivs, this.uuid)
+    }
+
     open fun copyFrom(other: Pokemon): Pokemon {
         this.isClient = other.isClient
         this.uuid = other.uuid
@@ -1425,6 +1429,7 @@ open class Pokemon : ShowdownIdentifiable {
         this.potentialMarks.clear()
         this.potentialMarks += other.marks
         this.markings = other.markings
+        this.recalculateCharacteristic()
         this.updateAspects()
         this.refreshOriginalTrainer()
         this.initialize()
