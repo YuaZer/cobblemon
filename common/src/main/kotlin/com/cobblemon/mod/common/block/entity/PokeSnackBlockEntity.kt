@@ -120,7 +120,7 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) :
                 level.dimension(),
             )
 
-            block.eat(level, blockPos, blockState, action.spawnablePosition.cause.entity as? Player)
+            block.eat(level, blockPos, blockState, null)
         }
     }
 
