@@ -6,6 +6,8 @@
 ### Changes
 
 ### Fixes
+- Prevent displaying ride controls overlay to passengers.
+- Fixed Poké Snack spawning sound positioning.
 
 ### Developer
 
