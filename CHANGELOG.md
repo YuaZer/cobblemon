@@ -4,8 +4,11 @@
 ### Additions
 
 ### Changes
+- Convert the riding freelook button to a configurable keybinding
 
 ### Fixes
+- Fix player suffocation on vanilla mounts experienced on some worlds
+- Stop passengers from hearing the shiny noise of a ridden shiny pokemon
 
 ### Developer
 
