@@ -34,7 +34,6 @@ import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import kotlin.math.max
-import kotlin.math.min
 
 class RideControlsOverlay : Gui(Minecraft.getInstance()) {
 
@@ -423,7 +422,7 @@ class RideControlsOverlay : Gui(Minecraft.getInstance()) {
 
         if (showJump || showSneak) {
             val offsetY = if (showMovement) 0 else -14
-            var label: MutableComponent? = null
+            var label: MutableComponent?
 
             if (showJump && showSneak) {
                 label = "key.sneak".asTranslated().append("/").append("key.jump".asTranslated())

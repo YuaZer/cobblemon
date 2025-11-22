@@ -49,7 +49,6 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.state.BlockState
-import java.util.*
 
 open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) :
     TintBlockEntity(CobblemonBlockEntities.POKE_SNACK, pos, state),
