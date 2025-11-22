@@ -6,6 +6,7 @@
 ### Changes
 
 ### Fixes
+- Fixed Combees not depositing honey upon leaving a hive if they entered with nectar.
 
 ### Developer
 
