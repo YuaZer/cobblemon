@@ -13,7 +13,6 @@ import com.cobblemon.mod.common.OrientationControllable;
 import com.cobblemon.mod.common.api.orientation.OrientationController;
 import com.cobblemon.mod.common.client.CobblemonClient;
 import com.cobblemon.mod.common.client.keybind.keybinds.PartySendBinding;
-import com.cobblemon.mod.common.client.keybind.keybinds.RidingFreelookBinding;
 import com.cobblemon.mod.common.duck.RidePassenger;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.cobblemon.mod.common.pokedex.scanner.PokedexUsageContext;
@@ -157,7 +156,7 @@ public abstract class MouseHandlerMixin {
         }
 
         var vehicleController = controllableVehicle.getOrientationController();
-        var freeLooking = RidingFreelookBinding.INSTANCE.isDown();
+        var lookaroundButtonPressed = Minecraft.getInstance().mouseHandler.isMiddlePressed();
         Pair<Boolean, Boolean> mouseShouldModifyDriver = ((PokemonEntity) vehicle).ifRidingAvailableSupply(new Pair(false, false), (behaviour, settings, state) -> {
             return behaviour.mouseModifiesDriverRotation(
                     settings,
@@ -171,7 +170,7 @@ public abstract class MouseHandlerMixin {
         // affect the vehicle orientation when looking around.
         // If the client is a passenger it will modify these rotations and return
         //-------------------------------------------------------------------------
-        if (freeLooking || player.getControlledVehicle() == null) {
+        if (lookaroundButtonPressed || player.getControlledVehicle() == null) {
             // Modify driver rotations
             cobblemon$setDriverRotations(player, cursorDeltaX, cursorDeltaY);
 
@@ -193,10 +192,10 @@ public abstract class MouseHandlerMixin {
         // Smoothly return driver rotations to zero when needed
         //-------------------------------------------------------------------------
         var playerRotater = (RidePassenger)player;
-        if( !freeLooking && !mouseShouldModifyDriver.getFirst()){
+        if( !lookaroundButtonPressed && !mouseShouldModifyDriver.getFirst()){
             playerRotater.cobblemon$setRideYRot(lerp(min(5.0f * (float)movementTime, 1.0f), Mth.wrapDegrees(playerRotater.cobblemon$getRideYRot()), 0.0f));
         }
-        if( !freeLooking && !mouseShouldModifyDriver.getSecond()) {
+        if( !lookaroundButtonPressed && !mouseShouldModifyDriver.getSecond()) {
             playerRotater.cobblemon$setRideXRot(lerp(min(5.0f * (float)movementTime, 1.0f), Mth.wrapDegrees(playerRotater.cobblemon$getRideXRot()), 0.0f));
         }
 
