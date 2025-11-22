@@ -7921,7 +7921,7 @@
     "cobblemon.species.arceus-ice.desc": "アルセウスの持つ つららのプレートには 文字が 刻まれている。 「そのもの じかん くうかんの 2ひき ぶんしんとして よに はなつ」",
     "cobblemon.ui.pokedex.info.form.arceus-dragon": "アルセウスのすがた",
     "cobblemon.ui.pokedex.info.form.arceus-dark": "アルセウスのすがた",
-    "cobblemon.species.arceus-dark.desc": "アルセウスの持つ りゅうのプレートには 文字が 刻まれている。 「そのもの じかん くうかんを つなぐ 3びきの ポケモンをも うみだす」",
+    "cobblemon.species.arceus-dark.desc": "アルセウスの持つ こわもてプレートには 文字が 刻まれている。 「2ひきに もの 3びきに こころ いのり うませ せかい かたちづくる」",
     "cobblemon.ui.pokedex.info.form.arceus-fairy": "アルセウスのすがた",
     "cobblemon.ui.pokedex.info.form.oshawott": " ",
     "cobblemon.ui.pokedex.info.form.dewott": " ",
@@ -9024,5 +9024,9 @@
     "cobblemon.battle.formechange.default.temporary": "%1$s は %2$sフォルムに なった！",
     "cobblemon.battle.formechange.default.permanent": "%1$s は %2$sに フォルムチェンジした！",
     "cobblemon.battle.formechange.meteor": "%1$sの リミットシールド 解除！",
-    "cobblemon.battle.switch.self": "いけ！ %1$s！"
+    "cobblemon.battle.switch.self": "いけ！ %1$s！",
+    "cobblemon.fishing_bait_effects.drops_reroll.tooltip": "%1$s%% - %3$s× ドロップ品リロール",
+    "cobblemon.requires_debug_keys": "この機能を使用するには、サーバーでデバッグキーを有効にする必要があります。",
+    "cobblemon.requires_permission": "この操作を行うには必要な権限がありません。",
+    "cobblemon.ui.stats.blocks_traveled": "ステップ"
 }
