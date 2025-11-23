@@ -77,7 +77,9 @@ public abstract class BeeOccupantMixin {
                     if (hasNectar) {
                         // Remove nectar and reset got to hive cooldown
                         brain.eraseMemory(CobblemonMemories.HAS_NECTAR);
-                        brain.setMemoryWithExpiry(CobblemonMemories.HIVE_COOLDOWN, true, PathToBeeHiveTaskConfig.STAY_OUT_OF_HIVE_COOLDOWN);
+                        if (brain.checkMemory(CobblemonMemories.HIVE_LOCATION, MemoryStatus.REGISTERED)) {
+                            brain.setMemoryWithExpiry(CobblemonMemories.HIVE_COOLDOWN, true, PathToBeeHiveTaskConfig.STAY_OUT_OF_HIVE_COOLDOWN);
+                        }
                         // Increment honey level of the hive
                         if (state.is(BlockTags.BEEHIVES, (blockStateBase) -> blockStateBase.hasProperty(BeehiveBlock.HONEY_LEVEL))) {
                             int i = state.getValue(BeehiveBlock.HONEY_LEVEL);
