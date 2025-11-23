@@ -3,6 +3,7 @@
 
 ### Additions
 - Added trades for Saccharine Saplings, Hearty Grains, Chipped Pot, and Masterpiece Teacup to the Wandering Trader
+- Added brewing recipe for Throat Spray
 
 ### Changes
 - Convert the riding freelook button to a configurable keybinding
