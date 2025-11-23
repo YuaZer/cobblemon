@@ -11,8 +11,10 @@ package com.cobblemon.mod.common.mixin;
 import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.OrientationControllable;
 import com.cobblemon.mod.common.PlayerSpawnerAccessor;
+import com.cobblemon.mod.common.api.riding.RidingStyle;
 import com.cobblemon.mod.common.api.spawning.spawner.PlayerSpawner;
 import com.cobblemon.mod.common.api.spawning.spawner.PlayerSpawnerFactory;
+import com.cobblemon.mod.common.api.stats.CobblemonStats;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.cobblemon.mod.common.world.gamerules.CobblemonGameRules;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
@@ -88,5 +90,41 @@ public abstract class ServerPlayerMixin implements PlayerSpawnerAccessor {
     @ModifyExpressionValue(method = "addAdditionalSaveData", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hasExactlyOnePlayerPassenger()Z"))
     private boolean cobblemon$cancelSavingPokemonMounts(boolean original, @Local(ordinal=0) Entity entity) {
         return original && !(entity instanceof PokemonEntity);
+    }
+
+    @Inject(method = "checkRidingStatistics", at = @At("TAIL"))
+    public void cobblemon$checkRidingStatistics(double dx, double dy, double dz, CallbackInfo ci) {
+        var player = (ServerPlayer)(Object)this;
+        if (!player.isPassenger() || cobblemon$didNotMove(dx, dy, dz))  return;
+
+        var vehicle = player.getVehicle();
+        if (!(vehicle instanceof PokemonEntity pokemonEntity)) return;
+
+        var ridingController = pokemonEntity.getRidingController();
+        if (ridingController == null) return;
+
+        var activeContext = ridingController.getContext();
+        if (activeContext == null) return;
+
+        var ridingStyle = activeContext.getStyle();
+        if (ridingStyle == null) return;
+
+        int distance = Math.round((float) Math.sqrt(dx * dx + dy * dy + dz * dz) * 100.0F);
+        switch (ridingStyle) {
+            case RidingStyle.LAND:
+                player.awardStat(CobblemonStats.INSTANCE.getStat(CobblemonStats.INSTANCE.getRIDING_LAND()), distance);
+                break;
+            case RidingStyle.AIR:
+                player.awardStat(CobblemonStats.INSTANCE.getStat(CobblemonStats.INSTANCE.getRIDING_AIR()), distance);
+                break;
+            case RidingStyle.LIQUID:
+                player.awardStat(CobblemonStats.INSTANCE.getStat(CobblemonStats.INSTANCE.getRIDING_LIQUID()), distance);
+                break;
+        }
+    }
+
+    @Unique
+    private static boolean cobblemon$didNotMove(double dx, double dy, double dz) {
+        return dx == 0.0 && dy == 0.0 && dz == 0.0;
     }
 }
