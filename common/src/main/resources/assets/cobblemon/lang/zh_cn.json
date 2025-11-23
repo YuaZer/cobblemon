@@ -9050,7 +9050,7 @@
     "cobblemon.snapshots.warning.dont_show_again": "不再显示",
     "cobblemon.snapshots.warning.dont_show_again_tip": "在较新的 方块宝可梦 快照中（例如 1.7.0 与 1.8.0），此设置可能会被忽略",
     "key.cobblemon.toggleridingstatsgui": "切换骑乘能力界面",
-    "item.cobblemon.moomoo_milk.tooltip": "在战斗中使用时，会清除目标的能力变化。",
+    "item.cobblemon.moomoo_milk.tooltip": "在战斗中使用时，会清除目标的能力变化",
     "cobblemon.config.ui.poke_snack_pokemon_per_chunk": "每个区块的宝点心宝可梦数量",
     "cobblemon.config.ui.poke_snack_pokemon_per_chunk.tooltip": "通过宝点心生成时，区块中允许的宝可梦数量。",
     "cobblemon.config.ui.summary_profile_animations.animate_selected.tooltip": "选中的宝可梦播放动画，除非已昏厥",
