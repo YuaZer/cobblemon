@@ -15,6 +15,7 @@
 - Stop passengers from hearing the shiny noise of a ridden shiny pokemon
 - Ponigiri can no longer be eaten at full hunger
 - Medicinal Brew's Campfire Pot recipe now correctly displays that it can be made using an empty glass bottle or a filled bottle
+- Fix incorrect camera pivot on Bird, Jet, and Dolphin mounts.
 
 ### Developer
 
