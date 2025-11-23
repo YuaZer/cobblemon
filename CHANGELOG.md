@@ -2,6 +2,8 @@
 ## [1.7.1 (MONTH xth, 2025)](#1-7-1)
 
 ### Additions
+- Added riding statistics: `Distance by Pokémon on Land`, `Distance by Pokémon in Air` and `Distance by Pokémon in Liquid`.
+- Added the Partner Mark, which party Pokémon have a very small chance to earn as the player walks, provided they have enough friendship.
 
 ### Changes
 - Convert the riding freelook button to a configurable keybinding
