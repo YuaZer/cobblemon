@@ -9105,5 +9105,9 @@
     "cobblemon.seasoning_ride_boosts_info_header": "骑乘属性提升：",
     "item.cobblemon.eggant_berry": "子茄果",
     "cobblemon.entity.variable.look_at_entity_types.desc": "该实体将看向的实体类型。",
-    "cobblemon.entity.variable.look_at_entity_types.name": "看向实体类型"
+    "cobblemon.entity.variable.look_at_entity_types.name": "看向实体类型",
+    "cobblemon.fishing_bait_effects.drops_reroll.tooltip": "%1$s%% - %3$s× 额外掉落",
+    "cobblemon.requires_debug_keys": "必须在服务器上启用调试键才能使用此功能。",
+    "cobblemon.ui.stats.blocks_traveled": "步数",
+    "cobblemon.requires_permission": "你没有执行此操作的权限。"
 }
