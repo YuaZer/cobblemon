@@ -18,6 +18,8 @@
 - Medicinal Brew's Campfire Pot recipe now correctly displays that it can be made using an empty glass bottle or a filled bottle
 - Fix incorrect camera pivot on Bird, Jet, and Dolphin mounts.
 
+- Fixed Combees not depositing honey upon leaving a hive if they entered with nectar.
+- Safer reading of brain memories in hive mixins
 ### Developer
 
 ### Molang & Datapacks
