@@ -20,6 +20,10 @@
 - Fixed Combees not depositing honey upon leaving a hive if they entered with nectar.
 - Safer reading of brain memories in hive mixins.
 - Fixed crash when opening a PC box with certain wallpapers when using *VulkanMod*.
+- Fix player suffocation on vanilla mounts experienced on some worlds.
+- Stop passengers from hearing the shiny noise of a ridden shiny Pokémon.
+- Fix a glitch where friendship would reset to the default value when evolving a Pokémon.
+
 ### Developer
 
 ### Molang & Datapacks
