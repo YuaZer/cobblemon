@@ -299,26 +299,17 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
          * Gather the previous velocity and check for horizontal
          * collisions
          *****************************************************/
-        val dmSpeed = vehicle.deltaMovement.length()
-        val rvSpeed = state.rideVelocity.get().length()
         var newVelocity = state.rideVelocity.get() //.normalize().scale(vehicle.deltaMovement.horizontalDistance())
 
         /******************************************************
          * Gather the previous velocity and check for horizontal
          * collisions
          *****************************************************/
-//        if (dmSpeed > rvSpeed) {
-//            // align the velocity vector to be in local vehicle space
-//            newVelocity = vehicle.deltaMovement
-//            val yawAligned = Matrix3f().rotateY(-vehicle.yRot.toRadians())
-//            newVelocity = (newVelocity.toVector3f().mul(yawAligned)).toVec3d()
-//        }
-
-//        if (vehicle.horizontalCollision) {
-//            var horizontalVec = Vec3(newVelocity.x, 0.0, newVelocity.z)
-//            horizontalVec = horizontalVec.normalize().scale(min(horizontalVec.length(), 0.3))
-//            newVelocity = Vec3(horizontalVec.x, newVelocity.y, horizontalVec.z)
-//        }
+        if (vehicle.horizontalCollision) {
+            var horizontalVec = Vec3(newVelocity.x, 0.0, newVelocity.z)
+            horizontalVec = horizontalVec.normalize().scale(min(horizontalVec.length(), 0.3))
+            newVelocity = Vec3(horizontalVec.x, newVelocity.y, horizontalVec.z)
+        }
 
         /******************************************************
          * Speed up and slow down based on input
@@ -393,7 +384,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
             state.jumpTicks.set(state.jumpTicks.get() + 1)
         }
 
-        //Zero out lateral velocity possibly picked up from a controller transition
+        // Zero out lateral velocity possibly picked up from a controller transition
         newVelocity = Vec3(0.0, newVelocity.y, newVelocity.z)
 
 
