@@ -117,7 +117,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
             handleSprinting(state, driver)
             inAirCheck(state, vehicle)
             tickStamina(settings, state, vehicle)
-            state.walking.set(state.rideVelocity.get().horizontalDistance() > 0.01)
+            state.walking.set(state.rideVelocity.get().horizontalDistance() > 0.01 || driver.xxa != 0.0f)
         }
     }
 
@@ -142,7 +142,21 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         state: HorseState,
         driver: Player
     ) {
-        val tryingToSprint = (Minecraft.getInstance().options.keySprint.isDown() && Minecraft.getInstance().options.keyUp.isDown()) || driver.isSprinting
+        val sprintTimerTickLength = 7 // Emulate vanillas tick timer length
+        var hasDoubleTapped = false
+
+        // If you are not sprinting and you just pressed down and theres no
+        if (!state.forwardHeldLastTick.get() && Minecraft.getInstance().options.keyUp.isDown() && !state.sprinting.get() && state.sprintTickTimer.get() == 0) {
+            state.sprintTickTimer.set(sprintTimerTickLength)
+        } else if (!state.forwardHeldLastTick.get() && Minecraft.getInstance().options.keyUp.isDown() && state.sprintTickTimer.get() != 0) { // If has double tapped
+            hasDoubleTapped = true
+        }else if(!state.sprinting.get() && state.sprintTickTimer.get() > 0) {
+            state.sprintTickTimer.set(state.sprintTickTimer.get() - 1)
+        } else {
+            state.sprintTickTimer.set(0)
+        }
+
+        val tryingToSprint = (Minecraft.getInstance().options.keySprint.isDown() && Minecraft.getInstance().options.keyUp.isDown()) || hasDoubleTapped
 
         if (state.stamina.get() <= 0.0f || !Minecraft.getInstance().options.keyUp.isDown()) {
             // If stamina runs out or the player is not holding forward then stop sprinting
@@ -157,6 +171,9 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
             // If you are trying to sprint and the toggle allows it then start sprinting and disable toggle
             state.sprinting.set(true)
         }
+
+        // Take not of whether forward was held last tick
+        state.forwardHeldLastTick.set(Minecraft.getInstance().options.keyUp.isDown())
     }
 
     fun tickStamina(
@@ -529,7 +546,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         state: HorseState,
         vehicle: PokemonEntity
     ): Float? {
-        return 1.2f
+        return if (state.inAir.get()) 0.0f else 1.2f
     }
 
     override fun getRideSounds(
@@ -630,6 +647,8 @@ class HorseState : RidingBehaviourState() {
     var sprintToggleable = ridingState(false, Side.CLIENT)
     var inAir = ridingState(false, Side.CLIENT)
     var jumpTicks = ridingState(0, Side.CLIENT)
+    var sprintTickTimer = ridingState(0, Side.CLIENT)
+    var forwardHeldLastTick = ridingState(false, Side.CLIENT)
 
     override fun encode(buffer: FriendlyByteBuf) {
         super.encode(buffer)
@@ -638,6 +657,8 @@ class HorseState : RidingBehaviourState() {
         buffer.writeBoolean(sprintToggleable.get())
         buffer.writeBoolean(inAir.get())
         buffer.writeInt(jumpTicks.get())
+        buffer.writeInt(sprintTickTimer.get())
+        buffer.writeBoolean(forwardHeldLastTick.get())
     }
 
     override fun decode(buffer: FriendlyByteBuf) {
@@ -647,6 +668,8 @@ class HorseState : RidingBehaviourState() {
         sprintToggleable.set(buffer.readBoolean(), forced = true)
         inAir.set(buffer.readBoolean(), forced = true)
         jumpTicks.set(buffer.readInt(), forced = true)
+        sprintTickTimer.set(buffer.readInt(), forced = true)
+        forwardHeldLastTick.set(buffer.readBoolean(), forced = true)
     }
 
     override fun reset() {
@@ -656,6 +679,8 @@ class HorseState : RidingBehaviourState() {
         sprintToggleable.set(false, forced = true)
         inAir.set(false, forced = true)
         jumpTicks.set(0, forced = true)
+        sprintTickTimer.set(0, forced = true)
+        forwardHeldLastTick.set(false, forced = true)
     }
 
     override fun copy() = HorseState().also {
@@ -666,6 +691,8 @@ class HorseState : RidingBehaviourState() {
         it.sprintToggleable.set(this.sprintToggleable.get(), forced = true)
         it.inAir.set(this.inAir.get(), forced = true)
         it.jumpTicks.set(this.jumpTicks.get(), forced = true)
+        it.sprintTickTimer.set(this.sprintTickTimer.get(), forced = true)
+        it.forwardHeldLastTick.set(this.forwardHeldLastTick.get(), forced = true)
     }
 
     override fun shouldSync(previous: RidingBehaviourState): Boolean {
