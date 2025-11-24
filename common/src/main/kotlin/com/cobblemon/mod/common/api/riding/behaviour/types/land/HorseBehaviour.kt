@@ -134,7 +134,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
         val standingOnSolid = canSupportEntity && !isAirOrLiquid
 
         // inAir if not on the ground
-        val inAir = vehicle.deltaMovement.y != 0.0 || !standingOnSolid
+        val inAir = !(vehicle.deltaMovement.y == 0.0 || standingOnSolid)
         state.inAir.set(inAir)
     }
 
