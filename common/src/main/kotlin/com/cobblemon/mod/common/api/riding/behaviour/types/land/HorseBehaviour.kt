@@ -117,7 +117,7 @@ class HorseBehaviour : RidingBehaviour<HorseSettings, HorseState> {
             handleSprinting(state, driver)
             inAirCheck(state, vehicle)
             tickStamina(settings, state, vehicle)
-            state.walking.set(state.rideVelocity.get().horizontalDistance() > 0.01 || driver.xxa != 0.0f)
+            state.walking.set(state.rideVelocity.get().horizontalDistance() > 0.01 || driver.zza != 0.0f)
         }
     }
 
