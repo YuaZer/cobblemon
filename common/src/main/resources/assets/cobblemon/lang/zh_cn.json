@@ -9109,5 +9109,11 @@
     "cobblemon.fishing_bait_effects.drops_reroll.tooltip": "%1$s%% - %3$s× 额外掉落",
     "cobblemon.requires_debug_keys": "必须在服务器上启用调试键才能使用此功能。",
     "cobblemon.ui.stats.blocks_traveled": "步数",
-    "cobblemon.requires_permission": "你没有执行此操作的权限。"
+    "cobblemon.requires_permission": "你没有执行此操作的权限。",
+    "cobblemon.config.ui.default_key_items": "默认关键道具",
+    "cobblemon.config.ui.default_key_items.tooltip": "玩家默认拥有的关键道具。",
+    "advancements.cobblemon.cook_all_regional_delicacies": "世界美食之旅",
+    "item.cobblemon.eggant_berry.tooltip": "解除着迷状态",
+    "advancements.cobblemon.cook_all_regional_delicacies.description": "烹饪每种地区美食",
+    "advancements.cobblemon.cook_all_ev_mochi": "咭呗咭呗！"
 }
