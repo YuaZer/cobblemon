@@ -9,6 +9,11 @@
 package com.cobblemon.mod.neoforge
 
 import com.cobblemon.mod.common.*
+import com.cobblemon.mod.common.CobblemonRecipeCategories.COOKING_POT_COMPLEX_DISHES
+import com.cobblemon.mod.common.CobblemonRecipeCategories.COOKING_POT_FOODS
+import com.cobblemon.mod.common.CobblemonRecipeCategories.COOKING_POT_MEDICINES
+import com.cobblemon.mod.common.CobblemonRecipeCategories.COOKING_POT_MISC
+import com.cobblemon.mod.common.CobblemonRecipeCategories.COOKING_POT_SEARCH
 import com.cobblemon.mod.common.advancement.CobblemonCriteria
 import com.cobblemon.mod.common.advancement.predicate.CobblemonEntitySubPredicates
 import com.cobblemon.mod.common.api.net.serializers.IdentifierDataSerializer
@@ -74,6 +79,7 @@ import net.neoforged.fml.ModList
 import net.neoforged.fml.common.Mod
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent
 import net.neoforged.fml.loading.FMLEnvironment
+import net.neoforged.neoforge.client.event.RegisterRecipeBookCategoriesEvent
 import net.neoforged.neoforge.common.ItemAbilities
 import net.neoforged.neoforge.common.NeoForge
 import net.neoforged.neoforge.common.NeoForgeMod
@@ -118,6 +124,7 @@ class CobblemonNeoForge : CobblemonImplementation {
             addListener(networkManager::registerMessages)
             addListener(EventPriority.HIGH, ::onBuildContents)
             addListener(::onAddPackFindersEvent)
+            addListener(::loadRecipeCategory)
         }
         with(NeoForge.EVENT_BUS) {
             addListener(::onDataPackSync)
@@ -476,6 +483,19 @@ class CobblemonNeoForge : CobblemonImplementation {
     private fun onWanderingTraderRegistry(e: WandererTradesEvent) {
         CobblemonTradeOffers.resolveWanderingTradeOffers().forEach { tradeOffer ->
             if (tradeOffer.isRareTrade) e.rareTrades.addAll(tradeOffer.tradeOffers) else e.genericTrades.addAll(tradeOffer.tradeOffers)
+        }
+    }
+
+    private fun loadRecipeCategory(e: RegisterRecipeBookCategoriesEvent) {
+        e.registerBookCategories(CobblemonRecipeBookTypes.COOKING_POT, listOf(
+            COOKING_POT_SEARCH.toVanillaCategory(),
+            COOKING_POT_FOODS.toVanillaCategory(),
+            COOKING_POT_MISC.toVanillaCategory(),
+            COOKING_POT_MEDICINES.toVanillaCategory(),
+            COOKING_POT_COMPLEX_DISHES.toVanillaCategory()
+        ))
+        CobblemonRecipeCategories.customAggregateCategories.forEach { bookType ->
+            e.registerAggregateCategory(bookType.key, bookType.value)
         }
     }
 
