@@ -38,3 +38,10 @@
 ### Particles
 
 ### Localization
+- Updated translations for:
+  - French
+  - Japanese
+  - Korean
+  - Brazilian Portuguese
+  - Simplified Chinese
+  - Traditional Chinese
