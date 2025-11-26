@@ -31,6 +31,7 @@
 - Stop passengers from hearing the shiny noise of a ridden shiny Pokémon.
 - Fix a glitch where friendship would reset to the default value when evolving a Pokémon.
 - Fixed a bunch of incompatibilities with NeoForge mods
+- Fixed a bug where wind charges hitting pasture blocks would recall all pokémon in it.
 
 ### Developer
 
