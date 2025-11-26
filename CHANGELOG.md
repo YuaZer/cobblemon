@@ -20,6 +20,11 @@
 - Fixed Combees not depositing honey upon leaving a hive if they entered with nectar.
 - Safer reading of brain memories in hive mixins.
 - Fixed crashing and rendering issues when opening a PC box with certain wallpapers.
+- Safer reading of brain memories in beehive mixins.
+- Fixed pastured Combees not moving in night or rain.
+- Fixed a case in which a Combee might try to path to a flower that no longer exists.
+- Fixed Combees attempting to enter a full hive.
+- Fixed crash when opening a PC box with certain wallpapers when using *VulkanMod*.
 - Fix player suffocation on vanilla mounts experienced on some worlds.
 - Stop passengers from hearing the shiny noise of a ridden shiny Pokémon.
 - Fix a glitch where friendship would reset to the default value when evolving a Pokémon.
