@@ -6,12 +6,14 @@
 - Added brewing recipe for Throat Spray.
 
 ### Changes
-- Convert the riding freelook button to a configurable keybinding.
-- Reduced cost of the Vivichoke Seed trade with the Wandering Trader.
+- Converted the riding freelook button to a configurable keybinding.
+- Reduced the cost of the Vivichoke Seed trade with the Wandering Trader.
 
 ### Fixes
 - Prevent displaying ride controls overlay to passengers.
 - Fixed player suffocation on vanilla mounts experienced on some worlds.
+- Fixed Poké Snack spawning sounds not coming from the block.
+- Fix player suffocation on vanilla mounts experienced on some worlds.
 - Stop passengers from hearing the shiny noise of a ridden shiny Pokémon.
 - Fixed incorrect camera pivot on Bird, Jet, and Dolphin mounts.
 - Fixed Poké Snack spawning sound positioning.
@@ -32,6 +34,10 @@
 - Fix a glitch where friendship would reset to the default value when evolving a Pokémon.
 - Fixed a bunch of incompatibilities with NeoForge mods
 - Fixed a bug where wind charges hitting pasture blocks would recall all pokémon in it.
+- Fixed a crash involving Combees and hives.
+- Fixed a crash when opening a PC box with certain wallpapers while using *VulkanMod*.
+- Fixed friendship resetting to the default value when evolving a Pokémon.
+- Fixed a graphics crash that could occur on some machines when campfires were nearby.
 
 ### Developer
 
