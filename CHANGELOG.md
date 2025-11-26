@@ -27,7 +27,7 @@
 ### Developer
 
 ### Molang & Datapacks
-- Removed automatic generation of wallpaper screen glow if no asset is provided; it is now optional.
+- Removed automatic generation of PC wallpaper screen glow if no asset is provided; it is now optional.
 
 ### Particles
 
