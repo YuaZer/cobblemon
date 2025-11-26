@@ -19,7 +19,7 @@
 - Fix incorrect camera pivot on Bird, Jet, and Dolphin mounts.
 - Fixed Combees not depositing honey upon leaving a hive if they entered with nectar.
 - Safer reading of brain memories in hive mixins.
-- Fixed crash when opening a PC box with certain wallpapers when using *VulkanMod*.
+- Fixed crashing and rendering issues when opening a PC box with certain wallpapers.
 - Fix player suffocation on vanilla mounts experienced on some worlds.
 - Stop passengers from hearing the shiny noise of a ridden shiny Pokémon.
 - Fix a glitch where friendship would reset to the default value when evolving a Pokémon.
@@ -27,6 +27,7 @@
 ### Developer
 
 ### Molang & Datapacks
+- Removed automatic generation of PC wallpaper screen glow if no asset is provided; it is now optional.
 
 ### Particles
 
