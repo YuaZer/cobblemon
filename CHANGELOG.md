@@ -17,6 +17,7 @@
 - Fixed Poké Snack spawning sound positioning.
 - Ponigiri can no longer be eaten at full hunger.
 - Medicinal Brew's Campfire Pot recipe now correctly displays that it can be made using an empty glass bottle or a filled bottle.
+- Fixed a crash when you place a block in the way of hearty grains 2nd block
 - Fixed Combees not depositing honey upon leaving a hive if they entered with nectar.
 - Fixed pastured Combees not moving in night or rain.
 - Fixed a case in which a Combee might try to path to a flower that no longer exists.
