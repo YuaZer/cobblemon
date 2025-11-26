@@ -20,24 +20,22 @@
 - Ponigiri can no longer be eaten at full hunger.
 - Medicinal Brew's Campfire Pot recipe now correctly displays that it can be made using an empty glass bottle or a filled bottle.
 - Fixed a crash when you place a block in the way of hearty grains 2nd block
+- Fixed a graphics crash that could occur on some machines when campfires were nearby.
+- Fixed glass bottle not being returned when honey-ing a saccharine leaf block
 - Fixed Combees not depositing honey upon leaving a hive if they entered with nectar.
 - Fixed pastured Combees not moving in night or rain.
 - Fixed a case in which a Combee might try to path to a flower that no longer exists.
 - Fixed Combees attempting to enter a full hive.
-- Safer reading of brain memories in hive mixins.
+- Fixed a crash involving Combees and hives.
 - Fixed crashing and rendering issues when opening a PC box with certain wallpapers.
-- Fixed crash when opening a PC box with certain wallpapers when using *VulkanMod*.
+- Fixed a crash when opening a PC box with certain wallpapers while using *VulkanMod*.
 - Fixed a glitch where friendship would reset to the default value when evolving a Pokémon.
 - Fixed a crashed related to NPC navigation.
 - Fix player suffocation on vanilla mounts experienced on some worlds.
 - Stop passengers from hearing the shiny noise of a ridden shiny Pokémon.
-- Fix a glitch where friendship would reset to the default value when evolving a Pokémon.
+- Fixed friendship resetting to the default value when evolving a Pokémon.
 - Fixed a bunch of incompatibilities with NeoForge mods
 - Fixed a bug where wind charges hitting pasture blocks would recall all pokémon in it.
-- Fixed a crash involving Combees and hives.
-- Fixed a crash when opening a PC box with certain wallpapers while using *VulkanMod*.
-- Fixed friendship resetting to the default value when evolving a Pokémon.
-- Fixed a graphics crash that could occur on some machines when campfires were nearby.
 
 ### Developer
 
