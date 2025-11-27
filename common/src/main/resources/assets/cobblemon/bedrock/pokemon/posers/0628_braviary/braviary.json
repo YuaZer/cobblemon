@@ -22,7 +22,6 @@
   "poses": {
     "standing": {
       "poseTypes": ["STAND", "NONE", "PORTRAIT", "PROFILE"],
-      "isBattle": false,
       "animations": [
         "q.look('neck1', 1, 1, 5, -5, 10, -10)",
         "q.look('neck2', 1, 1, 35, -10, 15, -15)",
