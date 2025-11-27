@@ -10,8 +10,10 @@ package com.cobblemon.mod.common.entity.pokemon.ai.sensors
 
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
+import com.cobblemon.mod.common.util.getMemorySafely
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
 import net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities
 import net.minecraft.world.entity.ai.sensing.Sensor
@@ -29,7 +31,13 @@ class DefendOwnerSensor : Sensor<PokemonEntity>(10) {
 
     private fun setNearestAttacker(entity: PokemonEntity, visibleMobs: NearestVisibleLivingEntities, owner: LivingEntity) {
         val nearestAttacker = visibleMobs.findClosest { mob ->
-            mob.lastHurtMob == owner
+            if (mob.lastHurtMob == owner) return@findClosest true
+            if (mob is Mob && mob.target == owner) return@findClosest true
+
+            val mobAttackTarget = mob.brain.getMemorySafely(MemoryModuleType.ATTACK_TARGET)
+            if (mobAttackTarget.isPresent && mobAttackTarget.get() == owner) return@findClosest true
+
+            return@findClosest false
         }.map { mob -> mob as LivingEntity }
 
         entity.brain.setMemory(CobblemonMemories.NEAREST_VISIBLE_ATTACKER, nearestAttacker)
