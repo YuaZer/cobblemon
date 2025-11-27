@@ -8,6 +8,10 @@
 ### Changes
 - Converted the riding freelook button to a configurable keybinding.
 - Reduced the cost of the Vivichoke Seed trade with the Wandering Trader.
+- Convert the riding freelook button to a configurable keybinding
+- Reduced cost of the Vivichoke Seed trade with the Wandering Trader
+- Add double tap to sprint on land mounts
+- Add vanilla sprinting fov to pokemon land mounts
 
 ### Fixes
 - Prevent displaying ride controls overlay to passengers.
@@ -39,6 +43,13 @@
 - Home on the Range advancement shouldn't trigger when opening the Pokemon Menu (shift interact one, mr changelog guy)
 - Recipes using concrete should now work on NeoForge
 - Fixed saccharine hanging signs sometimes dropping their oak wood counterpart when being broken
+- Fix player suffocation on vanilla mounts experienced on some worlds
+- Stop passengers from hearing the shiny noise of a ridden shiny pokemon
+- Ponigiri can no longer be eaten at full hunger
+- Medicinal Brew's Campfire Pot recipe now correctly displays that it can be made using an empty glass bottle or a filled bottle
+- Fix incorrect camera pivot on Bird, Jet, and Dolphin mounts.
+- Fix mount jumping so it doesn't switch back to ground animations
+- Fix ridden pokemon land collision and weird step up issues. Land mounts are smoother overall now.
 
 ### Developer
 
