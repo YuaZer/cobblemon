@@ -36,6 +36,8 @@
 - Fixed friendship resetting to the default value when evolving a Pokémon.
 - Fixed a bunch of incompatibilities with NeoForge mods
 - Fixed a bug where wind charges hitting pasture blocks would recall all pokémon in it.
+- Home on the Range advancement shouldn't trigger when opening the Pokemon Menu (shift interact one, mr changelog guy)
+- Recipes using concrete should now work on NeoForge
 
 ### Developer
 
