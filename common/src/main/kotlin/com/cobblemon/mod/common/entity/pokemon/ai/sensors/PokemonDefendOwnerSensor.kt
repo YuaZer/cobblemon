@@ -31,14 +31,14 @@ class DefendOwnerSensor : Sensor<PokemonEntity>(10) {
     }
 
     private fun setNearestAttacker(entity: PokemonEntity, visibleMobs: NearestVisibleLivingEntities, owner: LivingEntity) {
-        val nearestAttacker = visibleMobs.findClosest { mob ->
+        val nearestAttacker = visibleMobs.findClosest { livingEntity ->
             // Prevents Pokémons from attacking players as owned Pokémons are currently invulnerable
-            if (mob is ServerPlayer) return@findClosest false
+            if (livingEntity is ServerPlayer) return@findClosest false
 
-            if (mob.lastHurtMob == owner) return@findClosest true
-            if (mob is Mob && mob.target == owner) return@findClosest true
+            if (livingEntity.lastHurtMob == owner) return@findClosest true
+            if (livingEntity is Mob && livingEntity.target == owner) return@findClosest true
 
-            val mobAttackTarget = mob.brain.getMemorySafely(MemoryModuleType.ATTACK_TARGET)
+            val mobAttackTarget = livingEntity.brain.getMemorySafely(MemoryModuleType.ATTACK_TARGET)
             if (mobAttackTarget.isPresent && mobAttackTarget.get() == owner) return@findClosest true
 
             return@findClosest false
