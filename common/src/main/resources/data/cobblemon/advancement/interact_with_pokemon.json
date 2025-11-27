@@ -47,10 +47,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "cobblemon:pokemon",
-              "flags": {
-                "is_sneaking": false
-              }
+              "type": "cobblemon:pokemon"
             }
           }
         ],
