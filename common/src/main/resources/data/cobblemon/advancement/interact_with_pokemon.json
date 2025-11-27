@@ -1,20 +1,25 @@
 {
   "display": {
-	"icon": {
-			"id": "minecraft:shears"
-	},
+    "icon": {
+      "id": "minecraft:shears"
+    },
     "title": {
       "translate": "advancements.cobblemon.interact_with_pokemon"
     },
     "description": {
       "translate": "advancements.cobblemon.interact_with_pokemon.description"
     },
-	"hidden": false
+    "hidden": false
   },
   "parent": "cobblemon:use_pasture",
   "criteria": {
     "bucket_interactable_pokemon": {
       "conditions": {
+        "player": {
+          "flags": {
+            "is_sneaking": false
+          }
+        },
         "entity": [
           {
             "condition": "minecraft:entity_properties",
@@ -32,12 +37,20 @@
     },
     "shear_interactable_pokemon": {
       "conditions": {
+        "player": {
+          "flags": {
+            "is_sneaking": false
+          }
+        },
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "cobblemon:pokemon"
+              "type": "cobblemon:pokemon",
+              "flags": {
+                "is_sneaking": false
+              }
             }
           }
         ],
@@ -49,6 +62,11 @@
     },
     "bottle_interactable_pokemon": {
       "conditions": {
+        "player": {
+          "flags": {
+            "is_sneaking": false
+          }
+        },
         "entity": [
           {
             "condition": "minecraft:entity_properties",
@@ -66,6 +84,11 @@
     },
     "brush_interactable_pokemon": {
       "conditions": {
+        "player": {
+          "flags": {
+            "is_sneaking": false
+          }
+        },
         "entity": [
           {
             "condition": "minecraft:entity_properties",
@@ -83,6 +106,11 @@
     },
     "bonemeal_interactable_pokemon": {
       "conditions": {
+        "player": {
+          "flags": {
+            "is_sneaking": false
+          }
+        },
         "entity": [
           {
             "condition": "minecraft:entity_properties",
@@ -100,6 +128,11 @@
     },
     "bowl_interactable_pokemon": {
       "conditions": {
+        "player": {
+          "flags": {
+            "is_sneaking": false
+          }
+        },
         "entity": [
           {
             "condition": "minecraft:entity_properties",
@@ -116,6 +149,15 @@
       "trigger": "minecraft:player_interacted_with_entity"
     }
   },
-  "requirements": [[ "bucket_interactable_pokemon", "shear_interactable_pokemon", "bottle_interactable_pokemon", "brush_interactable_pokemon", "bonemeal_interactable_pokemon", "bowl_interactable_pokemon" ]],
+  "requirements": [
+    [
+      "bucket_interactable_pokemon",
+      "shear_interactable_pokemon",
+      "bottle_interactable_pokemon",
+      "brush_interactable_pokemon",
+      "bonemeal_interactable_pokemon",
+      "bowl_interactable_pokemon"
+    ]
+  ],
   "sends_telemetry_event": false
 }
