@@ -12,6 +12,7 @@ import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.getMemorySafely
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
@@ -31,6 +32,9 @@ class DefendOwnerSensor : Sensor<PokemonEntity>(10) {
 
     private fun setNearestAttacker(entity: PokemonEntity, visibleMobs: NearestVisibleLivingEntities, owner: LivingEntity) {
         val nearestAttacker = visibleMobs.findClosest { mob ->
+            // Prevents Pokémons from attacking players as owned Pokémons are currently invulnerable
+            if (mob is ServerPlayer) return@findClosest false
+
             if (mob.lastHurtMob == owner) return@findClosest true
             if (mob is Mob && mob.target == owner) return@findClosest true
 
