@@ -7,7 +7,8 @@
 
 ### Changes
 - Converted the riding freelook button to a configurable keybinding.
-- Reduced the cost of the Vivichoke Seed trade with the Wandering Trader.
+- Reduced the cost of the Vivichoke Seed trade with the Wandering Trader
+- Party Pokémon now attack only mobs that are attacking their owner, instead of randomly targeting unrelated mobs.
 
 ### Fixes
 - Prevent displaying ride controls overlay to passengers.
