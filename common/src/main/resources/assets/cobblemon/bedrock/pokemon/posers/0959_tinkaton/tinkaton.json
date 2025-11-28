@@ -61,7 +61,7 @@
       ],
       "quirks": ["q.bedrock_quirk('tinkaton', 'blink')"],
       "transitions": {
-        "sleeping": "q.bedrock_primary('tinkaton', 'sleep_transition',  q.curve('symmetric'))"
+        "sleeping": "q.bedrock_primary('tinkaton', 'sleep_transition',  q.curve('one'))"
       }
     },
     "sleeping": {
