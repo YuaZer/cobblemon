@@ -319,7 +319,7 @@ class JetBehaviour : RidingBehaviour<JetSettings, JetState> {
         //convert it to delta time
         handling *= (cappedDeltaTime)
 
-        val pitchRot = handling * state.currMouseYForce.get()
+        val pitchRot = handling * 1.5 * state.currMouseYForce.get()
 
         // Roll
         val rollRot = handling * 1.5 * state.currMouseXForce.get()
