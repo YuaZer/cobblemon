@@ -12,7 +12,7 @@
 - Reduced cost of the Vivichoke Seed trade with the Wandering Trader
 - Add double tap to sprint on land mounts
 - Add vanilla sprinting fov to pokemon land mounts
-- Made Jet pitch 1.5x faster across the board
+- Made Jet pitch 1.5x faster across all pokemon
 
 ### Fixes
 - Prevent displaying ride controls overlay to passengers.
