@@ -50,6 +50,9 @@
 - Fix incorrect camera pivot on Bird, Jet, and Dolphin mounts.
 - Fix mount jumping so it doesn't switch back to ground animations
 - Fix ridden pokemon land collision and weird step up issues. Land mounts are smoother overall now.
+- Fixed Boltund's model
+- Fixed Cyclizar's textures
+- Fixed Furfrou's pink and magenta trims being swapped
 
 ### Developer
 
