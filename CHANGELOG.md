@@ -13,6 +13,8 @@
 - Add double tap to sprint on land mounts
 - Add vanilla sprinting fov to pokemon land mounts
 - Made Jet pitch 1.5x faster across all pokemon
+- Reduced the cost of the Vivichoke Seed trade with the Wandering Trader
+- Party Pokémon now attack only mobs that are attacking their owner, instead of randomly targeting unrelated mobs.
 
 ### Fixes
 - Prevent displaying ride controls overlay to passengers.

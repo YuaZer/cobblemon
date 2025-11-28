@@ -3847,6 +3847,9 @@
   "cobblemon.behaviour.attack_hostile_mobs.name": "Attacks Hostile Mobs",
   "cobblemon.behaviour.attack_hostile_mobs.desc": "Attacks hostile mobs that are nearby, even if unprovoked.",
 
+  "cobblemon.behaviour.defend_owner.name": "Defend Owner",
+  "cobblemon.behaviour.defend_owner.desc": "Defends its owner when they are attacked.",
+
   "cobblemon.behaviour.pokemon_bee.name": "Pollinates Flowers",
   "cobblemon.behaviour.pokemon_bee.desc": "Pollinates flowers and adds honey to hives and Saccharine tree leaves.",
 
