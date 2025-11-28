@@ -5,10 +5,10 @@
   "profileTranslation": [0.0, 0.3, 0.0],
   "rootBone": "tinkaton",
   "animations": {
-    "physical": "q.bedrock.primary('tinkaton', 'physical', q.curve('one'))",
-    "special": "q.bedrock.primary('tinkaton', 'special', q.curve('one'))",
-    "status": "q.bedrock.primary('tinkaton', 'status', q.curve('one'))",
-    "gigatonhammer": "q.bedrock.primary('tinkaton', 'signature', q.curve('one'))",
+    "physical": "q.bedrock_primary('tinkaton', 'physical', q.curve('symmetrical_wide'))",
+    "special": "q.bedrock_primary('tinkaton', 'special', q.curve('symmetrical_wide'))",
+    "status": "q.bedrock_primary('tinkaton', 'status', q.curve('symmetrical_wide'))",
+    "gigatonhammer": "q.bedrock_primary('tinkaton', 'signature', q.curve('symmetrical_wide'))",
     "recoil": "q.bedrock_stateful('tinkaton', 'recoil')",
     "faint": "q.bedrock_primary('tinkaton', 'faint', q.curve('one'))",
     "cry": "q.bedrock_stateful('tinkaton', 'cry')"
@@ -28,7 +28,7 @@
       ],
       "quirks": ["q.bedrock_quirk('tinkaton', 'blink')"],
       "namedAnimations": {
-        "cry": "q.bedrock_stateful('tinkaton', 'battle_cry')"
+        "cry": "q.bedrock_primary('tinkaton', 'battle_cry')"
       }
     },
     "standing": {
@@ -61,7 +61,7 @@
       ],
       "quirks": ["q.bedrock_quirk('tinkaton', 'blink')"],
       "transitions": {
-        "sleeping": "q.bedrock_primary('tinkaton', 'sleep_transition', q.curve('one'))"
+        "sleeping": "q.bedrock_primary('tinkaton', 'sleep_transition',  q.curve('symmetric'))"
       }
     },
     "sleeping": {
