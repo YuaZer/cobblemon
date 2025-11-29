@@ -21,6 +21,7 @@
 - Fixed mount jumping so that it doesn't switch back to ground animations.
 - Fixed ridden Pokémon land collision and some issues around stepping up blocks. Land mounts are smoother overall now.
 - Fixed Furfrou's pink and magenta trims being swapped. Only a man could make that mistake.
+- Fixed Furfrou not being trimmable on NeoForge.
 - Fixed friendship being reset to the default value when evolving a Pokémon.
 - Fixed Combees not depositing honey upon leaving a hive if they entered it with nectar.
 - Fixed pastured Combees not moving during the night or in rain.
