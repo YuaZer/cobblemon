@@ -7,7 +7,7 @@
 
 ### Fixes
 - Fixed Furfrou not being trimmable on NeoForge.
-
+- Fixed shiny Pokémon not respecting the silent flag on spawn.
 ### Developer
 
 ### Molang & Datapacks
