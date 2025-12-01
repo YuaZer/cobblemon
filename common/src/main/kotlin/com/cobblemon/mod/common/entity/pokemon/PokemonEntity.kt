@@ -547,6 +547,11 @@ open class PokemonEntity(
             ifRidingAvailable { _, _, state -> pokemon.rideStamina = state.stamina.get() }
             ridingController?.context?.state?.reset()
             ridingAnimationData.clear()
+
+            // reset riding orientation
+            if (this is OrientationControllable) {
+                this.orientationController.reset()
+            }
         }
     }
 
