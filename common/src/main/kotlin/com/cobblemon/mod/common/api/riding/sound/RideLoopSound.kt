@@ -65,6 +65,11 @@ class RideLoopSound(val ride: PokemonEntity, val soundSettings: RideSoundSetting
             return
         }
 
+        if (this.isPassenger && !this.soundSettings.playForPassengers) {
+            this.volume = 0.0f
+            return
+        }
+
         // Perform data driven pitch and volume calculation
         this.volume = ((soundSettings.volumeExpr.let { ride.runtime.resolveDouble(it) })).toFloat()
         this.volume *= this.fade

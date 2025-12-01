@@ -27,6 +27,7 @@ data class RideSoundSettings(
     val soundLocation: ResourceLocation,
     @SerializedName("volumeExpr") private val _volumeExpr: Expression? = "1.0".asExpression(),
     @SerializedName("pitchExpr") private val _pitchExpr: Expression? = "1.0".asExpression(),
+    val playForPassengers: Boolean = true,
     val playForNonPassengers: Boolean = false,
     val muffleEnabled: Boolean = false,
     @SerializedName("attenuationModel") private val _attenuationModel: RideAttenuationModel? = RideAttenuationModel.NONE
@@ -46,6 +47,7 @@ data class RideSoundSettings(
         buffer.writeResourceLocation(soundLocation)
         buffer.writeExpression(volumeExpr)
         buffer.writeExpression(pitchExpr)
+        buffer.writeBoolean(playForPassengers)
         buffer.writeBoolean(playForNonPassengers)
         buffer.writeBoolean(muffleEnabled)
         buffer.writeEnum(attenuationModel)
@@ -57,6 +59,7 @@ data class RideSoundSettings(
             val soundLocation = buffer.readResourceLocation()
             val volumeExpr = buffer.readExpression()
             val pitchExpr = buffer.readExpression()
+            val playForPassengers = buffer.readBoolean()
             val playForNonPassengers = buffer.readBoolean()
             val muffleEnabled = buffer.readBoolean()
             val attenuationModel = buffer.readEnum(RideAttenuationModel::class.java)
@@ -65,6 +68,7 @@ data class RideSoundSettings(
                 soundLocation,
                 volumeExpr,
                 pitchExpr,
+                playForPassengers,
                 playForNonPassengers,
                 muffleEnabled,
                 attenuationModel
