@@ -1,13 +1,9 @@
 # Changelog
-## [1.7.1 (MONTH xth, 2025)](#1-7-1)
+## [1.7.2 (MONTH Xth, YEAR)](#1-7-2)
 
 ### Additions
-- Added trades for Saccharine Saplings, Hearty Grains, Chipped Pot, and Masterpiece Teacup to the Wandering Trader.
-- Added brewing recipe for Throat Spray.
 
 ### Changes
-- Convert the riding freelook button to a configurable keybinding.
-- Reduced cost of the Vivichoke Seed trade with the Wandering Trader.
 
 ### Fixes
 - Prevent displaying ride controls overlay to passengers.
@@ -24,6 +20,8 @@
 - Stop passengers from hearing the shiny noise of a ridden shiny Pokémon.
 - Fix a glitch where friendship would reset to the default value when evolving a Pokémon.
 - Fix an issue in the OmniPathNodeMaker that prevent Combees from pathing into Saccharine leaves.
+- Fixed orientation not getting reset after crashing while flying and getting back on the Pokémon.
+- Fixed Furfrou not being trimmable on NeoForge.
 
 ### Developer
 
@@ -32,3 +30,4 @@
 ### Particles
 
 ### Localization
+- Updated translations for:
