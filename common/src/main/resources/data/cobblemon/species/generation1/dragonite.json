@@ -102,18 +102,36 @@
             "muffleEnabled": true,
             "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
             "playForPassengers": true,
+            "playForNonPassengers": false,
+            "submerged": false,
+            "soundLocation": "cobblemon:ride.loop.water_surface.stereo",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          },
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForPassengers": false,
             "playForNonPassengers": true,
             "submerged": false,
-            "soundLocation": "cobblemon:ride.loop.water_surface",
+            "soundLocation": "cobblemon:ride.loop.water_surface.mono",
             "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
           },
           {
             "muffleEnabled": true,
             "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
             "playForPassengers": true,
+            "playForNonPassengers": false,
+            "submerged": true,
+            "soundLocation": "cobblemon:ride.loop.underwater.stereo",
+            "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
+          },
+          {
+            "muffleEnabled": true,
+            "pitchExpr": "math.max(1.0 ,0.2 + math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2))",
+            "playForPassengers": false,
             "playForNonPassengers": true,
             "submerged": true,
-            "soundLocation": "cobblemon:ride.loop.underwater",
+            "soundLocation": "cobblemon:ride.loop.underwater.mono",
             "volumeExpr": "math.pow(math.min(q.ride_velocity() / 1.5, 1.0),2)"
           }
         ],
