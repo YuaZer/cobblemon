@@ -267,7 +267,9 @@ class SaccharineLeafBlock(settings: Properties) : LeavesBlock(settings) {
             if (isGlassBottle && isAtMaxAge(state)) {
                 if (level.isClientSide) return ItemInteractionResult.SUCCESS
                 // Decrement stack if not in creative mode
-                itemStack.consume(1, player)
+                if (!player.isCreative) {
+                    itemStack.consume(1, player)
+                }
 
                 // Give player a honey bottle
                 if (stack.isEmpty && level.isServerSide()) {
