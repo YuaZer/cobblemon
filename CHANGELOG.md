@@ -8,6 +8,7 @@
 ### Fixes
 - Fixed orientation not getting reset after crashing while flying and getting back on the Pokémon.
 - Fixed Furfrou not being trimmable on NeoForge.
+- Fix all Pokémon being saved to chunks and never despawning.
 
 ### Developer
 
