@@ -73,7 +73,7 @@
         "poseOffsets": [
           {
             "offset": {
-              "x": 1.8626451E-9,
+              "x": 1.8626451e-09,
               "y": -1.2779657,
               "z": 0.059787232
             },
@@ -113,7 +113,7 @@
           },
           {
             "offset": {
-              "x": 1.8626451E-9,
+              "x": 1.8626451e-09,
               "y": -1.2779657,
               "z": 0.059787232
             },
@@ -154,7 +154,8 @@
         "walkSpeed": "0.25"
       },
       "swim": {
-        "avoidsWater": true
+        "avoidsWater": true,
+        "canSwimInLava": true
       }
     },
     "resting": {
@@ -376,7 +377,8 @@
       "behaviour": {
         "moving": {
           "swim": {
-            "avoidsWater": true
+            "avoidsWater": true,
+            "canSwimInLava": true
           }
         },
         "entityInteract": {

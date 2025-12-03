@@ -117,8 +117,6 @@ class RidingController(
     }
 
     private fun canTransitionToLand(): Boolean {
-        val hasLandController = entity.pokemon.riding.behaviours?.get(RidingStyle.LAND) != null
-        if (!hasLandController) return false
         if ((entity.isUnderWater)) return false
         if ((entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA))) return false
         return entity.onGround()

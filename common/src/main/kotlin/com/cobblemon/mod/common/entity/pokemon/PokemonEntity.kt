@@ -320,7 +320,7 @@ open class PokemonEntity(
             .withQueryValue("entity", struct)
             .also {
                 it.environment.query.addFunction("passenger_count") { DoubleValue(passengers.size.toDouble()) }
-                it.environment.query.addFunction("ride_velocity") { DoubleValue(deltaMovement.length()) }
+                it.environment.query.addFunction("ride_velocity") { DoubleValue(min(ridingAnimationData.velocitySpring.value.length() * 1.5,1.5)) }
                 it.environment.query.addFunction("driver_input") { DoubleValue(min(ridingAnimationData.driverInputSpring.value.length(),1.0)) }
                 it.environment.query.addFunction("get_ride_stats") { params ->
                     val rideStat = RidingStat.valueOf(params.getString(0).uppercase())
@@ -343,7 +343,6 @@ open class PokemonEntity(
     /**
      * The amount of steps this entity has traveled.
      */
-    var blocksTraveled: Double = 0.0
     var countsTowardsSpawnCap = true
 
     /**
@@ -548,6 +547,11 @@ open class PokemonEntity(
             ifRidingAvailable { _, _, state -> pokemon.rideStamina = state.stamina.get() }
             ridingController?.context?.state?.reset()
             ridingAnimationData.clear()
+
+            // reset riding orientation
+            if (this is OrientationControllable) {
+                this.orientationController.reset()
+            }
         }
     }
 
@@ -1219,8 +1223,8 @@ open class PokemonEntity(
     }
 
     private fun showInteractionWheel(player: ServerPlayer, itemStack: ItemStack) {
-        val canRide = ifRidingAvailableSupply(false) { behaviour, settings, state ->;
-            if (!this.canRide(player)) return@ifRidingAvailableSupply false;
+         val canRide = ifRidingAvailableSupply(false) { behaviour, settings, state ->
+            if (platform != PlatformType.NONE) return@ifRidingAvailableSupply false
             if (tethering != null) return@ifRidingAvailableSupply false;
             if (seats.isEmpty()) return@ifRidingAvailableSupply false;
             if ((owner as? ServerPlayer)?.isInBattle() == true) return@ifRidingAvailableSupply false;
@@ -1257,6 +1261,11 @@ open class PokemonEntity(
     }
 
     override fun canBeSeenAsEnemy() = super.canBeSeenAsEnemy() && !isBusy
+
+    override fun doHurtTarget(target: Entity): Boolean {
+        if (beamMode != 0) return false
+        return super.doHurtTarget(target)
+    }
 
     override fun hurt(source: DamageSource, amount: Float): Boolean {
         return if (super.hurt(source, amount)) {
@@ -1860,7 +1869,9 @@ open class PokemonEntity(
                 }
             }
 
-            this.updateBlocksTraveled(prevBlockPos)
+            if (this.pokemon.hasBlocksTraveledRequirement()) {
+                this.updateBlocksTraveled(prevBlockPos)
+            }
         }
         if (isBattling && this.isInWater) {
             // Prevent swimmers from sinking in battle
@@ -1875,7 +1886,7 @@ open class PokemonEntity(
         }
         val blocksTaken = this.blockPosition().distSqr(fromBp)
         if (blocksTaken > 0) {
-            this.blocksTraveled += blocksTaken
+            this.pokemon.addBlocksTraveled(blocksTaken.toInt())
         }
     }
 
@@ -2126,8 +2137,8 @@ open class PokemonEntity(
      */
     private fun createSidedPokemon(): Pokemon = Pokemon().apply { isClient = this@PokemonEntity.level().isClientSide }
 
-    override fun canRide(entity: Entity): Boolean {
-        return platform == PlatformType.NONE && super.canRide(entity) && seats.isNotEmpty()
+    override fun canRide(vehicle: Entity): Boolean {
+        return platform == PlatformType.NONE && super.canRide(vehicle) && occupiedSeats.isEmpty()
     }
 
     // Takes in a requested stat type with a base minimum and base maximum and returns the interpolated
@@ -2405,22 +2416,6 @@ open class PokemonEntity(
         return ifRidingAvailableSupply(fallback = 0.05f) { behaviour, settings, state ->
             behaviour.speed(settings, state,this, controller)
         }
-    }
-
-    fun getAltPose(): String {
-        val driver = this.controllingPassenger as? Player ?: return "cobblemon:no_pose"
-        val str =  ifRidingAvailableSupply(fallback = "cobblemon:no_pose") { behaviour, settings, state ->
-            behaviour.useRidingAltPose(settings, state, this, driver).toString()
-        }
-        return str
-    }
-
-    fun isUsingAltPose(resourceLocation: ResourceLocation): Boolean {
-        val driver = this.controllingPassenger as? Player ?: return false
-        val loc =  ifRidingAvailableSupply(fallback = cobblemonResource("no_pose")) { behaviour, settings, state ->
-            behaviour.useRidingAltPose(settings, state, this, driver)
-        }
-        return loc.compareTo(resourceLocation) == 0
     }
 
     var jumpInputStrength: Int = 0 // move this
