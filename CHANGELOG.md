@@ -8,6 +8,8 @@
 ### Fixes
 - Fixed orientation not getting reset after crashing while flying and getting back on the Pokémon.
 - Fixed Furfrou not being trimmable on NeoForge.
+- Fixed honey from Saccharine Leaves being harvestable at less than the max age.
+- Items given from interacting with Saccharine Leaves are placed in the active hotbar slot if possible.
 
 ### Developer
 
