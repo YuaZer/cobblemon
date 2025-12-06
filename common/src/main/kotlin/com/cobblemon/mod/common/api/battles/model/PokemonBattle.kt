@@ -498,8 +498,8 @@ open class PokemonBattle(
     }
 
     fun stop() {
-        end()
         writeShowdownAction(">forcetie") // This will terminate the Showdown connection
+        end()
     }
 
     fun checkForInputDispatch() {
