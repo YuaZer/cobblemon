@@ -12,6 +12,7 @@
 - Items given from interacting with Saccharine Leaves are placed in the active hotbar slot if possible.
 - Fix all Pokémon being saved to chunks and never despawning.
 - Fixed PokeSnacks crashing if there was no available spawn.
+- Fixed memory leak from battles not being cleaned up after ending.
 
 ### Developer
 
