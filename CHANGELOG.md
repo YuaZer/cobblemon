@@ -13,6 +13,7 @@
 - Fix all Pokémon being saved to chunks and never despawning.
 - Fixed PokeSnacks crashing if there was no available spawn.
 - Fixed Pokémon spawn influences not being specific to regional forms
+- Fixed crashing when viewing another player in spectator mode
 
 ### Developer
 
