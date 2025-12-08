@@ -16,6 +16,7 @@
 - Fixed Pokémon spawn influences not being specific to regional forms
 - Fixed crashing when viewing another player in spectator mode
 - Fixed missing apricorn textures for Adorn blocks
+- Fixed crashing when riding due to malformed json file, instead resetting it
 
 ### Developer
 
