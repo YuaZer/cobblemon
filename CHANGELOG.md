@@ -19,8 +19,10 @@
 - Fixed missing apricorn textures for Adorn blocks
 - Fixed crashing when riding due to malformed json file, instead resetting it
 - Fixed mochi items consuming two items at a time
+- Fix item interaction sometimes not working properly when playing on servers.
 
 ### Developer
+- Changed the `owner` parameter in the `OwnerQueryRequirement` interface from `ServerPlayer` to `Player`. This method is now also called on the client to verify whether a Pokémon interaction succeeded, so make sure to update your implementations to handle both server and client contexts. 
 
 ### Molang & Datapacks
 - Ride sounds can now be set as exclusive to passengers
