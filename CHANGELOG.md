@@ -17,6 +17,7 @@
 - Fixed crashing when viewing another player in spectator mode
 - Fixed missing apricorn textures for Adorn blocks
 - Fixed crashing when riding due to malformed json file, instead resetting it
+- Fixed mochi items consuming two items at a time
 
 ### Developer
 
