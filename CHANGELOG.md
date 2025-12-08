@@ -2,6 +2,10 @@
 ## [1.7.2 (MONTH Xth, YEAR)](#1-7-2)
 
 ### Additions
+- Added riding statistics: `Distance by Pokémon on Land`, `Distance by Pokémon in Air` and `Distance by Pokémon in Liquid`.
+- Added the Partner Mark, which party Pokémon have a very small chance to earn as the player walks, provided they have enough friendship.
+- Added trades for Saccharine Saplings, Hearty Grains, Chipped Pot, and Masterpiece Teacup to the Wandering Trader.
+- Added brewing recipe for Throat Spray.
 
 ### Changes
 - Ride sounds have been separated into stereo for passengers and mono for other players. Riding will now sound more spacious.
