@@ -16,26 +16,47 @@ import net.minecraft.stats.StatFormatter
 object CobblemonStats {
     val stats = mutableMapOf<String, CobblemonStat>()
 
+    @JvmField
     var CAPTURED: CobblemonStat = CobblemonStat("captured")
+    @JvmField
     val SHINIES_CAPTURED: CobblemonStat = CobblemonStat("shinies_captured")
+    @JvmField
     val RELEASED: CobblemonStat = CobblemonStat("released")
+    @JvmField
     val EVOLVED: CobblemonStat = CobblemonStat("evolved")
+    @JvmField
     val LEVEL_UP: CobblemonStat = CobblemonStat("level_up")
+    @JvmField
     val BATTLES_WON: CobblemonStat = CobblemonStat("battles_won")
+    @JvmField
     val BATTLES_LOST: CobblemonStat = CobblemonStat("battles_lost")
+    @JvmField
     val BATTLES_FLED: CobblemonStat = CobblemonStat("battles_fled")
+    @JvmField
     val BATTLES_TOTAL: CobblemonStat = CobblemonStat("battles_total")
+    @JvmField
     val DEX_ENTRIES: CobblemonStat = CobblemonStat("dex_entries")
+    @JvmField
     val EGGS_COLLECTED: CobblemonStat = CobblemonStat("eggs_collected")
+    @JvmField
     val EGGS_HATCHED: CobblemonStat = CobblemonStat("eggs_hatched")
+    @JvmField
     val TRADED: CobblemonStat = CobblemonStat("traded")
+    @JvmField
     val FOSSILS_REVIVED: CobblemonStat = CobblemonStat("fossils_revived")
+    @JvmField
     val TIMES_RIDDEN: CobblemonStat = CobblemonStat("times_ridden")
+    @JvmField
     val ROD_CASTS: CobblemonStat = CobblemonStat("rod_casts")
+    @JvmField
     val REEL_INS: CobblemonStat = CobblemonStat("reel_ins")
+    @JvmField
     val POKEMON_INTERACTED_WITH: CobblemonStat = CobblemonStat("pokemon_interacted_with")
+    @JvmField
     val RIDING_LAND: CobblemonStat = CobblemonStat("riding_land", StatFormatter.DISTANCE)
+    @JvmField
     val RIDING_AIR: CobblemonStat = CobblemonStat("riding_air", StatFormatter.DISTANCE)
+    @JvmField
     val RIDING_LIQUID: CobblemonStat = CobblemonStat("riding_liquid", StatFormatter.DISTANCE)
 
     //TODO block, stats (interact, gimmi)
@@ -64,6 +85,7 @@ object CobblemonStats {
         stats["riding_liquid"] = RIDING_LIQUID
     }
 
+    @JvmStatic
     fun getStat(cobblemonStat: CobblemonStat) : ResourceLocation {
         val resourceLocation = cobblemonStat.resourceLocation
         val stat = BuiltInRegistries.CUSTOM_STAT.get(resourceLocation)

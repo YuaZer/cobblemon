@@ -18,6 +18,8 @@ import com.cobblemon.mod.common.api.stats.CobblemonStats;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.cobblemon.mod.common.world.gamerules.CobblemonGameRules;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -92,39 +94,31 @@ public abstract class ServerPlayerMixin implements PlayerSpawnerAccessor {
         return original && !(entity instanceof PokemonEntity);
     }
 
-    @Inject(method = "checkRidingStatistics", at = @At("TAIL"))
-    public void cobblemon$checkRidingStatistics(double dx, double dy, double dz, CallbackInfo ci) {
-        var player = (ServerPlayer)(Object)this;
-        if (!player.isPassenger() || cobblemon$didNotMove(dx, dy, dz))  return;
-
-        var vehicle = player.getVehicle();
-        if (!(vehicle instanceof PokemonEntity pokemonEntity)) return;
+    @WrapOperation(method = "checkRidingStatistics", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;getVehicle()Lnet/minecraft/world/entity/Entity;"))
+    public Entity cobblemon$checkRidingStatistics(ServerPlayer player, Operation<Entity> original, @Local int distance) {
+        var entity = original.call(player);
+        if (!(entity instanceof PokemonEntity pokemonEntity)) {
+            return entity;
+        }
 
         var ridingController = pokemonEntity.getRidingController();
-        if (ridingController == null) return;
+        if (ridingController == null) return entity;
 
         var activeContext = ridingController.getContext();
-        if (activeContext == null) return;
+        if (activeContext == null) return entity;
 
         var ridingStyle = activeContext.getStyle();
-        if (ridingStyle == null) return;
+        CobblemonStats.CobblemonStat stat = switch (ridingStyle) {
+            case RidingStyle.LAND -> CobblemonStats.RIDING_LAND;
+            case RidingStyle.AIR -> CobblemonStats.RIDING_AIR;
+            case RidingStyle.LIQUID -> CobblemonStats.RIDING_LIQUID;
+            default -> null;
+        };
 
-        int distance = Math.round((float) Math.sqrt(dx * dx + dy * dy + dz * dz) * 100.0F);
-        switch (ridingStyle) {
-            case RidingStyle.LAND:
-                player.awardStat(CobblemonStats.INSTANCE.getStat(CobblemonStats.INSTANCE.getRIDING_LAND()), distance);
-                break;
-            case RidingStyle.AIR:
-                player.awardStat(CobblemonStats.INSTANCE.getStat(CobblemonStats.INSTANCE.getRIDING_AIR()), distance);
-                break;
-            case RidingStyle.LIQUID:
-                player.awardStat(CobblemonStats.INSTANCE.getStat(CobblemonStats.INSTANCE.getRIDING_LIQUID()), distance);
-                break;
+        if (stat != null) {
+            player.awardStat(CobblemonStats.getStat(stat), distance);
         }
-    }
 
-    @Unique
-    private static boolean cobblemon$didNotMove(double dx, double dy, double dz) {
-        return dx == 0.0 && dy == 0.0 && dz == 0.0;
+        return entity;
     }
 }
