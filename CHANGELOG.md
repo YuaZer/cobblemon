@@ -2,8 +2,13 @@
 ## [1.7.2 (MONTH Xth, YEAR)](#1-7-2)
 
 ### Additions
+- Added riding statistics: `Distance by Pokémon on Land`, `Distance by Pokémon in Air` and `Distance by Pokémon in Liquid`.
+- Added the Partner Mark, which party Pokémon have a very small chance to earn as the player walks, provided they have enough friendship.
+- Added trades for Saccharine Saplings, Hearty Grains, Chipped Pot, and Masterpiece Teacup to the Wandering Trader.
+- Added brewing recipe for Throat Spray.
 
 ### Changes
+- Ride sounds have been separated into stereo for passengers and mono for other players. Riding will now sound more spacious.
 
 ### Fixes
 - Prevent displaying ride controls overlay to passengers.
@@ -22,10 +27,24 @@
 - Fix an issue in the OmniPathNodeMaker that prevent Combees from pathing into Saccharine leaves.
 - Fixed orientation not getting reset after crashing while flying and getting back on the Pokémon.
 - Fixed Furfrou not being trimmable on NeoForge.
+- Fixed shiny Pokémon not respecting the silent flag on spawn.
+- Fixed honey from Saccharine Leaves being harvestable at less than the max age.
+- Items given from interacting with Saccharine Leaves are placed in the active hotbar slot if possible.
+- Fix all Pokémon being saved to chunks and never despawning.
+- Fixed PokeSnacks crashing if there was no available spawn.
+- Fixed Pokémon spawn influences not being specific to regional forms
+- Fixed crashing when viewing another player in spectator mode
+- Fixed missing apricorn textures for Adorn blocks
+- Fixed crashing when riding due to malformed json file, instead resetting it
+- Fixed mochi items consuming two items at a time
+- Fix item interaction sometimes not working properly when playing on servers.
 
 ### Developer
+- Changed the `owner` parameter in the `OwnerQueryRequirement` interface from `ServerPlayer` to `Player`. This method is now also called on the client to verify whether a Pokémon interaction succeeded, so make sure to update your implementations to handle both server and client contexts. 
 
 ### Molang & Datapacks
+- Ride sounds can now be set as exclusive to passengers
+- Ride sounds no longer play when submerged unless specified with a new setting
 
 ### Particles
 
