@@ -330,9 +330,9 @@ object MountedCameraRenderer {
         } else if (thirdPersonReverse && cameraOffsets.containsKey("seat_default_reverse")) {
             cameraOffsets[locatorName + "seat_default_reverse"]!!
         } else if (cameraOffsets.containsKey(locatorName)) {
-            cameraOffsets[locatorName]!!.toVector3f()
-        } else if (cameraOffsets.containsKey("seat_default")) {
             cameraOffsets[locatorName]!!
+        } else if (cameraOffsets.containsKey("seat_default")) {
+            cameraOffsets["seat_default"]!!
         } else {
             Vec3.ZERO
         }
