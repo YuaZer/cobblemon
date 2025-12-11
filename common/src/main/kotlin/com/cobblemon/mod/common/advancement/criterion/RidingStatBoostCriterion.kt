@@ -22,33 +22,41 @@ class RidingStatBoostContext(val pokemon: PokemonEntity)
 
 class RidingStatBoostCriterion(
     playerCtx: Optional<ContextAwarePredicate>,
+    val requiresOwner: Boolean = true,
     val rideStat: String,
     val statValue : Double,
     val isMax : Boolean
 ) : SimpleCriterionCondition<RidingStatBoostContext>(playerCtx) {
 
     companion object {
-        val CODEC: Codec<RidingStatBoostCriterion> = RecordCodecBuilder.create { it.group(
+        val CODEC: Codec<RidingStatBoostCriterion> by lazy {RecordCodecBuilder.create { it.group(
             EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter { it.playerCtx },
+            Codec.BOOL.optionalFieldOf("requires_owner", true).forGetter { it.requiresOwner },
             Codec.STRING.optionalFieldOf("ride_stat", "any").forGetter { it.rideStat },
             Codec.DOUBLE.optionalFieldOf("stat_value", 0.0).forGetter { it.statValue },
             Codec.BOOL.optionalFieldOf("is_max", false).forGetter { it.isMax }
-        ).apply(it, ::RidingStatBoostCriterion) }
+        ).apply(it, ::RidingStatBoostCriterion) } }
     }
 
     override fun matches(player: ServerPlayer, context: RidingStatBoostContext) : Boolean {
+        if (requiresOwner && context.pokemon.ownerUUID != player.uuid) {
+            return false
+        }
         RidingStyle.entries.forEach { ridingStyle ->
             RidingStat.entries.forEach { rideStat ->
-                if (rideStat.name.equals(this.rideStat, true) || this.rideStat == "any") {
+                if (rideStat.name.equals(this.rideStat, true) || this.rideStat == "any" || this.rideStat == "all") {
                     val max = context.pokemon.pokemon.getMaxRideBoost(rideStat).toDouble()
                     val min = context.pokemon.pokemon.getBaseRideStat(rideStat).toDouble()
                     val value = context.pokemon.getRideStat(rideStat, ridingStyle, min, max)
-                    if ((value >= this.statValue && this.statValue > 0.0) || value == max || !context.pokemon.pokemon.canAddRideBoost(rideStat)) {
+                    val isSufficient = (value >= this.statValue && this.statValue > 0.0) || !context.pokemon.pokemon.canAddRideBoost(rideStat)
+                    if (isSufficient && this.rideStat == "any") {
                         return true
+                    } else if (!isSufficient && this.rideStat == "all") {
+                        return false
                     }
                 }
             }
         }
-        return false
+        return this.rideStat == "all"
     }
 }

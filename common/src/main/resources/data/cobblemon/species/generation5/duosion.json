@@ -61,7 +61,6 @@
         "canWalk": false
       },
       "swim": {
-        "canWalkOnWater": true,
         "swimSpeed": "0.2",
         "avoidsWater": true
       }
@@ -80,8 +79,7 @@
       ]
     },
     "combat": {
-      "willDefendOwner": true,
-      "willFlee": false
+      "willDefendOwner": true
     },
     "resting": {
       "drowsyChance": 0.0333,

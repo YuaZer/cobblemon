@@ -223,10 +223,12 @@ class CobblemonConfig {
     var appleLeftoversChance = 0.025
 
     @CobblemonConfigField(Category.World, lang = "max_roots_in_area", SERVER)
-    var maxRootsInArea = 5
+    @LastChangedVersion("1.7.0")
+    var maxRootsInArea = 9
 
     @CobblemonConfigField(Category.World, lang = "big_root_propagation_chance", SERVER)
-    var bigRootPropagationChance = 0.1
+    @LastChangedVersion("1.7.0")
+    var bigRootPropagationChance = 0.5
 
     @CobblemonConfigField(Category.World, lang = "energy_root_chance", SERVER)
     var energyRootChance = 0.25

@@ -526,7 +526,7 @@ class SubmarineBehaviour : RidingBehaviour<SubmarineSettings, SubmarineState> {
         state: SubmarineState,
         vehicle: PokemonEntity
     ): Boolean {
-        return true
+        return false
     }
 
     override fun getRideSounds(

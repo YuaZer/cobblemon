@@ -155,7 +155,6 @@
     },
     "moving": {
       "walk": {
-        "canWalk": true,
         "walkSpeed": 0.4
       },
       "swim": {
@@ -169,8 +168,7 @@
       "rouseChance": 0.0042
     },
     "combat": {
-      "willDefendOwner": true,
-      "willFlee": false
+      "willDefendOwner": true
     }
   },
   "drops": {

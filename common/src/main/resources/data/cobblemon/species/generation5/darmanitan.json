@@ -161,7 +161,8 @@
         "walkSpeed": 0.3
       },
       "swim": {
-        "avoidsWater": true
+        "avoidsWater": true,
+        "canSwimInLava": true
       }
     },
     "resting": {
@@ -386,7 +387,8 @@
             "canWalk": false
           },
           "swim": {
-            "avoidsWater": true
+            "avoidsWater": true,
+            "canSwimInWater": false
           },
           "canLook": false
         },
@@ -754,7 +756,14 @@
         },
         "moving": {
           "swim": {
-            "avoidsWater": true
+            "avoidsWater": true,
+            "canSwimInLava": true
+          },
+          "walk": {
+            "canWalk": false
+          },
+          "fly": {
+            "canFly": true
           }
         },
         "combat": {

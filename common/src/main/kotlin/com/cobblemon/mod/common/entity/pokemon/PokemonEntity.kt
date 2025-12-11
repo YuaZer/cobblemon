@@ -320,7 +320,7 @@ open class PokemonEntity(
             .withQueryValue("entity", struct)
             .also {
                 it.environment.query.addFunction("passenger_count") { DoubleValue(passengers.size.toDouble()) }
-                it.environment.query.addFunction("ride_velocity") { DoubleValue(deltaMovement.length()) }
+                it.environment.query.addFunction("ride_velocity") { DoubleValue(min(ridingAnimationData.velocitySpring.value.length() * 1.5,1.5)) }
                 it.environment.query.addFunction("driver_input") { DoubleValue(min(ridingAnimationData.driverInputSpring.value.length(),1.0)) }
                 it.environment.query.addFunction("get_ride_stats") { params ->
                     val rideStat = RidingStat.valueOf(params.getString(0).uppercase())
@@ -547,6 +547,11 @@ open class PokemonEntity(
             ifRidingAvailable { _, _, state -> pokemon.rideStamina = state.stamina.get() }
             ridingController?.context?.state?.reset()
             ridingAnimationData.clear()
+
+            // reset riding orientation
+            if (this is OrientationControllable) {
+                this.orientationController.reset()
+            }
         }
     }
 
@@ -1203,14 +1208,13 @@ open class PokemonEntity(
             }
         }
 
-        if (hand == InteractionHand.MAIN_HAND && player is ServerPlayer) {
-            if (player.isShiftKeyDown) {
+        if (hand == InteractionHand.MAIN_HAND) {
+            if (player.isShiftKeyDown && player is ServerPlayer) {
                 showInteractionWheel(player, itemStack)
                 return InteractionResult.sidedSuccess(level().isClientSide)
             }
-            else if (pokemon.getOwnerPlayer() == player) {
-                // TODO #105
-                if (this.attemptItemInteraction(player, player.getItemInHand(hand))) return InteractionResult.SUCCESS
+            else if (this.ownerUUID == player.uuid && this.attemptItemInteraction(player, player.getItemInHand(hand))) {
+                return InteractionResult.sidedSuccess(level().isClientSide)
             }
         }
 
@@ -1218,8 +1222,8 @@ open class PokemonEntity(
     }
 
     private fun showInteractionWheel(player: ServerPlayer, itemStack: ItemStack) {
-        val canRide = ifRidingAvailableSupply(false) { behaviour, settings, state ->;
-            if (!this.canRide(player)) return@ifRidingAvailableSupply false;
+         val canRide = ifRidingAvailableSupply(false) { behaviour, settings, state ->
+            if (platform != PlatformType.NONE) return@ifRidingAvailableSupply false
             if (tethering != null) return@ifRidingAvailableSupply false;
             if (seats.isEmpty()) return@ifRidingAvailableSupply false;
             if ((owner as? ServerPlayer)?.isInBattle() == true) return@ifRidingAvailableSupply false;
@@ -1257,6 +1261,11 @@ open class PokemonEntity(
 
     override fun canBeSeenAsEnemy() = super.canBeSeenAsEnemy() && !isBusy
 
+    override fun doHurtTarget(target: Entity): Boolean {
+        if (beamMode != 0) return false
+        return super.doHurtTarget(target)
+    }
+
     override fun hurt(source: DamageSource, amount: Float): Boolean {
         return if (super.hurt(source, amount)) {
             effects.mockEffect?.takeIf { it is IllusionEffect && this.battleId == null }?.end(this)
@@ -1272,7 +1281,7 @@ open class PokemonEntity(
     }
 
     override fun shouldBeSaved(): Boolean {
-        if (ownerUUID == null && !pokemon.isNPCOwned() && (Cobblemon.config.savePokemonToWorld || isPersistenceRequired || this.pokemon.canDropHeldItem)) {
+        if (ownerUUID == null && !pokemon.isNPCOwned() && (Cobblemon.config.savePokemonToWorld || isPersistenceRequired)) {
             CobblemonEvents.POKEMON_ENTITY_SAVE_TO_WORLD.postThen(PokemonEntitySaveToWorldEvent(this)) {
                 return true
             }
@@ -1381,16 +1390,22 @@ open class PokemonEntity(
             return bagItemLike.handleInteraction(player, battlePokemon, stack)
         }
 
-        if (player !is ServerPlayer || this.isBusy) {
+        if (this.isBusy) {
             return false
         }
 
         val interaction = PokemonInteractions.findInteraction(this)
-
         if (interaction != null && !pokemon.isOnInteractionCooldown(interaction.grouping)) {
-            interaction.effects.forEach { it.applyEffect(this, player) }
-            pokemon.interactionCooldowns.put(interaction.grouping, runtime.resolveInt(interaction.cooldown))
+            if (player is ServerPlayer) {
+                interaction.effects.forEach { it.applyEffect(this, player) }
+                pokemon.interactionCooldowns.put(interaction.grouping, runtime.resolveInt(interaction.cooldown))
+            }
+
             return true
+        }
+
+        if (player !is ServerPlayer) {
+            return false
         }
 
         // Evolution item logic
@@ -2127,8 +2142,8 @@ open class PokemonEntity(
      */
     private fun createSidedPokemon(): Pokemon = Pokemon().apply { isClient = this@PokemonEntity.level().isClientSide }
 
-    override fun canRide(entity: Entity): Boolean {
-        return platform == PlatformType.NONE && super.canRide(entity) && seats.isNotEmpty()
+    override fun canRide(vehicle: Entity): Boolean {
+        return platform == PlatformType.NONE && super.canRide(vehicle) && occupiedSeats.isEmpty()
     }
 
     // Takes in a requested stat type with a base minimum and base maximum and returns the interpolated

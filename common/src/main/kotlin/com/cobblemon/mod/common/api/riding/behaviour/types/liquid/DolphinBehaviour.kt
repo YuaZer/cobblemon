@@ -28,6 +28,7 @@ import com.cobblemon.mod.common.api.riding.sound.RideSoundSettingsList
 import com.cobblemon.mod.common.api.riding.stats.RidingStat
 import com.cobblemon.mod.common.entity.PoseType
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
+import com.cobblemon.mod.common.util.blockPositionsAsListRounded
 import com.cobblemon.mod.common.util.cobblemonResource
 import com.cobblemon.mod.common.util.math.geometry.toRadians
 import com.cobblemon.mod.common.util.readNullableExpression
@@ -45,8 +46,10 @@ import net.minecraft.util.Mth
 import net.minecraft.util.SmoothDouble
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.Vec2
 import net.minecraft.world.phys.Vec3
+import net.minecraft.world.phys.shapes.Shapes
 import org.joml.Vector3f
 
 class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
@@ -66,7 +69,20 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         .with(PoseOption(PoseType.SWIM) { _, state, entity -> abs(state.rideVelocity.get().length()) > 0.05 })
 
     override fun isActive(settings: DolphinSettings, state: DolphinState, vehicle: PokemonEntity): Boolean {
-        return vehicle.isInWater || !vehicle.onGround()
+        // If its in water then the dolphin should definitely be active
+        if (vehicle.isInWater || vehicle.isUnderWater) {
+            return true
+        }
+
+        val blockPosBelow = vehicle.blockPosition().below()
+        val blockState = vehicle.level().getBlockState(blockPosBelow)
+
+        // Check if the block below is solid AND not a fluid
+        val isOnSolidGround = !blockState.isAir && blockState.fluidState.isEmpty
+
+        // The dolphin is only INACTIVE if it is on solid ground.
+        // Therefore, it is ACTIVE if it is NOT on solid ground
+        return !isOnSolidGround
     }
 
     override fun pose(settings: DolphinSettings, state: DolphinState, vehicle: PokemonEntity): PoseType {
@@ -387,8 +403,8 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         val hoverSpeed = 0.2
         val pitchDamping = abs(cos(controller.pitch.toRadians())).pow(2) // Helper value used when wanting to discard the influence of another value at steep pitches
 
-        // Yaw locally when at or below hoverSpeed but not when pitched up or rolled over
-        val globalYaw = xInput * (1 - sqrt(RidingBehaviour.scaleToRange(currSpeed, 0.0, hoverSpeed))).coerceIn(0.0, 1.0)
+        // Yaw locally when at or below topSpeed but not when pitched up or rolled over
+        val globalYaw = xInput * (1 - sqrt(RidingBehaviour.scaleToRange(currSpeed, 0.0, topSpeed))).coerceIn(0.0, 1.0)
         controller.rotateYaw(pitchDamping*globalYaw.toFloat())
         controller.rotateRoll((1-pitchDamping)*globalYaw.toFloat())
 
@@ -504,7 +520,7 @@ class DolphinBehaviour : RidingBehaviour<DolphinSettings, DolphinState> {
         state: DolphinState,
         vehicle: PokemonEntity
     ): Boolean {
-        return true
+        return false
     }
 
     override fun getRideSounds(
