@@ -6,6 +6,15 @@
 - Added the Partner Mark, which party Pokémon have a very small chance to earn as the player walks, provided they have enough friendship.
 - Added trades for Saccharine Saplings, Hearty Grains, Chipped Pot, and Masterpiece Teacup to the Wandering Trader.
 - Added brewing recipe for Throat Spray.
+- Added new effects
+  - Mental Restoration: Reduces "Time Since Last Rest" statistic, which controls Insomnia, by half a minute per second per effect level
+  - Negative Effect Cleanse: Removes all negative effects
+  - Effect Cleanse: Removes all effects
+- Added more seasonings for sinister tea
+  - Mental Herb - Mental Restoration I for 10 seconds
+  - White Herb - Negative Effect Cleanse
+  - Milk - Effect Cleanse
+  - Moomoo Milk - Effect Cleanse
 
 ### Changes
 - Ride sounds have been separated into stereo for passengers and mono for other players. Riding will now sound more spacious.
