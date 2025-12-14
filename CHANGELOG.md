@@ -33,7 +33,7 @@
 - Fix player suffocation on vanilla mounts experienced on some worlds.
 - Stop passengers from hearing the shiny noise of a ridden shiny Pokémon.
 - Fix a glitch where friendship would reset to the default value when evolving a Pokémon.
-- Fix an issue in the OmniPathNodeMaker that prevent Combees from pathing into Saccharine leaves.
+- Fixed an issue in the OmniPathNodeMaker/Navigation that prevent Combees from pathing into and out of Saccharine leaves.
 - Fixed orientation not getting reset after crashing while flying and getting back on the Pokémon.
 - Fixed Furfrou not being trimmable on NeoForge.
 - Fixed shiny Pokémon not respecting the silent flag on spawn.
