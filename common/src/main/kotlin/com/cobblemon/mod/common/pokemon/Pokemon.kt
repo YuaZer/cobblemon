@@ -673,7 +673,7 @@ open class Pokemon : ShowdownIdentifiable {
      * Whether this Pokémon's held item can be dropped by its AI.
      */
     internal var canDropHeldItem: Boolean = false
-        get() = field && !heldItem.isEmpty
+        get() = field || heldItem.isEmpty
 
     val riding: RidingProperties
         get() = this.form.riding
@@ -1437,6 +1437,11 @@ open class Pokemon : ShowdownIdentifiable {
     }
 
     fun getOwnerEntity(): LivingEntity? {
+        if (isClient) {
+            val ownerUUID = entity?.ownerUUID ?: return null
+            return entity?.level()?.getPlayerByUUID(ownerUUID)
+        }
+
         return storeCoordinates.get()?.let {
             if (isPlayerOwned()) {
                 server()?.playerList?.getPlayer(it.store.uuid)
