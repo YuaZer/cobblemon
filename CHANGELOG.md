@@ -15,6 +15,7 @@
   - White Herb - Negative Effect Cleanse
   - Milk - Effect Cleanse
   - Moomoo Milk - Effect Cleanse
+- Added `label` as an alternate key to the `tag` property.
 
 ### Changes
 - Ride sounds have been separated into stereo for passengers and mono for other players. Riding will now sound more spacious.
