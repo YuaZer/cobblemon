@@ -21,6 +21,7 @@
 - Ride sounds have been separated into stereo for passengers and mono for other players. Riding will now sound more spacious.
 
 ### Fixes
+- Fixed an issue in the OmniPathNodeMaker/Navigation that prevented Combees from pathing into and out of Saccharine leaves.
 - Fixed orientation not getting reset after crashing while flying and getting back on the Pokémon.
 - Fixed Furfrou not being trimmable on NeoForge.
 - Fixed shiny Pokémon not respecting the silent flag on spawn.
