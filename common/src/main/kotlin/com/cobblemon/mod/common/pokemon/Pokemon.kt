@@ -2173,10 +2173,9 @@ open class Pokemon : ShowdownIdentifiable {
             }
         }
 
-        // Add new form's form-change moves only if they are learnable by the new form and not already present
+        // Add new form's form-change moves
         newForm.moves.formChangeMoves.forEach { move ->
-            if (LearnsetQuery.ANY.canLearn(move, newForm.moves)
-                && this.moveSet.filterNotNull().none { it.template == move }) {
+            if (this.moveSet.filterNotNull().none { it.template == move }) {
                 this.benchedMoves.add(BenchedMove(move, 0))
             }
         }

@@ -25,6 +25,7 @@
 - Fixed mochi items consuming two items at a time
 - Fix item interaction sometimes not working properly when playing on servers.
 - Fixed Soothe Bell not being properly tagged as a held item.
+- Fixed the movesets of certain Pokémon being incorrectly sanitized upon reload.
 
 ### Developer
 - Changed the `owner` parameter in the `OwnerQueryRequirement` interface from `ServerPlayer` to `Player`. This method is now also called on the client to verify whether a Pokémon interaction succeeded, so make sure to update your implementations to handle both server and client contexts. 
