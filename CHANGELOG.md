@@ -40,6 +40,8 @@
 - Fixed Mint Leaves not being usable for filling the Resurrection Machine.
 - Added Saccharine Boats and Saccharine Boat with Chests to relevant boat tags.
 - Fixed the `run_script` Molang function to not fail if the environment's context is null.
+- Fixed gimmicks not being usable in double / triple battles
+- Fixed gimmick buttons showing when already used in the same turn in double / triple battles
 
 ### Developer
 - Changed the `owner` parameter in the `OwnerQueryRequirement` interface from `ServerPlayer` to `Player`. This method is now also called on the client to verify whether a Pokémon interaction succeeded, so make sure to update your implementations to handle both server and client contexts. 
