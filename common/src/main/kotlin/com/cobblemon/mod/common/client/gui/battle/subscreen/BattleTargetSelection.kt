@@ -316,7 +316,7 @@ class BattleTargetSelection(
             if (response.gimmickID != null) {
                 val gimmick = ShowdownMoveset.Gimmick.entries.first { it.id == response.gimmickID }
                 CobblemonClient.battle?.pendingActionRequests?.forEach {
-                    it.moveSet?.blockGimmick(gimmick)
+                    it.moveSet?.pendingGimmickUsedThisTurn?.add(gimmick)
                 }
             }
             targetSelection.battleGUI.selectAction(targetSelection.request, response)
