@@ -312,7 +312,7 @@ class BattleTargetSelection(
         fun onClick() {
             if (!selectable) return
             targetSelection.playDownSound(Minecraft.getInstance().soundManager)
-            // If a gimmick is used, remove the ability to use it any pending action requests ahead of it
+            // If a gimmick is used, remove the ability to use it on any pending action requests ahead of it
             if (response.gimmickID != null) {
                 val gimmick = ShowdownMoveset.Gimmick.entries.first { it.id == response.gimmickID }
                 CobblemonClient.battle?.pendingActionRequests?.forEach {
