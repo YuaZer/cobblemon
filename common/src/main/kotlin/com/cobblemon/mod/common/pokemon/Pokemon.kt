@@ -2157,10 +2157,12 @@ open class Pokemon : ShowdownIdentifiable {
     private fun updateMovesOnFormChange(newForm: FormData) {
         if (this.isClient) return
 
+        val oldFormChangeMoves = this.form.moves.formChangeMoves.toSet()
+
         // Only remove moves that were provided by the old form's form-change moves AND are not learnable by the new form
         for (i in 0 until MoveSet.MOVE_COUNT) {
             val move = this.moveSet[i]
-            if (move != null && !LearnsetQuery.ANY.canLearn(move.template, newForm.moves)) {
+            if (move != null && move.template in oldFormChangeMoves) {
                 this.moveSet.setMove(i, null)
             }
         }
@@ -2176,7 +2178,11 @@ open class Pokemon : ShowdownIdentifiable {
         // Add new form's form-change moves
         newForm.moves.formChangeMoves.forEach { move ->
             if (this.moveSet.filterNotNull().none { it.template == move }) {
-                this.benchedMoves.add(BenchedMove(move, 0))
+                if (this.moveSet.hasSpace()) {
+                    this.moveSet.add(move.create())
+                } else {
+                    this.benchedMoves.add(BenchedMove(move, 0))
+                }
             }
         }
 
