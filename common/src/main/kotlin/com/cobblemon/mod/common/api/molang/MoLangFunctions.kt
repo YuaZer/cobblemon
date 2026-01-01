@@ -324,30 +324,25 @@ object MoLangFunctions {
             runtime.environment.context = params.environment.context
             val expression = params.getString(0).asExpressionLike()
             val delayInSeconds = params.getDoubleOrNull(1)?.toFloat() ?: 0.0f
+
+            fun evaluate(): MoValue {
+                return try {
+                    runtime.resolve(expression)
+                } catch (ex: Exception) {
+                    Cobblemon.LOGGER.warn("Failed to evaluate MoLang expression${if (delayInSeconds > 0.0f) " (delayed)" else ""}: $expression", ex)
+                    DoubleValue.ZERO
+                }
+            }
+
             if (delayInSeconds > 0.0f) {
                 val tracker = if (Cobblemon.implementation.environment() == Environment.SERVER) ServerTaskTracker else ClientTaskTracker
                 tracker.after(delayInSeconds) {
-                    runtime.resolve(expression)
+                    evaluate()
                 }
+                DoubleValue.ONE
             } else {
-                runtime.resolve(expression)
+                evaluate()
             }
-        },
-        "evaluate_expression" to java.util.function.Function { params ->
-            val runtime = MoLangRuntime().apply {
-                environment.query = params.environment.query
-                environment.variable = params.environment.variable
-                environment.context = params.environment.context
-            }
-            val expression = runCatching { params.getString(0).asExpressionLike() }.getOrNull() ?: return@Function DoubleValue.ZERO
-            val resolved = runCatching { runtime.resolve(expression) }.getOrNull() ?: return@Function DoubleValue.ZERO
-            val str = resolved.asString().trim().lowercase()
-            val boolean = str.toDoubleOrNull()?.let { it != 0.0 } ?: when (str) {
-                "true" -> true
-                "false", "" -> false
-                else -> true
-            }
-            return@Function DoubleValue(if (boolean) 1.0 else 0.0)
         },
         "system_time_millis" to java.util.function.Function { _ ->
             DoubleValue(System.currentTimeMillis())

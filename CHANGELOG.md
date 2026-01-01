@@ -32,7 +32,7 @@
 ### Molang & Datapacks
 - Ride sounds can now be set as exclusive to passengers
 - Ride sounds no longer play when submerged unless specified with a new setting
-- `evaluate_expression` has been added to the list of MoLang functions. Used for safely evaluating boolean MoLang expressions at runtime without risk of crashing.
+- Exception handling has been added to `run_molang`, resolving some crashes caused by malformed MoLang expressions.
 
 ### Particles
 
