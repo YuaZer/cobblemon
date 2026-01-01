@@ -28,10 +28,13 @@
 
 ### Developer
 - Changed the `owner` parameter in the `OwnerQueryRequirement` interface from `ServerPlayer` to `Player`. This method is now also called on the client to verify whether a Pokémon interaction succeeded, so make sure to update your implementations to handle both server and client contexts. 
+- Added `display_name`, `description`, and `max_pp` functions to the `Movetemplate` struct.
 
 ### Molang & Datapacks
 - Ride sounds can now be set as exclusive to passengers
 - Ride sounds no longer play when submerged unless specified with a new setting
+- Added the `create_itemstack`, `has_inventory_space`, `set_inventory_slot`, and `give_item` MoLang functions for item and inventory utility.
+- Added the `get_move_from_id` MoLang function for general move info queries without requiring a Moveset object to access.
 
 ### Particles
 
