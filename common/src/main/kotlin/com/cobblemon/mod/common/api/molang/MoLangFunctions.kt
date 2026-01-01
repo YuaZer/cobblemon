@@ -333,6 +333,22 @@ object MoLangFunctions {
                 runtime.resolve(expression)
             }
         },
+        "evaluate_expression" to java.util.function.Function { params ->
+            val runtime = MoLangRuntime().apply {
+                environment.query = params.environment.query
+                environment.variable = params.environment.variable
+                environment.context = params.environment.context
+            }
+            val expression = runCatching { params.getString(0).asExpressionLike() }.getOrNull() ?: return@Function DoubleValue.ZERO
+            val resolved = runCatching { runtime.resolve(expression) }.getOrNull() ?: return@Function DoubleValue.ZERO
+            val str = resolved.asString().trim().lowercase()
+            val boolean = str.toDoubleOrNull()?.let { it != 0.0 } ?: when (str) {
+                "true" -> true
+                "false", "" -> false
+                else -> true
+            }
+            return@Function DoubleValue(if (boolean) 1.0 else 0.0)
+        },
         "system_time_millis" to java.util.function.Function { _ ->
             DoubleValue(System.currentTimeMillis())
         },
