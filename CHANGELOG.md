@@ -20,6 +20,8 @@
 ### Changes
 - Ride sounds have been separated into stereo for passengers and mono for other players. Riding will now sound more spacious.
 - Added a new config option, `Enable In-Flight Dismounting` (default: off), which lets you dismount while riding a Pokémon in the air.
+- Battle AI now uses a smarter threshold for switching, reducing unnecessary switches.
+- AI will always use the most damaging move when at low HP and when it is not switching, improving endgame decision-making.
 
 ### Fixes
 - Fixed an issue in the OmniPathNodeMaker/Navigation that prevented Combees from pathing into and out of Saccharine leaves.
