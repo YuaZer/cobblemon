@@ -1328,9 +1328,7 @@ open class PokemonEntity(
                 return true
             }
 
-            if (!battle.format.ruleSet.contains(BattleRules.BAG_CLAUSE)) {
-                return bagItemLike.handleInteraction(player, battlePokemon, stack)
-            }
+            return bagItemLike.handleInteraction(player, battlePokemon, stack)
         }
 
         if (player !is ServerPlayer || this.isBusy) {
