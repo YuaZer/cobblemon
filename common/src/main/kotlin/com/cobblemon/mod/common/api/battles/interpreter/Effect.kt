@@ -9,7 +9,6 @@
 package com.cobblemon.mod.common.api.battles.interpreter
 
 import com.cobblemon.mod.common.api.abilities.Abilities
-import com.cobblemon.mod.common.api.data.ShowdownIdentifiable
 import com.cobblemon.mod.common.api.moves.Moves
 import com.cobblemon.mod.common.battles.interpreter.CobblemonEffect
 
@@ -58,6 +57,9 @@ interface Effect {
     }
 
     companion object {
+
+        /** Strips all characters except lowercase alphanumeric, dots, and underscores from effect IDs. */
+        private val EFFECT_ID_REGEX = Regex("[^a-z0-9._]+")
 
         /**
          * Creates an [Effect].
@@ -134,10 +136,10 @@ interface Effect {
             }
             return try {
                 when {
-                    rawData.startsWith(Type.ABILITY.prefix) -> ability(rawData.lowercase().substringAfter(Type.ABILITY.prefix).replace(ShowdownIdentifiable.REGEX, ""), rawData)
-                    rawData.startsWith(Type.ITEM.prefix) -> item(rawData.lowercase().substringAfter(Type.ITEM.prefix).replace(ShowdownIdentifiable.REGEX, ""), rawData)
-                    rawData.startsWith(Type.MOVE.prefix) -> move(rawData.lowercase().substringAfter(Type.MOVE.prefix).replace(ShowdownIdentifiable.REGEX, ""), rawData)
-                    else -> pure(rawData.lowercase().replace(ShowdownIdentifiable.REGEX, ""), rawData)
+                    rawData.startsWith(Type.ABILITY.prefix) -> ability(rawData.lowercase().substringAfter(Type.ABILITY.prefix).replace(EFFECT_ID_REGEX, ""), rawData)
+                    rawData.startsWith(Type.ITEM.prefix) -> item(rawData.lowercase().substringAfter(Type.ITEM.prefix).replace(EFFECT_ID_REGEX, ""), rawData)
+                    rawData.startsWith(Type.MOVE.prefix) -> move(rawData.lowercase().substringAfter(Type.MOVE.prefix).replace(EFFECT_ID_REGEX, ""), rawData)
+                    else -> pure(rawData.lowercase().replace(EFFECT_ID_REGEX, ""), rawData)
                 }
             } catch (_: Exception) {
                 null

@@ -22,6 +22,7 @@
 - Added a new config option, `Enable In-Flight Dismounting` (default: off), which lets you dismount while riding a Pokémon in the air.
 - Battle AI now uses a smarter threshold for switching, reducing unnecessary switches.
 - AI will always use the most damaging move when at low HP and when it is not switching, improving endgame decision-making.
+- Battle effect ID parsing now preserves dots and underscores, allowing addon lang keys to use these characters.
 
 ### Fixes
 - Fixed an issue in the OmniPathNodeMaker/Navigation that prevented Combees from pathing into and out of Saccharine leaves.
