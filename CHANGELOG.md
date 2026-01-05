@@ -23,6 +23,7 @@
 - Battle AI now uses a smarter threshold for switching, reducing unnecessary switches.
 - AI will always use the most damaging move when at low HP and when it is not switching, improving endgame decision-making.
 - Added support for optional message variants in battle activate instructions for more context-specific battle text.
+  - Example: `this.add('-activate', pokemon, 'ability: example', '[msg]message1');` will parse to lang key `cobblemon.battle.activate.example.message1`
 
 ### Fixes
 - Fixed an issue in the OmniPathNodeMaker/Navigation that prevented Combees from pathing into and out of Saccharine leaves.
