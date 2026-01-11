@@ -324,13 +324,24 @@ object MoLangFunctions {
             runtime.environment.context = params.environment.context
             val expression = params.getString(0).asExpressionLike()
             val delayInSeconds = params.getDoubleOrNull(1)?.toFloat() ?: 0.0f
+
+            fun evaluate(): MoValue {
+                return try {
+                    runtime.resolve(expression)
+                } catch (ex: Exception) {
+                    Cobblemon.LOGGER.warn("Failed to evaluate MoLang expression${if (delayInSeconds > 0.0f) " (delayed)" else ""}: $expression", ex)
+                    DoubleValue.ZERO
+                }
+            }
+
             if (delayInSeconds > 0.0f) {
                 val tracker = if (Cobblemon.implementation.environment() == Environment.SERVER) ServerTaskTracker else ClientTaskTracker
                 tracker.after(delayInSeconds) {
-                    runtime.resolve(expression)
+                    evaluate()
                 }
+                DoubleValue.ONE
             } else {
-                runtime.resolve(expression)
+                evaluate()
             }
         },
         "system_time_millis" to java.util.function.Function { _ ->
