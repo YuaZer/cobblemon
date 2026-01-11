@@ -613,9 +613,8 @@ object MoLangFunctions {
             map.put("give_item") { params ->
                 val inventory = player.inventory
                 val freeSlot = inventory.getFreeSlot()
-                if (freeSlot == -1) return@put DoubleValue.ZERO
-
                 val value = params.getOrNull<MoValue>(0) ?: return@put DoubleValue.ZERO
+                val dropIfFull = params.getBooleanOrNull(1) ?: false
 
                 val stack: ItemStack? = when (value) {
                     is ObjectValue<*> -> value.obj as? ItemStack
@@ -628,6 +627,15 @@ object MoLangFunctions {
                 }
 
                 if (stack == null) return@put DoubleValue.ZERO
+
+                if (freeSlot == -1) {
+                    if (dropIfFull) {
+                        player.drop(stack, false)
+                        return@put DoubleValue.ONE
+                    } else {
+                        return@put DoubleValue.ZERO
+                    }
+                }
 
                 inventory.setItem(freeSlot, stack)
                 return@put DoubleValue.ONE
@@ -675,8 +683,7 @@ object MoLangFunctions {
                 }
                 map.put("active_dialogue") { _ ->
                     if (player.isInDialogue) {
-                        player.activeDialogue?.dialogueId.toString()
-                        return@put DoubleValue.ONE
+                        return@put player.activeDialogue?.toMoLangStruct() ?: DoubleValue.ZERO
                     } else {
                         DoubleValue.ZERO
                     }
