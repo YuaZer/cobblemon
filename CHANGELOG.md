@@ -16,6 +16,7 @@
   - Milk - Effect Cleanse
   - Moomoo Milk - Effect Cleanse
 - Added `label` as an alternate key to the `tag` property.
+- Added Saccharine wood furniture for Adorn.
 
 ### Changes
 - Ride sounds have been separated into stereo for passengers and mono for other players. Riding will now sound more spacious.
@@ -45,9 +46,10 @@
 - Fixed the movesets of certain Pokémon being incorrectly sanitized upon reload.
 - Fixed the ordering of Aprijuice's riding stat boosts to always have the same order.
 - Fixed the Molang functions `date_local_time`, `date_of`, `date_is_after` to use the correct date format.
+- Fixed Apricorn block model rotation for counters/sinks/cupboards/drawers to match that of most recent version of Adorn.
 
 ### Developer
-- Changed the `owner` parameter in the `OwnerQueryRequirement` interface from `ServerPlayer` to `Player`. This method is now also called on the client to verify whether a Pokémon interaction succeeded, so make sure to update your implementations to handle both server and client contexts. 
+- Changed the `owner` parameter in the `OwnerQueryRequirement` interface from `ServerPlayer` to `Player`. This method is now also called on the client to verify whether a Pokémon interaction succeeded, so make sure to update your implementations to handle both server and client contexts.
 
 ### Molang & Datapacks
 - Ride sounds can now be set as exclusive to passengers
