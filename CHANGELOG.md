@@ -47,6 +47,7 @@
 - Fixed the Molang functions `date_local_time`, `date_of`, `date_is_after` to use the correct date format.
 - Fixed the bottom half of pasture blocks having an incorrect hit-box when facing north or south.
 
+- Fixed Galarian Mr. Mime incorrectly being rideable.
 
 ### Developer
 - Changed the `owner` parameter in the `OwnerQueryRequirement` interface from `ServerPlayer` to `Player`. This method is now also called on the client to verify whether a Pokémon interaction succeeded, so make sure to update your implementations to handle both server and client contexts. 
