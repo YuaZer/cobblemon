@@ -55,6 +55,7 @@
 - Fixed gimmicks not being usable in double / triple battles
 - Fixed gimmick buttons showing when already used in the same turn in double / triple battles
 - Fixed Apricorn block model rotation for counters/sinks/cupboards/drawers to match that of most recent version of Adorn.
+- Fixed Fresh Start Mochi EV reset.
 
 ### Developer
 - Changed the `owner` parameter in the `OwnerQueryRequirement` interface from `ServerPlayer` to `Player`. This method is now also called on the client to verify whether a Pokémon interaction succeeded, so make sure to update your implementations to handle both server and client contexts.
