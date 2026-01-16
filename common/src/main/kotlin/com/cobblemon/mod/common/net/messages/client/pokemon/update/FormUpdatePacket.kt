@@ -30,7 +30,7 @@ class FormUpdatePacket(pokemon: () -> Pokemon?, form: FormData) : SingleUpdatePa
         fun decode(buffer: RegistryFriendlyByteBuf): FormUpdatePacket {
             val pokemon = decodePokemon(buffer)
             val form = FormData()
-            form.species = pokemon()!!.species
+            form.initialize(pokemon()!!.species)
             form.decode(buffer)
             return FormUpdatePacket(pokemon, form)
         }
