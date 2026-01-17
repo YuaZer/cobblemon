@@ -63,6 +63,7 @@
 - Fixed Pokémon fullness decreasing more than intended when the Pokémon was pastured.
 - Fixed crashing when sending a Pokémon out after editing its form 
 - Fixed Super Potion recipes incorrectly using Hondew Berry instead of Aguav Berry.
+- Fixed `/calculateseatpositions` expecting a locator format that even we don't use. It needs an underscore after "seat".
 
 ### Developer
 - Changed the `owner` parameter in the `OwnerQueryRequirement` interface from `ServerPlayer` to `Player`. This method is now also called on the client to verify whether a Pokémon interaction succeeded, so make sure to update your implementations to handle both server and client contexts.
