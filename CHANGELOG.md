@@ -63,9 +63,14 @@
 - Fixed Super Potion recipes incorrectly using Hondew Berry instead of Aguav Berry.
 - Fixed `/calculateseatpositions` expecting a locator format that even we don't use. It needs an underscore after "seat".
 - Fixed invulnerability-bypassed damage being resisted by invulnerable NPC entities.
+- Fixed selected leading Pokémon in battle not being used when levels are raised.
+- Fixed killer not being set early enough on a wild wild Pokémon entity from WinInstruction.
 
 ### Developer
 - Changed the `owner` parameter in the `OwnerQueryRequirement` interface from `ServerPlayer` to `Player`. This method is now also called on the client to verify whether a Pokémon interaction succeeded, so make sure to update your implementations to handle both server and client contexts.
+- Added `pnx` to the `BattleFaintedEvent` and `FormeChangeEvent`.
+- Added register methods for custom instructions to `ShowdownInterpreter`.
+- Changed callback operations in `BattlePokemon` to allow multiple callbacks and is now mutable.
 
 ### Molang & Datapacks
 - Ride sounds can now be set as exclusive to passengers
