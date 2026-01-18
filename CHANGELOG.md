@@ -4,8 +4,6 @@
 ### Additions
 - Added riding statistics: `Distance by Pokémon on Land`, `Distance by Pokémon in Air` and `Distance by Pokémon in Liquid`.
 - Added the Partner Mark, which party Pokémon have a very small chance to earn as the player walks, provided they have enough friendship.
-- Added trades for Saccharine Saplings, Hearty Grains, Chipped Pot, and Masterpiece Teacup to the Wandering Trader.
-- Added brewing recipe for Throat Spray.
 - Added new effects
   - Mental Restoration: Reduces "Time Since Last Rest" statistic, which controls Insomnia, by half a minute per second per effect level
   - Negative Effect Cleanse: Removes all negative effects
@@ -64,6 +62,7 @@
 - Fixed crashing when sending a Pokémon out after editing its form 
 - Fixed Super Potion recipes incorrectly using Hondew Berry instead of Aguav Berry.
 - Fixed `/calculateseatpositions` expecting a locator format that even we don't use. It needs an underscore after "seat".
+- Fixed invulnerability-bypassed damage being resisted by invulnerable NPC entities.
 
 ### Developer
 - Changed the `owner` parameter in the `OwnerQueryRequirement` interface from `ServerPlayer` to `Player`. This method is now also called on the client to verify whether a Pokémon interaction succeeded, so make sure to update your implementations to handle both server and client contexts.
