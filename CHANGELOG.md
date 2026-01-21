@@ -70,6 +70,7 @@
 - Fixed selected leading Pokémon in battle not being used when levels are raised.
 - Fixed killer not being set early enough on a wild wild Pokémon entity from WinInstruction.
 - Fixed an issue that prevented registering custom dispenser behaviours (no longer overrides vanilla behaviour).
+- Fixed memory leak from battles not being cleaned up after ending.
 
 ### Developer
 - Changed the `owner` parameter in the `OwnerQueryRequirement` interface from `ServerPlayer` to `Player`. This method is now also called on the client to verify whether a Pokémon interaction succeeded, so make sure to update your implementations to handle both server and client contexts.
