@@ -21,3 +21,4 @@ If you're interested in contributing to the project, you can simply fork the rep
 
 If you want a more involved role in the project, involving branches on the main repository instead of forking and involvement
 in design discussions, you can either apply in the `application-box` forum of our Discord or add and message Hiroku (`hiroku_dev`) on our Discord here: https://discord.gg/cobblemon.
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/YuaZer/cobblemon)
